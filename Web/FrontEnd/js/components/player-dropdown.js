@@ -1,4 +1,4 @@
-define(["vue", "text!player-dropdown.html"],
+define(["vue", "text!components/player-dropdown.html"],
     function(vue, html) {
         "use strict";
 

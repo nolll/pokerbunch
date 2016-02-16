@@ -356,10 +356,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.json" />
-    <Content Include="FrontEnd\js\player-row.html" />
-    <Content Include="FrontEnd\js\player-row.js" />
-    <Content Include="FrontEnd\js\player-table.js" />
-    <Content Include="FrontEnd\js\player-table.html" />
+    <Content Include="FrontEnd\js\components\endgame-form.html" />
+    <Content Include="FrontEnd\js\components\endgame-form.js" />
+    <Content Include="FrontEnd\js\components\cashout-form.html" />
+    <Content Include="FrontEnd\js\components\cashout-form.js" />
+    <Content Include="FrontEnd\js\components\buyin-form.html" />
+    <Content Include="FrontEnd\js\components\buyin-form.js" />
+    <Content Include="FrontEnd\js\components\report-form.js" />
+    <Content Include="FrontEnd\js\components\report-form.html" />
+    <Content Include="FrontEnd\js\components\player-row.html" />
+    <Content Include="FrontEnd\js\components\player-row.js" />
+    <Content Include="FrontEnd\js\components\player-table.js" />
+    <Content Include="FrontEnd\js\components\player-table.html" />
     <Content Include="FrontEnd\js\lib\async.js" />
     <Content Include="FrontEnd\js\lib\goog.js" />
     <Content Include="FrontEnd\js\lib\jquery-1.11.1.min.js" />
@@ -374,10 +382,10 @@
     <Content Include="FrontEnd\js\lib\respond.min.js" />
     <Content Include="FrontEnd\js\lib\tinynav.min.js" />
     <Content Include="FrontEnd\js\components.js" />
-    <Content Include="FrontEnd\js\game-button.js" />
-    <Content Include="FrontEnd\js\player-dropdown.js" />
-    <Content Include="FrontEnd\js\player-dropdown.html" />
-    <Content Include="FrontEnd\js\game-button.html" />
+    <Content Include="FrontEnd\js\components\game-button.js" />
+    <Content Include="FrontEnd\js\components\player-dropdown.js" />
+    <Content Include="FrontEnd\js\components\player-dropdown.html" />
+    <Content Include="FrontEnd\js\components\game-button.html" />
     <Content Include="FrontEnd\js\standings.html" />
     <Content Include="FrontEnd\js\standings.js" />
     <Content Include="FrontEnd\js\running-cashgame-vue.js" />

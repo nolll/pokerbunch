@@ -25,6 +25,9 @@ define(["vue", "standings", "jquery", "moment"],
             data.buyInFormVisible = false;
             data.cashOutFormVisible = false;
             data.endGameFormVisible = false;
+            data.currentStack = 0;
+            data.beforeBuyInStack = 0;
+            data.buyInAmount = data.defaultBuyin;
             data.loadedPlayerId = data.playerId;
             data.currencyFormat = '{0} kr';
             data.players = preparePlayers(data.players);

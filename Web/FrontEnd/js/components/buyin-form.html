@@ -1,0 +1,14 @@
+<div class="form">
+    <div class="field">
+        <label class="label" for="buyin-amount">Amount</label>
+        <input class="numberfield" v-model="amount" number data-bind="hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field buyin must be a number." data-val-required="The BuyinAmount field is required." min="0" id="buyin-amount" pattern="[0-9]*" required="required" type="text" value="200">
+    </div>
+    <div class="field" data-bind="visible: isInGame">
+        <label class="label" for="buyin-stack">Stack Size</label>
+        <input class="numberfield" v-model="stack" number data-bind="selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." data-val-required="The StackAmount field is required." min="0" id="buyin-stack" pattern="[0-9]*" required="True" type="text" value="0">
+    </div>
+    <div class="buttons">
+        <button v-on:click="buyin" class="button button--action">Buy In</button>
+        <button v-on:click="cancel" class="button">Cancel</button>
+    </div>
+</div>

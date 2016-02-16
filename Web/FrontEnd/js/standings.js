@@ -111,6 +111,22 @@ define(["vue", "moment", "text!standings.html"],
             events: {
                 'change-player': function (playerId) {
                     this.playerId = playerId;
+                },
+                'report': function(stack) {
+                    alert(stack);
+                },
+                'buyin': function (amount, stack) {
+                    alert(amount);
+                    alert(stack);
+                },
+                'cashout': function(stack) {
+                    alert(stack);
+                },
+                'endgame': function() {
+                    
+                },
+                'hide-forms': function() {
+                    this.hideForms();
                 }
             },
             ready: function () {

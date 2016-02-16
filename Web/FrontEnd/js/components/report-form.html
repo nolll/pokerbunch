@@ -1,0 +1,10 @@
+<div class="form">
+    <div class="field">
+        <label class="label" for="report-stack">Stack Size</label>
+        <input class="numberfield" v-model="stack" number data-bind="hasFocus: true, selectOnFocus: /^.+/" data-val="true" data-val-number="The field stack must be a number." min="0" id="report-stack" pattern="[0-9]*" required="required" type="text" value="">
+    </div>
+    <div class="buttons">
+        <button v-on:click="report" class="button button--action">Report</button>
+        <button v-on:click="cancel" class="button">Cancel</button>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-define(["vue", "text!player-row.html", "moment"],
+define(["vue", "text!components/player-row.html", "moment"],
     function(vue, html, moment) {
         "use strict";
 
