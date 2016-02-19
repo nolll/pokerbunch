@@ -356,6 +356,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.json" />
+    <Content Include="FrontEnd\js\components\spinner.html" />
+    <Content Include="FrontEnd\js\components\spinner.js" />
     <Content Include="FrontEnd\js\components\endgame-form.html" />
     <Content Include="FrontEnd\js\components\endgame-form.js" />
     <Content Include="FrontEnd\js\components\cashout-form.html" />
@@ -369,6 +371,7 @@
     <Content Include="FrontEnd\js\components\player-table.js" />
     <Content Include="FrontEnd\js\components\player-table.html" />
     <Content Include="FrontEnd\js\lib\async.js" />
+    <Content Include="FrontEnd\js\lib\fetch.min.js" />
     <Content Include="FrontEnd\js\lib\goog.js" />
     <Content Include="FrontEnd\js\lib\jquery-1.11.1.min.js" />
     <Content Include="FrontEnd\js\lib\jquery.debouncedresize.js" />

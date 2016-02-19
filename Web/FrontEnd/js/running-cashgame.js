@@ -276,7 +276,7 @@ define(["jquery", "knockout", "moment", "select-on-focus", "/signalr/hubs?"],
                 var i,
                     bp = me.bunchPlayers();
                 for (i = 0; i < bp.length; i++) {
-                    if (bp[i].id == me.playerId()) {
+                    if (bp[i].id === me.playerId()) {
                         return bp[i];
                     }
                 }

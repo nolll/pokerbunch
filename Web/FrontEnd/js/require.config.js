@@ -15,7 +15,7 @@ requirejs.config({
         "signalr.core": "../../Scripts/jquery.signalR-2.2.0.min",
         vue: "lib/vue",
         text: "lib/text",
-        fetch: "lib/fetch"
+        fetch: "lib/fetch.min"
     },
     shim: {
         "pubsub": {

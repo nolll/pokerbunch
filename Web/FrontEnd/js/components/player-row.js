@@ -9,7 +9,7 @@ define(["vue", "text!components/player-row.html", "moment"],
                 lastReportTime: function () {
                     if (this.player.checkpoints.length === 0)
                         return moment().fromNow();
-                    return this.player.checkpoints[this.player.checkpoints.length - 1].time.fromNow();
+                    return moment(this.player.checkpoints[this.player.checkpoints.length - 1].time).fromNow();
                 },
                 buyin: function () {
                     if (this.player.checkpoints.length === 0)

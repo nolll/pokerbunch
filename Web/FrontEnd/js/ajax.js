@@ -1,8 +1,29 @@
-define(["fetch"],
-    function(fetch) {
+define(["jquery", "fetch"],
+    function($, fetch) {
         "use strict";
 
-        function load(url, success, error) {
+        function loadWithJquery(url, success, error) {
+            $.ajax({
+                dataType: 'json',
+                url: url,
+                success: success,
+                error: error,
+                cache: false
+            });
+        }
+        
+        function postWithJquery(url, data, success, error) {
+            $.ajax({
+                dataType: 'json',
+                url: url,
+                type: "POST",
+                data: data,
+                success: success,
+                error: error
+            });
+        }
+
+        function loadWithFetch(url, success, error) {
             fetch('/users')
                 .then(checkStatus)
                 .then(parseJSON)
@@ -23,7 +44,9 @@ define(["fetch"],
         }
 
         return {
-            fetch: load
+            fetch: loadWithFetch,
+            load: loadWithJquery,
+            post: postWithJquery
         }
     }
 );

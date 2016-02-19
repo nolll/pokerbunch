@@ -5,6 +5,9 @@ define(["vue", "text!components/player-table.html", "moment"],
         return vue.extend({
             template: html,
             props: ['players', 'currencyFormat'],
+            ready: function() {
+                var x = 0;
+            },
             computed: {
                 totalBuyin: function () {
                     var sum = 0;

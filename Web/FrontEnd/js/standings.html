@@ -1,45 +1,48 @@
-<div class="region width2">
-    <div class="block gutter">
-        <h1 class="page-heading">Running Cashgame</h1>
-    </div>
+<div data-require="running-cashgame" data-url="@Model.GameDataUrl" data-bind="template: { name: 'running-cashgame-template' }">
+    <div v-show="initialized" class="region width2">
+        <div class="block gutter">
+            <h1 class="page-heading">Running Cashgame</h1>
+        </div>
 
-    <div class="button-list" v-show="areButtonsVisible">
-        <game-button text="Report" icon="reorder" v-show="canReport" v-on:click="showReportForm"></game-button>
-        <game-button text="Buy In" icon="money" v-show="canBuyIn" v-on:click="showBuyInForm"></game-button>
-        <game-button text="Cash Out" icon="signout" v-show="canCashOut" v-on:click="showCashOutForm"></game-button>
-        <game-button text="End Game" icon="signout" v-show="canEndGame" v-on:click="showEndGameForm"></game-button>
-    </div>
+        <div class="button-list" v-show="areButtonsVisible">
+            <game-button text="Report" icon="reorder" v-show="canReport" v-on:click="showReportForm"></game-button>
+            <game-button text="Buy In" icon="money" v-show="canBuyIn" v-on:click="showBuyInForm"></game-button>
+            <game-button text="Cash Out" icon="signout" v-show="canCashOut" v-on:click="showCashOutForm"></game-button>
+            <game-button text="End Game" icon="signout" v-show="canEndGame" v-on:click="showEndGameForm"></game-button>
+        </div>
 
-    <div class="block gutter">
-        <report-form v-show="reportFormVisible" v-bind:stack="currentStack"></report-form>
-        <buyin-form v-show="buyInFormVisible" v-bind:stack="beforeBuyInStack" v-bind:amount="buyInAmount"></buyin-form>
-        <cashout-form v-show="cashOutFormVisible" v-bind:stack="currentStack"></cashout-form>
-        <endgame-form v-show="endGameFormVisible"></endgame-form>
-    </div>
+        <div class="block gutter">
+            <report-form v-show="reportFormVisible" v-bind:stack="currentStack"></report-form>
+            <buyin-form v-show="buyInFormVisible" v-bind:stack="beforeBuyInStack" v-bind:amount="buyInAmount"></buyin-form>
+            <cashout-form v-show="cashOutFormVisible" v-bind:stack="currentStack"></cashout-form>
+            <endgame-form v-show="endGameFormVisible"></endgame-form>
+        </div>
 
-    <div class="standings block gutter" v-show="hasPlayers">
-        <player-table v-bind:players="players" v-bind:currency-format="currencyFormat"></player-table>
-    </div>
-    <div class="block gutter" v-else>
-        No one has joined the game yet.
-    </div>
+        <div class="standings block gutter" v-show="hasPlayers">
+            <player-table v-bind:players="players" v-bind:currency-format="currencyFormat"></player-table>
+        </div>
+        <div class="block gutter" v-else>
+            No one has joined the game yet.
+        </div>
 
-    <div class="block gutter" v-show="hasPlayers">
-        <!-- CHART <div data-bind="gameChart: players"></div> -->
+        <div class="block gutter" v-show="hasPlayers">
+            <!-- CHART <div data-bind="gameChart: players"></div> -->
+        </div>
     </div>
-</div>
+    <spinner v-else></spinner>
 
-<div class="region width1 aside2">
-    <div class="block gutter">
-        <dl class="value-list">
-            <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
-            <dd class="value-list__value" v-if="hasPlayers">{{startTime}}</dd>
-            <dt class="value-list__key">Location</dt>
-            <dd class="value-list__value"><a href="{{locationUrl}}">{{locationName}}</a></dd>
-            <dt class="value-list__key" v-if="isManager">Player</dt>
-            <dd class="value-list__value" v-if="isManager">
-                <player-dropdown v-bind:selected-player-id="playerId" v-bind:players="bunchPlayers"></player-dropdown>
-            </dd>
-        </dl>
+    <div class="region width1 aside2">
+        <div class="block gutter">
+            <dl class="value-list">
+                <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
+                <dd class="value-list__value" v-if="hasPlayers">{{startTime}}</dd>
+                <dt class="value-list__key">Location</dt>
+                <dd class="value-list__value"><a href="{{locationUrl}}">{{locationName}}</a></dd>
+                <dt class="value-list__key" v-if="isManager">Player</dt>
+                <dd class="value-list__value" v-if="isManager">
+                    <player-dropdown v-bind:selected-player-id="playerId" v-bind:players="bunchPlayers"></player-dropdown>
+                </dd>
+            </dl>
+        </div>
     </div>
 </div>

@@ -4,22 +4,24 @@ namespace Web
 {
     public class RunningGameHub : Hub
     {
-        public void DataUpdated(string slug, string message)
+        public void DataUpdated(string slug, int playerId)
         {
-            var responseMessage = $"{message}, sent from server";
-            SendMessage(slug, responseMessage);
+            SendMessage(slug, playerId);
         }
 
         public async Task JoinGame(string slug)
         {
             await Groups.Add(Context.ConnectionId, slug);
-            SendMessage(slug, Context.User.Identity.Name + " joined");
-            SendMessage("other game", "message to dev null");
         }
 
         private void SendMessage(string slug, string message)
         {
             Clients.Group(slug).updateClient(message);
+        }
+
+        private void SendMessage(string slug, int playerId)
+        {
+            Clients.Group(slug).updateClient(playerId);
         }
     }
 }
