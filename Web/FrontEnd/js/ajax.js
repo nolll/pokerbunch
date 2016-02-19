@@ -1,37 +1,33 @@
-define(["jquery", "fetch"],
-    function($, fetch) {
+define(["fetch"],
+    function(fetch) {
         "use strict";
 
-        function loadWithJquery(url, success, error) {
-            $.ajax({
-                dataType: 'json',
-                url: url,
-                success: success,
-                error: error,
-                cache: false
-            });
-        }
-        
-        function postWithJquery(url, data, success, error) {
-            $.ajax({
-                dataType: 'json',
-                url: url,
-                type: "POST",
-                data: data,
-                success: success,
-                error: error
-            });
-        }
-
-        function loadWithFetch(url, success, error) {
-            fetch('/users')
+        function load(url, success, error) {
+            fetch(url, {
+                     credentials: 'same-origin'
+                })
                 .then(checkStatus)
-                .then(parseJSON)
+                .then(parseJson)
                 .then(success)
                 .catch(error);
         }
 
+        function post(url, data, success, error) {
+            fetch(url, {
+                credentials: 'same-origin',
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(success)
+            .catch(error);
+        }
+
         function checkStatus(response) {
+            var t = 0;
             if (response.status >= 200 && response.status < 300) {
                 return response;
             } else {
@@ -44,9 +40,8 @@ define(["jquery", "fetch"],
         }
 
         return {
-            fetch: loadWithFetch,
-            load: loadWithJquery,
-            post: postWithJquery
+            load: load,
+            post: post
         }
     }
 );

@@ -36,6 +36,9 @@ requirejs.config({
         },
         "/signalr/hubs?": {
             deps: ["signalr.core"]
+        },
+        "fetch": {
+            exports: "fetch"
         }
     },
     config: {
