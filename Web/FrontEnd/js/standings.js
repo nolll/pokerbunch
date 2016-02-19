@@ -1,6 +1,9 @@
-define(["jquery", "vue", "moment", "text!standings.html", "ajax", "/signalr/hubs?"],
-    function($, vue, moment, html, ajax) {
+define(["vue", "moment", "text!standings.html", "ajax"],
+    function(vue, moment, html, ajax) {
         "use strict";
+
+        var longRefresh = 30000,
+            shortRefresh = 10000;
 
         return vue.extend({
             template: html,
@@ -39,9 +42,6 @@ define(["jquery", "vue", "moment", "text!standings.html", "ajax", "/signalr/hubs
             computed: {
                 hasPlayers: function () {
                     return this.players.length > 0;
-                },
-                noPlayers: function() {
-                    return this.players.length === 0;
                 },
                 startTime: function () {
                     var i, first,
@@ -98,22 +98,22 @@ define(["jquery", "vue", "moment", "text!standings.html", "ajax", "/signalr/hubs
             },
             methods: {
                 showReportForm: function () {
-                    //refresh(me.setPlayers);
+                    this.refresh();
                     this.reportFormVisible = true;
                     this.hideButtons();
                 },
                 showBuyInForm: function () {
-                    //refresh(me.setPlayers);
+                    this.refresh();
                     this.buyInFormVisible = true;
                     this.hideButtons();
                 },
                 showCashOutForm: function () {
-                    //refresh(me.setPlayers);
+                    this.refresh();
                     this.cashOutFormVisible = true;
                     this.hideButtons();
                 },
                 showEndGameForm: function () {
-                    //refresh(me.setPlayers);
+                    this.refresh();
                     this.endGameFormVisible = true;
                     this.hideButtons();
                 },
@@ -160,13 +160,16 @@ define(["jquery", "vue", "moment", "text!standings.html", "ajax", "/signalr/hubs
                     this.buyInAmount = data.defaultBuyin;
                     this.loadedPlayerId = data.playerId;
                     this.initialized = true;
-                    this.initSockets(data.slug);
+                    this.setupRefresh(longRefresh);
                 },
                 loadError: function() {
-                    
+                    this.setupRefresh(shortRefresh);
                 },
                 initData: function(url) {
                     ajax.load(url, this.loadComplete, this.loadError);
+                },
+                setupRefresh: function(refreshTimeout) {
+                    window.setTimeout(this.refresh, refreshTimeout);
                 },
                 addCheckpoint: function (player, stack, addedMoney) {
                     var checkpoint = { time: moment().utc().format(), stack: stack, addedMoney: addedMoney };
@@ -191,11 +194,7 @@ define(["jquery", "vue", "moment", "text!standings.html", "ajax", "/signalr/hubs
                     var player = this.getPlayer(this.playerId);
                     this.addCheckpoint(player, reportData.stack, 0);
                     this.hideForms();
-                    var playerId = this.playerId;
-                    var callback = this.notify;
-                    ajax.post(this.reportUrl, reportData, function() {
-                        callback(playerId);
-                    });
+                    ajax.post(this.reportUrl, reportData);
                     this.resetPlayerId();
                 },
                 buyin: function (amount, stack) {
@@ -213,11 +212,7 @@ define(["jquery", "vue", "moment", "text!standings.html", "ajax", "/signalr/hubs
                     }
                     this.hideForms();
                     this.currentStack = this.defaultBuyIn;
-                    var playerId = this.playerId;
-                    var callback = this.notify;
-                    ajax.post(this.buyInUrl, buyInData, function () {
-                        callback(playerId);
-                    });
+                    ajax.post(this.buyInUrl, buyInData);
                     this.resetPlayerId();
                 },
                 createPlayer: function() {
@@ -240,43 +235,23 @@ define(["jquery", "vue", "moment", "text!standings.html", "ajax", "/signalr/hubs
                     this.addCheckpoint(player, cashOutData.stack, 0);
                     player.hasCashedOut = true;
                     this.hideForms();
-                    ajax.post(this.cashOutUrl, cashOutData, this.notify);
+                    ajax.post(this.cashOutUrl, cashOutData);
                     this.resetPlayerId();
                 },
                 endgame: function () {
                     ajax.post(this.endGameUrl, null, function () {
-                        this.notify();
                         location.href = this.cashgameIndexUrl;
                     });
                 },
-                refresh: function(callback) {
+                refresh: function() {
+                    var callback = this.setPlayers;
                     ajax.load(this.refreshUrl, function (playerData) {
                         callback(playerData);
                     });
                 },
-                initSockets: function (slug) {
-                    var socket = $.connection.runningGameHub;
-                    socket.client.updateClient = this.updateClient;
-                    $.connection.hub.start({ pingInterval: null }).done(function () {
-                        socket.server.joinGame(slug);
-                    });
-                    $.connection.hub.disconnected(function () {
-                        setTimeout(function () {
-                            $.connection.hub.start();
-                        }, 5000);
-                    });
-                },
-                updateClient: function (playerId) {
-                    if (playerId !== this.playerId) {
-                        this.refresh(this.setPlayers);
-                    }
-                },
-                setPlayers: function(data) {
+                setPlayers: function (data) {
                     this.players = data.players;
-                },
-                notify: function() {
-                    var socket = $.connection.runningGameHub;
-                    socket.server.dataUpdated(this.slug, this.playerId);
+                    this.setupRefresh(longRefresh);
                 }
             },
             events: {
