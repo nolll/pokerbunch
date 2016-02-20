@@ -1,77 +1,73 @@
-ko.bindingHandlers.gameChart = {
-    init: function (element) {
-        
-    },
-    update: function (element, valueAccessor) {
-        var players = valueAccessor();
-        var data = getGameChartData(players());
-        var chart = ko.utils.domData.get(element, 'chart');
-        var options = { colors: getColors(players()) };
-        chart.draw(data, options);
-    }
-};
-
 define(["vue", "linechart", "moment"],
     function (vue, lineChart, moment) {
         "use strict";
 
+        var chart = null;
+
         return vue.extend({
             template: '<div></div>',
             props: ['players'],
-            ready: function() {
-                var config = {
-                    pointSize: 0,
-                    vAxis: { minValue: 0 },
-                    hAxis: { format: 'HH:mm' },
-                    legend: {
-                        position: 'none'
-                    }
-                };
-                lineChart.init(element, config);
+            watch: {
+                'players': function (val) {
+                    this.update();
+                }
             },
             methods: {
                 update: function () {
-                    var data = getGameChartData(players());
-                    var options = { colors: getColors(players()) };
+                    if (chart === null)
+                        this.init();
+                    var data = this.getGameChartData();
+                    var options = { colors: this.getColors() };
                     chart.draw(data, options);
                 },
-                getGameChartData: function (players) {
+                init: function() {
+                    var config = {
+                        pointSize: 0,
+                        vAxis: { minValue: 0 },
+                        hAxis: { format: 'HH:mm' },
+                        legend: {
+                            position: 'none'
+                        }
+                    };
+                    chart = lineChart.init(this.$el, config);
+                },
+                getGameChartData: function () {
                     return {
-                        cols: getColumns(players),
-                        rows: getRows(players),
+                        cols: this.getColumns(),
+                        rows: this.getRows(),
                         p: null
                     };
                 },
-                getColors: function(players) {
+                getColors: function() {
                     var i, p,
                         colors = [];
-                    for (i = 0; i < players.length; i++) {
-                        p = players[i];
+                    for (i = 0; i < this.players.length; i++) {
+                        p = this.players[i];
                         colors.push(p.color);
                     }
                     return colors;
                 },
-                getColumns: function(players) {
+                getColumns: function() {
                     var i, p,
                         cols = [{ type: "datetime", label: "Time", pattern: "HH:mm" }];
-                    for (i = 0; i < players.length; i++) {
-                        p = players[i];
+                    for (i = 0; i < this.players.length; i++) {
+                        p = this.players[i];
                         cols.push({ type: "number", label: p.name, pattern: null });
                     }
                     return cols;
                 },
-                getRows : function(players) {
+                getRows : function() {
                     var i, j, p, r;
                     var rows = [];
-                    for (i = 0; i < players.length; i++) {
-                        p = players[i];
-                        r = getPlayerResults(p);
+                    for (i = 0; i < this.players.length; i++) {
+                        p = this.players[i];
+                        r = this.getPlayerResults(p);
                         for (j = 0; j < r.length; j++) {
-                            rows.push(getRow(players, r[j], p.id));
+                            rows.push(this.getRow(this.players, r[j], p.id));
                         }
-                        if (!p.hasCashedOut()) {
-                            var currentResult = createPlayerResult(moment().utc(), r[r.length - 1].winnings);
-                            rows.push(getRow(players, currentResult, p.id));
+                        if (!p.hasCashedOut) {
+                            var currentResult = this.createPlayerResult(moment().utc(), r[r.length - 1].winnings);
+                            rows.push(this.getRow(currentResult, p.id));
                         }
                     }
                     return rows;
@@ -82,23 +78,23 @@ define(["vue", "linechart", "moment"],
                         winnings,
                         addedMoney = 0,
                         results = [],
-                        checkpoints = player.checkpoints();
+                        checkpoints = player.checkpoints;
                     for (i = 0; i < checkpoints.length; i++) {
                         c = checkpoints[i];
                         addedMoney += c.addedMoney;
                         winnings = c.stack - addedMoney;
-                        results.push(createPlayerResult(c.time, winnings));
+                        results.push(this.createPlayerResult(c.time, winnings));
                     }
                     return results;
                 },
                 createPlayerResult: function(time, winnings) {
                     return { time: time, winnings: winnings };
                 },
-                getRow: function(players, result, playerId) {
-                    var values = [{ v: result.time.toDate(), f: null }];
-                    for (var i = 0; i < players.length; i++) {
+                getRow: function(result, playerId) {
+                    var values = [{ v: moment(result.time).toDate(), f: null }];
+                    for (var i = 0; i < this.players.length; i++) {
                         var val = null;
-                        if (players[i].id == playerId) {
+                        if (this.players[i].id === playerId) {
                             val = result.winnings + '';
                         }
                         values.push({ v: val, f: null });

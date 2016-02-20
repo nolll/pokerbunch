@@ -9,8 +9,9 @@ define([
     "components/buyin-form",
     "components/cashout-form",
     "components/endgame-form",
-    "components/spinner"],
-function (vue, standings, playerDropdown, gameButton, playerTable, playerRow, reportForm, buyinForm, cashoutForm, endgameForm, spinner) {
+    "components/spinner",
+    "components/game-chart"],
+function (vue, standings, playerDropdown, gameButton, playerTable, playerRow, reportForm, buyinForm, cashoutForm, endgameForm, spinner, gameChart) {
 
         "use strict";
 
@@ -25,6 +26,7 @@ function (vue, standings, playerDropdown, gameButton, playerTable, playerRow, re
             vue.component('endgame-form', endgameForm);
             vue.component('buyin-form', buyinForm);
             vue.component('spinner', spinner);
+            vue.component('game-chart', gameChart);
 
             vue.filter('currency', function (value, format) {
                 var f = format !== undefined ? format : '${0}';
