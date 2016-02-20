@@ -26,7 +26,7 @@
         </div>
 
         <div class="block gutter" v-show="hasPlayers">
-            <!-- CHART <div data-bind="gameChart: players"></div> -->
+            <game-chart v-bind="players"></game-chart>
         </div>
     </div>
     <spinner v-else></spinner>

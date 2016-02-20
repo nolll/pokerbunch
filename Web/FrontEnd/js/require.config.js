@@ -12,30 +12,16 @@ requirejs.config({
         knockout: "knockout-extended",
         "select-on-focus": "lib/knockout.selectOnFocus",
         moment: "lib/moment.min",
-        "signalr.core": "../../Scripts/jquery.signalR-2.2.0.min",
         vue: "lib/vue",
         text: "lib/text",
         fetch: "lib/fetch.min"
     },
     shim: {
-        "pubsub": {
-            deps: ["jquery"]
-        },
-        "metadata": {
-            deps: ["jquery"]
-        },
         "debouncedresize": {
             deps: ["jquery"]
         },
         "select-on-focus": {
             deps: ["knockout"]
-        },
-        "signalr.core": {
-            deps: ["jquery"],
-            exports: "$.connection"
-        },
-        "/signalr/hubs?": {
-            deps: ["signalr.core"]
         },
         "fetch": {
             exports: "fetch"
