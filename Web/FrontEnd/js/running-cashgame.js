@@ -1,4 +1,4 @@
-define(["jquery", "knockout", "moment", "select-on-focus", "/signalr/hubs?"],
+define(["jquery", "knockout", "moment", "select-on-focus"],
     function ($, ko, moment) {
         "use strict";
 
@@ -8,7 +8,6 @@ define(["jquery", "knockout", "moment", "select-on-focus", "/signalr/hubs?"],
             loadData(url, function (data) {
                 var standings = new StandingsViewModel(data);
                 ko.applyBindings(standings);
-                standings.initSockets(data.slug);
             });
         }
 

@@ -356,6 +356,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.json" />
+    <Content Include="FrontEnd\js\validate.js" />
     <Content Include="FrontEnd\js\components\game-chart.js" />
     <Content Include="FrontEnd\js\sockets.js" />
     <Content Include="FrontEnd\js\components\spinner.html" />
