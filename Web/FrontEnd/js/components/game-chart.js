@@ -63,7 +63,7 @@ define(["vue", "linechart", "moment"],
                         p = this.players[i];
                         r = this.getPlayerResults(p);
                         for (j = 0; j < r.length; j++) {
-                            rows.push(this.getRow(this.players, r[j], p.id));
+                            rows.push(this.getRow(r[j], p.id));
                         }
                         if (!p.hasCashedOut) {
                             var currentResult = this.createPlayerResult(moment().utc(), r[r.length - 1].winnings);

@@ -7,35 +7,7 @@ define(["vue", "moment", "text!standings.html", "ajax"],
 
         return vue.extend({
             template: html,
-            data: function() {
-                return {
-                    slug: "",
-                    playerId: 0,
-                    refreshUrl: "",
-                    reportUrl: "",
-                    buyinUrl: "",
-                    cashoutUrl: "",
-                    endGameUrl: "",
-                    cashgameIndexUrl: "",
-                    locationUrl: "",
-                    defaultBuyin: 0,
-                    locationName: "",
-                    isManager: false,
-                    bunchPlayers: [],
-                    players: [],
-                    areButtonsVisible: true,
-                    reportFormVisible: false,
-                    buyInFormVisible: false,
-                    cashOutFormVisible: false,
-                    endGameFormVisible: false,
-                    currentStack: 0,
-                    beforeBuyInStack: 0,
-                    buyInAmount: 0,
-                    loadedPlayerId: 0,
-                    currencyFormat: '{0} kr',
-                    initialized: false
-                }
-            },
+            data: defaultData,
             ready: function() {
                 this.initData(this.url);
             },
@@ -275,5 +247,35 @@ define(["vue", "moment", "text!standings.html", "ajax"],
                 }
             }
         });
+
+        function defaultData() {
+            return {
+                slug: "",
+                playerId: 0,
+                refreshUrl: "",
+                reportUrl: "",
+                buyinUrl: "",
+                cashoutUrl: "",
+                endGameUrl: "",
+                cashgameIndexUrl: "",
+                locationUrl: "",
+                defaultBuyin: 0,
+                locationName: "",
+                isManager: false,
+                bunchPlayers: [],
+                players: [],
+                areButtonsVisible: true,
+                reportFormVisible: false,
+                buyInFormVisible: false,
+                cashOutFormVisible: false,
+                endGameFormVisible: false,
+                currentStack: 0,
+                beforeBuyInStack: 0,
+                buyInAmount: 0,
+                loadedPlayerId: 0,
+                currencyFormat: '{0} kr',
+                initialized: false
+            }
+        }
     }
 );
