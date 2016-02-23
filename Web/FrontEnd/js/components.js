@@ -1,6 +1,7 @@
 define([
     "vue",
-    "components/standings/standings",
+    "components/game-control/game-control",
+    "components/dashboard/dashboard",
     "components/player-dropdown/player-dropdown",
     "components/game-button/game-button",
     "components/player-table/player-table",
@@ -11,14 +12,15 @@ define([
     "components/endgame-form/endgame-form",
     "components/spinner/spinner",
     "components/game-chart/game-chart"],
-function (vue, standings, playerDropdown, gameButton, playerTable, playerRow, reportForm, buyinForm, cashoutForm, endgameForm, spinner, gameChart) {
+function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, playerRow, reportForm, buyinForm, cashoutForm, endgameForm, spinner, gameChart) {
 
         "use strict";
 
         function init() {
             vue.config.debug = true;
 
-            vue.component('standings', standings);
+            vue.component('game-control', gameControl);
+            vue.component('dashboard', dashboard);
             vue.component('player-dropdown', playerDropdown);
             vue.component('game-button', gameButton);
             vue.component('player-table', playerTable);

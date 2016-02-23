@@ -356,6 +356,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.json" />
+    <Content Include="FrontEnd\js\components\dashboard\dashboard.html" />
+    <Content Include="FrontEnd\js\components\dashboard\dashboard.js" />
     <Content Include="FrontEnd\js\game-service.js" />
     <Content Include="FrontEnd\js\validate.js" />
     <Content Include="FrontEnd\js\components\game-chart\game-chart.js" />
@@ -380,8 +382,6 @@
     <Content Include="FrontEnd\js\lib\jquery.debouncedresize.js" />
     <Content Include="FrontEnd\js\lib\jquery.metadata.js" />
     <Content Include="FrontEnd\js\lib\jquery.pubsub.js" />
-    <Content Include="FrontEnd\js\lib\knockout-3.2.0.js" />
-    <Content Include="FrontEnd\js\lib\knockout.selectOnFocus.js" />
     <Content Include="FrontEnd\js\lib\moment.min.js" />
     <Content Include="FrontEnd\js\lib\propertyParser.js" />
     <Content Include="FrontEnd\js\lib\require.js" />
@@ -393,8 +393,8 @@
     <Content Include="FrontEnd\js\components\player-dropdown\player-dropdown.html" />
     <Content Include="FrontEnd\js\components\game-button\game-button.html" />
     <Content Include="FrontEnd\js\ajax.js" />
-    <Content Include="FrontEnd\js\components\standings\standings.html" />
-    <Content Include="FrontEnd\js\components\standings\standings.js" />
+    <Content Include="FrontEnd\js\components\game-control\game-control.html" />
+    <Content Include="FrontEnd\js\components\game-control\game-control.js" />
     <Content Include="gulpfile.js" />
     <Content Include="FrontEnd\Css\table-list.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -507,7 +507,6 @@
     <Content Include="Views\Pages\LocationList\Item.cshtml" />
     <Content Include="Views\Pages\LocationDetails\LocationDetails.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\DashBoardPage.cshtml" />
-    <Content Include="Views\Pages\RunningCashgame\Table.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>
@@ -622,10 +621,8 @@
     <Content Include="FrontEnd\js\cashgame-chart.js" />
     <Content Include="FrontEnd\js\cashgame-game-chart.js" />
     <Content Include="FrontEnd\js\cancel-button.js" />
-    <Content Include="FrontEnd\js\knockout-extended.js" />
     <Content Include="FrontEnd\js\require.config.js" />
     <Content Include="FrontEnd\js\require.loader.dev.js" />
-    <Content Include="FrontEnd\js\running-cashgame.js" />
     <Content Include="FrontEnd\js\sortable-table.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
     <Content Include="FrontEnd\js\delete-confirmation.js" />

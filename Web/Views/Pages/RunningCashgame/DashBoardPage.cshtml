@@ -5,38 +5,6 @@
     Layout = PageLayout.OneColumn;
 }
 
-<div data-require="running-cashgame" data-url="@Model.GameDataUrl" data-bind="template: { name: 'running-cashgame-template' }">
+<dashboard url="@Model.GameDataUrl">
     @Html.Partial("~/Views/Misc/Spinner.cshtml")
-</div>
-
-<script type="text/html" id="running-cashgame-template">
-    <div class="region width3">
-        <div class="block gutter">
-            <h1 class="page-heading">Running Cashgame</h1>
-        </div>
-        
-        <div class="block gutter" data-bind="visible: noPlayers">
-            No one has joined the game yet.
-        </div>
-    </div>
-    <div class="region width1">
-        <div class="standings block gutter" data-bind="visible: hasPlayers">
-            @Html.Partial("~/Views/Pages/RunningCashgame/Table.cshtml")
-        </div>
-
-        <div class="block gutter">
-            <dl class="value-list">
-                <dt class="value-list__key" data-bind="visible: hasPlayers">Start Time</dt>
-                <dd class="value-list__value" data-bind="visible: hasPlayers, text: startTime"></dd>
-                <dt class="value-list__key">Location</dt>
-                <dd class="value-list__value" data-bind="text: locationName"></dd>
-            </dl>
-        </div>
-    </div>
-
-    <div class="region width2 aside2">
-        <div class="block gutter" data-bind="visible: hasPlayers">
-            <div data-bind="gameChart: players"></div>
-        </div>
-    </div>
-</script>
+</dashboard>

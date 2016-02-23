@@ -1,11 +1,11 @@
-define(["vue", "moment", "text!components/standings/standings.html", "ajax", "game-service"],
+define(["vue", "moment", "text!components/dashboard/dashboard.html", "ajax", "game-service"],
     function(vue, moment, html, ajax, gameService) {
         "use strict";
 
         var longRefresh = 30000,
             shortRefresh = 10000;
 
-        return vue.component("standings", {
+        return vue.component("dashboard", {
             template: html,
             data: defaultData,
             props: ["url"],
