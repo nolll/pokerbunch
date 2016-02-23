@@ -507,10 +507,7 @@
     <Content Include="Views\Pages\LocationList\Item.cshtml" />
     <Content Include="Views\Pages\LocationDetails\LocationDetails.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\DashBoardPage.cshtml" />
-    <Content Include="Views\Pages\RunningCashgame\Buttons.cshtml" />
-    <Content Include="Views\Pages\RunningCashgame\Forms.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\Table.cshtml" />
-    <Content Include="Views\Pages\RunningCashgame\RunningPageVue.cshtml" />
     <None Include="Web.wpp.targets">
       <SubType>Designer</SubType>
     </None>
