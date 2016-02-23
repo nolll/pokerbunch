@@ -4,10 +4,17 @@ define(["vue", "text!components/cashout-form/cashout-form.html", "validate"],
 
         return vue.component("cashout-form", {
             template: html,
-            props: ['stack'],
+            props: ['stack', "isActive"],
             computed: {
                 hasErrors: function () {
                     return this.stackError === null;
+                }
+            },
+            watch: {
+                'isActive': function (val) {
+                    if (val) {
+                        this.$els.stack.focus();
+                    }
                 }
             },
             methods: {

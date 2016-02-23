@@ -18,17 +18,6 @@ function (vue, standings, playerDropdown, gameButton, playerTable, playerRow, re
         function init() {
             vue.config.debug = true;
 
-            vue.filter('currency', function (value, format) {
-                var f = format !== undefined ? format : '${0}';
-                return f.replace('{0}', value);
-            });
-
-            vue.filter('result', function (value) {
-                if (value > 0)
-                    return "+" + value;
-                return value;
-            });
-
             vue.component('standings', standings);
             vue.component('player-dropdown', playerDropdown);
             vue.component('game-button', gameButton);
@@ -40,6 +29,17 @@ function (vue, standings, playerDropdown, gameButton, playerTable, playerRow, re
             vue.component('buyin-form', buyinForm);
             vue.component('spinner', spinner);
             vue.component('game-chart', gameChart);
+
+            vue.filter('currency', function (value, format) {
+                var f = format !== undefined ? format : '${0}';
+                return f.replace('{0}', value);
+            });
+
+            vue.filter('result', function (value) {
+                if (value > 0)
+                    return "+" + value;
+                return value;
+            });
 
             new vue({
                 el: "body"

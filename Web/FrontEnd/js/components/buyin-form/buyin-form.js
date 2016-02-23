@@ -4,10 +4,17 @@ define(["vue", "text!components/buyin-form/buyin-form.html", "validate"],
 
         return vue.component("buyin-form", {
             template: html,
-            props: ['stack', 'amount'],
+            props: ['stack', 'amount', "isActive"],
             computed: {
                 hasErrors: function() {
                     return this.buyinError === null && this.stackError === null;
+                }
+            },
+            watch: {
+                'isActive': function (val) {
+                    if (val) {
+                        this.$els.buyin.focus();
+                    }
                 }
             },
             methods: {

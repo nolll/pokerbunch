@@ -1,45 +1,25 @@
-define(["vue", "text!components/player-row/player-row.html", "moment"],
-    function(vue, html, moment) {
+define(["vue", "text!components/player-row/player-row.html", "game-service"],
+    function(vue, html, gameService) {
         "use strict";
 
         return vue.component("player-row", {
             template: html,
             props: ['player', 'currencyFormat'],
             computed: {
+                hasCashedOut: function() {
+                    return this.player.hasCashedOut;
+                },
                 lastReportTime: function () {
-                    if (this.player.checkpoints.length === 0)
-                        return moment().fromNow();
-                    return moment(this.player.checkpoints[this.player.checkpoints.length - 1].time).fromNow();
+                    return gameService.getLastReportTime(this.player);
                 },
                 buyin: function () {
-                    if (this.player.checkpoints.length === 0)
-                        return 0;
-                    var sum = 0;
-                    for (var i = 0; i < this.player.checkpoints.length; i++) {
-                        sum += this.player.checkpoints[i].addedMoney;
-                    }
-                    return sum;
-                },
-                formattedBuyin: function () {
-                    //return formatCurrency(this.buyin);
-                    return this.buyin;
+                    return gameService.getBuyin(this.player);
                 },
                 stack: function () {
-                    var c = this.player.checkpoints;
-                    if (c.length === 0)
-                        return 0;
-                    return c[c.length - 1].stack;
-                },
-                formattedStack: function () {
-                    //return formatCurrency(this.stack);
-                    return this.stack;
+                    return gameService.getStack(this.player);
                 },
                 winnings: function () {
-                    return this.stack - this.buyin;
-                },
-                formattedWinnings: function () {
-                    //return formatResult(this.winnings);
-                    return this.winnings;
+                    return gameService.getWinnings(this.player);
                 },
                 winningsCssClass: function () {
                     var winnings = this.winnings;

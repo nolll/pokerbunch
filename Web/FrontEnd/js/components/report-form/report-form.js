@@ -4,10 +4,17 @@ define(["vue", "text!components/report-form/report-form.html", "validate"],
 
         return vue.component("report-form", {
             template: html,
-            props: ['stack'],
+            props: ['stack', 'isActive'],
             computed: {
                 hasErrors: function () {
                     return this.stackError === null;
+                }
+            },
+            watch: {
+                'isActive': function (val) {
+                    if (val) {
+                        this.$els.stack.focus();
+                    }
                 }
             },
             methods: {

@@ -6,20 +6,20 @@
 
         <div class="button-list" v-show="areButtonsVisible">
             <game-button text="Report" icon="reorder" v-show="canReport" v-on:click="showReportForm"></game-button>
-            <game-button text="Buy In" icon="money" v-show="canBuyIn" v-on:click="showBuyInForm"></game-button>
-            <game-button text="Cash Out" icon="signout" v-show="canCashOut" v-on:click="showCashOutForm"></game-button>
+            <game-button text="Buy In" icon="money" v-show="canBuyin" v-on:click="showBuyinForm"></game-button>
+            <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click="showCashoutForm"></game-button>
             <game-button text="End Game" icon="signout" v-show="canEndGame" v-on:click="showEndGameForm"></game-button>
         </div>
 
         <div class="block gutter">
-            <report-form v-show="reportFormVisible" v-bind:stack="currentStack"></report-form>
-            <buyin-form v-show="buyInFormVisible" v-bind:stack="beforeBuyInStack" v-bind:amount="buyInAmount"></buyin-form>
-            <cashout-form v-show="cashOutFormVisible" v-bind:stack="currentStack"></cashout-form>
+            <report-form v-show="reportFormVisible" v-bind:stack="currentStack" v-bind:is-active="reportFormVisible"></report-form>
+            <buyin-form v-show="buyinFormVisible" v-bind:stack="beforeBuyinStack" v-bind:amount="buyinAmount" v-bind:is-active="buyinFormVisible"></buyin-form>
+            <cashout-form v-show="cashoutFormVisible" v-bind:stack="currentStack" v-bind:is-active="cashoutFormVisible"></cashout-form>
             <endgame-form v-show="endGameFormVisible"></endgame-form>
         </div>
 
         <div class="standings block gutter" v-show="hasPlayers">
-            <player-table v-bind:players="players" v-bind:currency-format="currencyFormat"></player-table>
+            <player-table v-bind:players="sortedPlayers" v-bind:currency-format="currencyFormat"></player-table>
         </div>
         <div class="block gutter" v-else>
             No one has joined the game yet.

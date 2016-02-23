@@ -1,5 +1,5 @@
-define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
-    function(vue, moment, html, ajax) {
+define(["vue", "moment", "text!components/standings/standings.html", "ajax", "game-service"],
+    function(vue, moment, html, ajax, gameService) {
         "use strict";
 
         var longRefresh = 30000,
@@ -17,55 +17,31 @@ define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
                     return this.players.length > 0;
                 },
                 startTime: function () {
-                    var i, first,
-                    t = moment().utc(),
-                    p = this.players;
-                    if (p.length === 0)
-                        return '';
-                    for (i = 0; i < p.length; i++) {
-                        first = p[i].checkpoints[0];
-                        if (first) {
-                            var firstTime = moment(first.time);
-                            if (firstTime.isBefore(t)) {
-                                t = firstTime;
-                            }
-                        }
-                    }
+                    var t = gameService.getStartTime(this.players);
                     return t.format('HH:mm');
                 },
                 sortedPlayers: function() {
-                    return this.players.sort(function (left, right) {
-                        return right.winnings - left.winnings;
-                    });
+                    return gameService.sortPlayers(this.players);
                 },
                 isInGame: function () {
-                    return this.getPlayer(this.playerId) !== null;
+                    return gameService.getPlayer(this.players, this.playerId) !== null;
                 },
-                canCashOut: function () {
+                canCashout: function () {
                     return this.isInGame;
                 },
                 hasCashedOut: function() {
-                    var player = this.getPlayer(this.playerId);
+                    var player = gameService.getPlayer(this.players, this.playerId);
                     if (!player)
                         return false;
                     return player.hasCashedOut;
                 },
                 canEndGame: function () {
-                    var i;
-                    if (this.players.length === 0)
-                        return false;
-                    for (i = 0; i < this.players.length; i++) {
-                        if (!this.players[i].hasCashedOut) {
-
-                            return false;
-                        }
-                    }
-                    return true;
+                    return gameService.canBeEnded(this.players);
                 },
                 canReport: function () {
                     return this.isInGame && !this.hasCashedOut;
                 },
-                canBuyIn: function () {
+                canBuyin: function () {
                     return !this.hasCashedOut;
                 }
             },
@@ -75,14 +51,14 @@ define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
                     this.reportFormVisible = true;
                     this.hideButtons();
                 },
-                showBuyInForm: function () {
+                showBuyinForm: function () {
                     this.refresh();
-                    this.buyInFormVisible = true;
+                    this.buyinFormVisible = true;
                     this.hideButtons();
                 },
-                showCashOutForm: function () {
+                showCashoutForm: function () {
                     this.refresh();
-                    this.cashOutFormVisible = true;
+                    this.cashoutFormVisible = true;
                     this.hideButtons();
                 },
                 showEndGameForm: function () {
@@ -95,22 +71,13 @@ define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
                 },
                 hideForms: function () {
                     this.reportFormVisible = false;
-                    this.buyInFormVisible = false;
-                    this.cashOutFormVisible = false;
+                    this.buyinFormVisible = false;
+                    this.cashoutFormVisible = false;
                     this.endGameFormVisible = false;
                     this.areButtonsVisible = true;
                 },
-                getPlayer: function (playerId) {
-                    var i;
-                    for (i = 0; i < this.players.length; i++) {
-                        if (this.players[i].id === playerId) {
-                            return this.players[i];
-                        }
-                    }
-                    return null;
-                },
                 hasCashedOut: function() {
-                    var player = this.getPlayer(this.playerId);
+                    var player = gameService.getPlayer(this.players, this.playerId);
                     if (!player)
                         return false;
                     return player.hasCashedOut();
@@ -130,7 +97,7 @@ define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
                     this.isManager = data.isManager;
                     this.bunchPlayers = data.bunchPlayers;
                     this.players = data.players;
-                    this.buyInAmount = data.defaultBuyin;
+                    this.buyinAmount = data.defaultBuyin;
                     this.loadedPlayerId = data.playerId;
                     this.initialized = true;
                     this.setupRefresh(longRefresh);
@@ -150,9 +117,9 @@ define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
                 },
                 getBunchPlayer: function () {
                     var i,
-                        bp = this.bunchPlayers();
+                        bp = this.bunchPlayers;
                     for (i = 0; i < bp.length; i++) {
-                        if (bp[i].id === this.playerId()) {
+                        if (bp[i].id === this.playerId) {
                             return bp[i];
                         }
                     }
@@ -164,28 +131,28 @@ define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
                 report: function (stack) {
                     this.currentStack = stack;
                     var reportData = { playerId: this.playerId, stack: stack };
-                    var player = this.getPlayer(this.playerId);
+                    var player = gameService.getPlayer(this.players, this.playerId);
                     this.addCheckpoint(player, reportData.stack, 0);
                     this.hideForms();
                     ajax.post(this.reportUrl, reportData);
                     this.resetPlayerId();
                 },
                 buyin: function (amount, stack) {
-                    this.buyInAmount = amount;
-                    this.beforeBuyInStack = stack;
+                    this.buyinAmount = amount;
+                    this.beforeBuyinStack = stack;
                     var afterStack = stack + amount;
-                    var buyInData = { playerId: this.playerId, stack: stack, addedMoney: amount };
-                    var player = this.getPlayer(this.playerId);
+                    var buyinData = { playerId: this.playerId, stack: stack, addedMoney: amount };
+                    var player = gameService.getPlayer(this.players, this.playerId);
                     if (!player) {
                         player = this.createPlayer();
-                        this.addCheckpoint(player, afterStack, buyInData.addedMoney);
+                        this.addCheckpoint(player, afterStack, buyinData.addedMoney);
                         this.players.push(player);
                     } else {
-                        player.addCheckpoint(player, afterStack, buyInData.addedMoney);
+                        this.addCheckpoint(player, afterStack, buyinData.addedMoney);
                     }
                     this.hideForms();
-                    this.currentStack = this.defaultBuyIn;
-                    ajax.post(this.buyInUrl, buyInData);
+                    this.currentStack = this.defaultBuyin;
+                    ajax.post(this.buyinUrl, buyinData);
                     this.resetPlayerId();
                 },
                 createPlayer: function() {
@@ -203,17 +170,18 @@ define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
                 },
                 cashout: function (stack) {
                     this.currentStack = stack;
-                    var cashOutData = { playerId: this.playerId, stack: stack };
-                    var player = this.getPlayer(this.playerId);
-                    this.addCheckpoint(player, cashOutData.stack, 0);
+                    var cashoutData = { playerId: this.playerId, stack: stack };
+                    var player = gameService.getPlayer(this.players, this.playerId);
+                    this.addCheckpoint(player, cashoutData.stack, 0);
                     player.hasCashedOut = true;
                     this.hideForms();
-                    ajax.post(this.cashOutUrl, cashOutData);
+                    ajax.post(this.cashoutUrl, cashoutData);
                     this.resetPlayerId();
                 },
                 endgame: function () {
+                    var redirectUrl = this.cashgameIndexUrl;
                     ajax.post(this.endGameUrl, null, function () {
-                        location.href = this.cashgameIndexUrl;
+                        location.href = redirectUrl;
                     });
                 },
                 refresh: function() {
@@ -267,12 +235,12 @@ define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
                 players: [],
                 areButtonsVisible: true,
                 reportFormVisible: false,
-                buyInFormVisible: false,
-                cashOutFormVisible: false,
+                buyinFormVisible: false,
+                cashoutFormVisible: false,
                 endGameFormVisible: false,
                 currentStack: 0,
-                beforeBuyInStack: 0,
-                buyInAmount: 0,
+                beforeBuyinStack: 0,
+                buyinAmount: 0,
                 loadedPlayerId: 0,
                 currencyFormat: '{0} kr',
                 initialized: false
