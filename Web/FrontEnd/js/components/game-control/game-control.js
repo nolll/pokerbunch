@@ -29,20 +29,14 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 canCashout: function () {
                     return this.isInGame;
                 },
-                hasCashedOut: function() {
-                    var player = gameService.getPlayer(this.players, this.playerId);
-                    if (!player)
-                        return false;
-                    return player.hasCashedOut;
-                },
                 canEndGame: function () {
                     return gameService.canBeEnded(this.players);
                 },
                 canReport: function () {
-                    return this.isInGame && !this.hasCashedOut;
+                    return this.isInGame && !this.hasCashedOut();
                 },
                 canBuyin: function () {
-                    return !this.hasCashedOut;
+                    return !this.hasCashedOut();
                 }
             },
             methods: {
