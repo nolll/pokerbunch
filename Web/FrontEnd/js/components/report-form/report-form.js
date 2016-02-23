@@ -1,20 +1,20 @@
-define(["vue", "text!components/buyin-form.html", "validate"],
+define(["vue", "text!components/report-form/report-form.html", "validate"],
     function(vue, html, validate) {
         "use strict";
 
-        return vue.extend({
+        return vue.component("report-form", {
             template: html,
-            props: ['stack', 'amount'],
+            props: ['stack'],
             computed: {
-                hasErrors: function() {
-                    return this.buyinError === null && this.stackError === null;
+                hasErrors: function () {
+                    return this.stackError === null;
                 }
             },
             methods: {
-                buyin: function () {
+                report: function () {
                     this.validateForm();
-                    if(!this.hasErrors)
-                        this.$dispatch('buyin', this.amount, this.stack);
+                    if (!this.hasErrors)
+                        this.$dispatch('report', this.stack);
                 },
                 cancel: function () {
                     this.$dispatch('hide-forms');
@@ -24,19 +24,15 @@ define(["vue", "text!components/buyin-form.html", "validate"],
                 },
                 validateForm: function () {
                     this.clearErrors();
-                    if (validate.intRange(this.amount, 1))
-                        this.buyinError = "Buyin must be greater than zero";
                     if (validate.intRange(this.stack, 0))
                         this.stackError = "Stack can't be negative";
                 },
-                clearErrors: function() {
-                    this.buyinError = null;
+                clearErrors: function () {
                     this.stackError = null;
                 }
             },
-            data: function() {
+            data: function () {
                 return {
-                    buyinError: null,
                     stackError: null
                 }
             }

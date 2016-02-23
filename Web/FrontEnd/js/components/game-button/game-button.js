@@ -1,8 +1,8 @@
-define(["vue", "text!components/game-button.html"],
+define(["vue", "text!components/game-button/game-button.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.extend({
+        return vue.component("game-button", {
             template: html,
             props: ['text', 'icon']
         });

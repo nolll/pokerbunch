@@ -1,13 +1,14 @@
-define(["vue", "moment", "text!standings.html", "ajax"],
+define(["vue", "moment", "text!components/standings/standings.html", "ajax"],
     function(vue, moment, html, ajax) {
         "use strict";
 
         var longRefresh = 30000,
             shortRefresh = 10000;
 
-        return vue.extend({
+        return vue.component("standings", {
             template: html,
             data: defaultData,
+            props: ["url"],
             ready: function() {
                 this.initData(this.url);
             },

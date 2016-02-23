@@ -1,8 +1,8 @@
-define(["vue", "text!components/player-dropdown.html"],
+define(["vue", "text!components/player-dropdown/player-dropdown.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.extend({
+        return vue.component("player-dropdown", {
             template: html,
             props: ['selectedPlayerId', 'players'],
             methods: {

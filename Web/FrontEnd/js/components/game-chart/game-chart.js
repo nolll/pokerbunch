@@ -4,7 +4,7 @@ define(["vue", "linechart", "moment"],
 
         var chart = null;
 
-        return vue.extend({
+        return vue.component("game-chart", {
             template: '<div></div>',
             props: ['players'],
             watch: {

@@ -1,8 +1,8 @@
-define(["vue", "text!components/endgame-form.html"],
+define(["vue", "text!components/endgame-form/endgame-form.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.extend({
+        return vue.component("endgame-form", {
             template: html,
             methods: {
                 endgame: function () {

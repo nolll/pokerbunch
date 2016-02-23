@@ -1,8 +1,8 @@
-define(["vue", "text!components/report-form.html", "validate"],
+define(["vue", "text!components/cashout-form/cashout-form.html", "validate"],
     function(vue, html, validate) {
         "use strict";
 
-        return vue.extend({
+        return vue.component("cashout-form", {
             template: html,
             props: ['stack'],
             computed: {
@@ -11,10 +11,10 @@ define(["vue", "text!components/report-form.html", "validate"],
                 }
             },
             methods: {
-                report: function () {
+                cashout: function () {
                     this.validateForm();
                     if (!this.hasErrors)
-                        this.$dispatch('report', this.stack);
+                        this.$dispatch('cashout', this.stack);
                 },
                 cancel: function () {
                     this.$dispatch('hide-forms');
