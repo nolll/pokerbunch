@@ -20,8 +20,6 @@
         "focus-text-selector",
         "heading-nav",
         "linechart",
-        "running-cashgame",
-        "running-cashgame-vue",
         "sortable-table"
     ]
 }

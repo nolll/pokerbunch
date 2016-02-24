@@ -74,7 +74,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     var player = gameService.getPlayer(this.players, this.playerId);
                     if (!player)
                         return false;
-                    return player.hasCashedOut();
+                    return player.hasCashedOut;
                 },
                 loadComplete: function (data) {
                     this.slug = data.slug;
