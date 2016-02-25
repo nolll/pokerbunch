@@ -1,5 +1,5 @@
-define(["vue", "text!components/report-form/report-form.html", "validate"],
-    function(vue, html, validate) {
+define(["vue", "text!components/report-form/report-form.html", "validate", "forms"],
+    function(vue, html, validate, forms) {
         "use strict";
 
         return vue.component("report-form", {
@@ -27,7 +27,7 @@ define(["vue", "text!components/report-form/report-form.html", "validate"],
                     this.$dispatch('hide-forms');
                 },
                 focus: function (event) {
-                    event.target.select();
+                    forms.selectAll(event.target);
                 },
                 validateForm: function () {
                     this.clearErrors();
