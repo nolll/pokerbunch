@@ -15,7 +15,6 @@ namespace Web.Controllers.Base
     public class BaseController : Controller
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();
-
         protected UseCaseContainer UseCase => _bootstrapper.UseCases;
 
         protected BaseContext.Result GetBaseContext()

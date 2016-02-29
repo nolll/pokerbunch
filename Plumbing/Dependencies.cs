@@ -26,49 +26,14 @@ namespace Plumbing
             _db = new SqlServerStorageProvider();
         }
 
-        public AppService AppService
-        {
-            get { return _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), _cacheContainer))); }
-        }
-
-        public BunchService BunchService
-        {
-            get { return _bunchService ?? (_bunchService = new BunchService(new CachedBunchRepository(new SqlBunchRepository(_db), _cacheContainer))); }
-        }
-
-        public CashgameService CashgameService
-        {
-            get { return _cashgameService ?? (_cashgameService = new CashgameService(new CachedCashgameRepository(new SqlCashgameRepository(_db), _cacheContainer))); }
-        }
-
-        public EventService EventService
-        {
-            get { return _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(_db), _cacheContainer))); }
-        }
-
-        public PlayerService PlayerService
-        {
-            get { return _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), _cacheContainer))); }
-        }
-
-        public LocationService LocationService
-        {
-            get { return _locationService ?? (_locationService = new LocationService(new CachedLocationRepository(new SqlLocationRepository(_db), _cacheContainer))); }
-        }
-
-        public UserService UserService
-        {
-            get { return _userService ?? (_userService = new UserService(new CachedUserRepository(new SqlUserRepository(_db), _cacheContainer))); }
-        }
-
-        public IRandomService RandomService
-        {
-            get { return _randomService ?? (_randomService = new RandomService()); }
-        }
-
-        public IMessageSender MessageSender
-        {
-            get { return _messageSender ?? (_messageSender = new MessageSender()); }
-        }
+        public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), _cacheContainer)));
+        public BunchService BunchService => _bunchService ?? (_bunchService = new BunchService(new CachedBunchRepository(new SqlBunchRepository(_db), _cacheContainer)));
+        public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CachedCashgameRepository(new SqlCashgameRepository(_db), _cacheContainer)));
+        public EventService EventService => _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(_db), _cacheContainer)));
+        public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), _cacheContainer)));
+        public LocationService LocationService => _locationService ?? (_locationService = new LocationService(new CachedLocationRepository(new SqlLocationRepository(_db), _cacheContainer)));
+        public UserService UserService => _userService ?? (_userService = new UserService(new CachedUserRepository(new SqlUserRepository(_db), _cacheContainer)));
+        public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
+        public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());
     }
 }

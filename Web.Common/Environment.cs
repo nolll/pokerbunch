@@ -6,5 +6,10 @@ namespace Web.Common
         {
             return hostName.EndsWith("pokerbunch.lan");
         }
+
+        public static bool IsStage(string hostName)
+        {
+            return hostName.EndsWith("staging.pokerbunch.com");
+        }
     }
 }

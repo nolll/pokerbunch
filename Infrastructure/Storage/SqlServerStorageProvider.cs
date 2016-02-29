@@ -16,10 +16,7 @@ namespace Infrastructure.Storage
             return new SqlConnection(connectionString);
         }
 
-	    private static string ConnectionString
-	    {
-	        get { return ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString; }
-	    }
+	    private static string ConnectionString => ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString;
 
 	    public IStorageDataReader Query(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
 	    {

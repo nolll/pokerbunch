@@ -18,6 +18,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(350, result.BestResult.Amount);
             Assert.AreEqual(-150, result.WorstResult.Amount);
             Assert.AreEqual(1, result.BestResultCount);
+            Assert.AreEqual(1, result.CurrentStreak);
             Assert.AreEqual(1, result.WinningStreak);
             Assert.AreEqual(1, result.LosingStreak);
         }

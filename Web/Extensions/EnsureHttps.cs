@@ -9,7 +9,7 @@ namespace Web.Extensions
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             if (filterContext == null)
-                throw new ArgumentNullException("filterContext");
+                throw new ArgumentNullException(nameof(filterContext));
 
             if (filterContext.HttpContext != null && RequestEvaluator.IsTestEnvironment(filterContext.HttpContext.Request))
                 return;

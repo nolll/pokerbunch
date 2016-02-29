@@ -3,6 +3,7 @@ namespace Web.Models.MiscModels
     public class AvatarModel
     {
         public string AvatarUrl { get; }
+        public bool AvatarEnabled => !string.IsNullOrEmpty(AvatarUrl);
 
         public AvatarModel()
             : this(string.Empty)
@@ -12,11 +13,6 @@ namespace Web.Models.MiscModels
         public AvatarModel(string avatarUrl)
         {
             AvatarUrl = avatarUrl;
-        }
-
-        public bool AvatarEnabled
-        {
-            get { return !string.IsNullOrEmpty(AvatarUrl); }
         }
     }
 }

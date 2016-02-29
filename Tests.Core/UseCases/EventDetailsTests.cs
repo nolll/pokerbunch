@@ -15,16 +15,10 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.EventNameA, result.Name);
         }
 
-        private EventDetails Sut
-        {
-            get
-            {
-                return new EventDetails(
-                    Services.EventService,
-                    Services.UserService,
-                    Services.PlayerService,
-                    Services.BunchService);
-            }
-        }
+        private EventDetails Sut => new EventDetails(
+            Services.EventService,
+            Services.UserService,
+            Services.PlayerService,
+            Services.BunchService);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
@@ -51,6 +52,7 @@ namespace Core.UseCases
             public int GamesPlayed { get; private set; }
             public Time TimePlayed { get; private set; }
             public int BestResultCount { get; private set; }
+            public int CurrentStreak { get; private set; }
             public int WinningStreak { get; private set; }
             public int LosingStreak { get; private set; }
 
@@ -64,6 +66,7 @@ namespace Core.UseCases
                 GamesPlayed = evaluator.GameCount;
                 TimePlayed = Time.FromMinutes(evaluator.MinutesPlayed);
                 BestResultCount = evaluator.BestResultCount;
+                CurrentStreak = evaluator.CurrentStreak;
                 WinningStreak = evaluator.WinningStreak;
                 LosingStreak = evaluator.LosingStreak;
             }
@@ -170,6 +173,34 @@ namespace Core.UseCases
                 }
             }
 
+            public int CurrentStreak
+            {
+                get
+                {
+                    var lastStreak = 0;
+                    var currentStreak = 0;
+                    var cashgames = _cashgames.Reverse();
+                    foreach (var cashgame in cashgames)
+                    {
+                        var result = cashgame.GetResult(_playerId);
+                        if (result.Winnings >= 0)
+                        {
+                            currentStreak++;
+                        }
+                        else
+                        {
+                            currentStreak--;
+                        }
+                        if (Math.Abs(currentStreak) < Math.Abs(lastStreak))
+                        {
+                            return lastStreak;
+                        }
+                        lastStreak = currentStreak;
+                    }
+                    return lastStreak;
+                }
+            }
+
             public int WinningStreak
             {
                 get
@@ -179,7 +210,7 @@ namespace Core.UseCases
                     foreach (var cashgame in _cashgames)
                     {
                         var result = cashgame.GetResult(_playerId);
-                        if (result.Winnings > 0)
+                        if (result.Winnings >= 0)
                         {
                             currentStreak++;
                             if (currentStreak > bestStreak)

@@ -4,24 +4,13 @@ namespace Core.Services
     {
         private readonly string _password;
         private readonly string _loginUrl;
+        public string Subject => "Poker Bunch Registration";
+        public string Body => string.Format(BodyFormat, _password, _loginUrl);
 
         public RegistrationMessage(string password, string loginUrl)
         {
             _password = password;
             _loginUrl = loginUrl;
-        }
-
-        public string Subject
-        {
-            get { return "Poker Bunch Registration"; }
-        }
-
-        public string Body
-        {
-            get
-            {
-                return string.Format(BodyFormat, _password, _loginUrl);
-            }
         }
 
         private const string BodyFormat =

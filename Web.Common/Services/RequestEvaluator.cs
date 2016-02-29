@@ -17,7 +17,7 @@ namespace Web.Common.Services
 
         private static bool IsTestEnvironment(string hostName)
         {
-            return Environment.IsDev(hostName);
+            return Environment.IsDev(hostName) || Environment.IsStage(hostName);
         }
 
         private static string GetHostName(HttpRequestMessage request)

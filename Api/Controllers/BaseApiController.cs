@@ -9,12 +9,8 @@ namespace Api.Controllers
     public abstract class BaseApiController : ApiController
     {
         private readonly Bootstrapper _bootstrapper = new Bootstrapper();
+        protected UseCaseContainer UseCase => _bootstrapper.UseCases;
 
-        protected UseCaseContainer UseCase
-        {
-            get { return _bootstrapper.UseCases; }
-        }
-        
         protected string CurrentUserName
         {
             get

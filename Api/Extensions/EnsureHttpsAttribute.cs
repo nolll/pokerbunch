@@ -17,32 +17,47 @@ namespace Api.Extensions
             if (RequestEvaluator.IsTestEnvironment(request))
                 return;
 
-            if (request.RequestUri.Scheme != Uri.UriSchemeHttps)
+            if (request.RequestUri.Scheme == Uri.UriSchemeHttps)
+                return;
+
+            actionContext.Response = GetResponse(request);
+        }
+
+        private HttpResponseMessage GetResponse(HttpRequestMessage request)
+        {
+            var uriBuilder = GetUriBuilder(request.RequestUri);
+            var body = GetBody(uriBuilder);
+            if (request.Method.Equals(HttpMethod.Get) || request.Method.Equals(HttpMethod.Head))
             {
-                HttpResponseMessage response;
-                var uri = new UriBuilder(request.RequestUri)
+                var response = request.CreateResponse(HttpStatusCode.Found);
+                response.Headers.Location = uriBuilder.Uri;
+                if (request.Method.Equals(HttpMethod.Get))
                 {
-                    Scheme = Uri.UriSchemeHttps, 
-                    Port = 443
-                };
-                var body = string.Format("<p>The resource can be found at <a href=\"{0}\">{0}</a>.</p>", uri.Uri.AbsoluteUri);
-                if (request.Method.Equals(HttpMethod.Get) || request.Method.Equals(HttpMethod.Head))
-                {
-                    response = request.CreateResponse(HttpStatusCode.Found);
-                    response.Headers.Location = uri.Uri;
-                    if (request.Method.Equals(HttpMethod.Get))
-                    {
-                        response.Content = new StringContent(body, Encoding.UTF8, "text/html");
-                    }
-                }
-                else
-                {
-                    response = request.CreateResponse(HttpStatusCode.NotFound);
                     response.Content = new StringContent(body, Encoding.UTF8, "text/html");
                 }
-
-                actionContext.Response = response;
+                return response;
             }
+            else
+            {
+                var response = request.CreateResponse(HttpStatusCode.NotFound);
+                response.Content = new StringContent(body, Encoding.UTF8, "text/html");
+                return response;
+            }
+        }
+
+        private UriBuilder GetUriBuilder(Uri requestUri)
+        {
+            return new UriBuilder(requestUri)
+            {
+                Scheme = Uri.UriSchemeHttps,
+                Port = 443
+            };
+        }
+
+        private string GetBody(UriBuilder uriBuilder)
+        {
+            var absoluteUrl = uriBuilder.Uri.AbsoluteUri;
+            return $"<p>The resource can be found at <a href=\"{absoluteUrl}\">{absoluteUrl}</a>.</p>";
         }
     }
 }

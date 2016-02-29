@@ -15,9 +15,6 @@
             return base.String + "/h";
         }
 
-        public override string String
-        {
-            get { return base.String + "/h"; }
-        }
+        public override string String => base.String + "/h";
     }
 }

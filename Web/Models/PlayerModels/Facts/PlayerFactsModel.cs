@@ -1,3 +1,4 @@
+using System;
 using Core.Services;
 using Core.UseCases;
 
@@ -14,8 +15,9 @@ namespace Web.Models.PlayerModels.Facts
         public int GamesPlayed { get; private set; }
 	    public string TimePlayed { get; private set; }
         public int BestResultCount { get; private set; }
-        public int WinningStreak { get; private set; }
-        public int LosingStreak { get; private set; }
+        public string CurrentStreak { get; private set; }
+        public string WinningStreak { get; private set; }
+        public string LosingStreak { get; private set; }
 
 	    public PlayerFactsModel(PlayerFacts.Result factsResult)
 	    {
@@ -28,8 +30,25 @@ namespace Web.Models.PlayerModels.Facts
             GamesPlayed = factsResult.GamesPlayed;
 	        TimePlayed = factsResult.TimePlayed.String;
 	        BestResultCount = factsResult.BestResultCount;
-	        WinningStreak = factsResult.WinningStreak;
-	        LosingStreak = factsResult.LosingStreak;
+            CurrentStreak = FormatStreak(factsResult.CurrentStreak);
+            WinningStreak = FormatWinningStreak(factsResult.WinningStreak);
+            LosingStreak = FormatLosingStreak(factsResult.LosingStreak);
 	    }
+
+        private string FormatStreak(int streak)
+        {
+            var absStreak = Math.Abs(streak);
+            return streak < 0 ? FormatLosingStreak(absStreak) : FormatWinningStreak(absStreak);
+        }
+
+        private string FormatLosingStreak(int streak)
+        {
+            return $"Lost in {streak} games";
+        }
+
+        private string FormatWinningStreak(int streak)
+        {
+            return $"Won in {streak} games";
+        }
     }
 }
