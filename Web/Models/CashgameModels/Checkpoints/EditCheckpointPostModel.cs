@@ -1,5 +1,5 @@
 using System;
-using Web.Annotations;
+using JetBrains.Annotations;
 
 namespace Web.Models.CashgameModels.Checkpoints
 {

@@ -4,7 +4,7 @@ namespace Web.Models.AdminModels
 {
     public class EmailModel
     {
-        public string Email { get; private set; }
+        public string Email { get; }
 
         public EmailModel(TestEmail.Result result)
         {

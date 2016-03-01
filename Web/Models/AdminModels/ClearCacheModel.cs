@@ -15,7 +15,7 @@ namespace Web.Models.AdminModels
                 return "The cache contained no objects";
             if (objectCount == 1)
                 return "1 object was removed from the cache";
-            return string.Format("{0} objects was removed from the cache", objectCount);
+            return $"{objectCount} objects was removed from the cache";
         }
     }
 }

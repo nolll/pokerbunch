@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
-using Web.Annotations;
 
 namespace Web.Models.ChartModels
 {

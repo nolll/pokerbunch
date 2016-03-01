@@ -3,11 +3,11 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Results;
-using Api.Annotations;
 using Api.Auth;
 using Api.Models;
 using Core.Exceptions;
 using Core.UseCases;
+using JetBrains.Annotations;
 
 namespace Api.Controllers
 {

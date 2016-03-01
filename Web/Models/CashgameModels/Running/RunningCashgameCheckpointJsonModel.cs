@@ -1,6 +1,6 @@
 using System;
 using Core.UseCases;
-using Web.Annotations;
+using JetBrains.Annotations;
 
 namespace Web.Models.CashgameModels.Running
 {

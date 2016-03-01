@@ -1,4 +1,4 @@
-using Web.Annotations;
+using JetBrains.Annotations;
 
 namespace Web.Models.PlayerModels.Invite
 {
