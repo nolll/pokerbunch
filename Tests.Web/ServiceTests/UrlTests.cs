@@ -1,17 +1,13 @@
 using NUnit.Framework;
 using Tests.Common;
-using Web.Common;
+using Web.Common.Urls;
 using Web.Common.Urls.SiteUrls;
+using Web.Extensions;
 
 namespace Tests.Web.ServiceTests
 {
     public class UrlTests : TestBase
     {
-        public UrlTests()
-        {
-            CommonSettings.Init("pokerbunch.com", "api.pokerbunch.com");
-        }
-
         [Test]
         public void HomeUrl_Relative_UrlIsRelativeAndIsEmptyIsFalse()
         {
@@ -25,7 +21,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new HomeUrl();
 
-            Assert.AreEqual("https://pokerbunch.com/", result.Absolute);
+            Assert.AreEqual("https://pokerbunch.com/", result.GetAbsoluteInTest());
         }
 
         [Test]
@@ -489,6 +485,14 @@ namespace Tests.Web.ServiceTests
             var result = new RunningCashgameUrl(slug);
 
             Assert.AreEqual("/cashgame/running/a", result.Relative);
+        }
+    }
+
+    public static class UrlExtensionsInTest
+    {
+        public static string GetAbsoluteInTest(this Url url)
+        {
+            return AbsoluteUrl.Create(url, "pokerbunch.com", "api.pokerbunch.com");
         }
     }
 }

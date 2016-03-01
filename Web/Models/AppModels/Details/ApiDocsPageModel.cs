@@ -1,6 +1,7 @@
 using Core.UseCases;
 using Web.Common.Urls.ApiUrls;
 using Web.Common.Urls.SiteUrls;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.AppModels.Details
@@ -20,12 +21,12 @@ namespace Web.Models.AppModels.Details
         {
             const string slug = "bunch-short-name";
             AppListUrl = new UserAppsUrl().Relative;
-            TokenUrl = new TokenUrl().Absolute;
-            BunchListUrl = new ApiBunchListUrl().Absolute;
-            RunningGameUrl = new ApiRunningGameUrl(slug).Absolute;
-            BuyinUrl = new ApiBuyinUrl(slug).Absolute;
-            ReportUrl = new ApiReportUrl(slug).Absolute;
-            CashoutUrl = new ApiCashoutUrl(slug).Absolute;
+            TokenUrl = new TokenUrl().GetAbsolute();
+            BunchListUrl = new ApiBunchListUrl().GetAbsolute();
+            RunningGameUrl = new ApiRunningGameUrl(slug).GetAbsolute();
+            BuyinUrl = new ApiBuyinUrl(slug).GetAbsolute();
+            ReportUrl = new ApiReportUrl(slug).GetAbsolute();
+            CashoutUrl = new ApiCashoutUrl(slug).GetAbsolute();
         }
     }
 }

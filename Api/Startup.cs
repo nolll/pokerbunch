@@ -24,7 +24,6 @@ namespace Api
             ConfigFormatters(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-            CommonSettings.Init(ApiSettings.Instance);
         }
 
         private void ConfigureOAuth(IAppBuilder app)

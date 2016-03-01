@@ -4,6 +4,7 @@ using Core.UseCases;
 using Web.Common.Routes;
 using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
+using Web.Extensions;
 using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.Controllers
@@ -22,7 +23,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new ForgotPassword.Request(postModel.Email, new LoginUrl().Absolute);
+                var request = new ForgotPassword.Request(postModel.Email, new LoginUrl().GetAbsolute());
                 UseCase.ForgotPassword.Execute(request);
                 return Redirect(new ForgotPasswordConfirmationUrl().Relative);
             }

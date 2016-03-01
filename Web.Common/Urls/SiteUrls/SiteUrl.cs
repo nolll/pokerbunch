@@ -7,9 +7,9 @@ namespace Web.Common.Urls.SiteUrls
         {
         }
 
-        protected override string GetDomainName()
+        public override UrlType Type
         {
-            return CommonSettings.Instance.SiteHost;
+            get { return UrlType.Site; }
         }
     }
 }

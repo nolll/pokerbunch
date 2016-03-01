@@ -1,38 +1,19 @@
-using System;
+using System.Configuration;
 
 namespace Web.Common
 {
-    public class CommonSettings
+    public abstract class CommonSettings
     {
-        private static CommonSettings _instance;
-
-        public string SiteHost { get; }
-        public string ApiHost { get; }
-
-        protected CommonSettings(string siteHost, string apiHost)
+        protected static bool GetBool(string key)
         {
-            SiteHost = siteHost;
-            ApiHost = apiHost;
+            bool ret;
+            var str = Get(key);
+            return bool.TryParse(str, out ret) ? ret : ret;
         }
 
-        public static void Init(string siteHost, string apiHost)
+        protected static string Get(string key)
         {
-            _instance = new CommonSettings(siteHost, apiHost);
-        }
-
-        public static void Init(CommonSettings commonSettings)
-        {
-            _instance = commonSettings;
-        }
-
-        public static CommonSettings Instance
-        {
-            get
-            {
-                if(_instance == null)
-                    throw new Exception("No instance of CommonSettings");
-                return _instance;
-            }
+            return ConfigurationManager.AppSettings.Get(key);
         }
     }
 }

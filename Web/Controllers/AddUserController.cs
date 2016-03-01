@@ -4,6 +4,7 @@ using Core.UseCases;
 using Web.Common.Routes;
 using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
+using Web.Extensions;
 using Web.Models.UserModels.Add;
 
 namespace Web.Controllers
@@ -22,7 +23,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email, postModel.Password, new LoginUrl().Absolute);
+                var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email, postModel.Password, new LoginUrl().GetAbsolute());
                 UseCase.AddUser.Execute(request);
                 return Redirect(new AddUserConfirmationUrl().Relative);
             }

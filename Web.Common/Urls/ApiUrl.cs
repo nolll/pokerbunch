@@ -7,9 +7,9 @@ namespace Web.Common.Urls
         {
         }
 
-        protected override string GetDomainName()
+        public override UrlType Type
         {
-            return CommonSettings.Instance.ApiHost;
+            get { return UrlType.Api; }
         }
     }
 }
