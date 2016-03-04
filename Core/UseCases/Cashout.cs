@@ -8,12 +8,12 @@ namespace Core.UseCases
 {
     public class Cashout
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchService _bunchService;
+        private readonly ICashgameService _cashgameService;
+        private readonly IPlayerService _playerService;
+        private readonly IUserService _userService;
 
-        public Cashout(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
+        public Cashout(IBunchService bunchService, ICashgameService cashgameService, IPlayerService playerService, IUserService userService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;

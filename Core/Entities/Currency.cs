@@ -15,12 +15,6 @@ namespace Core.Entities
 	        Culture = culture ?? CultureInfo.CreateSpecificCulture("sv-SE");
 	    }
 
-        public static Currency Default
-        {
-            get
-            {
-                return new Currency("$", "{SYMBOL}{AMOUNT}");
-            }
-        }
+        public static Currency Default => new Currency("$", "{SYMBOL}{AMOUNT}");
 	}
 }

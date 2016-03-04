@@ -6,7 +6,7 @@ using Core.Repositories;
 
 namespace Core.Services
 {
-    public class BunchService
+    public class BunchService : IBunchService
     {
         private readonly IBunchRepository _bunchRepository;
 

@@ -8,35 +8,33 @@ namespace Core.Entities
         public string DisplayName { get; private set; }
         public Role Role { get; }
         public string Color { get; private set; }
+        public bool IsUser => UserId != default(int);
+        public const string DefaultColor = "#9e9e9e";
 
 	    public Player(
             int bunchId,
             int id, 
             int userId, 
-            string displayName, 
-            Role role,
-            string color)
+            string displayName = null, 
+            Role role = Role.Player,
+            string color = null)
 	    {
 	        BunchId = bunchId;
 	        Id = id;
 	        UserId = userId;
 	        DisplayName = displayName;
 	        Role = role;
-	        Color = color;
+	        Color = color ?? DefaultColor;
 	    }
 
-        public Player(int bunchId, string displayName, Role role, string color)
-            : this(bunchId, 0, 0, displayName, role, color)
+        public static Player New(int bunchId, string displayName, Role role = Role.Player, string color = null)
         {
+            return new Player(bunchId, 0, 0, displayName, role, color);
         }
 
-        public Player(int bunchId, int userId, Role role, string color)
-            : this(bunchId, 0, userId, null, role, color)
+        public static Player New(int bunchId, int userId, Role role = Role.Player, string color = null)
         {
-        }
-
-        public bool IsUser {
-            get { return UserId != default(int); }
+            return new Player(bunchId, 0, userId, null, role, color);
         }
 
         public bool IsInRole(Role requiredRole)

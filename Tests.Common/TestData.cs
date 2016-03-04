@@ -8,7 +8,7 @@ namespace Tests.Common
 {
     public static class TestData
     {
-        private const int BunchIdA = 1;
+        public const int BunchIdA = 1;
         private const int BunchIdB = 2;
         public const string SlugA = "bunch-a";
         private const string SlugB = "bunch-b";
@@ -22,7 +22,7 @@ namespace Tests.Common
         private const int DefaultBuyinB = 200;
 
         private const int UserIdNone = 0;
-        private const int UserIdA = 1;
+        public const int UserIdA = 1;
         private const int UserIdB = 2;
         private const int UserIdC = 3;
         private const int UserIdD = 4;

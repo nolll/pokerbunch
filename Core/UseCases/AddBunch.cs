@@ -45,7 +45,7 @@ namespace Core.UseCases
             var bunch = CreateBunch(request);
             var id = _bunchService.Add(bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = new Player(id, user.Id, Role.Manager, "#9e9e9e");
+            var player = Player.New(id, user.Id, Role.Manager);
             _playerService.Add(player);
         }
 

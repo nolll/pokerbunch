@@ -5,7 +5,7 @@ using Core.Repositories;
 
 namespace Core.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
 

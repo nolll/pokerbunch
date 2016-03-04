@@ -33,11 +33,11 @@ namespace Core.UseCases
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RoleHandler.RequireManager(currentUser, currentPlayer);
             var existingPlayers = _playerService.GetList(bunch.Id);
-            var player = existingPlayers.FirstOrDefault(o => String.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
+            var player = existingPlayers.FirstOrDefault(o => string.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
             if(player != null)
                 throw new PlayerExistsException();
 
-            player = new Player(bunch.Id, request.Name, Role.Player, "#9e9e9e");
+            player = Player.New(bunch.Id, request.Name);
             _playerService.Add(player);
 
             return new Result(bunch.Slug);

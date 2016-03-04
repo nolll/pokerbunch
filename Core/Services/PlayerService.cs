@@ -5,7 +5,7 @@ using Core.Repositories;
 
 namespace Core.Services
 {
-    public class PlayerService
+    public class PlayerService : IPlayerService
     {
         private readonly IPlayerRepository _playerRepository;
 

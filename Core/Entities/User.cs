@@ -14,21 +14,21 @@ namespace Core.Entities
 	    public User(
             int id, 
             string userName, 
-            string displayName, 
-            string realName, 
-            string email, 
-            Role globalRole,
-            string encryptedPassword,
-            string salt)
+            string displayName = null, 
+            string realName = null, 
+            string email = null, 
+            Role globalRole = Role.Player,
+            string encryptedPassword = null,
+            string salt = null)
 	    {
 	        Id = id;
 	        UserName = userName;
-	        DisplayName = displayName;
-	        RealName = realName;
-	        Email = email;
+	        DisplayName = displayName ?? string.Empty;
+	        RealName = realName ?? string.Empty;
+	        Email = email ?? string.Empty;
 	        GlobalRole = globalRole;
-	        EncryptedPassword = encryptedPassword;
-	        Salt = salt;
+	        EncryptedPassword = encryptedPassword ?? string.Empty;
+	        Salt = salt ?? string.Empty;
 	    }
 
 	    public bool IsAdmin => GlobalRole == Role.Admin;

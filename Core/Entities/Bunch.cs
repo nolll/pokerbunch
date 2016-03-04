@@ -19,21 +19,21 @@ namespace Core.Entities
         public Bunch(
             int id, 
             string slug, 
-            string displayName, 
-            string description, 
-            string houseRules, 
-            TimeZoneInfo timezone, 
-            int defaultBuyin, 
-            Currency currency)
+            string displayName = null, 
+            string description = null, 
+            string houseRules = null, 
+            TimeZoneInfo timezone = null, 
+            int defaultBuyin = 0, 
+            Currency currency = null)
 	    {
 	        Id = id;
 	        Slug = slug;
-	        DisplayName = displayName;
-	        Description = description;
-	        HouseRules = houseRules;
-	        Timezone = timezone;
+	        DisplayName = displayName ?? string.Empty;
+	        Description = description ?? string.Empty;
+	        HouseRules = houseRules ?? string.Empty;
+	        Timezone = timezone ?? TimeZoneInfo.Utc;
 	        DefaultBuyin = defaultBuyin;
-	        Currency = currency;
+	        Currency = currency ?? Currency.Default;
 	        CashgamesEnabled = true;
 	        TournamentsEnabled = false;
 	        VideosEnabled = false;

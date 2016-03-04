@@ -5,7 +5,7 @@ using Core.Repositories;
 
 namespace Core.Services
 {
-    public class CashgameService
+    public class CashgameService : ICashgameService
     {
         private readonly ICashgameRepository _cashgameRepository;
 

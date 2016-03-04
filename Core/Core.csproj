@@ -82,11 +82,15 @@
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
+    <Compile Include="Services\Interfaces\IBunchService.cs" />
     <Compile Include="Services\Interfaces\ICacheContainer.cs" />
     <Compile Include="Services\Interfaces\ICacheProvider.cs" />
+    <Compile Include="Services\Interfaces\ICashgameService.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
+    <Compile Include="Services\Interfaces\IPlayerService.cs" />
     <Compile Include="Services\Interfaces\IRandomService.cs" />
     <Compile Include="Services\Interfaces\ISocialService.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\LocationService.cs" />

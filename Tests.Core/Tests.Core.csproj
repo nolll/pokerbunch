@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -66,6 +70,10 @@
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\CashgameListTests.cs" />
+    <Compile Include="UseCases\CashoutTests\Arrange.cs" />
+    <Compile Include="UseCases\CashoutTests\PlayerHasNotCheckedOutBefore.cs" />
+    <Compile Include="UseCases\CashoutTests\PlayerHasCheckedOutBefore.cs" />
+    <Compile Include="UseCases\CashoutTests\InvalidStack.cs" />
     <Compile Include="UseCases\ChangePasswordTests.cs" />
     <Compile Include="UseCases\DeleteCashgameTests.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests.cs" />
@@ -78,7 +86,6 @@
     <Compile Include="UseCases\LocationDetailsTests.cs" />
     <Compile Include="UseCases\LoginFormTests.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
-    <Compile Include="UseCases\CashoutTests.cs" />
     <Compile Include="UseCases\DeletePlayerTests.cs" />
     <Compile Include="UseCases\EditBunchFormTests.cs" />
     <Compile Include="UseCases\EditCheckpointFormTests.cs" />
