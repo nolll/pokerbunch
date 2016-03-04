@@ -11,8 +11,6 @@ namespace Tests.Core.UseCases.CashoutTests
         [Test]
         public void ThrowsValidationException()
         {
-            Repos.Cashgame.SetupRunningGame();
-
             var request = new Cashout.Request(TestData.UserNameA, TestData.SlugA, TestData.PlayerIdA, -1, DateTime.Now);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));

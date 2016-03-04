@@ -10,7 +10,7 @@ using Tests.Common;
 
 namespace Tests.Core.UseCases.CashoutTests
 {
-    public abstract class Arrange : TestBase
+    public abstract class Arrange : ArrangeBase
     {
         private const int BunchId = 1;
         private const int CashgameId = 2;
