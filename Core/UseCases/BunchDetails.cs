@@ -5,11 +5,11 @@ namespace Core.UseCases
 {
     public class BunchDetails
     {
-        private readonly BunchService _bunchService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
+        private readonly IBunchService _bunchService;
+        private readonly IUserService _userService;
+        private readonly IPlayerService _playerService;
 
-        public BunchDetails(BunchService bunchService, UserService userService, PlayerService playerService)
+        public BunchDetails(IBunchService bunchService, IUserService userService, IPlayerService playerService)
         {
             _bunchService = bunchService;
             _userService = userService;

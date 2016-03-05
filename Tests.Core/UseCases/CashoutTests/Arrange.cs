@@ -19,26 +19,29 @@ namespace Tests.Core.UseCases.CashoutTests
         protected const int PlayerId = 5;
         protected const string Slug = "slug";
         protected const string UserName = "username";
-        protected const int CashoutStack = 123;
         private DateTime _startTime = DateTime.Parse("2001-01-01 12:00:00");
-        protected int CheckpointCountBeforeCashout;
+
+        protected virtual int CashoutStack => 123;
+        protected DateTime CashoutTime => _startTime.AddMinutes(1);
         protected virtual bool HasCashedOutBefore => false;
+
+        protected int CheckpointCountBeforeCashout;
         protected Cashgame UpdatedCashgame;
         protected Cashout Sut;
 
         [SetUp]
         public void Setup()
         {
-            Sut = Mocker.New<Cashout>();
+            Sut = CreateSut<Cashout>();
 
             var cashgame = CreateCashgame();
             CheckpointCountBeforeCashout = cashgame.Checkpoints.Count;
-            Mocker.MockOf<IBunchService>().Setup(s => s.GetBySlug(Slug)).Returns(new Bunch(BunchId, Slug));
-            Mocker.MockOf<ICashgameService>().Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
-            Mocker.MockOf<IPlayerService>().Setup(s => s.GetByUserId(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
-            Mocker.MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
+            MockOf<IBunchService>().Setup(s => s.GetBySlug(Slug)).Returns(new Bunch(BunchId, Slug));
+            MockOf<ICashgameService>().Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
+            MockOf<IPlayerService>().Setup(s => s.GetByUserId(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
+            MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
 
-            Mocker.MockOf<ICashgameService>().Setup(o => o.UpdateGame(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
+            MockOf<ICashgameService>().Setup(o => o.UpdateGame(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
         }
 
         private Cashgame CreateCashgame()

@@ -1,15 +1,26 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 
 namespace Tests.Common
 {
     public class ArrangeBase
     {
-        protected Mocker Mocker { get; private set; }
+        private Mocker _mocker;
 
         [SetUp]
         public void CreateMocker()
         {
-            Mocker = new Mocker();
+            _mocker = new Mocker();
+        }
+
+        protected T CreateSut<T>()
+        {
+            return _mocker.New<T>();
+        }
+
+        protected Mock<T> MockOf<T>() where T : class
+        {
+            return _mocker.MockOf<T>();
         }
     }
 }
