@@ -108,7 +108,10 @@
     <Compile Include="UseCases\RunningCashgameTests.cs" />
     <Compile Include="UseCases\TestEmailTests.cs" />
     <Compile Include="UseCases\TopListTests.cs" />
-    <Compile Include="UseCases\UserDetailsTests.cs" />
+    <Compile Include="UseCases\UserDetailsTests\Arrange.cs" />
+    <Compile Include="UseCases\UserDetailsTests\OtherUserAsAdmin.cs" />
+    <Compile Include="UseCases\UserDetailsTests\OtherUser.cs" />
+    <Compile Include="UseCases\UserDetailsTests\OwnUser.cs" />
     <Compile Include="UseCases\UserListTests.cs" />
     <Compile Include="UseCases\VerifyAppKeyTests.cs" />
   </ItemGroup>
