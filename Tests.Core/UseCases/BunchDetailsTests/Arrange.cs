@@ -17,19 +17,18 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         protected const string Description = "description";
         protected const string HouseRules = "houserules";
         protected virtual Role Role => Role.Player;
-        protected BunchDetails Sut;
         protected BunchDetails.Result Result;
 
         [SetUp]
         public void Setup()
         {
-            Sut = CreateSut<BunchDetails>();
+            var sut = CreateSut<BunchDetails>();
 
             MockOf<IBunchService>().Setup(s => s.GetBySlug(Slug)).Returns(new Bunch(BunchId, Slug, DisplayName, Description, HouseRules));
             MockOf<IPlayerService>().Setup(s => s.GetByUserId(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId, role: Role));
             MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
 
-            Result = Sut.Execute(new BunchDetails.Request(UserName, Slug));
+            Result = sut.Execute(new BunchDetails.Request(UserName, Slug));
         }
     }
 }

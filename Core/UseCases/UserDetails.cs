@@ -4,9 +4,9 @@ namespace Core.UseCases
 {
     public class UserDetails
     {
-        private readonly UserService _userService;
+        private readonly IUserService _userService;
 
-        public UserDetails(UserService userService)
+        public UserDetails(IUserService userService)
         {
             _userService = userService;
         }
