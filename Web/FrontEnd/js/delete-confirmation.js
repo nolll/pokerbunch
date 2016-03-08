@@ -1,15 +1,17 @@
-define(["jquery"],
-    function ($) {
+define(
+    function () {
         "use strict";
 
         function init() {
-            var $me = $(this),
-                message = $me.data("message");
+            var message = this.getAttribute("data-message");
             if(!message){
                 message = "Delete?";
             }
-            $me.click(function() {
-                return window.confirm(message);
+            this.addEventListener('click', function (e) {
+                var response = window.confirm(message);
+                if (!response)
+                    e.preventDefault();
+                return response;
             });
         }
 

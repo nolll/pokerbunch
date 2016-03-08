@@ -1,4 +1,4 @@
-define([],
+define(
     function () {
         "use strict";
 
@@ -8,12 +8,12 @@ define([],
 
             el.addEventListener('click', function(event) {
                 event.preventDefault();
-                if (me.cancelUrl !== undefined) {
+                if (me.cancelUrl !== null) {
                     location.href = me.cancelUrl;
                 } else {
                     history.back();
                 }
-            }, false);
+            });
         }
 
         function init() {
