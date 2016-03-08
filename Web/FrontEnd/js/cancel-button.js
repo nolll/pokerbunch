@@ -1,20 +1,19 @@
-define(["jquery"],
-    function ($) {
+define([],
+    function () {
         "use strict";
 
         function CancelButton(el) {
             var me = this;
-            me.$el = $(el);
-            me.cancelUrl = me.$el.data("cancel-url");
+            me.cancelUrl = el.getAttribute("data-cancel-url");
 
-            me.$el.click(function(event) {
+            el.addEventListener('click', function(event) {
                 event.preventDefault();
                 if (me.cancelUrl !== undefined) {
                     location.href = me.cancelUrl;
                 } else {
                     history.back();
                 }
-            });
+            }, false);
         }
 
         function init() {
