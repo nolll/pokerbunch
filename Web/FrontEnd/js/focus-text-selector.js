@@ -1,23 +1,11 @@
-define(["jquery"],
-    function ($) {
+define(["forms"],
+    function (forms) {
         "use strict";
 
-        function FocusTextSelector(el) {
-            var me = this;
-            me.$el = $(el);
-
-            me.$el.focus(function(){
-                if(this.setSelectionRange){
-                    this.setSelectionRange(0, 999);
-                }
-            });
-            me.$el.mouseup(function(event){
-                event.preventDefault();
-            });
-        }
-
         function init() {
-            return new FocusTextSelector(this);
+            this.addEventListener('focus', function (e) {
+                forms.selectAll(e.target);
+            });
         }
 
         return {
