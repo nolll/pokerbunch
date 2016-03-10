@@ -4,7 +4,7 @@ define(
 
         function init() {
             var me = this;
-            me.cancelUrl = el.getAttribute("data-cancel-url");
+            me.cancelUrl = this.getAttribute("data-cancel-url");
 
             this.addEventListener('click', function (event) {
                 event.preventDefault();
