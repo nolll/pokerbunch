@@ -149,6 +149,9 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\pokerbunch-api - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\pokerbunch-api - Web Deploy.pubxml" />
+    <Content Include="Api.nuspec">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
