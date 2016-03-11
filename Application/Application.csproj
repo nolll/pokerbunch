@@ -36,7 +36,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="Properties\Annotations.cs" />
   </ItemGroup>
   <ItemGroup>

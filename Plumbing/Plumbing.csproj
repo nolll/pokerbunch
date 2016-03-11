@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependencies.cs" />
-    <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

@@ -42,7 +42,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="DateTests.cs" />
     <Compile Include="Services\GlobalizationTests.cs" />
     <Compile Include="UseCases\ActionsChartTests.cs" />

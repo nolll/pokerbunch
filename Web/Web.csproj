@@ -325,7 +325,7 @@
     <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
-    <Compile Include="..\SharedAssemblyInfo.cs" />
+    <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="RunningGameHub.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
