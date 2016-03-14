@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>PokerBunch.Web</id>
-    <title>Home Game Poker Statistics</title>
+    <title>PokerBunch.com</title>
     <version>$version$</version>
     <authors>Henrik Severinson</authors>
     <description>Web interface for the home game poker statistics</description>

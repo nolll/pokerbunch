@@ -151,9 +151,6 @@
     <Content Include="Api.nuspec">
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
