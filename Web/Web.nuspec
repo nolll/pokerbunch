@@ -7,4 +7,7 @@
     <authors>Henrik Severinson</authors>
     <description>Web interface for the home game poker statistics</description>
   </metadata>
+  <files>
+    <file src="_build\main.js" target="bin" />
+  </files>
 </package>

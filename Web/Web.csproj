@@ -516,9 +516,6 @@
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Web.wpp.targets">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="favicon.ico" />
     <Content Include="FrontEnd\Css\achievement-list.css">
       <DependentUpon>achievement-list.less</DependentUpon>
