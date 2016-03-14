@@ -147,8 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Properties\PublishProfiles\pokerbunch-api - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\pokerbunch-api - Web Deploy.pubxml" />
     <Content Include="Api.nuspec">
       <SubType>Designer</SubType>
     </Content>
@@ -158,6 +156,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
