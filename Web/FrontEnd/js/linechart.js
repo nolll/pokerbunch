@@ -1,5 +1,5 @@
-define(["jquery", "debouncedresize", "goog!visualization,1,packages:[corechart]"],
-    function ($) {
+define(["jquery", "ajax", "debouncer", "goog!visualization,1,packages:[corechart]"],
+    function ($, ajax, debouncer) {
         "use strict";
 
         function LineChart(el, config){
@@ -8,15 +8,15 @@ define(["jquery", "debouncedresize", "goog!visualization,1,packages:[corechart]"
                 me.$el = $(el);
             this.chart = new google.visualization.LineChart(el);
             this.config = this.configure(config);
-            $(window).on("debouncedresize", function( event ) {
+            window.addEventListener('resize', debouncer.debounce(function () {
                 me.draw();
-            });
+            }, 150));
         }
 
         LineChart.prototype.draw = function (data, options) {
             if (data)
                 this.data = data;
-            var width = this.$el.width(),
+            var width = parseInt(window.getComputedStyle(this.el).width),
                 height = width / 2;
             this.config.width = width;
             this.config.height = height;
@@ -53,21 +53,20 @@ define(["jquery", "debouncedresize", "goog!visualization,1,packages:[corechart]"
                 url = this.$el.data("url");
 
             if (url != undefined) {
-                $.ajax({
-                    dataType: "json",
-                    url: url,
-                    success: function(loadedData) {
-                        me.data = loadedData;
-                        me.draw();
-                    },
-                    error: function() {
-                        me.$el.html("failed to load chart data");
-                    }
-                });
+                ajax.load(url, me.loadSuccess, me.loadError);
             } else {
                 me.data = JSON.parse(me.$el.find('[type="application/json"]').html());
                 me.draw();
             }
+        }
+
+        LineChart.prototype.loadSuccess = function (loadedData) {
+            this.data = loadedData;
+            this.draw();
+        }
+
+        LineChart.prototype.loadError = function () {
+            this.el.innerHTML = "failed to load chart data";
         }
 
         function init(el, config) {

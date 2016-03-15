@@ -1,4 +1,4 @@
-define(['linechart'],
+define(["linechart"],
     function (lineChart) {
         "use strict";
 
@@ -6,7 +6,7 @@ define(['linechart'],
             var config = {
                 pointSize: 0,
                 legend: {
-                    position: 'none'
+                    position: "none"
                 }
             };
             var chart = lineChart.init(this, config);

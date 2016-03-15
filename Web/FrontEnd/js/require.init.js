@@ -37,26 +37,6 @@ define(["jquery"],
             });
         }
 
-        function initDataClickEvent($data) {
-            $data.on("click", "[data-click-event]", function (event) {
-                var $me = $(this);
-                var meta = $me.metadata();
-                if (meta.preventDefaultAction) {
-                    event.preventDefault();
-                }
-
-                $.publish($me.attr("data-click-event"), [$me.metadata()]);
-            });
-        }
-
-        function initDataFocusEvent($data) {
-            $data.on("submit", "[data-focus-event]", function () {
-
-                var $me = $(this);
-                $.publish($me.attr("data-focus-event"), [$me.metadata()]);
-            });
-        }
-
         function getElementsWithDataRequireAttribute($data) {
             var elements = [];
 
@@ -95,9 +75,6 @@ define(["jquery"],
 
         function init($data, callback) {
             initDataRequire($data, function () {
-                initDataClickEvent($data);
-                initDataFocusEvent($data);
-
                 if (callback !== undefined) {
                     callback();
                 }
