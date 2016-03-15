@@ -362,6 +362,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.json" />
+    <Content Include="FrontEnd\js\extender.js" />
     <Content Include="FrontEnd\js\debouncer.js" />
     <Content Include="FrontEnd\js\components\dashboard\dashboard.html" />
     <Content Include="FrontEnd\js\components\dashboard\dashboard.js" />

@@ -1,11 +1,10 @@
-define(["jquery", "ajax", "debouncer", "goog!visualization,1,packages:[corechart]"],
-    function ($, ajax, debouncer) {
+define(["ajax", "debouncer", "extender", "goog!visualization,1,packages:[corechart]"],
+    function (ajax, debouncer, extender) {
         "use strict";
 
         function LineChart(el, config){
             var me = this;
                 me.el = el;
-                me.$el = $(el);
             this.chart = new google.visualization.LineChart(el);
             this.config = this.configure(config);
             window.addEventListener('resize', debouncer.debounce(function () {
@@ -43,19 +42,19 @@ define(["jquery", "ajax", "debouncer", "goog!visualization,1,packages:[corechart
                 seriesType: "line"
             };
             if (typeof config == "object") {
-                return $.extend(defaultConfig, config);
+                return extender.extend(defaultConfig, config);
             }
             return defaultConfig;
         }
 
         LineChart.prototype.loadDataAndDraw = function() {
             var me = this,
-                url = this.$el.data("url");
+                url = this.el.getAttribute("data-url");
 
-            if (url != undefined) {
+            if (url !== null) {
                 ajax.load(url, me.loadSuccess, me.loadError);
             } else {
-                me.data = JSON.parse(me.$el.find('[type="application/json"]').html());
+                me.data = JSON.parse(me.el.querySelector("[type='application/json']").innerHTML);
                 me.draw();
             }
         }
