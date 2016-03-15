@@ -1,53 +1,40 @@
-define(["jquery", "browser"],
-    function ($, browser) {
+define(["browser"],
+    function (browser) {
         "use strict";
 
         if (!browser.isCapable()) {
             alert("PokerBunch requires a better browser");
         }
 
-        function hasDataRequireAttribute($elm) {
-            var dataAttr = $elm.attr("data-require");
-            return typeof dataAttr !== 'undefined' && dataAttr !== false;
-        }
-
         function initRequiredModules(el, callback) {
-            var $el = $(el),
-                modulesToRequire = $el.attr("data-require"),
-                modules = modulesToRequire.split(','),
-                data = $el.data();
+            var modulesToRequire = el.getAttribute("data-require"),
+                modules = modulesToRequire.split(",");
 
-            delete data.require;
             require(modules, function () {
                 var i;
 
                 for (i = 0; i < arguments.length; i++) {
-                    arguments[i].init.apply(el, [data]);
+                    arguments[i].init.apply(el);
                 }
 
                 callback(el);
             });
         }
 
-        function getElementsWithDataRequireAttribute($data) {
-            var elements = [];
+        function getElementsWithDataRequireAttribute() {
+            var elements = [],
+                i,
+                nodeList = document.querySelectorAll("[data-require]");
 
-            $data.each(function () {
-                if (hasDataRequireAttribute($(this))) {
-                    elements.push(this);
-                }
-            });
-
-            $data.find('[data-require]').each(function () {
-                elements.push(this);
-            });
+            for (i = 0; i < nodeList.length; i++) {
+                elements.push(nodeList[i]);
+            }
 
             return elements;
         }
 
-        function initDataRequire($data, callback) {
-
-            var elements = getElementsWithDataRequireAttribute($data);
+        function initDataRequire(callback) {
+            var elements = getElementsWithDataRequireAttribute();
 
             if (elements.length === 0) {
                 callback();
@@ -65,8 +52,8 @@ define(["jquery", "browser"],
             }
         }
 
-        function init($data, callback) {
-            initDataRequire($data, function () {
+        function init(callback) {
+            initDataRequire(function () {
                 if (callback !== undefined) {
                     callback();
                 }

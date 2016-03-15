@@ -1,11 +1,17 @@
-define(["jquery", "require.init", "components"],
-    function ($, requireInit, components) {
+define(["require.init", "components"],
+    function (requireInit, components) {
+
+        function domReady(callback) {
+            document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
+        }
+
         function init() {
-            $(document).ready(function () {
-                requireInit.init($(document));
+            domReady(function () {
+                requireInit.init();
                 components.init();
             });
         }
+
         return {
             init: init
         };

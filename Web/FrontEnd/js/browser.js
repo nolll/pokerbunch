@@ -15,7 +15,7 @@ define(
         }
 
         function hasArrayIndexOf() {
-            return Array.indexOf;
+            return Array.prototype.indexOf;
         }
 
         return {
