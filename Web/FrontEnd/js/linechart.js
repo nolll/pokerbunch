@@ -1,4 +1,4 @@
-define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'],
+define(["jquery", "debouncedresize", "goog!visualization,1,packages:[corechart]"],
     function ($) {
         "use strict";
 
@@ -32,17 +32,17 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
 
         LineChart.prototype.configure = function(config){
             var defaultConfig = {
-                backgroundColor: '#fff',
+                backgroundColor: "#fff",
                 fontSize: 16,
-                fontName: 'arial',
+                fontName: "arial",
                 height: 400,
                 interpolateNulls: true,
                 lineWidth: 1,
                 pointSize: 2,
-                theme: 'maximized',
-                seriesType: 'line'
+                theme: "maximized",
+                seriesType: "line"
             };
-            if (typeof config == 'object') {
+            if (typeof config == "object") {
                 return $.extend(defaultConfig, config);
             }
             return defaultConfig;
@@ -50,18 +50,18 @@ define(['jquery', 'debouncedresize', 'goog!visualization,1,packages:[corechart]'
 
         LineChart.prototype.loadDataAndDraw = function() {
             var me = this,
-                url = this.$el.data('url');
+                url = this.$el.data("url");
 
             if (url != undefined) {
                 $.ajax({
-                    dataType: 'json',
+                    dataType: "json",
                     url: url,
                     success: function(loadedData) {
                         me.data = loadedData;
                         me.draw();
                     },
                     error: function() {
-                        me.$el.html('failed to load chart data');
+                        me.$el.html("failed to load chart data");
                     }
                 });
             } else {
