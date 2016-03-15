@@ -1,17 +1,9 @@
-define(["jquery"],
-    function ($) {
-
+define(["jquery", "browser"],
+    function ($, browser) {
         "use strict";
 
-        if (!Array.indexOf) {
-            Array.prototype.indexOf = function (obj, start) {
-                for (var i = (start || 0); i < this.length; i++) {
-                    if (this[i] === obj) {
-                        return i;
-                    }
-                }
-                return -1;
-            };
+        if (!browser.isCapable()) {
+            alert("PokerBunch requires a better browser");
         }
 
         function hasDataRequireAttribute($elm) {
