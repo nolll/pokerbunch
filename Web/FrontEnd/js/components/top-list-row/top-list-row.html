@@ -1,0 +1,12 @@
+<tr class="table-list__row">
+    <td class="table-list__cell table-list__cell--numeric table-list--sortable__base-column">{{player.rank}}.</td>
+    <td class="table-list__cell table-list--sortable__base-column">
+        <a href="@Model.PlayerUrl">{{player.name}}</a>
+    </td>
+    <td class="table-list__cell table-list__cell--numeric @Model.ResultClass @Model.ResultSortClass">{{player.winnings}}</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.BuyinSortClass">{{player.buyin}}</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.CashoutSortClass">{{player.cashout}}</td>
+    <td class="table-list__cell @Model.GameTimeSortClass">{{player.time}}</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.GameCountSortClass">{{player.gameCount}}</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.WinRateSortClass">{{player.winRate}}</td>
+</tr>

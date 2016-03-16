@@ -1,0 +1,19 @@
+<div>
+    <table class="table-list table-list--sortable" data-require="sortable-table" data-sort-control-container="sort-control-container">
+        <thead>
+            <tr>
+                <th class="table-list__column-header .table-list--sortable__base-column"></th>
+                <th class="table-list__column-header .table-list--sortable__base-column"><span class="table-list__column-header__content">Player</span></th>
+                <td is="top-list-column" name="winnings" title="Winnings" v-bind:order-by="orderBy"></td>
+                <td is="top-list-column" name="buyin" title="Buyin" v-bind:order-by="orderBy"></td>
+                <td is="top-list-column" name="cashout" title="Cashout" v-bind:order-by="orderBy"></td>
+                <td is="top-list-column" name="time" title="Time" v-bind:order-by="orderBy"></td>
+                <td is="top-list-column" name="games" title="Games" v-bind:order-by="orderBy"></td>
+                <td is="top-list-column" name="winrate" title="Winrate" v-bind:order-by="orderBy"></td>
+            </tr>
+        </thead>
+        <tbody class="list" v-for="player in players">
+            <tr is="top-list-row" v-bind:player="player" v-bind:currency-format="currencyFormat"></tr>
+        </tbody>
+    </table>
+</div>
