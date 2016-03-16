@@ -4,7 +4,7 @@ define(["vue", "text!components/top-list-row/top-list-row.html"],
 
         return vue.component("top-list-row", {
             template: html,
-            props: ["player"],
+            props: ["player", "currencyFormat"],
             created: function () {
                 var x = 0;
             }

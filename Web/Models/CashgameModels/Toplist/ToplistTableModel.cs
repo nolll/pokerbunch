@@ -35,7 +35,7 @@ namespace Web.Models.CashgameModels.Toplist
         public ToplistTableJsonModel(TopList.Result topListResult)
         {
             OrderBy = "winnings";
-            CurrencyFormat = "";
+            CurrencyFormat = "{0} kr";
             ItemModels = topListResult.Items.Select(o => new CashgameToplistTableItemJsonModel(o)).ToList();
         }
     }
