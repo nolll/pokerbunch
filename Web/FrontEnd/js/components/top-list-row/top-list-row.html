@@ -1,7 +1,7 @@
 <tr class="table-list__row">
     <td class="table-list__cell table-list__cell--numeric table-list--sortable__base-column">{{player.rank}}.</td>
     <td class="table-list__cell table-list--sortable__base-column">
-        <a href="@Model.PlayerUrl">{{player.name}}</a>
+        <a href="{{player.url}}">{{player.name}}</a>
     </td>
     <td class="table-list__cell table-list__cell--numeric @Model.ResultClass @Model.ResultSortClass">{{player.winnings}}</td>
     <td class="table-list__cell table-list__cell--numeric @Model.BuyinSortClass">{{player.buyin}}</td>

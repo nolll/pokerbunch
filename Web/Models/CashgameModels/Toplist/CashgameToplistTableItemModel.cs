@@ -1,5 +1,7 @@
 using Core.Services;
 using Core.UseCases;
+using JetBrains.Annotations;
+using Newtonsoft.Json;
 using Web.Common.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Toplist
@@ -46,6 +48,58 @@ namespace Web.Models.CashgameModels.Toplist
         private string GetSortCssClass(TopList.SortOrder selectedSortOrder, TopList.SortOrder columnSortOrder)
         {
             return selectedSortOrder.Equals(columnSortOrder) ? "table-list--sortable__sort-item" : "";
+        }
+    }
+
+    public class CashgameToplistTableItemJsonModel
+    {
+        [UsedImplicitly]
+        [JsonProperty("rank")]
+        public int Rank { get; private set; }
+
+        [UsedImplicitly]
+        [JsonProperty("name")]
+        public string Name { get; private set; }
+
+        [UsedImplicitly]
+        [JsonProperty("winnings")]
+        public string TotalResult { get; private set; }
+
+        [UsedImplicitly]
+        [JsonProperty("buyin")]
+        public string Buyin { get; private set; }
+
+        [UsedImplicitly]
+        [JsonProperty("cashout")]
+        public string Cashout { get; private set; }
+
+        [UsedImplicitly]
+        [JsonProperty("time")]
+        public string GameTime { get; private set; }
+
+        [UsedImplicitly]
+        [JsonProperty("gameCount")]
+        public int GameCount { get; private set; }
+
+        [UsedImplicitly]
+        [JsonProperty("winRate")]
+        public string WinRate { get; private set; }
+
+        [UsedImplicitly]
+        [JsonProperty("url")]
+        public string PlayerUrl { get; private set; }
+
+        public CashgameToplistTableItemJsonModel(TopList.Item toplistItem)
+        {
+            Rank = toplistItem.Rank;
+            TotalResult = toplistItem.Winnings.String;
+            Buyin = toplistItem.Buyin.String;
+            Cashout = toplistItem.Cashout.String;
+            GameTime = toplistItem.TimePlayed.String;
+            GameCount = toplistItem.GamesPlayed;
+            WinRate = toplistItem.WinRate.String;
+            Name = toplistItem.Name;
+            PlayerUrl = new PlayerDetailsUrl(toplistItem.PlayerId).Relative;
         }
     }
 }
