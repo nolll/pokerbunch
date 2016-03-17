@@ -11,6 +11,9 @@ define(["vue", "text!components/top-list-column/top-list-column.html"],
                 },
                 isSelected: function() {
                     return this.name === this.orderBy;
+                },
+                sortColumnCssClass: function() {
+                    return this.isSelected ? "table-list--sortable__sort-column" : "";
                 }
             },
             methods: {

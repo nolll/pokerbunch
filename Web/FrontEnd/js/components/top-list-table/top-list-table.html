@@ -1,19 +1,30 @@
 <div>
-    <table class="table-list table-list--sortable" data-require="sortable-table" data-sort-control-container="sort-control-container">
+    <div class="table-list--sortable__sort-order-selector">
+        <label for="toplist-sortorder">Select Data:</label>
+        <select id="toplist-sortorder" v-model="orderBy">
+            <option value="winnings">Winnings</option>
+            <option value="buyin">Buyin</option>
+            <option value="cashout">Cashout</option>
+            <option value="time">Time</option>
+            <option value="gamecount">Games</option>
+            <option value="winrate">Win rate</option>
+        </select>
+    </div>
+    <table class="table-list table-list--sortable">
         <thead>
-            <tr>
-                <th class="table-list__column-header .table-list--sortable__base-column"></th>
-                <th class="table-list__column-header .table-list--sortable__base-column"><span class="table-list__column-header__content">Player</span></th>
-                <th is="top-list-column" name="winnings" title="Winnings" v-bind:order-by="orderBy"></th>
-                <th is="top-list-column" name="buyin" title="Buyin" v-bind:order-by="orderBy"></th>
-                <th is="top-list-column" name="cashout" title="Cashout" v-bind:order-by="orderBy"></th>
-                <th is="top-list-column" name="time" title="Time" v-bind:order-by="orderBy"></th>
-                <th is="top-list-column" name="gamecount" title="Games" v-bind:order-by="orderBy"></th>
-                <th is="top-list-column" name="winrate" title="Winrate" v-bind:order-by="orderBy"></th>
-            </tr>
+        <tr>
+            <th class="table-list__column-header table-list--sortable__base-column"></th>
+            <th class="table-list__column-header table-list--sortable__base-column"><span class="table-list__column-header__content">Player</span></th>
+            <th is="top-list-column" name="winnings" title="Winnings" v-bind:order-by="orderBy"></th>
+            <th is="top-list-column" name="buyin" title="Buyin" v-bind:order-by="orderBy"></th>
+            <th is="top-list-column" name="cashout" title="Cashout" v-bind:order-by="orderBy"></th>
+            <th is="top-list-column" name="time" title="Time" v-bind:order-by="orderBy"></th>
+            <th is="top-list-column" name="gamecount" title="Games" v-bind:order-by="orderBy"></th>
+            <th is="top-list-column" name="winrate" title="Win rate" v-bind:order-by="orderBy"></th>
+        </tr>
         </thead>
         <tbody class="list" v-for="player in sortedPlayers">
-            <tr is="top-list-row" v-bind:player="player" v-bind:order-by="orderBy" v-bind:currency-format="currencyFormat" v-bind:thousand-separator="thousandSeparator"></tr>
+        <tr is="top-list-row" v-bind:player="player" v-bind:order-by="orderBy" v-bind:currency-format="currencyFormat" v-bind:thousand-separator="thousandSeparator"></tr>
         </tbody>
     </table>
 </div>
