@@ -2,12 +2,12 @@ requirejs.config({
     baseUrl: "/FrontEnd/js",
     paths: {
         async: "lib/async",
-        propertyParser: "lib/propertyParser",
+        fetch: "lib/fetch.min",
         goog: "lib/goog",
         moment: "lib/moment.min",
+        propertyParser: "lib/propertyParser",
         vue: "lib/vue",
-        text: "lib/text",
-        fetch: "lib/fetch.min"
+        text: "lib/text"
     },
     shim: {
        "fetch": {
@@ -18,6 +18,5 @@ requirejs.config({
         moment: {
             noGlobal: true
         }
-    },
-    waitSeconds: 60
+    }
 });

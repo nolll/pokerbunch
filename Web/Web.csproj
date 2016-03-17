@@ -323,6 +323,7 @@
       <DependentUpon>button.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="FrontEnd\Css\styles.less" />
     <Content Include="FrontEnd\Css\value-list.css">
       <DependentUpon>value-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -338,7 +339,6 @@
     <Content Include="FrontEnd\Css\spinner.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.json" />
     <Content Include="FrontEnd\js\browser.js" />
     <Content Include="FrontEnd\js\components\game-list-column\game-list-column.html" />
     <Content Include="FrontEnd\js\components\game-list-column\game-list-column.js" />
@@ -493,6 +493,7 @@
     <Content Include="Views\Pages\LocationList\Item.cshtml" />
     <Content Include="Views\Pages\LocationDetails\LocationDetails.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\DashBoardPage.cshtml" />
+    <Content Include="package.json" />
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
@@ -608,19 +609,16 @@
     <Content Include="FrontEnd\js\cashgame-game-chart.js" />
     <Content Include="FrontEnd\js\cancel-button.js" />
     <Content Include="FrontEnd\js\require.config.js" />
-    <Content Include="FrontEnd\js\require.loader.dev.js" />
+    <Content Include="FrontEnd\js\require.loader.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
     <Content Include="FrontEnd\js\delete-confirmation.js" />
     <Content Include="FrontEnd\js\focus-text-selector.js" />
     <Content Include="FrontEnd\js\heading-nav.js" />
     <Content Include="FrontEnd\js\linechart.js" />
-    <Content Include="FrontEnd\js\require.loader.prod.js" />
     <Content Include="FrontEnd\js\require.init.js" />
     <Content Include="FrontEnd\js\require.startpoint.js" />
     <Content Include="Global.asax" />
     <Content Include="googlecd2b6bdc316289ae.html" />
-    <Content Include="Scripts\r.js" />
-    <Content Include="Scripts\require.js" />
     <Content Include="FrontEnd\js\lib\text.js" />
     <Content Include="Views\Error\404.html" />
     <Content Include="Views\Error\500.html" />
@@ -632,8 +630,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Components\Web.config" />
-    <Content Include="_build\build.bat" />
-    <None Include="_build\build.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -810,15 +806,6 @@
     <Error Condition="!Exists('..\packages\OctoPack.3.0.60\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="You are trying to build with OctoPack, but the NuGet targets file that OctoPack depends on is not available on this computer. This is probably because the OctoPack package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\OctoPack.3.0.60\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
-  <PropertyGroup>
-    <RequireJsDir Condition="'$(RequireJsDir)' == '' ">$(MSBuildProjectDirectory)\Scripts</RequireJsDir>
-    <BuildDir Condition="'$(BuildDir)' == '' ">$(MSBuildProjectDirectory)\_build</BuildDir>
-    <NodeExePath Condition="'$(NodeExePath)' == '' ">node</NodeExePath>
-    <BuildRequireJSCommand>$(NodeExePath) $(RequireJsDir)\r.js -o $(BuildDir)\build.json</BuildRequireJSCommand>
-  </PropertyGroup>
   <Target Name="AfterBuild">
-    <Message Text="Building requirejs javascript..." Importance="high">
-    </Message>
-    <Exec Command="$(BuildRequireJSCommand)" ContinueOnError="false" WorkingDirectory="$(BuildDir)" Condition="'$(Configuration)' == 'Release'" />
   </Target>
 </Project>

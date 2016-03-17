@@ -6,6 +6,6 @@ namespace Web
     {
         public static string SiteHost => Get("SiteHost");
         public static string ApiHost => Get("ApiHost");
-        public static bool IsInProduction => GetBool("InProduction");
+        public static bool IsInProduction => true;//GetBool("InProduction");
     }
 }

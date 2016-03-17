@@ -11,6 +11,9 @@ namespace Web.Models.PageBaseModels
         public GoogleAnalyticsModel GoogleAnalyticsModel { get; private set; }
         public string JsPath { get; private set; }
         public string JsLoaderPath { get; private set; }
+        public virtual string Layout => ContextLayout.Base;
+        public virtual string HtmlCssClass => null;
+        public virtual string BodyCssClass => "body-wide";
 
         protected PageModel(string browserTitle, BaseContext.Result contextResult)
         {
@@ -18,23 +21,8 @@ namespace Web.Models.PageBaseModels
             CssUrl = BundleConfig.BundleUrl;
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
-            JsPath = contextResult.IsInProduction ? string.Format("/Scripts/main.js?v={0}", contextResult.Version) : "/Scripts/require.js";
-            JsLoaderPath = contextResult.IsInProduction ? null : "/FrontEnd/js/require.loader.dev";
-        }
-
-        public virtual string Layout
-        {
-            get { return ContextLayout.Base; }
-        }
-
-        public virtual string HtmlCssClass
-        {
-            get { return null; }
-        }
-
-        public virtual string BodyCssClass
-        {
-            get { return "body-wide"; }
+            JsPath = contextResult.IsInProduction ? $"/Assets/scripts.js?v={contextResult.Version}" : "/Frontend/js/lib/require.js";
+            JsLoaderPath = contextResult.IsInProduction ? null : "/FrontEnd/js/require.loader";
         }
     }
 }
