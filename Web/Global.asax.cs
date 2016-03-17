@@ -74,8 +74,6 @@ namespace Web
         {
             if (url.Contains("/Frontend/"))
                 return true;
-            if (url.Contains("/signalr/"))
-                return true;
             return false;
         }
     }

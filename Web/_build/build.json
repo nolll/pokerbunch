@@ -19,7 +19,6 @@
         "delete-confirmation",
         "focus-text-selector",
         "heading-nav",
-        "linechart",
-        "sortable-table"
+        "linechart"
     ]
 }
