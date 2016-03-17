@@ -222,6 +222,8 @@
     <Compile Include="Controllers\EventListController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Extensions\WebUrlExtensions.cs" />
+    <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemJsonModel.cs" />
+    <Compile Include="Models\CashgameModels\Toplist\ToplistTableJsonModel.cs" />
     <Compile Include="SiteSettings.cs" />
     <Compile Include="Extensions\ComponentViewFinder.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
@@ -251,8 +253,6 @@
     <Compile Include="Models\CashgameModels\Running\BunchPlayerJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgamePlayerJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Status\CashgameStatusModel.cs" />
-    <Compile Include="Models\CashgameModels\Toplist\TopListTableColumn.cs" />
-    <Compile Include="Models\CashgameModels\Toplist\TopListTableColumns.cs" />
     <Compile Include="Models\ChartModels\ChartDateTimeValueModel.cs" />
     <Compile Include="Models\ChartModels\ChartIntValueModel.cs" />
     <Compile Include="Models\ErrorModels\Error401PageModel.cs" />
@@ -497,9 +497,6 @@
     <Content Include="Views\Pages\PlayerList\List.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\RunningPage.cshtml" />
     <Content Include="Views\Pages\Toplist\ToplistPage.cshtml" />
-    <Content Include="Views\Pages\Toplist\ToplistTable.cshtml" />
-    <Content Include="Views\Pages\Toplist\ToplistTableColumn.cshtml" />
-    <Content Include="Views\Pages\Toplist\ToplistTableItem.cshtml" />
     <Content Include="Views\Pages\UserDetails\UserDetails.cshtml" />
     <Content Include="Views\Pages\UserList\Item.cshtml" />
     <Content Include="Views\Pages\UserList\UserList.cshtml" />
@@ -762,8 +759,6 @@
     <Compile Include="Models\PlayerModels\Facts\PlayerFactsModel.cs" />
     <Compile Include="Components\PlayerModels\Badges\BadgeListModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistPageModel.cs" />
-    <Compile Include="Models\CashgameModels\Toplist\ToplistTableModel.cs" />
-    <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemModel.cs" />
     <Compile Include="Models\NavigationModels\CashgameYearNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationYearModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsPageModel.cs" />

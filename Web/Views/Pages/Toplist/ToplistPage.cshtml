@@ -5,10 +5,6 @@
     Layout = PageLayout.OneColumn;
 }
 
-<div class="block gutter" id="sort-control-container">
-    @Html.Partial("Toplist/ToplistTable", Model.TableModel)
-</div>
-
 <div class="block gutter">
     <top-list-table json-container="top-list-data"></top-list-table>
     <script type="application/json" id="top-list-data">

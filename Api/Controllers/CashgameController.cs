@@ -18,7 +18,7 @@ namespace Api.Controllers
         [ApiAuthorize]
         public ApiCashgameTopList TopListAction(string slug, int? year = null)
         {
-            var topListResult = UseCase.TopList.Execute(new TopList.Request(CurrentUserName, slug, TopList.SortOrder.Winnings, year));
+            var topListResult = UseCase.TopList.Execute(new TopList.Request(CurrentUserName, slug, year));
             return new ApiCashgameTopList(topListResult);
         }
 

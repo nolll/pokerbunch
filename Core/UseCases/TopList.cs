@@ -31,42 +31,26 @@ namespace Core.UseCases
             var suite = new CashgameSuite(cashgames, players);
 
             var items = suite.TotalResults.Select((o, index) => new Item(o, index, bunch.Currency));
-            items = SortItems(items, request.OrderBy);
+            items = SortItems(items);
 
-            return new Result(items, request.OrderBy, bunch.Slug, request.Year);
+            return new Result(items, bunch.Slug, request.Year);
         }
 
-        private static IEnumerable<Item> SortItems(IEnumerable<Item> items, SortOrder orderBy)
+        private static IEnumerable<Item> SortItems(IEnumerable<Item> items)
         {
-            switch (orderBy)
-            {
-                case SortOrder.WinRate:
-                    return items.OrderByDescending(o => o.WinRate);
-                case SortOrder.Buyin:
-                    return items.OrderByDescending(o => o.Buyin);
-                case SortOrder.Cashout:
-                    return items.OrderByDescending(o => o.Cashout);
-                case SortOrder.TimePlayed:
-                    return items.OrderByDescending(o => o.TimePlayed);
-                case SortOrder.GamesPlayed:
-                    return items.OrderByDescending(o => o.GamesPlayed);
-                default:
-                    return items.OrderByDescending(o => o.Winnings);
-            }
+            return items.OrderByDescending(o => o.Winnings);
         }
 
         public class Request
         {
             public string UserName { get; }
             public string Slug { get; }
-            public SortOrder OrderBy { get; }
             public int? Year { get; }
 
-            public Request(string userName, string slug, SortOrder orderBy, int? year)
+            public Request(string userName, string slug, int? year)
             {
                 UserName = userName;
                 Slug = slug;
-                OrderBy = orderBy;
                 Year = year;
             }
         }
@@ -74,14 +58,12 @@ namespace Core.UseCases
         public class Result
         {
             public IList<Item> Items { get; private set; }
-            public SortOrder OrderBy { get; private set; }
             public string Slug { get; private set; }
             public int? Year { get; private set; }
 
-            public Result(IEnumerable<Item> items, SortOrder orderBy, string slug, int? year)
+            public Result(IEnumerable<Item> items, string slug, int? year)
             {
                 Items = items.ToList();
-                OrderBy = orderBy;
                 Slug = slug;
                 Year = year;
             }
