@@ -3,7 +3,7 @@
         <label class="label" for="buyin-amount">Amount</label>
         <input class="numberfield" v-model="amount" number v-on:focus="focus" v-el:buyin id="buyin-amount" type="text" pattern="[0-9]*">
     </div>
-    <div class="field" data-bind="visible: isInGame">
+    <div class="field" v-show="isInGame">
         <label class="label" for="buyin-stack">Stack Size</label>
         <input class="numberfield" v-model="stack" number v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*">
     </div>

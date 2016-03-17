@@ -13,7 +13,7 @@
 
         <div class="block gutter">
             <report-form v-show="reportFormVisible" v-bind:stack="currentStack" v-bind:is-active="reportFormVisible"></report-form>
-            <buyin-form v-show="buyinFormVisible" v-bind:stack="beforeBuyinStack" v-bind:amount="buyinAmount" v-bind:is-active="buyinFormVisible"></buyin-form>
+            <buyin-form v-show="buyinFormVisible" v-bind:stack="beforeBuyinStack" v-bind:amount="buyinAmount" v-bind:is-active="buyinFormVisible" v-bind:is-in-game="isInGame"></buyin-form>
             <cashout-form v-show="cashoutFormVisible" v-bind:stack="currentStack" v-bind:is-active="cashoutFormVisible"></cashout-form>
             <endgame-form v-show="endGameFormVisible"></endgame-form>
         </div>

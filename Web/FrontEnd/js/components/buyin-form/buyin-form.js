@@ -4,7 +4,7 @@ define(["vue", "text!components/buyin-form/buyin-form.html", "validate", "forms"
 
         return vue.component("buyin-form", {
             template: html,
-            props: ['stack', 'amount', "isActive"],
+            props: ['stack', 'amount', "isActive", "isInGame"],
             computed: {
                 hasErrors: function() {
                     return this.buyinError === null && this.stackError === null;
