@@ -7,7 +7,15 @@ define(["vue", "text!components/top-list-column/top-list-column.html"],
             props: ["name", "title", "orderBy"],
             computed: {
                 sortingEnabled: function() {
-                    return false;
+                    return true;
+                },
+                isSelected: function() {
+                    return this.name === this.orderBy;
+                }
+            },
+            methods: {
+                sort: function() {
+                    this.$dispatch('sort-by', this.name);
                 }
             }
         });

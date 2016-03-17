@@ -4,16 +4,16 @@
             <tr>
                 <th class="table-list__column-header .table-list--sortable__base-column"></th>
                 <th class="table-list__column-header .table-list--sortable__base-column"><span class="table-list__column-header__content">Player</span></th>
-                <td is="top-list-column" name="winnings" title="Winnings" v-bind:order-by="orderBy"></td>
-                <td is="top-list-column" name="buyin" title="Buyin" v-bind:order-by="orderBy"></td>
-                <td is="top-list-column" name="cashout" title="Cashout" v-bind:order-by="orderBy"></td>
-                <td is="top-list-column" name="time" title="Time" v-bind:order-by="orderBy"></td>
-                <td is="top-list-column" name="games" title="Games" v-bind:order-by="orderBy"></td>
-                <td is="top-list-column" name="winrate" title="Winrate" v-bind:order-by="orderBy"></td>
+                <th is="top-list-column" name="winnings" title="Winnings" v-bind:order-by="orderBy"></th>
+                <th is="top-list-column" name="buyin" title="Buyin" v-bind:order-by="orderBy"></th>
+                <th is="top-list-column" name="cashout" title="Cashout" v-bind:order-by="orderBy"></th>
+                <th is="top-list-column" name="time" title="Time" v-bind:order-by="orderBy"></th>
+                <th is="top-list-column" name="gamecount" title="Games" v-bind:order-by="orderBy"></th>
+                <th is="top-list-column" name="winrate" title="Winrate" v-bind:order-by="orderBy"></th>
             </tr>
         </thead>
-        <tbody class="list" v-for="player in players">
-            <tr is="top-list-row" v-bind:player="player" v-bind:currency-format="currencyFormat" v-bind:thousand-separator="thousandSeparator"></tr>
+        <tbody class="list" v-for="player in sortedPlayers">
+            <tr is="top-list-row" v-bind:player="player" v-bind:order-by="orderBy" v-bind:currency-format="currencyFormat" v-bind:thousand-separator="thousandSeparator"></tr>
         </tbody>
     </table>
 </div>
