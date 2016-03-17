@@ -29,6 +29,10 @@ namespace Web.Models.CashgameModels.Toplist
         public string CurrencyFormat { get; }
 
         [UsedImplicitly]
+        [JsonProperty("thousandSeparator")]
+        public string ThousandSeparator { get; }
+
+        [UsedImplicitly]
         [JsonProperty("players")]
         public IList<CashgameToplistTableItemJsonModel> ItemModels { get; }
 
@@ -36,6 +40,7 @@ namespace Web.Models.CashgameModels.Toplist
         {
             OrderBy = "winnings";
             CurrencyFormat = "{0} kr";
+            ThousandSeparator = " ";
             ItemModels = topListResult.Items.Select(o => new CashgameToplistTableItemJsonModel(o)).ToList();
         }
     }

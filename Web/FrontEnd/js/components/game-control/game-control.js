@@ -237,6 +237,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 buyinAmount: 0,
                 loadedPlayerId: 0,
                 currencyFormat: "{0} kr",
+                thousandSeparator: " ",
                 initialized: false
             }
         }

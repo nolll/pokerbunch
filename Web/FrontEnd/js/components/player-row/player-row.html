@@ -7,7 +7,7 @@
     <div class="amounts">
         <div><i title="Buy in" class="icon-signin"></i> <span v-text="buyin | currency currencyFormat"></span></div>
         <div><i title="Stack" class="icon-reorder"></i> <span v-text="stack | currency currencyFormat"></span></div>
-        <div v-bind:class="winningsCssClass" v-text="winnings | result | currency currencyFormat"></div>
+        <div v-bind:class="winningsCssClass" v-text="winnings | result currencyFormat"></div>
     </div>
     <div class="time"><i title="Last report" class="icon-time"></i> <span>{{lastReportTime}}</span></div>
 </div>

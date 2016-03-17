@@ -3,10 +3,10 @@
     <td class="table-list__cell table-list--sortable__base-column">
         <a href="{{player.url}}">{{player.name}}</a>
     </td>
-    <td class="table-list__cell table-list__cell--numeric @Model.ResultClass @Model.ResultSortClass" v-text="player.winnings | result | currency currencyFormat"></td>
-    <td class="table-list__cell table-list__cell--numeric @Model.BuyinSortClass" v-text="player.buyin | currency currencyFormat"></td>
-    <td class="table-list__cell table-list__cell--numeric @Model.CashoutSortClass" v-text="player.cashout | currency currencyFormat"></td>
-    <td class="table-list__cell @Model.GameTimeSortClass">{{player.time}}</td>
+    <td class="table-list__cell table-list__cell--numeric {{winningsCssClass}} @Model.ResultClass @Model.ResultSortClass" v-text="player.winnings | result currencyFormat thousandSeparator"></td>
+    <td class="table-list__cell table-list__cell--numeric @Model.BuyinSortClass" v-text="player.buyin | currency currencyFormat thousandSeparator"></td>
+    <td class="table-list__cell table-list__cell--numeric @Model.CashoutSortClass" v-text="player.cashout | currency currencyFormat thousandSeparator"></td>
+    <td class="table-list__cell @Model.GameTimeSortClass" v-text="player.time | time"></td>
     <td class="table-list__cell table-list__cell--numeric @Model.GameCountSortClass">{{player.gameCount}}</td>
-    <td class="table-list__cell table-list__cell--numeric @Model.WinRateSortClass">{{player.winRate}}</td>
+    <td class="table-list__cell table-list__cell--numeric @Model.WinRateSortClass" v-text="player.winRate | winrate currencyFormat thousandSeparator"></td>
 </tr>
