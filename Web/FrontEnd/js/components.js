@@ -14,9 +14,12 @@ define([
     "components/game-chart/game-chart",
     "components/top-list-table/top-list-table",
     "components/top-list-column/top-list-column",
-    "components/top-list-row/top-list-row"
+    "components/top-list-row/top-list-row",
+    "components/game-list-table/game-list-table",
+    "components/game-list-column/game-list-column",
+    "components/game-list-row/game-list-row"
 ],
-function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, playerRow, reportForm, buyinForm, cashoutForm, endgameForm, spinner, gameChart, topListTable, topListColumn, topListRow) {
+function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, playerRow, reportForm, buyinForm, cashoutForm, endgameForm, spinner, gameChart, topListTable, topListColumn, topListRow, gameListTable, gameListColumn, gameListRow) {
 
         "use strict";
 
@@ -38,6 +41,9 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
             vue.component('top-list-table', topListTable);
             vue.component('top-list-column', topListColumn);
             vue.component('top-list-row', topListRow);
+            vue.component('game-list-table', gameListTable);
+            vue.component('game-list-column', gameListColumn);
+            vue.component('game-list-row', gameListRow);
 
             vue.filter('currency', function (value, format, separator) {
                 return formatCurrency(value, format, separator)

@@ -5,6 +5,13 @@
     Layout = PageLayout.OneColumn;
 }
 
+<div class="block gutter">
+    <game-list-table json-container="game-list-data"></game-list-table>
+    <script type="application/json" id="game-list-data">
+        @Html.Raw(Model.ListJson)
+    </script>
+</div>
+
 <div class="block gutter" id="sort-control-container">
     @Html.Partial("CashgameList/CashgameTable", Model.ListTableModel)
 </div>

@@ -9,39 +9,39 @@ namespace Web.Models.CashgameModels.Toplist
     {
         [UsedImplicitly]
         [JsonProperty("rank")]
-        public int Rank { get; private set; }
+        public int Rank { get; }
 
         [UsedImplicitly]
         [JsonProperty("name")]
-        public string Name { get; private set; }
+        public string Name { get; }
 
         [UsedImplicitly]
         [JsonProperty("winnings")]
-        public int Winnings { get; private set; }
+        public int Winnings { get; }
 
         [UsedImplicitly]
         [JsonProperty("buyin")]
-        public int Buyin { get; private set; }
+        public int Buyin { get; }
 
         [UsedImplicitly]
         [JsonProperty("cashout")]
-        public int Cashout { get; private set; }
+        public int Cashout { get; }
 
         [UsedImplicitly]
         [JsonProperty("time")]
-        public int GameTime { get; private set; }
+        public int GameTime { get; }
 
         [UsedImplicitly]
         [JsonProperty("gameCount")]
-        public int GameCount { get; private set; }
+        public int GameCount { get; }
 
         [UsedImplicitly]
         [JsonProperty("winRate")]
-        public int WinRate { get; private set; }
+        public int WinRate { get; }
 
         [UsedImplicitly]
         [JsonProperty("url")]
-        public string PlayerUrl { get; private set; }
+        public string PlayerUrl { get; }
 
         public CashgameToplistTableItemJsonModel(TopList.Item toplistItem)
         {

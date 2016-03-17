@@ -23,8 +23,8 @@
             <th is="top-list-column" name="winrate" title="Win rate" v-bind:order-by="orderBy"></th>
         </tr>
         </thead>
-        <tbody class="list" v-for="player in sortedPlayers">
-        <tr is="top-list-row" v-bind:player="player" v-bind:order-by="orderBy" v-bind:currency-format="currencyFormat" v-bind:thousand-separator="thousandSeparator"></tr>
+        <tbody class="list">
+        <tr is="top-list-row" v-for="player in sortedPlayers" v-bind:player="player" v-bind:order-by="orderBy" v-bind:currency-format="currencyFormat" v-bind:thousand-separator="thousandSeparator"></tr>
         </tbody>
     </table>
 </div>

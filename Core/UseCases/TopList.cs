@@ -94,16 +94,5 @@ namespace Core.UseCases
                 WinRate = new MoneyWinRate(totalResult.WinRate, currency);
             }
         }
-
-        public enum SortOrder
-        {
-            Disabled,
-            Winnings,
-            Buyin,
-            Cashout,
-            TimePlayed,
-            GamesPlayed,
-            WinRate,
-        }
     }
 }

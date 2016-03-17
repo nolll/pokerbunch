@@ -363,10 +363,16 @@
     </Content>
     <None Include="packages.json" />
     <Content Include="FrontEnd\js\browser.js" />
+    <Content Include="FrontEnd\js\components\game-list-column\game-list-column.html" />
+    <Content Include="FrontEnd\js\components\game-list-column\game-list-column.js" />
+    <Content Include="FrontEnd\js\components\game-list-row\game-list-row.html" />
+    <Content Include="FrontEnd\js\components\game-list-row\game-list-row.js" />
     <Content Include="FrontEnd\js\components\top-list-row\top-list-row.html" />
     <Content Include="FrontEnd\js\components\top-list-row\top-list-row.js" />
     <Content Include="FrontEnd\js\components\top-list-column\top-list-column.html" />
     <Content Include="FrontEnd\js\components\top-list-column\top-list-column.js" />
+    <Content Include="FrontEnd\js\components\game-list-table\game-list-table.html" />
+    <Content Include="FrontEnd\js\components\game-list-table\game-list-table.js" />
     <Content Include="FrontEnd\js\components\top-list-table\top-list-table.html" />
     <Content Include="FrontEnd\js\components\top-list-table\top-list-table.js" />
     <Content Include="FrontEnd\js\extender.js" />
