@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Web.Mvc;
+using JetBrains.Annotations;
 using Web.Common.Services;
 
 namespace Web.Controllers.Base
@@ -13,16 +14,23 @@ namespace Web.Controllers.Base
             JsonRequestBehavior = jsonRequestBehavior;
         }
 
+        [UsedImplicitly]
         public Encoding ContentEncoding { get; set; }
+
+        [UsedImplicitly]
         public string ContentType { get; set; }
+
+        [UsedImplicitly]
         public object Data { get; set; }
+
+        [UsedImplicitly]
         public JsonRequestBehavior JsonRequestBehavior { get; set; }
 
         public override void ExecuteResult(ControllerContext context)
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
             if (JsonRequestBehavior == JsonRequestBehavior.DenyGet && string.Equals(context.HttpContext.Request.HttpMethod, "GET", StringComparison.OrdinalIgnoreCase))
             {
