@@ -3,6 +3,7 @@ using System.Text;
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Web.Common.Services;
 
 namespace Web.Controllers.Base
 {
@@ -40,11 +41,7 @@ namespace Web.Controllers.Base
             if (Data == null)
                 return;
 
-            var jsonSerializerSettings = new JsonSerializerSettings
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
-            };
-            response.Write(JsonConvert.SerializeObject(Data, jsonSerializerSettings));
+            response.Write(Json.Serialize(Data));
         }
     }
 }

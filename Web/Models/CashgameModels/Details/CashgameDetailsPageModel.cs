@@ -1,6 +1,6 @@
 using Core.Services;
 using Core.UseCases;
-using Newtonsoft.Json;
+using Web.Common.Services;
 using Web.Common.Urls.SiteUrls;
 using Web.Models.PageBaseModels;
 
@@ -42,7 +42,7 @@ namespace Web.Models.CashgameModels.Details
             EnableEdit = detailsResult.CanEdit;
             EditUrl = new EditCashgameUrl(detailsResult.CashgameId).Relative;
             CashgameDetailsTableModel = new CashgameDetailsTableModel(detailsResult.PlayerItems);
-            ChartJson = JsonConvert.SerializeObject(new DetailsChartModel(cashgameDetailsChartResult));
+            ChartJson = Json.Serialize(new DetailsChartModel(cashgameDetailsChartResult));
         }
     }
 }

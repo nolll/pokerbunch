@@ -87,6 +87,8 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     this.cashgameIndexUrl = data.cashgameIndexUrl;
                     this.locationUrl = data.locationUrl;
                     this.defaultBuyin = data.defaultBuyin;
+                    this.currencyFormat = data.currencyFormat;
+                    this.thousandSeparator = data.thousandSeparator;
                     this.locationName = data.locationName;
                     this.isManager = data.isManager;
                     this.bunchPlayers = data.bunchPlayers;
@@ -237,7 +239,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 buyinAmount: 0,
                 loadedPlayerId: 0,
                 currencyFormat: "${0}",
-                thousandSeparator: " ",
+                thousandSeparator: ",",
                 initialized: false
             }
         }

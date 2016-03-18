@@ -8,40 +8,31 @@ namespace Web.Models.CashgameModels.Toplist
     public class CashgameToplistTableItemJsonModel
     {
         [UsedImplicitly]
-        [JsonProperty("rank")]
         public int Rank { get; }
 
         [UsedImplicitly]
-        [JsonProperty("name")]
         public string Name { get; }
 
         [UsedImplicitly]
-        [JsonProperty("winnings")]
         public int Winnings { get; }
 
         [UsedImplicitly]
-        [JsonProperty("buyin")]
         public int Buyin { get; }
 
         [UsedImplicitly]
-        [JsonProperty("cashout")]
         public int Cashout { get; }
 
         [UsedImplicitly]
-        [JsonProperty("time")]
-        public int GameTime { get; }
+        public int Time { get; }
 
         [UsedImplicitly]
-        [JsonProperty("gameCount")]
         public int GameCount { get; }
 
         [UsedImplicitly]
-        [JsonProperty("winRate")]
         public int WinRate { get; }
 
         [UsedImplicitly]
-        [JsonProperty("url")]
-        public string PlayerUrl { get; }
+        public string Url { get; }
 
         public CashgameToplistTableItemJsonModel(TopList.Item toplistItem)
         {
@@ -49,11 +40,11 @@ namespace Web.Models.CashgameModels.Toplist
             Winnings = toplistItem.Winnings.Amount;
             Buyin = toplistItem.Buyin.Amount;
             Cashout = toplistItem.Cashout.Amount;
-            GameTime = toplistItem.TimePlayed.Minutes;
+            Time = toplistItem.TimePlayed.Minutes;
             GameCount = toplistItem.GamesPlayed;
             WinRate = toplistItem.WinRate.Amount;
             Name = toplistItem.Name;
-            PlayerUrl = new PlayerDetailsUrl(toplistItem.PlayerId).Relative;
+            Url = new PlayerDetailsUrl(toplistItem.PlayerId).Relative;
         }
     }
 }

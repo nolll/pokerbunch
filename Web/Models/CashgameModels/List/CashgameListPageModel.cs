@@ -1,5 +1,5 @@
 using Core.UseCases;
-using Newtonsoft.Json;
+using Web.Common.Services;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.List
@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.List
         public CashgameListPageModel(CashgameContext.Result cashgameContextResult, CashgameList.Result listResult)
             : base("Cashgame List", cashgameContextResult)
         {
-            ListJson = JsonConvert.SerializeObject(new CashgameListTableJsonModel(listResult));
+            ListJson = Json.Serialize(new CashgameListTableJsonModel(listResult));
         }
     }
 }

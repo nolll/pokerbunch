@@ -1,5 +1,5 @@
 using Core.UseCases;
-using Newtonsoft.Json;
+using Web.Common.Services;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Chart
@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Chart
         public CashgameChartPageModel(CashgameContext.Result cashgameContextResult, CashgameChart.Result cashgameChartResult)
             : base("Cashgame Chart", cashgameContextResult)
         {
-            ChartJson = JsonConvert.SerializeObject(new CashgameChartModel(cashgameChartResult));
+            ChartJson = Json.Serialize(new CashgameChartModel(cashgameChartResult));
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Services;
 using Core.UseCases;
-using Newtonsoft.Json;
+using Web.Common.Services;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Action
@@ -19,7 +19,7 @@ namespace Web.Models.CashgameModels.Action
             var date = Globalization.FormatShortDate(actionsResult.Date, true);
             Heading = string.Format("Cashgame {0}, {1}", date, actionsResult.PlayerName);
             Checkpoints = GetCheckpointModels(actionsResult);
-            ChartJson = JsonConvert.SerializeObject(new ActionChartModel(actionsChartResult));
+            ChartJson = Json.Serialize(new ActionChartModel(actionsChartResult));
         }
 
         private List<CheckpointModel> GetCheckpointModels(Actions.Result actionsResult)

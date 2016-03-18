@@ -1,5 +1,5 @@
 using Core.UseCases;
-using Newtonsoft.Json;
+using Web.Common.Services;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Toplist
@@ -15,7 +15,7 @@ namespace Web.Models.CashgameModels.Toplist
             "Cashgame Toplist",
             cashgameContextResult)
         {
-            ToplistJson = JsonConvert.SerializeObject(new ToplistTableJsonModel(topListResult));
+            ToplistJson = Json.Serialize(new ToplistTableJsonModel(topListResult));
         }
     }
 }
