@@ -807,6 +807,7 @@
   <Target Name="AfterBuild">
     <Message Text="Running gulp taskts..." Importance="high">
     </Message>
+    <Exec Command="npm install" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" />
     <Exec Command="gulp" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 </Project>
