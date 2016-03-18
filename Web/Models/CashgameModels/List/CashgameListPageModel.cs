@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.List
         public CashgameListPageModel(CashgameContext.Result cashgameContextResult, CashgameList.Result listResult)
             : base("Cashgame List", cashgameContextResult)
         {
-            ListJson = Json.Serialize(new CashgameListTableJsonModel(listResult));
+            ListJson = JsonHelper.Serialize(new CashgameListTableJsonModel(listResult));
         }
     }
 }

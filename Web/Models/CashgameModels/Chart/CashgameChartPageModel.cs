@@ -11,7 +11,7 @@ namespace Web.Models.CashgameModels.Chart
         public CashgameChartPageModel(CashgameContext.Result cashgameContextResult, CashgameChart.Result cashgameChartResult)
             : base("Cashgame Chart", cashgameContextResult)
         {
-            ChartJson = Json.Serialize(new CashgameChartModel(cashgameChartResult));
+            ChartJson = JsonHelper.Serialize(new CashgameChartModel(cashgameChartResult));
         }
     }
 }

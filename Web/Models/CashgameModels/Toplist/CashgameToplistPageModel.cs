@@ -15,7 +15,7 @@ namespace Web.Models.CashgameModels.Toplist
             "Cashgame Toplist",
             cashgameContextResult)
         {
-            ToplistJson = Json.Serialize(new ToplistTableJsonModel(topListResult));
+            ToplistJson = JsonHelper.Serialize(new ToplistTableJsonModel(topListResult));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Web.Models.CashgameModels.Action
             var date = Globalization.FormatShortDate(actionsResult.Date, true);
             Heading = string.Format("Cashgame {0}, {1}", date, actionsResult.PlayerName);
             Checkpoints = GetCheckpointModels(actionsResult);
-            ChartJson = Json.Serialize(new ActionChartModel(actionsChartResult));
+            ChartJson = JsonHelper.Serialize(new ActionChartModel(actionsChartResult));
         }
 
         private List<CheckpointModel> GetCheckpointModels(Actions.Result actionsResult)

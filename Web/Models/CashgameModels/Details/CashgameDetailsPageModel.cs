@@ -42,7 +42,7 @@ namespace Web.Models.CashgameModels.Details
             EnableEdit = detailsResult.CanEdit;
             EditUrl = new EditCashgameUrl(detailsResult.CashgameId).Relative;
             CashgameDetailsTableModel = new CashgameDetailsTableModel(detailsResult.PlayerItems);
-            ChartJson = Json.Serialize(new DetailsChartModel(cashgameDetailsChartResult));
+            ChartJson = JsonHelper.Serialize(new DetailsChartModel(cashgameDetailsChartResult));
         }
     }
 }
