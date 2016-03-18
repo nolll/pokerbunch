@@ -33,7 +33,7 @@ namespace Core.UseCases
             var items = suite.TotalResults.Select((o, index) => new Item(o, index, bunch.Currency));
             items = SortItems(items);
 
-            return new Result(items, bunch.Slug, request.Year);
+            return new Result(items, bunch.Slug, bunch.Currency.Format, bunch.Currency.ThousandSeparator, request.Year);
         }
 
         private static IEnumerable<Item> SortItems(IEnumerable<Item> items)
@@ -59,12 +59,16 @@ namespace Core.UseCases
         {
             public IList<Item> Items { get; private set; }
             public string Slug { get; private set; }
+            public string CurrencyFormat { get; private set; }
+            public string ThousandSeparator { get; private set; }
             public int? Year { get; private set; }
 
-            public Result(IEnumerable<Item> items, string slug, int? year)
+            public Result(IEnumerable<Item> items, string slug, string currencyFormat, string thousandSeparator, int? year)
             {
                 Items = items.ToList();
                 Slug = slug;
+                CurrencyFormat = currencyFormat;
+                ThousandSeparator = thousandSeparator;
                 Year = year;
             }
         }

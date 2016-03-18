@@ -31,11 +31,10 @@ namespace Core.UseCases
             RoleHandler.RequirePlayer(user, player);
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
-            var spansMultipleYears = CashgameService.SpansMultipleYears(cashgames);
             var locations = _locationService.GetByBunch(bunch.Id);
             var list = cashgames.Select(o => new Item(bunch, o, GetLocation(o, locations)));
 
-            return new Result(request.Slug, list.ToList(), request.SortOrder, request.Year, spansMultipleYears);
+            return new Result(request.Slug, list.ToList(), request.SortOrder, request.Year, bunch.Currency.Format, bunch.Currency.ThousandSeparator);
         }
 
         private Location GetLocation(Cashgame cashgame, IEnumerable<Location> locations)
@@ -83,16 +82,18 @@ namespace Core.UseCases
             public string Slug { get; private set; }
             public int? Year { get; private set; }
             public bool ShowYear { get; private set; }
-            public bool SpansMultipleYears { get; private set; }
+            public string CurrencyFormat { get; private set; }
+            public string ThousandSeparator { get; private set; }
 
-            public Result(string slug, IList<Item> list, SortOrder sortOrder, int? year, bool spansMultipleYears)
+            public Result(string slug, IList<Item> list, SortOrder sortOrder, int? year, string currencyFormat, string thousandSeparator)
             {
                 Slug = slug;
                 List = list;
                 SortOrder = sortOrder;
                 Year = year;
                 ShowYear = year.HasValue;
-                SpansMultipleYears = spansMultipleYears;
+                CurrencyFormat = currencyFormat;
+                ThousandSeparator = thousandSeparator;
             }
         }
 

@@ -47,6 +47,8 @@ namespace Core.UseCases
             var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName, o.Color)).OrderBy(o => o.Name).ToList();
             
             var defaultBuyin = bunch.DefaultBuyin;
+            var currencyFormat = bunch.Currency.Format;
+            var thousandSeparator = bunch.Currency.ThousandSeparator;
 
             return new Result(
                 bunch.Slug,
@@ -56,6 +58,8 @@ namespace Core.UseCases
                 playerItems,
                 bunchPlayerItems,
                 defaultBuyin,
+                currencyFormat,
+                thousandSeparator,
                 isManager);
         }
 
@@ -107,6 +111,8 @@ namespace Core.UseCases
             public IList<RunningCashgamePlayerItem> PlayerItems { get; private set; }
             public IList<BunchPlayerItem> BunchPlayerItems { get; private set; }
             public int DefaultBuyin { get; private set; }
+            public string CurrencyFormat { get; private set; }
+            public string ThousandSeparator { get; private set; }
             public bool IsManager { get; private set; }
 
             public Result(
@@ -117,6 +123,8 @@ namespace Core.UseCases
                 IList<RunningCashgamePlayerItem> playerItems,
                 IList<BunchPlayerItem> bunchPlayerItems,
                 int defaultBuyin,
+                string currencyFormat,
+                string thousandSeparator,
                 bool isManager)
             {
                 Slug = slug;
@@ -126,6 +134,8 @@ namespace Core.UseCases
                 PlayerItems = playerItems;
                 BunchPlayerItems = bunchPlayerItems;
                 DefaultBuyin = defaultBuyin;
+                CurrencyFormat = currencyFormat;
+                ThousandSeparator = thousandSeparator;
                 IsManager = isManager;
             }
         }
