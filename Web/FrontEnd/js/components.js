@@ -50,10 +50,11 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
             });
 
             vue.filter('result', function (value, format, separator) {
-                var currencyValue = formatCurrency(value, format, separator);
+                var absValue = Math.abs(value);
+                var currencyValue = formatCurrency(absValue, format, separator);
                 if (value > 0)
                     return "+" + currencyValue;
-                return currencyValue;
+                return "-" + currencyValue;
             });
 
             vue.filter('winrate', function (value, format, separator) {
