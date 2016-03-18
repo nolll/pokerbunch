@@ -6,7 +6,7 @@ var requirejsOptimize = require("gulp-requirejs-optimize");
 var paths = {
     styles: "./Frontend/Css/styles.less",
     allLess: "./Frontend/Css/*.less",
-    assetFolder: "./Assets/",
+    assetFolder: "./assets/",
     jsFolder: "./Frontend/js/",
     allJs: "./Frontend/js/**/*.js",
     scripts: "./Frontend/js/require.loader.js",

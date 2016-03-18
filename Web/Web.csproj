@@ -633,7 +633,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\" />
-    <Folder Include="Routing\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -806,7 +805,8 @@
     <Error Condition="Exists('..\packages\OctoPack.3.0.60\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <Target Name="AfterBuild">
-    <Message Text="Running gulp taskts..." Importance="high"></Message>
+    <Message Text="Running gulp taskts..." Importance="high">
+    </Message>
     <Exec Command="gulp" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 </Project>

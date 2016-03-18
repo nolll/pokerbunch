@@ -18,10 +18,10 @@ namespace Web.Models.PageBaseModels
         protected PageModel(string browserTitle, BaseContext.Result contextResult)
         {
             BrowserTitle = browserTitle;
-            CssUrl = $"/Assets/styles.css?v={contextResult.Version}";
+            CssUrl = $"/assets/styles.css?v={contextResult.Version}";
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
-            JsPath = contextResult.IsInProduction ? $"/Assets/scripts.js?v={contextResult.Version}" : "/Frontend/js/lib/require.js";
+            JsPath = contextResult.IsInProduction ? $"/assets/scripts.js?v={contextResult.Version}" : "/Frontend/js/lib/require.js";
             JsLoaderPath = contextResult.IsInProduction ? null : "/FrontEnd/js/require.loader";
         }
     }

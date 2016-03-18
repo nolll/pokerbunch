@@ -8,6 +8,6 @@
     <description>Web interface for the home game poker statistics</description>
   </metadata>
   <files>
-    <file src="_build\main.js" target="Scripts" />
+    <file src="assets\*.*" target="assets" />
   </files>
 </package>
