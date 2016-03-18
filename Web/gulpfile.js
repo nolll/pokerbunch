@@ -1,4 +1,5 @@
-﻿var gulp = require("gulp");
+﻿/// <binding ProjectOpened='watch' />
+var gulp = require("gulp");
 var less = require("gulp-less");
 var requirejsOptimize = require("gulp-requirejs-optimize");
 
