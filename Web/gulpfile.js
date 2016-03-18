@@ -9,6 +9,7 @@ var paths = {
     assetFolder: "./assets/",
     jsFolder: "./Frontend/js/",
     allJs: "./Frontend/js/**/*.js",
+    allHtml: "./Frontend/js/**/*.html",
     scripts: "./Frontend/js/require.loader.js",
     requireConfig: "./Frontend/js/require.config.js",
     requireLoader: "require.loader"
@@ -56,4 +57,5 @@ function taskWatch() {
 
     gulp.watch(paths.allLess, ["styles"]).on("change", onChanged);
     gulp.watch(paths.allJs, ["scripts"]).on("change", onChanged);
+    gulp.watch(paths.allHtml, ["scripts"]).on("change", onChanged);
 }
