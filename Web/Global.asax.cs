@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
-using System.Web.Optimization;
 using System.Web.Routing;
 using Web.Plumbing;
 
@@ -26,7 +25,6 @@ namespace Web
 
             AreaRegistration.RegisterAllAreas();
 
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);

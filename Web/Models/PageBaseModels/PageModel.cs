@@ -18,7 +18,7 @@ namespace Web.Models.PageBaseModels
         protected PageModel(string browserTitle, BaseContext.Result contextResult)
         {
             BrowserTitle = browserTitle;
-            CssUrl = BundleConfig.BundleUrl;
+            CssUrl = $"/Assets/styles.css?v={contextResult.Version}";
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
             JsPath = contextResult.IsInProduction ? $"/Assets/scripts.js?v={contextResult.Version}" : "/Frontend/js/lib/require.js";

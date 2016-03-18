@@ -143,7 +143,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomServerHeaderModule.cs" />
     <Compile Include="App_Start\CustomViewEngine.cs" />
     <Compile Include="App_Start\LessTransform.cs" />

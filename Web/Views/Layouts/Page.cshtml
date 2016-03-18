@@ -8,29 +8,26 @@
         <link href='//fonts.googleapis.com/css?family=Amatic+SC' rel='stylesheet' type='text/css'>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="Content-Language" content="en" />
-        <meta name="description" content="" />
-        <meta name="author" content="">
-        <meta name="keywords" content="" />
+        <meta name="description" content="Statistics for Home Poker Games" />
+        <meta name="author" content="PokerBunch.com">
+        <meta name="keywords" content="poker,homegame,cashgame,cash,home,game,stats,statistics,chart" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        @Styles.Render(@Model.CssUrl)
+        <link href="@Model.CssUrl" rel="stylesheet" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <title>@Model.BrowserTitle</title>
     </head>
 
-<body class="@Model.BodyCssClass">
+    <body class="@Model.BodyCssClass">
+        @RenderBody()
 
-    @RenderBody()
+        <!--[if lt IE 9]>
+            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="/FrontEnd/js/lib/respond.min.js"></script>
+        <![endif]-->
+        <script src="@Model.JsPath" data-main="@Model.JsLoaderPath"></script>
 
-    <!--[if lt IE 9]>
-        <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <script src="/FrontEnd/js/lib/respond.min.js"></script>
-    <![endif]-->
-    <script src="@Model.JsPath" data-main="@Model.JsLoaderPath"></script>
-
-@Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
-
-</body>
-
+        @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
+    </body>
 </html>
 
 <!-- version: @Model.Version -->
