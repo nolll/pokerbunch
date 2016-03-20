@@ -46,9 +46,9 @@ namespace Core.UseCases
 
         public class Result
         {
-            public MoneyResult Winnings { get; private set; }
-            public MoneyResult BestResult { get; private set; }
-            public MoneyResult WorstResult { get; private set; }
+            public Money Winnings { get; private set; }
+            public Money BestResult { get; private set; }
+            public Money WorstResult { get; private set; }
             public int GamesPlayed { get; private set; }
             public Time TimePlayed { get; private set; }
             public int BestResultCount { get; private set; }
@@ -60,9 +60,9 @@ namespace Core.UseCases
             {
                 var evaluator = new PlayerFactsEvaluator(cashgames, playerId);
 
-                Winnings = new MoneyResult(evaluator.Winnings, currency);
-                BestResult = new MoneyResult(evaluator.BestResult, currency);
-                WorstResult = new MoneyResult(evaluator.WorstResult, currency);
+                Winnings = new Money(evaluator.Winnings, currency);
+                BestResult = new Money(evaluator.BestResult, currency);
+                WorstResult = new Money(evaluator.WorstResult, currency);
                 GamesPlayed = evaluator.GameCount;
                 TimePlayed = Time.FromMinutes(evaluator.MinutesPlayed);
                 BestResultCount = evaluator.BestResultCount;

@@ -202,6 +202,7 @@
     <Compile Include="Models\CashgameModels\List\CashgameListTableJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\ToplistTableJsonModel.cs" />
+    <Compile Include="Services\CssService.cs" />
     <Compile Include="SiteSettings.cs" />
     <Compile Include="Extensions\ComponentViewFinder.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />

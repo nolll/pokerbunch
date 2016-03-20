@@ -1,6 +1,7 @@
 using System;
 using Core.Services;
 using Core.UseCases;
+using Web.Services;
 
 namespace Web.Models.PlayerModels.Facts
 {
@@ -21,12 +22,12 @@ namespace Web.Models.PlayerModels.Facts
 
 	    public PlayerFactsModel(PlayerFacts.Result factsResult)
 	    {
-	        Winnings = factsResult.Winnings.String;
-	        WinningsCssClass = ResultFormatter.GetWinningsCssClass(factsResult.Winnings);
-	        BestResult = factsResult.BestResult.String;
-            BestResultCssClass = ResultFormatter.GetWinningsCssClass(factsResult.BestResult); 
-            WorstResult = factsResult.WorstResult.String;
-            WorstResultCssClass = ResultFormatter.GetWinningsCssClass(factsResult.WorstResult);
+	        Winnings = ResultFormatter.FormatWinnings(factsResult.Winnings);
+	        WinningsCssClass = CssService.GetWinningsCssClass(factsResult.Winnings);
+	        BestResult = ResultFormatter.FormatWinnings(factsResult.BestResult);
+            BestResultCssClass = CssService.GetWinningsCssClass(factsResult.BestResult); 
+            WorstResult = ResultFormatter.FormatWinnings(factsResult.WorstResult);
+            WorstResultCssClass = CssService.GetWinningsCssClass(factsResult.WorstResult);
             GamesPlayed = factsResult.GamesPlayed;
 	        TimePlayed = factsResult.TimePlayed.String;
 	        BestResultCount = factsResult.BestResultCount;

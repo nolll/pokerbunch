@@ -94,8 +94,8 @@ namespace Core.UseCases
                 Name = totalResult.Player.DisplayName;
                 PlayerId = totalResult.Player.Id;
                 Rank = index + 1;
-                Winnings = new MoneyResult(totalResult.Winnings, currency);
-                WinRate = new MoneyWinRate(totalResult.WinRate, currency);
+                Winnings = new Money(totalResult.Winnings, currency);
+                WinRate = new Money(totalResult.WinRate, currency);
             }
         }
     }

@@ -105,8 +105,8 @@ namespace Core.UseCases
             public int PlayerId { get; private set; }
             public Money Buyin { get; private set; }
             public Money Cashout { get; private set; }
-            public MoneyResult Winnings { get; private set; }
-            public MoneyWinRate WinRate { get; private set; }
+            public Money Winnings { get; private set; }
+            public Money WinRate { get; private set; }
 
             public PlayerResultItem(Bunch bunch, Cashgame cashgame, Player player, CashgameResult result)
             {
@@ -116,8 +116,8 @@ namespace Core.UseCases
                 PlayerId = player.Id;
                 Buyin = new Money(result.Buyin, bunch.Currency);
                 Cashout = new Money(result.Stack, bunch.Currency);
-                Winnings = new MoneyResult(result.Winnings, bunch.Currency);
-                WinRate = new MoneyWinRate(result.WinRate, bunch.Currency);
+                Winnings = new Money(result.Winnings, bunch.Currency);
+                WinRate = new Money(result.WinRate, bunch.Currency);
             }
         }
     }

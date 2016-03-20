@@ -68,35 +68,31 @@ namespace Core.UseCases
         public class Result
         {
             public IList<Item> Items { get; }
-            public int LastGameId { get; private set; }
+            public int LastGameId { get; }
+            public bool HasGames => Items.Any();
 
             public Result(IEnumerable<Item> items, int lastGameId)
             {
                 Items = items.ToList();
                 LastGameId = lastGameId;
             }
-
-            public bool HasGames
-            {
-                get { return Items.Any(); }
-            }
         }
 
         public class Item
         {
-            public int Rank { get; private set; }
-            public int PlayerId { get; private set; }
-            public string Name { get; private set; }
-            public Money TotalWinnings { get; private set; }
-            public Money LastGameWinnings { get; private set; }
+            public int Rank { get; }
+            public int PlayerId { get; }
+            public string Name { get; }
+            public Money TotalWinnings { get; }
+            public Money LastGameWinnings { get; }
 
             public Item(CashgameTotalResult totalResult, CashgameResult lastGameResult, int index, Currency currency)
             {
                 Rank = index;
                 PlayerId = totalResult.Player.Id;
                 Name = totalResult.Player.DisplayName;
-                TotalWinnings = new MoneyResult(totalResult.Winnings, currency);
-                LastGameWinnings = lastGameResult != null ? new MoneyResult(lastGameResult.Winnings, currency) : null;
+                TotalWinnings = new Money(totalResult.Winnings, currency);
+                LastGameWinnings = lastGameResult != null ? new Money(lastGameResult.Winnings, currency) : null;
             }
         }
     }

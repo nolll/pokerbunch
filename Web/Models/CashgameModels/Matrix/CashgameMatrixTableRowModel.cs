@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Core.Services;
 using Web.Common.Urls.SiteUrls;
+using Web.Services;
 
 namespace Web.Models.CashgameModels.Matrix
 {
@@ -22,7 +23,7 @@ namespace Web.Models.CashgameModels.Matrix
             PlayerUrl = new PlayerDetailsUrl(playerItem.PlayerId).Relative;
             CellModels = CreateCells(gameItems, playerItem);
             TotalResult = ResultFormatter.FormatWinnings(playerItem.TotalResult);
-            ResultClass = ResultFormatter.GetWinningsCssClass(playerItem.TotalResult);
+            ResultClass = CssService.GetWinningsCssClass(playerItem.TotalResult);
         }
 
         private static IList<CashgameMatrixTableCellModel> CreateCells(IEnumerable<Core.UseCases.Matrix.GameItem> gameItems, Core.UseCases.Matrix.MatrixPlayerItem playerItem)
@@ -40,7 +41,7 @@ namespace Web.Models.CashgameModels.Matrix
                         Buyin = resultItem.Buyin.Amount,
                         Cashout = resultItem.Cashout.Amount,
                         Winnings = ResultFormatter.FormatWinnings(resultItem.Winnings.Amount),
-                        ResultClass = ResultFormatter.GetWinningsCssClass(resultItem.Winnings),
+                        ResultClass = CssService.GetWinningsCssClass(resultItem.Winnings),
                         WinnerClass = resultItem.HasBestResult ? "matrix__winner" : null
                     };
                     models.Add(model);

@@ -1,5 +1,6 @@
 using Core.Services;
 using Web.Common.Urls.SiteUrls;
+using Web.Services;
 
 namespace Web.Models.CashgameModels.CurrentRankings
 {
@@ -16,11 +17,11 @@ namespace Web.Models.CashgameModels.CurrentRankings
         public CurrentRankingsTableItemModel(Core.UseCases.CurrentRankings.Item currentRankingsItem)
         {
             Rank = currentRankingsItem.Rank;
-            TotalResult = currentRankingsItem.TotalWinnings.String;
-            TotalResultClass = ResultFormatter.GetWinningsCssClass(currentRankingsItem.TotalWinnings);
+            TotalResult = ResultFormatter.FormatWinnings(currentRankingsItem.TotalWinnings);
+            TotalResultClass = CssService.GetWinningsCssClass(currentRankingsItem.TotalWinnings);
             var playedInLastGame = currentRankingsItem.LastGameWinnings != null;
-            LastGameResult = playedInLastGame ? currentRankingsItem.LastGameWinnings.String : string.Empty;
-            LastGameResultClass = playedInLastGame ? ResultFormatter.GetWinningsCssClass(currentRankingsItem.LastGameWinnings) : string.Empty;
+            LastGameResult = playedInLastGame ? ResultFormatter.FormatWinnings(currentRankingsItem.LastGameWinnings) : string.Empty;
+            LastGameResultClass = playedInLastGame ? CssService.GetWinningsCssClass(currentRankingsItem.LastGameWinnings) : string.Empty;
             Name = currentRankingsItem.Name;
             PlayerUrl = new PlayerDetailsUrl(currentRankingsItem.PlayerId).Relative;
         }

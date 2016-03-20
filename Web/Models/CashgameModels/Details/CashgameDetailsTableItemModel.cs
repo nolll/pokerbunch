@@ -1,6 +1,7 @@
 using Core.Services;
 using Core.UseCases;
 using Web.Common.Urls.SiteUrls;
+using Web.Services;
 
 namespace Web.Models.CashgameModels.Details
 {
@@ -22,9 +23,9 @@ namespace Web.Models.CashgameModels.Details
             PlayerUrl = new CashgameActionUrl(resultItem.CashgameId, resultItem.PlayerId).Relative;
             Buyin = resultItem.Buyin.String;
             Cashout = resultItem.Cashout.String;
-            Winnings = resultItem.Winnings.String;
-            WinningsClass = ResultFormatter.GetWinningsCssClass(resultItem.Winnings);
-            Winrate = resultItem.WinRate.String;
+            Winnings = ResultFormatter.FormatWinnings(resultItem.Winnings);
+            WinningsClass = CssService.GetWinningsCssClass(resultItem.Winnings);
+            Winrate = ResultFormatter.FormatWinRate(resultItem.WinRate);
         }
     }
 }

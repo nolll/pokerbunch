@@ -1,3 +1,4 @@
+using Core.Services;
 using Core.UseCases;
 using Web.Models.PageBaseModels;
 
@@ -35,25 +36,25 @@ namespace Web.Models.CashgameModels.Facts
             TotalTurnover = factsResult.Turnover.String;
 
             BestResultName = factsResult.BestResult.PlayerName;
-            BestResultAmount = factsResult.BestResult.Amount.String;
+            BestResultAmount = ResultFormatter.FormatWinnings(factsResult.BestResult.Amount);
             
             WorstResultName = factsResult.WorstResult.PlayerName;
-            WorstResultAmount = factsResult.WorstResult.Amount.String;
+            WorstResultAmount = ResultFormatter.FormatWinnings(factsResult.WorstResult.Amount);
             
             BestTotalWinningsName = factsResult.BestTotalResult.PlayerName;
-            BestTotalWinningsAmount = factsResult.BestTotalResult.Amount.String;
+            BestTotalWinningsAmount = ResultFormatter.FormatWinnings(factsResult.BestTotalResult.Amount);
             
             WorstTotalWinningsName = factsResult.WorstTotalResult.PlayerName;
-            WorstTotalWinningsAmount = factsResult.WorstTotalResult.Amount.String;
+            WorstTotalWinningsAmount = ResultFormatter.FormatWinnings(factsResult.WorstTotalResult.Amount);
             
             MostTimeName = factsResult.MostTimePlayed.PlayerName;
             MostTimeDuration = factsResult.MostTimePlayed.Time.String;
             
             BiggestTotalBuyinName = factsResult.BiggestBuyin.PlayerName;
-            BiggestTotalBuyinAmount = factsResult.BiggestBuyin.Amount.String;
+            BiggestTotalBuyinAmount = ResultFormatter.FormatWinnings(factsResult.BiggestBuyin.Amount);
             
             BiggestTotalCashoutName = factsResult.BiggestCashout.PlayerName;
-            BiggestTotalCashoutAmount = factsResult.BiggestCashout.Amount.String;
+            BiggestTotalCashoutAmount = ResultFormatter.FormatWinnings(factsResult.BiggestCashout.Amount);
         }
 	}
 }

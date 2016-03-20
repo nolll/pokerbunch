@@ -20,16 +20,14 @@ namespace Core.Services
             return str;
         }
 
-        public static string GetWinningsCssClass(Money winnings)
-        {
-            return GetWinningsCssClass(winnings.Amount);
-        }
+	    public static string FormatMoney(Money money)
+	    {
+	        return money.String;
+	    }
 
-		public static string GetWinningsCssClass(int winnings)
+        public static string FormatWinRate(Money winRate)
         {
-            if(winnings == 0)
-                return string.Empty;
-            return winnings > 0 ? "pos-result" : "neg-result";
-		}
-	}
+            return FormatWinnings(winRate) + "/h";
+        }
+    }
 }

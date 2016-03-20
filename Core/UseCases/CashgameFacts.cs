@@ -52,26 +52,26 @@ namespace Core.UseCases
         private static MoneyFact GetBestResult(PlayerService playerService, FactBuilder facts, Currency currency)
         {
             var playerName = GetPlayerName(playerService, facts.BestResult.PlayerId);
-            var amount = new MoneyResult(facts.BestResult.Winnings, currency);
+            var amount = new Money(facts.BestResult.Winnings, currency);
             return new MoneyFact(playerName, amount);
         }
 
         private static MoneyFact GetWorstResult(PlayerService playerService, FactBuilder facts, Currency currency)
         {
             var playerName = GetPlayerName(playerService, facts.WorstResult.PlayerId);
-            var amount = new MoneyResult(facts.WorstResult.Winnings, currency);
+            var amount = new Money(facts.WorstResult.Winnings, currency);
             return new MoneyFact(playerName, amount);
         }
 
         private static MoneyFact GetBestTotalResult(FactBuilder facts, Currency currency)
         {
-            var amount = new MoneyResult(facts.BestTotalResult.Winnings, currency);
+            var amount = new Money(facts.BestTotalResult.Winnings, currency);
             return new MoneyFact(facts.BestTotalResult.Player.DisplayName, amount);
         }
 
         private static MoneyFact GetWorstTotalResult(FactBuilder facts, Currency currency)
         {
-            var amount = new MoneyResult(facts.WorstTotalResult.Winnings, currency);
+            var amount = new Money(facts.WorstTotalResult.Winnings, currency);
             return new MoneyFact(facts.WorstTotalResult.Player.DisplayName, amount);
         }
 

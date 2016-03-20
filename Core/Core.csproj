@@ -46,8 +46,6 @@
     <Compile Include="Entities\Event.cs" />
     <Compile Include="Entities\Location.cs" />
     <Compile Include="Entities\Money.cs" />
-    <Compile Include="Entities\MoneyResult.cs" />
-    <Compile Include="Entities\MoneyWinRate.cs" />
     <Compile Include="Entities\Time.cs" />
     <Compile Include="Entities\IEntity.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs" />

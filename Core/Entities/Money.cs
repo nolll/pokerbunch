@@ -23,8 +23,7 @@ namespace Core.Entities
             get
             {
                 var numberFormatted = Amount.ToString("N0", _currency.Culture);
-                var amountFormatted = _currency.Layout.Replace("{AMOUNT}", numberFormatted);
-                return amountFormatted.Replace("{SYMBOL}", _currency.Symbol);
+                return string.Format(_currency.Format, numberFormatted);
             }
         }
     }
