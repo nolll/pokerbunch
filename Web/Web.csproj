@@ -494,6 +494,9 @@
     <Content Include="Views\Pages\LocationDetails\LocationDetails.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\DashBoardPage.cshtml" />
     <Content Include="package.json" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
