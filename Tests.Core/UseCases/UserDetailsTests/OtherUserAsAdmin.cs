@@ -8,6 +8,9 @@ namespace Tests.Core.UseCases.UserDetailsTests
         protected override Role Role => Role.Admin;
 
         [Test]
-        public void CanEditIsTrue() => Assert.IsTrue(Result.CanEdit);
+        public void CanEditIsTrue()
+        {
+            Assert.IsTrue(Result.CanEdit);
+        }
     }
 }

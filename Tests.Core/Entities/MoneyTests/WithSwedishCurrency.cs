@@ -1,5 +1,4 @@
 using Core.Entities;
-using Core.Services;
 using NUnit.Framework;
 
 namespace Tests.Core.Entities.MoneyTests
@@ -9,12 +8,22 @@ namespace Tests.Core.Entities.MoneyTests
         protected override Currency Currency => new Currency("kr", "{AMOUNT} {SYMBOL}");
 
         [Test]
-        public void SmallValue() => Assert.AreEqual("1 kr", new Money(1, Currency).ToString());
+        public void SmallValue()
+        {
+            Assert.AreEqual("1 kr", new Money(1, Currency).ToString());
+        }
 
         [Test]
-        public void NegativeValue() => Assert.AreEqual("-1 kr", new Money(-1, Currency).ToString());
+        public void NegativeValue()
+        {
+            Assert.AreEqual("-1 kr", new Money(-1, Currency).ToString());
+        }
 
         [Test]
-        public void LargeValue() => Assert.AreEqual("1 000 kr", new Money(1000, Currency).ToString()); // The space is a non breaking space (160)
+        public void LargeValue()
+        {
+            // The space is a non breaking space (160)
+            Assert.AreEqual("1 000 kr", new Money(1000, Currency).ToString());
+        }
     }
 }
