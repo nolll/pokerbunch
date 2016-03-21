@@ -18,13 +18,12 @@ namespace Core.Entities
             return Amount.CompareTo(other.Amount);
         }
 
-        public virtual string String
+        public override string ToString()
         {
-            get
-            {
-                var numberFormatted = Amount.ToString("N0", _currency.Culture);
-                return string.Format(_currency.Format, numberFormatted);
-            }
+            var absAmount = Math.Abs(Amount);
+            var numberFormatted = absAmount.ToString("N0", _currency.Culture);
+            var numberWithSymbol = string.Format(_currency.Format, numberFormatted);
+            return Amount < 0 ? $"-{numberWithSymbol}" : numberWithSymbol;
         }
     }
 }

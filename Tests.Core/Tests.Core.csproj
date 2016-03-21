@@ -46,8 +46,8 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="DateTests.cs" />
     <Compile Include="Entities\MoneyTests\Arrange.cs" />
-    <Compile Include="Entities\MoneyTests\WithSwedishCurrency.cs" />
     <Compile Include="Entities\MoneyTests\WithDefaultCurrency.cs" />
+    <Compile Include="Entities\MoneyTests\WithSwedishCurrency.cs" />
     <Compile Include="Services\GlobalizationTests.cs" />
     <Compile Include="UseCases\ActionsChartTests.cs" />
     <Compile Include="UseCases\ActionsTests.cs" />

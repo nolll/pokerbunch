@@ -12,18 +12,13 @@ namespace Core.Services
 			return winnings.ToString(CultureInfo.InvariantCulture);
 		}
 
-        public static string FormatWinnings(Money winnings)
+        public static string FormatWinnings(Money money)
         {
-            var str = winnings.String;
-            if (winnings.Amount > 0)
+            var str = money.ToString();
+            if (money.Amount > 0)
                 return "+" + str;
             return str;
         }
-
-	    public static string FormatMoney(Money money)
-	    {
-	        return money.String;
-	    }
 
         public static string FormatWinRate(Money winRate)
         {

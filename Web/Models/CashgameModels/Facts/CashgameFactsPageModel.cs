@@ -32,8 +32,8 @@ namespace Web.Models.CashgameModels.Facts
             cashgameContextResult)
 	    {
 	        GameCount = factsResult.GameCount;
-            TotalGameTime = factsResult.TotalTimePlayed.String;
-            TotalTurnover = factsResult.Turnover.String;
+            TotalGameTime = factsResult.TotalTimePlayed.ToString();
+            TotalTurnover = factsResult.Turnover.ToString();
 
             BestResultName = factsResult.BestResult.PlayerName;
             BestResultAmount = ResultFormatter.FormatWinnings(factsResult.BestResult.Amount);
@@ -48,7 +48,7 @@ namespace Web.Models.CashgameModels.Facts
             WorstTotalWinningsAmount = ResultFormatter.FormatWinnings(factsResult.WorstTotalResult.Amount);
             
             MostTimeName = factsResult.MostTimePlayed.PlayerName;
-            MostTimeDuration = factsResult.MostTimePlayed.Time.String;
+            MostTimeDuration = factsResult.MostTimePlayed.Time.ToString();
             
             BiggestTotalBuyinName = factsResult.BiggestBuyin.PlayerName;
             BiggestTotalBuyinAmount = ResultFormatter.FormatWinnings(factsResult.BiggestBuyin.Amount);

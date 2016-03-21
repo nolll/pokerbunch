@@ -21,8 +21,8 @@ namespace Web.Models.CashgameModels.Details
             Name = resultItem.Name;
             Color = resultItem.Color;
             PlayerUrl = new CashgameActionUrl(resultItem.CashgameId, resultItem.PlayerId).Relative;
-            Buyin = resultItem.Buyin.String;
-            Cashout = resultItem.Cashout.String;
+            Buyin = resultItem.Buyin.ToString();
+            Cashout = resultItem.Cashout.ToString();
             Winnings = ResultFormatter.FormatWinnings(resultItem.Winnings);
             WinningsClass = CssService.GetWinningsCssClass(resultItem.Winnings);
             Winrate = ResultFormatter.FormatWinRate(resultItem.WinRate);

@@ -29,7 +29,7 @@ namespace Web.Models.PlayerModels.Facts
             WorstResult = ResultFormatter.FormatWinnings(factsResult.WorstResult);
             WorstResultCssClass = CssService.GetWinningsCssClass(factsResult.WorstResult);
             GamesPlayed = factsResult.GamesPlayed;
-	        TimePlayed = factsResult.TimePlayed.String;
+	        TimePlayed = factsResult.TimePlayed.ToString();
 	        BestResultCount = factsResult.BestResultCount;
             CurrentStreak = FormatStreak(factsResult.CurrentStreak);
             WinningStreak = FormatWinningStreak(factsResult.WinningStreak);
