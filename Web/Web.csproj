@@ -494,9 +494,7 @@
     <Content Include="Views\Pages\LocationDetails\LocationDetails.cshtml" />
     <Content Include="Views\Pages\RunningCashgame\DashBoardPage.cshtml" />
     <Content Include="package.json" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
+    <None Include="Web.Debug.config" />
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
@@ -625,13 +623,10 @@
     <Content Include="FrontEnd\js\lib\text.js" />
     <Content Include="Views\Error\404.html" />
     <Content Include="Views\Error\500.html" />
-    <Content Include="Web.config">
+    <Content Include="Web.Master.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.Release.config" />
     <Content Include="Components\Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -807,6 +802,9 @@
   <Target Name="EnsureOctoPackImported" BeforeTargets="BeforeBuild" Condition="'$(OctoPackImported)' == ''">
     <Error Condition="!Exists('..\packages\OctoPack.3.0.60\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="You are trying to build with OctoPack, but the NuGet targets file that OctoPack depends on is not available on this computer. This is probably because the OctoPack package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\OctoPack.3.0.60\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <TransformXml Source="Web.Master.config" Transform="Web.Debug.config" Destination="Web.config" Condition="'$(Configuration)' == 'Debug'" />
   </Target>
   <Target Name="AfterBuild">
     <Message Text="Running gulp taskts..." Importance="high">

@@ -15,5 +15,10 @@ namespace Web.Common
         {
             return ConfigurationManager.AppSettings.Get(key);
         }
+
+        protected static string GetConnectionString(string connectionString)
+        {
+            return ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
+        }
     }
 }

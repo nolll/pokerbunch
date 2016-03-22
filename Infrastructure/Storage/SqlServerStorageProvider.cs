@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -9,14 +8,18 @@ using Infrastructure.Storage.Interfaces;
 namespace Infrastructure.Storage
 {
 	public class SqlServerStorageProvider
-    {
-	    private SqlConnection GetConnection()
+	{
+	    private readonly string _connectionString;
+
+        public SqlServerStorageProvider(string connectionString)
         {
-            var connectionString = ConnectionString;
-            return new SqlConnection(connectionString);
+            _connectionString = connectionString;
         }
 
-	    private static string ConnectionString => ConfigurationManager.ConnectionStrings["pokerbunch"].ConnectionString;
+	    private SqlConnection GetConnection()
+        {
+            return new SqlConnection(_connectionString);
+        }
 
 	    public IStorageDataReader Query(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
 	    {

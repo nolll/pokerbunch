@@ -6,10 +6,10 @@ namespace Web.Common.Cache
     {
         public UseCaseContainer UseCases { get; private set; }
 
-        public Bootstrapper()
+        public Bootstrapper(string connectionString)
         {
             var cacheContainer = new CacheContainer(new AspNetCacheProvider());
-            var deps = new Dependencies(cacheContainer);
+            var deps = new Dependencies(cacheContainer, connectionString);
             UseCases = new UseCaseContainer(deps);
         }
     }

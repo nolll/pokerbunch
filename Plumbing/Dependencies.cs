@@ -20,10 +20,10 @@ namespace Plumbing
         private IRandomService _randomService;
         private IMessageSender _messageSender;
                 
-        public Dependencies(ICacheContainer cacheContainer)
+        public Dependencies(ICacheContainer cacheContainer, string connectionString)
         {
             _cacheContainer = cacheContainer;
-            _db = new SqlServerStorageProvider();
+            _db = new SqlServerStorageProvider(connectionString);
         }
 
         public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), _cacheContainer)));

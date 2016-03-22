@@ -8,7 +8,7 @@ namespace Api.Controllers
     [EnsureHttps]
     public abstract class BaseApiController : ApiController
     {
-        private readonly Bootstrapper _bootstrapper = new Bootstrapper();
+        private readonly Bootstrapper _bootstrapper = new Bootstrapper(ApiSettings.ConnectionString);
         protected UseCaseContainer UseCase => _bootstrapper.UseCases;
 
         protected string CurrentUserName

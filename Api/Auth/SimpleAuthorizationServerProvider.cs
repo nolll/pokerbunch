@@ -54,9 +54,6 @@ namespace Api.Auth
             }
         }
 
-        private UseCaseContainer UseCase
-        {
-            get { return new Bootstrapper().UseCases; }
-        }
+        private UseCaseContainer UseCase => new Bootstrapper(ApiSettings.ConnectionString).UseCases;
     }
 }
