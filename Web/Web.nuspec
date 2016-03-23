@@ -9,6 +9,5 @@
   </metadata>
   <files>
     <file src="assets\*.*" target="assets" />
-    <file src="Web.config" />
   </files>
 </package>
