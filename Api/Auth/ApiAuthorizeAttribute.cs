@@ -8,7 +8,7 @@ namespace Api.Auth
     {
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
-            if (RequestEvaluator.IsTestEnvironment(actionContext.Request))
+            if (ApiSettings.RequireAuthorization)
                 return true;
             return base.IsAuthorized(actionContext);
         }

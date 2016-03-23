@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void BunchContext_WithSlug_HasBunchIsTrue()
         {
-            var result = Sut.Execute(new BunchContext.BunchRequest(false, TestData.UserA.UserName, TestData.SlugA));
+            var result = Sut.Execute(new BunchContext.BunchRequest(TestData.UserA.UserName, TestData.SlugA));
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Bunch.SetupOneBunchList();
 
-            var result = Sut.Execute(new BunchContext.BunchRequest(false, TestData.UserA.UserName));
+            var result = Sut.Execute(new BunchContext.BunchRequest(TestData.UserA.UserName));
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
         {
             Repos.Bunch.ClearList();
 
-            var result = Sut.Execute(new BunchContext.BunchRequest(false, TestData.UserA.UserName));
+            var result = Sut.Execute(new BunchContext.BunchRequest(TestData.UserA.UserName));
 
             Assert.IsFalse(result.HasBunch);
         }
@@ -37,21 +37,15 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_AppContextIsSet()
         {
-            var cashgameContextRequest = new BunchContext.BunchRequest(false, TestData.UserA.UserName, TestData.SlugA);
+            var cashgameContextRequest = new BunchContext.BunchRequest(TestData.UserA.UserName, TestData.SlugA);
 
             var result = Sut.Execute(cashgameContextRequest);
 
             Assert.IsInstanceOf<CoreContext.Result>(result.AppContext);
         }
 
-        private BunchContext Sut
-        {
-            get
-            {
-                return new BunchContext(
-                    Services.UserService,
-                    Services.BunchService);
-            }
-        }
+        private BunchContext Sut => new BunchContext(
+            Services.UserService,
+            Services.BunchService);
     }
 }

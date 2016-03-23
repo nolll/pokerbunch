@@ -19,22 +19,22 @@ namespace Web.Controllers.Base
 
         protected BaseContext.Result GetBaseContext()
         {
-            return UseCase.BaseContext.Execute(new BaseContext.Request(SiteSettings.IsInProduction));
+            return UseCase.BaseContext.Execute();
         }
         
         protected CoreContext.Result GetAppContext()
         {
-            return UseCase.CoreContext.Execute(new CoreContext.Request(SiteSettings.IsInProduction, CurrentUserName));
+            return UseCase.CoreContext.Execute(new CoreContext.Request(CurrentUserName));
         }
 
         protected BunchContext.Result GetBunchContext(string slug = null)
         {
-            return UseCase.BunchContext.Execute(new BunchContext.BunchRequest(SiteSettings.IsInProduction, CurrentUserName, slug));
+            return UseCase.BunchContext.Execute(new BunchContext.BunchRequest(CurrentUserName, slug));
         }
 
         protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
         {
-            return UseCase.CashgameContext.Execute(new CashgameContext.Request(SiteSettings.IsInProduction, CurrentUserName, slug, currentTime, selectedPage, year));
+            return UseCase.CashgameContext.Execute(new CashgameContext.Request(CurrentUserName, slug, currentTime, selectedPage, year));
         }
 
         protected string CurrentUserName
@@ -71,7 +71,7 @@ namespace Web.Controllers.Base
                 HandleError(filterContext, 401, Error401);
             else if(filterContext.Exception is NotLoggedInException)
                 SignOut();
-            else if(SiteSettings.IsInProduction)
+            else if(SiteSettings.HandleErrors)
                 HandleError(filterContext, 500, Error500);
         }
 

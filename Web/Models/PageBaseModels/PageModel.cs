@@ -20,9 +20,9 @@ namespace Web.Models.PageBaseModels
             BrowserTitle = browserTitle;
             CssUrl = $"/assets/styles.css?v={contextResult.Version}";
             Version = contextResult.Version;
-            GoogleAnalyticsModel = new GoogleAnalyticsModel(contextResult);
-            JsPath = contextResult.IsInProduction ? $"/assets/scripts.js?v={contextResult.Version}" : "/Frontend/js/lib/require.js";
-            JsLoaderPath = contextResult.IsInProduction ? null : "/FrontEnd/js/require.loader";
+            GoogleAnalyticsModel = new GoogleAnalyticsModel();
+            JsPath = SiteSettings.UseAssets ? $"/assets/scripts.js?v={contextResult.Version}" : "/Frontend/js/lib/require.js";
+            JsLoaderPath = SiteSettings.UseAssets ? null : "/FrontEnd/js/require.loader";
         }
     }
 }

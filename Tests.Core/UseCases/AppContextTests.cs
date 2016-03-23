@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithoutUserName_AllPropertiesAreSet()
         {
-            var result = Sut.Execute(new CoreContext.Request(false, null));
+            var result = Sut.Execute(new CoreContext.Request(null));
 
             Assert.IsFalse(result.IsLoggedIn);
             Assert.IsEmpty(result.UserDisplayName);
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithUserName_LoggedInPropertiesAreSet()
         {
-            var result = Sut.Execute(new CoreContext.Request(false, TestData.UserA.UserName));
+            var result = Sut.Execute(new CoreContext.Request(TestData.UserA.UserName));
 
             Assert.IsTrue(result.IsLoggedIn);
             Assert.AreEqual(TestData.UserDisplayNameA, result.UserDisplayName);
@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AppContext_WithInvalidUserName_LoggedInPropertiesAreSet()
         {
-            var request = new CoreContext.Request(false, "1");
+            var request = new CoreContext.Request("1");
             Assert.Throws<NotLoggedInException>(() => Sut.Execute(request));
         }
 
