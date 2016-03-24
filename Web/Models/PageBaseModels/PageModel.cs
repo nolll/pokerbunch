@@ -18,7 +18,7 @@ namespace Web.Models.PageBaseModels
         protected PageModel(string browserTitle, BaseContext.Result contextResult)
         {
             BrowserTitle = browserTitle;
-            CssUrl = $"/assets/styles.css?v={contextResult.Version}";
+            CssUrl = $"/assets/{contextResult.Version}/styles.css";
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel();
             JsPath = SiteSettings.UseAssets ? $"/assets/{contextResult.Version}/scripts.js" : "/Frontend/js/lib/require.js";
