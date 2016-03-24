@@ -21,7 +21,7 @@ namespace Web.Models.PageBaseModels
             CssUrl = $"/assets/styles.css?v={contextResult.Version}";
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel();
-            JsPath = SiteSettings.UseAssets ? $"/assets/scripts.js?v={contextResult.Version}" : "/Frontend/js/lib/require.js";
+            JsPath = SiteSettings.UseAssets ? $"/assets/{contextResult.Version}/scripts.js" : "/Frontend/js/lib/require.js";
             JsLoaderPath = SiteSettings.UseAssets ? null : "/FrontEnd/js/require.loader";
         }
     }
