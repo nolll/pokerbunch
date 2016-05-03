@@ -19,7 +19,7 @@ namespace Core.UseCases
         public Result Execute(AllAppsRequest request)
         {
             var user = _userService.GetByNameOrEmail(request.CurrentUserName);
-            RoleHandler.RequireAdmin(user);
+            RequireRole.Admin(user);
             var apps = _appService.ListApps();
 
             return new Result(apps);

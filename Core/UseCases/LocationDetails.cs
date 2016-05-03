@@ -23,7 +23,7 @@ namespace Core.UseCases
             var bunch = _bunchService.Get(location.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(location.BunchId, user.Id);
-            RoleHandler.RequirePlayer(user, player);
+            RequireRole.Player(user, player);
 
             return new Result(location.Id, location.Name, bunch.Slug);
         }

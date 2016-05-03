@@ -16,7 +16,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var user = _userService.GetByNameOrEmail(request.UserName);
-            RoleHandler.RequireAdmin(user);
+            RequireRole.Admin(user);
             const string email = "henriks@gmail.com";
             var message = new TestMessage();
             _messageSender.Send(email, message);

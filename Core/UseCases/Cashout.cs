@@ -30,7 +30,7 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
-            RoleHandler.RequireMe(currentUser, currentPlayer, request.PlayerId);
+            RequireRole.Me(currentUser, currentPlayer, request.PlayerId);
             var cashgame = _cashgameService.GetRunning(bunch.Id);
             var result = cashgame.GetResult(request.PlayerId);
 

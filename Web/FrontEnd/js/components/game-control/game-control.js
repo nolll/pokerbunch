@@ -18,7 +18,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 },
                 startTime: function () {
                     var t = gameService.getStartTime(this.players);
-                    return t.format('HH:mm');
+                    return t.format("HH:mm");
                 },
                 sortedPlayers: function() {
                     return gameService.sortPlayers(this.players);

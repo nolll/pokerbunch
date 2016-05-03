@@ -25,7 +25,7 @@ namespace Core.UseCases
             var user = _userService.GetById(player.UserId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
-            RoleHandler.RequirePlayer(currentUser, currentPlayer);
+            RequireRole.Player(currentUser, currentPlayer);
             var isManager = RoleHandler.IsInRole(currentUser, currentPlayer, Role.Manager);
             var hasPlayed = _cashgameService.HasPlayed(request.PlayerId);
             var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;

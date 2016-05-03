@@ -30,7 +30,7 @@ namespace Core.UseCases
             var players = _playerService.Get(playerIds).OrderBy(o => o.Id).ToList();
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
-            RoleHandler.RequirePlayer(user, player);
+            RequireRole.Player(user, player);
 
             var playerItems = GetPlayerItems(bunch, cashgame, players, request.CurrentTime);
 

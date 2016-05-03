@@ -24,7 +24,7 @@ namespace Core.UseCases
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
-            RoleHandler.RequireManager(user, player);
+            RequireRole.Manager(user, player);
 
             if (cashgame.PlayerCount > 0)
                 throw new CashgameHasResultsException();

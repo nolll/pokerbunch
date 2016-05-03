@@ -19,7 +19,7 @@ namespace Core.UseCases
         public Result Execute(AllBunchesRequest request)
         {
             var user = _userService.GetByNameOrEmail(request.UserName);
-            RoleHandler.RequireAdmin(user);
+            RequireRole.Admin(user);
 
             var bunches = _bunchService.GetList();
             return new Result(bunches);

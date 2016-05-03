@@ -29,7 +29,7 @@ namespace Core.UseCases
             var bunch = _bunchService.Get(player.BunchId);
             var cashgame = _cashgameService.GetById(request.CashgameId);
             
-            RoleHandler.RequirePlayer(user, player);
+            RequireRole.Player(user, player);
             var playerResult = cashgame.GetResult(player.Id);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, user.Id);
             var isManager = RoleHandler.IsInRole(user, currentPlayer, Role.Manager);

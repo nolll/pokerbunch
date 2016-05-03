@@ -30,7 +30,7 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
-            RoleHandler.RequirePlayer(currentUser, currentPlayer);
+            RequireRole.Player(currentUser, currentPlayer);
 
             var location = new Location(0, request.Name, bunch.Id);
             _locationService.Add(location);

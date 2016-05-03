@@ -30,7 +30,7 @@ namespace Core.UseCases
             var bunch = _bunchService.Get(player.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
-            RoleHandler.RequireManager(currentUser, currentPlayer);
+            RequireRole.Manager(currentUser, currentPlayer);
 
             var invitationCode = InvitationCodeCreator.GetCode(player);
             var joinUrl = string.Format(request.JoinUrlFormat, bunch.Slug);

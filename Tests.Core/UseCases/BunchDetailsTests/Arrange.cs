@@ -16,19 +16,24 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         protected const string DisplayName = "displayname";
         protected const string Description = "description";
         protected const string HouseRules = "houserules";
-        protected virtual Role Role => Role.Player;
-        protected BunchDetails.Result Result;
+        protected virtual Role Role => Role.None;
+        private BunchDetails.Request _request;
+        private BunchDetails _sut;
 
         [SetUp]
         public void Setup()
         {
-            var sut = CreateSut<BunchDetails>();
+            _sut = CreateSut<BunchDetails>();
 
             MockOf<IBunchService>().Setup(s => s.GetBySlug(Slug)).Returns(new Bunch(BunchId, Slug, DisplayName, Description, HouseRules));
             MockOf<IPlayerService>().Setup(s => s.GetByUserId(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId, role: Role));
             MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
+        }
 
-            Result = sut.Execute(new BunchDetails.Request(UserName, Slug));
+        protected BunchDetails.Result Execute()
+        {
+            _request = new BunchDetails.Request(UserName, Slug);
+            return _sut.Execute(_request);
         }
     }
 }

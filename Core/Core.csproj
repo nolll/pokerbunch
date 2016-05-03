@@ -97,6 +97,7 @@
     <Compile Include="Services\RandomService.cs" />
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
+    <Compile Include="Services\RequireRole.cs" />
     <Compile Include="Services\ResultFormatter.cs" />
     <Compile Include="Services\RoleHandler.cs" />
     <Compile Include="Services\SaltGenerator.cs" />

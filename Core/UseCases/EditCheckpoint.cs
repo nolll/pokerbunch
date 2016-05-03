@@ -33,7 +33,7 @@ namespace Core.UseCases
             var bunch = _bunchService.Get(cashgame.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
-            RoleHandler.RequireManager(currentUser, currentPlayer);
+            RequireRole.Manager(currentUser, currentPlayer);
             
             var postedCheckpoint = Checkpoint.Create(
                 existingCheckpoint.CashgameId,

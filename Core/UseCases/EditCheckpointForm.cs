@@ -26,7 +26,7 @@ namespace Core.UseCases
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
-            RoleHandler.RequireManager(user, player);
+            RequireRole.Manager(user, player);
             var stack = checkpoint.Stack;
             var amount = checkpoint.Amount;
             var timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);

@@ -66,6 +66,7 @@
     <Compile Include="UseCases\BaseContextTests.cs" />
     <Compile Include="UseCases\BunchContextTests.cs" />
     <Compile Include="UseCases\BunchDetailsTests\WithManager.cs" />
+    <Compile Include="UseCases\BunchDetailsTests\WithNoRole.cs" />
     <Compile Include="UseCases\BunchDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />

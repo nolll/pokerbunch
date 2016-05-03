@@ -31,7 +31,7 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
-            RoleHandler.RequireManager(currentUser, currentPlayer);
+            RequireRole.Manager(currentUser, currentPlayer);
             var existingPlayers = _playerService.GetList(bunch.Id);
             var player = existingPlayers.FirstOrDefault(o => string.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
             if(player != null)

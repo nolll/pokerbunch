@@ -31,7 +31,7 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetById(request.Id);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(cashgame.BunchId, user.Id);
-            RoleHandler.RequireManager(user, player);
+            RequireRole.Manager(user, player);
             var location = _locationService.Get(request.LocationId);
             cashgame = new Cashgame(cashgame.BunchId, location.Id, cashgame.Status, cashgame.Id);
             _cashgameService.UpdateGame(cashgame);

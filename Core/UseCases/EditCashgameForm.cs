@@ -29,7 +29,7 @@ namespace Core.UseCases
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(cashgame.BunchId, user.Id);
-            RoleHandler.RequireManager(user, player);
+            RequireRole.Manager(user, player);
 
             var locations = _locationService.GetByBunch(cashgame.BunchId);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();

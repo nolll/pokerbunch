@@ -35,7 +35,7 @@ namespace Core.UseCases
 
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
-            RoleHandler.RequirePlayer(user, player);
+            RequireRole.Player(user, player);
             var players = _playerService.Get(GetPlayerIds(cashgame));
             var bunchPlayers = _playerService.GetList(bunch.Id);
 

@@ -31,7 +31,7 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetRunning(bunch.Id);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
-            RoleHandler.RequireMe(currentUser, currentPlayer, request.PlayerId);
+            RequireRole.Me(currentUser, currentPlayer, request.PlayerId);
 
             var checkpoint = Checkpoint.Create(cashgame.Id, request.PlayerId, request.CurrentTime, CheckpointType.Report, request.Stack);
             cashgame.AddCheckpoint(checkpoint);

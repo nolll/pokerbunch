@@ -28,7 +28,7 @@ namespace Core.UseCases
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
-            RoleHandler.RequireManager(user, player);
+            RequireRole.Manager(user, player);
             var postedHomegame = CreateBunch(bunch, request);
             _bunchService.Save(postedHomegame);
 

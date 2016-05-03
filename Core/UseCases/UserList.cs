@@ -16,9 +16,8 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var user = _userService.GetByNameOrEmail(request.UserName);
-            RoleHandler.RequireAdmin(user);
-
-
+            RequireRole.Admin(user);
+            
             var users = _userService.GetList();
             var userItems = users.Select(o => new UserListItem(o.DisplayName, o.UserName)).ToList();
 
