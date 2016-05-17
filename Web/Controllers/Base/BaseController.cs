@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
 using Core.UseCases;
+using Microsoft.ApplicationInsights;
 using Web.Common;
 using Web.Common.Cache;
 using Web.Extensions;
@@ -71,8 +72,23 @@ namespace Web.Controllers.Base
                 HandleError(filterContext, 401, Error401);
             else if(filterContext.Exception is NotLoggedInException)
                 SignOut();
-            else if(SiteSettings.HandleErrors)
-                HandleError(filterContext, 500, Error500);
+            else if (SiteSettings.HandleErrors)
+                TrackAndHandleError(filterContext, 500, Error500);
+        }
+
+        private void TrackAndHandleError(ExceptionContext filterContext, int errorCode, Antlr.Runtime.Misc.Func<ActionResult> errorHandler)
+        {
+            LogError(filterContext.Exception);
+            HandleError(filterContext, errorCode, errorHandler);
+        }
+
+        private void LogError(Exception exception)
+        {
+            if (SiteSettings.EnableApplicationInsights)
+            {
+                var ai = new TelemetryClient();
+                ai.TrackException(exception);
+            }
         }
 
         private void HandleError(ExceptionContext filterContext, int errorCode, Antlr.Runtime.Misc.Func<ActionResult> errorHandler)

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Microsoft.ApplicationInsights.Extensibility;
 using Web.Plumbing;
 
 namespace Web
@@ -28,6 +29,16 @@ namespace Web
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            SetupApplicationInsights();
+        }
+
+        private void SetupApplicationInsights()
+        {
+            if (SiteSettings.EnableApplicationInsights)
+            {
+                TelemetryConfiguration.Active.InstrumentationKey = SiteSettings.ApplicationInsightsKey;
+            }
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

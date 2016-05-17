@@ -11,5 +11,7 @@ namespace Web
         public static bool UseAssets => GetBool("UseAssets");
         public static bool EnableAnalytics => GetBool("EnableAnalytics");
         public static string ConnectionString => GetConnectionString("pokerbunch");
+        public static bool EnableApplicationInsights => GetBool("EnableApplicationInsights");
+        public static string ApplicationInsightsKey => Get("ApplicationInsightsKey");
     }
 }
