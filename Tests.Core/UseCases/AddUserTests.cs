@@ -95,9 +95,6 @@ namespace Tests.Core.UseCases
             const string subject = "Poker Bunch Registration";
             const string body = @"Thanks for registering with Poker Bunch.
 
-Here is your password:
-c
-
 Please sign in here: /loginUrl";
 
             var request = new AddUser.Request(ValidUserName, ValidDisplayName, ValidEmail, ValidPassword, "/loginUrl");

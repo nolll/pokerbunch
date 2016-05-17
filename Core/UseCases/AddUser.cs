@@ -41,7 +41,7 @@ namespace Core.UseCases
 
             _userService.Add(user);
             
-            var message = new RegistrationMessage(request.Password, request.LoginUrl);
+            var message = new RegistrationMessage(request.LoginUrl);
             _messageSender.Send(request.Email, message);
         }
 
