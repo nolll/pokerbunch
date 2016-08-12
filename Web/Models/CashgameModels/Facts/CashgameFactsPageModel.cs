@@ -51,10 +51,10 @@ namespace Web.Models.CashgameModels.Facts
             MostTimeDuration = factsResult.MostTimePlayed.Time.ToString();
             
             BiggestTotalBuyinName = factsResult.BiggestBuyin.PlayerName;
-            BiggestTotalBuyinAmount = ResultFormatter.FormatWinnings(factsResult.BiggestBuyin.Amount);
+            BiggestTotalBuyinAmount = factsResult.BiggestBuyin.Amount.ToString();
             
             BiggestTotalCashoutName = factsResult.BiggestCashout.PlayerName;
-            BiggestTotalCashoutAmount = ResultFormatter.FormatWinnings(factsResult.BiggestCashout.Amount);
+            BiggestTotalCashoutAmount = factsResult.BiggestCashout.Amount.ToString();
         }
 	}
 }
