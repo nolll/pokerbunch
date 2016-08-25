@@ -37,7 +37,7 @@ namespace Infrastructure.Storage
 
         private string GetIdParameterName(int index)
         {
-            return string.Format("@param{0}", index);
+            return $"@param{index}";
         }
     }
 }

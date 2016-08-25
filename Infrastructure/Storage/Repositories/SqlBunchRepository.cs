@@ -50,10 +50,7 @@ namespace Infrastructure.Storage.Repositories
 	    public IList<int> Search(string slug)
 	    {
 	        var sql = string.Concat(SearchSql, " WHERE h.Name = @slug");
-	        var parameters = new List<SimpleSqlParameter>
-	        {
-	            new SimpleSqlParameter("@slug", slug)
-	        };
+            var parameters = new SqlParameters(new SimpleSqlParameter("@slug", slug));
             var reader = _db.Query(sql, parameters);
             var id = reader.ReadInt("HomegameID");
             if(id.HasValue)

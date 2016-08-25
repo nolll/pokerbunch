@@ -74,6 +74,7 @@
     <Compile Include="Storage\Repositories\SqlPlayerRepository.cs" />
     <Compile Include="Storage\Repositories\SqlUserRepository.cs" />
     <Compile Include="Storage\SimpleSqlParameter.cs" />
+    <Compile Include="Storage\SqlParameters.cs" />
     <Compile Include="Storage\SqlServerStorageProvider.cs" />
     <Compile Include="Storage\StorageDataReader.cs" />
     <Compile Include="Web\EmailMessageSender.cs" />
