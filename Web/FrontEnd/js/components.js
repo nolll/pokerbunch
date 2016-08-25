@@ -46,7 +46,7 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
             vue.component('game-list-row', gameListRow);
 
             vue.filter('currency', function (value, format, separator) {
-                return formatCurrency(value, format, separator)
+                return formatCurrency(value, format, separator);
             });
 
             vue.filter('result', function (value, format, separator) {
@@ -54,7 +54,9 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
                 var currencyValue = formatCurrency(absValue, format, separator);
                 if (value > 0)
                     return "+" + currencyValue;
-                return "-" + currencyValue;
+                if (value < 0)
+                    return "-" + currencyValue;
+                return currencyValue;
             });
 
             vue.filter('winrate', function (value, format, separator) {
