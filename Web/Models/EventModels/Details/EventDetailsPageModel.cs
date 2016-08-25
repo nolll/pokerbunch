@@ -6,19 +6,18 @@ namespace Web.Models.EventModels.Details
 {
 	public class EventDetailsPageModel : BunchPageModel
     {
-        public string Name { get; private set; }
+	    private readonly EventDetails.Result _eventDetails;
+	    public string Name { get; private set; }
         public CashgameMatrixTableModel MatrixModel { get; private set; }
 
 	    public EventDetailsPageModel(BunchContext.Result contextResult, EventDetails.Result eventDetails, Matrix.Result matrixResult)
-            : base(GetBrowserTitle(eventDetails), contextResult)
+            : base(contextResult)
 	    {
-            Name = eventDetails.Name;
+	        _eventDetails = eventDetails;
+	        Name = _eventDetails.Name;
             MatrixModel = new CashgameMatrixTableModel(matrixResult);
 	    }
 
-	    private static string GetBrowserTitle(EventDetails.Result eventDetails)
-	    {
-	        return string.Format("Event - {0}", eventDetails.Name);
-	    }
+	    public override string BrowserTitle => $"Event - {_eventDetails.Name}";
     }
 }

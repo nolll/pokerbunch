@@ -18,7 +18,7 @@ namespace Web.Models.UserModels
         public AvatarModel AvatarModel { get; private set; }
 
         public UserDetailsPageModel(CoreContext.Result contextResult, UserDetails.Result userDetails)
-            : base("User Details", contextResult)
+            : base(contextResult)
         {
             UserName = userDetails.UserName;
             DisplayName = userDetails.DisplayName;
@@ -30,5 +30,7 @@ namespace Web.Models.UserModels
             EditUrl = new EditUserUrl(userDetails.UserName).Relative;
             ChangePasswordUrl = new ChangePasswordUrl().Relative;
         }
+
+        public override string BrowserTitle => "User Details";
     }
 }

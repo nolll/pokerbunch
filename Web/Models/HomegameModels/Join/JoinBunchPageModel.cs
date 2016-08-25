@@ -9,10 +9,12 @@ namespace Web.Models.HomegameModels.Join
         public string Code { get; private set; }
 
         public JoinBunchPageModel(CoreContext.Result contextResult, JoinBunchForm.Result joinBunchFormResult, string code)
-            : base("Join Bunch", contextResult)
+            : base(contextResult)
         {
             Name = joinBunchFormResult.BunchName;
             Code = code;
         }
+
+        public override string BrowserTitle => "Join Bunch";
     }
 }

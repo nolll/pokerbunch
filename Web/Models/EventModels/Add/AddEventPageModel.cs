@@ -8,10 +8,12 @@ namespace Web.Models.EventModels.Add
         public string Name { get; private set; }
 
         public AddEventPageModel(BunchContext.Result contextResult, AddEventPostModel postModel = null)
-            : base("Add Event", contextResult)
+            : base(contextResult)
         {
             if (postModel == null) return;
             Name = postModel.Name;
         }
+
+        public override string BrowserTitle => "Add Event";
     }
 }

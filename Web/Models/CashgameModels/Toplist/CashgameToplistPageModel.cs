@@ -8,14 +8,12 @@ namespace Web.Models.CashgameModels.Toplist
     {
         public string ToplistJson { get; }
 
-        public CashgameToplistPageModel(
-            CashgameContext.Result cashgameContextResult,
-            TopList.Result topListResult)
-            : base(
-            "Cashgame Toplist",
-            cashgameContextResult)
+        public CashgameToplistPageModel(CashgameContext.Result cashgameContextResult, TopList.Result topListResult)
+            : base(cashgameContextResult)
         {
             ToplistJson = JsonHelper.Serialize(new ToplistTableJsonModel(topListResult));
         }
+
+        public override string BrowserTitle => "Cashgame Toplist";
     }
 }

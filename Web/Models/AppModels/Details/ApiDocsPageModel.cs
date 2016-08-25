@@ -17,7 +17,7 @@ namespace Web.Models.AppModels.Details
         public string CashoutUrl { get; private set; }
 
         public ApiDocsPageModel(CoreContext.Result contextResult)
-            : base("Api Documentation", contextResult)
+            : base(contextResult)
         {
             const string slug = "bunch-short-name";
             AppListUrl = new UserAppsUrl().Relative;
@@ -28,5 +28,7 @@ namespace Web.Models.AppModels.Details
             ReportUrl = new ApiReportUrl(slug).GetAbsolute();
             CashoutUrl = new ApiCashoutUrl(slug).GetAbsolute();
         }
+
+        public override string BrowserTitle => "Api Documentation";
     }
 }

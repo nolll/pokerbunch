@@ -10,10 +10,12 @@ namespace Web.Models.HomegameModels.Join
         public string BunchUrl { get; private set; }
 
         public JoinBunchConfirmationPageModel(BunchContext.Result contextResult, JoinBunchConfirmation.Result joinBunchConfirmationResult)
-            : base("Welcome", contextResult)
+            : base(contextResult)
         {
             BunchName = joinBunchConfirmationResult.BunchName;
             BunchUrl = new BunchDetailsUrl(joinBunchConfirmationResult.Slug).Relative;
         }
+
+        public override string BrowserTitle => "Welcome";
     }
 }

@@ -10,12 +10,14 @@ namespace Web.Models.UserModels.Add
         public string Email { get; private set; }
 
         public AddUserPageModel(CoreContext.Result contextResult, AddUserPostModel postModel)
-            : base("Register", contextResult)
+            : base(contextResult)
         {
             if (postModel == null) return;
             UserName = postModel.UserName;
             DisplayName = postModel.DisplayName;
             Email = postModel.Email;
         }
+
+        public override string BrowserTitle => "Register";
     }
 }

@@ -7,9 +7,9 @@ namespace Web.Models.PageBaseModels
         public override string Layout => ContextLayout.Wrapped;
         public override string HtmlCssClass => "page-bg";
         public override string BodyCssClass => null;
-
-        protected WrappedPageModel(string browserTitle, BaseContext.Result contextResult)
-            : base(browserTitle, contextResult)
+        
+        protected WrappedPageModel(BaseContext.Result contextResult)
+            : base(contextResult)
         {
         }
     }

@@ -9,10 +9,12 @@ namespace Web.Models.ErrorModels
         public string Message { get; private set; }
 
         protected ErrorPageModel(BaseContext.Result contextResult, string title, string message)
-            : base("Error", contextResult)
+            : base(contextResult)
         {
             Title = title;
             Message = message;
         }
+
+        public override string BrowserTitle => "Error";
     }
 }

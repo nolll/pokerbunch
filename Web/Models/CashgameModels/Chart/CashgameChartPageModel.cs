@@ -9,9 +9,11 @@ namespace Web.Models.CashgameModels.Chart
         public string ChartJson { get; private set; }
 
         public CashgameChartPageModel(CashgameContext.Result cashgameContextResult, CashgameChart.Result cashgameChartResult)
-            : base("Cashgame Chart", cashgameContextResult)
+            : base(cashgameContextResult)
         {
             ChartJson = JsonHelper.Serialize(new CashgameChartModel(cashgameChartResult));
         }
+
+        public override string BrowserTitle => "Cashgame Chart";
     }
 }

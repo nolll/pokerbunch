@@ -21,7 +21,7 @@ namespace Web.Models.HomegameModels.Edit
         public int DefaultBuyin { get; private set; }
 
         public EditBunchPageModel(BunchContext.Result contextResult, EditBunchForm.Result editBunchFormResult, EditBunchPostModel postModel)
-            : base("Edit Bunch", contextResult)
+            : base(contextResult)
         {
             CancelUrl = new BunchDetailsUrl(editBunchFormResult.Slug).Relative;
             Heading = editBunchFormResult.Heading;
@@ -42,6 +42,8 @@ namespace Web.Models.HomegameModels.Edit
             CurrencySymbol = postModel.CurrencySymbol;
             CurrencyLayout = postModel.CurrencyLayout;
         }
+
+        public override string BrowserTitle => "Edit Bunch";
 
         private SelectListItem CreateTimezoneSelectListItem(AddBunchForm.TimeZoneItem item)
         {

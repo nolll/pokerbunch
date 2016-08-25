@@ -12,10 +12,12 @@ namespace Web.Models.EventModels.List
 	    public string AddUrl { get; private set; }
 
 	    public EventListPageModel(BunchContext.Result contextResult, EventList.Result eventListResult)
-            : base("Events", contextResult)
+            : base(contextResult)
 	    {
             EventModels = eventListResult.Events.Select(o => new EventListItemModel(o)).ToList();
 	        AddUrl = new AddEventUrl(contextResult.Slug).Relative;
 	    }
+
+	    public override string BrowserTitle => "Events";
     }
 }

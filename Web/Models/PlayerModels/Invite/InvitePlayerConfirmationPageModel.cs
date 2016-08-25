@@ -6,8 +6,10 @@ namespace Web.Models.PlayerModels.Invite
     public class InvitePlayerConfirmationPageModel : BunchPageModel
     {
 	    public InvitePlayerConfirmationPageModel(BunchContext.Result contextResult)
-            : base("Player Invited", contextResult)
+            : base(contextResult)
 	    {
 	    }
+
+        public override string BrowserTitle => "Player Invited";
     }
 }

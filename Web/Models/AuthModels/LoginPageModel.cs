@@ -13,7 +13,7 @@ namespace Web.Models.AuthModels
         public string ReturnUrl { get; private set; }
 
         public LoginPageModel(CoreContext.Result contextResult, LoginForm.Result loginFormResult, LoginPostModel postModel)
-            : base("Login", contextResult)
+            : base(contextResult)
         {
             ReturnUrl = loginFormResult.ReturnUrl;
             AddUserUrl = new AddUserUrl().Relative;
@@ -23,5 +23,7 @@ namespace Web.Models.AuthModels
             RememberMe = postModel.RememberMe;
             ReturnUrl = postModel.ReturnUrl;
         }
+
+        public override string BrowserTitle => "Login";
     }
 }

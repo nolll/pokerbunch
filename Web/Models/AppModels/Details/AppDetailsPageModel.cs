@@ -12,12 +12,14 @@ namespace Web.Models.AppModels.Details
         public string EditUrl { get; private set; }
 
         public AppDetailsPageModel(CoreContext.Result contextResult, AppDetails.Result appDetailsResult)
-            : base("All Details", contextResult)
+            : base(contextResult)
         {
             AppName = appDetailsResult.AppName;
             AppKey = appDetailsResult.AppKey;
             ShowEditLink = true;
             EditUrl = new EditAppUrl(appDetailsResult.AppId).Relative;
         }
+
+        public override string BrowserTitle => "All Details";
     }
 }

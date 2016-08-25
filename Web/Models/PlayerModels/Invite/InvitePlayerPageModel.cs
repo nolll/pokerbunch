@@ -8,10 +8,12 @@ namespace Web.Models.PlayerModels.Invite
         public string Email { get; private set; }
 
         public InvitePlayerPageModel(BunchContext.Result contextResult, InvitePlayerPostModel postModel)
-            : base("Invite Player", contextResult)
+            : base(contextResult)
         {
             if (postModel == null) return;
             Email = postModel.Email;
         }
+
+        public override string BrowserTitle => "Invite Player";
     }
 }

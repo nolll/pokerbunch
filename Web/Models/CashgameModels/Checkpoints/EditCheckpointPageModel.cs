@@ -16,7 +16,7 @@ namespace Web.Models.CashgameModels.Checkpoints
         public int Amount { get; private set; }
 
         public EditCheckpointPageModel(BunchContext.Result contextResult, EditCheckpointForm.Result editCheckpointFormResult, EditCheckpointPostModel postModel)
-            : base("Edit Checkpoint", contextResult)
+            : base(contextResult)
         {
             Stack = editCheckpointFormResult.Stack;
             Amount = editCheckpointFormResult.Amount;
@@ -30,5 +30,7 @@ namespace Web.Models.CashgameModels.Checkpoints
             Amount = postModel.Amount;
             Timestamp = postModel.Timestamp;
         }
+
+        public override string BrowserTitle => "Edit Checkpoint";
     }
 }

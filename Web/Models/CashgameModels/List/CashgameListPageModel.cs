@@ -9,9 +9,11 @@ namespace Web.Models.CashgameModels.List
         public string ListJson { get; private set; }
 
         public CashgameListPageModel(CashgameContext.Result cashgameContextResult, CashgameList.Result listResult)
-            : base("Cashgame List", cashgameContextResult)
+            : base(cashgameContextResult)
         {
             ListJson = JsonHelper.Serialize(new CashgameListTableJsonModel(listResult));
         }
+
+        public override string BrowserTitle => "Cashgame List";
     }
 }

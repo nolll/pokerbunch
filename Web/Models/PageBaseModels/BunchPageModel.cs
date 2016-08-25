@@ -7,16 +7,13 @@ namespace Web.Models.PageBaseModels
     {
         public BunchNavigationModel BunchNavModel { get; private set; }
 
-        protected BunchPageModel(string browserTitle, BunchContext.Result bunchContextResult)
-            : base(browserTitle, bunchContextResult.AppContext)
+        protected BunchPageModel(BunchContext.Result bunchContextResult)
+            : base(bunchContextResult.AppContext)
         {
             BunchNavModel = GetBunchNavModel(bunchContextResult);
         }
 
-        public override string Layout
-        {
-            get { return ContextLayout.Bunch; }
-        }
+        public override string Layout => ContextLayout.Bunch;
 
         private BunchNavigationModel GetBunchNavModel(BunchContext.Result bunchContextResult)
         {

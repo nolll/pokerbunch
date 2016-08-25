@@ -14,13 +14,16 @@ namespace Web.Models.CashgameModels.Action
         public string Heading { get; private set; }
 
         public ActionPageModel(BunchContext.Result contextResult, Actions.Result actionsResult, ActionsChart.Result actionsChartResult)
-            : base("Player Actions", contextResult)
+            : base(contextResult)
         {
             var date = Globalization.FormatShortDate(actionsResult.Date, true);
-            Heading = string.Format("Cashgame {0}, {1}", date, actionsResult.PlayerName);
+            var playerName = actionsResult.PlayerName;
+            Heading = $"Cashgame {date}, {playerName}";
             Checkpoints = GetCheckpointModels(actionsResult);
             ChartJson = JsonHelper.Serialize(new ActionChartModel(actionsChartResult));
         }
+
+        public override string BrowserTitle => "Player Actions";
 
         private List<CheckpointModel> GetCheckpointModels(Actions.Result actionsResult)
         {

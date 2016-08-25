@@ -14,7 +14,7 @@ namespace Web.Models.HomegameModels.Details
         public bool ShowEditLink { get; private set; }
 
         public BunchDetailsPageModel(BunchContext.Result contextResult, BunchDetails.Result bunchDetails)
-            : base("Bunch Details", contextResult)
+            : base(contextResult)
         {
             DisplayName = bunchDetails.BunchName;
             Description = bunchDetails.Description;
@@ -24,9 +24,11 @@ namespace Web.Models.HomegameModels.Details
             ShowEditLink = bunchDetails.CanEdit;
         }
 
+        public override string BrowserTitle => "Bunch Details";
+
         private string FormatHouseRules(string houseRules)
         {
-            return houseRules != null ? houseRules.Trim().Replace("\n\r", "<br />\n\r") : null;
+            return houseRules?.Trim().Replace("\n\r", "<br />\n\r");
         }
     }
 }

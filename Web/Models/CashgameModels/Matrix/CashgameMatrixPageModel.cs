@@ -8,9 +8,11 @@ namespace Web.Models.CashgameModels.Matrix
         public CashgameMatrixTableModel TableModel { get; private set; }
 
         public CashgameMatrixPageModel(CashgameContext.Result cashgameContextResult, Core.UseCases.Matrix.Result matrixResult)
-            : base("Cashgame Matrix", cashgameContextResult)
+            : base(cashgameContextResult)
         {
             TableModel = new CashgameMatrixTableModel(matrixResult);
         }
+
+        public override string BrowserTitle => "Cashgame Matrix";
     }
 }

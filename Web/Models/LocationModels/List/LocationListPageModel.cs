@@ -12,10 +12,12 @@ namespace Web.Models.LocationModels.List
 	    public string AddUrl { get; private set; }
 
         public LocationListPageModel(BunchContext.Result contextResult, LocationList.Result locationListResult)
-            : base("Locations", contextResult)
+            : base(contextResult)
 	    {
             LocationModels = locationListResult.Events.Select(o => new LocationListItemModel(o)).ToList();
             AddUrl = new AddLocationUrl(contextResult.Slug).Relative;
 	    }
+
+	    public override string BrowserTitle => "Locations";
     }
 }

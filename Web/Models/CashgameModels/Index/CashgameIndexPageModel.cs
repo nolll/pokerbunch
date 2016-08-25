@@ -12,13 +12,13 @@ namespace Web.Models.CashgameModels.Index
         public bool HasGames { get; private set; }
 
         public CashgameIndexPageModel(CashgameContext.Result contextResult, CashgameStatus.Result statusResult, Core.UseCases.CurrentRankings.Result currentRankingsResult)
-            : base(
-                "Cashgames",
-                contextResult)
+            : base(contextResult)
         {
             StatusModel = new CashgameStatusModel(statusResult);
             CurrentRankingsModel = new CurrentRankingsTableModel(currentRankingsResult);
             HasGames = currentRankingsResult.HasGames;
         }
+
+        public override string BrowserTitle => "Cashgames";
     }
 }

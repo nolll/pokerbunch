@@ -8,9 +8,11 @@ namespace Web.Models.PlayerModels.Add
         public string BunchName { get; private set; }
 
         public AddPlayerConfirmationPageModel(BunchContext.Result contextResult)
-            : base("Player Added", contextResult)
+            : base(contextResult)
         {
             BunchName = contextResult.BunchName;
         }
+
+        public override string BrowserTitle => "Player Added";
     }
 }

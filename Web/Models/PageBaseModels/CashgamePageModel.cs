@@ -9,15 +9,13 @@ namespace Web.Models.PageBaseModels
         public CashgamePageNavigationModel PageNavModel { get; private set; }
         public CashgameYearNavigationModel YearNavModel { get; private set; }
 
-        protected CashgamePageModel(string browserTitle, CashgameContext.Result cashgameContextResult) : base(browserTitle, cashgameContextResult.BunchContext)
+        protected CashgamePageModel(CashgameContext.Result cashgameContextResult)
+            : base(cashgameContextResult.BunchContext)
         {
             PageNavModel = new CashgamePageNavigationModel(cashgameContextResult);
             YearNavModel = cashgameContextResult.SelectedPage != CashgameContext.CashgamePage.Overview ? new CashgameYearNavigationModel(cashgameContextResult) : null;
         }
 
-        public override string Layout
-        {
-            get { return ContextLayout.Cashgame; }
-        }
+        public override string Layout => ContextLayout.Cashgame;
     }
 }

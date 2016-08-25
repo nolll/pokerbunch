@@ -8,10 +8,12 @@ namespace Web.Models.UserModels.ForgotPassword
         public string Email { get; private set; }
 
         public ForgotPasswordPageModel(CoreContext.Result contextResult, ForgotPasswordPostModel postModel)
-            : base("Forgot Password", contextResult)
+            : base(contextResult)
         {
             if (postModel == null) return;
             Email = postModel.Email;
         }
+
+        public override string BrowserTitle => "Forgot Password";
     }
 }

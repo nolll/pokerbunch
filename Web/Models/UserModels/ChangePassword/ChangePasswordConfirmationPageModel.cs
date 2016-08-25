@@ -6,8 +6,10 @@ namespace Web.Models.UserModels.ChangePassword
     public class ChangePasswordConfirmationPageModel : AppPageModel
     {
         public ChangePasswordConfirmationPageModel(CoreContext.Result contextResult)
-            : base("Password Changed", contextResult)
+            : base(contextResult)
         {
         }
+
+        public override string BrowserTitle => "Password Changed";
     }
 }

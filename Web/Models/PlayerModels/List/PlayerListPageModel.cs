@@ -13,11 +13,13 @@ namespace Web.Models.PlayerModels.List
 	    public bool ShowAddLink { get; private set; }
 
         public PlayerListPageModel(BunchContext.Result contextResult, PlayerList.Result playerListResult)
-            : base("Player List", contextResult)
+            : base(contextResult)
         {
             PlayerModels = playerListResult.Players.Select(item => new PlayerItemModel(item)).ToList();
             AddUrl = new AddPlayerUrl(playerListResult.Slug).Relative;
             ShowAddLink = playerListResult.CanAddPlayer;
         }
+
+        public override string BrowserTitle => "Player List";
     }
 }

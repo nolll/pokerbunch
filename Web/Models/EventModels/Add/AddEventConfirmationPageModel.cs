@@ -5,12 +5,11 @@ namespace Web.Models.EventModels.Add
 {
     public class AddEventConfirmationPageModel : BunchPageModel
     {
-        public string BunchName { get; private set; }
-
         public AddEventConfirmationPageModel(BunchContext.Result contextResult)
-            : base("Event Created", contextResult)
+            : base(contextResult)
         {
-            BunchName = contextResult.BunchName;
         }
+
+        public override string BrowserTitle => "Event Created";
     }
 }

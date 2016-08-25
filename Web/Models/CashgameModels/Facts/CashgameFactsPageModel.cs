@@ -24,12 +24,8 @@ namespace Web.Models.CashgameModels.Facts
         public string BiggestTotalCashoutName { get; private set; }
         public string BiggestTotalCashoutAmount { get; private set; }
 
-	    public CashgameFactsPageModel(
-            CashgameContext.Result cashgameContextResult,
-            CashgameFacts.Result factsResult) :
-            base(
-            "Cashgame Facts",
-            cashgameContextResult)
+	    public CashgameFactsPageModel(CashgameContext.Result cashgameContextResult, CashgameFacts.Result factsResult)
+            : base(cashgameContextResult)
 	    {
 	        GameCount = factsResult.GameCount;
             TotalGameTime = factsResult.TotalTimePlayed.ToString();
@@ -56,5 +52,7 @@ namespace Web.Models.CashgameModels.Facts
             BiggestTotalCashoutName = factsResult.BiggestCashout.PlayerName;
             BiggestTotalCashoutAmount = factsResult.BiggestCashout.Amount.ToString();
         }
-	}
+
+	    public override string BrowserTitle => "Cashgame Facts";
+    }
 }

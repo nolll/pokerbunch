@@ -17,7 +17,7 @@ namespace Web.Models.HomegameModels.Add
         public string TimeZone { get; private set; }
 
         public AddBunchPageModel(CoreContext.Result contextResult, AddBunchForm.Result bunchFormResult, AddBunchPostModel postModel)
-            : base("Create Bunch", contextResult)
+            : base(contextResult)
         {
             CurrencyLayoutSelectItems = bunchFormResult.CurrencyLayouts.Select(o => new SelectListItem{ Text = o, Value = o }).ToList();
             TimezoneSelectItems = bunchFormResult.TimeZones.Select(o => new SelectListItem{ Text = o.Name, Value = o.Id }).ToList();
@@ -28,5 +28,7 @@ namespace Web.Models.HomegameModels.Add
             CurrencySymbol = postModel.CurrencySymbol;
             CurrencyLayout = postModel.CurrencyLayout;
         }
+
+        public override string BrowserTitle => "Create Bunch";
     }
 }

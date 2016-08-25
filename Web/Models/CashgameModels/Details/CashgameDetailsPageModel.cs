@@ -23,7 +23,7 @@ namespace Web.Models.CashgameModels.Details
         public CashgameDetailsTableModel CashgameDetailsTableModel { get; private set; }
 
         public CashgameDetailsPageModel(BunchContext.Result contextResult, CashgameDetails.Result detailsResult, CashgameDetailsChart.Result cashgameDetailsChartResult)
-            : base("Cashgame", contextResult)
+            : base(contextResult)
         {
             var date = Globalization.FormatShortDate(detailsResult.Date, true);
             var showStartTime = detailsResult.StartTime.HasValue;
@@ -44,5 +44,7 @@ namespace Web.Models.CashgameModels.Details
             CashgameDetailsTableModel = new CashgameDetailsTableModel(detailsResult.PlayerItems);
             ChartJson = JsonHelper.Serialize(new DetailsChartModel(cashgameDetailsChartResult));
         }
+
+        public override string BrowserTitle => "Cashgame";
     }
 }

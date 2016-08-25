@@ -5,7 +5,8 @@ namespace Web.Models.PageBaseModels
 {
     public abstract class PageModel
     {
-        public string BrowserTitle { get; private set; }
+        private string _browserTitle;
+
         public string CssUrl { get; private set; }
         public string Version { get; private set; }
         public GoogleAnalyticsModel GoogleAnalyticsModel { get; private set; }
@@ -14,10 +15,10 @@ namespace Web.Models.PageBaseModels
         public virtual string Layout => ContextLayout.Base;
         public virtual string HtmlCssClass => null;
         public virtual string BodyCssClass => "body-wide";
+        public abstract string BrowserTitle { get; }
 
-        protected PageModel(string browserTitle, BaseContext.Result contextResult)
+        protected PageModel(BaseContext.Result contextResult)
         {
-            BrowserTitle = browserTitle;
             CssUrl = $"/assets/{contextResult.Version}/styles.css";
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel();

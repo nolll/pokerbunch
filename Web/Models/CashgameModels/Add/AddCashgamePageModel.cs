@@ -15,7 +15,7 @@ namespace Web.Models.CashgameModels.Add
         public int EventId { get; private set; }
 
         public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel)
-            : base("Start Cashgame", contextResult)
+            : base(contextResult)
         {
             Locations = GetLocationListItems(formResult.Locations);
             Events = GetEventListItems(formResult.Events);
@@ -23,6 +23,8 @@ namespace Web.Models.CashgameModels.Add
             LocationId = postModel.LocationId;
             EventId = postModel.EventId;
         }
+
+        public override string BrowserTitle => "Start Cashgame";
 
         private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<AddCashgameForm.LocationItem> locations)
         {

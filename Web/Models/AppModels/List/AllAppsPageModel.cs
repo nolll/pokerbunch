@@ -11,10 +11,12 @@ namespace Web.Models.AppModels.List
         public bool HasApps { get; private set; }
 
         public AllAppsPageModel(CoreContext.Result contextResult, AppList.Result appListResult)
-            : base("All Apps", contextResult)
+            : base(contextResult)
         {
             AppModels = appListResult.Items.Select(o => new AppListItemModel(o)).ToList();
             HasApps = appListResult.Items.Any();
         }
+
+        public override string BrowserTitle => "All Apps";
     }
 }

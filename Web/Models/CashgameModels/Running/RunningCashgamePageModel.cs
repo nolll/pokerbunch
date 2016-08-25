@@ -14,9 +14,11 @@ namespace Web.Models.CashgameModels.Running
         public string GameDataUrl { get; }
 
         public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
-            : base("Running Cashgame", contextResult)
+            : base(contextResult)
         {
             GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
         }
+
+        public override string BrowserTitle => "Running Cashgame";
     }
 }

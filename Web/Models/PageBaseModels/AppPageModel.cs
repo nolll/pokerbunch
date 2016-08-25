@@ -7,14 +7,12 @@ namespace Web.Models.PageBaseModels
     {
         public NavigationModel UserNavModel { get; private set; }
 
-        protected AppPageModel(string browserTitle, CoreContext.Result appContextResult) : base(browserTitle, appContextResult.BaseContext)
+        protected AppPageModel(CoreContext.Result appContextResult)
+            : base(appContextResult.BaseContext)
         {
             UserNavModel = new UserNavigationModel(appContextResult);
         }
 
-        public override string Layout
-        {
-            get { return ContextLayout.App; }
-        }
+        public override string Layout => ContextLayout.App;
     }
 }

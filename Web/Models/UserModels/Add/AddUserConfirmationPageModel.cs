@@ -9,9 +9,11 @@ namespace Web.Models.UserModels.Add
         public string LoginUrl { get; }
 
         public AddUserConfirmationPageModel(CoreContext.Result contextResult)
-            : base("Homegame Created", contextResult)
+            : base(contextResult)
         {
             LoginUrl = new LoginUrl().Relative;
         }
+
+        public override string BrowserTitle => "Homegame Created";
     }
 }

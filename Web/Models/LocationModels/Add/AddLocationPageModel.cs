@@ -5,13 +5,15 @@ namespace Web.Models.LocationModels.Add
 {
     public class AddLocationPageModel : BunchPageModel
     {
-        public string Name { get; private set; }
+        public string Name { get; }
 
         public AddLocationPageModel(BunchContext.Result contextResult, AddLocationPostModel postModel = null)
-            : base("Add Location", contextResult)
+            : base(contextResult)
         {
             if (postModel == null) return;
             Name = postModel.Name;
         }
+
+        public override string BrowserTitle => "Add Location";
     }
 }

@@ -13,11 +13,13 @@ namespace Web.Models.AppModels.List
         public string AddUrl { get; private set; }
 
         public UserAppsPageModel(CoreContext.Result contextResult, AppList.Result appListResult)
-            : base("User Apps", contextResult)
+            : base(contextResult)
         {
             AppModels = appListResult.Items.Select(o => new AppListItemModel(o)).ToList();
             HasApps = appListResult.Items.Any();
             AddUrl = new AddAppUrl().Relative;
         }
+
+        public override string BrowserTitle => "User Apps";
     }
 }

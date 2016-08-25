@@ -17,7 +17,7 @@ namespace Web.Models.HomeModels
         public BunchListModel BunchList { get; private set; }
 
         public HomePageModel(BunchContext.Result contextResult, BunchList.Result bunchListResult)
-            : base("Poker Bunch", contextResult)
+            : base(contextResult)
         {
             IsLoggedIn = contextResult.AppContext.IsLoggedIn;
             AddBunchUrl = new AddBunchUrl().Relative;
@@ -27,5 +27,7 @@ namespace Web.Models.HomeModels
             AdminNav = new AdminNavigationModel(contextResult.AppContext);
             BunchList = new BunchListModel(bunchListResult);
         }
+
+        public override string BrowserTitle => "Poker Bunch";
     }
 }

@@ -8,10 +8,12 @@ namespace Web.Models.AppModels.Add
         public string AppName { get; }
         
         public AddAppPageModel(CoreContext.Result contextResult, AddAppPostModel postModel)
-            : base("Register", contextResult)
+            : base(contextResult)
         {
             if (postModel == null) return;
             AppName = postModel.AppName;
         }
+
+        public override string BrowserTitle => "Register";
     }
 }

@@ -11,7 +11,7 @@ namespace Web.Models.UserModels.Edit
         public string Email { get; private set; }
 
         public EditUserPageModel(CoreContext.Result contextResult, EditUserForm.Result editUserFormResult, EditUserPostModel postModel)
-            : base("Edit Profile", contextResult)
+            : base(contextResult)
         {
             UserName = editUserFormResult.UserName;
             RealName = editUserFormResult.RealName;
@@ -22,5 +22,7 @@ namespace Web.Models.UserModels.Edit
             DisplayName = postModel.DisplayName;
             Email = postModel.Email;
         }
+
+        public override string BrowserTitle => "Edit Profile";
     }
 }

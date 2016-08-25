@@ -21,7 +21,7 @@ namespace Web.Models.PlayerModels.Details
         public string Color { get; private set; }
 
         public PlayerDetailsPageModel(BunchContext.Result contextResult, PlayerDetails.Result detailsResult, PlayerFacts.Result factsResult, PlayerBadges.Result badgesResult)
-            : base("Player Details", contextResult)
+            : base(contextResult)
         {
             DisplayName = detailsResult.DisplayName;
             DeleteUrl = new DeletePlayerUrl(detailsResult.PlayerId).Relative;
@@ -34,5 +34,7 @@ namespace Web.Models.PlayerModels.Details
             PlayerFactsModel = new PlayerFactsModel(factsResult);
             Color = detailsResult.Color;
         }
+
+        public override string BrowserTitle => "Player Details";
     }
 }

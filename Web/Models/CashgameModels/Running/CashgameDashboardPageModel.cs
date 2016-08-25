@@ -9,14 +9,12 @@ namespace Web.Models.CashgameModels.Running
         public string GameDataUrl { get; }
 
         public CashgameDashboardPageModel(BaseContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
-            : base("Cashgame Dashboard", contextResult)
+            : base(contextResult)
         {
             GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
         }
 
-        public override string Layout
-        {
-            get { return ContextLayout.Base; }
-        }
+        public override string Layout => ContextLayout.Base;
+        public override string BrowserTitle => "Cashgame Dashboard";
     }
 }

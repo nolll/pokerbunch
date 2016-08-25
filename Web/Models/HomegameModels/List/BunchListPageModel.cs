@@ -10,9 +10,11 @@ namespace Web.Models.HomegameModels.List
 	    public IList<BunchListItemModel> BunchModels { get; private set; }
 
 	    public BunchListPageModel(CoreContext.Result contextResult, BunchList.Result bunchListResult)
-            : base("Bunches", contextResult)
+            : base(contextResult)
 	    {
             BunchModels = bunchListResult.Bunches.Select(o => new BunchListItemModel(o)).ToList();
 	    }
+
+	    public override string BrowserTitle => "Bunches";
     }
 }

@@ -21,7 +21,7 @@ namespace Web.Models.CashgameModels.Edit
         public int EventId { get; private set; }
 
         public EditCashgamePageModel(BunchContext.Result contextResult, EditCashgameForm.Result editCashgameFormResult, EditCashgamePostModel postModel)
-            : base("Edit Cashgame", contextResult)
+            : base(contextResult)
         {
             IsoDate = editCashgameFormResult.Date;
             CancelUrl = new CashgameDetailsUrl(editCashgameFormResult.CashgameId).Relative;
@@ -38,5 +38,7 @@ namespace Web.Models.CashgameModels.Edit
             LocationId = postModel.LocationId;
             EventId = postModel.EventId;
         }
+
+        public override string BrowserTitle => "Edit Cashgame";
     }
 }
