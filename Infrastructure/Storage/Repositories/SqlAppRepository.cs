@@ -7,8 +7,8 @@ namespace Infrastructure.Storage.Repositories
 {
     public class SqlAppRepository : IAppRepository
     {
-        private const string AppDataSql = "SELECT a.ID, a.AppKey, a.Name, a.UserId FROM [App] a ";
-        private const string AppIdSql = "SELECT a.ID FROM [App] a ";
+        private const string DataSql = "SELECT a.ID, a.AppKey, a.Name, a.UserId FROM [App] a ";
+        private const string SearchSql = "SELECT a.ID FROM [App] a ";
 
         private readonly SqlServerStorageProvider _db;
 
@@ -31,7 +31,7 @@ namespace Infrastructure.Storage.Repositories
 
         public App Get(int id)
         {
-            var sql = string.Concat(AppDataSql, "WHERE a.Id = @appId");
+            var sql = string.Concat(DataSql, "WHERE a.Id = @appId");
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@appId", id)
@@ -62,7 +62,7 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<int> GetAppIdList()
         {
-            var sql = string.Concat(AppIdSql, "ORDER BY a.Name");
+            var sql = string.Concat(SearchSql, "ORDER BY a.Name");
             var reader = _db.Query(sql);
             return reader.ReadIntList("ID");
         }
@@ -86,7 +86,7 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<int> GetAppIdList(int userId)
         {
-            var sql = string.Concat(AppIdSql, "WHERE a.UserId = @userId ORDER BY a.Name");
+            var sql = string.Concat(SearchSql, "WHERE a.UserId = @userId ORDER BY a.Name");
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@userId", userId)
@@ -97,7 +97,7 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<int> GetAppIdList(string appKey)
         {
-            var sql = string.Concat(AppDataSql, "WHERE a.AppKey = @appKey");
+            var sql = string.Concat(DataSql, "WHERE a.AppKey = @appKey");
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@appKey", appKey)
@@ -108,7 +108,7 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<App> GetAppList(IList<int> ids)
         {
-            var sql = string.Concat(AppDataSql, "WHERE a.ID IN(@ids)");
+            var sql = string.Concat(DataSql, "WHERE a.ID IN(@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _db.Query(sql, parameter);
             return reader.ReadList(CreateApp);

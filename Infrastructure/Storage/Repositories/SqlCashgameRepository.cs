@@ -11,9 +11,9 @@ namespace Infrastructure.Storage.Repositories
 {
     public class SqlCashgameRepository : ICashgameRepository
     {
-        private const string CashgameDataSql = "SELECT g.GameID, g.HomegameID, g.LocationId, g.Status, g.Date FROM game g ";
-        private const string CashgameIdSql = "SELECT g.GameID FROM game g ";
-        private const string CashgameIdByCheckpointSql = "SELECT cp.GameID FROM CashgameCheckpoint cp ";
+        private const string DataSql = "SELECT g.GameID, g.HomegameID, g.LocationId, g.Status, g.Date FROM game g ";
+        private const string SearchSql = "SELECT g.GameID FROM game g ";
+        private const string SearchByCheckpointSql = "SELECT cp.GameID FROM CashgameCheckpoint cp ";
         
         private readonly SqlServerStorageProvider _db;
 
@@ -24,7 +24,7 @@ namespace Infrastructure.Storage.Repositories
 
         public Cashgame Get(int cashgameId)
         {
-            var sql = string.Concat(CashgameDataSql, "WHERE g.GameID = @cashgameId ORDER BY g.GameId");
+            var sql = string.Concat(DataSql, "WHERE g.GameID = @cashgameId ORDER BY g.GameId");
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@cashgameId", cashgameId)
@@ -42,7 +42,7 @@ namespace Infrastructure.Storage.Repositories
 	    {
             if(ids.Count == 0)
                 return new List<Cashgame>();
-            var sql = string.Concat(CashgameDataSql, "WHERE g.GameID IN (@idList) ORDER BY g.GameID");
+            var sql = string.Concat(DataSql, "WHERE g.GameID IN (@idList) ORDER BY g.GameID");
             var parameter = new ListSqlParameter("@idList", ids);
             var reader = _db.Query(sql, parameter);
             var rawCashgames = reader.ReadList(CreateRawCashgame);
@@ -52,7 +52,7 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<int> FindFinished(int bunchId, int? year = null)
 	    {
-            var sql = string.Concat(CashgameIdSql, "WHERE g.HomegameID = @homegameId AND g.Status = @status");
+            var sql = string.Concat(SearchSql, "WHERE g.HomegameID = @homegameId AND g.Status = @status");
             const int status = (int)GameStatus.Finished;
             var parameters = new List<SimpleSqlParameter>
             {
@@ -70,7 +70,7 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<int> FindByEvent(int eventId)
 	    {
-            var sql = string.Concat(CashgameIdSql, "WHERE g.GameID IN (SELECT ecg.GameID FROM eventcashgame ecg WHERE ecg.EventId = @eventId)");
+            var sql = string.Concat(SearchSql, "WHERE g.GameID IN (SELECT ecg.GameID FROM eventcashgame ecg WHERE ecg.EventId = @eventId)");
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@eventId", eventId),
@@ -82,7 +82,7 @@ namespace Infrastructure.Storage.Repositories
 	    public IList<int> FindRunning(int bunchId)
 	    {
             const int status = (int)GameStatus.Running;
-            var sql = string.Concat(CashgameIdSql, "WHERE g.HomegameID = @homegameId AND g.Status = @status");
+            var sql = string.Concat(SearchSql, "WHERE g.HomegameID = @homegameId AND g.Status = @status");
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@homegameId", bunchId),
@@ -94,7 +94,7 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<int> FindByCheckpoint(int checkpointId)
 	    {
-            var sql = string.Concat(CashgameIdByCheckpointSql, "WHERE cp.CheckpointID = @checkpointId");
+            var sql = string.Concat(SearchByCheckpointSql, "WHERE cp.CheckpointID = @checkpointId");
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@checkpointId", checkpointId)

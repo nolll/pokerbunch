@@ -9,7 +9,6 @@ namespace Infrastructure.Storage.Repositories
 {
     public class SqlEventRepository : IEventRepository
     {
-        // Todo: remove all the joins. NOW!
         private const string EventSql = @"SELECT e.EventID, e.BunchID, e.Name, g.LocationId, g.Date
                                         FROM [Event] e
                                         LEFT JOIN EventCashgame ecg on e.EventId = ecg.EventId

@@ -11,7 +11,9 @@ namespace Infrastructure.Storage.Repositories
 {
 	public class SqlBunchRepository : IBunchRepository
 	{
-	    private readonly SqlServerStorageProvider _db;
+        private const string DataSql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h";
+        private const string SearchSql = "SELECT h.HomegameID FROM homegame h";
+        private readonly SqlServerStorageProvider _db;
         
         public SqlBunchRepository(SqlServerStorageProvider db)
 	    {
@@ -20,7 +22,7 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<Bunch> Get(IList<int> ids)
 	    {
-            const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE h.HomegameID IN(@ids)";
+	        var sql = string.Concat(DataSql, " WHERE h.HomegameID IN(@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _db.Query(sql, parameter);
             var rawHomegames = reader.ReadList(CreateRawBunch);
@@ -29,11 +31,11 @@ namespace Infrastructure.Storage.Repositories
 
         public Bunch Get(int id)
         {
-            const string sql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h WHERE HomegameID = @id";
+            var sql = string.Concat(DataSql, " WHERE HomegameID = @id");
             var parameters = new List<SimpleSqlParameter>
-                {
-                    new SimpleSqlParameter("@id", id)
-                };
+            {
+                new SimpleSqlParameter("@id", id)
+            };
             var reader = _db.Query(sql, parameters);
             var rawHomegame = reader.ReadOne(CreateRawBunch);
             return rawHomegame != null ? CreateBunch(rawHomegame) : null;
@@ -41,14 +43,13 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<int> Search()
 	    {
-            const string sql = "SELECT h.HomegameID FROM homegame h";
-            var reader = _db.Query(sql);
+            var reader = _db.Query(SearchSql);
             return reader.ReadIntList("HomegameID");
 	    }
 
 	    public IList<int> Search(string slug)
 	    {
-            const string sql = "SELECT h.HomegameID FROM homegame h WHERE h.Name = @slug";
+	        var sql = string.Concat(SearchSql, " WHERE h.Name = @slug");
 	        var parameters = new List<SimpleSqlParameter>
 	        {
 	            new SimpleSqlParameter("@slug", slug)
@@ -62,7 +63,7 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<int> Search(int userId)
 	    {
-            const string sql = "SELECT h.HomegameID FROM homegame h INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = @userId ORDER BY h.Name";
+            var sql = string.Concat(SearchSql, "  INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = @userId ORDER BY h.Name");
 	        var parameters = new List<SimpleSqlParameter>
 	        {
 	            new SimpleSqlParameter("@userId", userId)

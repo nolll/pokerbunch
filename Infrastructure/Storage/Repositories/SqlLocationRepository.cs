@@ -8,8 +8,8 @@ namespace Infrastructure.Storage.Repositories
 {
     public class SqlLocationRepository : ILocationRepository
     {
-        private const string LocationDataSql = "SELECT l.Id, l.Name, l.BunchId FROM Location l ";
-        private const string LocationIdSql = "SELECT l.Id FROM Location l ";
+        private const string DataSql = "SELECT l.Id, l.Name, l.BunchId FROM Location l ";
+        private const string SearchIdSql = "SELECT l.Id FROM Location l ";
 
         private readonly SqlServerStorageProvider _db;
 
@@ -20,7 +20,7 @@ namespace Infrastructure.Storage.Repositories
 
         public Location Get(int id)
         {
-            var sql = string.Concat(LocationDataSql, "WHERE l.Id = @id");
+            var sql = string.Concat(DataSql, "WHERE l.Id = @id");
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@id", id)
@@ -33,7 +33,7 @@ namespace Infrastructure.Storage.Repositories
         {
             if (!ids.Any())
                 return new List<Location>();
-            var sql = string.Concat(LocationDataSql, "WHERE l.Id IN (@ids)");
+            var sql = string.Concat(DataSql, "WHERE l.Id IN (@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _db.Query(sql, parameter);
             return reader.ReadList(CreateLocation);
@@ -41,7 +41,7 @@ namespace Infrastructure.Storage.Repositories
 
         public IList<int> Find(int bunchId)
         {
-            var sql = string.Concat(LocationIdSql, "WHERE l.BunchId = @bunchId");
+            var sql = string.Concat(SearchIdSql, "WHERE l.BunchId = @bunchId");
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@bunchId", bunchId)
@@ -52,7 +52,7 @@ namespace Infrastructure.Storage.Repositories
 
         public IList<int> Find(int bunchId, string name)
         {
-            var sql = string.Concat(LocationIdSql, "WHERE l.BunchId = @bunchId AND l.Name = @name");
+            var sql = string.Concat(SearchIdSql, "WHERE l.BunchId = @bunchId AND l.Name = @name");
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@bunchId", bunchId),

@@ -9,8 +9,8 @@ namespace Infrastructure.Storage.Repositories
 {
     public class SqlUserRepository : IUserRepository
     {
-        private const string UserDataSql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ";
-        private const string UserIdSql = "SELECT u.UserID FROM [User] u ";
+        private const string DataSql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ";
+        private const string SearchSql = "SELECT u.UserID FROM [User] u ";
         
         private readonly SqlServerStorageProvider _db;
 
@@ -21,7 +21,7 @@ namespace Infrastructure.Storage.Repositories
 
         public User Get(int id)
         {
-            var sql = string.Concat(UserDataSql, "WHERE u.UserId = @userId");
+            var sql = string.Concat(DataSql, "WHERE u.UserId = @userId");
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@userId", id)
@@ -33,7 +33,7 @@ namespace Infrastructure.Storage.Repositories
 
         public IList<User> Get(IList<int> ids)
         {
-            var sql = string.Concat(UserDataSql, "WHERE u.UserID IN(@ids)");
+            var sql = string.Concat(DataSql, "WHERE u.UserID IN(@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
             var reader = _db.Query(sql, parameter);
             var rawUsers = reader.ReadList(CreateRawUser);
@@ -84,7 +84,7 @@ namespace Infrastructure.Storage.Repositories
         
         private int? GetIdByNameOrEmail(string nameOrEmail)
         {
-            var sql = string.Concat(UserIdSql, "WHERE (u.UserName = @query OR u.Email = @query)");
+            var sql = string.Concat(SearchSql, "WHERE (u.UserName = @query OR u.Email = @query)");
             var parameters = new List<SimpleSqlParameter>
             {
                 new SimpleSqlParameter("@query", nameOrEmail)
@@ -95,7 +95,7 @@ namespace Infrastructure.Storage.Repositories
 
         private IList<int> GetIds()
         {
-            var sql = string.Concat(UserIdSql, "ORDER BY u.DisplayName");
+            var sql = string.Concat(SearchSql, "ORDER BY u.DisplayName");
             var reader = _db.Query(sql);
             return reader.ReadIntList("UserID");
         }
