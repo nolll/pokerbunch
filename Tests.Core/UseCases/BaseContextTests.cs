@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute();
 
-            Assert.IsNotEmpty(result.Version);
+            Assert.AreEqual("1.0.0", result.Version);
         }
 
         private BaseContext Sut => new BaseContext();
