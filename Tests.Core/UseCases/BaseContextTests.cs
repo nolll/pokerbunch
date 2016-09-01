@@ -1,6 +1,7 @@
 ﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
+using System.Linq;
 
 namespace Tests.Core.UseCases
 {
@@ -10,8 +11,9 @@ namespace Tests.Core.UseCases
         public void BaseContext_VersionIsSet()
         {
             var result = Sut.Execute();
+            var numberOfDots = result.Version.Count(o => o == '.');
 
-            Assert.AreEqual("1.0.0", result.Version);
+            Assert.AreEqual(2, numberOfDots);
         }
 
         private BaseContext Sut => new BaseContext();
