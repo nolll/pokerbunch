@@ -11,7 +11,7 @@ namespace Web.Models.LocationModels.List
         public LocationListItemModel(LocationList.Item item)
         {
             Name = item.Name;
-            DetailsUrl = new LocationDetailsUrl(item.EventId).Relative;
+            DetailsUrl = new LocationDetailsUrl(item.LocationId).Relative;
         }
     }
 }

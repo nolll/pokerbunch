@@ -62,7 +62,7 @@ namespace Core.UseCases
 
         public class Item
         {
-            public int EventId { get; private set; }
+            public int LocationId { get; private set; }
             public string Name { get; private set; }
             public string Location { get; private set; }
             public Date StartDate { get; private set; }
@@ -71,7 +71,7 @@ namespace Core.UseCases
 
             public Item(int id, string name)
             {
-                EventId = id;
+                LocationId = id;
                 Name = name;
                 HasGames = false;
             }
