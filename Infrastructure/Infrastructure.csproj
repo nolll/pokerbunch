@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +50,10 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ApiClient.cs" />
+    <Compile Include="ApiConnection.cs" />
+    <Compile Include="BearerClient.cs" />
+    <Compile Include="SignInClient.cs" />
     <Compile Include="Storage\CachedRepositories\CachedAppRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedBunchRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedCashgameRepository.cs" />
