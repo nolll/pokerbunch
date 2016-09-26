@@ -27,19 +27,29 @@ namespace Tests.Common.FakeRepositories
 
         public IList<int> Find(int bunchId)
         {
-            return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
+            throw new System.NotImplementedException();
         }
 
         public IList<int> Find(int bunchId, string name)
         {
-            return _list.Where(o => o.BunchId == bunchId && o.Name == name).Select(o => o.Id).ToList();
+            throw new System.NotImplementedException();
+        }
+
+        public IList<int> Find(string slug)
+        {
+            return _list.Where(o => o.Slug == slug).Select(o => o.Id).ToList();
+        }
+
+        public IList<int> Find(string slug, string name)
+        {
+            return _list.Where(o => o.Slug == slug && o.Name == name).Select(o => o.Id).ToList();
         }
 
         public int Add(Location location)
         {
             Added = location;
             const int id = 1000;
-            _list.Add(new Location(id, location.Name, location.BunchId));
+            _list.Add(new Location(id, location.Name, location.Slug));
             return id;
         }
 
@@ -47,10 +57,10 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Location>
             {
-                new Location(TestData.LocationIdA, TestData.LocationNameA, TestData.BunchA.Id),
-                new Location(TestData.LocationIdB, TestData.LocationNameB, TestData.BunchA.Id),
-                new Location(TestData.LocationIdC, TestData.LocationNameC, TestData.BunchA.Id),
-                new Location(TestData.ChangedLocationId, TestData.ChangedLocationName, TestData.BunchA.Id)
+                new Location(TestData.LocationIdA, TestData.LocationNameA, TestData.BunchA.Slug),
+                new Location(TestData.LocationIdB, TestData.LocationNameB, TestData.BunchA.Slug),
+                new Location(TestData.LocationIdC, TestData.LocationNameC, TestData.BunchA.Slug),
+                new Location(TestData.ChangedLocationId, TestData.ChangedLocationName, TestData.BunchA.Slug)
             };
         }
     }

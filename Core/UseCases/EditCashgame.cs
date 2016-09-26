@@ -12,14 +12,16 @@ namespace Core.UseCases
         private readonly PlayerService _playerService;
         private readonly LocationService _locationService;
         private readonly EventService _eventService;
+        private readonly BunchService _bunchService;
 
-        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService, EventService eventService)
+        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService, LocationService locationService, EventService eventService, BunchService bunchService)
         {
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
             _locationService = locationService;
             _eventService = eventService;
+            _bunchService = bunchService;
         }
 
         public Result Execute(Request request)
@@ -30,7 +32,8 @@ namespace Core.UseCases
 
             var cashgame = _cashgameService.GetById(request.Id);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(cashgame.BunchId, user.Id);
+            var bunch = _bunchService.Get(cashgame.BunchId);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Manager(user, player);
             var location = _locationService.Get(request.LocationId);
             cashgame = new Cashgame(cashgame.BunchId, location.Id, cashgame.Status, cashgame.Id);

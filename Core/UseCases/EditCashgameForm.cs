@@ -28,10 +28,10 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetById(request.Id);
             var bunch = _bunchService.Get(cashgame.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(cashgame.BunchId, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Manager(user, player);
 
-            var locations = _locationService.GetByBunch(cashgame.BunchId);
+            var locations = _locationService.List(cashgame.BunchId);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
 
             var events = _eventService.GetByBunch(bunch.Id);

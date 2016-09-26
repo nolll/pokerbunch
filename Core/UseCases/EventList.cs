@@ -26,11 +26,10 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
             var events = _eventService.GetByBunch(bunch.Id);
-            var locationIds = events.Select(o => o.LocationId).Distinct().ToList();
-            var locations = _locationService.Get(locationIds);
+            var locations = _locationService.List(bunch.Id);
 
             var eventItems = events.OrderByDescending(o => o.StartDate).Select(o => CreateEventItem(o, locations)).ToList();
 

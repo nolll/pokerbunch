@@ -8,9 +8,9 @@ namespace Core.Repositories
         Player Get(int id);
         IList<Player> Get(IList<int> ids);
 
-	    IList<int> Find(int bunchId);
-        IList<int> Find(int bunchId, string name);
-        IList<int> Find(int bunchId, int userId);
+	    IList<int> Find(string slug);
+        IList<int> Find(string slug, string name);
+        IList<int> Find(string slug, int userId);
 
         bool JoinHomegame(Player player, Bunch bunch, int userId);
         int Add(Player player);

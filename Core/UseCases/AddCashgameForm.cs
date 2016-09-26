@@ -28,14 +28,14 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.GetBySlug(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
             var runningGame = _cashgameService.GetRunning(bunch.Id);
             if (runningGame != null)
             {
                 throw new CashgameRunningException();
             }
-            var locations = _locationService.GetByBunch(bunch.Id);
+            var locations = _locationService.List(bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
             var events = _eventService.GetByBunch(bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();

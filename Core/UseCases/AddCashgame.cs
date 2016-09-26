@@ -33,7 +33,7 @@ namespace Core.UseCases
 
             var user = _userService.GetByNameOrEmail(request.UserName);
             var bunch = _bunchService.GetBySlug(request.Slug);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
             var location = _locationService.Get(request.LocationId);
             var cashgame = new Cashgame(bunch.Id, location.Id, GameStatus.Running);

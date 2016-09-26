@@ -14,9 +14,9 @@ namespace Core.Services
             _playerRepository = playerRepository;
         }
 
-        public IList<Player> GetList(int bunchId)
+        public IList<Player> GetList(string slug)
         {
-            var ids = _playerRepository.Find(bunchId);
+            var ids = _playerRepository.Find(slug);
             return _playerRepository.Get(ids);
         }
 
@@ -30,9 +30,9 @@ namespace Core.Services
             return _playerRepository.Get(id);
         }
 
-        public Player GetByUserId(int bunchId, int userId)
+        public Player GetByUserId(string slug, int userId)
         {
-            var ids = _playerRepository.Find(bunchId, userId);
+            var ids = _playerRepository.Find(slug, userId);
             if (!ids.Any())
                 return null;
             return _playerRepository.Get(ids).First();

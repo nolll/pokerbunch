@@ -56,6 +56,18 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadIntList("PlayerID");
 	    }
 
+	    public IList<int> Find(string slug, int userId)
+	    {
+            var sql = string.Concat(SearchSql, "JOIN homegame h on h.HomegameId = p.HomegameId WHERE h.Slug = @slug AND p.UserID = @userId");
+            var parameters = new List<SimpleSqlParameter>
+                {
+                    new SimpleSqlParameter("@slug", slug),
+                    new SimpleSqlParameter("@userId", userId)
+                };
+            var reader = _db.Query(sql, parameters);
+            return reader.ReadIntList("PlayerID");
+        }
+
 	    public IList<Player> Get(IList<int> ids)
 	    {
             if(!ids.Any())

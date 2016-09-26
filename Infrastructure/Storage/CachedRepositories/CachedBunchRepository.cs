@@ -27,7 +27,7 @@ namespace Infrastructure.Storage.CachedRepositories
             return _cacheContainer.GetAndStore(_bunchRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<int> Search()
+        public IList<int> Search() 
         {
             return _bunchRepository.Search();
         }
