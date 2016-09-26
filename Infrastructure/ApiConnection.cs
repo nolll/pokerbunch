@@ -95,19 +95,16 @@ namespace Infrastructure
 
         private FormUrlEncodedContent GetPostContentForSignIn()
         {
-            return new FormUrlEncodedContent(GetPostValuesForSignIn());
+            return new FormUrlEncodedContent(PostValuesForSignIn);
         }
 
-        private KeyValuePair<string, string>[] GetPostValuesForSignIn()
+        private IEnumerable<KeyValuePair<string, string>> PostValuesForSignIn => new[]
         {
-            return new[]
-            {
-                GetFormParam("grant_type", "password"),
-                GetFormParam("client_id", _apiKey),
-                GetFormParam("username", _username),
-                GetFormParam("password", _password)
-            };
-        }
+            GetFormParam("grant_type", "password"),
+            GetFormParam("client_id", _apiKey),
+            GetFormParam("username", _username),
+            GetFormParam("password", _password)
+        };
 
         private static KeyValuePair<string, string> GetFormParam(string key, string value)
         {
