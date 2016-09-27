@@ -5,7 +5,6 @@ namespace Web
     public class SiteSettings : CommonSettings
     {
         public static string SiteHost => Get("SiteHost");
-        public static string ApiHost => Get("ApiHost");
         public static bool HandleErrors => GetBool("HandleErrors");
         public static bool ForceHttps => GetBool("ForceHttps");
         public static bool UseAssets => GetBool("UseAssets");
@@ -13,5 +12,10 @@ namespace Web
         public static string ConnectionString => GetConnectionString("pokerbunch");
         public static bool EnableApplicationInsights => GetBool("EnableApplicationInsights");
         public static string ApplicationInsightsKey => Get("ApplicationInsightsKey");
+        public static string ApiHost => Get("ApiHost");
+        public static string ApiUrl => Get("ApiUrl");
+        public static string ApiKey = Get("ApiKey");
+        public static string ApiUsername = Get("ApiUsername");
+        public static string ApiPassword = Get("ApiPassword");
     }
 }

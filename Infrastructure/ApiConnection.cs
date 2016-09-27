@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using Core.Exceptions;
 using Newtonsoft.Json;
 
@@ -32,9 +33,15 @@ namespace Infrastructure
             return _instance;
         }
 
-        public T ReadObject<T>(string apiUrl)
+        public T Get<T>(string apiUrl)
         {
             var json = ReadJson(apiUrl);
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+
+        public T Post<T>(string apiUrl, object data)
+        {
+            var json = PostJson(apiUrl, data);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
@@ -60,6 +67,34 @@ namespace Infrastructure
                     throw new ApiException();
                 RefreshToken();
                 return ReadJson(apiUrl, true);
+            }
+            return string.Empty;
+        }
+
+        private string PostJson(string apiUrl, object data, bool isRetry = false)
+        {
+            HttpStatusCode statusCode;
+            using (var client = new BearerClient(_apiUrl, Token))
+            {
+                var jsonData = JsonConvert.SerializeObject(data);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                var response = client.PostAsync(apiUrl, content).Result;
+                statusCode = response.StatusCode;
+                if ((int)statusCode >= 200 && (int)statusCode < 300)
+                {
+                    return response.Content.ReadAsStringAsync().Result;
+                }
+            }
+            if (statusCode == HttpStatusCode.Forbidden)
+            {
+                throw new AccessDeniedException();
+            }
+            if (statusCode == HttpStatusCode.Unauthorized)
+            {
+                if (isRetry)
+                    throw new ApiException();
+                RefreshToken();
+                return PostJson(apiUrl, data, true);
             }
             return string.Empty;
         }

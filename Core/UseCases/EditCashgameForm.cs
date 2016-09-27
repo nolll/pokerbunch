@@ -31,13 +31,13 @@ namespace Core.UseCases
             var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Manager(user, player);
 
-            var locations = _locationService.List(cashgame.BunchId);
+            var locations = _locationService.List(bunch.Slug);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
 
             var events = _eventService.GetByBunch(bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
             var selectedEvent = _eventService.GetByCashgame(cashgame.Id);
-            var selectedEventId = selectedEvent != null ? selectedEvent.Id : 0;
+            var selectedEventId = selectedEvent?.Id ?? 0;
 
             return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, cashgame.LocationId, locationItems, selectedEventId, eventItems);
         }

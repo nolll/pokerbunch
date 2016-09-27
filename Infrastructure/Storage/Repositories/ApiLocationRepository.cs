@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 
@@ -15,24 +16,21 @@ namespace Infrastructure.Storage.Repositories
 
         public Location Get(int id)
         {
-            var apiLocation = _apiConnection.ReadObject<ApiLocation>($"location/get/{id}");
+            var apiLocation = _apiConnection.Get<ApiLocation>($"location/get/{id}");
             return CreateLocation(apiLocation);
         }
 
-        public IList<Location> Get(IList<int> ids)
+        public IList<Location> List(string slug)
         {
-        }
-
-        public IList<int> Find(int bunchId)
-        {
-        }
-
-        public IList<int> Find(int bunchId, string name)
-        {
+            var apiLocation = _apiConnection.Get<IList<ApiLocation>>($"location/list/{slug}");
+            return apiLocation.Select(CreateLocation).ToList();
         }
 
         public int Add(Location location)
         {
+            var postLocation = new ApiLocation(location.Name, location.Slug);
+            var apiLocation = _apiConnection.Post<ApiLocation>($"location/add", postLocation);
+            return CreateLocation(apiLocation).Id;
         }
 
         private Location CreateLocation(ApiLocation l)
@@ -45,6 +43,12 @@ namespace Infrastructure.Storage.Repositories
             public int Id { get; set; }
             public string Name { get; set; }
             public string Bunch { get; set; }
+
+            public ApiLocation(string name, string bunch)
+            {
+                Name = name;
+                Bunch = bunch;
+            }
 
             public ApiLocation()
             {

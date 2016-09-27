@@ -73,7 +73,7 @@ namespace Web.Common
         public Matrix Matrix => new Matrix(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.EventService);
         public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.LocationService);
         public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService);
-        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService);
+        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService, _deps.BunchService);
         public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameService, _deps.BunchService, _deps.UserService, _deps.PlayerService);
         public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService);
         public Buyin Buyin => new Buyin(_deps.BunchService, _deps.PlayerService, _deps.CashgameService, _deps.UserService);

@@ -38,7 +38,7 @@ namespace Tests.Core.UseCases.CashoutTests
             CheckpointCountBeforeCashout = cashgame.Checkpoints.Count;
             MockOf<IBunchService>().Setup(s => s.GetBySlug(Slug)).Returns(new Bunch(BunchId, Slug));
             MockOf<ICashgameService>().Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
-            MockOf<IPlayerService>().Setup(s => s.GetByUserId(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
+            MockOf<IPlayerService>().Setup(s => s.GetByUserId(Slug, UserId)).Returns(new Player(BunchId, Slug, PlayerId, UserId));
             MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
 
             MockOf<ICashgameService>().Setup(o => o.UpdateGame(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);

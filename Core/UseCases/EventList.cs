@@ -29,7 +29,7 @@ namespace Core.UseCases
             var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
             var events = _eventService.GetByBunch(bunch.Id);
-            var locations = _locationService.List(bunch.Id);
+            var locations = _locationService.List(bunch.Slug);
 
             var eventItems = events.OrderByDescending(o => o.StartDate).Select(o => CreateEventItem(o, locations)).ToList();
 

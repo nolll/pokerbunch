@@ -20,29 +20,9 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.Id == id);
         }
 
-        public IList<Location> Get(IList<int> ids)
+        public IList<Location> List(string slug)
         {
-            return _list.Where(o => ids.Contains(o.Id)).ToList();
-        }
-
-        public IList<int> Find(int bunchId)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IList<int> Find(int bunchId, string name)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IList<int> Find(string slug)
-        {
-            return _list.Where(o => o.Slug == slug).Select(o => o.Id).ToList();
-        }
-
-        public IList<int> Find(string slug, string name)
-        {
-            return _list.Where(o => o.Slug == slug && o.Name == name).Select(o => o.Id).ToList();
+            return _list.Where(o => o.Slug == slug).ToList();
         }
 
         public int Add(Location location)

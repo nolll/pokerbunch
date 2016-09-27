@@ -15,7 +15,7 @@ namespace Web.Controllers.Base
     [EnsureHttps]
     public class BaseController : Controller
     {
-        private readonly Bootstrapper _bootstrapper = new Bootstrapper(SiteSettings.ConnectionString);
+        private readonly Bootstrapper _bootstrapper = new Bootstrapper(SiteSettings.ConnectionString, SiteSettings.ApiHost, SiteSettings.ApiUrl, SiteSettings.ApiKey, SiteSettings.ApiUsername, SiteSettings.ApiPassword);
         protected UseCaseContainer UseCase => _bootstrapper.UseCases;
 
         protected BaseContext.Result GetBaseContext()

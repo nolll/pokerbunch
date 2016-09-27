@@ -19,11 +19,9 @@ namespace Core.Services
             return _locationRepository.Get(id);
         }
 
-        public IList<Location> List(int bunchId)
+        public IList<Location> List(string slug)
         {
-            var ids = _locationRepository.Find(bunchId);
-            var locations = _locationRepository.Get(ids);
-            return locations.OrderBy(o => o.Name).ToList();
+            return _locationRepository.List(slug);
         }
 
         public int Add(Location location)

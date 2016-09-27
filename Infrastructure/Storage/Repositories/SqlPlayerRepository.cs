@@ -9,7 +9,7 @@ namespace Infrastructure.Storage.Repositories
 {
 	public class SqlPlayerRepository : IPlayerRepository
     {
-        private const string DataSql = "SELECT p.HomegameID, p.PlayerID, p.UserID, p.RoleID, ISNULL(p.PlayerName, u.DisplayName) AS PlayerName, p.Color FROM player p LEFT JOIN [user] u ON u.UserID = p.UserID ";
+        private const string DataSql = "SELECT p.HomegameID, h.Name as Slug, p.PlayerID, p.UserID, p.RoleID, ISNULL(p.PlayerName, u.DisplayName) AS PlayerName, p.Color FROM player p LEFT JOIN [user] u ON u.UserID = p.UserID JOIN homegame h ON h.HomegameId = p.HomegameId ";
         private const string SearchSql = "SELECT p.PlayerID FROM player p ";
 
 	    private readonly SqlServerStorageProvider _db;
@@ -19,46 +19,34 @@ namespace Infrastructure.Storage.Repositories
 	        _db = db;
 	    }
 
-	    public IList<int> Find(int bunchId)
+	    public IList<int> Find(string slug)
 	    {
-            var sql = string.Concat(SearchSql, "WHERE p.HomegameID = @homegameId");
+            var sql = string.Concat(SearchSql, "JOIN homegame h on h.HomegameID = p.HomegameId WHERE h.Name = @slug");
             var parameters = new List<SimpleSqlParameter>
                 {
-                    new SimpleSqlParameter("@homegameId", bunchId)
+                    new SimpleSqlParameter("@slug", slug)
                 };
             var reader = _db.Query(sql, parameters);
             return reader.ReadIntList("PlayerID");
 
 	    }
 
-	    public IList<int> Find(int bunchId, string name)
+	    public IList<int> Find(string slug, string name)
 	    {
-            var sql = string.Concat(SearchSql, "LEFT JOIN [user] u on p.UserID = u.UserID WHERE p.HomegameID = @homegameId AND (p.PlayerName = @playerName OR u.DisplayName = @playerName)");
+            var sql = string.Concat(SearchSql, "LEFT JOIN [user] u on p.UserID = u.UserID JOIN homegame h on h.HomegameId = p.HomegameId WHERE h.Name = @slug AND (p.PlayerName = @playerName OR u.DisplayName = @playerName)");
             var parameters = new List<SimpleSqlParameter>
                 {
-                    new SimpleSqlParameter("@homegameId", bunchId),
+                    new SimpleSqlParameter("@slug", slug),
                     new SimpleSqlParameter("@playerName", name)
                 };
             var reader = _db.Query(sql, parameters);
             return reader.ReadIntList("PlayerID");
 
 	    }
-
-	    public IList<int> Find(int bunchId, int userId)
-	    {
-            var sql = string.Concat(SearchSql, "WHERE p.HomegameID = @homegameId AND p.UserID = @userId");
-            var parameters = new List<SimpleSqlParameter>
-                {
-                    new SimpleSqlParameter("@homegameId", bunchId),
-                    new SimpleSqlParameter("@userId", userId)
-                };
-            var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("PlayerID");
-	    }
-
+        
 	    public IList<int> Find(string slug, int userId)
 	    {
-            var sql = string.Concat(SearchSql, "JOIN homegame h on h.HomegameId = p.HomegameId WHERE h.Slug = @slug AND p.UserID = @userId");
+            var sql = string.Concat(SearchSql, "JOIN homegame h ON h.HomegameId = p.HomegameId WHERE h.Name = @slug AND p.UserID = @userId");
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@slug", slug),
@@ -147,6 +135,7 @@ namespace Infrastructure.Storage.Repositories
         {
             return new Player(
                 rawPlayer.BunchId,
+                rawPlayer.Slug,
                 rawPlayer.Id,
                 rawPlayer.UserId,
                 rawPlayer.DisplayName,
@@ -158,6 +147,7 @@ namespace Infrastructure.Storage.Repositories
         {
             return new RawPlayer(
                 reader.GetIntValue("HomegameID"),
+                reader.GetStringValue("Slug"),
                 reader.GetIntValue("PlayerID"),
                 reader.GetIntValue("UserID"),
                 reader.GetStringValue("PlayerName"),
