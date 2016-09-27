@@ -36,9 +36,8 @@ namespace Tests.Core.UseCases
             return new Login.Request(TestData.UserA.UserName, TestData.UserPasswordA);
         }
 
-        private Login Sut
-        {
-            get { return new Login(Services.UserService); }
-        }
+        private Login Sut => new Login(
+            Services.UserService,
+            Services.AuthService);
     }
 }

@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new EditCashgame.Request(CurrentUserName, id, postModel.LocationId, postModel.EventId);
+                var request = new EditCashgame.Request(Identity.UserName, id, postModel.LocationId, postModel.EventId);
                 var result = UseCase.EditCashgame.Execute(request);
                 return Redirect(new CashgameDetailsUrl(result.CashgameId).Relative);
             }
@@ -38,7 +38,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(int id, EditCashgamePostModel postModel = null)
         {
-            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(CurrentUserName, id));
+            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(editCashgameFormResult.Slug);
             var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
             return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);

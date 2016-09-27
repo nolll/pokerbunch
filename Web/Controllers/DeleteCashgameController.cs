@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.Delete)]
         public ActionResult Delete(int id)
         {
-            var request = new DeleteCashgame.Request(CurrentUserName, id);
+            var request = new DeleteCashgame.Request(Identity.UserName, id);
             var result = UseCase.DeleteCashgame.Execute(request);
             return Redirect(new CashgameIndexUrl(result.Slug).Relative);
 		}

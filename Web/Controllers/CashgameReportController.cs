@@ -14,7 +14,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.Report)]
         public ActionResult Report_Post(string slug, ReportPostModel postModel)
         {
-            var request = new Report.Request(CurrentUserName, slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
+            var request = new Report.Request(Identity.UserName, slug, postModel.PlayerId, postModel.Stack, DateTime.UtcNow);
             UseCase.Report.Execute(request);
             return JsonView(new JsonViewModelOk());
         }

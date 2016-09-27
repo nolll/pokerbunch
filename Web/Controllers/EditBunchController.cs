@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new EditBunch.Request(CurrentUserName, slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
+                var request = new EditBunch.Request(Identity.UserName, slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
                 var result = UseCase.EditBunch.Execute(request);
                 return Redirect(new BunchDetailsUrl(result.Slug).Relative);
             }
@@ -39,7 +39,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, EditBunchPostModel postModel = null)
         {
             var contextResult = GetBunchContext(slug);
-            var editBunchFormRequest = new EditBunchForm.Request(CurrentUserName, slug);
+            var editBunchFormRequest = new EditBunchForm.Request(Identity.UserName, slug);
             var editBunchFormResult = UseCase.EditBunchForm.Execute(editBunchFormRequest);
             var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
             return View("~/Views/Pages/EditBunch/Edit.cshtml", model);

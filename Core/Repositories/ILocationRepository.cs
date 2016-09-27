@@ -9,4 +9,9 @@ namespace Core.Repositories
         IList<Location> List(string slug);
         int Add(Location location);
     }
+
+    public interface ITokenRepository
+    {
+        string Get(string userName, string password);
+    }
 }

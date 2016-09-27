@@ -20,7 +20,7 @@ namespace Web.Common
 
         // Auth and Home
         public LoginForm LoginForm => new LoginForm();
-        public Login Login => new Login(_deps.UserService);
+        public Login Login => new Login(_deps.UserService, _deps.AuthService);
 
         // Admin
         public TestEmail TestEmail => new TestEmail(_deps.MessageSender, _deps.UserService);

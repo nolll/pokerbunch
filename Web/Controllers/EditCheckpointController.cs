@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new EditCheckpoint.Request(CurrentUserName, id, postModel.Timestamp, postModel.Stack, postModel.Amount);
+                var request = new EditCheckpoint.Request(Identity.UserName, id, postModel.Timestamp, postModel.Stack, postModel.Amount);
                 var result = UseCase.EditCheckpoint.Execute(request);
                 return Redirect(new CashgameActionUrl(result.CashgameId, result.PlayerId).Relative);
             }
@@ -38,7 +38,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(int id, EditCheckpointPostModel postModel = null)
         {
-            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(CurrentUserName, id));
+            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(editCheckpointFormResult.Slug);
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
             return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);

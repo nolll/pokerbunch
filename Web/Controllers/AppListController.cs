@@ -12,7 +12,7 @@ namespace Web.Controllers
         public ActionResult Apps()
         {
             var context = GetAppContext();
-            var appListResult = UseCase.AppList.Execute(new AppList.UserAppsRequest(CurrentUserName));
+            var appListResult = UseCase.AppList.Execute(new AppList.UserAppsRequest(Identity.UserName));
             var model = new UserAppsPageModel(context, appListResult);
             return View("~/Views/Pages/AppList/UserApps.cshtml", model);
         }
@@ -21,7 +21,7 @@ namespace Web.Controllers
         public ActionResult All()
         {
             var context = GetAppContext();
-            var appListResult = UseCase.AppList.Execute(new AppList.AllAppsRequest(CurrentUserName));
+            var appListResult = UseCase.AppList.Execute(new AppList.AllAppsRequest(Identity.UserName));
             var model = new AllAppsPageModel(context, appListResult);
             return View("~/Views/Pages/AppList/AllApps.cshtml", model);
         }

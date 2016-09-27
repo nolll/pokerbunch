@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -9,28 +10,17 @@ namespace Infrastructure
 {
     public class ApiConnection
     {
-        private readonly string _apiHost;
-        private readonly string _apiUrl;
-        private readonly string _apiKey;
-        private readonly string _username;
-        private readonly string _password;
-        private static ApiConnection _instance;
-        private string _token;
+        private readonly string _host;
+        private readonly string _url;
+        private readonly string _key;
+        private readonly string _token;
 
-        private ApiConnection(string apiHost, string apiUrl, string apiKey, string username, string password)
+        public ApiConnection(string host, string url, string key, string token)
         {
-            _apiHost = apiHost;
-            _apiUrl = apiUrl;
-            _apiKey = apiKey;
-            _username = username;
-            _password = password;
-        }
-
-        public static ApiConnection GetInstance(string apiHost, string apiUrl, string apiKey, string username, string password)
-        {
-            if (_instance == null)
-                _instance = new ApiConnection(apiHost, apiUrl, apiKey, username, password);
-            return _instance;
+            _host = host;
+            _url = url;
+            _key = key;
+            _token = token;
         }
 
         public T Get<T>(string apiUrl)
@@ -48,7 +38,7 @@ namespace Infrastructure
         private string ReadJson(string apiUrl, bool isRetry = false)
         {
             HttpStatusCode statusCode;
-            using (var client = new BearerClient(_apiUrl, Token))
+            using (var client = new BearerClient(_url, _token))
             {
                 var response = client.GetAsync(apiUrl).Result;
                 statusCode = response.StatusCode;
@@ -63,10 +53,7 @@ namespace Infrastructure
             }
             if (statusCode == HttpStatusCode.Unauthorized)
             {
-                if (isRetry)
-                    throw new ApiException();
-                RefreshToken();
-                return ReadJson(apiUrl, true);
+                throw new UnauthorizedAccessException();
             }
             return string.Empty;
         }
@@ -74,7 +61,7 @@ namespace Infrastructure
         private string PostJson(string apiUrl, object data, bool isRetry = false)
         {
             HttpStatusCode statusCode;
-            using (var client = new BearerClient(_apiUrl, Token))
+            using (var client = new BearerClient(_url, _token))
             {
                 var jsonData = JsonConvert.SerializeObject(data);
                 var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
@@ -91,34 +78,21 @@ namespace Infrastructure
             }
             if (statusCode == HttpStatusCode.Unauthorized)
             {
-                if (isRetry)
-                    throw new ApiException();
-                RefreshToken();
-                return PostJson(apiUrl, data, true);
+                throw new UnauthorizedAccessException();
             }
             return string.Empty;
         }
 
-        private string Token
+        public string GetToken(string userName, string password)
         {
-            get
-            {
-                if (_token == null)
-                    RefreshToken();
-                return _token;
-            }
+            return SignIn(userName, password);
         }
 
-        private void RefreshToken()
+        private string SignIn(string userName, string password)
         {
-            _token = SignIn();
-        }
-
-        private string SignIn()
-        {
-            using (var client = new SignInClient(_apiUrl))
+            using (var client = new SignInClient(_url))
             {
-                var content = GetPostContentForSignIn();
+                var content = GetPostContentForSignIn(userName, password);
                 var response = client.PostAsync("token", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -128,17 +102,17 @@ namespace Infrastructure
             return string.Empty;
         }
 
-        private FormUrlEncodedContent GetPostContentForSignIn()
+        private FormUrlEncodedContent GetPostContentForSignIn(string userName, string password)
         {
-            return new FormUrlEncodedContent(PostValuesForSignIn);
+            return new FormUrlEncodedContent(GetPostValuesForSignIn(userName, password));
         }
 
-        private IEnumerable<KeyValuePair<string, string>> PostValuesForSignIn => new[]
+        private IEnumerable<KeyValuePair<string, string>> GetPostValuesForSignIn(string userName, string password) => new[]
         {
             GetFormParam("grant_type", "password"),
-            GetFormParam("client_id", _apiKey),
-            GetFormParam("username", _username),
-            GetFormParam("password", _password)
+            GetFormParam("client_id", _key),
+            GetFormParam("username", userName),
+            GetFormParam("password", password)
         };
 
         private static KeyValuePair<string, string> GetFormParam(string key, string value)

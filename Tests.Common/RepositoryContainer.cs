@@ -11,6 +11,7 @@ namespace Tests.Common
         public FakeEventRepository Event { get; private set; }
         public FakeLocationRepository Location { get; private set; }
         public FakeAppRepository App { get; private set; }
+        public FakeTokenRepository Token { get; private set; }
 
         public RepositoryContainer()
         {
@@ -21,6 +22,7 @@ namespace Tests.Common
             Event = new FakeEventRepository();
             Location = new FakeLocationRepository();
             App = new FakeAppRepository();
+            Token = new FakeTokenRepository();
         }
     }
 }

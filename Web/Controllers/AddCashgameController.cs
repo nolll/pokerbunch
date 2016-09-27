@@ -22,7 +22,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.Add)]
         public ActionResult Post(string slug, AddCashgamePostModel postModel)
         {
-            var request = new AddCashgame.Request(CurrentUserName, slug, postModel.LocationId, postModel.EventId);
+            var request = new AddCashgame.Request(Identity.UserName, slug, postModel.LocationId, postModel.EventId);
 
             try
             {
@@ -40,7 +40,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, AddCashgamePostModel postModel = null)
         {
             var contextResult = GetBunchContext(slug);
-            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(CurrentUserName, slug));
+            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(Identity.UserName, slug));
             var model = new AddCashgamePageModel(contextResult, optionsResult, postModel);
             return View("~/Views/Pages/AddCashgame/Add.cshtml", model);
         }

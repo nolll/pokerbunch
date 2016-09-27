@@ -25,7 +25,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new InvitePlayer.Request(CurrentUserName, id, postModel.Email, new AddUserUrl().GetAbsolute(), new JoinBunchUrl("{0}").GetAbsolute(), new JoinBunchUrl("{0}", "{1}").GetAbsolute());
+                var request = new InvitePlayer.Request(Identity.UserName, id, postModel.Email, new AddUserUrl().GetAbsolute(), new JoinBunchUrl("{0}").GetAbsolute(), new JoinBunchUrl("{0}", "{1}").GetAbsolute());
                 var result = UseCase.InvitePlayer.Execute(request);
                 return Redirect(new InvitePlayerConfirmationUrl(result.PlayerId).Relative);
             }
@@ -40,7 +40,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Player.InviteConfirmation)]
         public ActionResult Invited(int id)
         {
-            var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(CurrentUserName, id));
+            var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(invitePlayerConfirmation.Slug);
             var model = new InvitePlayerConfirmationPageModel(contextResult);
             return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
@@ -48,7 +48,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(int id, InvitePlayerPostModel postModel = null)
         {
-            var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(CurrentUserName, id));
+            var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(Identity.UserName, id));
             var context = GetBunchContext(invitePlayerForm.Slug);
             var model = new InvitePlayerPageModel(context, postModel);
             return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);

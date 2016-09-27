@@ -37,7 +37,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new JoinBunch.Request(slug, CurrentUserName, code);
+                var request = new JoinBunch.Request(slug, Identity.UserName, code);
                 var result = UseCase.JoinBunch.Execute(request);
                 return Redirect(new JoinBunchConfirmationUrl(result.Slug).Relative);
             }
@@ -58,7 +58,7 @@ namespace Web.Controllers
         public ActionResult Joined(string slug)
         {
             var contextResult = GetBunchContext(slug);
-            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(CurrentUserName, slug));
+            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(Identity.UserName, slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
             return View("~/Views/Pages/JoinBunch/Confirmation.cshtml", model);
         }

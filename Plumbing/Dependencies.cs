@@ -19,14 +19,15 @@ namespace Plumbing
         private PlayerService _playerService;
         private LocationService _locationService;
         private UserService _userService;
+        private AuthService _authService;
         private IRandomService _randomService;
         private IMessageSender _messageSender;
                 
-        public Dependencies(ICacheContainer cacheContainer, string connectionString, string apiHost, string apiUrl, string apiKey, string apiUsername, string apiPassword)
+        public Dependencies(ICacheContainer cacheContainer, string connectionString, string apiHost, string apiUrl, string apiKey, string apiToken)
         {
             _cacheContainer = cacheContainer;
             _db = new SqlServerStorageProvider(connectionString);
-            _apiConnection = ApiConnection.GetInstance(apiHost, apiUrl, apiKey, apiUsername, apiPassword);
+            _apiConnection = new ApiConnection(apiHost, apiUrl, apiKey, apiToken);
         }
 
         public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), _cacheContainer)));
@@ -36,6 +37,7 @@ namespace Plumbing
         public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), _cacheContainer)));
         public LocationService LocationService => _locationService ?? (_locationService = new LocationService(new ApiLocationRepository(_apiConnection)));
         public UserService UserService => _userService ?? (_userService = new UserService(new CachedUserRepository(new SqlUserRepository(_db), _cacheContainer)));
+        public AuthService AuthService => _authService ?? (_authService = new AuthService(new ApiTokenRepository(_apiConnection)));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());
     }

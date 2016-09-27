@@ -75,6 +75,7 @@
     <Compile Include="Repositories\IRepositoryFactory.cs" />
     <Compile Include="Services\ApplicationVersion.cs" />
     <Compile Include="Services\AppService.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\BunchService.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\CheckpointService.cs" />

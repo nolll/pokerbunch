@@ -70,6 +70,7 @@
     <Compile Include="Storage\Classes\RawUser.cs" />
     <Compile Include="Storage\Interfaces\IStorageDataReader.cs" />
     <Compile Include="Storage\ListSqlParameter.cs" />
+    <Compile Include="Storage\Repositories\ApiTokenRepository.cs" />
     <Compile Include="Storage\Repositories\SqlAppRepository.cs" />
     <Compile Include="Storage\Repositories\SqlBunchRepository.cs" />
     <Compile Include="Storage\Repositories\SqlCashgameRepository.cs" />

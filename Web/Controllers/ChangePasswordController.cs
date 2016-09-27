@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new ChangePassword.Request(CurrentUserName, postModel.Password, postModel.Repeat);
+                var request = new ChangePassword.Request(Identity.UserName, postModel.Password, postModel.Repeat);
                 UseCase.ChangePassword.Execute(request);
                 return Redirect(new ChangePasswordConfirmationUrl().Relative);
             }

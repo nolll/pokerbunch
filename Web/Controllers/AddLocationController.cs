@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddLocation.Request(CurrentUserName, slug, postModel.Name);
+                var request = new AddLocation.Request(Identity.UserName, slug, postModel.Name);
                 var result = UseCase.AddLocation.Execute(request);
                 return Redirect(new AddLocationConfirmationUrl(result.Slug).Relative);
             }

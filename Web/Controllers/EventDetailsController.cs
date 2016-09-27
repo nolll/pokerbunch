@@ -13,9 +13,9 @@ namespace Web.Controllers
         [Route(WebRoutes.Event.Details)]
         public ActionResult List(int id)
         {
-            var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(CurrentUserName, id));
+            var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(eventDetails.Slug);
-            var matrixResult = UseCase.Matrix.Execute(new Matrix.EventMatrixRequest(CurrentUserName, id));
+            var matrixResult = UseCase.Matrix.Execute(new Matrix.EventMatrixRequest(Identity.UserName, id));
             var model = new EventDetailsPageModel(contextResult, eventDetails, matrixResult);
             return View("~/Views/Pages/EventDetails/EventDetails.cshtml", model);
         }
@@ -27,7 +27,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Location.Details)]
         public ActionResult List(int id)
         {
-            var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(CurrentUserName, id));
+            var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(locationDetails.Slug);
             var model = new LocationDetailsPageModel(contextResult, locationDetails);
             return View("~/Views/Pages/LocationDetails/LocationDetails.cshtml", model);

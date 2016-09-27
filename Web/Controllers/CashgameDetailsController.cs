@@ -13,9 +13,9 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.Details)]
         public ActionResult Details(int id)
         {
-            var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(CurrentUserName, id));
+            var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(cashgameDetailsResult.Slug);
-            var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(CurrentUserName, DateTime.UtcNow, id));
+            var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(Identity.UserName, DateTime.UtcNow, id));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);
             return View("~/Views/Pages/CashgameDetails/DetailsPage.cshtml", model);
         }
