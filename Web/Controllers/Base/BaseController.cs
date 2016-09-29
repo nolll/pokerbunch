@@ -18,13 +18,8 @@ namespace Web.Controllers.Base
     {
         private Identity _identity;
 
-        private Bootstrapper _bootstrapper;
-        protected UseCaseContainer UseCase => _bootstrapper.UseCases;
-
-        public BaseController()
-        {
-            _bootstrapper = new Bootstrapper(SiteSettings.ConnectionString, SiteSettings.ApiHost, SiteSettings.ApiUrl, SiteSettings.ApiKey, Identity.ApiToken);
-        }
+        private Bootstrapper Bootstrapper => new Bootstrapper(SiteSettings.ConnectionString, SiteSettings.ApiHost, SiteSettings.ApiUrl, SiteSettings.ApiKey, Identity.ApiToken);
+        protected UseCaseContainer UseCase => Bootstrapper.UseCases;
 
         protected BaseContext.Result GetBaseContext()
         {
