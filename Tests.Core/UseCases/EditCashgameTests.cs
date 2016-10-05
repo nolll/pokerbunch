@@ -49,7 +49,7 @@ namespace Tests.Core.UseCases
             Services.CashgameService,
             Services.UserService,
             Services.PlayerService,
-            Services.LocationService,
+            Repos.Location,
             Services.EventService,
             Services.BunchService);
     }

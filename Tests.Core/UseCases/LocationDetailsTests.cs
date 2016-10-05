@@ -17,13 +17,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.BunchA.Slug, result.Slug);
         }
 
-        private LocationDetails Sut
-        {
-            get
-            {
-                return new LocationDetails(
-                    Services.LocationService);
-            }
-        }
+        private LocationDetails Sut => new LocationDetails(
+            Repos.Location);
     }
 }

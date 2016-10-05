@@ -46,34 +46,34 @@ namespace Web.Common
         public JoinBunchConfirmation JoinBunchConfirmation => new JoinBunchConfirmation(_deps.BunchService, _deps.UserService, _deps.PlayerService);
 
         // Events
-        public EventList EventList => new EventList(_deps.BunchService, _deps.EventService, _deps.UserService, _deps.PlayerService, _deps.LocationService);
+        public EventList EventList => new EventList(_deps.BunchService, _deps.EventService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository);
         public EventDetails EventDetails => new EventDetails(_deps.EventService, _deps.UserService, _deps.PlayerService, _deps.BunchService);
         public AddEvent AddEvent => new AddEvent(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.EventService);
 
         // Locations
-        public LocationList LocationList => new LocationList(_deps.BunchService, _deps.UserService, _deps.PlayerService, _deps.LocationService);
-        public LocationDetails LocationDetails => new LocationDetails(_deps.LocationService);
-        public AddLocation AddLocation => new AddLocation(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.LocationService);
+        public LocationList LocationList => new LocationList(_deps.BunchService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository);
+        public LocationDetails LocationDetails => new LocationDetails(_deps.LocationRepository);
+        public AddLocation AddLocation => new AddLocation(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.LocationRepository);
 
         // Cashgame
         public CashgameStatus CashgameStatus => new CashgameStatus(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService);
         public TopList TopList => new TopList(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
         public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
-        public CashgameDetails CashgameDetails => new CashgameDetails(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService);
+        public CashgameDetails CashgameDetails => new CashgameDetails(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository);
         public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
         public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
-        public CashgameList CashgameList => new CashgameList(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService);
-        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService);
-        public AddCashgame AddCashgame => new AddCashgame(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService);
+        public CashgameList CashgameList => new CashgameList(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository);
+        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventService);
+        public AddCashgame AddCashgame => new AddCashgame(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventService);
         public Actions Actions => new Actions(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
         public ActionsChart ActionsChart => new ActionsChart(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService);
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService);
         public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.BunchService, _deps.UserService, _deps.PlayerService, _deps.CashgameService);
         public CashgameChart CashgameChart => new CashgameChart(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
         public Matrix Matrix => new Matrix(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.EventService);
-        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.LocationService);
-        public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService);
-        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationService, _deps.EventService, _deps.BunchService);
+        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchService, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.LocationRepository);
+        public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventService);
+        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventService, _deps.BunchService);
         public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameService, _deps.BunchService, _deps.UserService, _deps.PlayerService);
         public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService);
         public Buyin Buyin => new Buyin(_deps.BunchService, _deps.PlayerService, _deps.CashgameService, _deps.UserService);
