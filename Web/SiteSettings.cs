@@ -14,8 +14,6 @@ namespace Web
         public static string ApplicationInsightsKey => Get("ApplicationInsightsKey");
         public static string ApiHost => Get("ApiHost");
         public static string ApiUrl => Get("ApiUrl");
-        public static string ApiKey = Get("ApiKey");
-        public static string ApiUsername = Get("ApiUsername");
-        public static string ApiPassword = Get("ApiPassword");
+        public static string ApiKey => Get("ApiKey");
     }
 }

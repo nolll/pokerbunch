@@ -5,37 +5,25 @@ namespace Core.UseCases
     public class LocationDetails
     {
         private readonly LocationService _locationService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
-        private readonly BunchService _bunchService;
 
-        public LocationDetails(LocationService locationService, UserService userService, PlayerService playerService, BunchService bunchService)
+        public LocationDetails(LocationService locationService)
         {
             _locationService = locationService;
-            _userService = userService;
-            _playerService = playerService;
-            _bunchService = bunchService;
         }
 
         public Result Execute(Request request)
         {
             var location = _locationService.Get(request.LocationId);
-            var bunch = _bunchService.GetBySlug(location.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(location.Slug, user.Id);
-            RequireRole.Player(user, player);
-
-            return new Result(location.Id, location.Name, bunch.Slug);
+            
+            return new Result(location.Id, location.Name, location.Slug);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public int LocationId { get; }
 
-            public Request(string userName, int locationId)
+            public Request(int locationId)
             {
-                UserName = userName;
                 LocationId = locationId;
             }
         }

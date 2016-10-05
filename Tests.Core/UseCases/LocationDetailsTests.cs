@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void LocationDetails_AllPropertiesAreSet()
         {
-            var request = new LocationDetails.Request(TestData.UserA.UserName, TestData.LocationIdA);
+            var request = new LocationDetails.Request(TestData.LocationIdA);
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.BunchA.Id, result.Id);
@@ -22,10 +22,7 @@ namespace Tests.Core.UseCases
             get
             {
                 return new LocationDetails(
-                    Services.LocationService,
-                    Services.UserService,
-                    Services.PlayerService,
-                    Services.BunchService);
+                    Services.LocationService);
             }
         }
     }

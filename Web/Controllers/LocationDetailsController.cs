@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Location.Details)]
         public ActionResult List(int id)
         {
-            var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(Identity.UserName, id));
+            var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(id));
             var contextResult = GetBunchContext(locationDetails.Slug);
             var model = new LocationDetailsPageModel(contextResult, locationDetails);
             return View("~/Views/Pages/LocationDetails/LocationDetails.cshtml", model);
