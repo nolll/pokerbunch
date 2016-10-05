@@ -3,18 +3,15 @@ using Web.Models.PageBaseModels;
 
 namespace Web.Models.ErrorModels
 {
-    public class ErrorPageModel : WrappedPageModel
+    public abstract class ErrorPageModel : WrappedPageModel
     {
-        public string Title { get; private set; }
-        public string Message { get; private set; }
+        public abstract string Title { get; }
+        public abstract string Message { get; }
+        public override string BrowserTitle => "Error";
 
-        protected ErrorPageModel(BaseContext.Result contextResult, string title, string message)
+        protected ErrorPageModel(BaseContext.Result contextResult)
             : base(contextResult)
         {
-            Title = title;
-            Message = message;
         }
-
-        public override string BrowserTitle => "Error";
     }
 }
