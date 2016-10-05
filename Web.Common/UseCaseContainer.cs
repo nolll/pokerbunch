@@ -51,7 +51,7 @@ namespace Web.Common
         public AddEvent AddEvent => new AddEvent(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.EventService);
 
         // Locations
-        public LocationList LocationList => new LocationList(_deps.BunchService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository);
+        public LocationList LocationList => new LocationList(_deps.LocationRepository);
         public LocationDetails LocationDetails => new LocationDetails(_deps.LocationRepository);
         public AddLocation AddLocation => new AddLocation(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.LocationRepository);
 

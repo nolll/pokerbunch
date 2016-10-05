@@ -14,7 +14,7 @@ namespace Web.Controllers
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);
-            var locationList = UseCase.LocationList.Execute(new LocationList.Request(Identity.UserName, slug));
+            var locationList = UseCase.LocationList.Execute(new LocationList.Request(slug));
             var model = new LocationListPageModel(contextResult, locationList);
             return View("~/Views/Pages/LocationList/LocationList.cshtml", model);
         }

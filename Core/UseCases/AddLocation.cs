@@ -33,7 +33,7 @@ namespace Core.UseCases
             var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
 
-            var location = new Location(0, request.Name, bunch.Slug);
+            var location = new Location(0, request.Name, request.Slug);
             _locationRepository.Add(location);
 
             return new Result(bunch.Slug);
