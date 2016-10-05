@@ -53,7 +53,7 @@ namespace Web.Common
         // Locations
         public LocationList LocationList => new LocationList(_deps.LocationRepository);
         public LocationDetails LocationDetails => new LocationDetails(_deps.LocationRepository);
-        public AddLocation AddLocation => new AddLocation(_deps.BunchService, _deps.PlayerService, _deps.UserService, _deps.LocationRepository);
+        public AddLocation AddLocation => new AddLocation(_deps.LocationRepository);
 
         // Cashgame
         public CashgameStatus CashgameStatus => new CashgameStatus(_deps.BunchService, _deps.CashgameService, _deps.UserService, _deps.PlayerService);

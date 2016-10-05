@@ -8,16 +8,10 @@ namespace Core.UseCases
 {
     public class AddLocation
     {
-        private readonly BunchService _bunchService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
         private readonly ILocationRepository _locationRepository;
 
-        public AddLocation(BunchService bunchService, PlayerService playerService, UserService userService, ILocationRepository locationRepository)
+        public AddLocation(ILocationRepository locationRepository)
         {
-            _bunchService = bunchService;
-            _playerService = playerService;
-            _userService = userService;
             _locationRepository = locationRepository;
         }
 
@@ -28,27 +22,20 @@ namespace Core.UseCases
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchService.GetBySlug(request.Slug);
-            var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
-            RequireRole.Player(currentUser, currentPlayer);
-
             var location = new Location(0, request.Name, request.Slug);
             _locationRepository.Add(location);
 
-            return new Result(bunch.Slug);
+            return new Result(request.Slug);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
             [Required(ErrorMessage = "Name can't be empty")]
             public string Name { get; }
 
-            public Request(string userName, string slug, string name)
+            public Request(string slug, string name)
             {
-                UserName = userName;
                 Slug = slug;
                 Name = name;
             }
