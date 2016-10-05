@@ -53,7 +53,7 @@ namespace Infrastructure
             }
             if (statusCode == HttpStatusCode.Unauthorized)
             {
-                throw new UnauthorizedAccessException();
+                throw new NotLoggedInException();
             }
             return string.Empty;
         }

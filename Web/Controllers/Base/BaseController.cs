@@ -74,7 +74,7 @@ namespace Web.Controllers.Base
             if (filterContext.Exception is NotFoundException)
                 HandleError(filterContext, 404, Error404);
             else if(filterContext.Exception is AccessDeniedException)
-                HandleError(filterContext, 401, Error401);
+                HandleError(filterContext, 403, Error403);
             else if(filterContext.Exception is NotLoggedInException)
                 SignOut();
             else if (SiteSettings.HandleErrors)
