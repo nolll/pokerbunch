@@ -35,52 +35,40 @@ namespace Infrastructure
             return JsonConvert.DeserializeObject<T>(json);
         }
 
-        private string ReadJson(string apiUrl, bool isRetry = false)
+        private string ReadJson(string apiUrl)
         {
-            HttpStatusCode statusCode;
             using (var client = new BearerClient(_url, _token))
             {
                 var response = client.GetAsync(apiUrl).Result;
-                statusCode = response.StatusCode;
-                if ((int)statusCode >= 200 && (int)statusCode < 300)
-                {
-                    return response.Content.ReadAsStringAsync().Result;
-                }
+                ValidateResponse(response);
+                return response.Content.ReadAsStringAsync().Result;
             }
-            if (statusCode == HttpStatusCode.Forbidden)
-            {
-                throw new AccessDeniedException();
-            }
-            if (statusCode == HttpStatusCode.Unauthorized)
-            {
-                throw new NotLoggedInException();
-            }
-            return string.Empty;
         }
 
-        private string PostJson(string apiUrl, object data, bool isRetry = false)
+        private string PostJson(string apiUrl, object data)
         {
-            HttpStatusCode statusCode;
             using (var client = new BearerClient(_url, _token))
             {
                 var jsonData = JsonConvert.SerializeObject(data);
                 var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 var response = client.PostAsync(apiUrl, content).Result;
-                statusCode = response.StatusCode;
-                if ((int)statusCode >= 200 && (int)statusCode < 300)
-                {
-                    return response.Content.ReadAsStringAsync().Result;
-                }
+                ValidateResponse(response);
+                return response.Content.ReadAsStringAsync().Result;
             }
+        }
+
+        private void ValidateResponse(HttpResponseMessage response)
+        {
+            var statusCode = response.StatusCode;
+            if ((int) statusCode >= 200 && (int) statusCode < 300)
+                return;
             if (statusCode == HttpStatusCode.Forbidden)
-            {
                 throw new AccessDeniedException();
-            }
             if (statusCode == HttpStatusCode.Unauthorized)
-            {
-                throw new UnauthorizedAccessException();
-            }
-            return string.Empty;
+                throw new NotLoggedInException();
+            if (statusCode == HttpStatusCode.BadRequest)
+                throw new ValidationException("Validation error");
+            throw new Exception("Unknown error");
         }
 
         public string GetToken(string userName, string password)
