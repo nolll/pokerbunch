@@ -1,8 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Repositories;
-using Core.Services;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
@@ -17,11 +14,6 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var validator = new Validator(request);
-
-            if (!validator.IsValid)
-                throw new ValidationException(validator);
-
             var location = new Location(0, request.Name, request.Slug);
             _locationRepository.Add(location);
 
@@ -31,7 +23,6 @@ namespace Core.UseCases
         public class Request
         {
             public string Slug { get; }
-            [Required(ErrorMessage = "Name can't be empty")]
             public string Name { get; }
 
             public Request(string slug, string name)

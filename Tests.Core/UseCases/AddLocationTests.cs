@@ -19,8 +19,10 @@ namespace Tests.Core.UseCases
         }
 
         [Test]
-        public void AddEvent_InvalidName_ThrowsValidationException()
+        public void AddEvent_InvalidInput_ThrowsValidationException()
         {
+            Repos.Location.ThrowOnAdd = true;
+
             const string addedEventName = "";
 
             var request = new AddLocation.Request(TestData.BunchA.Slug, addedEventName);

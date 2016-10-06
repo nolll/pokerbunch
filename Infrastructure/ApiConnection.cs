@@ -67,8 +67,27 @@ namespace Infrastructure
             if (statusCode == HttpStatusCode.Unauthorized)
                 throw new NotLoggedInException();
             if (statusCode == HttpStatusCode.BadRequest)
-                throw new ValidationException("Validation error");
+                throw new ValidationException(GetValidationErrorMessage(response));
             throw new Exception("Unknown error");
+        }
+
+        private string GetValidationErrorMessage(HttpResponseMessage response)
+        {
+            try
+            {
+                var jsonMessage = response.Content.ReadAsStringAsync().Result;
+                var messageObj = JsonConvert.DeserializeObject<ValidationMessage>(jsonMessage);
+                return messageObj.Message;
+            }
+            catch (Exception)
+            {
+                return "Validation error";
+            }
+        }
+
+        private class ValidationMessage
+        {
+            public string Message { get; set; }
         }
 
         public string GetToken(string userName, string password)
