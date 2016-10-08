@@ -45,6 +45,7 @@ namespace Infrastructure.Storage.CachedRepositories
         public void AddCashgame(int eventId, int cashgameId)
         {
             _eventRepository.AddCashgame(eventId, cashgameId);
+            _cacheContainer.Remove<Event>(eventId);
         }
     }
 }

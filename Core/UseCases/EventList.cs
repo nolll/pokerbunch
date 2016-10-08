@@ -33,7 +33,7 @@ namespace Core.UseCases
             var locationIds = events.Select(o => o.LocationId).Distinct().ToList();
             var locations = _locationService.Get(locationIds);
 
-            var eventItems = events.OrderBy(o => o, new EventComparer()).Select(o => CreateEventItem(o, locations)).ToList();
+            var eventItems = events.OrderByDescending(o => o, new EventComparer()).Select(o => CreateEventItem(o, locations)).ToList();
 
             return new Result(eventItems);
         }
