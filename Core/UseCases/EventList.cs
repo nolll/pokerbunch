@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
@@ -32,7 +33,7 @@ namespace Core.UseCases
             var events = _eventService.GetByBunch(bunch.Id);
             var locations = _locationRepository.List(bunch.Slug);
 
-            var eventItems = events.OrderByDescending(o => o.StartDate).Select(o => CreateEventItem(o, locations)).ToList();
+            var eventItems = events.OrderByDescending(o => o, new EventComparer()).Select(o => CreateEventItem(o, locations)).ToList();
 
             return new Result(eventItems);
         }
@@ -91,6 +92,20 @@ namespace Core.UseCases
                 StartDate = startDate;
                 EndDate = endDate;
                 HasGames = true;
+            }
+        }
+
+        private class EventComparer : IComparer<Event>
+        {
+            public int Compare(Event x, Event y)
+            {
+                if (x.HasGames && y.HasGames)
+                    return x.StartDate.CompareTo(y.StartDate);
+                if (x.HasGames && !y.HasGames)
+                    return -1;
+                if (!x.HasGames && y.HasGames)
+                    return 1;
+                return string.Compare(x.Name, y.Name, StringComparison.Ordinal);
             }
         }
     }
