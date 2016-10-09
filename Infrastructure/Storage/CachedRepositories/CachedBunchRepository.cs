@@ -8,48 +8,50 @@ namespace Infrastructure.Storage.CachedRepositories
 {
     public class CachedBunchRepository : IBunchRepository
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly IBunchRepository _sqlBunchRepository;
+        private readonly IBunchRepository _apiBunchRepository;
         private readonly ICacheContainer _cacheContainer;
 
-        public CachedBunchRepository(IBunchRepository bunchRepository, ICacheContainer cacheContainer)
+        public CachedBunchRepository(IBunchRepository sqlBunchRepository, IBunchRepository apiBunchRepository, ICacheContainer cacheContainer)
         {
-            _bunchRepository = bunchRepository;
+            _sqlBunchRepository = sqlBunchRepository;
+            _apiBunchRepository = apiBunchRepository;
             _cacheContainer = cacheContainer;
         }
 
-        public Bunch Get(int id)
+        public Bunch Get(string slug)
         {
-            return _cacheContainer.GetAndStore(_bunchRepository.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
+            return _cacheContainer.GetAndStore(_sqlBunchRepository.Get, slug, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<Bunch> Get(IList<int> ids)
         {
-            return _cacheContainer.GetAndStore(_bunchRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
+            return _cacheContainer.GetAndStore(_sqlBunchRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<int> Search() 
         {
-            return _bunchRepository.Search();
+            return _sqlBunchRepository.Search();
         }
 
         public IList<int> Search(string slug)
         {
-            return _bunchRepository.Search(slug);
+            return _sqlBunchRepository.Search(slug);
         }
 
         public IList<int> Search(int userId)
         {
-            return _bunchRepository.Search(userId);
+            return _sqlBunchRepository.Search(userId);
         }
 
         public int Add(Bunch bunch)
         {
-            return _bunchRepository.Add(bunch);
+            return _sqlBunchRepository.Add(bunch);
         }
 
         public void Update(Bunch bunch)
         {
-            _bunchRepository.Update(bunch);
+            _sqlBunchRepository.Update(bunch);
             _cacheContainer.Remove<Bunch>(bunch.Id);
         }
     }

@@ -5,8 +5,7 @@ namespace Core.Services
 {
     public interface IBunchService
     {
-        Bunch Get(int id);
-        Bunch GetBySlug(string slug);
+        Bunch Get(string slug);
         IList<Bunch> GetByUserId(int userId);
         IList<Bunch> GetList();
         int Add(Bunch bunch);

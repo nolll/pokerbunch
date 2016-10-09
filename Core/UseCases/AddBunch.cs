@@ -31,7 +31,7 @@ namespace Core.UseCases
             bool bunchExists;
             try
             {
-                var b = _bunchService.GetBySlug(slug);
+                var b = _bunchService.Get(slug);
                 bunchExists = true;
             }
             catch (BunchNotFoundException)

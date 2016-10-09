@@ -23,7 +23,7 @@ namespace Core.Entities
             string displayName = null, 
             Role role = Role.Player,
             string color = null)
-	    {
+        {
 	        BunchId = bunchId;
 	        Slug = slug;
 	        Id = id;

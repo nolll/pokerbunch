@@ -22,7 +22,7 @@ namespace Core.UseCases
         {
             var cashgame = _cashgameService.GetByCheckpoint(request.CheckpointId);
             var checkpoint = cashgame.GetCheckpoint(request.CheckpointId);
-            var bunch = _bunchService.Get(cashgame.BunchId);
+            var bunch = _bunchService.Get(cashgame.Bunch);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);

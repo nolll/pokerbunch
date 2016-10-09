@@ -28,7 +28,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var cashgame = _cashgameService.GetRunning(bunch.Id);
 
             if(cashgame == null)

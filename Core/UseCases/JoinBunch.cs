@@ -26,7 +26,7 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var players = _playerService.GetList(bunch.Slug);
             var player = GetMatchedPlayer(players, request.Code);
             

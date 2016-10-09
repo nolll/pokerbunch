@@ -11,7 +11,7 @@ namespace Infrastructure.Storage.Repositories
 {
     public class SqlCashgameRepository : ICashgameRepository
     {
-        private const string DataSql = "SELECT g.GameID, g.HomegameID, g.LocationId, g.Status, g.Date FROM game g ";
+        private const string DataSql = "SELECT g.GameID, h.Name as Slug, g.HomegameID, g.LocationId, g.Status, g.Date FROM game g JOIN Homegame h ON g.HomegameID = h.HomegameID ";
         private const string SearchSql = "SELECT g.GameID FROM game g ";
         private const string SearchByCheckpointSql = "SELECT cp.GameID FROM CashgameCheckpoint cp ";
         
@@ -106,12 +106,13 @@ namespace Infrastructure.Storage.Repositories
 	    private RawCashgame CreateRawCashgame(IStorageDataReader reader)
         {
             var id = reader.GetIntValue("GameID");
+            var slug = reader.GetStringValue("Slug");
             var bunchId = reader.GetIntValue("HomegameID");
             var locationId = reader.GetIntValue("LocationId");
             var status = reader.GetIntValue("Status");
             var date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date"));
 
-            return new RawCashgame(id, bunchId, locationId, status, date);
+            return new RawCashgame(id, slug, bunchId, locationId, status, date);
         }
 
         public IList<int> GetYears(int bunchId)
@@ -201,12 +202,12 @@ namespace Infrastructure.Storage.Repositories
 	        var rawStatus = status.HasValue ? (int) status.Value : (int) cashgame.Status;
 	        var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.UtcNow;
             
-            return new RawCashgame(cashgame.Id, cashgame.BunchId, cashgame.LocationId, rawStatus, date);
+            return new RawCashgame(cashgame.Id, cashgame.Bunch, cashgame.BunchId, cashgame.LocationId, rawStatus, date);
         }
 
 	    private static Cashgame CreateCashgame(RawCashgame rawGame)
 	    {
-            return new Cashgame(rawGame.BunchId, rawGame.LocationId, (GameStatus)rawGame.Status, rawGame.Id);
+            return new Cashgame(rawGame.Slug, rawGame.BunchId, rawGame.LocationId, (GameStatus)rawGame.Status, rawGame.Id);
         }
 
         private static IList<Checkpoint> CreateCheckpoints(IEnumerable<RawCheckpoint> checkpoints)

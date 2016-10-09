@@ -25,7 +25,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
@@ -36,7 +36,7 @@ namespace Core.UseCases
         public Result Execute(EventMatrixRequest request)
         {
             var e = _eventService.Get(request.EventId);
-            var bunch = _bunchService.Get(e.BunchId);
+            var bunch = _bunchService.Get(e.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);

@@ -5,7 +5,7 @@ namespace Core.Repositories
 {
     public interface IBunchRepository
     {
-        Bunch Get(int id);
+        Bunch Get(string slug);
         IList<Bunch> Get(IList<int> ids);
         IList<int> Search();
         IList<int> Search(string slug);

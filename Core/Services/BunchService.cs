@@ -15,17 +15,9 @@ namespace Core.Services
             _bunchRepository = bunchRepository;
         }
 
-        public Bunch Get(int id)
+        public Bunch Get(string slug)
         {
-            return _bunchRepository.Get(id);
-        }
-
-        public Bunch GetBySlug(string slug)
-        {
-            var ids = _bunchRepository.Search(slug);
-            if(ids.Any())
-                return _bunchRepository.Get(ids.First());
-            throw new BunchNotFoundException(slug);
+            return _bunchRepository.Get(slug);
         }
 
         public IList<Bunch> GetByUserId(int userId)

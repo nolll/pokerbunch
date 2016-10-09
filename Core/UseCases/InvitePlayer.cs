@@ -27,7 +27,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.BunchId);
+            var bunch = _bunchService.Get(player.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);

@@ -9,6 +9,49 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.Repositories
 {
+    public class ApiBunchRepository : IBunchRepository
+    {
+        public ApiBunchRepository(ApiConnection apiConnection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Bunch Get(string slug)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Bunch> Get(IList<int> ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<int> Search()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<int> Search(string slug)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<int> Search(int userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Add(Bunch bunch)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Bunch bunch)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 	public class SqlBunchRepository : IBunchRepository
 	{
         private const string DataSql = "SELECT h.HomegameID, h.Name, h.DisplayName, h.Description, h.Currency, h.CurrencyLayout, h.Timezone, h.DefaultBuyin, h.CashgamesEnabled, h.TournamentsEnabled, h.VideosEnabled, h.HouseRules FROM homegame h";
@@ -29,12 +72,12 @@ namespace Infrastructure.Storage.Repositories
             return rawHomegames.Select(CreateBunch).ToList();
 	    }
 
-        public Bunch Get(int id)
+        public Bunch Get(string slug)
         {
-            var sql = string.Concat(DataSql, " WHERE HomegameID = @id");
+            var sql = string.Concat(DataSql, " WHERE Name = @slug");
             var parameters = new List<SimpleSqlParameter>
             {
-                new SimpleSqlParameter("@id", id)
+                new SimpleSqlParameter("@slug", slug)
             };
             var reader = _db.Query(sql, parameters);
             var rawHomegame = reader.ReadOne(CreateRawBunch);

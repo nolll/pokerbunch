@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         {
             _sut = CreateSut<BunchDetails>();
 
-            MockOf<IBunchService>().Setup(s => s.GetBySlug(Slug)).Returns(new Bunch(BunchId, Slug, DisplayName, Description, HouseRules));
+            MockOf<IBunchService>().Setup(s => s.Get(Slug)).Returns(new Bunch(BunchId, Slug, DisplayName, Description, HouseRules));
             MockOf<IPlayerService>().Setup(s => s.GetByUserId(Slug, UserId)).Returns(new Player(BunchId, Slug, PlayerId, UserId, role: Role));
             MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
         }

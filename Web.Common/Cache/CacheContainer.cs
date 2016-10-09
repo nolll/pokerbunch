@@ -60,6 +60,24 @@ namespace Web.Common.Cache
             return cachedObject;
         }
 
+        public T GetAndStore<T>(Func<string, T> sourceExpression, string id, TimeSpan cacheTime) where T : class, IEntity
+        {
+            T cachedObject;
+            var cacheKey = CacheKeyProvider.GetKey<T>(id);
+            var foundInCache = TryGet(cacheKey, out cachedObject);
+
+            if (foundInCache)
+            {
+                return cachedObject;
+            }
+            cachedObject = sourceExpression(id);
+            if (cachedObject != null)
+            {
+                Insert(cacheKey, cachedObject, cacheTime);
+            }
+            return cachedObject;
+        }
+
         public IList<T> GetAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, IList<int> ids, TimeSpan cacheTime) where T : class, IEntity
         {
             var list = new List<T>();

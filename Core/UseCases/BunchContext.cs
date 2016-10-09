@@ -39,7 +39,7 @@ namespace Core.UseCases
             {
                 try
                 {
-                    return _bunchService.GetBySlug(request.Slug);
+                    return _bunchService.Get(request.Slug);
                 }
                 catch (BunchNotFoundException)
                 {
