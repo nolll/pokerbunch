@@ -17,22 +17,17 @@ namespace Tests.Common.FakeRepositories
             SetupDefaultList();
         }
 
-        public Bunch Get(int id)
+        public Bunch Get(string slug)
         {
-            return _list.First(o => o.Id == id);
+            var bunch = _list.FirstOrDefault(o => o.Slug == slug);
+            if (bunch == null)
+                throw new BunchNotFoundException(slug);
+            return bunch;
         }
 
         public IList<Bunch> Get(IList<int> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
-        }
-
-        public Bunch GetBySlug(string slug)
-        {
-            var bunch = _list.FirstOrDefault(o => o.Slug == slug);
-            if(bunch == null)
-                throw new BunchNotFoundException(slug);
-            return bunch;
         }
 
         public IList<Bunch> GetByUserId(int userId)

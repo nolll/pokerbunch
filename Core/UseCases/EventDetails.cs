@@ -20,9 +20,9 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var e = _eventService.Get(request.EventId);
-            var bunch = _bunchService.Get(e.BunchId);
+            var bunch = _bunchService.Get(e.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(e.BunchId, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
             
             return new Result(e.Name, bunch.Slug);

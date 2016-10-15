@@ -12,32 +12,25 @@ namespace Tests.Core.UseCases
         {
             const string addedEventName = "added location";
 
-            var request = new AddLocation.Request(TestData.UserA.UserName, TestData.BunchA.Slug, addedEventName);
+            var request = new AddLocation.Request(TestData.BunchA.Slug, addedEventName);
             Sut.Execute(request);
 
             Assert.AreEqual(addedEventName, Repos.Location.Added.Name);
         }
 
         [Test]
-        public void AddEvent_InvalidName_ThrowsValidationException()
+        public void AddEvent_InvalidInput_ThrowsValidationException()
         {
+            Repos.Location.ThrowOnAdd = true;
+
             const string addedEventName = "";
 
-            var request = new AddLocation.Request(TestData.UserA.UserName, TestData.BunchA.Slug, addedEventName);
+            var request = new AddLocation.Request(TestData.BunchA.Slug, addedEventName);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
 
-        private AddLocation Sut
-        {
-            get
-            {
-                return new AddLocation(
-                    Services.BunchService,
-                    Services.PlayerService,
-                    Services.UserService,
-                    Services.LocationService);
-            }
-        }
+        private AddLocation Sut => new AddLocation(
+            Repos.Location);
     }
 }

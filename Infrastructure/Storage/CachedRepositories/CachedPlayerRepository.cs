@@ -27,19 +27,19 @@ namespace Infrastructure.Storage.CachedRepositories
             return _cacheContainer.GetAndStore(_playerRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<int> Find(int bunchId)
+        public IList<int> Find(string slug)
         {
-            return _playerRepository.Find(bunchId);
+            return _playerRepository.Find(slug);
         }
 
-        public IList<int> Find(int bunchId, string name)
+        public IList<int> Find(string slug, string name)
         {
-            return _playerRepository.Find(bunchId, name);
+            return _playerRepository.Find(slug, name);
         }
 
-        public IList<int> Find(int bunchId, int userId)
+        public IList<int> Find(string slug, int userId)
         {
-            return _playerRepository.Find(bunchId, userId);
+            return _playerRepository.Find(slug, userId);
         }
 
         public int Add(Player player)

@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Player.Delete)]
         public ActionResult Delete(int id)
         {
-            var request = new DeletePlayer.Request(CurrentUserName, id);
+            var request = new DeletePlayer.Request(Identity.UserName, id);
             var result = UseCase.DeletePlayer.Execute(request);
             var returnUrl = CreateReturnUrl(result);
             return Redirect(returnUrl.Relative);

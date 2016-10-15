@@ -13,7 +13,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
 
             return new Result(bunch.DisplayName);
         }

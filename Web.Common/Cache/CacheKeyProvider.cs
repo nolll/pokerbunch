@@ -11,6 +11,11 @@ namespace Web.Common.Cache
             return ConstructCacheKey(typeof(T).ToString(), id); ;
         }
 
+        public static string GetKey<T>(string id)
+        {
+            return ConstructCacheKey(typeof(T).ToString(), id); ;
+        }
+
         public static string AppKey(int id)
         {
             return ConstructCacheKey("App", id);

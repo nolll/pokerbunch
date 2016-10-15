@@ -218,6 +218,7 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventDetailsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
+    <Compile Include="Controllers\LocationDetailsController.cs" />
     <Compile Include="Controllers\LocationListController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
@@ -234,6 +235,8 @@
     <Compile Include="Models\CashgameModels\List\CashgameListTableJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\ToplistTableJsonModel.cs" />
+    <Compile Include="Security\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Security\Identity.cs" />
     <Compile Include="Services\CssService.cs" />
     <Compile Include="SiteSettings.cs" />
     <Compile Include="Extensions\ComponentViewFinder.cs" />

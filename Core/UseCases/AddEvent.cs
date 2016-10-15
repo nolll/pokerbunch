@@ -27,12 +27,12 @@ namespace Core.UseCases
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
 
-            var e = new Event(0, bunch.Id, request.Name);
+            var e = new Event(0, bunch.Slug, bunch.Id, request.Name);
             _eventService.Add(e);
 
             return new Result(bunch.Slug);

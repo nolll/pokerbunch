@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=10.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -39,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,11 +54,14 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ApiClient.cs" />
+    <Compile Include="ApiConnection.cs" />
+    <Compile Include="BearerClient.cs" />
+    <Compile Include="SignInClient.cs" />
     <Compile Include="Storage\CachedRepositories\CachedAppRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedBunchRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedCashgameRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedEventRepository.cs" />
-    <Compile Include="Storage\CachedRepositories\CachedLocationRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedPlayerRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedUserRepository.cs" />
     <Compile Include="Storage\CacheTime.cs" />
@@ -66,11 +74,12 @@
     <Compile Include="Storage\Classes\RawUser.cs" />
     <Compile Include="Storage\Interfaces\IStorageDataReader.cs" />
     <Compile Include="Storage\ListSqlParameter.cs" />
+    <Compile Include="Storage\Repositories\ApiTokenRepository.cs" />
     <Compile Include="Storage\Repositories\SqlAppRepository.cs" />
     <Compile Include="Storage\Repositories\SqlBunchRepository.cs" />
     <Compile Include="Storage\Repositories\SqlCashgameRepository.cs" />
     <Compile Include="Storage\Repositories\SqlEventRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlLocationRepository.cs" />
+    <Compile Include="Storage\Repositories\ApiLocationRepository.cs" />
     <Compile Include="Storage\Repositories\SqlPlayerRepository.cs" />
     <Compile Include="Storage\Repositories\SqlUserRepository.cs" />
     <Compile Include="Storage\SimpleSqlParameter.cs" />
@@ -91,6 +100,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

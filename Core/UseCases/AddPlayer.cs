@@ -28,16 +28,16 @@ namespace Core.UseCases
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
-            var existingPlayers = _playerService.GetList(bunch.Id);
+            var existingPlayers = _playerService.GetList(bunch.Slug);
             var player = existingPlayers.FirstOrDefault(o => string.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
             if(player != null)
                 throw new PlayerExistsException();
 
-            player = Player.New(bunch.Id, request.Name);
+            player = Player.New(bunch.Id, bunch.Slug, request.Name);
             _playerService.Add(player);
 
             return new Result(bunch.Slug);

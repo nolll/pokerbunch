@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -12,26 +13,25 @@ namespace Core.UseCases
         private readonly EventService _eventService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
-        private readonly LocationService _locationService;
+        private readonly ILocationRepository _locationRepository;
 
-        public EventList(BunchService bunchService, EventService eventService, UserService userService, PlayerService playerService, LocationService locationService)
+        public EventList(BunchService bunchService, EventService eventService, UserService userService, PlayerService playerService, ILocationRepository locationRepository)
         {
             _bunchService = bunchService;
             _eventService = eventService;
             _userService = userService;
             _playerService = playerService;
-            _locationService = locationService;
+            _locationRepository = locationRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
             var events = _eventService.GetByBunch(bunch.Id);
-            var locationIds = events.Select(o => o.LocationId).Distinct().ToList();
-            var locations = _locationService.Get(locationIds);
+            var locations = _locationRepository.List(bunch.Slug);
 
             var eventItems = events.OrderByDescending(o => o, new EventComparer()).Select(o => CreateEventItem(o, locations)).ToList();
 

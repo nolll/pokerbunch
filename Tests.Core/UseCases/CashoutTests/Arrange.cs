@@ -36,9 +36,9 @@ namespace Tests.Core.UseCases.CashoutTests
 
             var cashgame = CreateCashgame();
             CheckpointCountBeforeCashout = cashgame.Checkpoints.Count;
-            MockOf<IBunchService>().Setup(s => s.GetBySlug(Slug)).Returns(new Bunch(BunchId, Slug));
+            MockOf<IBunchService>().Setup(s => s.Get(Slug)).Returns(new Bunch(BunchId, Slug));
             MockOf<ICashgameService>().Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
-            MockOf<IPlayerService>().Setup(s => s.GetByUserId(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
+            MockOf<IPlayerService>().Setup(s => s.GetByUserId(Slug, UserId)).Returns(new Player(BunchId, Slug, PlayerId, UserId));
             MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
 
             MockOf<ICashgameService>().Setup(o => o.UpdateGame(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
@@ -54,7 +54,7 @@ namespace Tests.Core.UseCases.CashoutTests
                     Checkpoint.Create(CashgameId, PlayerId, _startTime.AddMinutes(1), CheckpointType.Cashout, 200, 0, 3)
                 };
 
-                return new Cashgame(BunchId, LocationId, GameStatus.Running, CashgameId, checkpoints1);
+                return new Cashgame(Slug, BunchId, LocationId, GameStatus.Running, CashgameId, checkpoints1);
             }
             else
             {
@@ -63,7 +63,7 @@ namespace Tests.Core.UseCases.CashoutTests
                     Checkpoint.Create(CashgameId, PlayerId, _startTime, CheckpointType.Buyin, 200, 200, 1)
                 };
 
-                return new Cashgame(BunchId, LocationId, GameStatus.Running, CashgameId, checkpoints1);
+                return new Cashgame(Slug, BunchId, LocationId, GameStatus.Running, CashgameId, checkpoints1);
             }
         }
     }

@@ -25,9 +25,9 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             return Execute(bunch, cashgames);
@@ -36,9 +36,9 @@ namespace Core.UseCases
         public Result Execute(EventMatrixRequest request)
         {
             var e = _eventService.Get(request.EventId);
-            var bunch = _bunchService.Get(e.BunchId);
+            var bunch = _bunchService.Get(e.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
             var cashgames = _cashgameService.GetByEvent(request.EventId);
             return Execute(bunch, cashgames);
@@ -46,7 +46,7 @@ namespace Core.UseCases
 
         private Result Execute(Bunch bunch, IList<Cashgame> cashgames)
         {
-            var players = _playerService.GetList(bunch.Id);
+            var players = _playerService.GetList(bunch.Slug);
             var suite = new CashgameSuite(cashgames, players);
 
             var gameItems = CreateGameItems(cashgames);

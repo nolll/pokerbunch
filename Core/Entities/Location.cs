@@ -3,14 +3,14 @@ namespace Core.Entities
     public class Location : IEntity
     {
         public int Id { get; }
-        public string Name { get; private set; }
-        public int BunchId { get; private set; }
+        public string Name { get; }
+        public string Slug { get; }
 
-        public Location(int id, string name, int bunchId)
+        public Location(int id, string name, string slug)
         {
             Id = id;
             Name = name;
-            BunchId = bunchId;
+            Slug = slug;
         }
     }
 }

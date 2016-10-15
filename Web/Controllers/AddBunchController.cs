@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddBunch.Request(CurrentUserName, postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
+                var request = new AddBunch.Request(Identity.UserName, postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
                 UseCase.AddBunch.Execute(request);
                 return Redirect(new AddBunchConfirmationUrl().Relative);
             }

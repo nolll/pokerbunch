@@ -5,8 +5,6 @@ namespace Web.Models.PageBaseModels
 {
     public abstract class PageModel
     {
-        private string _browserTitle;
-
         public string CssUrl { get; private set; }
         public string Version { get; private set; }
         public GoogleAnalyticsModel GoogleAnalyticsModel { get; private set; }

@@ -25,11 +25,11 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var cashgame = _cashgameService.GetById(request.CashgameId);
-            var bunch = _bunchService.Get(cashgame.BunchId);
+            var bunch = _bunchService.Get(cashgame.Bunch);
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
             var players = _playerService.Get(playerIds).OrderBy(o => o.Id).ToList();
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
 
             var playerItems = GetPlayerItems(bunch, cashgame, players, request.CurrentTime);

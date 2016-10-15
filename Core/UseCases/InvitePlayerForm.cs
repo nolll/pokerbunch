@@ -18,9 +18,9 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.BunchId);
+            var bunch = _bunchService.Get(player.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
 
             return new Result(bunch.Slug);

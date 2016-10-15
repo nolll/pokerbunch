@@ -23,9 +23,9 @@ namespace Core.UseCases
         {
             var cashgame = _cashgameService.GetByCheckpoint(request.CheckpointId);
             var checkpoint = cashgame.GetCheckpoint(request.CheckpointId);
-            var bunch = _bunchService.Get(cashgame.BunchId);
+            var bunch = _bunchService.Get(cashgame.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Manager(user, player);
             var stack = checkpoint.Stack;
             var amount = checkpoint.Amount;

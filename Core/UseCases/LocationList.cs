@@ -1,35 +1,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Services;
+using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class LocationList
     {
-        private readonly BunchService _bunchService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
-        private readonly LocationService _locationService;
+        private readonly ILocationRepository _locationRepository;
 
-        public LocationList(BunchService bunchService, UserService userService, PlayerService playerService, LocationService locationService)
+        public LocationList(ILocationRepository locationRepository)
         {
-            _bunchService = bunchService;
-            _userService = userService;
-            _playerService = playerService;
-            _locationService = locationService;
+            _locationRepository = locationRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.GetBySlug(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
-            var locations = _locationService.GetByBunch(bunch.Id);
-
+            var locations = _locationRepository.List(request.Slug);
             var locationItems = locations.Select(CreateLocationItem).ToList();
-
             return new Result(locationItems);
         }
 
@@ -40,12 +28,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
 
-            public Request(string userName, string slug)
+            public Request(string slug)
             {
-                UserName = userName;
                 Slug = slug;
             }
         }
@@ -64,25 +50,11 @@ namespace Core.UseCases
         {
             public int LocationId { get; private set; }
             public string Name { get; private set; }
-            public string Location { get; private set; }
-            public Date StartDate { get; private set; }
-            public Date EndDate { get; private set; }
-            public bool HasGames { get; private set; }
 
             public Item(int id, string name)
             {
                 LocationId = id;
                 Name = name;
-                HasGames = false;
-            }
-
-            public Item(int id, string name, string location, Date startDate, Date endDate)
-                : this(id, name)
-            {
-                Location = location;
-                StartDate = startDate;
-                EndDate = endDate;
-                HasGames = true;
             }
         }
     }

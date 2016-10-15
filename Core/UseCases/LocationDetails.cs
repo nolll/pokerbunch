@@ -1,41 +1,29 @@
-using Core.Services;
+using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class LocationDetails
     {
-        private readonly LocationService _locationService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
-        private readonly BunchService _bunchService;
+        private readonly ILocationRepository _locationRepository;
 
-        public LocationDetails(LocationService locationService, UserService userService, PlayerService playerService, BunchService bunchService)
+        public LocationDetails(ILocationRepository locationRepository)
         {
-            _locationService = locationService;
-            _userService = userService;
-            _playerService = playerService;
-            _bunchService = bunchService;
+            _locationRepository = locationRepository;
         }
 
         public Result Execute(Request request)
         {
-            var location = _locationService.Get(request.LocationId);
-            var bunch = _bunchService.Get(location.BunchId);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(location.BunchId, user.Id);
-            RequireRole.Player(user, player);
-
-            return new Result(location.Id, location.Name, bunch.Slug);
+            var location = _locationRepository.Get(request.LocationId);
+            
+            return new Result(location.Id, location.Name, location.Slug);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public int LocationId { get; }
 
-            public Request(string userName, int locationId)
+            public Request(int locationId)
             {
-                UserName = userName;
                 LocationId = locationId;
             }
         }

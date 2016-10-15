@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=10.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.0.0\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -57,6 +61,7 @@
     <Compile Include="Exceptions\CashgameNotFoundException.cs" />
     <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Exceptions\CashgameRunningException.cs" />
+    <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\EmailExistsException.cs" />
     <Compile Include="Exceptions\InvalidJoinCodeException.cs" />
     <Compile Include="Exceptions\LoginException.cs" />
@@ -72,8 +77,10 @@
     <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Repositories\ILocationRepository.cs" />
     <Compile Include="Repositories\IRepositoryFactory.cs" />
+    <Compile Include="Repositories\ITokenRepository.cs" />
     <Compile Include="Services\ApplicationVersion.cs" />
     <Compile Include="Services\AppService.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\BunchService.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\CheckpointService.cs" />
@@ -92,7 +99,6 @@
     <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
-    <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
     <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\RandomService.cs" />
@@ -219,6 +225,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

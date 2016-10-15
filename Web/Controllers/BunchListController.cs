@@ -12,7 +12,7 @@ namespace Web.Controllers
         public ActionResult All()
         {
             var context = GetAppContext();
-            var bunchListResult = UseCase.BunchList.Execute(new BunchList.AllBunchesRequest(CurrentUserName));
+            var bunchListResult = UseCase.BunchList.Execute(new BunchList.AllBunchesRequest(Identity.UserName));
             var model = new BunchListPageModel(context, bunchListResult);
             return View("~/Views/Pages/BunchList/BunchList.cshtml", model);
         }

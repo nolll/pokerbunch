@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 
 namespace Tests.Common.FakeRepositories
@@ -9,6 +10,7 @@ namespace Tests.Common.FakeRepositories
     {
         private readonly IList<Location> _list;
         public Location Added { get; private set; }
+        public bool ThrowOnAdd { get; set; }
         
         public FakeLocationRepository()
         {
@@ -20,26 +22,18 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.Id == id);
         }
 
-        public IList<Location> Get(IList<int> ids)
+        public IList<Location> List(string slug)
         {
-            return _list.Where(o => ids.Contains(o.Id)).ToList();
-        }
-
-        public IList<int> Find(int bunchId)
-        {
-            return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
-        }
-
-        public IList<int> Find(int bunchId, string name)
-        {
-            return _list.Where(o => o.BunchId == bunchId && o.Name == name).Select(o => o.Id).ToList();
+            return _list.Where(o => o.Slug == slug).ToList();
         }
 
         public int Add(Location location)
         {
+            if (ThrowOnAdd)
+                throw new ValidationException("validation exception");
             Added = location;
             const int id = 1000;
-            _list.Add(new Location(id, location.Name, location.BunchId));
+            _list.Add(new Location(id, location.Name, location.Slug));
             return id;
         }
 
@@ -47,10 +41,10 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Location>
             {
-                new Location(TestData.LocationIdA, TestData.LocationNameA, TestData.BunchA.Id),
-                new Location(TestData.LocationIdB, TestData.LocationNameB, TestData.BunchA.Id),
-                new Location(TestData.LocationIdC, TestData.LocationNameC, TestData.BunchA.Id),
-                new Location(TestData.ChangedLocationId, TestData.ChangedLocationName, TestData.BunchA.Id)
+                new Location(TestData.LocationIdA, TestData.LocationNameA, TestData.BunchA.Slug),
+                new Location(TestData.LocationIdB, TestData.LocationNameB, TestData.BunchA.Slug),
+                new Location(TestData.LocationIdC, TestData.LocationNameC, TestData.BunchA.Slug),
+                new Location(TestData.ChangedLocationId, TestData.ChangedLocationName, TestData.BunchA.Slug)
             };
         }
     }

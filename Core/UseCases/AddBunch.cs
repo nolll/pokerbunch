@@ -31,7 +31,7 @@ namespace Core.UseCases
             bool bunchExists;
             try
             {
-                var b = _bunchService.GetBySlug(slug);
+                var b = _bunchService.Get(slug);
                 bunchExists = true;
             }
             catch (BunchNotFoundException)
@@ -45,7 +45,7 @@ namespace Core.UseCases
             var bunch = CreateBunch(request);
             var id = _bunchService.Add(bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = Player.New(id, user.Id, Role.Manager);
+            var player = Player.New(id, bunch.Slug, user.Id, Role.Manager);
             _playerService.Add(player);
         }
 

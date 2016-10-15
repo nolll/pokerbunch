@@ -18,7 +18,7 @@ namespace Web.Controllers
             var contextResult = GetBunchContext(slug);
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
             }
@@ -35,7 +35,7 @@ namespace Web.Controllers
             var contextResult = GetBaseContext();
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
                 var model = new CashgameDashboardPageModel(contextResult, runningCashgameResult);
                 return View("~/Views/Pages/RunningCashgame/DashboardPage.cshtml", model);
             }
@@ -51,7 +51,7 @@ namespace Web.Controllers
         {
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
                 var model = new RunningCashgameJsonModel(runningCashgameResult);
                 return JsonView(model);
             }
@@ -65,7 +65,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.RunningPlayersJson)]
         public ActionResult RunningPlayersJson(string slug)
         {
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(CurrentUserName, slug));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
         }

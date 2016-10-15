@@ -20,11 +20,11 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.GetBySlug(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
             RequireRole.Player(user, player);
-            var players = _playerService.GetList(bunch.Id);
+            var players = _playerService.GetList(bunch.Slug);
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
 
             return new Result(bunch, players, isManager);

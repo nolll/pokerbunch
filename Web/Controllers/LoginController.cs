@@ -30,7 +30,7 @@ namespace Web.Controllers
             try
             {
                 var result = UseCase.Login.Execute(request);
-                SignIn(result.UserName, postModel.RememberMe);
+                SignIn(result.UserName, result.Token, postModel.RememberMe);
                 return Redirect(postModel.ReturnUrl);
             }
             catch (LoginException ex)
@@ -41,7 +41,7 @@ namespace Web.Controllers
             return ShowForm(postModel);
         }
 
-        public void SignIn(string userName, bool createPersistentCookie)
+        public void SignIn(string userName, string token, bool createPersistentCookie)
         {
             var currentTime = DateTime.UtcNow;
             var expires = currentTime.AddYears(100);
@@ -52,7 +52,7 @@ namespace Web.Controllers
                 currentTime,
                 expires,
                 createPersistentCookie,
-                "");
+                token);
 
             var encTicket = FormsAuthentication.Encrypt(authTicket);
             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encTicket)

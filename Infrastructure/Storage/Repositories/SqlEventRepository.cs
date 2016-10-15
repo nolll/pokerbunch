@@ -9,10 +9,11 @@ namespace Infrastructure.Storage.Repositories
 {
     public class SqlEventRepository : IEventRepository
     {
-        private const string EventSql = @"SELECT e.EventID, e.BunchID, e.Name, g.LocationId, g.Date
+        private const string EventSql = @"SELECT e.EventID, h.Name AS Slug, e.BunchID, e.Name, g.LocationId, g.Date
                                         FROM [Event] e
-                                        LEFT JOIN EventCashgame ecg on e.EventId = ecg.EventId
-                                        LEFT JOIN Game g on ecg.GameId = g.GameID
+                                        JOIN Homegame h ON e.BunchID = h.HomegameID
+                                        LEFT JOIN EventCashgame ecg ON e.EventId = ecg.EventId
+                                        LEFT JOIN Game g ON ecg.GameId = g.GameID
                                         {0}
                                         ORDER BY e.EventId, g.Date";
 
@@ -95,6 +96,7 @@ namespace Infrastructure.Storage.Repositories
         {
             return new Event(
                 rawEvent.Id,
+                rawEvent.Slug,
                 rawEvent.BunchId,
                 rawEvent.Name,
                 rawEvent.LocationId,
@@ -127,7 +129,7 @@ namespace Infrastructure.Storage.Repositories
                 var item = map[key];
                 var firstItem = item.First();
                 var lastItem = item.Last();
-                rawEvents.Add(new RawEvent(firstItem.Id, firstItem.BunchId, firstItem.Name, firstItem.LocationId, firstItem.Date, lastItem.Date));
+                rawEvents.Add(new RawEvent(firstItem.Id, firstItem.Slug, firstItem.BunchId, firstItem.Name, firstItem.LocationId, firstItem.Date, lastItem.Date));
             }
             return rawEvents;
         }
@@ -136,6 +138,7 @@ namespace Infrastructure.Storage.Repositories
         {
             return new RawEventDay(
                 reader.GetIntValue("EventID"),
+                reader.GetStringValue("Slug"),
                 reader.GetIntValue("BunchId"),
                 reader.GetStringValue("Name"),
                 reader.GetIntValue("LocationId"),
