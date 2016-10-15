@@ -11,9 +11,11 @@ namespace Infrastructure.Storage.Repositories
 {
     public class ApiBunchRepository : IBunchRepository
     {
+        private readonly ApiConnection _apiConnection;
+
         public ApiBunchRepository(ApiConnection apiConnection)
         {
-            throw new NotImplementedException();
+            _apiConnection = apiConnection;
         }
 
         public Bunch Get(string slug)
