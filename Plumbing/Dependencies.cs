@@ -24,11 +24,11 @@ namespace Plumbing
         private IRandomService _randomService;
         private IMessageSender _messageSender;
                 
-        public Dependencies(ICacheContainer cacheContainer, string connectionString, string apiHost, string apiUrl, string apiKey, string apiToken)
+        public Dependencies(ICacheContainer cacheContainer, string connectionString, string apiUrl, string apiKey, string apiToken)
         {
             _cacheContainer = cacheContainer;
             _db = new SqlServerStorageProvider(connectionString);
-            _apiConnection = new ApiConnection(apiHost, apiUrl, apiKey, apiToken);
+            _apiConnection = new ApiConnection(apiUrl, apiKey, apiToken);
         }
 
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(_apiConnection));

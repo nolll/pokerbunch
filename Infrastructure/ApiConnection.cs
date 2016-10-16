@@ -10,14 +10,12 @@ namespace Infrastructure
 {
     public class ApiConnection
     {
-        private readonly string _host;
         private readonly string _url;
         private readonly string _key;
         private readonly string _token;
 
-        public ApiConnection(string host, string url, string key, string token)
+        public ApiConnection(string url, string key, string token)
         {
-            _host = host;
             _url = url;
             _key = key;
             _token = token;

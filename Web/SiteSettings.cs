@@ -6,14 +6,16 @@ namespace Web
     {
         public static string SiteHost => Get("SiteHost");
         public static bool HandleErrors => GetBool("HandleErrors");
-        public static bool ForceHttps => GetBool("ForceHttps");
         public static bool UseAssets => GetBool("UseAssets");
         public static bool EnableAnalytics => GetBool("EnableAnalytics");
         public static string ConnectionString => Get("SqlConnectionString");
         public static bool EnableApplicationInsights => GetBool("EnableApplicationInsights");
         public static string ApplicationInsightsKey => Get("ApplicationInsightsKey");
         public static string ApiHost => Get("ApiHost");
-        public static string ApiUrl => Get("ApiUrl");
         public static string ApiKey => Get("ApiKey");
+        public static string EnvironmentName => Get("Environment");
+
+        public static string ApiUrl => $"{ApiProtocol}//{ApiHost}";
+        public static string ApiProtocol => EnvironmentName.Equals("prod") ? "https" : "http";
     }
 }

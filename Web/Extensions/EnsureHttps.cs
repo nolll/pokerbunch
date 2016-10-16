@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Web.Common.Services;
 
 namespace Web.Extensions
 {
@@ -11,7 +10,7 @@ namespace Web.Extensions
             if (filterContext == null)
                 throw new ArgumentNullException(nameof(filterContext));
 
-            if (filterContext.HttpContext != null && RequestEvaluator.IsTestEnvironment(filterContext.HttpContext.Request))
+            if (filterContext.HttpContext != null && !Environment.IsProd)
                 return;
 
             base.OnAuthorization(filterContext);
