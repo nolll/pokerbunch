@@ -17,6 +17,7 @@ namespace Web
 
         public static string ApiUrl => $"{ApiProtocol}://{ApiHost}";
 
-        private static string ApiProtocol => Environment.IsProd ? "https" : "http";
+        private static string ApiProtocol => HttpsForApi ? "https" : "http";
+        private static bool HttpsForApi => Environment.IsProd || Environment.IsStage;
     }
 }
