@@ -4,8 +4,8 @@ namespace Infrastructure
 {
     public class BearerClient : ApiClient
     {
-        public BearerClient(string apiHost, string token)
-            : base(apiHost)
+        public BearerClient(string apiUrl, string token)
+            : base(apiUrl)
         {
             DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }

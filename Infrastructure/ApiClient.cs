@@ -6,9 +6,9 @@ namespace Infrastructure
 {
     public class ApiClient : HttpClient
     {
-        protected ApiClient(string apiHost)
+        protected ApiClient(string apiUrl)
         {
-            BaseAddress = new Uri(apiHost);
+            BaseAddress = new Uri(apiUrl);
             DefaultRequestHeaders.Accept.Clear();
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

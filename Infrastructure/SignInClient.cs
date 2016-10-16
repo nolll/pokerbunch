@@ -2,7 +2,8 @@
 {
     public class SignInClient : ApiClient
     {
-        public SignInClient(string apiHost) : base(apiHost)
+        public SignInClient(string apiUrl)
+            : base(apiUrl)
         {
         }
     }

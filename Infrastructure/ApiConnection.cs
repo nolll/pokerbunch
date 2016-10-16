@@ -97,7 +97,7 @@ namespace Infrastructure
         {
             using (var client = new SignInClient(_url))
             {
-                var content = GetPostContentForSignIn(userName, password);
+                var content = GetFormContentForSignIn(userName, password);
                 var response = client.PostAsync("token", content).Result;
                 if (response.IsSuccessStatusCode)
                 {
@@ -107,12 +107,12 @@ namespace Infrastructure
             return string.Empty;
         }
 
-        private FormUrlEncodedContent GetPostContentForSignIn(string userName, string password)
+        private FormUrlEncodedContent GetFormContentForSignIn(string userName, string password)
         {
-            return new FormUrlEncodedContent(GetPostValuesForSignIn(userName, password));
+            return new FormUrlEncodedContent(GetFormValuesForSignIn(userName, password));
         }
 
-        private IEnumerable<KeyValuePair<string, string>> GetPostValuesForSignIn(string userName, string password) => new[]
+        private IEnumerable<KeyValuePair<string, string>> GetFormValuesForSignIn(string userName, string password) => new[]
         {
             GetFormParam("grant_type", "password"),
             GetFormParam("client_id", _key),
