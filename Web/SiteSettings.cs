@@ -15,7 +15,8 @@ namespace Web
         public static string ApiKey => Get("ApiKey");
         public static string EnvironmentName => Get("Environment");
 
-        public static string ApiUrl => $"{ApiProtocol}//{ApiHost}";
-        public static string ApiProtocol => EnvironmentName.Equals("prod") ? "https" : "http";
+        public static string ApiUrl => $"{ApiProtocol}://{ApiHost}";
+
+        private static string ApiProtocol => Environment.IsProd ? "https" : "http";
     }
 }
