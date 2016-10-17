@@ -50,7 +50,7 @@ namespace Infrastructure.Storage.Repositories
 
         public IList<string> FindByBunchId(string bunchId)
         {
-            const string sql = "SELECT e.EventID FROM [Event] e WHERE e.BunchID = @id";
+            const string sql = "SELECT e.EventID FROM [Event] e JOIN Homegame h on h.HomegameId = e.BunchID WHERE h.Name = @id";
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@id", bunchId)
@@ -96,7 +96,6 @@ namespace Infrastructure.Storage.Repositories
         {
             return new Event(
                 rawEvent.Id,
-                rawEvent.Slug,
                 rawEvent.BunchId,
                 rawEvent.Name,
                 rawEvent.LocationId,
@@ -129,7 +128,7 @@ namespace Infrastructure.Storage.Repositories
                 var item = map[key];
                 var firstItem = item.First();
                 var lastItem = item.Last();
-                rawEvents.Add(new RawEvent(firstItem.Id, firstItem.Slug, firstItem.BunchId, firstItem.Name, firstItem.LocationId, firstItem.Date, lastItem.Date));
+                rawEvents.Add(new RawEvent(firstItem.Id, firstItem.BunchId, firstItem.Name, firstItem.LocationId, firstItem.Date, lastItem.Date));
             }
             return rawEvents;
         }
@@ -139,7 +138,6 @@ namespace Infrastructure.Storage.Repositories
             return new RawEventDay(
                 reader.GetIntValue("EventID").ToString(),
                 reader.GetStringValue("Slug"),
-                reader.GetIntValue("BunchId").ToString(),
                 reader.GetStringValue("Name"),
                 reader.GetIntValue("LocationId").ToString(),
                 reader.GetDateTimeValue("Date"));

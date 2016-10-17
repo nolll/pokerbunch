@@ -37,7 +37,7 @@ namespace Core.UseCases
         public Result Execute(EventMatrixRequest request)
         {
             var e = _eventService.Get(request.EventId);
-            var bunch = _bunchRepository.Get(e.Bunch);
+            var bunch = _bunchRepository.Get(e.BunchId);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);

@@ -144,7 +144,6 @@ namespace Infrastructure.Storage.Repositories
         private static RawPlayer CreateRawPlayer(IStorageDataReader reader)
         {
             return new RawPlayer(
-                reader.GetIntValue("HomegameID").ToString(),
                 reader.GetStringValue("Slug"),
                 reader.GetIntValue("PlayerID").ToString(),
                 reader.GetIntValue("UserID").ToString(),

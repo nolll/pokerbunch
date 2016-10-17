@@ -3,7 +3,6 @@ namespace Core.Entities
     public class Event : IEntity
     {
         public string Id { get; }
-        public string Bunch { get; private set; }
         public string BunchId { get; private set; }
         public string Name { get; private set; }
         public string LocationId { get; }
@@ -11,16 +10,15 @@ namespace Core.Entities
         public Date EndDate { get; }
         public string CacheId => Id;
 
-        public Event(string id, string bunch, string bunchId, string name)
+        public Event(string id, string bunchId, string name)
         {
             Id = id;
-            Bunch = bunch;
             BunchId = bunchId;
             Name = name;
         }
 
-        public Event(string id, string bunch, string bunchId, string name, string locationId, Date startDate, Date endDate)
-            : this(id, bunch, bunchId, name)
+        public Event(string id, string bunchId, string name, string locationId, Date startDate, Date endDate)
+            : this(id, bunchId, name)
         {
             LocationId = locationId;
             StartDate = startDate;
