@@ -106,7 +106,7 @@ namespace Web.Common.Cache
             _cacheProvider.Put(cacheKey, objectToBeCached, cacheTime);
         }
 
-        public void Remove(string cacheKey)
+        private void Remove(string cacheKey)
         {
             _cacheProvider.Remove(cacheKey);
         }

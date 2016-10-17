@@ -65,7 +65,7 @@ namespace Infrastructure.Storage.Repositories
                 parameters.Add(new SimpleSqlParameter("@year", year.Value));
             }
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("GameID");
+            return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
 	    }
 
 	    public IList<string> FindByEvent(string eventId)
@@ -76,7 +76,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@eventId", eventId),
 		        };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("GameID");
+            return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
 	    }
 
 	    public IList<string> FindRunning(string bunchId)
@@ -89,7 +89,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@status", status)
 		        };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("GameID");
+            return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
 	    }
 
 	    public IList<string> FindByCheckpoint(string checkpointId)
@@ -100,15 +100,15 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@checkpointId", checkpointId)
 		        };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("GameID");
+            return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
 	    }
 
 	    private RawCashgame CreateRawCashgame(IStorageDataReader reader)
         {
-            var id = reader.GetStringValue("GameID");
+            var id = reader.GetIntValue("GameID").ToString();
             var slug = reader.GetStringValue("Slug");
-            var bunchId = reader.GetStringValue("HomegameID");
-            var locationId = reader.GetStringValue("LocationId");
+            var bunchId = reader.GetIntValue("HomegameID").ToString();
+            var locationId = reader.GetIntValue("LocationId").ToString();
             var status = reader.GetIntValue("Status");
             var date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date"));
 
@@ -194,7 +194,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@playerId", playerId)
 		        };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("GameID");
+            return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
         }
 
         private RawCashgame CreateRawCashgame(Cashgame cashgame, GameStatus? status = null)
@@ -303,12 +303,12 @@ namespace Infrastructure.Storage.Repositories
         private static RawCheckpoint CreateRawCheckpoint(IStorageDataReader reader)
         {
             return new RawCheckpoint(
-                reader.GetStringValue("GameID"),
-                reader.GetStringValue("PlayerID"),
+                reader.GetIntValue("GameID").ToString(),
+                reader.GetIntValue("PlayerID").ToString(),
                 reader.GetIntValue("Amount"),
                 reader.GetIntValue("Stack"),
                 TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("TimeStamp")),
-                reader.GetStringValue("CheckpointID"),
+                reader.GetIntValue("CheckpointID").ToString(),
                 reader.GetIntValue("Type"));
         }
 

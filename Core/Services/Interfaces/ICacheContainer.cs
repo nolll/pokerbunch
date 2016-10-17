@@ -6,7 +6,6 @@ namespace Core.Services
 {
     public interface ICacheContainer
     {
-        void Remove(string cacheKey);
         void Remove<T>(string id);
         int ClearAll();
         T GetAndStore<T>(Func<string, T> sourceExpression, string id, TimeSpan cacheTime) where T : class, IEntity;

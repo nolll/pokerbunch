@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Infrastructure.Storage.Interfaces;
@@ -64,7 +65,7 @@ namespace Infrastructure.Storage.Repositories
         {
             var sql = string.Concat(SearchSql, "ORDER BY a.Name");
             var reader = _db.Query(sql);
-            return reader.ReadStringList("ID");
+            return reader.ReadIntList("ID").Select(o => o.ToString()).ToList();
         }
 
         public string Add(App app)
@@ -92,7 +93,7 @@ namespace Infrastructure.Storage.Repositories
                 new SimpleSqlParameter("@userId", userId)
             };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("ID");
+            return reader.ReadIntList("ID").Select(o => o.ToString()).ToList();
         }
 
         private IList<string> GetAppIdListByAppKey(string appKey)
@@ -103,7 +104,7 @@ namespace Infrastructure.Storage.Repositories
                 new SimpleSqlParameter("@appKey", appKey)
             };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("ID");
+            return reader.ReadIntList("ID").Select(o => o.ToString()).ToList();
         }
 
         private IList<App> GetAppList(IList<string> ids)
@@ -117,10 +118,10 @@ namespace Infrastructure.Storage.Repositories
         private static App CreateApp(IStorageDataReader reader)
         {
             return new App(
-                reader.GetStringValue("ID"),
+                reader.GetIntValue("ID").ToString(),
                 reader.GetStringValue("AppKey"),
                 reader.GetStringValue("Name"),
-                reader.GetStringValue("UserID"));
+                reader.GetIntValue("UserID").ToString());
         }
     }
 }

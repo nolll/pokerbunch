@@ -89,7 +89,7 @@ namespace Infrastructure.Storage.Repositories
 	    public IList<string> Search()
 	    {
             var reader = _db.Query(SearchSql);
-            return reader.ReadStringList("HomegameID");
+            return reader.ReadIntList("HomegameID").Select(o => o.ToString()).ToList();
 	    }
 
 	    public IList<string> SearchBySlug(string slug)
@@ -97,7 +97,7 @@ namespace Infrastructure.Storage.Repositories
 	        var sql = string.Concat(SearchSql, " WHERE h.Name = @slug");
             var parameters = new SqlParameters(new SimpleSqlParameter("@slug", slug));
             var reader = _db.Query(sql, parameters);
-            var id = reader.ReadString("HomegameID");
+            var id = reader.ReadInt("HomegameID").ToString();
             if(!string.IsNullOrEmpty(id))
                 return new List<string>{id};
             return new List<string>();
@@ -111,7 +111,7 @@ namespace Infrastructure.Storage.Repositories
 	            new SimpleSqlParameter("@userId", userId)
 	        };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("HomegameID");
+            return reader.ReadIntList("HomegameID").Select(o => o.ToString()).ToList();
 	    }
         
         public string Add(Bunch bunch)
@@ -188,7 +188,7 @@ namespace Infrastructure.Storage.Repositories
         private static RawBunch CreateRawBunch(IStorageDataReader reader)
         {
             return new RawBunch(
-                reader.GetStringValue("HomegameID"),
+                reader.GetIntValue("HomegameID").ToString(),
                 reader.GetStringValue("Name"),
                 reader.GetStringValue("DisplayName"),
                 reader.GetStringValue("Description"),

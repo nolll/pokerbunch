@@ -27,8 +27,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@slug", slug)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("PlayerID");
-
+            return reader.ReadIntList("PlayerID").Select(o => o.ToString()).ToList();
 	    }
 
 	    public IList<string> FindByName(string slug, string name)
@@ -40,7 +39,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@playerName", name)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("PlayerID");
+            return reader.ReadIntList("PlayerID").Select(o => o.ToString()).ToList();
 
 	    }
         
@@ -53,7 +52,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@userId", userId)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("PlayerID");
+            return reader.ReadIntList("PlayerID").Select(o => o.ToString()).ToList();
         }
 
 	    public IList<Player> Get(IList<string> ids)
@@ -146,10 +145,10 @@ namespace Infrastructure.Storage.Repositories
         private static RawPlayer CreateRawPlayer(IStorageDataReader reader)
         {
             return new RawPlayer(
-                reader.GetStringValue("HomegameID"),
+                reader.GetIntValue("HomegameID").ToString(),
                 reader.GetStringValue("Slug"),
-                reader.GetStringValue("PlayerID"),
-                reader.GetStringValue("UserID"),
+                reader.GetIntValue("PlayerID").ToString(),
+                reader.GetIntValue("UserID").ToString(),
                 reader.GetStringValue("PlayerName"),
                 reader.GetIntValue("RoleID"),
                 reader.GetStringValue("Color"));

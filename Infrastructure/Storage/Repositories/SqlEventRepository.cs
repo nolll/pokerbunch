@@ -56,7 +56,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@id", bunchId)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("EventID");
+            return reader.ReadIntList("EventID").Select(o => o.ToString()).ToList();
         }
 
         public IList<string> FindByCashgameId(string cashgameId)
@@ -67,7 +67,7 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@id", cashgameId)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadStringList("EventID");
+            return reader.ReadIntList("EventID").Select(o => o.ToString()).ToList();
         }
 
         public string Add(Event e)
@@ -137,11 +137,11 @@ namespace Infrastructure.Storage.Repositories
         private static RawEventDay CreateRawEventDay(IStorageDataReader reader)
         {
             return new RawEventDay(
-                reader.GetStringValue("EventID"),
+                reader.GetIntValue("EventID").ToString(),
                 reader.GetStringValue("Slug"),
-                reader.GetStringValue("BunchId"),
+                reader.GetIntValue("BunchId").ToString(),
                 reader.GetStringValue("Name"),
-                reader.GetStringValue("LocationId"),
+                reader.GetIntValue("LocationId").ToString(),
                 reader.GetDateTimeValue("Date"));
         }
     }

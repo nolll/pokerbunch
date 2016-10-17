@@ -90,14 +90,14 @@ namespace Infrastructure.Storage.Repositories
                 new SimpleSqlParameter("@query", nameOrEmail)
             };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadString("UserID");
+            return reader.ReadInt("UserID").ToString();
         }
 
         private IList<string> GetIds()
         {
             var sql = string.Concat(SearchSql, "ORDER BY u.DisplayName");
             var reader = _db.Query(sql);
-            return reader.ReadStringList("UserID");
+            return reader.ReadIntList("UserID").Select(o => o.ToString()).ToList();
         }
 
         public bool DeleteUser(int userId)
@@ -114,7 +114,7 @@ namespace Infrastructure.Storage.Repositories
         private static RawUser CreateRawUser(IStorageDataReader reader)
         {
             return new RawUser(
-                reader.GetStringValue("UserID"),
+                reader.GetIntValue("UserID").ToString(),
                 reader.GetStringValue("UserName"),
                 reader.GetStringValue("DisplayName"),
                 reader.GetStringValue("RealName"),
