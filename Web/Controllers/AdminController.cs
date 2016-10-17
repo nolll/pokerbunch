@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using Core.UseCases;
-using Web.Common.Cache;
 using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.AdminModels;
@@ -24,10 +23,8 @@ namespace Web.Controllers
         [Route(WebRoutes.Admin.ClearCache)]
         public ActionResult ClearCache()
         {
-            var cacheContainer = new CacheContainer(new AspNetCacheProvider());
-            var count = cacheContainer.ClearAll();
-
-            var model = new ClearCacheModel(count);
+            var result = UseCase.ClearCache.Execute();
+            var model = new ClearCacheModel(result.ClearCount);
 
             return View("ClearCache", model);
         }

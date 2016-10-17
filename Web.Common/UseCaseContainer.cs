@@ -24,6 +24,7 @@ namespace Web.Common
 
         // Admin
         public TestEmail TestEmail => new TestEmail(_deps.MessageSender, _deps.UserService);
+        public ClearCache ClearCache => new ClearCache(_deps.Cache);
 
         // User
         public UserList UserList => new UserList(_deps.UserService);

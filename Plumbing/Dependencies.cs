@@ -32,14 +32,15 @@ namespace Plumbing
         }
 
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(_apiConnection));
-        public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), _cacheContainer)));
-        public BunchService BunchService => _bunchService ?? (_bunchService = new BunchService(new CachedBunchRepository(new SqlBunchRepository(_db), new ApiBunchRepository(_apiConnection), _cacheContainer)));
-        public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CachedCashgameRepository(new SqlCashgameRepository(_db), _cacheContainer)));
-        public EventService EventService => _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(_db), _cacheContainer)));
-        public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), _cacheContainer)));
-        public UserService UserService => _userService ?? (_userService = new UserService(new CachedUserRepository(new SqlUserRepository(_db), _cacheContainer)));
+        public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), Cache)));
+        public BunchService BunchService => _bunchService ?? (_bunchService = new BunchService(new CachedBunchRepository(new SqlBunchRepository(_db), new ApiBunchRepository(_apiConnection), Cache)));
+        public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CachedCashgameRepository(new SqlCashgameRepository(_db), Cache)));
+        public EventService EventService => _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(_db), Cache)));
+        public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), Cache)));
+        public UserService UserService => _userService ?? (_userService = new UserService(new CachedUserRepository(new SqlUserRepository(_db), Cache)));
         public AuthService AuthService => _authService ?? (_authService = new AuthService(new ApiTokenRepository(_apiConnection)));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());
+        public ICacheContainer Cache => _cacheContainer;
     }
 }

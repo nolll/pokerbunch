@@ -122,6 +122,7 @@
     <Compile Include="UseCases\AddLocation.cs" />
     <Compile Include="UseCases\AddPlayer.cs" />
     <Compile Include="UseCases\AddUser.cs" />
+    <Compile Include="UseCases\ClearCache.cs" />
     <Compile Include="UseCases\CoreContext.cs" />
     <Compile Include="UseCases\AppDetails.cs" />
     <Compile Include="UseCases\AppList.cs" />
