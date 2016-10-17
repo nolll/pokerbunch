@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -8,14 +9,14 @@ namespace Core.UseCases
 {
     public class EditCheckpoint
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
         private readonly CashgameService _cashgameService;
 
-        public EditCheckpoint(BunchService bunchService, UserService userService, PlayerService playerService, CashgameService cashgameService)
+        public EditCheckpoint(IBunchRepository bunchRepository, UserService userService, PlayerService playerService, CashgameService cashgameService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _userService = userService;
             _playerService = playerService;
             _cashgameService = cashgameService;
@@ -29,7 +30,7 @@ namespace Core.UseCases
 
             var cashgame = _cashgameService.GetByCheckpoint(request.CheckpointId);
             var existingCheckpoint = cashgame.GetCheckpoint(request.CheckpointId);
-            var bunch = _bunchService.Get(cashgame.Bunch);
+            var bunch = _bunchRepository.Get(cashgame.Bunch);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);

@@ -111,7 +111,7 @@ namespace Tests.Core.UseCases
 
         private CashgameContext Sut => new CashgameContext(
             Services.UserService,
-            Services.BunchService,
+            Repos.Bunch,
             Services.CashgameService);
     }
 }

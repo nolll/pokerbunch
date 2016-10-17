@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
         }
 
         private EventList Sut => new EventList(
-            Services.BunchService,
+            Repos.Bunch,
             Services.EventService,
             Services.UserService,
             Services.PlayerService,

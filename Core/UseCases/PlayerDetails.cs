@@ -1,18 +1,19 @@
 ﻿using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerDetails
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly PlayerService _playerService;
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
 
-        public PlayerDetails(BunchService bunchService,  PlayerService playerService, CashgameService cashgameService, UserService userService)
+        public PlayerDetails(IBunchRepository bunchRepository,  PlayerService playerService, CashgameService cashgameService, UserService userService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _playerService = playerService;
             _cashgameService = cashgameService;
             _userService = userService;
@@ -21,7 +22,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.BunchId);
+            var bunch = _bunchRepository.Get(player.BunchId);
             var user = _userService.GetById(player.UserId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);

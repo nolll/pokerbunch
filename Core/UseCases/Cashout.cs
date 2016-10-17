@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -8,14 +9,14 @@ namespace Core.UseCases
 {
     public class Cashout
     {
-        private readonly IBunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameService _cashgameService;
         private readonly IPlayerService _playerService;
         private readonly IUserService _userService;
 
-        public Cashout(IBunchService bunchService, ICashgameService cashgameService, IPlayerService playerService, IUserService userService)
+        public Cashout(IBunchRepository bunchRepository, ICashgameService cashgameService, IPlayerService playerService, IUserService userService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
             _playerService = playerService;
             _userService = userService;
@@ -27,7 +28,7 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchService.Get(request.Slug);
+            var bunch = _bunchRepository.Get(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Me(currentUser, currentPlayer, request.PlayerId);

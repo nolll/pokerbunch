@@ -5,9 +5,9 @@ namespace Core.Repositories
 {
     public interface IBunchRepository
     {
-        Bunch Get(string slug);
-        IList<SmallBunch> Search();
-        IList<SmallBunch> SearchByUser(string userName);
+        Bunch Get(string id);
+        IList<SmallBunch> List();
+        IList<SmallBunch> List(string userName);
         Bunch Add(Bunch bunch);
         Bunch Update(Bunch bunch);
     }

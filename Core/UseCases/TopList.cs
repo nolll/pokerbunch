@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class TopList
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly CashgameService _cashgameService;
         private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public TopList(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
+        public TopList(IBunchRepository bunchRepository, CashgameService cashgameService, PlayerService playerService, UserService userService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
             _playerService = playerService;
             _userService = userService;
@@ -22,7 +23,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
+            var bunch = _bunchRepository.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);

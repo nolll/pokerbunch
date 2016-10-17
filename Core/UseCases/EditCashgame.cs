@@ -13,16 +13,16 @@ namespace Core.UseCases
         private readonly PlayerService _playerService;
         private readonly ILocationRepository _locationRepository;
         private readonly EventService _eventService;
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
 
-        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService, ILocationRepository locationRepository, EventService eventService, BunchService bunchService)
+        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService, ILocationRepository locationRepository, EventService eventService, IBunchRepository bunchRepository)
         {
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
             _locationRepository = locationRepository;
             _eventService = eventService;
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
@@ -33,7 +33,7 @@ namespace Core.UseCases
 
             var cashgame = _cashgameService.GetById(request.Id);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var bunch = _bunchService.Get(cashgame.Bunch);
+            var bunch = _bunchRepository.Get(cashgame.Bunch);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
             var location = _locationRepository.Get(request.LocationId);

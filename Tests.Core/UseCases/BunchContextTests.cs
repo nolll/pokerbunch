@@ -46,6 +46,6 @@ namespace Tests.Core.UseCases
 
         private BunchContext Sut => new BunchContext(
             Services.UserService,
-            Services.BunchService);
+            Repos.Bunch);
     }
 }

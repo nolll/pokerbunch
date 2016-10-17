@@ -100,16 +100,10 @@ namespace Tests.Core.UseCases
             return new PlayerDetails.Request(userName, playerId);
         }
 
-        private PlayerDetails Sut
-        {
-            get
-            {
-                return new PlayerDetails(
-                    Services.BunchService,
-                    Services.PlayerService,
-                    Services.CashgameService,
-                    Services.UserService);
-            }
-        }
+        private PlayerDetails Sut => new PlayerDetails(
+            Repos.Bunch,
+            Services.PlayerService,
+            Services.CashgameService,
+            Services.UserService);
     }
 }

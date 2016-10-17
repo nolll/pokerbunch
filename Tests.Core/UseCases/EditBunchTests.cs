@@ -48,6 +48,6 @@ namespace Tests.Core.UseCases
             Assert.AreEqual("bunch-a", result.Slug);
         }
 
-        private EditBunch Sut => new EditBunch(Services.BunchService);
+        private EditBunch Sut => new EditBunch(Repos.Bunch);
     }
 }

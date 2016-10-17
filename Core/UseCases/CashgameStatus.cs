@@ -1,17 +1,18 @@
-﻿using Core.Services;
+﻿using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameStatus
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
 
-        public CashgameStatus(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public CashgameStatus(IBunchRepository bunchRepository, CashgameService cashgameService, UserService userService, PlayerService playerService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
@@ -19,7 +20,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
+            var bunch = _bunchRepository.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);

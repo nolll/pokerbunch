@@ -16,19 +16,19 @@ namespace Infrastructure.Storage.Repositories
             _apiConnection = apiConnection;
         }
 
-        public Bunch Get(string slug)
+        public Bunch Get(string id)
         {
-            var apiBunch = _apiConnection.Get<ApiBunch>($"bunches/{slug}");
+            var apiBunch = _apiConnection.Get<ApiBunch>($"bunches/{id}");
             return ToBunch(apiBunch);
         }
 
-        public IList<SmallBunch> Search()
+        public IList<SmallBunch> List()
         {
             var apiBunches = _apiConnection.Get<IList<ApiSmallBunch>>("bunches");
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
-        public IList<SmallBunch> SearchByUser(string userName)
+        public IList<SmallBunch> List(string userName)
         {
             var apiBunches = _apiConnection.Get<IList<ApiSmallBunch>>("user/bunches");
             return apiBunches.Select(ToSmallBunch).ToList();

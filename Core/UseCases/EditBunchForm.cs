@@ -1,24 +1,25 @@
 using System.Collections.Generic;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditBunchForm
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
 
-        public EditBunchForm(BunchService bunchService, UserService userService, PlayerService playerService)
+        public EditBunchForm(IBunchRepository bunchRepository, UserService userService, PlayerService playerService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _userService = userService;
             _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
+            var bunch = _bunchRepository.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);

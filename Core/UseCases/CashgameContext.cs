@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -8,19 +9,19 @@ namespace Core.UseCases
     public class CashgameContext
     {
         private readonly UserService _userService;
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly CashgameService _cashgameService;
 
-        public CashgameContext(UserService userService, BunchService bunchService, CashgameService cashgameService)
+        public CashgameContext(UserService userService, IBunchRepository bunchRepository, CashgameService cashgameService)
         {
             _userService = userService;
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var bunchContextResult = new BunchContext(_userService, _bunchService).Execute(request);
+            var bunchContextResult = new BunchContext(_userService, _bunchRepository).Execute(request);
             var runningGame = _cashgameService.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;

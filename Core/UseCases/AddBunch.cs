@@ -1,25 +1,24 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Exceptions;
+using Core.Repositories;
 using Core.Services;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
     public class AddBunch
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
 
-        public AddBunch(BunchService bunchService)
+        public AddBunch(IBunchRepository bunchRepository)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
         }
 
         public void Execute(Request request)
         {
             var bunch = CreateBunch(request);
-            _bunchService.Add(bunch);
+            _bunchRepository.Add(bunch);
         }
 
         private static Bunch CreateBunch(Request request)

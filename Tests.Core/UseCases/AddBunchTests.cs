@@ -40,6 +40,6 @@ namespace Tests.Core.UseCases
             return new AddBunch.Request(TestData.UserNameC, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
         }
 
-        private AddBunch Sut => new AddBunch(Services.BunchService);
+        private AddBunch Sut => new AddBunch(Repos.Bunch);
     }
 }

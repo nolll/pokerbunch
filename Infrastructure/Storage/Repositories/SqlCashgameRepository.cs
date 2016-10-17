@@ -52,7 +52,7 @@ namespace Infrastructure.Storage.Repositories
 
 	    public IList<string> FindFinished(string bunchId, int? year = null)
 	    {
-            var sql = string.Concat(SearchSql, "WHERE g.HomegameID = @homegameId AND g.Status = @status");
+            var sql = string.Concat(SearchSql, "JOIN Homegame h on h.HomegameID = g.HomegameID WHERE h.Name = @homegameId AND g.Status = @status");
             const int status = (int)GameStatus.Finished;
             var parameters = new List<SimpleSqlParameter>
             {
@@ -82,7 +82,7 @@ namespace Infrastructure.Storage.Repositories
 	    public IList<string> FindRunning(string bunchId)
 	    {
             const int status = (int)GameStatus.Running;
-            var sql = string.Concat(SearchSql, "WHERE g.HomegameID = @homegameId AND g.Status = @status");
+            var sql = string.Concat(SearchSql, "JOIN Homegame h on h.HomegameID = g.HomegameID WHERE h.Name = @homegameId AND g.Status = @status");
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@homegameId", bunchId),
@@ -117,7 +117,7 @@ namespace Infrastructure.Storage.Repositories
 
         public IList<int> GetYears(string bunchId)
         {
-            const string sql = "SELECT DISTINCT YEAR(g.[Date]) as 'Year' FROM Game g WHERE g.HomegameID = @homegameId AND g.Status = @status ORDER BY 'Year' DESC";
+            const string sql = "SELECT DISTINCT YEAR(g.[Date]) as 'Year' FROM Game g JOIN Homegame h on h.HomegameID = g.HomegameID WHERE h.Name = @homegameId AND g.Status = @status ORDER BY 'Year' DESC";
             var parameters = new List<SimpleSqlParameter>
 		        {
                     new SimpleSqlParameter("@homegameId", bunchId),

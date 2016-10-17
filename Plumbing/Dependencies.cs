@@ -13,8 +13,8 @@ namespace Plumbing
         private readonly SqlServerStorageProvider _db;
         private readonly ApiConnection _apiConnection;
         private ILocationRepository _locationRepository;
+        private IBunchRepository _bunchRepository;
         private AppService _appService;
-        private BunchService _bunchService;
         private CashgameService _cashgameService;
         private EventService _eventService;
         private PlayerService _playerService;
@@ -31,8 +31,8 @@ namespace Plumbing
         }
 
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(_apiConnection));
+        public IBunchRepository BunchRepository => _bunchRepository ?? (_bunchRepository = new ApiBunchRepository(_apiConnection));
         public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), Cache)));
-        public BunchService BunchService => _bunchService ?? (_bunchService = new BunchService(new ApiBunchRepository(_apiConnection)));
         public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CachedCashgameRepository(new SqlCashgameRepository(_db), Cache)));
         public EventService EventService => _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(_db), Cache)));
         public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), Cache)));

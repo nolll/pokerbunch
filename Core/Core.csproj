@@ -81,14 +81,12 @@
     <Compile Include="Services\ApplicationVersion.cs" />
     <Compile Include="Services\AppService.cs" />
     <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Services\BunchService.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\CheckpointService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
-    <Compile Include="Services\Interfaces\IBunchService.cs" />
     <Compile Include="Services\Interfaces\ICacheContainer.cs" />
     <Compile Include="Services\Interfaces\ICacheProvider.cs" />
     <Compile Include="Services\Interfaces\ICashgameService.cs" />

@@ -1,20 +1,21 @@
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class BunchDetails
     {
-        private readonly IBunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
 
-        public BunchDetails(IBunchService bunchService)
+        public BunchDetails(IBunchRepository bunchRepository)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
+            var bunch = _bunchRepository.Get(request.Slug);
 
             var id = bunch.Id;
             var bunchName = bunch.DisplayName;

@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Entities;
 using Core.Exceptions;
+using Core.Repositories;
 using Core.Services;
 using Core.UseCases;
 using Moq;
@@ -27,18 +28,18 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         [SetUp]
         public void Setup()
         {
-            var bunchServiceMock = new Mock<IBunchService>();
+            var bunchRepoMock = new Mock<IBunchRepository>();
 
             if (Exception != null)
             {
-                bunchServiceMock.Setup(s => s.Get(Slug)).Throws(Exception);
+                bunchRepoMock.Setup(s => s.Get(Slug)).Throws(Exception);
             }
             else
             {
-                bunchServiceMock.Setup(s => s.Get(Slug)).Returns(new Bunch(Slug, DisplayName, Description, HouseRules, null, 0, null, Role));
+                bunchRepoMock.Setup(s => s.Get(Slug)).Returns(new Bunch(Slug, DisplayName, Description, HouseRules, null, 0, null, Role));
             }
 
-            _sut = new BunchDetails(bunchServiceMock.Object);
+            _sut = new BunchDetails(bunchRepoMock.Object);
         }
 
         protected BunchDetails.Result Execute()

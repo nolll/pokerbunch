@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Exceptions;
+using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -9,13 +10,13 @@ namespace Core.UseCases
 {
     public class JoinBunch
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public JoinBunch(BunchService bunchService, PlayerService playerService, UserService userService)
+        public JoinBunch(IBunchRepository bunchRepository, PlayerService playerService, UserService userService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _playerService = playerService;
             _userService = userService;
         }
@@ -26,7 +27,7 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchService.Get(request.Slug);
+            var bunch = _bunchRepository.Get(request.Slug);
             var players = _playerService.GetList(bunch.Id);
             var player = GetMatchedPlayer(players, request.Code);
             

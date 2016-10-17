@@ -1,4 +1,5 @@
 ﻿using Core.Exceptions;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -6,14 +7,14 @@ namespace Core.UseCases
     public class DeleteCashgame
     {
         private readonly CashgameService _cashgameService;
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
 
-        public DeleteCashgame(CashgameService cashgameService, BunchService bunchService, UserService userService, PlayerService playerService)
+        public DeleteCashgame(CashgameService cashgameService, IBunchRepository bunchRepository, UserService userService, PlayerService playerService)
         {
             _cashgameService = cashgameService;
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _userService = userService;
             _playerService = playerService;
         }
@@ -21,7 +22,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var cashgame = _cashgameService.GetById(request.Id);
-            var bunch = _bunchService.Get(cashgame.Bunch);
+            var bunch = _bunchRepository.Get(cashgame.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);

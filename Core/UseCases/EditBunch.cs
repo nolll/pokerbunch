@@ -1,24 +1,24 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Services;
+using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class EditBunch
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
 
-        public EditBunch(BunchService bunchService)
+        public EditBunch(IBunchRepository bunchRepository)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
+            var bunch = _bunchRepository.Get(request.Slug);
             var postedHomegame = CreateBunch(bunch, request);
-            _bunchService.Save(postedHomegame);
+            _bunchRepository.Update(postedHomegame);
 
             return new Result(bunch.Id, bunch.Id);
         }

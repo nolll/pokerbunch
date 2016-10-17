@@ -41,15 +41,9 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CanAddPlayer);
         }
 
-        private PlayerList Sut
-        {
-            get
-            {
-                return new PlayerList(
-                    Services.BunchService,
-                    Services.UserService,
-                    Services.PlayerService);
-            }
-        }
+        private PlayerList Sut => new PlayerList(
+            Repos.Bunch,
+            Services.UserService,
+            Services.PlayerService);
     }
 }

@@ -17,11 +17,11 @@ namespace Tests.Common.FakeRepositories
             SetupDefaultList();
         }
 
-        public Bunch Get(string slug)
+        public Bunch Get(string id)
         {
-            var bunch = _list.FirstOrDefault(o => o.Id == slug);
+            var bunch = _list.FirstOrDefault(o => o.Id == id);
             if (bunch == null)
-                throw new BunchNotFoundException(slug);
+                throw new BunchNotFoundException(id);
             return bunch;
         }
 
@@ -30,12 +30,12 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<SmallBunch> Search()
+        public IList<SmallBunch> List()
         {
             return _list.Select(o => (SmallBunch)o).ToList();
         }
 
-        public IList<SmallBunch> SearchByUser(string userName)
+        public IList<SmallBunch> List(string userName)
         {
             return _list.Select(o => (SmallBunch)o).ToList();
         }

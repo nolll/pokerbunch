@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Exceptions;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -7,12 +8,12 @@ namespace Core.UseCases
     public class BunchContext
     {
         private readonly UserService _userService;
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
 
-        public BunchContext(UserService userService, BunchService bunchService)
+        public BunchContext(UserService userService, IBunchRepository bunchRepository)
         {
             _userService = userService;
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(BunchRequest request)
@@ -39,14 +40,14 @@ namespace Core.UseCases
             {
                 try
                 {
-                    return _bunchService.Get(request.BunchId);
+                    return _bunchRepository.Get(request.BunchId);
                 }
                 catch (BunchNotFoundException)
                 {
                     return null;
                 }
             }
-            var bunches = _bunchService.GetByUserId(appContext.UserId);
+            var bunches = _bunchRepository.List(appContext.UserId);
             return bunches.Count == 1 ? bunches[0] : null;
         }
 

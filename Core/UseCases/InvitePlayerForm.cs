@@ -1,16 +1,17 @@
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class InvitePlayerForm
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly PlayerService _playerService;
         private readonly UserService _userService;
 
-        public InvitePlayerForm(BunchService bunchService, PlayerService playerService, UserService userService)
+        public InvitePlayerForm(IBunchRepository bunchRepository, PlayerService playerService, UserService userService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _playerService = playerService;
             _userService = userService;
         }
@@ -18,7 +19,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.BunchId);
+            var bunch = _bunchRepository.Get(player.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);

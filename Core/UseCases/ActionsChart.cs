@@ -2,20 +2,21 @@ using System;
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class ActionsChart
     {
-        private readonly BunchService _bunchService;
+        private readonly IBunchRepository _bunchRepository;
         private readonly CashgameService _cashgameService;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
 
-        public ActionsChart(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public ActionsChart(IBunchRepository bunchRepository, CashgameService cashgameService, UserService userService, PlayerService playerService)
         {
-            _bunchService = bunchService;
+            _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
@@ -24,7 +25,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var cashgame = _cashgameService.GetById(request.CashgameId);
-            var bunch = _bunchService.Get(cashgame.Bunch);
+            var bunch = _bunchRepository.Get(cashgame.Bunch);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
