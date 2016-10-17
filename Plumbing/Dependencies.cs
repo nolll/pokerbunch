@@ -10,7 +10,6 @@ namespace Plumbing
 {
     public class Dependencies
     {
-        private readonly ICacheContainer _cacheContainer;
         private readonly SqlServerStorageProvider _db;
         private readonly ApiConnection _apiConnection;
         private ILocationRepository _locationRepository;
@@ -26,14 +25,14 @@ namespace Plumbing
                 
         public Dependencies(ICacheContainer cacheContainer, string connectionString, string apiUrl, string apiKey, string apiToken)
         {
-            _cacheContainer = cacheContainer;
+            Cache = cacheContainer;
             _db = new SqlServerStorageProvider(connectionString);
             _apiConnection = new ApiConnection(apiUrl, apiKey, apiToken);
         }
 
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(_apiConnection));
         public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), Cache)));
-        public BunchService BunchService => _bunchService ?? (_bunchService = new BunchService(new CachedBunchRepository(new SqlBunchRepository(_db), new ApiBunchRepository(_apiConnection), Cache)));
+        public BunchService BunchService => _bunchService ?? (_bunchService = new BunchService(new ApiBunchRepository(_apiConnection)));
         public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CachedCashgameRepository(new SqlCashgameRepository(_db), Cache)));
         public EventService EventService => _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(_db), Cache)));
         public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), Cache)));
@@ -41,6 +40,6 @@ namespace Plumbing
         public AuthService AuthService => _authService ?? (_authService = new AuthService(new ApiTokenRepository(_apiConnection)));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());
-        public ICacheContainer Cache => _cacheContainer;
+        public ICacheContainer Cache { get; }
     }
 }

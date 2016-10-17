@@ -59,7 +59,6 @@
     <Compile Include="BearerClient.cs" />
     <Compile Include="SignInClient.cs" />
     <Compile Include="Storage\CachedRepositories\CachedAppRepository.cs" />
-    <Compile Include="Storage\CachedRepositories\CachedBunchRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedCashgameRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedEventRepository.cs" />
     <Compile Include="Storage\CachedRepositories\CachedPlayerRepository.cs" />
@@ -74,9 +73,9 @@
     <Compile Include="Storage\Classes\RawUser.cs" />
     <Compile Include="Storage\Interfaces\IStorageDataReader.cs" />
     <Compile Include="Storage\ListSqlParameter.cs" />
+    <Compile Include="Storage\Repositories\ApiBunchRepository.cs" />
     <Compile Include="Storage\Repositories\ApiTokenRepository.cs" />
     <Compile Include="Storage\Repositories\SqlAppRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlBunchRepository.cs" />
     <Compile Include="Storage\Repositories\SqlCashgameRepository.cs" />
     <Compile Include="Storage\Repositories\SqlEventRepository.cs" />
     <Compile Include="Storage\Repositories\ApiLocationRepository.cs" />

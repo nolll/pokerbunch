@@ -6,9 +6,9 @@ namespace Core.Services
     public interface IBunchService
     {
         Bunch Get(string slug);
-        IList<Bunch> GetByUserId(string userId);
-        IList<Bunch> GetList();
-        string Add(Bunch bunch);
-        void Save(Bunch bunch);
+        IList<SmallBunch> GetByUserId(string userId);
+        IList<SmallBunch> GetList();
+        Bunch Add(Bunch bunch);
+        Bunch Save(Bunch bunch);
     }
 }

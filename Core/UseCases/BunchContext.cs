@@ -22,7 +22,7 @@ namespace Core.UseCases
             return GetResult(appContext, bunch);
         }
 
-        private Result GetResult(CoreContext.Result appContext, Bunch bunch)
+        private Result GetResult(CoreContext.Result appContext, SmallBunch bunch)
         {
             if (bunch == null)
                 return new Result(appContext);
@@ -30,7 +30,7 @@ namespace Core.UseCases
             return new Result(appContext, bunch.Slug, bunch.Id, bunch.DisplayName);
         }
 
-        private Bunch GetBunch(CoreContext.Result appContext, BunchRequest request)
+        private SmallBunch GetBunch(CoreContext.Result appContext, BunchRequest request)
         {
             if (!appContext.IsLoggedIn)
                 return null;

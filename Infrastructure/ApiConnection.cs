@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Core.Exceptions;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace Infrastructure
@@ -64,27 +65,31 @@ namespace Infrastructure
                 throw new AccessDeniedException();
             if (statusCode == HttpStatusCode.Unauthorized)
                 throw new NotLoggedInException();
+            if (statusCode == HttpStatusCode.NotFound)
+                throw new NotFoundException(GetErrorMessage(response, "Not found"));
             if (statusCode == HttpStatusCode.BadRequest)
-                throw new ValidationException(GetValidationErrorMessage(response));
+                throw new ValidationException(GetErrorMessage(response, "Validation error"));
             throw new Exception("Unknown error");
         }
 
-        private string GetValidationErrorMessage(HttpResponseMessage response)
+        private string GetErrorMessage(HttpResponseMessage response, string defaultMessage)
         {
             try
             {
                 var jsonMessage = response.Content.ReadAsStringAsync().Result;
-                var messageObj = JsonConvert.DeserializeObject<ValidationMessage>(jsonMessage);
+                var messageObj = JsonConvert.DeserializeObject<ResponseMessage>(jsonMessage);
                 return messageObj.Message;
             }
             catch (Exception)
             {
-                return "Validation error";
+                return defaultMessage;
             }
         }
 
-        private class ValidationMessage
+        [UsedImplicitly]
+        private class ResponseMessage
         {
+            [UsedImplicitly]
             public string Message { get; set; }
         }
 

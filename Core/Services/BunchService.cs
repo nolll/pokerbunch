@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
 using Core.Entities;
-using Core.Exceptions;
 using Core.Repositories;
 
 namespace Core.Services
@@ -20,26 +18,24 @@ namespace Core.Services
             return _bunchRepository.Get(slug);
         }
 
-        public IList<Bunch> GetByUserId(string userId)
+        public IList<SmallBunch> GetByUserId(string userName)
         {
-            var ids = _bunchRepository.SearchByUser(userId);
-            return _bunchRepository.Get(ids);
+            return _bunchRepository.SearchByUser(userName);
         }
 
-        public IList<Bunch> GetList()
+        public IList<SmallBunch> GetList()
         {
-            var ids = _bunchRepository.Search();
-            return _bunchRepository.Get(ids);
+            return _bunchRepository.Search();
         }
 
-        public string Add(Bunch bunch)
+        public Bunch Add(Bunch bunch)
         {
             return _bunchRepository.Add(bunch);
         }
 
-        public void Save(Bunch bunch)
+        public Bunch Save(Bunch bunch)
         {
-            _bunchRepository.Update(bunch);
+            return _bunchRepository.Update(bunch);
         }
     }
 }

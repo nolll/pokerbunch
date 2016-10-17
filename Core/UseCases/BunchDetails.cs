@@ -6,29 +6,22 @@ namespace Core.UseCases
     public class BunchDetails
     {
         private readonly IBunchService _bunchService;
-        private readonly IUserService _userService;
-        private readonly IPlayerService _playerService;
 
-        public BunchDetails(IBunchService bunchService, IUserService userService, IPlayerService playerService)
+        public BunchDetails(IBunchService bunchService)
         {
             _bunchService = bunchService;
-            _userService = userService;
-            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchService.Get(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
-            RequireRole.Player(user, player);
 
             var id = bunch.Id;
             var slug = bunch.Slug;
             var bunchName = bunch.DisplayName;
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
-            var canEdit = RoleHandler.IsInRole(user, player, Role.Manager);
+            var canEdit = RoleHandler.IsInRole(bunch.Role, Role.Manager);
 
             return new Result(id, slug, bunchName, description, houseRules, canEdit);
         }

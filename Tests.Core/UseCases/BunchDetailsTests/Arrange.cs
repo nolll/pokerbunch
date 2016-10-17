@@ -1,6 +1,9 @@
-﻿using Core.Entities;
+﻿using System;
+using Core.Entities;
+using Core.Exceptions;
 using Core.Services;
 using Core.UseCases;
+using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
@@ -19,15 +22,23 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         protected virtual Role Role => Role.None;
         private BunchDetails.Request _request;
         private BunchDetails _sut;
+        protected virtual Exception Exception => null;
 
         [SetUp]
         public void Setup()
         {
-            _sut = CreateSut<BunchDetails>();
+            var bunchServiceMock = new Mock<IBunchService>();
 
-            MockOf<IBunchService>().Setup(s => s.Get(Slug)).Returns(new Bunch(BunchId, Slug, DisplayName, Description, HouseRules));
-            MockOf<IPlayerService>().Setup(s => s.GetByUserId(Slug, UserId)).Returns(new Player(BunchId, Slug, PlayerId, UserId, role: Role));
-            MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
+            if (Exception != null)
+            {
+                bunchServiceMock.Setup(s => s.Get(Slug)).Throws(Exception);
+            }
+            else
+            {
+                bunchServiceMock.Setup(s => s.Get(Slug)).Returns(new Bunch(BunchId, Slug, DisplayName, Description, HouseRules, null, 0, null, Role));
+            }
+
+            _sut = new BunchDetails(bunchServiceMock.Object);
         }
 
         protected BunchDetails.Result Execute()

@@ -37,11 +37,11 @@ namespace Web.Common
 
         // Bunch
         public BunchList BunchList => new BunchList(_deps.BunchService, _deps.UserService);
-        public BunchDetails BunchDetails => new BunchDetails(_deps.BunchService, _deps.UserService, _deps.PlayerService);
+        public BunchDetails BunchDetails => new BunchDetails(_deps.BunchService);
         public AddBunchForm AddBunchForm => new AddBunchForm();
-        public AddBunch AddBunch => new AddBunch(_deps.UserService, _deps.BunchService, _deps.PlayerService);
+        public AddBunch AddBunch => new AddBunch(_deps.BunchService);
         public EditBunchForm EditBunchForm => new EditBunchForm(_deps.BunchService, _deps.UserService, _deps.PlayerService);
-        public EditBunch EditBunch => new EditBunch(_deps.BunchService, _deps.UserService, _deps.PlayerService);
+        public EditBunch EditBunch => new EditBunch(_deps.BunchService);
         public JoinBunchForm JoinBunchForm => new JoinBunchForm(_deps.BunchService);
         public JoinBunch JoinBunch => new JoinBunch(_deps.BunchService, _deps.PlayerService, _deps.UserService);
         public JoinBunchConfirmation JoinBunchConfirmation => new JoinBunchConfirmation(_deps.BunchService, _deps.UserService, _deps.PlayerService);

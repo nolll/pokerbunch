@@ -28,7 +28,7 @@ namespace Core.UseCases
         public Result Execute(UserBunchesRequest request)
         {
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var homegames = user != null ? _bunchService.GetByUserId(user.Id) : new List<Bunch>();
+            var homegames = user != null ? _bunchService.GetByUserId(user.Id) : new List<SmallBunch>();
             
             return new Result(homegames);
         }
@@ -57,7 +57,7 @@ namespace Core.UseCases
         {
             public IList<ResultItem> Bunches { get; private set; }
 
-            public Result(IEnumerable<Bunch> bunches)
+            public Result(IEnumerable<SmallBunch> bunches)
             {
                 Bunches = bunches.Select(o => new ResultItem(o)).ToList();
             }
@@ -69,7 +69,7 @@ namespace Core.UseCases
             public string Slug { get; private set; }
             public string DisplayName { get; private set; }
 
-            public ResultItem(Bunch bunch)
+            public ResultItem(SmallBunch bunch)
             {
                 Id = bunch.Id;
                 Slug = bunch.Slug;

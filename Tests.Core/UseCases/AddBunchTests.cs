@@ -1,5 +1,4 @@
-﻿using Core.Entities;
-using Core.Exceptions;
+﻿using Core.Exceptions;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
@@ -12,7 +11,6 @@ namespace Tests.Core.UseCases
         private const string Description = "b";
         private const string CurrencySymbol = "c";
         private const string CurrencyLayout = "d";
-        private readonly string _existingDisplayName = TestData.BunchA.DisplayName;
 
         private string _timeZone;
 
@@ -22,36 +20,6 @@ namespace Tests.Core.UseCases
             _timeZone = TestData.LocalTimeZoneName;
         }
         
-        [Test]
-        public void AddBunch_WithEmptyDisplayName_ThrowsValidationException()
-        {
-            Assert.Throws<ValidationException>(() => Sut.Execute(CreateRequest("")));
-        }
-
-        [Test]
-        public void AddBunch_WithEmptyCurrencySymbol_ThrowsValidationException()
-        {
-            Assert.Throws<ValidationException>(() => Sut.Execute(CreateRequest(currencySymbol: "")));
-        }
-
-        [Test]
-        public void AddBunch_WithEmptyCurrencyLayout_ThrowsValidationException()
-        {
-            Assert.Throws<ValidationException>(() => Sut.Execute(CreateRequest(currencyLayout: "")));
-        }
-
-        [Test]
-        public void AddBunch_WithEmptyTimeZone_ThrowsValidationException()
-        {
-            Assert.Throws<ValidationException>(() => Sut.Execute(CreateRequest(timeZone: "")));
-        }
-
-        [Test]
-        public void AddBunch_WithExistingSlug_ThrowsException()
-        {
-            Assert.Throws<BunchExistsException>(() => Sut.Execute(CreateRequest(_existingDisplayName)));
-        }
-
         [Test]
         public void AddBunch_WithGoodInput_CreatesBunch()
         {
@@ -68,30 +36,11 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(CurrencyLayout, Repos.Bunch.Added.Currency.Layout);
         }
 
-        [Test]
-        public void AddBunch_WithGoodInput_CreatesPlayer()
-        {
-            Sut.Execute(CreateRequest());
-
-            Assert.AreEqual("1", Repos.Player.Added.BunchId);
-            Assert.AreEqual("3", Repos.Player.Added.UserId);
-            Assert.AreEqual(Role.Manager, Repos.Player.Added.Role);
-        }
-
         private AddBunch.Request CreateRequest(string displayName = DisplayName, string currencySymbol = CurrencySymbol, string currencyLayout = CurrencyLayout, string timeZone = null)
         {
             return new AddBunch.Request(TestData.UserNameC, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
         }
 
-        private AddBunch Sut
-        {
-            get
-            {
-                return new AddBunch(
-                    Services.UserService,
-                    Services.BunchService,
-                    Services.PlayerService);
-            }
-        }
+        private AddBunch Sut => new AddBunch(Services.BunchService);
     }
 }

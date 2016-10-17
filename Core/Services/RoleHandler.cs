@@ -8,5 +8,10 @@ namespace Core.Services
         {
             return user.IsAdmin || player.IsInRole(role);
         }
+
+        public static bool IsInRole(Role userRole, Role requiredRole)
+        {
+            return userRole == Role.Admin || userRole >= requiredRole;
+        }
     }
 }

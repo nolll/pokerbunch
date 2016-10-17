@@ -2,33 +2,21 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Services;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
     public class EditBunch
     {
         private readonly BunchService _bunchService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
 
-        public EditBunch(BunchService bunchService, UserService userService, PlayerService playerService)
+        public EditBunch(BunchService bunchService)
         {
             _bunchService = bunchService;
-            _userService = userService;
-            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            var validator = new Validator(request);
-            if(!validator.IsValid)
-                throw new ValidationException(validator);
-
             var bunch = _bunchService.Get(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
-            RequireRole.Manager(user, player);
             var postedHomegame = CreateBunch(bunch, request);
             _bunchService.Save(postedHomegame);
 
@@ -38,14 +26,14 @@ namespace Core.UseCases
         private static Bunch CreateBunch(Bunch bunch, Request request)
         {
             return new Bunch(
-                    bunch.Id,
-                    bunch.Slug,
-                    bunch.DisplayName,
-                    request.Description,
-                    request.HouseRules,
-                    TimeZoneInfo.FindSystemTimeZoneById(request.TimeZone),
-                    request.DefaultBuyin,
-                    new Currency(request.CurrencySymbol, request.CurrencyLayout));
+                bunch.Id,
+                bunch.Slug,
+                bunch.DisplayName,
+                request.Description,
+                request.HouseRules,
+                TimeZoneInfo.FindSystemTimeZoneById(request.TimeZone),
+                request.DefaultBuyin,
+                new Currency(request.CurrencySymbol, request.CurrencyLayout));
         }
 
         public class Request
