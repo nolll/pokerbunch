@@ -4,14 +4,14 @@ namespace Core.Entities
     {
         public string Id { get; }
         public string Name { get; }
-        public string Slug { get; }
+        public string BunchId { get; }
         public string CacheId => Id;
 
-        public Location(string id, string name, string slug)
+        public Location(string id, string name, string bunchId)
         {
             Id = id;
             Name = name;
-            Slug = slug;
+            BunchId = bunchId;
         }
     }
 }

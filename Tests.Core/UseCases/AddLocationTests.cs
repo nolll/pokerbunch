@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             const string addedEventName = "added location";
 
-            var request = new AddLocation.Request(TestData.BunchA.Slug, addedEventName);
+            var request = new AddLocation.Request(TestData.BunchA.Id, addedEventName);
             Sut.Execute(request);
 
             Assert.AreEqual(addedEventName, Repos.Location.Added.Name);
@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases
 
             const string addedEventName = "";
 
-            var request = new AddLocation.Request(TestData.BunchA.Slug, addedEventName);
+            var request = new AddLocation.Request(TestData.BunchA.Id, addedEventName);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }

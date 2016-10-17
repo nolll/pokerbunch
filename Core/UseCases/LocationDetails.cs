@@ -15,7 +15,7 @@ namespace Core.UseCases
         {
             var location = _locationRepository.Get(request.LocationId);
             
-            return new Result(location.Id, location.Name, location.Slug);
+            return new Result(location.Id, location.Name, location.BunchId);
         }
 
         public class Request

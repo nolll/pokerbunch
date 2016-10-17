@@ -24,9 +24,9 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var players = _playerService.GetList(bunch.Slug).OrderBy(o => o.DisplayName).ToList();
+            var players = _playerService.GetList(bunch.Id).OrderBy(o => o.DisplayName).ToList();
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             var suite = new CashgameSuite(cashgames, players);
 

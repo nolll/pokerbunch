@@ -28,7 +28,7 @@ namespace Infrastructure.Storage.Repositories
 
         public string Add(Location location)
         {
-            var postLocation = new ApiLocation(location.Name, location.Slug);
+            var postLocation = new ApiLocation(location.Name, location.BunchId);
             var apiLocation = _apiConnection.Post<ApiLocation>($"location/add", postLocation);
             return CreateLocation(apiLocation).Id;
         }

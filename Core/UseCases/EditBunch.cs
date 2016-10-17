@@ -20,14 +20,13 @@ namespace Core.UseCases
             var postedHomegame = CreateBunch(bunch, request);
             _bunchService.Save(postedHomegame);
 
-            return new Result(bunch.Id, bunch.Slug);
+            return new Result(bunch.Id, bunch.Id);
         }
 
         private static Bunch CreateBunch(Bunch bunch, Request request)
         {
             return new Bunch(
                 bunch.Id,
-                bunch.Slug,
                 bunch.DisplayName,
                 request.Description,
                 request.HouseRules,

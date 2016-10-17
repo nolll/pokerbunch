@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
 
             Sut.Execute(request);
 
-            Assert.AreEqual(TestData.BunchA.Id, Repos.Cashgame.Updated.Id);
+            Assert.AreEqual(TestData.CashgameIdA, Repos.Cashgame.Updated.Id);
             Assert.AreEqual(TestData.ChangedLocationId, Repos.Cashgame.Updated.LocationId);
         }
 

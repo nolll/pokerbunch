@@ -25,7 +25,6 @@ namespace Core.UseCases
         private static Bunch CreateBunch(Request request)
         {
             return new Bunch(
-                "",
                 SlugGenerator.GetSlug(request.DisplayName),
                 request.DisplayName,
                 request.Description,

@@ -25,8 +25,7 @@ namespace Tests.Core.UseCases
         {
             Sut.Execute(CreateRequest());
 
-            Assert.AreEqual("", Repos.Bunch.Added.Id);
-            Assert.AreEqual("a-display-name", Repos.Bunch.Added.Slug);
+            Assert.AreEqual("a-display-name", Repos.Bunch.Added.Id);
             Assert.AreEqual(DisplayName, Repos.Bunch.Added.DisplayName);
             Assert.AreEqual(Description, Repos.Bunch.Added.Description);
             Assert.AreEqual("", Repos.Bunch.Added.HouseRules);

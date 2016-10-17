@@ -24,13 +24,13 @@ namespace Core.UseCases
             var checkpoint = cashgame.GetCheckpoint(request.CheckpointId);
             var bunch = _bunchService.Get(cashgame.Bunch);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
             cashgame.DeleteCheckpoint(checkpoint);
             _cashgameService.UpdateGame(cashgame);
 
             var gameIsRunning = cashgame.Status == GameStatus.Running;
-            return new Result(bunch.Slug, gameIsRunning, cashgame.Id);
+            return new Result(bunch.Id, gameIsRunning, cashgame.Id);
         }
 
         public class Request

@@ -26,19 +26,19 @@ namespace Core.UseCases
         {
             var player = _playerService.Get(request.PlayerId);
             var user = _userService.GetByNameOrEmail(request.CurrentUserName);
-            var bunch = _bunchService.Get(player.Slug);
+            var bunch = _bunchService.Get(player.BunchId);
             var cashgame = _cashgameService.GetById(request.CashgameId);
             
             RequireRole.Player(user, player);
             var playerResult = cashgame.GetResult(player.Id);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, user.Id);
             var isManager = RoleHandler.IsInRole(user, currentPlayer, Role.Manager);
 
             var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
             var playerName = player.DisplayName;
             var checkpointItems = playerResult.Checkpoints.Select(o => CreateCheckpointItem(bunch, isManager, o)).ToList();
 
-            return new Result(date, playerName, bunch.Slug, checkpointItems);
+            return new Result(date, playerName, bunch.Id, checkpointItems);
         }
 
         private static CheckpointItem CreateCheckpointItem(Bunch bunch, bool isManager, Checkpoint checkpoint)

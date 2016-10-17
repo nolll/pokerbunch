@@ -37,7 +37,7 @@ namespace Infrastructure.Storage.Classes
         {
             return new RawBunch(
                 bunch.Id,
-                bunch.Slug,
+                bunch.Id,
                 bunch.DisplayName,
                 bunch.Description,
                 bunch.HouseRules,

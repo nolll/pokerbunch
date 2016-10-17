@@ -2,14 +2,14 @@ namespace Core.Exceptions
 {
     public class BunchNotFoundException : NotFoundException
     {
-        public BunchNotFoundException(string slug)
-            : base(GetMessage(slug))
+        public BunchNotFoundException(string bunchId)
+            : base(GetMessage(bunchId))
         {
         }
 
-        private static string GetMessage(string slug)
+        private static string GetMessage(string bunchId)
         {
-            return string.Format("Bunch not found: slug = '{0}'", slug);
+            return $"Bunch not found: {bunchId}";
         }
     }
 }

@@ -21,10 +21,10 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.Slug);
+            var bunch = _bunchService.Get(player.BunchId);
             var user = _userService.GetById(player.UserId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
             var isManager = RoleHandler.IsInRole(currentUser, currentPlayer, Role.Manager);
             var hasPlayed = _cashgameService.HasPlayed(request.PlayerId);
@@ -67,7 +67,7 @@ namespace Core.UseCases
                 UserName = isUser ? user.UserName : string.Empty;
                 AvatarUrl = avatarUrl;
                 Color = player.Color;
-                Slug = bunch.Slug;
+                Slug = bunch.Id;
             }
         }
     }

@@ -43,7 +43,7 @@ namespace Infrastructure.Storage.Repositories
 
         public Bunch Update(Bunch bunch)
         {
-            var slug = bunch.Slug;
+            var slug = bunch.Id;
             var postBunch = new ApiBunch(bunch);
             var apiBunch = _apiConnection.Post<ApiBunch>($"bunches/{slug}", postBunch);
             return ToBunch(apiBunch);
@@ -54,12 +54,12 @@ namespace Infrastructure.Storage.Repositories
             var timezone = TimeZoneInfo.FindSystemTimeZoneById(b.Timezone);
             var currency = new Currency(b.CurrencySymbol, b.CurrencyLayout);
             var role = ParseRole(b.Role);
-            return new Bunch("", b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role);
+            return new Bunch(b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role);
         }
 
         private SmallBunch ToSmallBunch(ApiSmallBunch b)
         {
-            return new SmallBunch("", b.Id, b.Name, b.Description);
+            return new SmallBunch(b.Id, b.Name, b.Description);
         }
 
         private Role ParseRole(string role)

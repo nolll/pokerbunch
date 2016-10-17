@@ -24,7 +24,7 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var years = _cashgameService.GetYears(bunch.Id);
             var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
@@ -32,7 +32,7 @@ namespace Core.UseCases
             if (!cashgames.Any())
                 return new Result(new List<Item>(), "");
 
-            var players = _playerService.GetList(bunch.Slug).ToList();
+            var players = _playerService.GetList(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
             var lastGame = cashgames.Last();
             var items = CreateItems(bunch, suite, lastGame);

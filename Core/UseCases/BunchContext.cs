@@ -27,7 +27,7 @@ namespace Core.UseCases
             if (bunch == null)
                 return new Result(appContext);
 
-            return new Result(appContext, bunch.Slug, bunch.Id, bunch.DisplayName);
+            return new Result(appContext, bunch.Id, bunch.Id, bunch.DisplayName);
         }
 
         private SmallBunch GetBunch(CoreContext.Result appContext, BunchRequest request)
@@ -35,11 +35,11 @@ namespace Core.UseCases
             if (!appContext.IsLoggedIn)
                 return null;
 
-            if (!string.IsNullOrEmpty(request.Slug))
+            if (!string.IsNullOrEmpty(request.BunchId))
             {
                 try
                 {
-                    return _bunchService.Get(request.Slug);
+                    return _bunchService.Get(request.BunchId);
                 }
                 catch (BunchNotFoundException)
                 {
@@ -53,12 +53,12 @@ namespace Core.UseCases
         public class BunchRequest
         {
             public string UserName { get; }
-            public string Slug { get; }
+            public string BunchId { get; }
 
-            public BunchRequest(string userName, string slug = null)
+            public BunchRequest(string userName, string bunchId = null)
             {
                 UserName = userName;
-                Slug = slug;
+                BunchId = bunchId;
             }
         }
 

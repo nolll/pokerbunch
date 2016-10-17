@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases.CashoutTests
         [Test]
         public void ThrowsValidationException()
         {
-            var request = new Cashout.Request(UserName, Slug, PlayerId, CashoutStack, CashoutTime);
+            var request = new Cashout.Request(UserName, BunchId, PlayerId, CashoutStack, CashoutTime);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }

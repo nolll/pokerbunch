@@ -29,10 +29,10 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetById(request.Id);
             var bunch = _bunchService.Get(cashgame.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
 
-            var locations = _locationRepository.List(bunch.Slug);
+            var locations = _locationRepository.List(bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
 
             var events = _eventService.GetByBunch(bunch.Id);
@@ -40,7 +40,7 @@ namespace Core.UseCases
             var selectedEvent = _eventService.GetByCashgame(cashgame.Id);
             var selectedEventId = selectedEvent?.Id ?? "";
 
-            return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, cashgame.LocationId, locationItems, selectedEventId, eventItems);
+            return new Result(cashgame.DateString, cashgame.Id, bunch.Id, cashgame.LocationId, locationItems, selectedEventId, eventItems);
         }
 
         public class Request

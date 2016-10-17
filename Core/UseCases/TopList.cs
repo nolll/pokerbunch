@@ -24,16 +24,16 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
-            var players = _playerService.GetList(bunch.Slug).ToList();
+            var players = _playerService.GetList(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
 
             var items = suite.TotalResults.Select((o, index) => new Item(o, index, bunch.Currency));
             items = SortItems(items);
 
-            return new Result(items, bunch.Slug, bunch.Currency.Format, bunch.Currency.ThousandSeparator, request.Year);
+            return new Result(items, bunch.Id, bunch.Currency.Format, bunch.Currency.ThousandSeparator, request.Year);
         }
 
         private static IEnumerable<Item> SortItems(IEnumerable<Item> items)

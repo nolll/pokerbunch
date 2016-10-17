@@ -28,11 +28,11 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
-            var locations = _locationRepository.List(bunch.Slug);
+            var locations = _locationRepository.List(bunch.Id);
             var list = cashgames.Select(o => new Item(bunch, o, GetLocation(o, locations)));
 
             return new Result(request.Slug, list.ToList(), request.SortOrder, request.Year, bunch.Currency.Format, bunch.Currency.ThousandSeparator);

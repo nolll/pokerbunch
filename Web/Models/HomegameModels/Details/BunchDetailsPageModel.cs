@@ -20,7 +20,7 @@ namespace Web.Models.HomegameModels.Details
             Description = bunchDetails.Description;
             HouseRules = FormatHouseRules(bunchDetails.HouseRules);
             ShowHouseRules = !string.IsNullOrEmpty(bunchDetails.HouseRules);
-            EditUrl = new EditBunchUrl(bunchDetails.Slug).Relative;
+            EditUrl = new EditBunchUrl(bunchDetails.Id).Relative;
             ShowEditLink = bunchDetails.CanEdit;
         }
 

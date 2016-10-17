@@ -27,14 +27,14 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.Slug);
+            var bunch = _bunchService.Get(player.BunchId);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
 
             var invitationCode = InvitationCodeCreator.GetCode(player);
-            var joinUrl = string.Format(request.JoinUrlFormat, bunch.Slug);
-            var joinWithCodeUrl = string.Format(request.JoinWithCodeUrlFormat, bunch.Slug, invitationCode);
+            var joinUrl = string.Format(request.JoinUrlFormat, bunch.Id);
+            var joinWithCodeUrl = string.Format(request.JoinWithCodeUrlFormat, bunch.Id, invitationCode);
             var message = new InvitationMessage(bunch.DisplayName, invitationCode, request.RegisterUrl, joinUrl, joinWithCodeUrl);
             _messageSender.Send(request.Email, message);
 

@@ -72,7 +72,7 @@ namespace Core.UseCases
             public ResultItem(SmallBunch bunch)
             {
                 Id = bunch.Id;
-                Slug = bunch.Slug;
+                Slug = bunch.Id;
                 DisplayName = bunch.DisplayName;
             }
         }

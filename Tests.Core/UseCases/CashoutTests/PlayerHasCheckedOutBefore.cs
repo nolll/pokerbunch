@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases.CashoutTests
         [Test]
         public void UpdatesCheckpoint()
         {
-            Sut.Execute(new Cashout.Request(UserName, Slug, PlayerId, CashoutStack, CashoutTime));
+            Sut.Execute(new Cashout.Request(UserName, BunchId, PlayerId, CashoutStack, CashoutTime));
 
             Assert.AreEqual(CheckpointCountBeforeCashout, UpdatedCashgame.Checkpoints.Count);
             Assert.IsTrue(UpdatedCashgame.UpdatedCheckpoints.First(o => o.Type == CheckpointType.Cashout).Stack == CashoutStack);

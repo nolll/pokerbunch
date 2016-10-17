@@ -31,7 +31,7 @@ namespace Core.UseCases
             var existingCheckpoint = cashgame.GetCheckpoint(request.CheckpointId);
             var bunch = _bunchService.Get(cashgame.Bunch);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
             
             var postedCheckpoint = Checkpoint.Create(

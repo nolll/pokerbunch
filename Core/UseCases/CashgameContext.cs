@@ -37,7 +37,7 @@ namespace Core.UseCases
 
             return new Result(
                 bunchContextResult,
-                request.Slug,
+                request.BunchId,
                 gameIsRunning,
                 request.SelectedPage,
                 years,
@@ -50,8 +50,8 @@ namespace Core.UseCases
             public CashgamePage SelectedPage { get; }
             public int? Year { get; }
 
-            public Request(string userName, string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
-                : base(userName, slug)
+            public Request(string userName, string bunchId, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
+                : base(userName, bunchId)
             {
                 CurrentTime = currentTime;
                 SelectedPage = selectedPage;
@@ -61,7 +61,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string Slug { get; private set; }
+            public string BunchId { get; private set; }
             public bool GameIsRunning { get; private set; }
             public CashgamePage SelectedPage { get; private set; }
             public int? SelectedYear { get; private set; }
@@ -70,13 +70,13 @@ namespace Core.UseCases
 
             public Result(
                 BunchContext.Result bunchContextResult,
-                string slug,
+                string bunchId,
                 bool gameIsRunning,
                 CashgamePage selectedPage,
                 IList<int> years,
                 int? selectedYear)
             {
-                Slug = slug;
+                BunchId = bunchId;
                 BunchContext = bunchContextResult;
                 GameIsRunning = gameIsRunning;
                 SelectedPage = selectedPage;

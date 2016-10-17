@@ -20,7 +20,7 @@ namespace Core.UseCases
         {
             var bunch = _bunchService.Get(request.Slug);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
             var heading = string.Format("{0} Settings", bunch.DisplayName);
             var description = bunch.Description;
@@ -32,7 +32,7 @@ namespace Core.UseCases
             var timeZones = TimeZoneService.GetTimeZones();
             var currencyLayouts = Globalization.GetCurrencyLayouts();
             
-            return new Result(heading, bunch.Slug, description, houseRules, defaultBuyin, timeZoneId, currencySymbol, currencyLayout, timeZones, currencyLayouts);
+            return new Result(heading, bunch.Id, description, houseRules, defaultBuyin, timeZoneId, currencySymbol, currencyLayout, timeZones, currencyLayouts);
         }
 
         public class Request

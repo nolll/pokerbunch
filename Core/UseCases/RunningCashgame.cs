@@ -35,10 +35,10 @@ namespace Core.UseCases
                 throw new CashgameNotRunningException();
 
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var players = _playerService.Get(GetPlayerIds(cashgame));
-            var bunchPlayers = _playerService.GetList(bunch.Slug);
+            var bunchPlayers = _playerService.GetList(bunch.Id);
 
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             
@@ -52,7 +52,7 @@ namespace Core.UseCases
             var thousandSeparator = bunch.Currency.ThousandSeparator;
 
             return new Result(
-                bunch.Slug,
+                bunch.Id,
                 player.Id,
                 location.Name,
                 location.Id,

@@ -17,19 +17,19 @@ namespace Tests.Common.FakeRepositories
             _list = CreateList();
         }
 
-        public IList<string> Find(string slug)
+        public IList<string> Find(string bunchId)
         {
-            return _list.Where(o => o.Slug == slug).Select(o => o.Id).ToList();
+            return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
         }
 
-        public IList<string> FindByName(string slug, string name)
+        public IList<string> FindByName(string bunchId, string name)
         {
-            return _list.Where(o => o.Slug == slug && o.DisplayName == name).Select(o => o.Id).ToList();
+            return _list.Where(o => o.BunchId == bunchId && o.DisplayName == name).Select(o => o.Id).ToList();
         }
 
-        public IList<string> FindByUserId(string slug, string userId)
+        public IList<string> FindByUserId(string bunchId, string userId)
         {
-            return _list.Where(o => o.Slug == slug && o.UserId == userId).Select(o => o.Id).ToList();
+            return _list.Where(o => o.BunchId == bunchId && o.UserId == userId).Select(o => o.Id).ToList();
         }
 
         public IList<Player> Get(IList<string> ids)

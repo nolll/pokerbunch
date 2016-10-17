@@ -29,7 +29,7 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetById(request.CashgameId);
             var bunch = _bunchService.Get(cashgame.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             var players = GetPlayers(_playerService, cashgame);
@@ -80,7 +80,7 @@ namespace Core.UseCases
                 StartTime = GetLocalTime(cashgame.StartTime, bunch.Timezone);
                 EndTime = GetLocalTime(cashgame.EndTime, bunch.Timezone);
                 CanEdit = isManager;
-                Slug = bunch.Slug;
+                Slug = bunch.Id;
                 CashgameId = cashgame.Id;
                 PlayerItems = sortedResults.Select(o => new PlayerResultItem(bunch, cashgame, GetPlayer(players, o.PlayerId), o)).ToList();
             }

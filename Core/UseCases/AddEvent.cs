@@ -29,13 +29,13 @@ namespace Core.UseCases
 
             var bunch = _bunchService.Get(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
 
-            var e = new Event("", bunch.Slug, bunch.Id, request.Name);
+            var e = new Event("", bunch.Id, bunch.Id, request.Name);
             _eventService.Add(e);
 
-            return new Result(bunch.Slug);
+            return new Result(bunch.Id);
         }
 
         public class Request

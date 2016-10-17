@@ -23,7 +23,7 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetById(request.Id);
             var bunch = _bunchService.Get(cashgame.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
 
             if (cashgame.PlayerCount > 0)
@@ -31,7 +31,7 @@ namespace Core.UseCases
 
             _cashgameService.DeleteGame(cashgame.Id);
 
-            return new Result(bunch.Slug);
+            return new Result(bunch.Id);
         }
 
         public class Request

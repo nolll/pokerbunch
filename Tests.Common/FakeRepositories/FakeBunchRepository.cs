@@ -19,7 +19,7 @@ namespace Tests.Common.FakeRepositories
 
         public Bunch Get(string slug)
         {
-            var bunch = _list.FirstOrDefault(o => o.Slug == slug);
+            var bunch = _list.FirstOrDefault(o => o.Id == slug);
             if (bunch == null)
                 throw new BunchNotFoundException(slug);
             return bunch;

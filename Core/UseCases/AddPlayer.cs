@@ -30,17 +30,17 @@ namespace Core.UseCases
 
             var bunch = _bunchService.Get(request.Slug);
             var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
-            var existingPlayers = _playerService.GetList(bunch.Slug);
+            var existingPlayers = _playerService.GetList(bunch.Id);
             var player = existingPlayers.FirstOrDefault(o => string.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
             if(player != null)
                 throw new PlayerExistsException();
 
-            player = Player.NewWithoutUser(bunch.Id, bunch.Slug, request.Name);
+            player = Player.NewWithoutUser(bunch.Id, request.Name);
             _playerService.Add(player);
 
-            return new Result(bunch.Slug);
+            return new Result(bunch.Id);
         }
 
         public class Request

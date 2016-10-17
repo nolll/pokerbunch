@@ -17,13 +17,12 @@ namespace Core.UseCases
             var bunch = _bunchService.Get(request.Slug);
 
             var id = bunch.Id;
-            var slug = bunch.Slug;
             var bunchName = bunch.DisplayName;
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
             var canEdit = RoleHandler.IsInRole(bunch.Role, Role.Manager);
 
-            return new Result(id, slug, bunchName, description, houseRules, canEdit);
+            return new Result(id, bunchName, description, houseRules, canEdit);
         }
 
         public class Request
@@ -41,16 +40,14 @@ namespace Core.UseCases
         public class Result
         {
             public string Id { get; private set; }
-            public string Slug { get; private set; }
             public string BunchName { get; private set; }
             public string Description { get; private set; }
             public string HouseRules { get; private set; }
             public bool CanEdit { get; private set; }
 
-            public Result(string id, string slug, string bunchName, string description, string houseRules, bool canEdit)
+            public Result(string id, string bunchName, string description, string houseRules, bool canEdit)
             {
                 Id = id;
-                Slug = slug;
                 BunchName = bunchName;
                 Description = description;
                 HouseRules = houseRules;

@@ -34,10 +34,10 @@ namespace Core.UseCases
 
             var user = _userService.GetByNameOrEmail(request.UserName);
             var bunch = _bunchService.Get(request.Slug);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var location = _locationRepository.Get(request.LocationId);
-            var cashgame = new Cashgame(bunch.Slug, bunch.Id, location.Id, GameStatus.Running);
+            var cashgame = new Cashgame(bunch.Id, bunch.Id, location.Id, GameStatus.Running);
             var cashgameId = _cashgameService.AddGame(bunch, cashgame);
 
             if (!string.IsNullOrEmpty(request.EventId))

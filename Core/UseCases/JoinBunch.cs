@@ -27,7 +27,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var bunch = _bunchService.Get(request.Slug);
-            var players = _playerService.GetList(bunch.Slug);
+            var players = _playerService.GetList(bunch.Id);
             var player = GetMatchedPlayer(players, request.Code);
             
             if (player == null)
@@ -35,7 +35,7 @@ namespace Core.UseCases
 
             var user = _userService.GetByNameOrEmail(request.UserName);
             _playerService.JoinHomegame(player, bunch, user.Id);
-            return new Result(bunch.Slug, player.Id);
+            return new Result(bunch.Id, player.Id);
         }
         
         private static Player GetMatchedPlayer(IEnumerable<Player> players, string postedCode)

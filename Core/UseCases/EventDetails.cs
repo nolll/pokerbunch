@@ -22,10 +22,10 @@ namespace Core.UseCases
             var e = _eventService.Get(request.EventId);
             var bunch = _bunchService.Get(e.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             
-            return new Result(e.Name, bunch.Slug);
+            return new Result(e.Name, bunch.Id);
         }
 
         public class Request

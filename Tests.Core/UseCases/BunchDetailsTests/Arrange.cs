@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases.BunchDetailsTests
             }
             else
             {
-                bunchServiceMock.Setup(s => s.Get(Slug)).Returns(new Bunch(BunchId, Slug, DisplayName, Description, HouseRules, null, 0, null, Role));
+                bunchServiceMock.Setup(s => s.Get(Slug)).Returns(new Bunch(Slug, DisplayName, Description, HouseRules, null, 0, null, Role));
             }
 
             _sut = new BunchDetails(bunchServiceMock.Object);

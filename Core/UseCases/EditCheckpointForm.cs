@@ -25,14 +25,14 @@ namespace Core.UseCases
             var checkpoint = cashgame.GetCheckpoint(request.CheckpointId);
             var bunch = _bunchService.Get(cashgame.Bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
             var stack = checkpoint.Stack;
             var amount = checkpoint.Amount;
             var timestamp = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
             var canEditAmount = checkpoint.Type == CheckpointType.Buyin;
 
-            return new Result(stack, amount, timestamp, checkpoint.Id, cashgame.Id, player.Id, bunch.Slug, canEditAmount);
+            return new Result(stack, amount, timestamp, checkpoint.Id, cashgame.Id, player.Id, bunch.Id, canEditAmount);
         }
 
         public class Request

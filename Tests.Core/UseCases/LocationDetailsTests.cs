@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual(TestData.LocationIdA, result.Id);
             Assert.AreEqual(TestData.LocationNameA, result.Name);
-            Assert.AreEqual(TestData.BunchA.Slug, result.Slug);
+            Assert.AreEqual(TestData.BunchA.Id, result.Slug);
         }
 
         private LocationDetails Sut => new LocationDetails(

@@ -8,8 +8,6 @@ namespace Tests.Common
 {
     public static class TestData
     {
-        public const string BunchIdA = "1";
-        private const string BunchIdB = "2";
         public const string SlugA = "bunch-a";
         private const string SlugB = "bunch-b";
         private const string BunchNameA = "Bunch A";
@@ -64,13 +62,13 @@ namespace Tests.Common
         public static User AdminUser { get { return UserB; } }
         public static User ManagerUser { get { return UserC; } }
 
-        public static readonly Bunch BunchA = new Bunch(BunchIdA, SlugA, BunchNameA, DescriptionA, HouseRulesA, TimeZoneUtc, DefaultBuyinA, Currency.Default);
-        public static readonly Bunch BunchB = new Bunch(BunchIdB, SlugB, BunchNameB, DescriptionB, HouseRulesB, TimeZoneLocal, DefaultBuyinB, Currency.Default);
+        public static readonly Bunch BunchA = new Bunch(SlugA, BunchNameA, DescriptionA, HouseRulesA, TimeZoneUtc, DefaultBuyinA, Currency.Default);
+        public static readonly Bunch BunchB = new Bunch(SlugB, BunchNameB, DescriptionB, HouseRulesB, TimeZoneLocal, DefaultBuyinB, Currency.Default);
 
-        public static readonly Player PlayerA = new Player(BunchIdA, SlugA, PlayerIdA, UserIdA, PlayerNameA, Role.Player, "#9e9e9e");
-        public static readonly Player PlayerB = new Player(BunchIdA, SlugA, PlayerIdB, UserIdB, PlayerNameB, Role.Player, "#9e9e9e");
-        public static readonly Player PlayerC = new Player(BunchIdA, SlugA, PlayerIdC, UserIdC, PlayerNameC, Role.Manager, "#9e9e9e");
-        public static readonly Player PlayerD = new Player(BunchIdA, SlugA, PlayerIdD, UserIdNone, PlayerNameD, Role.Player, "#9e9e9e");
+        public static readonly Player PlayerA = new Player(SlugA, PlayerIdA, UserIdA, PlayerNameA, Role.Player, "#9e9e9e");
+        public static readonly Player PlayerB = new Player(SlugA, PlayerIdB, UserIdB, PlayerNameB, Role.Player, "#9e9e9e");
+        public static readonly Player PlayerC = new Player(SlugA, PlayerIdC, UserIdC, PlayerNameC, Role.Manager, "#9e9e9e");
+        public static readonly Player PlayerD = new Player(SlugA, PlayerIdD, UserIdNone, PlayerNameD, Role.Player, "#9e9e9e");
         public static readonly Player ManagerPlayer = PlayerC;
 
         public const string BuyinCheckpointId = "1";
