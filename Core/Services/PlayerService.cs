@@ -20,35 +20,35 @@ namespace Core.Services
             return _playerRepository.Get(ids);
         }
 
-        public IList<Player> Get(IList<int> ids)
+        public IList<Player> Get(IList<string> ids)
         {
             return _playerRepository.Get(ids);
         }
 
-        public Player Get(int id)
+        public Player Get(string id)
         {
             return _playerRepository.Get(id);
         }
 
-        public Player GetByUserId(string slug, int userId)
+        public Player GetByUserId(string slug, string userId)
         {
-            var ids = _playerRepository.Find(slug, userId);
+            var ids = _playerRepository.FindByUserId(slug, userId);
             if (!ids.Any())
                 return null;
             return _playerRepository.Get(ids).First();
         }
 
-        public int Add(Player player)
+        public string Add(Player player)
         {
             return _playerRepository.Add(player);
         }
 
-        public bool JoinHomegame(Player player, Bunch bunch, int userId)
+        public bool JoinHomegame(Player player, Bunch bunch, string userId)
         {
             return _playerRepository.JoinHomegame(player, bunch, userId);
         }
 
-        public void Delete(int playerId)
+        public void Delete(string playerId)
         {
             _playerRepository.Delete(playerId);
         }

@@ -25,35 +25,35 @@ namespace Tests.Common.FakeRepositories
             return bunch;
         }
 
-        public IList<Bunch> Get(IList<int> ids)
+        public IList<Bunch> Get(IList<string> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<Bunch> GetByUserId(int userId)
+        public IList<Bunch> GetByUserId(string userId)
         {
             return _list;
         }
 
-        public IList<int> Search()
+        public IList<string> Search()
         {
             return _list.Select(o => o.Id).ToList();
         }
 
-        public IList<int> Search(string slug)
+        public IList<string> SearchBySlug(string slug)
         {
             return _list.Where(o => o.Slug == slug).Select(o => o.Id).ToList();
         }
 
-        public IList<int> Search(int userId)
+        public IList<string> SearchByUser(string userId)
         {
             return _list.Select(o => o.Id).ToList();
         }
 
-        public int Add(Bunch bunch)
+        public string Add(Bunch bunch)
         {
             Added = bunch;
-            return 1;
+            return "1";
         }
 
         public void Update(Bunch bunch)

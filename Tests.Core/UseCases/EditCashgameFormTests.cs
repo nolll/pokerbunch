@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(new EditCashgameForm.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA));
 
-            Assert.AreEqual(1, result.CashgameId);
+            Assert.AreEqual("1", result.CashgameId);
             Assert.AreEqual(TestData.LocationIdA, result.LocationId);
             Assert.AreEqual(TestData.DateStringA, result.Date);
         }

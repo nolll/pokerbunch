@@ -30,7 +30,7 @@ namespace Core.UseCases
             var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
             var cashgames = _cashgameService.GetFinished(bunch.Id, latestYear);
             if (!cashgames.Any())
-                return new Result(new List<Item>(), 0);
+                return new Result(new List<Item>(), "");
 
             var players = _playerService.GetList(bunch.Slug).ToList();
             var suite = new CashgameSuite(cashgames, players);
@@ -68,10 +68,10 @@ namespace Core.UseCases
         public class Result
         {
             public IList<Item> Items { get; }
-            public int LastGameId { get; }
+            public string LastGameId { get; }
             public bool HasGames => Items.Any();
 
-            public Result(IEnumerable<Item> items, int lastGameId)
+            public Result(IEnumerable<Item> items, string lastGameId)
             {
                 Items = items.ToList();
                 LastGameId = lastGameId;
@@ -81,7 +81,7 @@ namespace Core.UseCases
         public class Item
         {
             public int Rank { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
             public string Name { get; }
             public Money TotalWinnings { get; }
             public Money LastGameWinnings { get; }

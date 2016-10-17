@@ -13,16 +13,16 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var app = _appService.Get(request.AppId);
+            var app = _appService.GetById(request.AppId);
 
             return new Result(app.Id, app.AppKey, app.Name);
         }
 
         public class Request
         {
-            public int AppId { get; }
+            public string AppId { get; }
 
-            public Request(int appId)
+            public Request(string appId)
             {
                 AppId = appId;
             }
@@ -30,11 +30,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int AppId { get; private set; }
+            public string AppId { get; private set; }
             public string AppKey { get; private set; }
             public string AppName { get; private set; }
 
-            public Result(int appId, string appKey, string appName)
+            public Result(string appId, string appKey, string appName)
             {
                 AppId = appId;
                 AppKey = appKey;

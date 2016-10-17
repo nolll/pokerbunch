@@ -23,27 +23,27 @@ namespace Infrastructure.Storage.Repositories
             throw new NotImplementedException();
         }
 
-        public IList<Bunch> Get(IList<int> ids)
+        public IList<Bunch> Get(IList<string> ids)
         {
             throw new NotImplementedException();
         }
 
-        public IList<int> Search()
+        public IList<string> Search()
         {
             throw new NotImplementedException();
         }
 
-        public IList<int> Search(string slug)
+        public IList<string> SearchBySlug(string slug)
         {
             throw new NotImplementedException();
         }
 
-        public IList<int> Search(int userId)
+        public IList<string> SearchByUser(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public int Add(Bunch bunch)
+        public string Add(Bunch bunch)
         {
             throw new NotImplementedException();
         }
@@ -65,7 +65,7 @@ namespace Infrastructure.Storage.Repositories
             _db = db;
 	    }
 
-	    public IList<Bunch> Get(IList<int> ids)
+	    public IList<Bunch> Get(IList<string> ids)
 	    {
 	        var sql = string.Concat(DataSql, " WHERE h.HomegameID IN(@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
@@ -86,24 +86,24 @@ namespace Infrastructure.Storage.Repositories
             return rawHomegame != null ? CreateBunch(rawHomegame) : null;
         }
 
-	    public IList<int> Search()
+	    public IList<string> Search()
 	    {
             var reader = _db.Query(SearchSql);
-            return reader.ReadIntList("HomegameID");
+            return reader.ReadStringList("HomegameID");
 	    }
 
-	    public IList<int> Search(string slug)
+	    public IList<string> SearchBySlug(string slug)
 	    {
 	        var sql = string.Concat(SearchSql, " WHERE h.Name = @slug");
             var parameters = new SqlParameters(new SimpleSqlParameter("@slug", slug));
             var reader = _db.Query(sql, parameters);
-            var id = reader.ReadInt("HomegameID");
-            if(id.HasValue)
-                return new List<int>{id.Value};
-            return new List<int>();
+            var id = reader.ReadString("HomegameID");
+            if(!string.IsNullOrEmpty(id))
+                return new List<string>{id};
+            return new List<string>();
 	    }
 
-	    public IList<int> Search(int userId)
+	    public IList<string> SearchByUser(string userId)
 	    {
             var sql = string.Concat(SearchSql, "  INNER JOIN player p on h.HomegameID = p.HomegameID WHERE p.UserID = @userId ORDER BY h.Name");
 	        var parameters = new List<SimpleSqlParameter>
@@ -111,10 +111,10 @@ namespace Infrastructure.Storage.Repositories
 	            new SimpleSqlParameter("@userId", userId)
 	        };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("HomegameID");
+            return reader.ReadStringList("HomegameID");
 	    }
         
-        public int Add(Bunch bunch)
+        public string Add(Bunch bunch)
         {
             var rawBunch = RawBunch.Create(bunch);
             const string sql = "INSERT INTO homegame (Name, DisplayName, Description, Currency, CurrencyLayout, Timezone, DefaultBuyin, CashgamesEnabled, TournamentsEnabled, VideosEnabled, HouseRules) VALUES (@slug, @displayName, @description, @currencySymbol, @currencyLayout, @timeZone, 0, @cashgamesEnabled, @tournamentsEnabled, @videosEnabled, @houseRules) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
@@ -188,7 +188,7 @@ namespace Infrastructure.Storage.Repositories
         private static RawBunch CreateRawBunch(IStorageDataReader reader)
         {
             return new RawBunch(
-                reader.GetIntValue("HomegameID"),
+                reader.GetStringValue("HomegameID"),
                 reader.GetStringValue("Name"),
                 reader.GetStringValue("DisplayName"),
                 reader.GetStringValue("Description"),

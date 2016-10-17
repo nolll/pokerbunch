@@ -14,7 +14,7 @@ namespace Core.Services
             _userRepository = userRepository;
         }
 
-        public User GetById(int id)
+        public User GetById(string id)
         {
             return _userRepository.Get(id);
         }
@@ -38,7 +38,7 @@ namespace Core.Services
             _userRepository.Update(user);
         }
 
-        public int Add(User user)
+        public string Add(User user)
         {
             return _userRepository.Add(user);
         }

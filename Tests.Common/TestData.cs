@@ -8,8 +8,8 @@ namespace Tests.Common
 {
     public static class TestData
     {
-        public const int BunchIdA = 1;
-        private const int BunchIdB = 2;
+        public const string BunchIdA = "1";
+        private const string BunchIdB = "2";
         public const string SlugA = "bunch-a";
         private const string SlugB = "bunch-b";
         private const string BunchNameA = "Bunch A";
@@ -21,11 +21,11 @@ namespace Tests.Common
         public const int DefaultBuyinA = 100;
         private const int DefaultBuyinB = 200;
 
-        private const int UserIdNone = 0;
-        public const int UserIdA = 1;
-        private const int UserIdB = 2;
-        private const int UserIdC = 3;
-        private const int UserIdD = 4;
+        private const string UserIdNone = "";
+        public const string UserIdA = "1";
+        private const string UserIdB = "2";
+        private const string UserIdC = "3";
+        private const string UserIdD = "4";
         public const string UserNameA = "user-name-a";
         private const string UserNameB = "user-name-b";
         public const string UserNameC = "user-name-c";
@@ -73,35 +73,35 @@ namespace Tests.Common
         public static readonly Player PlayerD = new Player(BunchIdA, SlugA, PlayerIdD, UserIdNone, PlayerNameD, Role.Player, "#9e9e9e");
         public static readonly Player ManagerPlayer = PlayerC;
 
-        public const int BuyinCheckpointId = 1;
+        public const string BuyinCheckpointId = "1";
         public const int BuyinCheckpointStack = 100;
         public const int BuyinCheckpointAmount = 200;
         public static DateTime BuyinCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
-        public const int ReportCheckpointId = 2; 
+        public const string ReportCheckpointId = "2"; 
         public const int ReportCheckpointStack = 300;
         public const int ReportCheckpointAmount = 400;
         public static DateTime ReportCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
-        public const int CashoutCheckpointId = 3;
+        public const string CashoutCheckpointId = "3";
         public const int CashoutCheckpointStack = 500;
         public const int CashoutCheckpointAmount = 600;
         public static DateTime CashoutCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
 
-        public const int PlayerIdA = 1;
-        public const int PlayerIdB = 2;
-        private const int PlayerIdC = 3;
-        public const int PlayerIdD = 4;
+        public const string PlayerIdA = "1";
+        public const string PlayerIdB = "2";
+        private const string PlayerIdC = "3";
+        public const string PlayerIdD = "4";
         public const string PlayerNameA = "Player Name A";
         public const string PlayerNameB = "Player Name B";
         private const string PlayerNameC = "Player Name C";
         private const string PlayerNameD = "Player Name D";
 
-        public const int CashgameIdA = 1;
-        public const int CashgameIdB = 2;
-        public const int CashgameIdC = 3;
-        public const int LocationIdA = 1;
-        public const int LocationIdB = 2;
-        public const int LocationIdC = 3;
-        public const int ChangedLocationId = 4;
+        public const string CashgameIdA = "1";
+        public const string CashgameIdB = "2";
+        public const string CashgameIdC = "3";
+        public const string LocationIdA = "1";
+        public const string LocationIdB = "2";
+        public const string LocationIdC = "3";
+        public const string ChangedLocationId = "4";
         public const string LocationNameA = "Location A";
         public const string LocationNameB = "Location B";
         public const string LocationNameC = "Location C";
@@ -113,13 +113,13 @@ namespace Tests.Common
         public static DateTime StartTimeB = DateTime.Parse("2002-02-02 12:00:00");
         public static DateTime StartTimeC = DateTime.Parse("2003-03-03 12:00:00");
 
-        public const int EventIdA = 1;
-        public const int EventIdB = 2;
+        public const string EventIdA = "1";
+        public const string EventIdB = "2";
         public const string EventNameA = "Event A";
         public const string EventNameB = "Event B";
 
-        public const int AppIdA = 1;
-        public const int AppIdB = 2;
+        public const string AppIdA = "1";
+        public const string AppIdB = "2";
         public const string AppKeyA = "Key A";
         public const string AppKeyB = "Key B";
         public const string AppNameA = "App A";
@@ -135,8 +135,8 @@ namespace Tests.Common
             {
                 return new List<Checkpoint>
                 {
-                    Checkpoint.Create(CashgameIdC, PlayerIdA, StartTimeC, CheckpointType.Buyin, 200, 200, 12),
-                    Checkpoint.Create(CashgameIdC, PlayerIdB, StartTimeC, CheckpointType.Buyin, 200, 200, 13)
+                    Checkpoint.Create(CashgameIdC, PlayerIdA, StartTimeC, CheckpointType.Buyin, 200, 200, "12"),
+                    Checkpoint.Create(CashgameIdC, PlayerIdB, StartTimeC, CheckpointType.Buyin, 200, 200, "13")
                 };
             }
         }

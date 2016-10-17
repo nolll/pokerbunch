@@ -71,7 +71,7 @@ namespace Core.UseCases
 
         public class Item
         {
-            public int AppId { get; private set; }
+            public string AppId { get; private set; }
             public string AppKey { get; private set; }
             public string AppName { get; private set; }
 

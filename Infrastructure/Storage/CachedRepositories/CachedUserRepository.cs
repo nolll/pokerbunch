@@ -17,22 +17,22 @@ namespace Infrastructure.Storage.CachedRepositories
             _cacheContainer = cacheContainer;
         }
 
-        public User Get(int id)
+        public User Get(string id)
         {
             return _cacheContainer.GetAndStore(_userRepository.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<User> Get(IList<int> ids)
+        public IList<User> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_userRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
         
-        public IList<int> Find()
+        public IList<string> Find()
         {
             return _userRepository.Find();
         }
 
-        public IList<int> Find(string nameOrEmail)
+        public IList<string> Find(string nameOrEmail)
         {
             return _userRepository.Find(nameOrEmail);
         }
@@ -43,7 +43,7 @@ namespace Infrastructure.Storage.CachedRepositories
             _cacheContainer.Remove<User>(user.Id);
         }
 
-        public int Add(User user)
+        public string Add(User user)
         {
             return _userRepository.Add(user);
         }

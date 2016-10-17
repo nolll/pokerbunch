@@ -17,53 +17,53 @@ namespace Infrastructure.Storage.CachedRepositories
             _cacheContainer = cacheContainer;
         }
 
-        public Cashgame Get(int cashgameId)
+        public Cashgame Get(string cashgameId)
         {
             return _cacheContainer.GetAndStore(_cashgameRepository.Get, cashgameId, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<Cashgame> Get(IList<int> ids)
+        public IList<Cashgame> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_cashgameRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<int> FindFinished(int bunchId, int? year = null)
+        public IList<string> FindFinished(string bunchId, int? year = null)
         {
             return _cashgameRepository.FindFinished(bunchId, year);
         }
 
-        public IList<int> FindByEvent(int eventId)
+        public IList<string> FindByEvent(string eventId)
         {
             return _cashgameRepository.FindByEvent(eventId);
         }
 
-        public IList<int> FindByPlayerId(int playerId)
+        public IList<string> FindByPlayerId(string playerId)
         {
             return _cashgameRepository.FindByPlayerId(playerId);
         }
 
-        public IList<int> FindRunning(int bunchId)
+        public IList<string> FindRunning(string bunchId)
         {
             return _cashgameRepository.FindRunning(bunchId);
         }
 
-        public IList<int> FindByCheckpoint(int checkpointId)
+        public IList<string> FindByCheckpoint(string checkpointId)
         {
             return _cashgameRepository.FindByCheckpoint(checkpointId);
         }
 
-        public IList<int> GetYears(int bunchId)
+        public IList<int> GetYears(string bunchId)
         {
             return _cashgameRepository.GetYears(bunchId);
         }
 
-        public void DeleteGame(int id)
+        public void DeleteGame(string id)
         {
             _cashgameRepository.DeleteGame(id);
             _cacheContainer.Remove<Cashgame>(id);
         }
 
-        public int AddGame(Bunch bunch, Cashgame cashgame)
+        public string AddGame(Bunch bunch, Cashgame cashgame)
         {
             return _cashgameRepository.AddGame(bunch, cashgame);
         }

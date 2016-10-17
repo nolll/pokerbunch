@@ -8,7 +8,7 @@ namespace Tests.Common.FakeRepositories
     public class FakeEventRepository : IEventRepository
     {
         public Event Added { get; private set; }
-        public int AddedCashgameId { get; private set; }
+        public string AddedCashgameId { get; private set; }
 
         private readonly IList<Event> _list;
 
@@ -17,33 +17,33 @@ namespace Tests.Common.FakeRepositories
             _list = CreateEventList();
         }
 
-        public Event Get(int id)
+        public Event Get(string id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }
         
-        public IList<Event> Get(IList<int> ids)
+        public IList<Event> Get(IList<string> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<int> FindByBunchId(int bunchId)
+        public IList<string> FindByBunchId(string bunchId)
         {
             return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
         }
 
-        public IList<int> FindByCashgameId(int cashgameId)
+        public IList<string> FindByCashgameId(string cashgameId)
         {
-            return new List<int>(_list.First().Id);
+            return new List<string> { _list.First().Id };
         }
 
-        public int Add(Event e)
+        public string Add(Event e)
         {
             Added = e;
-            return 1;
+            return "1";
         }
 
-        public void AddCashgame(int eventId, int cashgameId)
+        public void AddCashgame(string eventId, string cashgameId)
         {
             AddedCashgameId = cashgameId;
         }

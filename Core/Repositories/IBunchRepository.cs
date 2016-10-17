@@ -6,11 +6,11 @@ namespace Core.Repositories
     public interface IBunchRepository
     {
         Bunch Get(string slug);
-        IList<Bunch> Get(IList<int> ids);
-        IList<int> Search();
-        IList<int> Search(string slug);
-        IList<int> Search(int userId);
-        int Add(Bunch bunch);
+        IList<Bunch> Get(IList<string> ids);
+        IList<string> Search();
+        IList<string> SearchBySlug(string slug);
+        IList<string> SearchByUser(string userId);
+        string Add(Bunch bunch);
         void Update(Bunch bunch);
     }
 }

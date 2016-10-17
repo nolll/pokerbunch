@@ -19,7 +19,7 @@ namespace Infrastructure.Storage.Repositories
 	        _db = db;
 	    }
 
-	    public IList<int> Find(string slug)
+	    public IList<string> Find(string slug)
 	    {
             var sql = string.Concat(SearchSql, "JOIN homegame h on h.HomegameID = p.HomegameId WHERE h.Name = @slug");
             var parameters = new List<SimpleSqlParameter>
@@ -27,11 +27,11 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@slug", slug)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("PlayerID");
+            return reader.ReadStringList("PlayerID");
 
 	    }
 
-	    public IList<int> Find(string slug, string name)
+	    public IList<string> FindByName(string slug, string name)
 	    {
             var sql = string.Concat(SearchSql, "LEFT JOIN [user] u on p.UserID = u.UserID JOIN homegame h on h.HomegameId = p.HomegameId WHERE h.Name = @slug AND (p.PlayerName = @playerName OR u.DisplayName = @playerName)");
             var parameters = new List<SimpleSqlParameter>
@@ -40,11 +40,11 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@playerName", name)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("PlayerID");
+            return reader.ReadStringList("PlayerID");
 
 	    }
         
-	    public IList<int> Find(string slug, int userId)
+	    public IList<string> FindByUserId(string slug, string userId)
 	    {
             var sql = string.Concat(SearchSql, "JOIN homegame h ON h.HomegameId = p.HomegameId WHERE h.Name = @slug AND p.UserID = @userId");
             var parameters = new List<SimpleSqlParameter>
@@ -53,10 +53,10 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@userId", userId)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("PlayerID");
+            return reader.ReadStringList("PlayerID");
         }
 
-	    public IList<Player> Get(IList<int> ids)
+	    public IList<Player> Get(IList<string> ids)
 	    {
             if(!ids.Any())
                 return new List<Player>();
@@ -67,7 +67,7 @@ namespace Infrastructure.Storage.Repositories
             return rawPlayers.Select(CreatePlayer).ToList();
         }
 
-        public Player Get(int id)
+        public Player Get(string id)
         {
             var sql = string.Concat(DataSql, "WHERE p.PlayerID = @id");
             var parameters = new List<SimpleSqlParameter>
@@ -79,7 +79,7 @@ namespace Infrastructure.Storage.Repositories
             return rawPlayer != null ? CreatePlayer(rawPlayer) : null;
         }
 
-        public int Add(Player player)
+        public string Add(Player player)
         {
             if (player.IsUser)
             {
@@ -107,7 +107,7 @@ namespace Infrastructure.Storage.Repositories
             }
         }
 
-		public bool JoinHomegame(Player player, Bunch bunch, int userId)
+		public bool JoinHomegame(Player player, Bunch bunch, string userId)
         {
             const string sql = "UPDATE player SET HomegameID = @homegameId, PlayerName = NULL, UserID = @userId, RoleID = @role, Approved = 1 WHERE PlayerID = @playerId";
             var parameters = new List<SimpleSqlParameter>
@@ -121,7 +121,7 @@ namespace Infrastructure.Storage.Repositories
             return rowCount > 0;
 		}
 
-		public void Delete(int playerId)
+		public void Delete(string playerId)
         {
             const string sql = @"DELETE FROM player WHERE PlayerID = @playerId";
             var parameters = new List<SimpleSqlParameter>
@@ -146,10 +146,10 @@ namespace Infrastructure.Storage.Repositories
         private static RawPlayer CreateRawPlayer(IStorageDataReader reader)
         {
             return new RawPlayer(
-                reader.GetIntValue("HomegameID"),
+                reader.GetStringValue("HomegameID"),
                 reader.GetStringValue("Slug"),
-                reader.GetIntValue("PlayerID"),
-                reader.GetIntValue("UserID"),
+                reader.GetStringValue("PlayerID"),
+                reader.GetStringValue("UserID"),
                 reader.GetStringValue("PlayerName"),
                 reader.GetIntValue("RoleID"),
                 reader.GetStringValue("Color"));

@@ -42,7 +42,7 @@ namespace Core.UseCases
                 CheckpointType.Cashout,
                 request.Stack,
                 0,
-                existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : 0);
+                existingCashoutCheckpoint != null ? existingCashoutCheckpoint.Id : "");
 
             if (existingCashoutCheckpoint != null)
                 cashgame.UpdateCheckpoint(postedCheckpoint);
@@ -57,12 +57,12 @@ namespace Core.UseCases
         {
             public string UserName { get; }
             public string Slug { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
             public int Stack { get; }
             public DateTime CurrentTime { get; }
 
-            public Request(string userName, string slug, int playerId, int stack, DateTime currentTime)
+            public Request(string userName, string slug, string playerId, int stack, DateTime currentTime)
             {
                 UserName = userName;
                 Slug = slug;
@@ -74,9 +74,9 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int CashgameId { get; private set; }
+            public string CashgameId { get; private set; }
 
-            public Result(int cashgameId)
+            public Result(string cashgameId)
             {
                 CashgameId = cashgameId;
             }

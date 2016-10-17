@@ -38,7 +38,7 @@ namespace Core.UseCases
             var events = _eventService.GetByBunch(bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
             var selectedEvent = _eventService.GetByCashgame(cashgame.Id);
-            var selectedEventId = selectedEvent?.Id ?? 0;
+            var selectedEventId = selectedEvent?.Id ?? "";
 
             return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, cashgame.LocationId, locationItems, selectedEventId, eventItems);
         }
@@ -46,9 +46,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int Id { get; }
+            public string Id { get; }
 
-            public Request(string userName, int id)
+            public Request(string userName, string id)
             {
                 UserName = userName;
                 Id = id;
@@ -58,14 +58,14 @@ namespace Core.UseCases
         public class Result
         {
             public string Date { get; private set; }
-            public int CashgameId { get; private set; }
+            public string CashgameId { get; private set; }
             public string Slug { get; private set; }
-            public int LocationId { get; private set; }
+            public string LocationId { get; private set; }
             public IList<LocationItem> Locations { get; private set; }
-            public int SelectedEventId { get; private set; }
+            public string SelectedEventId { get; private set; }
             public IList<EventItem> Events { get; private set; }
 
-            public Result(string date, int cashgameId, string slug, int locationId, IList<LocationItem> locations, int selectedEventId, IList<EventItem> events)
+            public Result(string date, string cashgameId, string slug, string locationId, IList<LocationItem> locations, string selectedEventId, IList<EventItem> events)
             {
                 Date = date;
                 CashgameId = cashgameId;
@@ -79,10 +79,10 @@ namespace Core.UseCases
 
         public class LocationItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
 
-            public LocationItem(int id, string name)
+            public LocationItem(string id, string name)
             {
                 Id = id;
                 Name = name;
@@ -91,10 +91,10 @@ namespace Core.UseCases
 
         public class EventItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
 
-            public EventItem(int id, string name)
+            public EventItem(string id, string name)
             {
                 Id = id;
                 Name = name;

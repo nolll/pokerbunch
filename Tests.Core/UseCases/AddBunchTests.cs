@@ -57,7 +57,7 @@ namespace Tests.Core.UseCases
         {
             Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(0, Repos.Bunch.Added.Id);
+            Assert.AreEqual("", Repos.Bunch.Added.Id);
             Assert.AreEqual("a-display-name", Repos.Bunch.Added.Slug);
             Assert.AreEqual(DisplayName, Repos.Bunch.Added.DisplayName);
             Assert.AreEqual(Description, Repos.Bunch.Added.Description);
@@ -73,8 +73,8 @@ namespace Tests.Core.UseCases
         {
             Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(1, Repos.Player.Added.BunchId);
-            Assert.AreEqual(3, Repos.Player.Added.UserId);
+            Assert.AreEqual("1", Repos.Player.Added.BunchId);
+            Assert.AreEqual("3", Repos.Player.Added.UserId);
             Assert.AreEqual(Role.Manager, Repos.Player.Added.Role);
         }
 

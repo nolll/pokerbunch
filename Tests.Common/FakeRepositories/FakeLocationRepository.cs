@@ -17,7 +17,7 @@ namespace Tests.Common.FakeRepositories
             _list = CreateLocationList();
         }
 
-        public Location Get(int id)
+        public Location Get(string id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }
@@ -27,12 +27,12 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => o.Slug == slug).ToList();
         }
 
-        public int Add(Location location)
+        public string Add(Location location)
         {
             if (ThrowOnAdd)
                 throw new ValidationException("validation exception");
             Added = location;
-            const int id = 1000;
+            const string id = "1000";
             _list.Add(new Location(id, location.Name, location.Slug));
             return id;
         }

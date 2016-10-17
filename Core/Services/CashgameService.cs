@@ -14,46 +14,46 @@ namespace Core.Services
             _cashgameRepository = cashgameRepository;
         }
 
-        public IList<Cashgame> GetFinished(int bunchId, int? year = null)
+        public IList<Cashgame> GetFinished(string bunchId, int? year = null)
         {
             var ids = _cashgameRepository.FindFinished(bunchId, year);
             return _cashgameRepository.Get(ids);
         }
 
-        public IList<Cashgame> GetByEvent(int eventId)
+        public IList<Cashgame> GetByEvent(string eventId)
         {
             var ids = _cashgameRepository.FindByEvent(eventId);
             return _cashgameRepository.Get(ids);
         }
 
-        public Cashgame GetRunning(int bunchId)
+        public Cashgame GetRunning(string bunchId)
         {
             var ids = _cashgameRepository.FindRunning(bunchId);
             return _cashgameRepository.Get(ids).FirstOrDefault();
         }
 
-        public Cashgame GetByCheckpoint(int checkpointId)
+        public Cashgame GetByCheckpoint(string checkpointId)
         {
             var ids = _cashgameRepository.FindByCheckpoint(checkpointId);
             return _cashgameRepository.Get(ids).FirstOrDefault();
         }
 
-        public Cashgame GetById(int cashgameId)
+        public Cashgame GetById(string cashgameId)
         {
             return _cashgameRepository.Get(cashgameId);
         }
 
-        public IList<int> GetYears(int bunchId)
+        public IList<int> GetYears(string bunchId)
         {
             return _cashgameRepository.GetYears(bunchId);
         }
 
-        public void DeleteGame(int id)
+        public void DeleteGame(string id)
         {
             _cashgameRepository.DeleteGame(id);
         }
 
-        public int AddGame(Bunch bunch, Cashgame cashgame)
+        public string AddGame(Bunch bunch, Cashgame cashgame)
         {
             return _cashgameRepository.AddGame(bunch, cashgame);
         }
@@ -69,7 +69,7 @@ namespace Core.Services
             _cashgameRepository.UpdateGame(cashgame);
         }
 
-        public bool HasPlayed(int playerId)
+        public bool HasPlayed(string playerId)
         {
             var ids = _cashgameRepository.FindByPlayerId(playerId);
             return ids.Any();

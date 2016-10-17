@@ -69,10 +69,10 @@ namespace Core.UseCases
 
         public class LocationItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
 
-            public LocationItem(int id, string name)
+            public LocationItem(string id, string name)
             {
                 Id = id;
                 Name = name;
@@ -81,10 +81,10 @@ namespace Core.UseCases
 
         public class EventItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
 
-            public EventItem(int id, string name)
+            public EventItem(string id, string name)
             {
                 Id = id;
                 Name = name;

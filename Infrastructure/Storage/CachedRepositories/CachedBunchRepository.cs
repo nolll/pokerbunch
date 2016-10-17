@@ -24,27 +24,27 @@ namespace Infrastructure.Storage.CachedRepositories
             return _cacheContainer.GetAndStore(_sqlBunchRepository.Get, slug, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<Bunch> Get(IList<int> ids)
+        public IList<Bunch> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_sqlBunchRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<int> Search() 
+        public IList<string> Search() 
         {
             return _sqlBunchRepository.Search();
         }
 
-        public IList<int> Search(string slug)
+        public IList<string> SearchBySlug(string slug)
         {
-            return _sqlBunchRepository.Search(slug);
+            return _sqlBunchRepository.SearchBySlug(slug);
         }
 
-        public IList<int> Search(int userId)
+        public IList<string> SearchByUser(string userId)
         {
-            return _sqlBunchRepository.Search(userId);
+            return _sqlBunchRepository.SearchByUser(userId);
         }
 
-        public int Add(Bunch bunch)
+        public string Add(Bunch bunch)
         {
             return _sqlBunchRepository.Add(bunch);
         }

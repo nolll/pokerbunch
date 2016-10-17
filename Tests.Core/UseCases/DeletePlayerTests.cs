@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void DeletePlayer_PlayerHasntPlayed_PlayerDeletedAndReturnUrlIsPlayerIndex()
         {
-            const int playerIdThatHasNotPlayed = 3;
+            const string playerIdThatHasNotPlayed = "3";
 
             var request = new DeletePlayer.Request(TestData.ManagerUser.UserName, playerIdThatHasNotPlayed);
             var result = Sut.Execute(request);

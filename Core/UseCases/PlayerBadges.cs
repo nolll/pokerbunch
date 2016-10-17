@@ -34,9 +34,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
 
-            public Request(string userName, int playerId)
+            public Request(string userName, string playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;
@@ -52,7 +52,7 @@ namespace Core.UseCases
             public bool Played200Games { get; private set; }
             public bool Played500Games { get; private set; }
 
-            public Result(int playerId, IEnumerable<Cashgame> cashgames)
+            public Result(string playerId, IEnumerable<Cashgame> cashgames)
             {
                 var gameCount = GetNumberOfPlayedGames(playerId, cashgames);
 
@@ -64,7 +64,7 @@ namespace Core.UseCases
                 Played500Games = PlayedEnoughGames(gameCount, 500);
             }
 
-            private int GetNumberOfPlayedGames(int playerId, IEnumerable<Cashgame> cashgames)
+            private int GetNumberOfPlayedGames(string playerId, IEnumerable<Cashgame> cashgames)
             {
                 return cashgames.Count(cashgame => cashgame.IsInGame(playerId));
             }

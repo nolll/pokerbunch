@@ -79,7 +79,7 @@ namespace Tests.Core.UseCases
 
             var user = Repos.User.Added;
 
-            Assert.AreEqual(0, user.Id);
+            Assert.AreEqual("", user.Id);
             Assert.AreEqual(ValidUserName, user.UserName);
             Assert.AreEqual(ValidDisplayName, user.DisplayName);
             Assert.AreEqual("", user.RealName);

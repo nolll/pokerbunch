@@ -63,9 +63,9 @@ namespace Core.UseCases
         public class Result
         {
             public string UserName { get; private set; }
-            public int UserId { get; private set; }
+            public string UserId { get; private set; }
 
-            public Result(string userName, int userId)
+            public Result(string userName, string userId)
             {
                 UserName = userName;
                 UserId = userId;

@@ -61,10 +61,10 @@ namespace Core.UseCases
         public class Request
         {
             public string CurrentUserName { get; }
-            public int CashgameId { get; }
-            public int PlayerId { get; }
+            public string CashgameId { get; }
+            public string PlayerId { get; }
 
-            public Request(string currentUserName, int cashgameId, int playerId)
+            public Request(string currentUserName, string cashgameId, string playerId)
             {
                 CurrentUserName = currentUserName;
                 CashgameId = cashgameId;
@@ -91,12 +91,12 @@ namespace Core.UseCases
         public class CheckpointItem
         {
             public DateTime Time { get; private set; }
-            public int CheckpointId { get; private set; }
+            public string CheckpointId { get; private set; }
             public string Type { get; private set; }
             public Money DisplayAmount { get; private set; }
             public bool CanEdit { get; private set; }
 
-            public CheckpointItem(DateTime time, int checkpointId, string type, Money displayAmount, bool canEdit)
+            public CheckpointItem(DateTime time, string checkpointId, string type, Money displayAmount, bool canEdit)
             {
                 Time = time;
                 CheckpointId = checkpointId;

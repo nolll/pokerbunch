@@ -64,7 +64,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int BunchId { get; private set; }
+            public string BunchId { get; private set; }
             public string Slug { get; private set; }
             public string BunchName { get; private set; }
             public bool HasBunch { get; private set; }
@@ -75,7 +75,7 @@ namespace Core.UseCases
                 AppContext = appContextResult;
             }
 
-            public Result(CoreContext.Result appContextResult, string slug, int bunchId, string bunchName)
+            public Result(CoreContext.Result appContextResult, string slug, string bunchId, string bunchName)
                 : this(appContextResult)
             {
                 BunchId = bunchId;

@@ -22,7 +22,7 @@ namespace Core.UseCases
             var apiKey = Guid.NewGuid().ToString();
             var user = _userService.GetByNameOrEmail(request.UserName);
 
-            var app = new App(0, apiKey, appName, user.Id);
+            var app = new App("", apiKey, appName, user.Id);
 
             _appService.Add(app);
         }

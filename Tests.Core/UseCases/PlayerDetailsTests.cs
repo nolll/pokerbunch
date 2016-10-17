@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest(TestData.UserNameA, TestData.PlayerIdA));
 
-            Assert.AreEqual(1, result.PlayerId);
+            Assert.AreEqual("1", result.PlayerId);
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.CanDelete);
         }
 
-        private static PlayerDetails.Request CreateRequest(string userName, int playerId)
+        private static PlayerDetails.Request CreateRequest(string userName, string playerId)
         {
             return new PlayerDetails.Request(userName, playerId);
         }

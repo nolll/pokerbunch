@@ -15,35 +15,35 @@ namespace Tests.Common.FakeRepositories
             _list = CreateList();
         }
 
-        public App Get(int id)
+        public App Get(string id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }
 
-        public IList<App> GetList(IList<int> ids)
+        public IList<App> GetList(IList<string> ids)
         {
             return _list;
         }
 
-        public IList<int> Find()
+        public IList<string> Find()
         {
             return _list.Select(o => o.Id).ToList();
         }
 
-        public IList<int> Find(int userId)
+        public IList<string> FindByUser(string userId)
         {
             throw new System.NotImplementedException();
         }
 
-        public IList<int> Find(string appKey)
+        public IList<string> FindByAppKey(string appKey)
         {
             return _list.Where(o => o.AppKey == appKey).Select(o => o.Id).ToList();
         }
 
-        public int Add(App app)
+        public string Add(App app)
         {
             Added = app;
-            const int id = 1000;
+            const string id = "1000";
             _list.Add(new App(id, app.AppKey, app.Name, app.UserId));
             return id;
         }

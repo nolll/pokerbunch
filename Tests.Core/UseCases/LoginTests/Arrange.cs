@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.LoginTests
         private string EncryptedCorrectPassword => EncryptionService.Encrypt(CorrectPassword, Salt);
         protected string WrongPassword => "wrong-password";
         private string Salt = "salt";
-        private int ExistingUserId => 1;
+        private string ExistingUserId => "1";
         protected virtual string LoginName => null;
         protected virtual string Password => null;
         protected string Token => "token";
@@ -28,8 +28,8 @@ namespace Tests.Core.UseCases.LoginTests
         {
             var userRepositoryMock = new Mock<IUserRepository>();
             var tokenRepositoryMock = new Mock<ITokenRepository>();
-            userRepositoryMock.Setup(s => s.Find(ExistingUser)).Returns(new List<int> { ExistingUserId });
-            userRepositoryMock.Setup(s => s.Find(UnknownUser)).Returns(new List<int>());
+            userRepositoryMock.Setup(s => s.Find(ExistingUser)).Returns(new List<string> { ExistingUserId });
+            userRepositoryMock.Setup(s => s.Find(UnknownUser)).Returns(new List<string>());
             userRepositoryMock.Setup(s => s.Get(ExistingUserId)).Returns(new User(ExistingUserId, ExistingUser, "description", "real-name", "test@example.com", Role.None, EncryptedCorrectPassword, Salt));
             tokenRepositoryMock.Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
 

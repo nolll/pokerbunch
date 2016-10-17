@@ -21,13 +21,13 @@ namespace Core.Services
                 throw new AccessDeniedException();
         }
 
-        public static void Me(User user, int userId)
+        public static void Me(User user, string userId)
         {
             if (!user.IsAdmin && userId != user.Id)
                 throw new AccessDeniedException();
         }
 
-        public static void Me(User user, Player player, int playerId)
+        public static void Me(User user, Player player, string playerId)
         {
             if (!user.IsAdmin && playerId != player.Id)
                 throw new AccessDeniedException();

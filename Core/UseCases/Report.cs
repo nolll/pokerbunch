@@ -42,12 +42,12 @@ namespace Core.UseCases
         {
             public string UserName { get; }
             public string Slug { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
             public int Stack { get; }
             public DateTime CurrentTime { get; }
 
-            public Request(string userName, string slug, int playerId, int stack, DateTime currentTime)
+            public Request(string userName, string slug, string playerId, int stack, DateTime currentTime)
             {
                 UserName = userName;
                 Slug = slug;

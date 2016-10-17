@@ -15,7 +15,7 @@ namespace Web.Common.Cache
             _cacheProvider = cacheProvider;
         }
 
-        public void Remove<T>(int id)
+        public void Remove<T>(string id)
         {
             Remove(CacheKeyProvider.GetKey<T>(id));
         }
@@ -23,41 +23,6 @@ namespace Web.Common.Cache
         public int ClearAll()
         {
             return _cacheProvider.ClearAll();
-        }
-
-        public T GetAndStore<T>(Func<T> sourceExpression, TimeSpan cacheTime, string cacheKey) where T : class
-        {
-            T cachedObject;
-            var foundInCache = TryGet(cacheKey, out cachedObject);
-
-            if (foundInCache)
-            {
-                return cachedObject;
-            }
-            cachedObject = sourceExpression();
-            if (cachedObject != null)
-            {
-                Insert(cacheKey, cachedObject, cacheTime);
-            }
-            return cachedObject;
-        }
-
-        public T GetAndStore<T>(Func<int, T> sourceExpression, int id, TimeSpan cacheTime) where T : class, IEntity
-        {
-            T cachedObject;
-            var cacheKey = CacheKeyProvider.GetKey<T>(id);
-            var foundInCache = TryGet(cacheKey, out cachedObject);
-
-            if (foundInCache)
-            {
-                return cachedObject;
-            }
-            cachedObject = sourceExpression(id);
-            if (cachedObject != null)
-            {
-                Insert(cacheKey, cachedObject, cacheTime);
-            }
-            return cachedObject;
         }
 
         public T GetAndStore<T>(Func<string, T> sourceExpression, string id, TimeSpan cacheTime) where T : class, IEntity
@@ -78,10 +43,10 @@ namespace Web.Common.Cache
             return cachedObject;
         }
 
-        public IList<T> GetAndStore<T>(Func<IList<int>, IList<T>> sourceExpression, IList<int> ids, TimeSpan cacheTime) where T : class, IEntity
+        public IList<T> GetAndStore<T>(Func<IList<string>, IList<T>> sourceExpression, IList<string> ids, TimeSpan cacheTime) where T : class, IEntity
         {
             var list = new List<T>();
-            var notInCache = new List<int>();
+            var notInCache = new List<string>();
             foreach (var id in ids)
             {
                 T cachedObject;
@@ -101,7 +66,7 @@ namespace Web.Common.Cache
                 {
                     if (sourceItem != null) //Om något id inte har hämtats så stoppar vi inte in det i vårt resultat eller i cachen.
                     {
-                        var cacheKey = CacheKeyProvider.GetKey<T>(sourceItem.Id);
+                        var cacheKey = CacheKeyProvider.GetKey<T>(sourceItem.CacheId);
                         Insert(cacheKey, sourceItem, cacheTime);
                     }
                 }
@@ -112,9 +77,9 @@ namespace Web.Common.Cache
             return list;
         }
 
-        private static IList<T> OrderItemsByIdList<T>(IEnumerable<int> ids, IEnumerable<T> list) where T : class, IEntity
+        private static IList<T> OrderItemsByIdList<T>(IEnumerable<string> ids, IEnumerable<T> list) where T : class, IEntity
         {
-            var result = ids.Select(id => list.FirstOrDefault(i => i.Id == id)).ToList();
+            var result = ids.Select(id => list.FirstOrDefault(i => i.CacheId == id.ToString())).ToList();
             return result.Where(r => r != null).ToList();
         }
 

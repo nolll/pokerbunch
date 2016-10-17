@@ -14,29 +14,29 @@ namespace Core.Services
             _eventRepository = eventRepository;
         }
 
-        public IList<Event> GetByBunch(int bunchId)
+        public IList<Event> GetByBunch(string bunchId)
         {
             var ids = _eventRepository.FindByBunchId(bunchId);
             return _eventRepository.Get(ids);
         }
 
-        public Event GetByCashgame(int bunchId)
+        public Event GetByCashgame(string bunchId)
         {
             var ids = _eventRepository.FindByCashgameId(bunchId);
             return _eventRepository.Get(ids).FirstOrDefault();
         }
 
-        public Event Get(int eventId)
+        public Event Get(string eventId)
         {
             return _eventRepository.Get(eventId);
         }
 
-        public int Add(Event e)
+        public string Add(Event e)
         {
             return _eventRepository.Add(e);
         }
 
-        public void AddCashgame(int eventId, int cashgameId)
+        public void AddCashgame(string eventId, string cashgameId)
         {
             _eventRepository.AddCashgame(eventId, cashgameId);
         }

@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Location.Details)]
-        public ActionResult List(int id)
+        public ActionResult List(string id)
         {
             var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(id));
             var contextResult = GetBunchContext(locationDetails.Slug);

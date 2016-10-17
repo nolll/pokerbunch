@@ -29,9 +29,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
 
-            public Request(string userName, int playerId)
+            public Request(string userName, string playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;

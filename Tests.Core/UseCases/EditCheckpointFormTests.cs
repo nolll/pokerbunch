@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases
         {
             var expected = DateTime.Parse("2001-01-01 11:30:00");
 
-            var result = Sut.Execute(CreateRequest(3));
+            var result = Sut.Execute(CreateRequest("3"));
 
             Assert.AreEqual(250, result.Stack);
             Assert.AreEqual(0, result.Amount);
@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
 
-            Assert.AreEqual(2, result.CheckpointId);
+            Assert.AreEqual("2", result.CheckpointId);
         }
 
         [Test]
@@ -32,8 +32,8 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest(TestData.ReportCheckpointId));
 
-            Assert.AreEqual(1, result.CashgameId);
-            Assert.AreEqual(3, result.PlayerId);
+            Assert.AreEqual("1", result.CashgameId);
+            Assert.AreEqual("3", result.PlayerId);
         }
 
         [Test]
@@ -44,16 +44,16 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CanEditAmount);
         }
 
-        [TestCase(3)]
-        [TestCase(5)]
-        public void EditCheckpointForm_WithOtherCheckpointType_CanEditAmountIsFalse(int id)
+        [TestCase("3")]
+        [TestCase("5")]
+        public void EditCheckpointForm_WithOtherCheckpointType_CanEditAmountIsFalse(string id)
         {
             var result = Sut.Execute(CreateRequest(id));
 
             Assert.IsFalse(result.CanEditAmount);
         }
 
-        private static EditCheckpointForm.Request CreateRequest(int id)
+        private static EditCheckpointForm.Request CreateRequest(string id)
         {
             return new EditCheckpointForm.Request(TestData.ManagerUser.UserName, id);
         }

@@ -8,9 +8,9 @@ namespace Tests.Core.UseCases.BunchDetailsTests
 {
     public abstract class Arrange : ArrangeBase
     {
-        private const int BunchId = 1;
-        private const int UserId = 4;
-        private const int PlayerId = 5;
+        private const string BunchId = "1";
+        private const string UserId = "4";
+        private const string PlayerId = "5";
         private const string Slug = "slug";
         private const string UserName = "username";
         protected const string DisplayName = "displayname";

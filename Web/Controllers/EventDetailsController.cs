@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Event.Details)]
-        public ActionResult List(int id)
+        public ActionResult List(string id)
         {
             var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(eventDetails.Slug);

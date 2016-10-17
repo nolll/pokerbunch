@@ -36,9 +36,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
 
-            public Request(string userName, int playerId)
+            public Request(string userName, string playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;
@@ -48,7 +48,7 @@ namespace Core.UseCases
         public class Result
         {
             public string DisplayName { get; private set; }
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
             public bool CanDelete { get; private set; }
             public bool IsUser { get; private set; }
             public string UserName { get; private set; }

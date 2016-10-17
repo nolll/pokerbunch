@@ -17,32 +17,32 @@ namespace Infrastructure.Storage.CachedRepositories
             _cacheContainer = cacheContainer;
         }
         
-        public App Get(int id)
+        public App Get(string id)
         {
             return _cacheContainer.GetAndStore(_appRepository.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<App> GetList(IList<int> ids)
+        public IList<App> GetList(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_appRepository.GetList, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<int> Find()
+        public IList<string> Find()
         {
             return _appRepository.Find();
         }
 
-        public IList<int> Find(int userId)
+        public IList<string> FindByUser(string userId)
         {
-            return _appRepository.Find(userId);
+            return _appRepository.FindByUser(userId);
         }
 
-        public IList<int> Find(string appKey)
+        public IList<string> FindByAppKey(string appKey)
         {
-            return _appRepository.Find(appKey);
+            return _appRepository.FindByAppKey(appKey);
         }
 
-        public int Add(App app)
+        public string Add(App app)
         {
             return _appRepository.Add(app);
         }

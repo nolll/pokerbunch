@@ -5,10 +5,10 @@ namespace Core.Services
 {
     public interface IUserService
     {
-        User GetById(int id);
+        User GetById(string id);
         User GetByNameOrEmail(string nameOrEmail);
         IList<User> GetList();
         void Save(User user);
-        int Add(User user);
+        string Add(User user);
     }
 }

@@ -40,7 +40,7 @@ namespace Core.UseCases
             var cashgame = new Cashgame(bunch.Slug, bunch.Id, location.Id, GameStatus.Running);
             var cashgameId = _cashgameService.AddGame(bunch, cashgame);
 
-            if (request.EventId > 0)
+            if (!string.IsNullOrEmpty(request.EventId))
             {
                 _eventService.AddCashgame(request.EventId, cashgameId);
             }
@@ -52,11 +52,11 @@ namespace Core.UseCases
         {
             public string UserName { get; }
             public string Slug { get; }
-            [Range(1, int.MaxValue, ErrorMessage = "Please select a location")]
-            public int LocationId { get; }
-            public int EventId { get; }
+            [Required(ErrorMessage = "Please select a location")]
+            public string LocationId { get; }
+            public string EventId { get; }
 
-            public Request(string userName, string slug, int locationId, int eventId)
+            public Request(string userName, string slug, string locationId, string eventId)
             {
                 UserName = userName;
                 Slug = slug;
@@ -68,9 +68,9 @@ namespace Core.UseCases
         public class Result
         {
             public string Slug { get; private set; }
-            public int CashgameId { get; private set; }
+            public string CashgameId { get; private set; }
 
-            public Result(string slug, int cashgameId)
+            public Result(string slug, string cashgameId)
             {
                 Slug = slug;
                 CashgameId = cashgameId;

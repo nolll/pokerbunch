@@ -6,11 +6,11 @@ namespace Core.Services
     public interface IPlayerService
     {
         IList<Player> GetList(string slug);
-        IList<Player> Get(IList<int> ids);
-        Player Get(int id);
-        Player GetByUserId(string slug, int userId);
-        int Add(Player player);
-        bool JoinHomegame(Player player, Bunch bunch, int userId);
-        void Delete(int playerId);
+        IList<Player> Get(IList<string> ids);
+        Player Get(string id);
+        Player GetByUserId(string slug, string userId);
+        string Add(Player player);
+        bool JoinHomegame(Player player, Bunch bunch, string userId);
+        void Delete(string playerId);
     }
 }

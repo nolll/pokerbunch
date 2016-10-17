@@ -5,16 +5,16 @@ namespace Core.Services
 {
     public interface ICashgameService
     {
-        IList<Cashgame> GetFinished(int bunchId, int? year = null);
-        IList<Cashgame> GetByEvent(int eventId);
-        Cashgame GetRunning(int bunchId);
-        Cashgame GetByCheckpoint(int checkpointId);
-        Cashgame GetById(int cashgameId);
-        IList<int> GetYears(int bunchId);
-        void DeleteGame(int id);
-        int AddGame(Bunch bunch, Cashgame cashgame);
+        IList<Cashgame> GetFinished(string bunchId, int? year = null);
+        IList<Cashgame> GetByEvent(string eventId);
+        Cashgame GetRunning(string bunchId);
+        Cashgame GetByCheckpoint(string checkpointId);
+        Cashgame GetById(string cashgameId);
+        IList<int> GetYears(string bunchId);
+        void DeleteGame(string id);
+        string AddGame(Bunch bunch, Cashgame cashgame);
         void UpdateGame(Cashgame cashgame);
         void EndGame(Cashgame cashgame);
-        bool HasPlayed(int playerId);
+        bool HasPlayed(string playerId);
     }
 }

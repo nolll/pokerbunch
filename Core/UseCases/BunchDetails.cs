@@ -47,14 +47,14 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Slug { get; private set; }
             public string BunchName { get; private set; }
             public string Description { get; private set; }
             public string HouseRules { get; private set; }
             public bool CanEdit { get; private set; }
 
-            public Result(int id, string slug, string bunchName, string description, string houseRules, bool canEdit)
+            public Result(string id, string slug, string bunchName, string description, string houseRules, bool canEdit)
             {
                 Id = id;
                 Slug = slug;

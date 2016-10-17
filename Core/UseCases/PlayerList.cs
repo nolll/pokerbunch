@@ -59,7 +59,7 @@ namespace Core.UseCases
         public class PlayerListItem
         {
             public string Name { get; }
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Color { get; set; }
 
             public PlayerListItem(Player player)

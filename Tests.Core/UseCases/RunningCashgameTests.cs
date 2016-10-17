@@ -53,14 +53,14 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.PlayerItems[0].HasCashedOut);
             Assert.AreEqual(TestData.PlayerA.DisplayName, result.PlayerItems[0].Name);
             Assert.AreEqual(TestData.PlayerA.Id, result.PlayerItems[0].PlayerId);
-            Assert.AreEqual(3, result.PlayerItems[0].CashgameId);
-            Assert.AreEqual(1, result.PlayerItems[0].PlayerId);
+            Assert.AreEqual("3", result.PlayerItems[0].CashgameId);
+            Assert.AreEqual("1", result.PlayerItems[0].PlayerId);
             Assert.AreEqual(1, result.PlayerItems[1].Checkpoints.Count);
             Assert.IsFalse(result.PlayerItems[1].HasCashedOut);
             Assert.AreEqual(TestData.PlayerB.DisplayName, result.PlayerItems[1].Name);
             Assert.AreEqual(TestData.PlayerB.Id, result.PlayerItems[1].PlayerId);
-            Assert.AreEqual(3, result.PlayerItems[1].CashgameId);
-            Assert.AreEqual(2, result.PlayerItems[1].PlayerId);
+            Assert.AreEqual("3", result.PlayerItems[1].CashgameId);
+            Assert.AreEqual("2", result.PlayerItems[1].PlayerId);
         }
 
         [Test]

@@ -77,10 +77,10 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int BunchId { get; private set; }
+            public string BunchId { get; private set; }
             public string Slug { get; private set; }
 
-            public Result(int bunchId, string slug)
+            public Result(string bunchId, string slug)
             {
                 BunchId = bunchId;
                 Slug = slug;

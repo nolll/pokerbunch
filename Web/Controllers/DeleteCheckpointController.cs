@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Cashgame.CheckpointDelete)]
-        public ActionResult DeleteCheckpoint(int id)
+        public ActionResult DeleteCheckpoint(string id)
         {
             var request = new DeleteCheckpoint.Request(Identity.UserName, id);
             var result = UseCase.DeleteCheckpoint.Execute(request);

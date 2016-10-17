@@ -4,7 +4,7 @@ namespace Web.Common.Urls.SiteUrls
 {
     public class AppDetailsUrl : IdUrl
     {
-        public AppDetailsUrl(int appId)
+        public AppDetailsUrl(string appId)
             : base(WebRoutes.App.Details, appId)
         {
         }

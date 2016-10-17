@@ -2,7 +2,7 @@ namespace Core.Entities
 {
     public class User : IEntity
     {
-	    public int Id { get; }
+	    public string Id { get; }
         public string UserName { get; private set; }
         public string DisplayName { get; private set; }
         public string RealName { get; private set; }
@@ -10,9 +10,10 @@ namespace Core.Entities
         public Role GlobalRole { get; }
         public string EncryptedPassword { get; private set; }
         public string Salt { get; private set; }
+        public string CacheId => Id;
 
-	    public User(
-            int id, 
+        public User(
+            string id, 
             string userName, 
             string displayName = null, 
             string realName = null, 

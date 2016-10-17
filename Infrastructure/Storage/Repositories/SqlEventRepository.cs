@@ -24,7 +24,7 @@ namespace Infrastructure.Storage.Repositories
             _db = db;
         }
 
-        public Event Get(int id)
+        public Event Get(string id)
         {
             const string whereClause = "WHERE e.EventID = @id";
             var sql = string.Format(EventSql, whereClause);
@@ -38,7 +38,7 @@ namespace Infrastructure.Storage.Repositories
             return rawEvent != null ? CreateEvent(rawEvent) : null;
         }
 
-        public IList<Event> Get(IList<int> ids)
+        public IList<Event> Get(IList<string> ids)
         {
             const string whereClause = "WHERE e.EventID IN(@ids)";
             var sql = string.Format(EventSql, whereClause);
@@ -48,7 +48,7 @@ namespace Infrastructure.Storage.Repositories
             return rawEvents.Select(CreateEvent).ToList();
         }
 
-        public IList<int> FindByBunchId(int bunchId)
+        public IList<string> FindByBunchId(string bunchId)
         {
             const string sql = "SELECT e.EventID FROM [Event] e WHERE e.BunchID = @id";
             var parameters = new List<SimpleSqlParameter>
@@ -56,10 +56,10 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@id", bunchId)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("EventID");
+            return reader.ReadStringList("EventID");
         }
 
-        public IList<int> FindByCashgameId(int cashgameId)
+        public IList<string> FindByCashgameId(string cashgameId)
         {
             const string sql = "SELECT ecg.EventID FROM [EventCashgame] ecg WHERE ecg.CashgameId = @id";
             var parameters = new List<SimpleSqlParameter>
@@ -67,10 +67,10 @@ namespace Infrastructure.Storage.Repositories
                     new SimpleSqlParameter("@id", cashgameId)
                 };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("EventID");
+            return reader.ReadStringList("EventID");
         }
 
-        public int Add(Event e)
+        public string Add(Event e)
         {
             const string sql = "INSERT INTO event (Name, BunchId) VALUES (@name, @bunchId) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
@@ -81,7 +81,7 @@ namespace Infrastructure.Storage.Repositories
             return _db.ExecuteInsert(sql, parameters);
         }
 
-        public void AddCashgame(int eventId, int cashgameId)
+        public void AddCashgame(string eventId, string cashgameId)
         {
             const string sql = "INSERT INTO eventcashgame (EventId, GameId) VALUES (@eventId, @cashgameId)";
             var parameters = new List<SimpleSqlParameter>
@@ -107,7 +107,7 @@ namespace Infrastructure.Storage.Repositories
         private static IList<RawEvent> CreateRawEvents(IStorageDataReader reader)
         {
             var rawEventDays = reader.ReadList(CreateRawEventDay);
-            var map = new Dictionary<int, IList<RawEventDay>>();
+            var map = new Dictionary<string, IList<RawEventDay>>();
             foreach (var day in rawEventDays)
             {
                 IList<RawEventDay> list;
@@ -137,11 +137,11 @@ namespace Infrastructure.Storage.Repositories
         private static RawEventDay CreateRawEventDay(IStorageDataReader reader)
         {
             return new RawEventDay(
-                reader.GetIntValue("EventID"),
+                reader.GetStringValue("EventID"),
                 reader.GetStringValue("Slug"),
-                reader.GetIntValue("BunchId"),
+                reader.GetStringValue("BunchId"),
                 reader.GetStringValue("Name"),
-                reader.GetIntValue("LocationId"),
+                reader.GetStringValue("LocationId"),
                 reader.GetDateTimeValue("Date"));
         }
     }

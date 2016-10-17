@@ -16,7 +16,7 @@ namespace Core.UseCases
         {
             try
             {
-                _appService.Get(request.AppKey);
+                _appService.GetByAppKey(request.AppKey);
                 return new ValidResult();
             }
             catch (AppNotFoundException)

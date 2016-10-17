@@ -58,7 +58,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateRequest());
 
-            Assert.AreEqual(2, result.List[0].CashgameId);
+            Assert.AreEqual("2", result.List[0].CashgameId);
         }
 
         [Test]

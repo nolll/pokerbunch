@@ -8,8 +8,8 @@ namespace Tests.Core.UseCases.UserDetailsTests
 {
     public class Arrange : ArrangeBase
     {
-        private const int CurrentUserId = 1;
-        private const int ViewUserId = 2;
+        private const string CurrentUserId = "1";
+        private const string ViewUserId = "2";
         private string _currentUserName = "currentusername";
         protected const string ViewUserName = "viewusername";
         protected const string DisplayName = "displayname";

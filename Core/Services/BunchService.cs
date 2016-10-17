@@ -20,9 +20,9 @@ namespace Core.Services
             return _bunchRepository.Get(slug);
         }
 
-        public IList<Bunch> GetByUserId(int userId)
+        public IList<Bunch> GetByUserId(string userId)
         {
-            var ids = _bunchRepository.Search(userId);
+            var ids = _bunchRepository.SearchByUser(userId);
             return _bunchRepository.Get(ids);
         }
 
@@ -32,7 +32,7 @@ namespace Core.Services
             return _bunchRepository.Get(ids);
         }
 
-        public int Add(Bunch bunch)
+        public string Add(Bunch bunch)
         {
             return _bunchRepository.Add(bunch);
         }

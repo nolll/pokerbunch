@@ -12,11 +12,11 @@ namespace Tests.Core.UseCases.CashoutTests
 {
     public abstract class Arrange : ArrangeBase
     {
-        private const int BunchId = 1;
-        private const int CashgameId = 2;
-        private const int LocationId = 3;
-        private const int UserId = 4;
-        protected const int PlayerId = 5;
+        private const string BunchId = "1";
+        private const string CashgameId = "2";
+        private const string LocationId = "3";
+        private const string UserId = "4";
+        protected const string PlayerId = "5";
         protected const string Slug = "slug";
         protected const string UserName = "username";
         private DateTime _startTime = DateTime.Parse("2001-01-01 12:00:00");
@@ -50,8 +50,8 @@ namespace Tests.Core.UseCases.CashoutTests
             {
                 var checkpoints1 = new List<Checkpoint>
                 {
-                    Checkpoint.Create(CashgameId, PlayerId, _startTime, CheckpointType.Buyin, 200, 200, 1),
-                    Checkpoint.Create(CashgameId, PlayerId, _startTime.AddMinutes(1), CheckpointType.Cashout, 200, 0, 3)
+                    Checkpoint.Create(CashgameId, PlayerId, _startTime, CheckpointType.Buyin, 200, 200, "1"),
+                    Checkpoint.Create(CashgameId, PlayerId, _startTime.AddMinutes(1), CheckpointType.Cashout, 200, 0, "3")
                 };
 
                 return new Cashgame(Slug, BunchId, LocationId, GameStatus.Running, CashgameId, checkpoints1);
@@ -60,7 +60,7 @@ namespace Tests.Core.UseCases.CashoutTests
             {
                 var checkpoints1 = new List<Checkpoint>
                 {
-                    Checkpoint.Create(CashgameId, PlayerId, _startTime, CheckpointType.Buyin, 200, 200, 1)
+                    Checkpoint.Create(CashgameId, PlayerId, _startTime, CheckpointType.Buyin, 200, 200, "1")
                 };
 
                 return new Cashgame(Slug, BunchId, LocationId, GameStatus.Running, CashgameId, checkpoints1);

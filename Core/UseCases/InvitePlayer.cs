@@ -44,7 +44,7 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
             [Required(ErrorMessage = "Email can't be empty")]
             [EmailAddress(ErrorMessage = "The email address is not valid")]
             public string Email { get; }
@@ -52,7 +52,7 @@ namespace Core.UseCases
             public string JoinUrlFormat { get; }
             public string JoinWithCodeUrlFormat { get; }
 
-            public Request(string userName, int playerId, string email, string registerUrl, string joinUrlFormat, string joinWithCodeUrlFormat)
+            public Request(string userName, string playerId, string email, string registerUrl, string joinUrlFormat, string joinWithCodeUrlFormat)
             {
                 UserName = userName;
                 PlayerId = playerId;
@@ -65,9 +65,9 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
 
-            public Result(int playerId)
+            public Result(string playerId)
             {
                 PlayerId = playerId;
             }

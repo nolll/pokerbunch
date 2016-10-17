@@ -44,14 +44,14 @@ namespace Core.UseCases
         {
             public string UserName { get; }
             public string Slug { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
             [Range(1, int.MaxValue, ErrorMessage = "Amount needs to be positive")]
             public int BuyinAmount { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
             public int StackAmount { get; }
             public DateTime CurrentTime { get; }
 
-            public Request(string userName, string slug, int playerId, int buyinAmount, int stackAmount, DateTime currentTime)
+            public Request(string userName, string slug, string playerId, int buyinAmount, int stackAmount, DateTime currentTime)
             {
                 UserName = userName;
                 Slug = slug;

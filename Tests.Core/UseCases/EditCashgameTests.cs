@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_EmptyLocation_ThrowsException()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, 0, 0);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, "", "");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -18,17 +18,17 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_ValidLocation_ReturnUrlIsSet()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, 0);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, "");
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(1, result.CashgameId);
+            Assert.AreEqual("1", result.CashgameId);
         }
 
         [Test]
         public void EditCashgame_ValidLocation_SavesCashgame()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, 0);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, "");
 
             Sut.Execute(request);
 
@@ -39,10 +39,10 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_WithEventId_GameIsAddedToEvent()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, 1);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, "1");
             Sut.Execute(request);
 
-            Assert.AreEqual(1, Repos.Event.AddedCashgameId);
+            Assert.AreEqual("1", Repos.Event.AddedCashgameId);
         }
 
         private EditCashgame Sut => new EditCashgame(

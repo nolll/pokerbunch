@@ -4,7 +4,7 @@ namespace Web.Common.Urls.SiteUrls
 {
     public class InvitePlayerUrl : IdUrl
     {
-        public InvitePlayerUrl(int playerId)
+        public InvitePlayerUrl(string playerId)
             : base(WebRoutes.Player.Invite, playerId)
         {
         }

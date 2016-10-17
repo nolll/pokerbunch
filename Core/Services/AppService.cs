@@ -21,26 +21,26 @@ namespace Core.Services
             return _appRepository.GetList(ids);
         }
 
-        public IList<App> ListApps(int userId)
+        public IList<App> ListApps(string userId)
         {
-            var ids = _appRepository.Find(userId);
+            var ids = _appRepository.FindByUser(userId);
             return _appRepository.GetList(ids);
         }
 
-        public App Get(int id)
+        public App GetById(string id)
         {
             return _appRepository.Get(id);
         }
 
-        public App Get(string appKey)
+        public App GetByAppKey(string appKey)
         {
-            var ids = _appRepository.Find(appKey);
+            var ids = _appRepository.FindByAppKey(appKey);
             if(ids.Count == 0)
                 throw new AppNotFoundException();
             return _appRepository.Get(ids.First());
         }
 
-        public int Add(App app)
+        public string Add(App app)
         {
             return _appRepository.Add(app);
         }

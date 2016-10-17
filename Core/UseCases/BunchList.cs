@@ -65,7 +65,7 @@ namespace Core.UseCases
 
         public class ResultItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Slug { get; private set; }
             public string DisplayName { get; private set; }
 

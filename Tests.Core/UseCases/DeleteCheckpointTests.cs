@@ -16,7 +16,7 @@ namespace Tests.Core.UseCases
             var deletedCheckpointIds = Repos.Cashgame.Updated.DeletedCheckpoints.Select(o => o.Id);
             Assert.IsTrue(deletedCheckpointIds.Contains(TestData.ReportCheckpointId));
             Assert.AreEqual("bunch-a", result.Slug);
-            Assert.AreEqual(1, result.CashgameId);
+            Assert.AreEqual("1", result.CashgameId);
             Assert.IsFalse(result.GameIsRunning);
         }
 
@@ -25,13 +25,13 @@ namespace Tests.Core.UseCases
         {
             Repos.Cashgame.SetupRunningGame();
 
-            var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, 12);
+            var request = new DeleteCheckpoint.Request(TestData.ManagerUser.UserName, "12");
             var result = Sut.Execute(request);
 
             var deletedCheckpointIds = Repos.Cashgame.Updated.DeletedCheckpoints.Select(o => o.Id);
-            Assert.IsTrue(deletedCheckpointIds.Contains(12));
+            Assert.IsTrue(deletedCheckpointIds.Contains("12"));
             Assert.AreEqual("bunch-a", result.Slug);
-            Assert.AreEqual(3, result.CashgameId);
+            Assert.AreEqual("3", result.CashgameId);
             Assert.IsTrue(result.GameIsRunning);
         }
 

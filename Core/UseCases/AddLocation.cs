@@ -14,7 +14,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var location = new Location(0, request.Name, request.Slug);
+            var location = new Location("", request.Name, request.Slug);
             _locationRepository.Add(location);
 
             return new Result(request.Slug);

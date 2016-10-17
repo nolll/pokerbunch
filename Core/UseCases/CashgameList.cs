@@ -101,7 +101,7 @@ namespace Core.UseCases
         public class Item
         {
             public string Location { get; private set; }
-            public int CashgameId { get; private set; }
+            public string CashgameId { get; private set; }
             public Time Duration { get; private set; }
             public Date Date { get; private set; }
             public Money Turnover { get; private set; }

@@ -12,7 +12,7 @@ namespace Web.Models.CashgameModels.Running
         public string Slug { get; private set; }
 
         [UsedImplicitly]
-        public int PlayerId { get; private set; }
+        public string PlayerId { get; private set; }
 
         [UsedImplicitly]
         public string RefreshUrl { get; private set; }

@@ -62,7 +62,7 @@ namespace Infrastructure.Storage
             }
         }
 
-        public int ExecuteInsert(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
+        public string ExecuteInsert(string sql, IEnumerable<SimpleSqlParameter> parameters = null)
         {
             using (var connection = GetConnection())
             {
@@ -73,7 +73,7 @@ namespace Infrastructure.Storage
                     {
                         command.Parameters.AddRange(ToSqlCommands(parameters));
                     }
-                    return Convert.ToInt32(command.ExecuteScalar());
+                    return (string)command.ExecuteScalar();
                 }
             }
         }

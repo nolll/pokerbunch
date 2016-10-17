@@ -77,11 +77,11 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int CashgameId { get; }
-            public int PlayerId { get; }
+            public string CashgameId { get; }
+            public string PlayerId { get; }
             public DateTime CurrentTime { get; }
 
-            public Request(string userName, int cashgameId, int playerId, DateTime currentTime)
+            public Request(string userName, string cashgameId, string playerId, DateTime currentTime)
             {
                 UserName = userName;
                 CashgameId = cashgameId;

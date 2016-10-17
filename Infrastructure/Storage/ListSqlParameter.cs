@@ -6,9 +6,9 @@ namespace Infrastructure.Storage
     public class ListSqlParameter
     {
         public string ParameterName { get; private set; }
-        private readonly IList<int> _idList;
+        private readonly IList<string> _idList;
 
-        public ListSqlParameter(string parameterName, IList<int> idList)
+        public ListSqlParameter(string parameterName, IList<string> idList)
         {
             ParameterName = parameterName;
             _idList = idList;

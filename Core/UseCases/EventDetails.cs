@@ -31,9 +31,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int EventId { get; }
+            public string EventId { get; }
 
-            public Request(string userName, int eventId)
+            public Request(string userName, string eventId)
             {
                 UserName = userName;
                 EventId = eventId;

@@ -23,13 +23,13 @@ namespace Infrastructure.Storage.Repositories
             return GetAppList(ids);
         }
 
-        public IList<App> ListApps(int userId)
+        public IList<App> ListApps(string userId)
         {
-            var ids = GetAppIdList(userId);
+            var ids = GetAppIdListByUser(userId);
             return GetAppList(ids);
         }
 
-        public App Get(int id)
+        public App Get(string id)
         {
             var sql = string.Concat(DataSql, "WHERE a.Id = @appId");
             var parameters = new List<SimpleSqlParameter>
@@ -40,34 +40,34 @@ namespace Infrastructure.Storage.Repositories
             return reader.ReadOne(CreateApp);
         }
 
-        public IList<App> GetList(IList<int> ids)
+        public IList<App> GetList(IList<string> ids)
         {
             return GetAppList(ids);
         }
 
-        public IList<int> Find()
+        public IList<string> Find()
         {
             return GetAppIdList();
         }
 
-        public IList<int> Find(int userId)
+        public IList<string> FindByUser(string userId)
         {
-            return GetAppIdList(userId);
+            return GetAppIdListByUser(userId);
         }
 
-        public IList<int> Find(string appKey)
+        public IList<string> FindByAppKey(string appKey)
         {
-            return GetAppIdList(appKey);
+            return GetAppIdListByAppKey(appKey);
         }
 
-        private IList<int> GetAppIdList()
+        private IList<string> GetAppIdList()
         {
             var sql = string.Concat(SearchSql, "ORDER BY a.Name");
             var reader = _db.Query(sql);
-            return reader.ReadIntList("ID");
+            return reader.ReadStringList("ID");
         }
 
-        public int Add(App app)
+        public string Add(App app)
         {
             const string sql = "INSERT INTO [app] (AppKey, Name, UserId) VALUES (@appKey, @name, @userId) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
@@ -84,7 +84,7 @@ namespace Infrastructure.Storage.Repositories
             throw new System.NotImplementedException();
         }
 
-        private IList<int> GetAppIdList(int userId)
+        private IList<string> GetAppIdListByUser(string userId)
         {
             var sql = string.Concat(SearchSql, "WHERE a.UserId = @userId ORDER BY a.Name");
             var parameters = new List<SimpleSqlParameter>
@@ -92,10 +92,10 @@ namespace Infrastructure.Storage.Repositories
                 new SimpleSqlParameter("@userId", userId)
             };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("ID");
+            return reader.ReadStringList("ID");
         }
 
-        private IList<int> GetAppIdList(string appKey)
+        private IList<string> GetAppIdListByAppKey(string appKey)
         {
             var sql = string.Concat(DataSql, "WHERE a.AppKey = @appKey");
             var parameters = new List<SimpleSqlParameter>
@@ -103,10 +103,10 @@ namespace Infrastructure.Storage.Repositories
                 new SimpleSqlParameter("@appKey", appKey)
             };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("ID");
+            return reader.ReadStringList("ID");
         }
 
-        private IList<App> GetAppList(IList<int> ids)
+        private IList<App> GetAppList(IList<string> ids)
         {
             var sql = string.Concat(DataSql, "WHERE a.ID IN(@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
@@ -117,10 +117,10 @@ namespace Infrastructure.Storage.Repositories
         private static App CreateApp(IStorageDataReader reader)
         {
             return new App(
-                reader.GetIntValue("ID"),
+                reader.GetStringValue("ID"),
                 reader.GetStringValue("AppKey"),
                 reader.GetStringValue("Name"),
-                reader.GetIntValue("USerID"));
+                reader.GetStringValue("UserID"));
         }
     }
 }

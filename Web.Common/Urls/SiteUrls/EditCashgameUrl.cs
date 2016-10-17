@@ -4,7 +4,7 @@ namespace Web.Common.Urls.SiteUrls
 {
     public class EditCashgameUrl : IdUrl
     {
-        public EditCashgameUrl(int id)
+        public EditCashgameUrl(string id)
             : base(WebRoutes.Cashgame.Edit, id)
         {
         }

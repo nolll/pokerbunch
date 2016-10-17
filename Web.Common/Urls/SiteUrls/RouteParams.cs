@@ -21,17 +21,22 @@ namespace Web.Common.Urls.SiteUrls
             return Replace(format, Year, year);
         }
 
-        public static string ReplacePlayerId(string format, int playerId)
+        public static string ReplacePlayerId(string format, string playerId)
         {
             return Replace(format, PlayerId, playerId);
         }
 
-        public static string ReplaceCashgameId(string format, int cashgameId)
+        public static string ReplaceCashgameId(string format, string cashgameId)
         {
             return Replace(format, CashgameId, cashgameId);
         }
 
         public static string ReplaceId(string format, int id)
+        {
+            return Replace(format, Id, id);
+        }
+
+        public static string ReplaceId(string format, string id)
         {
             return Replace(format, Id, id);
         }

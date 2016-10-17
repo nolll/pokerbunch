@@ -70,9 +70,9 @@ namespace Core.UseCases
         {
             public string UserName { get; }
             public DateTime CurrentTime { get; }
-            public int CashgameId { get; }
+            public string CashgameId { get; }
 
-            public Request(string userName, DateTime currentTime, int cashgameId)
+            public Request(string userName, DateTime currentTime, string cashgameId)
             {
                 UserName = userName;
                 CurrentTime = currentTime;
@@ -92,12 +92,12 @@ namespace Core.UseCases
 
         public class PlayerItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
             public string Color { get; private set; }
             public IList<ResultItem> Results { get; private set; }
 
-            public PlayerItem(int id, string name, string color, IList<ResultItem> results)
+            public PlayerItem(string id, string name, string color, IList<ResultItem> results)
             {
                 Id = id;
                 Name = name;

@@ -52,14 +52,14 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int CheckpointId { get; }
+            public string CheckpointId { get; }
             public DateTime Timestamp { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
             public int Stack { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Amount can't be negative")]
             public int Amount { get; }
 
-            public Request(string userName, int checkpointId, DateTime timestamp, int stack, int amount)
+            public Request(string userName, string checkpointId, DateTime timestamp, int stack, int amount)
             {
                 UserName = userName;
                 CheckpointId = checkpointId;
@@ -71,10 +71,10 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int CashgameId { get; private set; }
-            public int PlayerId { get; private set; }
+            public string CashgameId { get; private set; }
+            public string PlayerId { get; private set; }
 
-            public Result(int cashgameId, int playerId)
+            public Result(string cashgameId, string playerId)
             {
                 CashgameId = cashgameId;
                 PlayerId = playerId;

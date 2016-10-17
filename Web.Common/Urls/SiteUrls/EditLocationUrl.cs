@@ -4,7 +4,7 @@ namespace Web.Common.Urls.SiteUrls
 {
     public class EditLocationUrl : IdUrl
     {
-        public EditLocationUrl(int locationId)
+        public EditLocationUrl(string locationId)
             : base(WebRoutes.Location.Edit, locationId)
         {
         }

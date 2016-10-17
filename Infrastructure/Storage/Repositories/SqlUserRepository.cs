@@ -19,7 +19,7 @@ namespace Infrastructure.Storage.Repositories
             _db = db;
         }
 
-        public User Get(int id)
+        public User Get(string id)
         {
             var sql = string.Concat(DataSql, "WHERE u.UserId = @userId");
             var parameters = new List<SimpleSqlParameter>
@@ -31,7 +31,7 @@ namespace Infrastructure.Storage.Repositories
             return rawUser != null ? RawUser.CreateReal(rawUser) : null;
         }
 
-        public IList<User> Get(IList<int> ids)
+        public IList<User> Get(IList<string> ids)
         {
             var sql = string.Concat(DataSql, "WHERE u.UserID IN(@ids)");
             var parameter = new ListSqlParameter("@ids", ids);
@@ -40,17 +40,17 @@ namespace Infrastructure.Storage.Repositories
             return rawUsers.Select(RawUser.CreateReal).OrderBy(o => o.DisplayName).ToList();
         }
 
-        public IList<int> Find()
+        public IList<string> Find()
         {
             return GetIds();
         }
 
-        public IList<int> Find(string nameOrEmail)
+        public IList<string> Find(string nameOrEmail)
         {
             var userId = GetIdByNameOrEmail(nameOrEmail);
-            if(userId.HasValue)
-                return new List<int>{userId.Value};
-            return new List<int>();
+            if(!string.IsNullOrEmpty(userId))
+                return new List<string>{userId};
+            return new List<string>();
         }
 
         public void Update(User user)
@@ -68,7 +68,7 @@ namespace Infrastructure.Storage.Repositories
             _db.Execute(sql, parameters);
         }
 
-        public int Add(User user)
+        public string Add(User user)
         {
             const string sql = "INSERT INTO [user] (UserName, DisplayName, Email, RoleId, Password, Salt) VALUES (@userName, @displayName, @email, 1, @password, @salt) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
@@ -82,7 +82,7 @@ namespace Infrastructure.Storage.Repositories
             return _db.ExecuteInsert(sql, parameters);
         }
         
-        private int? GetIdByNameOrEmail(string nameOrEmail)
+        private string GetIdByNameOrEmail(string nameOrEmail)
         {
             var sql = string.Concat(SearchSql, "WHERE (u.UserName = @query OR u.Email = @query)");
             var parameters = new List<SimpleSqlParameter>
@@ -90,14 +90,14 @@ namespace Infrastructure.Storage.Repositories
                 new SimpleSqlParameter("@query", nameOrEmail)
             };
             var reader = _db.Query(sql, parameters);
-            return reader.ReadInt("UserID");
+            return reader.ReadString("UserID");
         }
 
-        private IList<int> GetIds()
+        private IList<string> GetIds()
         {
             var sql = string.Concat(SearchSql, "ORDER BY u.DisplayName");
             var reader = _db.Query(sql);
-            return reader.ReadIntList("UserID");
+            return reader.ReadStringList("UserID");
         }
 
         public bool DeleteUser(int userId)
@@ -114,7 +114,7 @@ namespace Infrastructure.Storage.Repositories
         private static RawUser CreateRawUser(IStorageDataReader reader)
         {
             return new RawUser(
-                reader.GetIntValue("UserID"),
+                reader.GetStringValue("UserID"),
                 reader.GetStringValue("UserName"),
                 reader.GetStringValue("DisplayName"),
                 reader.GetStringValue("RealName"),

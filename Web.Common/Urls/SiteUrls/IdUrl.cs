@@ -6,5 +6,10 @@ namespace Web.Common.Urls.SiteUrls
             : base(RouteParams.ReplaceId(format, id))
         {
         }
+
+        protected IdUrl(string format, string id)
+            : base(RouteParams.ReplaceId(format, id))
+        {
+        }
     }
 }

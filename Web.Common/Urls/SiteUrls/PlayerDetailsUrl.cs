@@ -4,7 +4,7 @@ namespace Web.Common.Urls.SiteUrls
 {
     public class PlayerDetailsUrl : IdUrl
     {
-        public PlayerDetailsUrl(int playerId)
+        public PlayerDetailsUrl(string playerId)
             : base(WebRoutes.Player.Details, playerId)
         {
         }

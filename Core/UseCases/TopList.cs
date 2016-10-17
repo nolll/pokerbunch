@@ -76,7 +76,7 @@ namespace Core.UseCases
         public class Item
         {
             public int Rank { get; private set; }
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
             public string Name { get; private set; }
             public Money Winnings { get; }
             public Money Buyin { get; }

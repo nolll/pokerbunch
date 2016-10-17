@@ -47,9 +47,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int CashgameId { get; }
+            public string CashgameId { get; }
 
-            public Request(string userName, int cashgameId)
+            public Request(string userName, string cashgameId)
             {
                 UserName = userName;
                 CashgameId = cashgameId;
@@ -63,10 +63,10 @@ namespace Core.UseCases
             public DateTime? StartTime { get; private set; }
             public DateTime? EndTime { get; private set; }
             public string LocationName { get; private set; }
-            public int LocationId { get; private set; }
+            public string LocationId { get; private set; }
             public bool CanEdit { get; private set; }
             public string Slug { get; private set; }
-            public int CashgameId { get; private set; }
+            public string CashgameId { get; private set; }
             public IList<PlayerResultItem> PlayerItems { get; private set; }
 
             public Result(Bunch bunch, Cashgame cashgame, Location location, IEnumerable<Player> players, bool isManager)
@@ -92,7 +92,7 @@ namespace Core.UseCases
                 return TimeZoneInfo.ConvertTime(d.Value, timeZone);
             }
 
-            private static Player GetPlayer(IEnumerable<Player> players, int playerId)
+            private static Player GetPlayer(IEnumerable<Player> players, string playerId)
             {
                 return players.First(o => o.Id == playerId);
             }
@@ -102,8 +102,8 @@ namespace Core.UseCases
         {
             public string Name { get; private set; }
             public string Color { get; private set; }
-            public int CashgameId { get; private set; }
-            public int PlayerId { get; private set; }
+            public string CashgameId { get; private set; }
+            public string PlayerId { get; private set; }
             public Money Buyin { get; private set; }
             public Money Cashout { get; private set; }
             public Money Winnings { get; private set; }

@@ -71,21 +71,21 @@ namespace Core.UseCases
 
         public class Item
         {
-            public int EventId { get; private set; }
+            public string EventId { get; private set; }
             public string Name { get; private set; }
             public string Location { get; private set; }
             public Date StartDate { get; private set; }
             public Date EndDate { get; private set; }
             public bool HasGames { get; private set; }
 
-            public Item(int id, string name)
+            public Item(string id, string name)
             {
                 EventId = id;
                 Name = name;
                 HasGames = false;
             }
             
-            public Item(int id, string name, string location, Date startDate, Date endDate)
+            public Item(string id, string name, string location, Date startDate, Date endDate)
                 : this(id, name)
             {
                 Location = location;

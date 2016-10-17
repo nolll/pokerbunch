@@ -5,11 +5,11 @@ namespace Core.Repositories
 {
     public interface IEventRepository
     {
-        Event Get(int id);
-        IList<Event> Get(IList<int> ids);
-        IList<int> FindByBunchId(int bunchId);
-        IList<int> FindByCashgameId(int cashgameId);
-        int Add(Event e);
-        void AddCashgame(int eventId, int cashgameId);
+        Event Get(string id);
+        IList<Event> Get(IList<string> ids);
+        IList<string> FindByBunchId(string bunchId);
+        IList<string> FindByCashgameId(string cashgameId);
+        string Add(Event e);
+        void AddCashgame(string eventId, string cashgameId);
     }
 }

@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class AppDetailsController : BaseController
     {
         [Route(WebRoutes.App.Details)]
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             var context = GetAppContext();
             var appDetailsResult = UseCase.AppDetails.Execute(new AppDetails.Request(id));

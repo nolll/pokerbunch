@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Player.Details)]
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(detailsResult.Slug);

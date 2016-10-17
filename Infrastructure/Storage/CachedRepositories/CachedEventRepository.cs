@@ -17,32 +17,32 @@ namespace Infrastructure.Storage.CachedRepositories
             _cacheContainer = cacheContainer;
         }
 
-        public Event Get(int id)
+        public Event Get(string id)
         {
             return _cacheContainer.GetAndStore(_eventRepository.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<Event> Get(IList<int> ids)
+        public IList<Event> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_eventRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<int> FindByBunchId(int bunchId)
+        public IList<string> FindByBunchId(string bunchId)
         {
             return _eventRepository.FindByBunchId(bunchId);
         }
 
-        public IList<int> FindByCashgameId(int cashgameId)
+        public IList<string> FindByCashgameId(string cashgameId)
         {
             return _eventRepository.FindByBunchId(cashgameId);
         }
 
-        public int Add(Event e)
+        public string Add(Event e)
         {
             return _eventRepository.Add(e);
         }
 
-        public void AddCashgame(int eventId, int cashgameId)
+        public void AddCashgame(string eventId, string cashgameId)
         {
             _eventRepository.AddCashgame(eventId, cashgameId);
             _cacheContainer.Remove<Event>(eventId);

@@ -74,9 +74,9 @@ namespace Core.UseCases
             return playerItems;
         }
 
-        private static IDictionary<int, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IEnumerable<Cashgame> cashgames, Player player)
+        private static IDictionary<string, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IEnumerable<Cashgame> cashgames, Player player)
         {
-            var items = new Dictionary<int, MatrixResultItem>();
+            var items = new Dictionary<string, MatrixResultItem>();
             foreach (var cashgame in cashgames)
             {
                 var result = cashgame.GetResult(player.Id);
@@ -103,7 +103,7 @@ namespace Core.UseCases
                 .ToList();
         }
 
-        private static GameItem CreateGameItem(int cashgameId, DateTime startTime)
+        private static GameItem CreateGameItem(string cashgameId, DateTime startTime)
         {
             var date = new Date(startTime);
             
@@ -127,9 +127,9 @@ namespace Core.UseCases
         public class EventMatrixRequest
         {
             public string UserName { get; }
-            public int EventId { get; }
+            public string EventId { get; }
 
-            public EventMatrixRequest(string userName, int eventId)
+            public EventMatrixRequest(string userName, string eventId)
             {
                 UserName = userName;
                 EventId = eventId;
@@ -155,11 +155,11 @@ namespace Core.UseCases
             public int Rank { get; private set; }
             public string Name { get; private set; }
             public string Color { get; private set; }
-            public int PlayerId { get; private set; }
-            public IDictionary<int, MatrixResultItem> ResultItems { get; private set; }
+            public string PlayerId { get; private set; }
+            public IDictionary<string, MatrixResultItem> ResultItems { get; private set; }
             public Money TotalResult { get; private set; }
 
-            public MatrixPlayerItem(int rank, string name, string color, int playerId, IDictionary<int, MatrixResultItem> resultItems, Money totalResult)
+            public MatrixPlayerItem(int rank, string name, string color, string playerId, IDictionary<string, MatrixResultItem> resultItems, Money totalResult)
             {
                 Rank = rank;
                 Name = name;
@@ -190,10 +190,10 @@ namespace Core.UseCases
 
         public class GameItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public Date Date { get; private set; }
 
-            public GameItem(int id, Date date)
+            public GameItem(string id, Date date)
             {
                 Id = id;
                 Date = date;

@@ -32,7 +32,7 @@ namespace Core.UseCases
             var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
 
-            var e = new Event(0, bunch.Slug, bunch.Id, request.Name);
+            var e = new Event("", bunch.Slug, bunch.Id, request.Name);
             _eventService.Add(e);
 
             return new Result(bunch.Slug);

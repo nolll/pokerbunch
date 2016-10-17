@@ -11,7 +11,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Cashgame.Details)]
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(cashgameDetailsResult.Slug);

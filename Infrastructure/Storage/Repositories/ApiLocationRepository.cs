@@ -14,7 +14,7 @@ namespace Infrastructure.Storage.Repositories
             _apiConnection = apiConnection;
         }
 
-        public Location Get(int id)
+        public Location Get(string id)
         {
             var apiLocation = _apiConnection.Get<ApiLocation>($"location/get/{id}");
             return CreateLocation(apiLocation);
@@ -26,7 +26,7 @@ namespace Infrastructure.Storage.Repositories
             return apiLocation.Select(CreateLocation).ToList();
         }
 
-        public int Add(Location location)
+        public string Add(Location location)
         {
             var postLocation = new ApiLocation(location.Name, location.Slug);
             var apiLocation = _apiConnection.Post<ApiLocation>($"location/add", postLocation);
@@ -38,9 +38,9 @@ namespace Infrastructure.Storage.Repositories
             return new Location(l.Id, l.Name, l.Bunch);
         }
 
-        public class ApiLocation : IEntity
+        public class ApiLocation
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
             public string Name { get; set; }
             public string Bunch { get; set; }
 

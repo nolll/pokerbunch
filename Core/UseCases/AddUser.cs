@@ -48,7 +48,7 @@ namespace Core.UseCases
         private static User CreateUser(Request request, string encryptedPassword, string salt)
         {
             return new User(
-                0,
+                "",
                 request.UserName,
                 request.DisplayName,
                 string.Empty,

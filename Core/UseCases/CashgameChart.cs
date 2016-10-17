@@ -48,7 +48,7 @@ namespace Core.UseCases
             for (var i = 0; i < cashgames.Count; i++)
             {
                 var cashgame = cashgames[cashgames.Count - i - 1];
-                var currentSums = new Dictionary<int, int>();
+                var currentSums = new Dictionary<string, int>();
                 foreach (var totalResult in results)
                 {
                     var singleResult = cashgame.GetResult(totalResult.Player.Id);
@@ -68,9 +68,9 @@ namespace Core.UseCases
             return gameItems;
         }
 
-        private static IDictionary<int, int?> GetEmptyPlayerSumArray(IEnumerable<CashgameTotalResult> results)
+        private static IDictionary<string, int?> GetEmptyPlayerSumArray(IEnumerable<CashgameTotalResult> results)
         {
-            return results.ToDictionary<CashgameTotalResult, int, int?>(result => result.Player.Id, result => 0);
+            return results.ToDictionary<CashgameTotalResult, string, int?>(result => result.Player.Id, result => 0);
         }
 
         public class Request
@@ -102,9 +102,9 @@ namespace Core.UseCases
         public class GameItem
         {
             public Date Date { get; private set; }
-            public IDictionary<int, int> Winnings { get; private set; }
+            public IDictionary<string, int> Winnings { get; private set; }
 
-            public GameItem(Date date, IDictionary<int, int> winnings)
+            public GameItem(Date date, IDictionary<string, int> winnings)
             {
                 Date = date;
                 Winnings = winnings;
@@ -113,11 +113,11 @@ namespace Core.UseCases
 
         public class PlayerItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
             public string Color { get; private set; }
 
-            public PlayerItem(int id, string name, string color)
+            public PlayerItem(string id, string name, string color)
             {
                 Id = id;
                 Name = name;

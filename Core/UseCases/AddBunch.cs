@@ -45,14 +45,14 @@ namespace Core.UseCases
             var bunch = CreateBunch(request);
             var id = _bunchService.Add(bunch);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = Player.New(id, bunch.Slug, user.Id, Role.Manager);
+            var player = Player.NewWithUser(id, bunch.Slug, user.Id, Role.Manager);
             _playerService.Add(player);
         }
 
         private static Bunch CreateBunch(Request request)
         {
             return new Bunch(
-                0,
+                "",
                 SlugGenerator.GetSlug(request.DisplayName),
                 request.DisplayName,
                 request.Description,

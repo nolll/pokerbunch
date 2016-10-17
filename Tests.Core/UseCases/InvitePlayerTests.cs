@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases
             var request = CreateRequest();
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(1, result.PlayerId);
+            Assert.AreEqual("1", result.PlayerId);
         }
 
         [TestCase("")]

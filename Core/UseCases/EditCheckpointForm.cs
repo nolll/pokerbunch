@@ -38,9 +38,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int CheckpointId { get; }
+            public string CheckpointId { get; }
 
-            public Request(string userName, int checkpointId)
+            public Request(string userName, string checkpointId)
             {
                 UserName = userName;
                 CheckpointId = checkpointId;
@@ -52,13 +52,13 @@ namespace Core.UseCases
             public int Stack { get; private set; }
             public int Amount { get; private set; }
             public DateTime TimeStamp { get; private set; }
-            public int CheckpointId { get; private set; }
-            public int CashgameId { get; private set; }
-            public int PlayerId { get; private set; }
+            public string CheckpointId { get; private set; }
+            public string CashgameId { get; private set; }
+            public string PlayerId { get; private set; }
             public string Slug { get; private set; }
             public bool CanEditAmount { get; private set; }
 
-            public Result(int stack, int amount, DateTime timeStamp, int checkpointId, int cashgameId, int playerId, string slug, bool canEditAmount)
+            public Result(int stack, int amount, DateTime timeStamp, string checkpointId, string cashgameId, string playerId, string slug, bool canEditAmount)
             {
                 TimeStamp = timeStamp;
                 CheckpointId = checkpointId;

@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(DateTime.Parse("2001-01-01 11:00:00"), result.StartTime);
             Assert.AreEqual(DateTime.Parse("2001-01-01 12:02:00"), result.EndTime);
             Assert.IsFalse(result.CanEdit);
-            Assert.AreEqual(1, result.CashgameId);
+            Assert.AreEqual("1", result.CashgameId);
             Assert.AreEqual(2, result.PlayerItems.Count);
         }
 
@@ -44,8 +44,8 @@ namespace Tests.Core.UseCases
             var result = Sut.Execute(request);
 
             Assert.AreEqual(TestData.PlayerNameB, result.PlayerItems[0].Name);
-            Assert.AreEqual(1, result.PlayerItems[0].CashgameId);
-            Assert.AreEqual(2, result.PlayerItems[0].PlayerId);
+            Assert.AreEqual("1", result.PlayerItems[0].CashgameId);
+            Assert.AreEqual("2", result.PlayerItems[0].PlayerId);
             Assert.AreEqual(200, result.PlayerItems[0].Buyin.Amount);
             Assert.AreEqual(350, result.PlayerItems[0].Cashout.Amount);
             Assert.AreEqual(150, result.PlayerItems[0].Winnings.Amount);

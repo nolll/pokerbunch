@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Player.Delete)]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
             var request = new DeletePlayer.Request(Identity.UserName, id);
             var result = UseCase.DeletePlayer.Execute(request);

@@ -35,9 +35,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
 
-            public Request(string userName, int playerId)
+            public Request(string userName, string playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;
@@ -56,7 +56,7 @@ namespace Core.UseCases
             public int WinningStreak { get; private set; }
             public int LosingStreak { get; private set; }
 
-            public Result(IEnumerable<Cashgame> cashgames, int playerId, Currency currency)
+            public Result(IEnumerable<Cashgame> cashgames, string playerId, Currency currency)
             {
                 var evaluator = new PlayerFactsEvaluator(cashgames, playerId);
 
@@ -75,9 +75,9 @@ namespace Core.UseCases
         private class PlayerFactsEvaluator
         {
             private readonly IEnumerable<Cashgame> _cashgames;
-            private readonly int _playerId;
+            private readonly string _playerId;
 
-            public PlayerFactsEvaluator(IEnumerable<Cashgame> cashgames, int playerId)
+            public PlayerFactsEvaluator(IEnumerable<Cashgame> cashgames, string playerId)
             {
                 _cashgames = FilterCashgames(cashgames, playerId);
                 _playerId = playerId;
@@ -253,7 +253,7 @@ namespace Core.UseCases
                 }
             }
 
-            private static IEnumerable<Cashgame> FilterCashgames(IEnumerable<Cashgame> cashgames, int playerId)
+            private static IEnumerable<Cashgame> FilterCashgames(IEnumerable<Cashgame> cashgames, string playerId)
             {
                 return cashgames.Where(cashgame => cashgame.IsInGame(playerId)).ToList();
             }

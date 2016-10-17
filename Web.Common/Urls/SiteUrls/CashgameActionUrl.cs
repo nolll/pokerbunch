@@ -4,12 +4,12 @@ namespace Web.Common.Urls.SiteUrls
 {
     public class CashgameActionUrl : SiteUrl
     {
-        public CashgameActionUrl(int cashgameId, int playerId)
+        public CashgameActionUrl(string cashgameId, string playerId)
             : base(BuildUrl(WebRoutes.Cashgame.Action, cashgameId, playerId))
         {
         }
 
-        private static string BuildUrl(string format, int cashgameId, int playerId)
+        private static string BuildUrl(string format, string cashgameId, string playerId)
         {
             var url = RouteParams.ReplaceCashgameId(format, cashgameId);
             return RouteParams.ReplacePlayerId(url, playerId);

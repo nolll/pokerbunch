@@ -12,7 +12,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Cashgame.Edit)]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             return ShowForm(id);
         }
@@ -20,7 +20,7 @@ namespace Web.Controllers
         [HttpPost]
         [Authorize]
         [Route(WebRoutes.Cashgame.Edit)]
-        public ActionResult Post(int id, EditCashgamePostModel postModel)
+        public ActionResult Post(string id, EditCashgamePostModel postModel)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Web.Controllers
             return ShowForm(id, postModel);
         }
 
-        private ActionResult ShowForm(int id, EditCashgamePostModel postModel = null)
+        private ActionResult ShowForm(string id, EditCashgamePostModel postModel = null)
         {
             var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(editCashgameFormResult.Slug);

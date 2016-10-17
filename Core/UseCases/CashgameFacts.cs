@@ -93,7 +93,7 @@ namespace Core.UseCases
             return new MoneyFact(facts.BiggestCashoutTotalResult.Player.DisplayName, amount);
         }
 
-        private static string GetPlayerName(PlayerService playerService, int playerId)
+        private static string GetPlayerName(PlayerService playerService, string playerId)
         {
             var player = playerService.Get(playerId);
             return player == null ? string.Empty : player.DisplayName;
