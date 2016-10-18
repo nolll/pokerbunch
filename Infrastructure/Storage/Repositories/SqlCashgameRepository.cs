@@ -107,12 +107,11 @@ namespace Infrastructure.Storage.Repositories
         {
             var id = reader.GetIntValue("GameID").ToString();
             var slug = reader.GetStringValue("Slug");
-            var bunchId = reader.GetIntValue("HomegameID").ToString();
             var locationId = reader.GetIntValue("LocationId").ToString();
             var status = reader.GetIntValue("Status");
             var date = TimeZoneInfo.ConvertTimeToUtc(reader.GetDateTimeValue("Date"));
 
-            return new RawCashgame(id, slug, bunchId, locationId, status, date);
+            return new RawCashgame(id, slug, locationId, status, date);
         }
 
         public IList<int> GetYears(string bunchId)
@@ -202,12 +201,12 @@ namespace Infrastructure.Storage.Repositories
 	        var rawStatus = status.HasValue ? (int) status.Value : (int) cashgame.Status;
 	        var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.UtcNow;
             
-            return new RawCashgame(cashgame.Id, cashgame.Bunch, cashgame.BunchId, cashgame.LocationId, rawStatus, date);
+            return new RawCashgame(cashgame.Id, cashgame.BunchId, cashgame.LocationId, rawStatus, date);
         }
 
 	    private static Cashgame CreateCashgame(RawCashgame rawGame)
 	    {
-            return new Cashgame(rawGame.Slug, rawGame.BunchId, rawGame.LocationId, (GameStatus)rawGame.Status, rawGame.Id);
+            return new Cashgame(rawGame.BunchId, rawGame.LocationId, (GameStatus)rawGame.Status, rawGame.Id);
         }
 
         private static IList<Checkpoint> CreateCheckpoints(IEnumerable<RawCheckpoint> checkpoints)

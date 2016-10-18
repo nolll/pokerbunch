@@ -33,11 +33,11 @@ namespace Core.UseCases
 
             var cashgame = _cashgameService.GetById(request.Id);
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var bunch = _bunchRepository.Get(cashgame.Bunch);
+            var bunch = _bunchRepository.Get(cashgame.BunchId);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
             var location = _locationRepository.Get(request.LocationId);
-            cashgame = new Cashgame(cashgame.Bunch, cashgame.BunchId, location.Id, cashgame.Status, cashgame.Id);
+            cashgame = new Cashgame(cashgame.BunchId, location.Id, cashgame.Status, cashgame.Id);
             _cashgameService.UpdateGame(cashgame);
 
             if (!string.IsNullOrEmpty(request.EventId))

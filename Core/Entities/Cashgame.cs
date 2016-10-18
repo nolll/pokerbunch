@@ -13,8 +13,7 @@ namespace Core.Entities
         public IList<Checkpoint> UpdatedCheckpoints { get; }
         public IList<Checkpoint> DeletedCheckpoints { get; }
         public string Id { get; }
-        public string Bunch { get; }
-        public string BunchId { get; private set; }
+        public string BunchId { get; }
         public string LocationId { get; private set; }
         public GameStatus Status { get; private set; }
         public DateTime? StartTime { get; private set; }
@@ -26,10 +25,9 @@ namespace Core.Entities
         public string DateString { get; private set; }
         public string CacheId => Id;
 
-        public Cashgame(string bunch, string bunchId, string locationId, GameStatus status, string id = null, IList<Checkpoint> checkpoints = null)
+        public Cashgame(string bunchId, string locationId, GameStatus status, string id = null, IList<Checkpoint> checkpoints = null)
         {
             Id = id ?? "";
-            Bunch = bunch;
             BunchId = bunchId;
             LocationId = locationId;
             Status = status;
