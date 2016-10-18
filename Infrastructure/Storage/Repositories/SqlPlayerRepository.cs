@@ -82,7 +82,7 @@ namespace Infrastructure.Storage.Repositories
         {
             if (player.IsUser)
             {
-                const string sql = "INSERT INTO player (HomegameID, UserID, RoleID, Approved, Color) VALUES (@homegameId, @userId, @role, 1, @color) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+                const string sql = "INSERT INTO player (HomegameID, UserID, RoleID, Approved, Color) SELECT h.HomegameID, @userId, @role, 1, @color FROM Homegame h WHERE h.Name = @homegameId SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
                 var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@homegameId", player.BunchId),
@@ -94,7 +94,7 @@ namespace Infrastructure.Storage.Repositories
             }
             else
             {
-                const string sql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName, Color) VALUES (@homegameId, @role, 1, @playerName, @color) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+                const string sql = "INSERT INTO player (HomegameID, RoleID, Approved, PlayerName, Color) SELECT h.HomegameID, @role, 1, @playerName, @color FROM Homegame h WHERE h.Name = @homegameId SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
                 var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@homegameId", player.BunchId),

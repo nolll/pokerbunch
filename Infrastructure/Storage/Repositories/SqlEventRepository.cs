@@ -72,7 +72,7 @@ namespace Infrastructure.Storage.Repositories
 
         public string Add(Event e)
         {
-            const string sql = "INSERT INTO event (Name, BunchId) VALUES (@name, @bunchId) SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
+            const string sql = "INSERT INTO event (Name, BunchId) SELECT @name, h.HomegameID FROM Homegame h where h.Name = @bunchId SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
             var parameters = new List<SimpleSqlParameter>
                 {
                     new SimpleSqlParameter("@name", e.Name),

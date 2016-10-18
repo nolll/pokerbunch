@@ -73,7 +73,7 @@ namespace Infrastructure.Storage
                     {
                         command.Parameters.AddRange(ToSqlCommands(parameters));
                     }
-                    return (string)command.ExecuteScalar();
+                    return Convert.ToString(command.ExecuteScalar());
                 }
             }
         }
