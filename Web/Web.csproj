@@ -535,6 +535,7 @@
     <Content Include="Views\Pages\RunningCashgame\DashBoardPage.cshtml" />
     <Content Include="package.json" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
+    <None Include="Local.config" />
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
