@@ -1,4 +1,4 @@
-using Web.Common.Urls.SiteUrls;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.NavigationModels
 {

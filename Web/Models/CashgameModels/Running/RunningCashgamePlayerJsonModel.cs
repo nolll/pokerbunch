@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.UseCases;
 using JetBrains.Annotations;
-using Web.Common.Urls.SiteUrls;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Running
 {

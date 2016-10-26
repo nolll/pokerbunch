@@ -1,5 +1,5 @@
 using Core.UseCases;
-using Web.Common.Urls.SiteUrls;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.AppModels.List
 {

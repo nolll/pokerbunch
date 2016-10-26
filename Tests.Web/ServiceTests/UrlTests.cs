@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using Tests.Common;
-using Web.Common.Urls;
-using Web.Common.Urls.SiteUrls;
 using Web.Extensions;
+using Web.Urls;
+using Web.Urls.SiteUrls;
 
 namespace Tests.Web.ServiceTests
 {

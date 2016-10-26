@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using Web.Common.Routes;
-using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
+using Web.Routes;
+using Web.Urls.SiteUrls;
 
 namespace Web.Controllers
 {

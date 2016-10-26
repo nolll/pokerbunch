@@ -1,8 +1,8 @@
 using Core.Services;
 using Core.UseCases;
-using Web.Common.Services;
-using Web.Common.Urls.SiteUrls;
 using Web.Models.PageBaseModels;
+using Web.Services;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Details
 {
