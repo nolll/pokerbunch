@@ -1,3 +1,5 @@
+using Web.Routes;
+
 namespace Web.Urls.ApiUrls
 {
     public class ApiRunningGameUrl : SlugApiUrl

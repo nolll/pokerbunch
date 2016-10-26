@@ -1,6 +1,6 @@
 using Plumbing;
 
-namespace Web.Cache
+namespace Web
 {
     public class Bootstrapper
     {

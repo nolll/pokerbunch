@@ -1,4 +1,6 @@
-﻿namespace Web.Urls.SiteUrls
+﻿using Web.Routes;
+
+namespace Web.Urls.SiteUrls
 {
     public class EditUserUrl : UserUrl
     {

@@ -179,7 +179,6 @@
     <Compile Include="App_Start\CustomViewEngine.cs" />
     <Compile Include="App_Start\LessTransform.cs" />
     <Compile Include="Cache\AspNetCacheProvider.cs" />
-    <Compile Include="Cache\Bootstrapper.cs" />
     <Compile Include="Cache\CacheBuster.cs" />
     <Compile Include="Cache\CacheContainer.cs" />
     <Compile Include="Cache\CacheKeyProvider.cs" />
@@ -433,7 +432,6 @@
     <Compile Include="Urls\SiteUrls\UserListUrl.cs" />
     <Compile Include="Urls\SiteUrls\UserUrl.cs" />
     <Compile Include="Urls\Url.cs" />
-    <Compile Include="UseCaseContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
