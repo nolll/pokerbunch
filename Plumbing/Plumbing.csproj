@@ -35,7 +35,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Dependencies.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="UseCaseContainer.cs" />
