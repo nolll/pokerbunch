@@ -50,7 +50,7 @@ namespace Tests.Core.UseCases
             Services.UserService,
             Services.PlayerService,
             Repos.Location,
-            Services.EventService,
+            Repos.Event,
             Repos.Bunch);
     }
 }

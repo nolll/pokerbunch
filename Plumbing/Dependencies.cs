@@ -21,7 +21,7 @@ namespace Plumbing
         private IBunchRepository _bunchRepository;
         private IAppRepository _appRepository;
         private CashgameService _cashgameService;
-        private EventService _eventService;
+        private IEventRepository _eventRepository;
         private PlayerService _playerService;
         private UserService _userService;
         private ITokenRepository _tokenRepository;
@@ -44,7 +44,7 @@ namespace Plumbing
         public IBunchRepository BunchRepository => _bunchRepository ?? (_bunchRepository = new ApiBunchRepository(Api));
         public IAppRepository AppRepository => _appRepository ?? (_appRepository = new AppRepository(Db, Cache));
         public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CashgameRepository(Db, Cache)));
-        public EventService EventService => _eventService ?? (_eventService = new EventService(new EventRepository(Db, Cache)));
+        public IEventRepository EventRepository => _eventRepository ?? (_eventRepository = new EventRepository(Db, Cache));
         public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new PlayerRepository(Db, Cache)));
         public UserService UserService => _userService ?? (_userService = new UserService(new UserRepository(Db, Cache)));
         public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));

@@ -13,16 +13,16 @@ namespace Core.UseCases
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
         private readonly ILocationRepository _locationRepository;
-        private readonly EventService _eventService;
+        private readonly IEventRepository _eventRepository;
 
-        public AddCashgameForm(IBunchRepository bunchRepository, CashgameService cashgameService, UserService userService, PlayerService playerService, ILocationRepository locationRepository, EventService eventService)
+        public AddCashgameForm(IBunchRepository bunchRepository, CashgameService cashgameService, UserService userService, PlayerService playerService, ILocationRepository locationRepository, IEventRepository eventRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
             _userService = userService;
             _playerService = playerService;
             _locationRepository = locationRepository;
-            _eventService = eventService;
+            _eventRepository = eventRepository;
         }
 
         public Result Execute(Request request)
@@ -38,7 +38,7 @@ namespace Core.UseCases
             }
             var locations = _locationRepository.List(bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
-            var events = _eventService.ListByBunch(bunch.Id);
+            var events = _eventRepository.ListByBunch(bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
             return new Result(locationItems, eventItems);
         }

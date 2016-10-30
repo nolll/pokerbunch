@@ -10,15 +10,15 @@ namespace Core.UseCases
     public class EventList
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly EventService _eventService;
+        private readonly IEventRepository _eventRepository;
         private readonly UserService _userService;
         private readonly PlayerService _playerService;
         private readonly ILocationRepository _locationRepository;
 
-        public EventList(IBunchRepository bunchRepository, EventService eventService, UserService userService, PlayerService playerService, ILocationRepository locationRepository)
+        public EventList(IBunchRepository bunchRepository, IEventRepository eventRepository, UserService userService, PlayerService playerService, ILocationRepository locationRepository)
         {
             _bunchRepository = bunchRepository;
-            _eventService = eventService;
+            _eventRepository = eventRepository;
             _userService = userService;
             _playerService = playerService;
             _locationRepository = locationRepository;
@@ -30,7 +30,7 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var events = _eventService.ListByBunch(bunch.Id);
+            var events = _eventRepository.ListByBunch(bunch.Id);
             var locations = _locationRepository.List(bunch.Id);
 
             var eventItems = events.OrderByDescending(o => o, new EventComparer()).Select(o => CreateEventItem(o, locations)).ToList();

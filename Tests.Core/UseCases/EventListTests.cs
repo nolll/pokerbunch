@@ -53,7 +53,7 @@ namespace Tests.Core.UseCases
 
         private EventList Sut => new EventList(
             Repos.Bunch,
-            Services.EventService,
+            Repos.Event,
             Services.UserService,
             Services.PlayerService,
             Repos.Location);

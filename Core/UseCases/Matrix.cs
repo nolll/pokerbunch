@@ -13,15 +13,15 @@ namespace Core.UseCases
         private readonly CashgameService _cashgameService;
         private readonly PlayerService _playerService;
         private readonly UserService _userService;
-        private readonly EventService _eventService;
+        private readonly IEventRepository _eventService;
 
-        public Matrix(IBunchRepository bunchRepository, CashgameService cashgameService, PlayerService playerService, UserService userService, EventService eventServicey)
+        public Matrix(IBunchRepository bunchRepository, CashgameService cashgameService, PlayerService playerService, UserService userService, IEventRepository eventRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
             _playerService = playerService;
             _userService = userService;
-            _eventService = eventServicey;
+            _eventService = eventRepository;
         }
 
         public Result Execute(Request request)

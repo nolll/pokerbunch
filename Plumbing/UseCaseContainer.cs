@@ -46,9 +46,9 @@ namespace Plumbing
         public JoinBunchConfirmation JoinBunchConfirmation => new JoinBunchConfirmation(_deps.BunchRepository, _deps.UserService, _deps.PlayerService);
 
         // Events
-        public EventList EventList => new EventList(_deps.BunchRepository, _deps.EventService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository);
-        public EventDetails EventDetails => new EventDetails(_deps.EventService, _deps.UserService, _deps.PlayerService, _deps.BunchRepository);
-        public AddEvent AddEvent => new AddEvent(_deps.BunchRepository, _deps.PlayerService, _deps.UserService, _deps.EventService);
+        public EventList EventList => new EventList(_deps.BunchRepository, _deps.EventRepository, _deps.UserService, _deps.PlayerService, _deps.LocationRepository);
+        public EventDetails EventDetails => new EventDetails(_deps.EventRepository, _deps.UserService, _deps.PlayerService, _deps.BunchRepository);
+        public AddEvent AddEvent => new AddEvent(_deps.BunchRepository, _deps.PlayerService, _deps.UserService, _deps.EventRepository);
 
         // Locations
         public LocationList LocationList => new LocationList(_deps.LocationRepository);
@@ -63,17 +63,17 @@ namespace Plumbing
         public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
         public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
         public CashgameList CashgameList => new CashgameList(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository);
-        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventService);
-        public AddCashgame AddCashgame => new AddCashgame(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventService);
+        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventRepository);
+        public AddCashgame AddCashgame => new AddCashgame(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventRepository);
         public Actions Actions => new Actions(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
         public ActionsChart ActionsChart => new ActionsChart(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService);
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService);
         public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.BunchRepository, _deps.UserService, _deps.PlayerService, _deps.CashgameService);
         public CashgameChart CashgameChart => new CashgameChart(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerService, _deps.UserService);
-        public Matrix Matrix => new Matrix(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.EventService);
+        public Matrix Matrix => new Matrix(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.EventRepository);
         public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerService, _deps.UserService, _deps.LocationRepository);
-        public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventService);
-        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventService, _deps.BunchRepository);
+        public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventRepository);
+        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService, _deps.UserService, _deps.PlayerService, _deps.LocationRepository, _deps.EventRepository, _deps.BunchRepository);
         public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameService, _deps.BunchRepository, _deps.UserService, _deps.PlayerService);
         public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameService, _deps.UserService, _deps.PlayerService);
         public Buyin Buyin => new Buyin(_deps.BunchRepository, _deps.PlayerService, _deps.CashgameService, _deps.UserService);
