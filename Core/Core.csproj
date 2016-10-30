@@ -78,7 +78,6 @@
     <Compile Include="Repositories\ILocationRepository.cs" />
     <Compile Include="Repositories\ITokenRepository.cs" />
     <Compile Include="Repositories\PlayerService.cs" />
-    <Compile Include="Repositories\UserService.cs" />
     <Compile Include="Services\ApplicationVersion.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\CheckpointService.cs" />
@@ -91,7 +90,6 @@
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
     <Compile Include="Services\Interfaces\IPlayerService.cs" />
     <Compile Include="Services\Interfaces\IRandomService.cs" />
-    <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />

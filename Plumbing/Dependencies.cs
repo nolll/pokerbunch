@@ -23,7 +23,7 @@ namespace Plumbing
         private CashgameService _cashgameService;
         private IEventRepository _eventRepository;
         private PlayerService _playerService;
-        private UserService _userService;
+        private IUserRepository _userRepository;
         private ITokenRepository _tokenRepository;
         private IRandomService _randomService;
         private IMessageSender _messageSender;
@@ -46,7 +46,7 @@ namespace Plumbing
         public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CashgameRepository(Db, Cache)));
         public IEventRepository EventRepository => _eventRepository ?? (_eventRepository = new EventRepository(Db, Cache));
         public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new PlayerRepository(Db, Cache)));
-        public UserService UserService => _userService ?? (_userService = new UserService(new UserRepository(Db, Cache)));
+        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(Db, Cache));
         public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());

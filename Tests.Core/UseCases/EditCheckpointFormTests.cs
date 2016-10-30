@@ -61,7 +61,7 @@ namespace Tests.Core.UseCases
         private EditCheckpointForm Sut => new EditCheckpointForm(
             Repos.Bunch,
             Services.CashgameService,
-            Services.UserService,
+            Repos.User,
             Services.PlayerService);
     }
 }

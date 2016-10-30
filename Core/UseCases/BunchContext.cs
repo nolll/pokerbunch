@@ -7,18 +7,18 @@ namespace Core.UseCases
 {
     public class BunchContext
     {
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
 
-        public BunchContext(UserService userService, IBunchRepository bunchRepository)
+        public BunchContext(IUserRepository userRepository, IBunchRepository bunchRepository)
         {
-            _userService = userService;
+            _userRepository = userRepository;
             _bunchRepository = bunchRepository;
         }
 
         public Result Execute(BunchRequest request)
         {
-            var appContext = new CoreContext(_userService).Execute(new CoreContext.Request(request.UserName));
+            var appContext = new CoreContext(_userRepository).Execute(new CoreContext.Request(request.UserName));
             var bunch = GetBunch(appContext, request);
             return GetResult(appContext, bunch);
         }

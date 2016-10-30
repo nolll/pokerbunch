@@ -9,14 +9,14 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly CashgameService _cashgameService;
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly PlayerService _playerService;
 
-        public EditCheckpointForm(IBunchRepository bunchRepository, CashgameService cashgameService, UserService userService, PlayerService playerService)
+        public EditCheckpointForm(IBunchRepository bunchRepository, CashgameService cashgameService, IUserRepository userRepository, PlayerService playerService)
         {
             _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
-            _userService = userService;
+            _userRepository = userRepository;
             _playerService = playerService;
         }
 
@@ -25,7 +25,7 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetByCheckpoint(request.CheckpointId);
             var checkpoint = cashgame.GetCheckpoint(request.CheckpointId);
             var bunch = _bunchRepository.Get(cashgame.BunchId);
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
             var stack = checkpoint.Stack;

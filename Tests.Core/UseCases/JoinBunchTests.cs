@@ -50,6 +50,6 @@ namespace Tests.Core.UseCases
         private JoinBunch Sut => new JoinBunch(
             Repos.Bunch,
             Services.PlayerService,
-            Services.UserService);
+            Repos.User);
     }
 }

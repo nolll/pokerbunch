@@ -1,20 +1,19 @@
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditUserForm
     {
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public EditUserForm(UserService userService)
+        public EditUserForm(IUserRepository userRepository)
         {
-            _userService = userService;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             var userName = user.UserName;
             var realName = user.RealName;
             var displayName = user.DisplayName;

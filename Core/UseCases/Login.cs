@@ -7,12 +7,12 @@ namespace Core.UseCases
 {
     public class Login
     {
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly ITokenRepository _tokenRepository;
 
-        public Login(UserService userService, ITokenRepository tokenRepository)
+        public Login(IUserRepository userRepository, ITokenRepository tokenRepository)
         {
-            _userService = userService;
+            _userRepository = userRepository;
             _tokenRepository = tokenRepository;
         }
 
@@ -32,7 +32,7 @@ namespace Core.UseCases
 
         private User GetLoggedInUser(string loginName, string password)
         {
-            var user = _userService.GetByNameOrEmail(loginName);
+            var user = _userRepository.GetByNameOrEmail(loginName);
             if (user == null)
                 return null;
             var encryptedPassword = EncryptionService.Encrypt(password, user.Salt);

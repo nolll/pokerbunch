@@ -127,7 +127,7 @@ namespace Tests.Core.UseCases
         private ActionsChart Sut => new ActionsChart(
             Repos.Bunch,
             Services.CashgameService,
-            Services.UserService,
+            Repos.User,
             Services.PlayerService);
     }
 }

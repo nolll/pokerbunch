@@ -10,14 +10,14 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly IEventRepository _eventRepository;
 
-        public AddEvent(IBunchRepository bunchRepository, PlayerService playerService, UserService userService, IEventRepository eventRepository)
+        public AddEvent(IBunchRepository bunchRepository, PlayerService playerService, IUserRepository userRepository, IEventRepository eventRepository)
         {
             _bunchRepository = bunchRepository;
             _playerService = playerService;
-            _userService = userService;
+            _userRepository = userRepository;
             _eventRepository = eventRepository;
         }
 
@@ -29,7 +29,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var bunch = _bunchRepository.Get(request.Slug);
-            var currentUser = _userService.GetByNameOrEmail(request.UserName);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
 

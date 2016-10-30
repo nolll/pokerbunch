@@ -8,12 +8,12 @@ namespace Core.UseCases
 {
     public class ChangePassword
     {
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly IRandomService _randomService;
 
-        public ChangePassword(UserService userService, IRandomService randomService)
+        public ChangePassword(IUserRepository userRepository, IRandomService randomService)
         {
-            _userService = userService;
+            _userRepository = userRepository;
             _randomService = randomService;
         }
 
@@ -28,10 +28,10 @@ namespace Core.UseCases
 
             var salt = SaltGenerator.CreateSalt(_randomService.GetAllowedChars());
             var encryptedPassword = EncryptionService.Encrypt(request.Password, salt);
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             user = CreateUser(user, encryptedPassword, salt);
 
-            _userService.Update(user);
+            _userRepository.Update(user);
         }
 
         private static User CreateUser(User user, string encryptedPassword, string salt)

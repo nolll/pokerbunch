@@ -52,7 +52,7 @@ namespace Tests.Core.UseCases
         private AddCashgame Sut => new AddCashgame(
             Repos.Bunch,
             Services.CashgameService,
-            Services.UserService,
+            Repos.User,
             Services.PlayerService,
             Repos.Location,
             Repos.Event);

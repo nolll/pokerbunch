@@ -33,7 +33,7 @@ namespace Tests.Core.UseCases.LoginTests
             userRepositoryMock.Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
             tokenRepositoryMock.Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
 
-            Sut = new Login(new UserService(userRepositoryMock.Object), tokenRepositoryMock.Object);
+            Sut = new Login(userRepositoryMock.Object, tokenRepositoryMock.Object);
         }
 
         protected Login.Result Execute()

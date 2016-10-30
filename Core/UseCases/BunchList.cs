@@ -9,17 +9,17 @@ namespace Core.UseCases
     public class BunchList
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public BunchList(IBunchRepository bunchRepository, UserService userService)
+        public BunchList(IBunchRepository bunchRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
-            _userService = userService;
+            _userRepository = userRepository;
         }
 
         public Result Execute(AllBunchesRequest request)
         {
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             RequireRole.Admin(user);
 
             var bunches = _bunchRepository.List();
@@ -28,7 +28,7 @@ namespace Core.UseCases
 
         public Result Execute(UserBunchesRequest request)
         {
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             var homegames = user != null ? _bunchRepository.ListForUser() : new List<SmallBunch>();
             
             return new Result(homegames);

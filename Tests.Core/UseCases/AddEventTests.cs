@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases
         private AddEvent Sut => new AddEvent(
             Repos.Bunch,
             Services.PlayerService,
-            Services.UserService,
+            Repos.User,
             Repos.Event);
     }
 }

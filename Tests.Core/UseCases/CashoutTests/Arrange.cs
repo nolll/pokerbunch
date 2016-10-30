@@ -39,7 +39,7 @@ namespace Tests.Core.UseCases.CashoutTests
             MockOf<IBunchRepository>().Setup(s => s.Get(BunchId)).Returns(new Bunch(BunchId, BunchId));
             MockOf<ICashgameService>().Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
             MockOf<IPlayerService>().Setup(s => s.GetByUserId(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
-            MockOf<IUserService>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
+            MockOf<IUserRepository>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
 
             MockOf<ICashgameService>().Setup(o => o.UpdateGame(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
         }

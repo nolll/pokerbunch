@@ -9,16 +9,16 @@ namespace Core.UseCases
     public class EditCashgame
     {
         private readonly CashgameService _cashgameService;
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly PlayerService _playerService;
         private readonly ILocationRepository _locationRepository;
         private readonly IEventRepository _eventRepository;
         private readonly IBunchRepository _bunchRepository;
 
-        public EditCashgame(CashgameService cashgameService, UserService userService, PlayerService playerService, ILocationRepository locationRepository, IEventRepository eventRepository, IBunchRepository bunchRepository)
+        public EditCashgame(CashgameService cashgameService, IUserRepository userRepository, PlayerService playerService, ILocationRepository locationRepository, IEventRepository eventRepository, IBunchRepository bunchRepository)
         {
             _cashgameService = cashgameService;
-            _userService = userService;
+            _userRepository = userRepository;
             _playerService = playerService;
             _locationRepository = locationRepository;
             _eventRepository = eventRepository;
@@ -32,7 +32,7 @@ namespace Core.UseCases
                 throw new ValidationException(validator);
 
             var cashgame = _cashgameService.GetById(request.Id);
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             var bunch = _bunchRepository.Get(cashgame.BunchId);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);

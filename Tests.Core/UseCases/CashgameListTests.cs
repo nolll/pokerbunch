@@ -170,7 +170,7 @@ namespace Tests.Core.UseCases
         private CashgameList Sut => new CashgameList(
             Repos.Bunch,
             Services.CashgameService,
-            Services.UserService,
+            Repos.User,
             Services.PlayerService,
             Repos.Location);
     }

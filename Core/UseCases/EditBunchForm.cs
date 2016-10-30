@@ -7,20 +7,20 @@ namespace Core.UseCases
     public class EditBunchForm
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly PlayerService _playerService;
 
-        public EditBunchForm(IBunchRepository bunchRepository, UserService userService, PlayerService playerService)
+        public EditBunchForm(IBunchRepository bunchRepository, IUserRepository userRepository, PlayerService playerService)
         {
             _bunchRepository = bunchRepository;
-            _userService = userService;
+            _userRepository = userRepository;
             _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerService.GetByUserId(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
             var heading = string.Format("{0} Settings", bunch.DisplayName);

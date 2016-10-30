@@ -42,7 +42,7 @@ namespace Tests.Core.UseCases
         private DeleteCashgame Sut => new DeleteCashgame(
             Services.CashgameService,
             Repos.Bunch,
-            Services.UserService,
+            Repos.User,
             Services.PlayerService);
     }
 }

@@ -55,7 +55,7 @@ namespace Tests.Core.UseCases
 
         private EditCheckpoint Sut => new EditCheckpoint(
             Repos.Bunch,
-            Services.UserService,
+            Repos.User,
             Services.PlayerService,
             Services.CashgameService);
     }

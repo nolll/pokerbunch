@@ -104,6 +104,6 @@ namespace Tests.Core.UseCases
             Repos.Bunch,
             Services.PlayerService,
             Services.CashgameService,
-            Services.UserService);
+            Repos.User);
     }
 }

@@ -8,20 +8,20 @@ namespace Core.UseCases
 {
     public class CashgameContext
     {
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
         private readonly IBunchRepository _bunchRepository;
         private readonly CashgameService _cashgameService;
 
-        public CashgameContext(UserService userService, IBunchRepository bunchRepository, CashgameService cashgameService)
+        public CashgameContext(IUserRepository userRepository, IBunchRepository bunchRepository, CashgameService cashgameService)
         {
-            _userService = userService;
+            _userRepository = userRepository;
             _bunchRepository = bunchRepository;
             _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var bunchContextResult = new BunchContext(_userService, _bunchRepository).Execute(request);
+            var bunchContextResult = new BunchContext(_userRepository, _bunchRepository).Execute(request);
             var runningGame = _cashgameService.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;

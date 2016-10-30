@@ -9,19 +9,19 @@ namespace Core.UseCases
     public class AddApp
     {
         private readonly IAppRepository _appRepository;
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public AddApp(IAppRepository appRepository, UserService userService)
+        public AddApp(IAppRepository appRepository, IUserRepository userRepository)
         {
             _appRepository = appRepository;
-            _userService = userService;
+            _userRepository = userRepository;
         }
 
         public void Execute(Request request)
         {
             var appName = request.AppName;
             var apiKey = Guid.NewGuid().ToString();
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
 
             var app = new App("", apiKey, appName, user.Id);
 

@@ -9,22 +9,22 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly PlayerService _playerService;
         private readonly CashgameService _cashgameService;
-        private readonly UserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public PlayerDetails(IBunchRepository bunchRepository,  PlayerService playerService, CashgameService cashgameService, UserService userService)
+        public PlayerDetails(IBunchRepository bunchRepository,  PlayerService playerService, CashgameService cashgameService, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _playerService = playerService;
             _cashgameService = cashgameService;
-            _userService = userService;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
             var player = _playerService.Get(request.PlayerId);
             var bunch = _bunchRepository.Get(player.BunchId);
-            var user = _userService.GetById(player.UserId);
-            var currentUser = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetById(player.UserId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
             var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
             var isManager = RoleHandler.IsInRole(currentUser, currentPlayer, Role.Manager);
