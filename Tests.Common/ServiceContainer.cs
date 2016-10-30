@@ -12,7 +12,6 @@ namespace Tests.Common
         public EventService EventService { get; }
         public PlayerService PlayerService { get; }
         public AppService AppService { get; }
-        public AuthService AuthService { get; }
 
         public ServiceContainer(RepositoryContainer repos)
         {
@@ -23,7 +22,6 @@ namespace Tests.Common
             EventService = new EventService(repos.Event);
             PlayerService = new PlayerService(repos.Player);
             AppService = new AppService(repos.App);
-            AuthService = new AuthService(repos.Token);
         }
 
         public void Clear()

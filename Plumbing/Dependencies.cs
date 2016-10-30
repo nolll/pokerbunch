@@ -25,7 +25,7 @@ namespace Plumbing
         private EventService _eventService;
         private PlayerService _playerService;
         private UserService _userService;
-        private AuthService _authService;
+        private ITokenRepository _tokenRepository;
         private IRandomService _randomService;
         private IMessageSender _messageSender;
                 
@@ -48,7 +48,7 @@ namespace Plumbing
         public EventService EventService => _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(Db), Cache)));
         public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(Db), Cache)));
         public UserService UserService => _userService ?? (_userService = new UserService(new CachedUserRepository(new SqlUserRepository(Db), Cache)));
-        public AuthService AuthService => _authService ?? (_authService = new AuthService(new ApiTokenRepository(Api)));
+        public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());
         public ICacheContainer Cache { get; }

@@ -1,5 +1,6 @@
 using Core.Entities;
 using Core.Exceptions;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
@@ -7,12 +8,12 @@ namespace Core.UseCases
     public class Login
     {
         private readonly UserService _userService;
-        private readonly AuthService _authService;
+        private readonly ITokenRepository _tokenRepository;
 
-        public Login(UserService userService, AuthService authService)
+        public Login(UserService userService, ITokenRepository tokenRepository)
         {
             _userService = userService;
-            _authService = authService;
+            _tokenRepository = tokenRepository;
         }
 
         public Result Execute(Request request)
@@ -22,7 +23,7 @@ namespace Core.UseCases
             if (user == null)
                 throw new LoginException();
 
-            var token = _authService.GetToken(request.LoginName, request.Password);
+            var token = _tokenRepository.Get(request.LoginName, request.Password);
             if(string.IsNullOrEmpty(token))
                 throw new LoginException();
 

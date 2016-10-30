@@ -19,7 +19,7 @@ namespace Plumbing
 
         // Auth and Home
         public LoginForm LoginForm => new LoginForm();
-        public Login Login => new Login(_deps.UserService, _deps.AuthService);
+        public Login Login => new Login(_deps.UserService, _deps.TokenRepository);
 
         // Admin
         public TestEmail TestEmail => new TestEmail(_deps.MessageSender, _deps.UserService);
