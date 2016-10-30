@@ -33,7 +33,7 @@ namespace Core.Services
             return _userRepository.Get(ids);
         }
         
-        public void Save(User user)
+        public void Update(User user)
         {
             _userRepository.Update(user);
         }

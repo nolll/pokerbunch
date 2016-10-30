@@ -35,7 +35,7 @@ namespace Tests.Common.FakeRepositories
             return _list.Select(o => (SmallBunch)o).ToList();
         }
 
-        public IList<SmallBunch> List(string userName)
+        public IList<SmallBunch> ListForUser()
         {
             return _list.Select(o => (SmallBunch)o).ToList();
         }

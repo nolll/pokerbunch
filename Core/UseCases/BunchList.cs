@@ -29,7 +29,7 @@ namespace Core.UseCases
         public Result Execute(UserBunchesRequest request)
         {
             var user = _userService.GetByNameOrEmail(request.UserName);
-            var homegames = user != null ? _bunchRepository.List(user.Id) : new List<SmallBunch>();
+            var homegames = user != null ? _bunchRepository.ListForUser() : new List<SmallBunch>();
             
             return new Result(homegames);
         }

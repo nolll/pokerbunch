@@ -28,7 +28,7 @@ namespace Infrastructure.Storage.Repositories
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
-        public IList<SmallBunch> List(string userName)
+        public IList<SmallBunch> ListForUser()
         {
             var apiBunches = _apiConnection.Get<IList<ApiSmallBunch>>("user/bunches");
             return apiBunches.Select(ToSmallBunch).ToList();

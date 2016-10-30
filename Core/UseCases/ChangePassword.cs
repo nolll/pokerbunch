@@ -30,7 +30,7 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             user = CreateUser(user, encryptedPassword, salt);
 
-            _userService.Save(user);
+            _userService.Update(user);
         }
 
         private static User CreateUser(User user, string encryptedPassword, string salt)

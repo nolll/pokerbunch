@@ -23,7 +23,7 @@ namespace Core.UseCases
             var user = _userService.GetByNameOrEmail(request.UserName);
             var userToSave = GetUser(user, request);
 
-            _userService.Save(userToSave);
+            _userService.Update(userToSave);
 
             return new Result(userToSave.UserName, userToSave.Id);
         }

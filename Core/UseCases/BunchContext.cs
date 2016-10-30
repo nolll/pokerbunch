@@ -47,7 +47,7 @@ namespace Core.UseCases
                     return null;
                 }
             }
-            var bunches = _bunchRepository.List(appContext.UserId);
+            var bunches = _bunchRepository.ListForUser();
             return bunches.Count == 1 ? bunches[0] : null;
         }
 

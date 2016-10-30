@@ -7,7 +7,7 @@ namespace Core.Repositories
     {
         Bunch Get(string id);
         IList<SmallBunch> List();
-        IList<SmallBunch> List(string userName);
+        IList<SmallBunch> ListForUser();
         Bunch Add(Bunch bunch);
         Bunch Update(Bunch bunch);
     }

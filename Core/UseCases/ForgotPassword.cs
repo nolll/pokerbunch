@@ -35,7 +35,7 @@ namespace Core.UseCases
 
             user.SetPassword(encryptedPassword, salt);
 
-            _userService.Save(user);
+            _userService.Update(user);
             
             var message = new ForgotPasswordMessage(password, request.LoginUrl);
             _messageSender.Send(request.Email, message);
