@@ -1,19 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Infrastructure.Storage.Interfaces;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.SqlDb
 {
-    public class SqlAppRepository : IAppRepository
+    public class SqlAppDb
     {
         private const string DataSql = "SELECT a.ID, a.AppKey, a.Name, a.UserId FROM [App] a ";
         private const string SearchSql = "SELECT a.ID FROM [App] a ";
 
         private readonly SqlServerStorageProvider _db;
 
-        public SqlAppRepository(SqlServerStorageProvider db)
+        public SqlAppDb(SqlServerStorageProvider db)
         {
             _db = db;
         }

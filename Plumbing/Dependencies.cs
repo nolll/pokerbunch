@@ -3,7 +3,6 @@ using Core.Repositories;
 using Core.Services;
 using Infrastructure;
 using Infrastructure.Storage;
-using Infrastructure.Storage.CachedRepositories;
 using Infrastructure.Storage.Repositories;
 using Infrastructure.Web;
 
@@ -43,11 +42,11 @@ namespace Plumbing
 
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(Api));
         public IBunchRepository BunchRepository => _bunchRepository ?? (_bunchRepository = new ApiBunchRepository(Api));
-        public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(Db), Cache)));
-        public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CachedCashgameRepository(new SqlCashgameRepository(Db), Cache)));
-        public EventService EventService => _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(Db), Cache)));
-        public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(Db), Cache)));
-        public UserService UserService => _userService ?? (_userService = new UserService(new CachedUserRepository(new SqlUserRepository(Db), Cache)));
+        public AppService AppService => _appService ?? (_appService = new AppService(new AppRepository(Db, Cache)));
+        public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CashgameRepository(Db, Cache)));
+        public EventService EventService => _eventService ?? (_eventService = new EventService(new EventRepository(Db, Cache)));
+        public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new PlayerRepository(Db, Cache)));
+        public UserService UserService => _userService ?? (_userService = new UserService(new UserRepository(Db, Cache)));
         public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());

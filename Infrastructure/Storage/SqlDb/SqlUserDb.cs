@@ -5,16 +5,16 @@ using Core.Repositories;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.SqlDb
 {
-    public class SqlUserRepository : IUserRepository
+    public class SqlUserDb : IUserRepository
     {
         private const string DataSql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ";
         private const string SearchSql = "SELECT u.UserID FROM [User] u ";
         
         private readonly SqlServerStorageProvider _db;
 
-        public SqlUserRepository(SqlServerStorageProvider db)
+        public SqlUserDb(SqlServerStorageProvider db)
         {
             _db = db;
         }

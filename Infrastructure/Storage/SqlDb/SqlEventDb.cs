@@ -5,9 +5,9 @@ using Core.Repositories;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.SqlDb
 {
-    public class SqlEventRepository : IEventRepository
+    public class SqlEventDb : IEventRepository
     {
         private const string EventSql = @"SELECT e.EventID, h.Name AS Slug, e.BunchID, e.Name, g.LocationId, g.Date
                                         FROM [Event] e
@@ -19,7 +19,7 @@ namespace Infrastructure.Storage.Repositories
 
         private readonly SqlServerStorageProvider _db;
 
-        public SqlEventRepository(SqlServerStorageProvider db)
+        public SqlEventDb(SqlServerStorageProvider db)
         {
             _db = db;
         }

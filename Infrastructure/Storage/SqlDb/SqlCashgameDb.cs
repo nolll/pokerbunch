@@ -7,9 +7,9 @@ using Core.Repositories;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.SqlDb
 {
-    public class SqlCashgameRepository : ICashgameRepository
+    public class SqlCashgameDb : ICashgameRepository
     {
         private const string DataSql = "SELECT g.GameID, h.Name as Slug, g.HomegameID, g.LocationId, g.Status, g.Date FROM game g JOIN Homegame h ON g.HomegameID = h.HomegameID ";
         private const string SearchSql = "SELECT g.GameID FROM game g ";
@@ -17,7 +17,7 @@ namespace Infrastructure.Storage.Repositories
         
         private readonly SqlServerStorageProvider _db;
 
-	    public SqlCashgameRepository(SqlServerStorageProvider db)
+	    public SqlCashgameDb(SqlServerStorageProvider db)
 	    {
 	        _db = db;
 	    }

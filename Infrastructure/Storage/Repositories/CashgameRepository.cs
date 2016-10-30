@@ -3,74 +3,75 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
+using Infrastructure.Storage.SqlDb;
 
-namespace Infrastructure.Storage.CachedRepositories
+namespace Infrastructure.Storage.Repositories
 {
-    public class CachedCashgameRepository : ICashgameRepository
+    public class CashgameRepository : ICashgameRepository
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly SqlCashgameDb _cashgameDb;
         private readonly ICacheContainer _cacheContainer;
 
-        public CachedCashgameRepository(ICashgameRepository cashgameRepository, ICacheContainer cacheContainer)
+        public CashgameRepository(SqlServerStorageProvider db, ICacheContainer cacheContainer)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameDb = new SqlCashgameDb(db);
             _cacheContainer = cacheContainer;
         }
 
         public Cashgame Get(string cashgameId)
         {
-            return _cacheContainer.GetAndStore(_cashgameRepository.Get, cashgameId, TimeSpan.FromMinutes(CacheTime.Long));
+            return _cacheContainer.GetAndStore(_cashgameDb.Get, cashgameId, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<Cashgame> Get(IList<string> ids)
         {
-            return _cacheContainer.GetAndStore(_cashgameRepository.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
+            return _cacheContainer.GetAndStore(_cashgameDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<string> FindFinished(string bunchId, int? year = null)
         {
-            return _cashgameRepository.FindFinished(bunchId, year);
+            return _cashgameDb.FindFinished(bunchId, year);
         }
 
         public IList<string> FindByEvent(string eventId)
         {
-            return _cashgameRepository.FindByEvent(eventId);
+            return _cashgameDb.FindByEvent(eventId);
         }
 
         public IList<string> FindByPlayerId(string playerId)
         {
-            return _cashgameRepository.FindByPlayerId(playerId);
+            return _cashgameDb.FindByPlayerId(playerId);
         }
 
         public IList<string> FindRunning(string bunchId)
         {
-            return _cashgameRepository.FindRunning(bunchId);
+            return _cashgameDb.FindRunning(bunchId);
         }
 
         public IList<string> FindByCheckpoint(string checkpointId)
         {
-            return _cashgameRepository.FindByCheckpoint(checkpointId);
+            return _cashgameDb.FindByCheckpoint(checkpointId);
         }
 
         public IList<int> GetYears(string bunchId)
         {
-            return _cashgameRepository.GetYears(bunchId);
+            return _cashgameDb.GetYears(bunchId);
         }
 
         public void DeleteGame(string id)
         {
-            _cashgameRepository.DeleteGame(id);
+            _cashgameDb.DeleteGame(id);
             _cacheContainer.Remove<Cashgame>(id);
         }
 
         public string AddGame(Bunch bunch, Cashgame cashgame)
         {
-            return _cashgameRepository.AddGame(bunch, cashgame);
+            return _cashgameDb.AddGame(bunch, cashgame);
         }
 
         public void UpdateGame(Cashgame cashgame)
         {
-            _cashgameRepository.UpdateGame(cashgame);
+            _cashgameDb.UpdateGame(cashgame);
             _cacheContainer.Remove<Cashgame>(cashgame.Id);
         }
     }
