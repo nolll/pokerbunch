@@ -7,7 +7,7 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.SqlDb
 {
-	public class SqlPlayerDb : IPlayerRepository
+	public class SqlPlayerDb
     {
         private const string DataSql = "SELECT p.HomegameID, h.Name as Slug, p.PlayerID, p.UserID, p.RoleID, ISNULL(p.PlayerName, u.DisplayName) AS PlayerName, p.Color FROM player p LEFT JOIN [user] u ON u.UserID = p.UserID JOIN homegame h ON h.HomegameId = p.HomegameId ";
         private const string SearchSql = "SELECT p.PlayerID FROM player p ";

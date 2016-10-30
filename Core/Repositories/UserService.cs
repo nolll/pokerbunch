@@ -16,21 +16,17 @@ namespace Core.Repositories
 
         public User GetById(string id)
         {
-            return _userRepository.Get(id);
+            return _userRepository.GetById(id);
         }
 
         public User GetByNameOrEmail(string nameOrEmail)
         {
-            var ids = _userRepository.Find(nameOrEmail);
-            if (ids.Any())
-                return _userRepository.Get(ids.First());
-            return null;
+            return _userRepository.GetByNameOrEmail(nameOrEmail);
         }
 
-        public IList<User> GetList()
+        public IList<User> List()
         {
-            var ids = _userRepository.Find();
-            return _userRepository.Get(ids);
+            return _userRepository.List();
         }
         
         public void Update(User user)

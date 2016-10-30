@@ -7,7 +7,7 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.SqlDb
 {
-    public class SqlUserDb : IUserRepository
+    public class SqlUserDb
     {
         private const string DataSql = "SELECT u.UserID, u.UserName, u.DisplayName, u.RealName, u.Email, u.Password, u.Salt, u.RoleID FROM [User] u ";
         private const string SearchSql = "SELECT u.UserID FROM [User] u ";

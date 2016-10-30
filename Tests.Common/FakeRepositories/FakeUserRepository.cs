@@ -16,7 +16,7 @@ namespace Tests.Common.FakeRepositories
             _list = CreateList();
         }
 
-        public User Get(string id)
+        public User GetById(string id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }
@@ -26,14 +26,14 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<string> Find()
+        public IList<User> List()
         {
-            return _list.Select(o => o.Id).ToList();
+            return _list;
         }
 
-        public IList<string> Find(string nameOrEmail)
+        public User GetByNameOrEmail(string nameOrEmail)
         {
-            return _list.Where(o => o.UserName == nameOrEmail || o.Email == nameOrEmail).Select(o => o.Id).ToList();
+            return _list.FirstOrDefault(o => o.UserName == nameOrEmail || o.Email == nameOrEmail);
         }
 
         public string Add(User user)

@@ -7,7 +7,7 @@ namespace Core.Services
     {
         User GetById(string id);
         User GetByNameOrEmail(string nameOrEmail);
-        IList<User> GetList();
+        IList<User> List();
         void Update(User user);
         string Add(User user);
     }

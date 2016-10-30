@@ -9,7 +9,7 @@ using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.SqlDb
 {
-    public class SqlCashgameDb : ICashgameRepository
+    public class SqlCashgameDb
     {
         private const string DataSql = "SELECT g.GameID, h.Name as Slug, g.HomegameID, g.LocationId, g.Status, g.Date FROM game g JOIN Homegame h ON g.HomegameID = h.HomegameID ";
         private const string SearchSql = "SELECT g.GameID FROM game g ";

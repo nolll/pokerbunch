@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
@@ -18,7 +19,7 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer = cacheContainer;
         }
 
-        public User Get(string id)
+        public User GetById(string id)
         {
             return _cacheContainer.GetAndStore(_userDb.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
@@ -28,14 +29,18 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(_userDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
         
-        public IList<string> Find()
+        public IList<User> List()
         {
-            return _userDb.Find();
+            var ids = _userDb.Find();
+            return Get(ids);
         }
 
-        public IList<string> Find(string nameOrEmail)
+        public User GetByNameOrEmail(string nameOrEmail)
         {
-            return _userDb.Find(nameOrEmail);
+            var ids = _userDb.Find(nameOrEmail);
+            if (ids.Any())
+                return GetById(ids.First());
+            return null;
         }
 
         public void Update(User user)

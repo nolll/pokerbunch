@@ -26,11 +26,11 @@ namespace Tests.Core.UseCases.LoginTests
         [SetUp]
         public void Setup()
         {
+            var user = new User(ExistingUserId, ExistingUser, "description", "real-name", "test@example.com", Role.None, EncryptedCorrectPassword, Salt);
+
             var userRepositoryMock = new Mock<IUserRepository>();
             var tokenRepositoryMock = new Mock<ITokenRepository>();
-            userRepositoryMock.Setup(s => s.Find(ExistingUser)).Returns(new List<string> { ExistingUserId });
-            userRepositoryMock.Setup(s => s.Find(UnknownUser)).Returns(new List<string>());
-            userRepositoryMock.Setup(s => s.Get(ExistingUserId)).Returns(new User(ExistingUserId, ExistingUser, "description", "real-name", "test@example.com", Role.None, EncryptedCorrectPassword, Salt));
+            userRepositoryMock.Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
             tokenRepositoryMock.Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
 
             Sut = new Login(new UserService(userRepositoryMock.Object), tokenRepositoryMock.Object);
