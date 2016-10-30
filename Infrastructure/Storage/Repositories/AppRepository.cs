@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage.SqlDb;
@@ -18,7 +20,7 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer = cacheContainer;
         }
         
-        public App Get(string id)
+        public App GetById(string id)
         {
             return _cacheContainer.GetAndStore(_appDb.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
@@ -28,19 +30,24 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(_appDb.GetList, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<string> Find()
+        public IList<App> List()
         {
-            return _appDb.Find();
+            var ids = _appDb.Find();
+            return GetList(ids);
         }
 
-        public IList<string> FindByUser(string userId)
+        public IList<App> ListByUser(string userId)
         {
-            return _appDb.FindByUser(userId);
+            var ids = _appDb.FindByUser(userId);
+            return GetList(ids);
         }
 
-        public IList<string> FindByAppKey(string appKey)
+        public App GetByAppKey(string appKey)
         {
-            return _appDb.FindByAppKey(appKey);
+            var ids = _appDb.FindByAppKey(appKey);
+            if (ids.Count == 0)
+                throw new AppNotFoundException();
+            return GetById(ids.First());
         }
 
         public string Add(App app)

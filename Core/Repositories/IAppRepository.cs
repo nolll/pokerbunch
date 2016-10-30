@@ -5,11 +5,11 @@ namespace Core.Repositories
 {
     public interface IAppRepository
     {
-        App Get(string id);
+        App GetById(string id);
         IList<App> GetList(IList<string> ids);
-        IList<string> Find();
-        IList<string> FindByUser(string userId);
-        IList<string> FindByAppKey(string appKey);
+        IList<App> List();
+        IList<App> ListByUser(string userId);
+        App GetByAppKey(string appKey);
         string Add(App app);
         void Update(App app);
     }

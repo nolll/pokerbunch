@@ -20,7 +20,7 @@ namespace Core.UseCases
         {
             var user = _userService.GetByNameOrEmail(request.CurrentUserName);
             RequireRole.Admin(user);
-            var apps = _appService.ListApps();
+            var apps = _appService.List();
 
             return new Result(apps);
         }
@@ -28,7 +28,7 @@ namespace Core.UseCases
         public Result Execute(UserAppsRequest request)
         {
             var user = _userService.GetByNameOrEmail(request.CurrentUserName);
-            var apps = _appService.ListApps(user.Id);
+            var apps = _appService.ListByUser(user.Id);
 
             return new Result(apps);
         }
