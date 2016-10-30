@@ -1,19 +1,19 @@
-﻿using Core.Services;
+﻿using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class AppDetails
     {
-        private readonly AppService _appService;
+        private readonly IAppRepository _appRepository;
         
-        public AppDetails(AppService appService)
+        public AppDetails(IAppRepository appRepository)
         {
-            _appService = appService;
+            _appRepository = appRepository;
         }
 
         public Result Execute(Request request)
         {
-            var app = _appService.GetById(request.AppId);
+            var app = _appRepository.GetById(request.AppId);
 
             return new Result(app.Id, app.AppKey, app.Name);
         }

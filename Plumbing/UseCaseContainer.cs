@@ -93,9 +93,9 @@ namespace Plumbing
         public DeletePlayer DeletePlayer => new DeletePlayer(_deps.PlayerService, _deps.CashgameService, _deps.UserService, _deps.BunchRepository);
 
         // Apps
-        public AppDetails AppDetails => new AppDetails(_deps.AppService);
-        public VerifyAppKey VerifyAppKey => new VerifyAppKey(_deps.AppService);
-        public AppList AppList => new AppList(_deps.AppService, _deps.UserService);
-        public AddApp AddApp => new AddApp(_deps.AppService, _deps.UserService);
+        public AppDetails AppDetails => new AppDetails(_deps.AppRepository);
+        public VerifyAppKey VerifyAppKey => new VerifyAppKey(_deps.AppRepository);
+        public AppList AppList => new AppList(_deps.AppRepository, _deps.UserService);
+        public AddApp AddApp => new AddApp(_deps.AppRepository, _deps.UserService);
     }
 }

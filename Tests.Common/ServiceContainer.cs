@@ -1,4 +1,5 @@
-﻿using Core.Services;
+﻿using Core.Repositories;
+using Core.Services;
 using Tests.Common.FakeServices;
 
 namespace Tests.Common
@@ -11,7 +12,6 @@ namespace Tests.Common
         public UserService UserService { get; }
         public EventService EventService { get; }
         public PlayerService PlayerService { get; }
-        public AppService AppService { get; }
 
         public ServiceContainer(RepositoryContainer repos)
         {
@@ -21,7 +21,6 @@ namespace Tests.Common
             UserService = new UserService(repos.User);
             EventService = new EventService(repos.Event);
             PlayerService = new PlayerService(repos.Player);
-            AppService = new AppService(repos.App);
         }
 
         public void Clear()

@@ -73,17 +73,17 @@
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="IMessage.cs" />
+    <Compile Include="Repositories\EventService.cs" />
     <Compile Include="Repositories\IAppRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Repositories\ILocationRepository.cs" />
-    <Compile Include="Repositories\IRepositoryFactory.cs" />
     <Compile Include="Repositories\ITokenRepository.cs" />
+    <Compile Include="Repositories\PlayerService.cs" />
+    <Compile Include="Repositories\UserService.cs" />
     <Compile Include="Services\ApplicationVersion.cs" />
-    <Compile Include="Services\AppService.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\CheckpointService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
-    <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\Interfaces\ICacheContainer.cs" />
@@ -96,7 +96,6 @@
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
-    <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\RandomService.cs" />
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
@@ -106,7 +105,6 @@
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
-    <Compile Include="Services\UserService.cs" />
     <Compile Include="UseCases\ActionsChart.cs" />
     <Compile Include="UseCases\Actions.cs" />
     <Compile Include="UseCases\AddApp.cs" />

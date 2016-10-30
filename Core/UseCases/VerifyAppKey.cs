@@ -1,22 +1,22 @@
 ﻿using Core.Exceptions;
-using Core.Services;
+using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class VerifyAppKey
     {
-        private readonly AppService _appService;
+        private readonly IAppRepository _appRepository;
 
-        public VerifyAppKey(AppService appService)
+        public VerifyAppKey(IAppRepository appRepository)
         {
-            _appService = appService;
+            _appRepository = appRepository;
         }
 
         public Result Execute(Request request)
         {
             try
             {
-                _appService.GetByAppKey(request.AppKey);
+                _appRepository.GetByAppKey(request.AppKey);
                 return new ValidResult();
             }
             catch (AppNotFoundException)

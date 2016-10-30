@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 
-namespace Core.Services
+namespace Core.Repositories
 {
     public class EventService
     {

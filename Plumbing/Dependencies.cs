@@ -19,7 +19,7 @@ namespace Plumbing
 
         private ILocationRepository _locationRepository;
         private IBunchRepository _bunchRepository;
-        private AppService _appService;
+        private IAppRepository _appRepository;
         private CashgameService _cashgameService;
         private EventService _eventService;
         private PlayerService _playerService;
@@ -42,7 +42,7 @@ namespace Plumbing
 
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(Api));
         public IBunchRepository BunchRepository => _bunchRepository ?? (_bunchRepository = new ApiBunchRepository(Api));
-        public AppService AppService => _appService ?? (_appService = new AppService(new AppRepository(Db, Cache)));
+        public IAppRepository AppRepository => _appRepository ?? (_appRepository = new AppRepository(Db, Cache));
         public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CashgameRepository(Db, Cache)));
         public EventService EventService => _eventService ?? (_eventService = new EventService(new EventRepository(Db, Cache)));
         public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new PlayerRepository(Db, Cache)));
