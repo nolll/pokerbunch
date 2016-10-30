@@ -38,7 +38,7 @@ namespace Core.UseCases
             }
             var locations = _locationRepository.List(bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
-            var events = _eventService.GetByBunch(bunch.Id);
+            var events = _eventService.ListByBunch(bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
             return new Result(locationItems, eventItems);
         }

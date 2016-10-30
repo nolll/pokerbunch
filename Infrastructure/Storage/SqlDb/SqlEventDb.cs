@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
 namespace Infrastructure.Storage.SqlDb
 {
-    public class SqlEventDb : IEventRepository
+    public class SqlEventDb
     {
         private const string EventSql = @"SELECT e.EventID, h.Name AS Slug, e.BunchID, e.Name, g.LocationId, g.Date
                                         FROM [Event] e

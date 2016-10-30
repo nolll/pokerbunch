@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Core.Entities;
 
 namespace Core.Repositories
@@ -13,16 +12,14 @@ namespace Core.Repositories
             _eventRepository = eventRepository;
         }
 
-        public IList<Event> GetByBunch(string bunchId)
+        public IList<Event> ListByBunch(string bunchId)
         {
-            var ids = _eventRepository.FindByBunchId(bunchId);
-            return _eventRepository.Get(ids);
+            return _eventRepository.ListByBunch(bunchId);
         }
 
         public Event GetByCashgame(string bunchId)
         {
-            var ids = _eventRepository.FindByCashgameId(bunchId);
-            return _eventRepository.Get(ids).FirstOrDefault();
+            return _eventRepository.GetByCashgame(bunchId);
         }
 
         public Event Get(string eventId)
