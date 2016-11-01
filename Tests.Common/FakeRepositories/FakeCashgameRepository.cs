@@ -29,14 +29,14 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<string> FindFinished(string bunchId, int? year = null)
+        public IList<Cashgame> ListFinished(string bunchId, int? year = null)
         {
             if (year.HasValue)
-                return _list.Where(o => o.StartTime.HasValue && o.StartTime.Value.Year == year && o.Status == GameStatus.Finished).Select(o => o.Id).ToList();
-            return _list.Where(o => o.Status == GameStatus.Finished).Select(o => o.Id).ToList();
+                return _list.Where(o => o.StartTime.HasValue && o.StartTime.Value.Year == year && o.Status == GameStatus.Finished).ToList();
+            return _list.Where(o => o.Status == GameStatus.Finished).ToList();
         }
 
-        public IList<string> FindByEvent(string eventId)
+        public IList<Cashgame> ListByEvent(string eventId)
         {
             throw new NotImplementedException();
         }
@@ -54,14 +54,14 @@ namespace Tests.Common.FakeRepositories
             return ids;
         }
 
-        public IList<string> FindRunning(string bunchId)
+        public Cashgame GetRunning(string bunchId)
         {
-            return _list.Where(o => o.Status == GameStatus.Running).Select(o => o.Id).ToList();
+            return _list.FirstOrDefault(o => o.Status == GameStatus.Running);
         }
 
-        public IList<string> FindByCheckpoint(string checkpointId)
+        public Cashgame FindByCheckpoint(string checkpointId)
         {
-            return _list.Where(o => o.Checkpoints.Any(p => p.Id == checkpointId)).Select(o => o.Id).ToList();
+            return _list.FirstOrDefault(o => o.Checkpoints.Any(p => p.Id == checkpointId));
         }
 
         public IList<int> GetYears(string bunchId)
@@ -74,13 +74,13 @@ namespace Tests.Common.FakeRepositories
             Deleted = id;
         }
 
-        public string AddGame(Bunch bunch, Cashgame cashgame)
+        public string Add(Bunch bunch, Cashgame cashgame)
         {
             Added = cashgame;
             return "1";
         }
 
-        public void UpdateGame(Cashgame cashgame)
+        public void Update(Cashgame cashgame)
         {
             Updated = cashgame;
         }

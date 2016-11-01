@@ -31,12 +31,12 @@ namespace Core.UseCases
             var bunch = _bunchRepository.Get(request.Slug);
             var cashgame = _cashgameService.GetRunning(bunch.Id);
             var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUser(bunch.Id, currentUser.Id);
             RequireRole.Me(currentUser, currentPlayer, request.PlayerId);
 
             var checkpoint = Checkpoint.Create(cashgame.Id, request.PlayerId, request.CurrentTime, CheckpointType.Report, request.Stack);
             cashgame.AddCheckpoint(checkpoint);
-            _cashgameService.UpdateGame(cashgame);
+            _cashgameService.Update(cashgame);
         }
 
         public class Request

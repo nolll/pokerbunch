@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;
@@ -28,19 +29,18 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(_playerDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<string> Find(string bunchId)
+        public IList<Player> List(string bunchId)
         {
-            return _playerDb.Find(bunchId);
+            var ids = _playerDb.Find(bunchId);
+            return Get(ids);
         }
 
-        public IList<string> FindByName(string bunchId, string name)
+        public Player GetByUser(string bunchId, string userId)
         {
-            return _playerDb.FindByName(bunchId, name);
-        }
-
-        public IList<string> FindByUserId(string bunchId, string userId)
-        {
-            return _playerDb.FindByUserId(bunchId, userId);
+            var ids = _playerDb.FindByUserId(bunchId, userId);
+            if (!ids.Any())
+                return null;
+            return Get(ids).First();
         }
 
         public string Add(Player player)
@@ -48,7 +48,7 @@ namespace Infrastructure.Storage.Repositories
             return _playerDb.Add(player);
         }
 
-        public bool JoinHomegame(Player player, Bunch bunch, string userId)
+        public bool JoinBunch(Player player, Bunch bunch, string userId)
         {
             return _playerDb.JoinHomegame(player, bunch, userId);
         }

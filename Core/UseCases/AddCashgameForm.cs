@@ -29,7 +29,7 @@ namespace Core.UseCases
         {
             var bunch = _bunchRepository.Get(request.Slug);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var runningGame = _cashgameService.GetRunning(bunch.Id);
             if (runningGame != null)

@@ -21,7 +21,7 @@ namespace Core.UseCases
         {
             var bunch = _bunchRepository.Get(request.Slug);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUser(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
             var heading = string.Format("{0} Settings", bunch.DisplayName);
             var description = bunch.Description;

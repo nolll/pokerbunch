@@ -28,9 +28,9 @@ namespace Core.UseCases
         {
             var bunch = _bunchRepository.Get(request.Slug);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameService.ListFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
             var locations = _locationRepository.List(bunch.Id);
             var list = cashgames.Select(o => new Item(bunch, o, GetLocation(o, locations)));

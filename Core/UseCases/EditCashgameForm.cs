@@ -29,7 +29,7 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetById(request.Id);
             var bunch = _bunchRepository.Get(cashgame.BunchId);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUser(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
 
             var locations = _locationRepository.List(bunch.Id);

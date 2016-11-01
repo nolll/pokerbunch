@@ -30,7 +30,7 @@ namespace Core.UseCases
 
             var bunch = _bunchRepository.Get(request.Slug);
             var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUser(bunch.Id, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
 
             var e = new Event("", bunch.Id, request.Name);

@@ -23,7 +23,7 @@ namespace Core.UseCases
             var e = _eventRepository.Get(request.EventId);
             var bunch = _bunchRepository.Get(e.BunchId);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             
             return new Result(e.Name, bunch.Id);

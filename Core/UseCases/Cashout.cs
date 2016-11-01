@@ -30,7 +30,7 @@ namespace Core.UseCases
 
             var bunch = _bunchRepository.Get(request.Slug);
             var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUser(bunch.Id, currentUser.Id);
             RequireRole.Me(currentUser, currentPlayer, request.PlayerId);
             var cashgame = _cashgameService.GetRunning(bunch.Id);
             var result = cashgame.GetResult(request.PlayerId);
@@ -49,7 +49,7 @@ namespace Core.UseCases
                 cashgame.UpdateCheckpoint(postedCheckpoint);
             else
                 cashgame.AddCheckpoint(postedCheckpoint);
-            _cashgameService.UpdateGame(cashgame);
+            _cashgameService.Update(cashgame);
 
             return new Result(cashgame.Id);
         }

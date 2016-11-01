@@ -14,28 +14,24 @@ namespace Core.Services
             _cashgameRepository = cashgameRepository;
         }
 
-        public IList<Cashgame> GetFinished(string bunchId, int? year = null)
+        public IList<Cashgame> ListFinished(string bunchId, int? year = null)
         {
-            var ids = _cashgameRepository.FindFinished(bunchId, year);
-            return _cashgameRepository.Get(ids);
+            return _cashgameRepository.ListFinished(bunchId, year);
         }
 
-        public IList<Cashgame> GetByEvent(string eventId)
+        public IList<Cashgame> ListByEvent(string eventId)
         {
-            var ids = _cashgameRepository.FindByEvent(eventId);
-            return _cashgameRepository.Get(ids);
+            return _cashgameRepository.ListByEvent(eventId);
         }
 
         public Cashgame GetRunning(string bunchId)
         {
-            var ids = _cashgameRepository.FindRunning(bunchId);
-            return _cashgameRepository.Get(ids).FirstOrDefault();
+            return _cashgameRepository.GetRunning(bunchId);
         }
 
         public Cashgame GetByCheckpoint(string checkpointId)
         {
-            var ids = _cashgameRepository.FindByCheckpoint(checkpointId);
-            return _cashgameRepository.Get(ids).FirstOrDefault();
+            return _cashgameRepository.FindByCheckpoint(checkpointId);
         }
 
         public Cashgame GetById(string cashgameId)
@@ -53,20 +49,20 @@ namespace Core.Services
             _cashgameRepository.DeleteGame(id);
         }
 
-        public string AddGame(Bunch bunch, Cashgame cashgame)
+        public string Add(Bunch bunch, Cashgame cashgame)
         {
-            return _cashgameRepository.AddGame(bunch, cashgame);
+            return _cashgameRepository.Add(bunch, cashgame);
         }
 
-        public void UpdateGame(Cashgame cashgame)
+        public void Update(Cashgame cashgame)
         {
-            _cashgameRepository.UpdateGame(cashgame);
+            _cashgameRepository.Update(cashgame);
         }
 
-        public void EndGame(Cashgame cashgame)
+        public void End(Cashgame cashgame)
         {
             cashgame.ChangeStatus(GameStatus.Finished);
-            _cashgameRepository.UpdateGame(cashgame);
+            _cashgameRepository.Update(cashgame);
         }
 
         public bool HasPlayed(string playerId)
@@ -74,7 +70,10 @@ namespace Core.Services
             var ids = _cashgameRepository.FindByPlayerId(playerId);
             return ids.Any();
         }
-        
+    }
+
+    public static class CashgameService1
+    {
         public static bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)
         {
             var years = new List<int>();

@@ -8,15 +8,15 @@ namespace Core.Repositories
         Cashgame Get(string cashgameId);
 	    IList<Cashgame> Get(IList<string> ids);
 
-        IList<string> FindFinished(string bunchId, int? year = null);
-        IList<string> FindByEvent(string eventId);
+        IList<Cashgame> ListFinished(string bunchId, int? year = null);
+        IList<Cashgame> ListByEvent(string eventId);
         IList<string> FindByPlayerId(string playerId);
-        IList<string> FindRunning(string bunchId);
-        IList<string> FindByCheckpoint(string checkpointId);
+        Cashgame GetRunning(string bunchId);
+        Cashgame FindByCheckpoint(string checkpointId);
         
         void DeleteGame(string id);
-        string AddGame(Bunch bunch, Cashgame cashgame);
-		void UpdateGame(Cashgame cashgame);
+        string Add(Bunch bunch, Cashgame cashgame);
+		void Update(Cashgame cashgame);
 
         IList<int> GetYears(string bunchId);
 	}

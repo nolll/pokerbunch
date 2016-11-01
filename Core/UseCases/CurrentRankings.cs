@@ -25,15 +25,15 @@ namespace Core.UseCases
         {
             var bunch = _bunchRepository.Get(request.Slug);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Id, user.Id);
+            var player = _playerService.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var years = _cashgameService.GetYears(bunch.Id);
             var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
-            var cashgames = _cashgameService.GetFinished(bunch.Id, latestYear);
+            var cashgames = _cashgameService.ListFinished(bunch.Id, latestYear);
             if (!cashgames.Any())
                 return new Result(new List<Item>(), "");
 
-            var players = _playerService.GetList(bunch.Id).ToList();
+            var players = _playerService.List(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
             var lastGame = cashgames.Last();
             var items = CreateItems(bunch, suite, lastGame);

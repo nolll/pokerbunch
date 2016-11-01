@@ -21,7 +21,7 @@ namespace Core.UseCases
             var player = _playerService.Get(request.PlayerId);
             var bunch = _bunchRepository.Get(player.BunchId);
             var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Id, currentUser.Id);
+            var currentPlayer = _playerService.GetByUser(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
 
             return new Result(bunch.Id);
