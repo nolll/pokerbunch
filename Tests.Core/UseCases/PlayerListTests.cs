@@ -44,6 +44,6 @@ namespace Tests.Core.UseCases
         private PlayerList Sut => new PlayerList(
             Repos.Bunch,
             Repos.User,
-            Services.PlayerService);
+            Repos.Player);
     }
 }
