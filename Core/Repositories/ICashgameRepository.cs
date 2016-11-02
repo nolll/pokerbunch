@@ -10,7 +10,7 @@ namespace Core.Repositories
 
         IList<Cashgame> ListFinished(string bunchId, int? year = null);
         IList<Cashgame> ListByEvent(string eventId);
-        IList<string> FindByPlayerId(string playerId);
+        IList<Cashgame> ListByPlayer(string playerId);
         Cashgame GetRunning(string bunchId);
         Cashgame FindByCheckpoint(string checkpointId);
         

@@ -65,11 +65,10 @@ namespace Core.Services
             _cashgameRepository.Update(cashgame);
         }
 
-        public bool HasPlayed(string playerId)
+        public IList<Cashgame> ListByPlayer(string playerId)
         {
-            var ids = _cashgameRepository.FindByPlayerId(playerId);
-            return ids.Any();
-        }
+            return _cashgameRepository.ListByPlayer(playerId);
+        } 
     }
 
     public static class CashgameService1

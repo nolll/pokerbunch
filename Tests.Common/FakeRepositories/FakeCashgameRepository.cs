@@ -41,17 +41,17 @@ namespace Tests.Common.FakeRepositories
             throw new NotImplementedException();
         }
 
-        public IList<string> FindByPlayerId(string playerId)
+        public IList<Cashgame> ListByPlayer(string playerId)
         {
-            var ids = new List<string>();
+            var cashgames = new List<Cashgame>();
             foreach (var game in _list)
             {
                 if (game.GetResult(playerId) != null)
                 {
-                    ids.Add(game.Id);
+                    cashgames.Add(game);
                 }
             }
-            return ids;
+            return cashgames;
         }
 
         public Cashgame GetRunning(string bunchId)

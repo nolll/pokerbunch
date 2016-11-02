@@ -15,6 +15,6 @@ namespace Core.Services
         string Add(Bunch bunch, Cashgame cashgame);
         void Update(Cashgame cashgame);
         void End(Cashgame cashgame);
-        bool HasPlayed(string playerId);
+        IList<Cashgame> ListByPlayer(string playerId);
     }
 }

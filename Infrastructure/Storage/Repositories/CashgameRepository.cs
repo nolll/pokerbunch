@@ -41,9 +41,10 @@ namespace Infrastructure.Storage.Repositories
             return Get(ids);
         }
 
-        public IList<string> FindByPlayerId(string playerId)
+        public IList<Cashgame> ListByPlayer(string playerId)
         {
-            return _cashgameDb.FindByPlayerId(playerId);
+            var ids = _cashgameDb.FindByPlayerId(playerId);
+            return Get(ids);
         }
 
         public Cashgame GetRunning(string bunchId)
