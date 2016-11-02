@@ -3,7 +3,7 @@ using Core.Entities;
 
 namespace Core.Services
 {
-    public static class CashgameService1
+    public static class CashgameService
     {
         public static bool SpansMultipleYears(IEnumerable<Cashgame> cashgames)
         {
