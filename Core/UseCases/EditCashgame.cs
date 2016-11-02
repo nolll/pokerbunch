@@ -8,16 +8,16 @@ namespace Core.UseCases
 {
     public class EditCashgame
     {
-        private readonly CashgameService _cashgameService;
+        private readonly ICashgameRepository _cashgameRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ILocationRepository _locationRepository;
         private readonly IEventRepository _eventRepository;
         private readonly IBunchRepository _bunchRepository;
 
-        public EditCashgame(CashgameService cashgameService, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository, IEventRepository eventRepository, IBunchRepository bunchRepository)
+        public EditCashgame(ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository, IEventRepository eventRepository, IBunchRepository bunchRepository)
         {
-            _cashgameService = cashgameService;
+            _cashgameRepository = cashgameRepository;
             _userRepository = userRepository;
             _playerRepository = playerRepository;
             _locationRepository = locationRepository;
@@ -31,14 +31,14 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var cashgame = _cashgameService.GetById(request.Id);
+            var cashgame = _cashgameRepository.GetById(request.Id);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var bunch = _bunchRepository.Get(cashgame.BunchId);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
             var location = _locationRepository.Get(request.LocationId);
             cashgame = new Cashgame(cashgame.BunchId, location.Id, cashgame.Status, cashgame.Id);
-            _cashgameService.Update(cashgame);
+            _cashgameRepository.Update(cashgame);
 
             if (!string.IsNullOrEmpty(request.EventId))
             {

@@ -10,15 +10,15 @@ namespace Core.UseCases
     public class CashgameList
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly CashgameService _cashgameService;
+        private readonly ICashgameRepository _cashgameRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly ILocationRepository _locationRepository;
 
-        public CashgameList(IBunchRepository bunchRepository, CashgameService cashgameService, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository)
+        public CashgameList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository)
         {
             _bunchRepository = bunchRepository;
-            _cashgameService = cashgameService;
+            _cashgameRepository = cashgameRepository;
             _userRepository = userRepository;
             _playerRepository = playerRepository;
             _locationRepository = locationRepository;
@@ -30,7 +30,7 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameService.ListFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
             var locations = _locationRepository.List(bunch.Id);
             var list = cashgames.Select(o => new Item(bunch, o, GetLocation(o, locations)));

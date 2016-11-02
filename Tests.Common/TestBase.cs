@@ -11,7 +11,7 @@ namespace Tests.Common
         public void ClearFakes()
         {
             Repos = new RepositoryContainer();
-            Services = new ServiceContainer(Repos);
+            Services = new ServiceContainer();
         }
     }
 }

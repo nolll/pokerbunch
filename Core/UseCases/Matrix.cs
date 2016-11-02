@@ -10,15 +10,15 @@ namespace Core.UseCases
     public class Matrix
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly CashgameService _cashgameService;
+        private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
         private readonly IEventRepository _eventService;
 
-        public Matrix(IBunchRepository bunchRepository, CashgameService cashgameService, IPlayerRepository playerRepository, IUserRepository userRepository, IEventRepository eventRepository)
+        public Matrix(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository, IEventRepository eventRepository)
         {
             _bunchRepository = bunchRepository;
-            _cashgameService = cashgameService;
+            _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _userRepository = userRepository;
             _eventService = eventRepository;
@@ -30,7 +30,7 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameService.ListFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
             return Execute(bunch, cashgames);
         }
 
@@ -41,7 +41,7 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameService.ListByEvent(request.EventId);
+            var cashgames = _cashgameRepository.ListByEvent(request.EventId);
             return Execute(bunch, cashgames);
         }
 

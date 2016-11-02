@@ -1,4 +1,3 @@
-using System;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure;
@@ -20,7 +19,7 @@ namespace Plumbing
         private ILocationRepository _locationRepository;
         private IBunchRepository _bunchRepository;
         private IAppRepository _appRepository;
-        private CashgameService _cashgameService;
+        private ICashgameRepository _cashgameRepository;
         private IEventRepository _eventRepository;
         private IPlayerRepository _playerRepository;
         private IUserRepository _userRepository;
@@ -43,7 +42,7 @@ namespace Plumbing
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(Api));
         public IBunchRepository BunchRepository => _bunchRepository ?? (_bunchRepository = new ApiBunchRepository(Api));
         public IAppRepository AppRepository => _appRepository ?? (_appRepository = new AppRepository(Db, Cache));
-        public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CashgameRepository(Db, Cache)));
+        public ICashgameRepository CashgameRepository => _cashgameRepository ?? (_cashgameRepository = new CashgameRepository(Db, Cache));
         public IEventRepository EventRepository => _eventRepository ?? (_eventRepository = new EventRepository(Db, Cache));
         public IPlayerRepository PlayerRepository => _playerRepository ?? (_playerRepository = new PlayerRepository(Db, Cache));
         public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(Db, Cache));

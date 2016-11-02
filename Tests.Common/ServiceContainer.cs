@@ -1,6 +1,4 @@
-﻿using Core.Repositories;
-using Core.Services;
-using Tests.Common.FakeServices;
+﻿using Tests.Common.FakeServices;
 
 namespace Tests.Common
 {
@@ -8,13 +6,11 @@ namespace Tests.Common
     {
         public FakeMessageSender MessageSender { get; }
         public FakeRandomService RandomService { get; }
-        public CashgameService CashgameService { get; }
 
-        public ServiceContainer(RepositoryContainer repos)
+        public ServiceContainer()
         {
             MessageSender = new FakeMessageSender();
             RandomService = new FakeRandomService();
-            CashgameService = new CashgameService(repos.Cashgame);
         }
 
         public void Clear()

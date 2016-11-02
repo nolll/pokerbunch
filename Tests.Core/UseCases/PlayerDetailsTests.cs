@@ -103,7 +103,7 @@ namespace Tests.Core.UseCases
         private PlayerDetails Sut => new PlayerDetails(
             Repos.Bunch,
             Repos.Player,
-            Services.CashgameService,
+            Repos.Cashgame,
             Repos.User);
     }
 }

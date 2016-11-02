@@ -19,7 +19,7 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer = cacheContainer;
         }
 
-        public Cashgame Get(string cashgameId)
+        public Cashgame GetById(string cashgameId)
         {
             return _cacheContainer.GetAndStore(_cashgameDb.Get, cashgameId, TimeSpan.FromMinutes(CacheTime.Long));
         }
@@ -53,7 +53,7 @@ namespace Infrastructure.Storage.Repositories
             return Get(ids).FirstOrDefault();
         }
 
-        public Cashgame FindByCheckpoint(string checkpointId)
+        public Cashgame GetByCheckpoint(string checkpointId)
         {
             var ids = _cashgameDb.FindByCheckpoint(checkpointId);
             return Get(ids).FirstOrDefault();

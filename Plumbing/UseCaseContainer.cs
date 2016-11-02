@@ -15,7 +15,7 @@ namespace Plumbing
         public BaseContext BaseContext => new BaseContext();
         public CoreContext CoreContext => new CoreContext(_deps.UserRepository);
         public BunchContext BunchContext => new BunchContext(_deps.UserRepository, _deps.BunchRepository);
-        public CashgameContext CashgameContext => new CashgameContext(_deps.UserRepository, _deps.BunchRepository, _deps.CashgameService);
+        public CashgameContext CashgameContext => new CashgameContext(_deps.UserRepository, _deps.BunchRepository, _deps.CashgameRepository);
 
         // Auth and Home
         public LoginForm LoginForm => new LoginForm();
@@ -56,41 +56,41 @@ namespace Plumbing
         public AddLocation AddLocation => new AddLocation(_deps.LocationRepository);
 
         // Cashgame
-        public CashgameStatus CashgameStatus => new CashgameStatus(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository);
-        public TopList TopList => new TopList(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public CashgameDetails CashgameDetails => new CashgameDetails(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository);
-        public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public CashgameList CashgameList => new CashgameList(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository);
-        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository);
-        public AddCashgame AddCashgame => new AddCashgame(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository);
-        public Actions Actions => new Actions(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public ActionsChart ActionsChart => new ActionsChart(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository);
-        public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository);
-        public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.CashgameService);
-        public CashgameChart CashgameChart => new CashgameChart(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public Matrix Matrix => new Matrix(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository, _deps.EventRepository);
-        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository, _deps.LocationRepository);
-        public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository);
-        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository, _deps.BunchRepository);
-        public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameService, _deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository);
-        public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository);
-        public Buyin Buyin => new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameService, _deps.UserRepository);
-        public Report Report => new Report(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public Cashout Cashout => new Cashout(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public EndCashgame EndCashgame => new EndCashgame(_deps.BunchRepository, _deps.CashgameService, _deps.UserRepository, _deps.PlayerRepository);
+        public CashgameStatus CashgameStatus => new CashgameStatus(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
+        public TopList TopList => new TopList(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public CashgameDetails CashgameDetails => new CashgameDetails(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository);
+        public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public CashgameList CashgameList => new CashgameList(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository);
+        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository);
+        public AddCashgame AddCashgame => new AddCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository);
+        public Actions Actions => new Actions(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public ActionsChart ActionsChart => new ActionsChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
+        public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
+        public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.CashgameRepository);
+        public CashgameChart CashgameChart => new CashgameChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public Matrix Matrix => new Matrix(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository, _deps.EventRepository);
+        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository, _deps.LocationRepository);
+        public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository);
+        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository, _deps.BunchRepository);
+        public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameRepository, _deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository);
+        public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
+        public Buyin Buyin => new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository);
+        public Report Report => new Report(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public Cashout Cashout => new Cashout(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public EndCashgame EndCashgame => new EndCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
 
         // Player
         public PlayerList PlayerList => new PlayerList(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository);
-        public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameService, _deps.UserRepository);
-        public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
-        public PlayerBadges PlayerBadges => new PlayerBadges(_deps.BunchRepository, _deps.CashgameService, _deps.PlayerRepository, _deps.UserRepository);
+        public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository);
+        public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public PlayerBadges PlayerBadges => new PlayerBadges(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
         public InvitePlayer InvitePlayer => new InvitePlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender, _deps.UserRepository);
         public InvitePlayerForm InvitePlayerForm => new InvitePlayerForm(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
         public InvitePlayerConfirmation InvitePlayerConfirmation => new InvitePlayerConfirmation(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
         public AddPlayer AddPlayer => new AddPlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
-        public DeletePlayer DeletePlayer => new DeletePlayer(_deps.PlayerRepository, _deps.CashgameService, _deps.UserRepository, _deps.BunchRepository);
+        public DeletePlayer DeletePlayer => new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.BunchRepository);
 
         // Apps
         public AppDetails AppDetails => new AppDetails(_deps.AppRepository);

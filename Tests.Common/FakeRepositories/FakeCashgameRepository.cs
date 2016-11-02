@@ -19,7 +19,7 @@ namespace Tests.Common.FakeRepositories
             SetupMultiYear();
         }
 
-        public Cashgame Get(string cashgameId)
+        public Cashgame GetById(string cashgameId)
         {
             return _list.FirstOrDefault(o => o.Id == cashgameId);
         }
@@ -59,7 +59,7 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.Status == GameStatus.Running);
         }
 
-        public Cashgame FindByCheckpoint(string checkpointId)
+        public Cashgame GetByCheckpoint(string checkpointId)
         {
             return _list.FirstOrDefault(o => o.Checkpoints.Any(p => p.Id == checkpointId));
         }
