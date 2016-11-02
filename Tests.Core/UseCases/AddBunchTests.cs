@@ -25,14 +25,14 @@ namespace Tests.Core.UseCases
         {
             Sut.Execute(CreateRequest());
 
-            Assert.AreEqual("a-display-name", Repos.Bunch.Added.Id);
-            Assert.AreEqual(DisplayName, Repos.Bunch.Added.DisplayName);
-            Assert.AreEqual(Description, Repos.Bunch.Added.Description);
-            Assert.AreEqual("", Repos.Bunch.Added.HouseRules);
-            Assert.AreEqual(TestData.TimeZoneLocal.Id, Repos.Bunch.Added.Timezone.Id);
-            Assert.AreEqual(200, Repos.Bunch.Added.DefaultBuyin);
-            Assert.AreEqual(CurrencySymbol, Repos.Bunch.Added.Currency.Symbol);
-            Assert.AreEqual(CurrencyLayout, Repos.Bunch.Added.Currency.Layout);
+            Assert.AreEqual("a-display-name", Deps.Bunch.Added.Id);
+            Assert.AreEqual(DisplayName, Deps.Bunch.Added.DisplayName);
+            Assert.AreEqual(Description, Deps.Bunch.Added.Description);
+            Assert.AreEqual("", Deps.Bunch.Added.HouseRules);
+            Assert.AreEqual(TestData.TimeZoneLocal.Id, Deps.Bunch.Added.Timezone.Id);
+            Assert.AreEqual(200, Deps.Bunch.Added.DefaultBuyin);
+            Assert.AreEqual(CurrencySymbol, Deps.Bunch.Added.Currency.Symbol);
+            Assert.AreEqual(CurrencyLayout, Deps.Bunch.Added.Currency.Layout);
         }
 
         private AddBunch.Request CreateRequest(string displayName = DisplayName, string currencySymbol = CurrencySymbol, string currencyLayout = CurrencyLayout, string timeZone = null)
@@ -40,6 +40,6 @@ namespace Tests.Core.UseCases
             return new AddBunch.Request(TestData.UserNameC, displayName, Description, currencySymbol, currencyLayout, timeZone ?? _timeZone);
         }
 
-        private AddBunch Sut => new AddBunch(Repos.Bunch);
+        private AddBunch Sut => new AddBunch(Deps.Bunch);
     }
 }

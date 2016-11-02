@@ -101,9 +101,9 @@ namespace Tests.Core.UseCases
         }
 
         private PlayerDetails Sut => new PlayerDetails(
-            Repos.Bunch,
-            Repos.Player,
-            Repos.Cashgame,
-            Repos.User);
+            Deps.Bunch,
+            Deps.Player,
+            Deps.Cashgame,
+            Deps.User);
     }
 }

@@ -17,6 +17,6 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(TestData.AppA.Name, result.AppName);
         }
 
-        private AppDetails Sut => new AppDetails(Repos.App);
+        private AppDetails Sut => new AppDetails(Deps.App);
     }
 }

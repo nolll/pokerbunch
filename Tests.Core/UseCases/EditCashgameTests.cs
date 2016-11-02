@@ -32,8 +32,8 @@ namespace Tests.Core.UseCases
 
             Sut.Execute(request);
 
-            Assert.AreEqual(TestData.CashgameIdA, Repos.Cashgame.Updated.Id);
-            Assert.AreEqual(TestData.ChangedLocationId, Repos.Cashgame.Updated.LocationId);
+            Assert.AreEqual(TestData.CashgameIdA, Deps.Cashgame.Updated.Id);
+            Assert.AreEqual(TestData.ChangedLocationId, Deps.Cashgame.Updated.LocationId);
         }
 
         [Test]
@@ -42,15 +42,15 @@ namespace Tests.Core.UseCases
             var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, "1");
             Sut.Execute(request);
 
-            Assert.AreEqual("1", Repos.Event.AddedCashgameId);
+            Assert.AreEqual("1", Deps.Event.AddedCashgameId);
         }
 
         private EditCashgame Sut => new EditCashgame(
-            Repos.Cashgame,
-            Repos.User,
-            Repos.Player,
-            Repos.Location,
-            Repos.Event,
-            Repos.Bunch);
+            Deps.Cashgame,
+            Deps.User,
+            Deps.Player,
+            Deps.Location,
+            Deps.Event,
+            Deps.Bunch);
     }
 }

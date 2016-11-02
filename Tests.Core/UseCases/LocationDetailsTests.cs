@@ -18,6 +18,6 @@ namespace Tests.Core.UseCases
         }
 
         private LocationDetails Sut => new LocationDetails(
-            Repos.Location);
+            Deps.Location);
     }
 }
