@@ -22,8 +22,8 @@ namespace Infrastructure.Storage.Repositories
 
         public IList<Location> List(string slug)
         {
-            var apiLocation = _api.Get<IList<ApiLocation>>($"location/list/{slug}");
-            return apiLocation.Select(CreateLocation).ToList();
+            var apiLocations = _api.Get<IList<ApiLocation>>($"location/list/{slug}");
+            return apiLocations.Select(CreateLocation).ToList();
         }
 
         public string Add(Location location)
@@ -38,7 +38,7 @@ namespace Infrastructure.Storage.Repositories
             return new Location(l.Id, l.Name, l.Bunch);
         }
 
-        public class ApiLocation
+        private class ApiLocation
         {
             public string Id { get; set; }
             public string Name { get; set; }

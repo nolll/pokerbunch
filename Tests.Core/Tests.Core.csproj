@@ -121,7 +121,6 @@
     <Compile Include="UseCases\UserDetailsTests\OtherUser.cs" />
     <Compile Include="UseCases\UserDetailsTests\OwnUser.cs" />
     <Compile Include="UseCases\UserListTests.cs" />
-    <Compile Include="UseCases\VerifyAppKeyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

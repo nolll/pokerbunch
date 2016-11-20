@@ -2,63 +2,72 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
-using Infrastructure.Storage.SqlDb;
 
 namespace Infrastructure.Storage.Repositories
 {
     public class AppRepository : IAppRepository
     {
-        private readonly SqlAppDb _appDb;
-        private readonly ICacheContainer _cacheContainer;
+        private readonly ApiConnection _api;
 
-        public AppRepository(SqlServerStorageProvider db, ICacheContainer cacheContainer)
+        public AppRepository(ApiConnection api)
         {
-            _appDb = new SqlAppDb(db);
-            _cacheContainer = cacheContainer;
+            _api = api;
         }
         
         public App GetById(string id)
         {
-            return _cacheContainer.GetAndStore(_appDb.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
-        }
-
-        public IList<App> GetList(IList<string> ids)
-        {
-            return _cacheContainer.GetAndStore(_appDb.GetList, ids, TimeSpan.FromMinutes(CacheTime.Long));
+            var apiApp = _api.Get<ApiApp>($"apps/{id}");
+            return CreateApp(apiApp);
         }
 
         public IList<App> List()
         {
-            var ids = _appDb.Find();
-            return GetList(ids);
+            var apiApps = _api.Get<IList<ApiApp>>("apps");
+            return apiApps.Select(CreateApp).ToList();
         }
 
         public IList<App> ListByUser(string userId)
         {
-            var ids = _appDb.FindByUser(userId);
-            return GetList(ids);
-        }
-
-        public App GetByAppKey(string appKey)
-        {
-            var ids = _appDb.FindByAppKey(appKey);
-            if (ids.Count == 0)
-                throw new AppNotFoundException();
-            return GetById(ids.First());
+            var apiApps = _api.Get<IList<ApiApp>>("user/apps");
+            return apiApps.Select(CreateApp).ToList();
         }
 
         public string Add(App app)
         {
-            return _appDb.Add(app);
+            var postApp = new ApiApp(null, app.AppKey, app.Name, app.UserId);
+            var apiApp = _api.Post<ApiApp>("apps", postApp);
+            return CreateApp(apiApp).Id;
         }
 
         public void Update(App app)
         {
-            _appDb.Update(app);
-            _cacheContainer.Remove<App>(app.Id);
+            throw new NotImplementedException("Update not implemented yet");
+        }
+
+        private App CreateApp(ApiApp a)
+        {
+            return new App(a.Id, a.AppKey, a.Name, a.UserId);
+        }
+
+        public class ApiApp
+        {
+            public string Id { get; set; }
+            public string AppKey { get; set; }
+            public string Name { get; set; }
+            public string UserId { get; set; }
+
+            public ApiApp(string id, string appKey, string name, string userId)
+            {
+                Id = id;
+                AppKey = appKey;
+                Name = name;
+                UserId = userId;
+            }
+
+            public ApiApp()
+            {
+            }
         }
     }
 }

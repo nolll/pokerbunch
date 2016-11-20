@@ -94,7 +94,6 @@ namespace Plumbing
 
         // Apps
         public AppDetails AppDetails => new AppDetails(_deps.AppRepository);
-        public VerifyAppKey VerifyAppKey => new VerifyAppKey(_deps.AppRepository);
         public AppList AppList => new AppList(_deps.AppRepository, _deps.UserRepository);
         public AddApp AddApp => new AddApp(_deps.AppRepository, _deps.UserRepository);
     }
