@@ -16,20 +16,20 @@ namespace Infrastructure.Storage.Repositories
 
         public Location Get(string id)
         {
-            var apiLocation = _api.Get<ApiLocation>($"location/get/{id}");
+            var apiLocation = _api.Get<ApiLocation>($"locations/{id}");
             return CreateLocation(apiLocation);
         }
 
         public IList<Location> List(string slug)
         {
-            var apiLocations = _api.Get<IList<ApiLocation>>($"location/list/{slug}");
+            var apiLocations = _api.Get<IList<ApiLocation>>($"bunches/{slug}/locations");
             return apiLocations.Select(CreateLocation).ToList();
         }
 
         public string Add(Location location)
         {
             var postLocation = new ApiLocation(location.Name, location.BunchId);
-            var apiLocation = _api.Post<ApiLocation>($"location/add", postLocation);
+            var apiLocation = _api.Post<ApiLocation>("locations", postLocation);
             return CreateLocation(apiLocation).Id;
         }
 
