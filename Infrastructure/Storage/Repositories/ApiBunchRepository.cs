@@ -9,35 +9,35 @@ namespace Infrastructure.Storage.Repositories
 {
     public class ApiBunchRepository : IBunchRepository
     {
-        private readonly ApiConnection _apiConnection;
+        private readonly ApiConnection _api;
 
-        public ApiBunchRepository(ApiConnection apiConnection)
+        public ApiBunchRepository(ApiConnection api)
         {
-            _apiConnection = apiConnection;
+            _api = api;
         }
 
         public Bunch Get(string id)
         {
-            var apiBunch = _apiConnection.Get<ApiBunch>($"bunches/{id}");
+            var apiBunch = _api.Get<ApiBunch>($"bunches/{id}");
             return ToBunch(apiBunch);
         }
 
         public IList<SmallBunch> List()
         {
-            var apiBunches = _apiConnection.Get<IList<ApiSmallBunch>>("bunches");
+            var apiBunches = _api.Get<IList<ApiSmallBunch>>("bunches");
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public IList<SmallBunch> ListForUser()
         {
-            var apiBunches = _apiConnection.Get<IList<ApiSmallBunch>>("user/bunches");
+            var apiBunches = _api.Get<IList<ApiSmallBunch>>("user/bunches");
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public Bunch Add(Bunch bunch)
         {
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _apiConnection.Post<ApiBunch>("bunches", postBunch);
+            var apiBunch = _api.Post<ApiBunch>("bunches", postBunch);
             return ToBunch(apiBunch);
         }
 
@@ -45,7 +45,7 @@ namespace Infrastructure.Storage.Repositories
         {
             var slug = bunch.Id;
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _apiConnection.Post<ApiBunch>($"bunches/{slug}", postBunch);
+            var apiBunch = _api.Post<ApiBunch>($"bunches/{slug}", postBunch);
             return ToBunch(apiBunch);
         }
 

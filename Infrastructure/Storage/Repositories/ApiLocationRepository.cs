@@ -7,29 +7,29 @@ namespace Infrastructure.Storage.Repositories
 {
     public class ApiLocationRepository : ILocationRepository
     {
-        private readonly ApiConnection _apiConnection;
+        private readonly ApiConnection _api;
 
-        public ApiLocationRepository(ApiConnection apiConnection)
+        public ApiLocationRepository(ApiConnection api)
         {
-            _apiConnection = apiConnection;
+            _api = api;
         }
 
         public Location Get(string id)
         {
-            var apiLocation = _apiConnection.Get<ApiLocation>($"location/get/{id}");
+            var apiLocation = _api.Get<ApiLocation>($"location/get/{id}");
             return CreateLocation(apiLocation);
         }
 
         public IList<Location> List(string slug)
         {
-            var apiLocation = _apiConnection.Get<IList<ApiLocation>>($"location/list/{slug}");
+            var apiLocation = _api.Get<IList<ApiLocation>>($"location/list/{slug}");
             return apiLocation.Select(CreateLocation).ToList();
         }
 
         public string Add(Location location)
         {
             var postLocation = new ApiLocation(location.Name, location.BunchId);
-            var apiLocation = _apiConnection.Post<ApiLocation>($"location/add", postLocation);
+            var apiLocation = _api.Post<ApiLocation>($"location/add", postLocation);
             return CreateLocation(apiLocation).Id;
         }
 
