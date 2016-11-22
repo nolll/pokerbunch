@@ -47,20 +47,20 @@ namespace Infrastructure.Storage.Repositories
 
         private App CreateApp(ApiApp a)
         {
-            return new App(a.Id, a.AppKey, a.Name, a.UserId);
+            return new App(a.Id, a.Key, a.Name, a.UserId);
         }
 
         public class ApiApp
         {
             public string Id { get; set; }
-            public string AppKey { get; set; }
+            public string Key { get; set; }
             public string Name { get; set; }
             public string UserId { get; set; }
 
-            public ApiApp(string id, string appKey, string name, string userId)
+            public ApiApp(string id, string key, string name, string userId)
             {
                 Id = id;
-                AppKey = appKey;
+                Key = key;
                 Name = name;
                 UserId = userId;
             }
