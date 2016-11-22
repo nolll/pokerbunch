@@ -62,11 +62,13 @@
     <Compile Include="UseCases\AddUserTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\AppDetailsTests.cs" />
-    <Compile Include="UseCases\AppListTests.cs" />
+    <Compile Include="UseCases\AppListAllTests\Arrange.cs" />
+    <Compile Include="UseCases\AppListAllTests\Default.cs" />
+    <Compile Include="UseCases\AppListUserTests\Arrange.cs" />
+    <Compile Include="UseCases\AppListUserTests\Default.cs" />
     <Compile Include="UseCases\BaseContextTests.cs" />
     <Compile Include="UseCases\BunchContextTests.cs" />
     <Compile Include="UseCases\BunchDetailsTests\WithManager.cs" />
-    <Compile Include="UseCases\BunchDetailsTests\WithNoRole.cs" />
     <Compile Include="UseCases\BunchDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />

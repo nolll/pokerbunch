@@ -109,10 +109,11 @@
     <Compile Include="UseCases\AddLocation.cs" />
     <Compile Include="UseCases\AddPlayer.cs" />
     <Compile Include="UseCases\AddUser.cs" />
+    <Compile Include="UseCases\AppListAll.cs" />
     <Compile Include="UseCases\ClearCache.cs" />
     <Compile Include="UseCases\CoreContext.cs" />
     <Compile Include="UseCases\AppDetails.cs" />
-    <Compile Include="UseCases\AppList.cs" />
+    <Compile Include="UseCases\AppListUser.cs" />
     <Compile Include="UseCases\BaseContext.cs" />
     <Compile Include="UseCases\BunchContext.cs" />
     <Compile Include="UseCases\BunchDetails.cs" />

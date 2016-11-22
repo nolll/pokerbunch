@@ -26,12 +26,12 @@ namespace Tests.Common.FakeRepositories
             return _list;
         }
 
-        public IList<App> List()
+        public IList<App> ListAll()
         {
             return _list;
         }
 
-        public IList<App> ListByUser(string userId)
+        public IList<App> List()
         {
             throw new System.NotImplementedException();
         }

@@ -21,13 +21,13 @@ namespace Infrastructure.Storage.Repositories
             return CreateApp(apiApp);
         }
 
-        public IList<App> List()
+        public IList<App> ListAll()
         {
             var apiApps = _api.Get<IList<ApiApp>>("apps");
             return apiApps.Select(CreateApp).ToList();
         }
 
-        public IList<App> ListByUser(string userId)
+        public IList<App> List()
         {
             var apiApps = _api.Get<IList<ApiApp>>("user/apps");
             return apiApps.Select(CreateApp).ToList();

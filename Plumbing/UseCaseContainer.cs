@@ -94,7 +94,8 @@ namespace Plumbing
 
         // Apps
         public AppDetails AppDetails => new AppDetails(_deps.AppRepository);
-        public AppList AppList => new AppList(_deps.AppRepository, _deps.UserRepository);
+        public AppListUser AppListUser => new AppListUser(_deps.AppRepository);
+        public AppListAll AllAppsList => new AppListAll(_deps.AppRepository);
         public AddApp AddApp => new AddApp(_deps.AppRepository, _deps.UserRepository);
     }
 }

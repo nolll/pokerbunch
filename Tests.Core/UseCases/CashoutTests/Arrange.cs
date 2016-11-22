@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 using Core.UseCases;
 using Moq;
 using NUnit.Framework;
