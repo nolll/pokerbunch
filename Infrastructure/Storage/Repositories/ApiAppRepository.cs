@@ -6,11 +6,11 @@ using Core.Repositories;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class AppRepository : IAppRepository
+    public class ApiAppRepository : IAppRepository
     {
         private readonly ApiConnection _api;
 
-        public AppRepository(ApiConnection api)
+        public ApiAppRepository(ApiConnection api)
         {
             _api = api;
         }
