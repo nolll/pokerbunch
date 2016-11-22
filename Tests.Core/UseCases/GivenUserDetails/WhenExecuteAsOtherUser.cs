@@ -1,8 +1,8 @@
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.UserDetailsTests
+namespace Tests.Core.UseCases.GivenUserDetails
 {
-    public class OtherUser : Arrange
+    public class WhenExecuteAsOtherUser : Arrange
     {
         [Test]
         public void UserNameIsSet()

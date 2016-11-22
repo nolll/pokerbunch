@@ -1,9 +1,9 @@
 ﻿using Core.Entities;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.BunchDetailsTests
+namespace Tests.Core.UseCases.GivenBunchDetails
 {
-    public class WithPlayer : Arrange
+    public class WhenExecuteAsPlayer : Arrange
     {
         protected override Role Role => Role.Player;
 

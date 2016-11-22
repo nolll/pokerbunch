@@ -1,12 +1,11 @@
 ﻿using Core.Exceptions;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.LoginTests
+namespace Tests.Core.UseCases.GivenLogin
 {
-    public class WithWrongPassword : Arrange
+    public class WhenExecuteWithUnknownUser : Arrange
     {
-        protected override string LoginName => ExistingUser;
-        protected override string Password => WrongPassword;
+        protected override string LoginName => UnknownUser;
 
         [Test]
         public void ThrowsException()

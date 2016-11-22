@@ -1,14 +1,12 @@
 ﻿using System;
 using Core.Entities;
-using Core.Exceptions;
 using Core.Repositories;
-using Core.Services;
 using Core.UseCases;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.BunchDetailsTests
+namespace Tests.Core.UseCases.GivenBunchDetails
 {
     public abstract class Arrange : ArrangeBase
     {

@@ -1,9 +1,8 @@
-﻿using Core.Exceptions;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace Tests.Core.UseCases.LoginTests
+namespace Tests.Core.UseCases.GivenLogin
 {
-    public class WithCorrectPassword : Arrange
+    public class WhenExecuteWithCorrectPassword : Arrange
     {
         protected override string LoginName => ExistingUser;
         protected override string Password => CorrectPassword;

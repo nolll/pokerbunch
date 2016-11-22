@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Core.UseCases.AppListUserTests
+namespace Tests.Core.UseCases.GivenAppListUser
 {
-    public class Default : Arrange
+    public class WhenExecute : Arrange
     {
         [Test]
         public void ReturnsList()

@@ -1,9 +1,9 @@
 using Core.Entities;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.UserDetailsTests
+namespace Tests.Core.UseCases.GivenUserDetails
 {
-    public class OtherUserAsAdmin : Arrange
+    public class WhenExecuteAsAdmin : Arrange
     {
         protected override Role Role => Role.Admin;
 

@@ -2,9 +2,9 @@
 using Core.UseCases;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.CashoutTests
+namespace Tests.Core.UseCases.GivenCashout
 {
-    public class InvalidStack : Arrange
+    public class WhenExecuteWithInvalidStack : Arrange
     {
         protected override int CashoutStack => -1;
 

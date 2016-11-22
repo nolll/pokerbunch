@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 using Core.UseCases;
@@ -7,7 +6,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.LoginTests
+namespace Tests.Core.UseCases.GivenLogin
 {
     public class Arrange : ArrangeBase
     {

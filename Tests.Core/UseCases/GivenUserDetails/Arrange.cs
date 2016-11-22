@@ -1,11 +1,10 @@
 ﻿using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.UserDetailsTests
+namespace Tests.Core.UseCases.GivenUserDetails
 {
     public class Arrange : ArrangeBase
     {

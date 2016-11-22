@@ -3,9 +3,9 @@ using Core.Entities.Checkpoints;
 using Core.UseCases;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.CashoutTests
+namespace Tests.Core.UseCases.GivenCashout
 {
-    public class PlayerHasNotCheckedOutBefore : Arrange
+    public class WhenExecuteWithPlayerThatHasNotCheckedOutBefore : Arrange
     {
         [Test]
         public void AddsCheckpoint()

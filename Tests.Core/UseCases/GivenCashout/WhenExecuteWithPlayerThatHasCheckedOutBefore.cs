@@ -3,9 +3,9 @@ using Core.Entities.Checkpoints;
 using Core.UseCases;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.CashoutTests
+namespace Tests.Core.UseCases.GivenCashout
 {
-    public class PlayerHasCheckedOutBefore : Arrange
+    public class WhenExecuteWithPlayerThatHasCheckedOutBefore : Arrange
     {
         protected override bool HasCashedOutBefore => true;
 

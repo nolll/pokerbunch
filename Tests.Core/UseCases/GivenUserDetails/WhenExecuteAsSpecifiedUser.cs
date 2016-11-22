@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Core.UseCases.UserDetailsTests
+namespace Tests.Core.UseCases.GivenUserDetails
 {
-    public class OwnUser : Arrange
+    public class WhenExecuteAsSpecifiedUser : Arrange
     {
         protected override bool ViewingOwnUser => true;
 
