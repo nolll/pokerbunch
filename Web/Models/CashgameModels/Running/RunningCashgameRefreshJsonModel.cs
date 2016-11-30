@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.UseCases;
 using JetBrains.Annotations;
-using Web.Common.Urls.SiteUrls;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Running
 {
@@ -12,7 +12,7 @@ namespace Web.Models.CashgameModels.Running
         public string Slug { get; private set; }
 
         [UsedImplicitly]
-        public int PlayerId { get; private set; }
+        public string PlayerId { get; private set; }
 
         [UsedImplicitly]
         public string RefreshUrl { get; private set; }

@@ -1,33 +1,34 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameChart
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public CashgameChart(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
+        public CashgameChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _playerService = playerService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var bunch = _bunchRepository.Get(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var players = _playerService.GetList(bunch.Slug).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
+            var players = _playerRepository.List(bunch.Id).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
             var suite = new CashgameSuite(cashgames, players);
 
             var playerItems = GetPlayerItems(suite.TotalResults);
@@ -48,7 +49,7 @@ namespace Core.UseCases
             for (var i = 0; i < cashgames.Count; i++)
             {
                 var cashgame = cashgames[cashgames.Count - i - 1];
-                var currentSums = new Dictionary<int, int>();
+                var currentSums = new Dictionary<string, int>();
                 foreach (var totalResult in results)
                 {
                     var singleResult = cashgame.GetResult(totalResult.Player.Id);
@@ -68,9 +69,9 @@ namespace Core.UseCases
             return gameItems;
         }
 
-        private static IDictionary<int, int?> GetEmptyPlayerSumArray(IEnumerable<CashgameTotalResult> results)
+        private static IDictionary<string, int?> GetEmptyPlayerSumArray(IEnumerable<CashgameTotalResult> results)
         {
-            return results.ToDictionary<CashgameTotalResult, int, int?>(result => result.Player.Id, result => 0);
+            return results.ToDictionary<CashgameTotalResult, string, int?>(result => result.Player.Id, result => 0);
         }
 
         public class Request
@@ -102,9 +103,9 @@ namespace Core.UseCases
         public class GameItem
         {
             public Date Date { get; private set; }
-            public IDictionary<int, int> Winnings { get; private set; }
+            public IDictionary<string, int> Winnings { get; private set; }
 
-            public GameItem(Date date, IDictionary<int, int> winnings)
+            public GameItem(Date date, IDictionary<string, int> winnings)
             {
                 Date = date;
                 Winnings = winnings;
@@ -113,11 +114,11 @@ namespace Core.UseCases
 
         public class PlayerItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
             public string Color { get; private set; }
 
-            public PlayerItem(int id, string name, string color)
+            public PlayerItem(string id, string name, string color)
             {
                 Id = id;
                 Name = name;

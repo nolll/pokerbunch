@@ -1,39 +1,40 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class TopList
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public TopList(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
+        public TopList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _playerService = playerService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var bunch = _bunchRepository.Get(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
-            var players = _playerService.GetList(bunch.Slug).ToList();
+            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
+            var players = _playerRepository.List(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
 
             var items = suite.TotalResults.Select((o, index) => new Item(o, index, bunch.Currency));
             items = SortItems(items);
 
-            return new Result(items, bunch.Slug, bunch.Currency.Format, bunch.Currency.ThousandSeparator, request.Year);
+            return new Result(items, bunch.Id, bunch.Currency.Format, bunch.Currency.ThousandSeparator, request.Year);
         }
 
         private static IEnumerable<Item> SortItems(IEnumerable<Item> items)
@@ -76,7 +77,7 @@ namespace Core.UseCases
         public class Item
         {
             public int Rank { get; private set; }
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
             public string Name { get; private set; }
             public Money Winnings { get; }
             public Money Buyin { get; }

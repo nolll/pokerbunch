@@ -11,34 +11,34 @@ namespace Core.UseCases
 {
     public class RunningCashgame
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
         private readonly ILocationRepository _locationRepository;
 
-        public RunningCashgame(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService, ILocationRepository locationRepository)
+        public RunningCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository, ILocationRepository locationRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _playerService = playerService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
             _locationRepository = locationRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
-            var cashgame = _cashgameService.GetRunning(bunch.Id);
+            var bunch = _bunchRepository.Get(request.Slug);
+            var cashgame = _cashgameRepository.GetRunning(bunch.Id);
 
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var players = _playerService.Get(GetPlayerIds(cashgame));
-            var bunchPlayers = _playerService.GetList(bunch.Slug);
+            var players = _playerRepository.Get(GetPlayerIds(cashgame));
+            var bunchPlayers = _playerRepository.List(bunch.Id);
 
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
             
@@ -52,7 +52,7 @@ namespace Core.UseCases
             var thousandSeparator = bunch.Currency.ThousandSeparator;
 
             return new Result(
-                bunch.Slug,
+                bunch.Id,
                 player.Id,
                 location.Name,
                 location.Id,
@@ -64,7 +64,7 @@ namespace Core.UseCases
                 isManager);
         }
 
-        private static IList<int> GetPlayerIds(Cashgame cashgame)
+        private static IList<string> GetPlayerIds(Cashgame cashgame)
         {
             return cashgame.Results.Select(o => o.PlayerId).ToList();
         }
@@ -106,9 +106,9 @@ namespace Core.UseCases
         public class Result
         {
             public string Slug { get; private set; }
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
             public string LocationName { get; private set; }
-            public int LocationId { get; private set; }
+            public string LocationId { get; private set; }
             public IList<RunningCashgamePlayerItem> PlayerItems { get; private set; }
             public IList<BunchPlayerItem> BunchPlayerItems { get; private set; }
             public int DefaultBuyin { get; private set; }
@@ -118,9 +118,9 @@ namespace Core.UseCases
 
             public Result(
                 string slug,
-                int playerId,
+                string playerId,
                 string locationName,
-                int locationId,
+                string locationId,
                 IList<RunningCashgamePlayerItem> playerItems,
                 IList<BunchPlayerItem> bunchPlayerItems,
                 int defaultBuyin,
@@ -143,11 +143,11 @@ namespace Core.UseCases
 
         public class BunchPlayerItem
         {
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
             public string Name { get; }
             public string Color { get; private set; }
 
-            public BunchPlayerItem(int playerId, string name, string color)
+            public BunchPlayerItem(string playerId, string name, string color)
             {
                 PlayerId = playerId;
                 Name = name;
@@ -171,10 +171,10 @@ namespace Core.UseCases
 
         public class RunningCashgamePlayerItem
         {
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
             public string Name { get; private set; }
             public string Color { get; private set; }
-            public int CashgameId { get; private set; }
+            public string CashgameId { get; private set; }
             public bool HasCashedOut { get; private set; }
             public int Buyin { get; }
             public int Stack { get; }
@@ -182,7 +182,7 @@ namespace Core.UseCases
             public DateTime LastReport { get; set; }
             public IList<RunningCashgameCheckpointItem> Checkpoints { get; private set; }
 
-            public RunningCashgamePlayerItem(int playerId, string name, string color, int cashgameId, bool hasCashedOut, IEnumerable<Checkpoint> checkpoints)
+            public RunningCashgamePlayerItem(string playerId, string name, string color, string cashgameId, bool hasCashedOut, IEnumerable<Checkpoint> checkpoints)
             {
                 PlayerId = playerId;
                 Name = name;

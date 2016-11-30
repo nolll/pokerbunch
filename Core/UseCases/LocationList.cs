@@ -48,10 +48,10 @@ namespace Core.UseCases
 
         public class Item
         {
-            public int LocationId { get; private set; }
+            public string LocationId { get; private set; }
             public string Name { get; private set; }
 
-            public Item(int id, string name)
+            public Item(string id, string name)
             {
                 LocationId = id;
                 Name = name;

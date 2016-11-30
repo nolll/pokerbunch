@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Details;
+using Web.Routes;
 
 namespace Web.Controllers
 {
@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Player.Details)]
-        public ActionResult Details(int id)
+        public ActionResult Details(string id)
         {
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(detailsResult.Slug);

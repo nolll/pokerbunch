@@ -29,7 +29,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(2, result.Items[0].GamesPlayed);
             Assert.AreEqual(152, result.Items[0].TimePlayed.Minutes);
             Assert.AreEqual(TestData.PlayerNameA, result.Items[0].Name);
-            Assert.AreEqual(1, result.Items[0].PlayerId);
+            Assert.AreEqual("1", result.Items[0].PlayerId);
             Assert.AreEqual(200, result.Items[0].Winnings.Amount);
             Assert.AreEqual(79, result.Items[0].WinRate.Amount);
         }
@@ -45,9 +45,9 @@ namespace Tests.Core.UseCases
         }
 
         private TopList Sut => new TopList(
-            Services.BunchService,
-            Services.CashgameService,
-            Services.PlayerService,
-            Services.UserService);
+            Deps.Bunch,
+            Deps.Cashgame,
+            Deps.Player,
+            Deps.User);
     }
 }

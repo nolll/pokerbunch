@@ -1,10 +1,10 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using Web.Common.Routes;
-using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Edit;
+using Web.Routes;
+using Web.Urls.SiteUrls;
 
 namespace Web.Controllers
 {
@@ -12,7 +12,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Cashgame.Edit)]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string id)
         {
             return ShowForm(id);
         }
@@ -20,7 +20,7 @@ namespace Web.Controllers
         [HttpPost]
         [Authorize]
         [Route(WebRoutes.Cashgame.Edit)]
-        public ActionResult Post(int id, EditCashgamePostModel postModel)
+        public ActionResult Post(string id, EditCashgamePostModel postModel)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Web.Controllers
             return ShowForm(id, postModel);
         }
 
-        private ActionResult ShowForm(int id, EditCashgamePostModel postModel = null)
+        private ActionResult ShowForm(string id, EditCashgamePostModel postModel = null)
         {
             var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(editCashgameFormResult.Slug);

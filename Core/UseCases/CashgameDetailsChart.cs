@@ -3,33 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameDetailsChart
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public CashgameDetailsChart(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
+        public CashgameDetailsChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _playerService = playerService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameService.GetById(request.CashgameId);
-            var bunch = _bunchService.Get(cashgame.Bunch);
+            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            var bunch = _bunchRepository.Get(cashgame.BunchId);
             var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
-            var players = _playerService.Get(playerIds).OrderBy(o => o.Id).ToList();
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var players = _playerRepository.Get(playerIds).OrderBy(o => o.Id).ToList();
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
 
             var playerItems = GetPlayerItems(bunch, cashgame, players, request.CurrentTime);
@@ -70,9 +71,9 @@ namespace Core.UseCases
         {
             public string UserName { get; }
             public DateTime CurrentTime { get; }
-            public int CashgameId { get; }
+            public string CashgameId { get; }
 
-            public Request(string userName, DateTime currentTime, int cashgameId)
+            public Request(string userName, DateTime currentTime, string cashgameId)
             {
                 UserName = userName;
                 CurrentTime = currentTime;
@@ -92,12 +93,12 @@ namespace Core.UseCases
 
         public class PlayerItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
             public string Color { get; private set; }
             public IList<ResultItem> Results { get; private set; }
 
-            public PlayerItem(int id, string name, string color, IList<ResultItem> results)
+            public PlayerItem(string id, string name, string color, IList<ResultItem> results)
             {
                 Id = id;
                 Name = name;

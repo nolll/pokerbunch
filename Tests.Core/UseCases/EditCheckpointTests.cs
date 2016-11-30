@@ -35,8 +35,8 @@ namespace Tests.Core.UseCases
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(1, result.CashgameId);
-            Assert.AreEqual(1, result.PlayerId);
+            Assert.AreEqual("1", result.CashgameId);
+            Assert.AreEqual("1", result.PlayerId);
         }
         
         [Test]
@@ -46,23 +46,17 @@ namespace Tests.Core.UseCases
 
             Sut.Execute(request);
 
-            var updatedCheckpoint = Repos.Cashgame.Updated.UpdatedCheckpoints.First();
+            var updatedCheckpoint = Deps.Cashgame.Updated.UpdatedCheckpoints.First();
             Assert.AreEqual(CheckpointType.Buyin, updatedCheckpoint.Type);
             Assert.AreEqual(TestData.BuyinCheckpointId, updatedCheckpoint.Id);
             Assert.AreEqual(ChangedStack, updatedCheckpoint.Stack);
             Assert.AreEqual(ChangedAmount, updatedCheckpoint.Amount);
         }
 
-        private EditCheckpoint Sut
-        {
-            get
-            {
-                return new EditCheckpoint(
-                    Services.BunchService,
-                    Services.UserService,
-                    Services.PlayerService,
-                    Services.CashgameService);
-            }
-        }
+        private EditCheckpoint Sut => new EditCheckpoint(
+            Deps.Bunch,
+            Deps.User,
+            Deps.Player,
+            Deps.Cashgame);
     }
 }

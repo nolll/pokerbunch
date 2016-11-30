@@ -5,11 +5,11 @@ namespace Core.Repositories
 {
     public interface IUserRepository
     {
-        User Get(int id);
-        IList<User> Get(IList<int> ids);
-        IList<int> Find();
-        IList<int> Find(string nameOrEmail);
+        User GetById(string id);
+        IList<User> Get(IList<string> ids);
+        IList<User> List();
+        User GetByNameOrEmail(string nameOrEmail);
         void Update(User user);
-        int Add(User user);
+        string Add(User user);
     }
 }

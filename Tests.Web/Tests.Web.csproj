@@ -103,10 +103,6 @@
       <Project>{D30140A0-6006-4D0E-AD74-067EE44F4FC9}</Project>
       <Name>Tests.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Web.Common\Web.Common.csproj">
-      <Project>{74208db7-cde2-45e7-abef-6fae27f7a072}</Project>
-      <Name>Web.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Web\Web.csproj">
       <Project>{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}</Project>
       <Name>Web</Name>

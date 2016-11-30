@@ -1,5 +1,5 @@
 using Core.Services;
-using Web.Common.Urls.SiteUrls;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Matrix
 {

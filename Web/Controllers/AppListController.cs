@@ -1,8 +1,7 @@
 using System.Web.Mvc;
-using Core.UseCases;
-using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.AppModels.List;
+using Web.Routes;
 
 namespace Web.Controllers
 {
@@ -12,7 +11,7 @@ namespace Web.Controllers
         public ActionResult Apps()
         {
             var context = GetAppContext();
-            var appListResult = UseCase.AppList.Execute(new AppList.UserAppsRequest(Identity.UserName));
+            var appListResult = UseCase.AppListUser.Execute();
             var model = new UserAppsPageModel(context, appListResult);
             return View("~/Views/Pages/AppList/UserApps.cshtml", model);
         }
@@ -21,7 +20,7 @@ namespace Web.Controllers
         public ActionResult All()
         {
             var context = GetAppContext();
-            var appListResult = UseCase.AppList.Execute(new AppList.AllAppsRequest(Identity.UserName));
+            var appListResult = UseCase.AllAppsList.Execute();
             var model = new AllAppsPageModel(context, appListResult);
             return View("~/Views/Pages/AppList/AllApps.cshtml", model);
         }

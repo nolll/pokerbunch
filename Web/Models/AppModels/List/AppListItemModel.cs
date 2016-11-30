@@ -1,5 +1,5 @@
 using Core.UseCases;
-using Web.Common.Urls.SiteUrls;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.AppModels.List
 {
@@ -9,11 +9,22 @@ namespace Web.Models.AppModels.List
         public string Key { get; private set; }
         public string Url { get; private set; }
 
-        public AppListItemModel(AppList.Item appListItem)
+        public AppListItemModel(AppListAll.Item i)
+            : this(i.AppId, i.AppName, i.AppKey)
         {
-            Name = appListItem.AppName;
-            Key = appListItem.AppKey;
-            Url = new AppDetailsUrl(appListItem.AppId).Relative;
+        }
+
+        public AppListItemModel(AppListUser.Item i)
+            : this(i.AppId, i.AppName, i.AppKey)
+        {
+
+        }
+
+        private AppListItemModel(string id, string name, string key)
+        {
+            Name = name;
+            Key = key;
+            Url = new AppDetailsUrl(id).Relative;
         }
     }
 }

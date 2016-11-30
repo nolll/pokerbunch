@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Exceptions;
+using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -9,15 +10,15 @@ namespace Core.UseCases
 {
     public class JoinBunch
     {
-        private readonly BunchService _bunchService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public JoinBunch(BunchService bunchService, PlayerService playerService, UserService userService)
+        public JoinBunch(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _playerService = playerService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
@@ -26,16 +27,16 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var bunch = _bunchService.Get(request.Slug);
-            var players = _playerService.GetList(bunch.Slug);
+            var bunch = _bunchRepository.Get(request.Slug);
+            var players = _playerRepository.List(bunch.Id);
             var player = GetMatchedPlayer(players, request.Code);
             
             if (player == null)
                 throw new InvalidJoinCodeException();
 
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            _playerService.JoinHomegame(player, bunch, user.Id);
-            return new Result(bunch.Slug, player.Id);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            _playerRepository.JoinBunch(player, bunch, user.Id);
+            return new Result(bunch.Id, player.Id);
         }
         
         private static Player GetMatchedPlayer(IEnumerable<Player> players, string postedCode)
@@ -67,9 +68,9 @@ namespace Core.UseCases
         public class Result
         {
             public string Slug { get; private set; }
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
 
-            public Result(string slug, int playerId)
+            public Result(string slug, string playerId)
             {
                 Slug = slug;
                 PlayerId = playerId;

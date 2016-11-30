@@ -12,25 +12,25 @@ namespace Tests.Core.UseCases
         {
             const string addedEventName = "added location";
 
-            var request = new AddLocation.Request(TestData.BunchA.Slug, addedEventName);
+            var request = new AddLocation.Request(TestData.BunchA.Id, addedEventName);
             Sut.Execute(request);
 
-            Assert.AreEqual(addedEventName, Repos.Location.Added.Name);
+            Assert.AreEqual(addedEventName, Deps.Location.Added.Name);
         }
 
         [Test]
         public void AddEvent_InvalidInput_ThrowsValidationException()
         {
-            Repos.Location.ThrowOnAdd = true;
+            Deps.Location.ThrowOnAdd = true;
 
             const string addedEventName = "";
 
-            var request = new AddLocation.Request(TestData.BunchA.Slug, addedEventName);
+            var request = new AddLocation.Request(TestData.BunchA.Id, addedEventName);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
 
         private AddLocation Sut => new AddLocation(
-            Repos.Location);
+            Deps.Location);
     }
 }

@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.UseCases;
-using Web.Common.Urls.SiteUrls;
 using Web.Extensions;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.NavigationModels
 {
@@ -22,8 +22,8 @@ namespace Web.Models.NavigationModels
 
         private IList<NavigationYearModel> GetYearModels(CashgameContext.Result cashgameContext)
         {
-            var models = cashgameContext.Years.Select(o => GetYearModel(cashgameContext.Slug, cashgameContext.SelectedYear, cashgameContext.SelectedPage, o)).ToList();
-            models.Add(GetYearModel(cashgameContext.Slug, cashgameContext.SelectedYear, cashgameContext.SelectedPage));
+            var models = cashgameContext.Years.Select(o => GetYearModel(cashgameContext.BunchId, cashgameContext.SelectedYear, cashgameContext.SelectedPage, o)).ToList();
+            models.Add(GetYearModel(cashgameContext.BunchId, cashgameContext.SelectedYear, cashgameContext.SelectedPage));
             return models;
         } 
 

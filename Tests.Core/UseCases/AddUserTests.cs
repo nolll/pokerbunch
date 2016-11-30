@@ -77,9 +77,9 @@ namespace Tests.Core.UseCases
             var request = new AddUser.Request(ValidUserName, ValidDisplayName, ValidEmail, ValidPassword, "/");
             Sut.Execute(request);
 
-            var user = Repos.User.Added;
+            var user = Deps.User.Added;
 
-            Assert.AreEqual(0, user.Id);
+            Assert.AreEqual("", user.Id);
             Assert.AreEqual(ValidUserName, user.UserName);
             Assert.AreEqual(ValidDisplayName, user.DisplayName);
             Assert.AreEqual("", user.RealName);
@@ -100,14 +100,14 @@ Please sign in here: /loginUrl";
             var request = new AddUser.Request(ValidUserName, ValidDisplayName, ValidEmail, ValidPassword, "/loginUrl");
             Sut.Execute(request);
 
-            Assert.AreEqual(ValidEmail, Services.MessageSender.To);
-            Assert.AreEqual(subject, Services.MessageSender.Message.Subject);
-            Assert.AreEqual(body, Services.MessageSender.Message.Body);
+            Assert.AreEqual(ValidEmail, Deps.MessageSender.To);
+            Assert.AreEqual(subject, Deps.MessageSender.Message.Subject);
+            Assert.AreEqual(body, Deps.MessageSender.Message.Body);
         }
 
         private AddUser Sut => new AddUser(
-            Services.UserService,
-            Services.RandomService,
-            Services.MessageSender);
+            Deps.User,
+            Deps.RandomService,
+            Deps.MessageSender);
     }
 }

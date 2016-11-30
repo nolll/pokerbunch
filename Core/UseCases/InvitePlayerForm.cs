@@ -1,37 +1,38 @@
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class InvitePlayerForm
     {
-        private readonly BunchService _bunchService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public InvitePlayerForm(BunchService bunchService, PlayerService playerService, UserService userService)
+        public InvitePlayerForm(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _playerService = playerService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.Slug);
-            var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var player = _playerRepository.Get(request.PlayerId);
+            var bunch = _bunchRepository.Get(player.BunchId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
 
-            return new Result(bunch.Slug);
+            return new Result(bunch.Id);
         }
 
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
 
-            public Request(string userName, int playerId)
+            public Request(string userName, string playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;

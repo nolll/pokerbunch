@@ -1,7 +1,7 @@
 using Core.Services;
 using Core.UseCases;
-using Web.Common.Urls.SiteUrls;
 using Web.Services;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Details
 {

@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void RunningCashgame_CashgameRunning_AllSimplePropertiesAreSet()
         {
-            Repos.Cashgame.SetupRunningGame();
+            Deps.Cashgame.SetupRunningGame();
 
             var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA);
             var result = Sut.Execute(request);
@@ -32,7 +32,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void RunningCashgame_CashgameRunning_SlugIsSet()
         {
-            Repos.Cashgame.SetupRunningGame();
+            Deps.Cashgame.SetupRunningGame();
 
             var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA);
             var result = Sut.Execute(request);
@@ -43,7 +43,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void RunningCashgame_CashgameRunning_PlayerItemsAreSet()
         {
-            Repos.Cashgame.SetupRunningGame();
+            Deps.Cashgame.SetupRunningGame();
 
             var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA);
             var result = Sut.Execute(request);
@@ -53,20 +53,20 @@ namespace Tests.Core.UseCases
             Assert.IsFalse(result.PlayerItems[0].HasCashedOut);
             Assert.AreEqual(TestData.PlayerA.DisplayName, result.PlayerItems[0].Name);
             Assert.AreEqual(TestData.PlayerA.Id, result.PlayerItems[0].PlayerId);
-            Assert.AreEqual(3, result.PlayerItems[0].CashgameId);
-            Assert.AreEqual(1, result.PlayerItems[0].PlayerId);
+            Assert.AreEqual("3", result.PlayerItems[0].CashgameId);
+            Assert.AreEqual("1", result.PlayerItems[0].PlayerId);
             Assert.AreEqual(1, result.PlayerItems[1].Checkpoints.Count);
             Assert.IsFalse(result.PlayerItems[1].HasCashedOut);
             Assert.AreEqual(TestData.PlayerB.DisplayName, result.PlayerItems[1].Name);
             Assert.AreEqual(TestData.PlayerB.Id, result.PlayerItems[1].PlayerId);
-            Assert.AreEqual(3, result.PlayerItems[1].CashgameId);
-            Assert.AreEqual(2, result.PlayerItems[1].PlayerId);
+            Assert.AreEqual("3", result.PlayerItems[1].CashgameId);
+            Assert.AreEqual("2", result.PlayerItems[1].PlayerId);
         }
 
         [Test]
         public void RunningCashgame_CashgameRunning_BunchPlayerItemsAreSet()
         {
-            Repos.Cashgame.SetupRunningGame();
+            Deps.Cashgame.SetupRunningGame();
 
             var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA);
             var result = Sut.Execute(request);
@@ -83,10 +83,10 @@ namespace Tests.Core.UseCases
         }
 
         private RunningCashgame Sut => new RunningCashgame(
-            Services.BunchService,
-            Services.CashgameService,
-            Services.PlayerService,
-            Services.UserService,
-            Repos.Location);
+            Deps.Bunch,
+            Deps.Cashgame,
+            Deps.Player,
+            Deps.User,
+            Deps.Location);
     }
 }

@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.EventModels.Details;
+using Web.Routes;
 
 namespace Web.Controllers
 {
@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Event.Details)]
-        public ActionResult List(int id)
+        public ActionResult List(string id)
         {
             var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(eventDetails.Slug);

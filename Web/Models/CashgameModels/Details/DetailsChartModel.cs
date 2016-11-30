@@ -41,7 +41,7 @@ namespace Web.Models.CashgameModels.Details
             return columnModels;
         }
 
-        private static ChartRowModel GetRow(IEnumerable<CashgameDetailsChart.PlayerItem> playerItems, CashgameDetailsChart.ResultItem resultItem, int playerId)
+        private static ChartRowModel GetRow(IEnumerable<CashgameDetailsChart.PlayerItem> playerItems, CashgameDetailsChart.ResultItem resultItem, string playerId)
         {
             var values = new List<ChartValueModel> { new ChartDateTimeValueModel(resultItem.Timestamp) };
             foreach (var item in playerItems)

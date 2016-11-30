@@ -2,51 +2,52 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class Matrix
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
-        private readonly EventService _eventService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IEventRepository _eventService;
 
-        public Matrix(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService, EventService eventServicey)
+        public Matrix(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository, IEventRepository eventRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _playerService = playerService;
-            _userService = userService;
-            _eventService = eventServicey;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
+            _eventService = eventRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var bunch = _bunchRepository.Get(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameService.GetFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
             return Execute(bunch, cashgames);
         }
 
         public Result Execute(EventMatrixRequest request)
         {
             var e = _eventService.Get(request.EventId);
-            var bunch = _bunchService.Get(e.Bunch);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var bunch = _bunchRepository.Get(e.BunchId);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameService.GetByEvent(request.EventId);
+            var cashgames = _cashgameRepository.ListByEvent(request.EventId);
             return Execute(bunch, cashgames);
         }
 
         private Result Execute(Bunch bunch, IList<Cashgame> cashgames)
         {
-            var players = _playerService.GetList(bunch.Slug);
+            var players = _playerRepository.List(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
 
             var gameItems = CreateGameItems(cashgames);
@@ -74,9 +75,9 @@ namespace Core.UseCases
             return playerItems;
         }
 
-        private static IDictionary<int, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IEnumerable<Cashgame> cashgames, Player player)
+        private static IDictionary<string, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IEnumerable<Cashgame> cashgames, Player player)
         {
-            var items = new Dictionary<int, MatrixResultItem>();
+            var items = new Dictionary<string, MatrixResultItem>();
             foreach (var cashgame in cashgames)
             {
                 var result = cashgame.GetResult(player.Id);
@@ -103,7 +104,7 @@ namespace Core.UseCases
                 .ToList();
         }
 
-        private static GameItem CreateGameItem(int cashgameId, DateTime startTime)
+        private static GameItem CreateGameItem(string cashgameId, DateTime startTime)
         {
             var date = new Date(startTime);
             
@@ -127,9 +128,9 @@ namespace Core.UseCases
         public class EventMatrixRequest
         {
             public string UserName { get; }
-            public int EventId { get; }
+            public string EventId { get; }
 
-            public EventMatrixRequest(string userName, int eventId)
+            public EventMatrixRequest(string userName, string eventId)
             {
                 UserName = userName;
                 EventId = eventId;
@@ -155,11 +156,11 @@ namespace Core.UseCases
             public int Rank { get; private set; }
             public string Name { get; private set; }
             public string Color { get; private set; }
-            public int PlayerId { get; private set; }
-            public IDictionary<int, MatrixResultItem> ResultItems { get; private set; }
+            public string PlayerId { get; private set; }
+            public IDictionary<string, MatrixResultItem> ResultItems { get; private set; }
             public Money TotalResult { get; private set; }
 
-            public MatrixPlayerItem(int rank, string name, string color, int playerId, IDictionary<int, MatrixResultItem> resultItems, Money totalResult)
+            public MatrixPlayerItem(int rank, string name, string color, string playerId, IDictionary<string, MatrixResultItem> resultItems, Money totalResult)
             {
                 Rank = rank;
                 Name = name;
@@ -190,10 +191,10 @@ namespace Core.UseCases
 
         public class GameItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public Date Date { get; private set; }
 
-            public GameItem(int id, Date date)
+            public GameItem(string id, Date date)
             {
                 Id = id;
                 Date = date;

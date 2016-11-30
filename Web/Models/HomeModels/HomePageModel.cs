@@ -1,8 +1,8 @@
 using Core.UseCases;
-using Web.Common.Urls.SiteUrls;
 using Web.Models.HomegameModels.List;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.HomeModels
 {

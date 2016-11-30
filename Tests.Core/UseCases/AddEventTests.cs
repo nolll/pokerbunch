@@ -12,10 +12,10 @@ namespace Tests.Core.UseCases
         {
             const string addedEventName = "added event";
 
-            var request = new AddEvent.Request(TestData.UserA.UserName, TestData.BunchA.Slug, addedEventName);
+            var request = new AddEvent.Request(TestData.UserA.UserName, TestData.BunchA.Id, addedEventName);
             Sut.Execute(request);
 
-            Assert.AreEqual(addedEventName, Repos.Event.Added.Name);
+            Assert.AreEqual(addedEventName, Deps.Event.Added.Name);
         }
 
         [Test]
@@ -23,21 +23,15 @@ namespace Tests.Core.UseCases
         {
             const string addedEventName = "";
 
-            var request = new AddEvent.Request(TestData.UserA.UserName, TestData.BunchA.Slug, addedEventName);
+            var request = new AddEvent.Request(TestData.UserA.UserName, TestData.BunchA.Id, addedEventName);
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
 
-        private AddEvent Sut
-        {
-            get
-            {
-                return new AddEvent(
-                    Services.BunchService,
-                    Services.PlayerService,
-                    Services.UserService,
-                    Services.EventService);
-            }
-        }
+        private AddEvent Sut => new AddEvent(
+            Deps.Bunch,
+            Deps.Player,
+            Deps.User,
+            Deps.Event);
     }
 }

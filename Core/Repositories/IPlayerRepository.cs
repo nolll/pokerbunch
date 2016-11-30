@@ -5,15 +5,14 @@ namespace Core.Repositories
 {
 	public interface IPlayerRepository
     {
-        Player Get(int id);
-        IList<Player> Get(IList<int> ids);
+        Player Get(string id);
+        IList<Player> Get(IList<string> ids);
 
-	    IList<int> Find(string slug);
-        IList<int> Find(string slug, string name);
-        IList<int> Find(string slug, int userId);
+	    IList<Player> List(string bunchId);
+        Player GetByUser(string bunchId, string userId);
 
-        bool JoinHomegame(Player player, Bunch bunch, int userId);
-        int Add(Player player);
-		void Delete(int playerId);
+        bool JoinBunch(Player player, Bunch bunch, string userId);
+        string Add(Player player);
+		void Delete(string playerId);
 	}
 }

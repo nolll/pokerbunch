@@ -6,16 +6,16 @@ namespace Infrastructure.Storage.Repositories
 {
     public class ApiTokenRepository : ITokenRepository
     {
-        private readonly ApiConnection _apiConnection;
+        private readonly ApiConnection _api;
 
-        public ApiTokenRepository(ApiConnection apiConnection)
+        public ApiTokenRepository(ApiConnection api)
         {
-            _apiConnection = apiConnection;
+            _api = api;
         }
 
         public string Get(string userName, string password)
         {
-            var responseString = _apiConnection.GetToken(userName, password);
+            var responseString = _api.GetToken(userName, password);
             var response = JsonConvert.DeserializeObject<SignInResponse>(responseString);
             return response.access_token;
         }

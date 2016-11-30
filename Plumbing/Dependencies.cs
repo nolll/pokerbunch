@@ -2,7 +2,6 @@ using Core.Repositories;
 using Core.Services;
 using Infrastructure;
 using Infrastructure.Storage;
-using Infrastructure.Storage.CachedRepositories;
 using Infrastructure.Storage.Repositories;
 using Infrastructure.Web;
 
@@ -10,36 +9,46 @@ namespace Plumbing
 {
     public class Dependencies
     {
-        private readonly ICacheContainer _cacheContainer;
-        private readonly SqlServerStorageProvider _db;
-        private readonly ApiConnection _apiConnection;
+        private readonly string _connectionString;
+        private readonly string _apiUrl;
+        private readonly string _apiKey;
+        private readonly string _apiToken;
+        private SqlServerStorageProvider _db;
+        private ApiConnection _api;
+
         private ILocationRepository _locationRepository;
-        private AppService _appService;
-        private BunchService _bunchService;
-        private CashgameService _cashgameService;
-        private EventService _eventService;
-        private PlayerService _playerService;
-        private UserService _userService;
-        private AuthService _authService;
+        private IBunchRepository _bunchRepository;
+        private IAppRepository _appRepository;
+        private ICashgameRepository _cashgameRepository;
+        private IEventRepository _eventRepository;
+        private IPlayerRepository _playerRepository;
+        private IUserRepository _userRepository;
+        private ITokenRepository _tokenRepository;
         private IRandomService _randomService;
         private IMessageSender _messageSender;
                 
         public Dependencies(ICacheContainer cacheContainer, string connectionString, string apiUrl, string apiKey, string apiToken)
         {
-            _cacheContainer = cacheContainer;
-            _db = new SqlServerStorageProvider(connectionString);
-            _apiConnection = new ApiConnection(apiUrl, apiKey, apiToken);
+            Cache = cacheContainer;
+            _connectionString = connectionString;
+            _apiUrl = apiUrl;
+            _apiKey = apiKey;
+            _apiToken = apiToken;
         }
 
-        public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(_apiConnection));
-        public AppService AppService => _appService ?? (_appService = new AppService(new CachedAppRepository(new SqlAppRepository(_db), _cacheContainer)));
-        public BunchService BunchService => _bunchService ?? (_bunchService = new BunchService(new CachedBunchRepository(new SqlBunchRepository(_db), new ApiBunchRepository(_apiConnection), _cacheContainer)));
-        public CashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(new CachedCashgameRepository(new SqlCashgameRepository(_db), _cacheContainer)));
-        public EventService EventService => _eventService ?? (_eventService = new EventService(new CachedEventRepository(new SqlEventRepository(_db), _cacheContainer)));
-        public PlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(new CachedPlayerRepository(new SqlPlayerRepository(_db), _cacheContainer)));
-        public UserService UserService => _userService ?? (_userService = new UserService(new CachedUserRepository(new SqlUserRepository(_db), _cacheContainer)));
-        public AuthService AuthService => _authService ?? (_authService = new AuthService(new ApiTokenRepository(_apiConnection)));
+        private SqlServerStorageProvider Db => _db ?? (_db = new SqlServerStorageProvider(_connectionString));
+        private ApiConnection Api => _api ?? (_api = new ApiConnection(_apiUrl, _apiKey, _apiToken));
+
+        public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(Api));
+        public IBunchRepository BunchRepository => _bunchRepository ?? (_bunchRepository = new ApiBunchRepository(Api));
+        public IAppRepository AppRepository => _appRepository ?? (_appRepository = new ApiAppRepository(Api));
+        public ICashgameRepository CashgameRepository => _cashgameRepository ?? (_cashgameRepository = new CashgameRepository(Db, Cache));
+        public IEventRepository EventRepository => _eventRepository ?? (_eventRepository = new EventRepository(Db, Cache));
+        public IPlayerRepository PlayerRepository => _playerRepository ?? (_playerRepository = new PlayerRepository(Db, Cache));
+        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(Db, Cache));
+        public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());
+        public ICacheContainer Cache { get; }
     }
 }

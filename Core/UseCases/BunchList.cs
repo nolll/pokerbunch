@@ -1,34 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class BunchList
     {
-        private readonly BunchService _bunchService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IUserRepository _userRepository;
 
-        public BunchList(BunchService bunchService, UserService userService)
+        public BunchList(IBunchRepository bunchRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(AllBunchesRequest request)
         {
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             RequireRole.Admin(user);
 
-            var bunches = _bunchService.GetList();
+            var bunches = _bunchRepository.List();
             return new Result(bunches);
         }
 
         public Result Execute(UserBunchesRequest request)
         {
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var homegames = user != null ? _bunchService.GetByUserId(user.Id) : new List<Bunch>();
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var homegames = user != null ? _bunchRepository.ListForUser() : new List<SmallBunch>();
             
             return new Result(homegames);
         }
@@ -57,7 +58,7 @@ namespace Core.UseCases
         {
             public IList<ResultItem> Bunches { get; private set; }
 
-            public Result(IEnumerable<Bunch> bunches)
+            public Result(IEnumerable<SmallBunch> bunches)
             {
                 Bunches = bunches.Select(o => new ResultItem(o)).ToList();
             }
@@ -65,14 +66,14 @@ namespace Core.UseCases
 
         public class ResultItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Slug { get; private set; }
             public string DisplayName { get; private set; }
 
-            public ResultItem(Bunch bunch)
+            public ResultItem(SmallBunch bunch)
             {
                 Id = bunch.Id;
-                Slug = bunch.Slug;
+                Slug = bunch.Id;
                 DisplayName = bunch.DisplayName;
             }
         }

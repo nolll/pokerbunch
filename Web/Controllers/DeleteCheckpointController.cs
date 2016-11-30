@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using Web.Common.Routes;
-using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
+using Web.Routes;
+using Web.Urls.SiteUrls;
 
 namespace Web.Controllers
 {
@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Cashgame.CheckpointDelete)]
-        public ActionResult DeleteCheckpoint(int id)
+        public ActionResult DeleteCheckpoint(string id)
         {
             var request = new DeleteCheckpoint.Request(Identity.UserName, id);
             var result = UseCase.DeleteCheckpoint.Execute(request);

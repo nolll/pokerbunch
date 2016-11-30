@@ -1,6 +1,6 @@
 using Core.UseCases;
-using Web.Common.Services;
 using Web.Models.PageBaseModels;
+using Web.Services;
 
 namespace Web.Models.CashgameModels.Chart
 {

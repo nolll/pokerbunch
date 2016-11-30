@@ -1,9 +1,9 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Action;
+using Web.Routes;
 
 namespace Web.Controllers
 {
@@ -11,7 +11,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Cashgame.Action)]
-        public ActionResult Action(int cashgameId, int playerId)
+        public ActionResult Action(string cashgameId, string playerId)
         {
             var actionsResult = UseCase.Actions.Execute(new Actions.Request(Identity.UserName, cashgameId, playerId));
             var contextResult = GetBunchContext(actionsResult.Slug);

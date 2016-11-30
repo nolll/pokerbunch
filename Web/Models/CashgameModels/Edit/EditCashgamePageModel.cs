@@ -3,8 +3,8 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
-using Web.Common.Urls.SiteUrls;
 using Web.Models.PageBaseModels;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Edit
 {
@@ -16,9 +16,9 @@ namespace Web.Models.CashgameModels.Edit
         public string AddLocationUrl { get; private set; }
         public string AddEventUrl { get; private set; }
         public IList<SelectListItem> Locations { get; }
-        public int LocationId { get; private set; }
+        public string LocationId { get; private set; }
         public IList<SelectListItem> Events { get; }
-        public int EventId { get; private set; }
+        public string EventId { get; private set; }
 
         public EditCashgamePageModel(BunchContext.Result contextResult, EditCashgameForm.Result editCashgameFormResult, EditCashgamePostModel postModel)
             : base(contextResult)

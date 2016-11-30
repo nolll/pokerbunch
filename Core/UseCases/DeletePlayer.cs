@@ -1,45 +1,49 @@
+using System.Linq;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class DeletePlayer
     {
-        private readonly PlayerService _playerService;
-        private readonly CashgameService _cashgameService;
-        private readonly UserService _userService;
-        private readonly BunchService _bunchService;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IBunchRepository _bunchRepository;
 
-        public DeletePlayer(PlayerService playerService, CashgameService cashgameService, UserService userService, BunchService bunchService)
+        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IBunchRepository bunchRepository)
         {
-            _playerService = playerService;
-            _cashgameService = cashgameService;
-            _userService = userService;
-            _bunchService = bunchService;
+            _playerRepository = playerRepository;
+            _cashgameRepository = cashgameRepository;
+            _userRepository = userRepository;
+            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.Slug);
-            var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var player = _playerRepository.Get(request.PlayerId);
+            var bunch = _bunchRepository.Get(player.BunchId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
-            var canDelete = !_cashgameService.HasPlayed(player.Id);
+            var cashgames = _cashgameRepository.ListByPlayer(player.Id);
+            var hasPlayed = cashgames.Any();
+            var canDelete = !hasPlayed;
 
             if (canDelete)
             {
-                _playerService.Delete(request.PlayerId);
+                _playerRepository.Delete(request.PlayerId);
             }
 
-            return new Result(canDelete, bunch.Slug, request.PlayerId);
+            return new Result(canDelete, bunch.Id, request.PlayerId);
         }
 
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
 
-            public Request(string userName, int playerId)
+            public Request(string userName, string playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;
@@ -50,9 +54,9 @@ namespace Core.UseCases
         {
             public bool Deleted { get; private set; }
             public string Slug { get; private set; }
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
 
-            public Result(bool deleted, string slug, int playerId)
+            public Result(bool deleted, string slug, string playerId)
             {
                 Deleted = deleted;
                 Slug = slug;

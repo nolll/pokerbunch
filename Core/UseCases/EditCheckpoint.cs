@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -8,17 +9,17 @@ namespace Core.UseCases
 {
     public class EditCheckpoint
     {
-        private readonly BunchService _bunchService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
-        private readonly CashgameService _cashgameService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
-        public EditCheckpoint(BunchService bunchService, UserService userService, PlayerService playerService, CashgameService cashgameService)
+        public EditCheckpoint(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
         {
-            _bunchService = bunchService;
-            _userService = userService;
-            _playerService = playerService;
-            _cashgameService = cashgameService;
+            _bunchRepository = bunchRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
         public Result Execute(Request request)
@@ -27,11 +28,11 @@ namespace Core.UseCases
             if(!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var cashgame = _cashgameService.GetByCheckpoint(request.CheckpointId);
+            var cashgame = _cashgameRepository.GetByCheckpoint(request.CheckpointId);
             var existingCheckpoint = cashgame.GetCheckpoint(request.CheckpointId);
-            var bunch = _bunchService.Get(cashgame.Bunch);
-            var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var bunch = _bunchRepository.Get(cashgame.BunchId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
             RequireRole.Manager(currentUser, currentPlayer);
             
             var postedCheckpoint = Checkpoint.Create(
@@ -44,7 +45,7 @@ namespace Core.UseCases
                 existingCheckpoint.Id);
 
             cashgame.UpdateCheckpoint(postedCheckpoint);
-            _cashgameService.UpdateGame(cashgame);
+            _cashgameRepository.Update(cashgame);
 
             return new Result(cashgame.Id, existingCheckpoint.PlayerId);
         }
@@ -52,14 +53,14 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int CheckpointId { get; }
+            public string CheckpointId { get; }
             public DateTime Timestamp { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
             public int Stack { get; }
             [Range(0, int.MaxValue, ErrorMessage = "Amount can't be negative")]
             public int Amount { get; }
 
-            public Request(string userName, int checkpointId, DateTime timestamp, int stack, int amount)
+            public Request(string userName, string checkpointId, DateTime timestamp, int stack, int amount)
             {
                 UserName = userName;
                 CheckpointId = checkpointId;
@@ -71,10 +72,10 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int CashgameId { get; private set; }
-            public int PlayerId { get; private set; }
+            public string CashgameId { get; private set; }
+            public string PlayerId { get; private set; }
 
-            public Result(int cashgameId, int playerId)
+            public Result(string cashgameId, string playerId)
             {
                 CashgameId = cashgameId;
                 PlayerId = playerId;

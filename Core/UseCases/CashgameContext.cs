@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Services;
+using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class CashgameContext
     {
-        private readonly UserService _userService;
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
+        private readonly IUserRepository _userRepository;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
 
-        public CashgameContext(UserService userService, BunchService bunchService, CashgameService cashgameService)
+        public CashgameContext(IUserRepository userRepository, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
-            _userService = userService;
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
+            _userRepository = userRepository;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunchContextResult = new BunchContext(_userService, _bunchService).Execute(request);
-            var runningGame = _cashgameService.GetRunning(bunchContextResult.BunchId);
+            var bunchContextResult = new BunchContext(_userRepository, _bunchRepository).Execute(request);
+            var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;
-            var years = _cashgameService.GetYears(bunchContextResult.BunchId);
+            var years = _cashgameRepository.GetYears(bunchContextResult.BunchId);
 
             var selectedYear = request.Year;
             if (request.SelectedPage == CashgamePage.Overview)
@@ -37,7 +37,7 @@ namespace Core.UseCases
 
             return new Result(
                 bunchContextResult,
-                request.Slug,
+                request.BunchId,
                 gameIsRunning,
                 request.SelectedPage,
                 years,
@@ -50,8 +50,8 @@ namespace Core.UseCases
             public CashgamePage SelectedPage { get; }
             public int? Year { get; }
 
-            public Request(string userName, string slug, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
-                : base(userName, slug)
+            public Request(string userName, string bunchId, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
+                : base(userName, bunchId)
             {
                 CurrentTime = currentTime;
                 SelectedPage = selectedPage;
@@ -61,7 +61,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string Slug { get; private set; }
+            public string BunchId { get; private set; }
             public bool GameIsRunning { get; private set; }
             public CashgamePage SelectedPage { get; private set; }
             public int? SelectedYear { get; private set; }
@@ -70,13 +70,13 @@ namespace Core.UseCases
 
             public Result(
                 BunchContext.Result bunchContextResult,
-                string slug,
+                string bunchId,
                 bool gameIsRunning,
                 CashgamePage selectedPage,
                 IList<int> years,
                 int? selectedYear)
             {
-                Slug = slug;
+                BunchId = bunchId;
                 BunchContext = bunchContextResult;
                 GameIsRunning = gameIsRunning;
                 SelectedPage = selectedPage;

@@ -17,48 +17,39 @@ namespace Tests.Common.FakeRepositories
             SetupDefaultList();
         }
 
-        public Bunch Get(string slug)
+        public Bunch Get(string id)
         {
-            var bunch = _list.FirstOrDefault(o => o.Slug == slug);
+            var bunch = _list.FirstOrDefault(o => o.Id == id);
             if (bunch == null)
-                throw new BunchNotFoundException(slug);
+                throw new BunchNotFoundException(id);
             return bunch;
         }
 
-        public IList<Bunch> Get(IList<int> ids)
+        public IList<Bunch> Get(IList<string> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<Bunch> GetByUserId(int userId)
+        public IList<SmallBunch> List()
         {
-            return _list;
+            return _list.Select(o => (SmallBunch)o).ToList();
         }
 
-        public IList<int> Search()
+        public IList<SmallBunch> ListForUser()
         {
-            return _list.Select(o => o.Id).ToList();
+            return _list.Select(o => (SmallBunch)o).ToList();
         }
 
-        public IList<int> Search(string slug)
-        {
-            return _list.Where(o => o.Slug == slug).Select(o => o.Id).ToList();
-        }
-
-        public IList<int> Search(int userId)
-        {
-            return _list.Select(o => o.Id).ToList();
-        }
-
-        public int Add(Bunch bunch)
+        public Bunch Add(Bunch bunch)
         {
             Added = bunch;
-            return 1;
+            return bunch;
         }
 
-        public void Update(Bunch bunch)
+        public Bunch Update(Bunch bunch)
         {
             Saved = bunch;
+            return bunch;
         }
 
         public void SetupDefaultList()

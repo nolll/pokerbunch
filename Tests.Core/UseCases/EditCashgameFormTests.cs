@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(new EditCashgameForm.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA));
 
-            Assert.AreEqual(1, result.CashgameId);
+            Assert.AreEqual("1", result.CashgameId);
             Assert.AreEqual(TestData.LocationIdA, result.LocationId);
             Assert.AreEqual(TestData.DateStringA, result.Date);
         }
@@ -25,11 +25,11 @@ namespace Tests.Core.UseCases
         }
 
         private EditCashgameForm Sut => new EditCashgameForm(
-            Services.BunchService,
-            Services.CashgameService,
-            Services.UserService,
-            Services.PlayerService,
-            Repos.Location,
-            Services.EventService);
+            Deps.Bunch,
+            Deps.Cashgame,
+            Deps.User,
+            Deps.Player,
+            Deps.Location,
+            Deps.Event);
     }
 }

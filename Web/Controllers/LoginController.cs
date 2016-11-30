@@ -4,10 +4,10 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
 using Core.UseCases;
-using Web.Common.Routes;
-using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.AuthModels;
+using Web.Routes;
+using Web.Urls.SiteUrls;
 
 namespace Web.Controllers
 {

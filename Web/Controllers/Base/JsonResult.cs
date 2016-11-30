@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using System.Web.Mvc;
 using JetBrains.Annotations;
-using Web.Common.Services;
+using Web.Services;
 
 namespace Web.Controllers.Base
 {

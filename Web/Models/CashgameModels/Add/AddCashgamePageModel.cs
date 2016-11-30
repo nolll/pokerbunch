@@ -10,9 +10,9 @@ namespace Web.Models.CashgameModels.Add
     public class AddCashgamePageModel : BunchPageModel
     {
         public IEnumerable<SelectListItem> Locations { get; private set; }
-        public int LocationId { get; private set; }
+        public string LocationId { get; private set; }
         public IEnumerable<SelectListItem> Events { get; private set; }
-        public int EventId { get; private set; }
+        public string EventId { get; private set; }
 
         public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel)
             : base(contextResult)

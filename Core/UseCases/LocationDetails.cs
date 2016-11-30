@@ -15,14 +15,14 @@ namespace Core.UseCases
         {
             var location = _locationRepository.Get(request.LocationId);
             
-            return new Result(location.Id, location.Name, location.Slug);
+            return new Result(location.Id, location.Name, location.BunchId);
         }
 
         public class Request
         {
-            public int LocationId { get; }
+            public string LocationId { get; }
 
-            public Request(int locationId)
+            public Request(string locationId)
             {
                 LocationId = locationId;
             }
@@ -30,11 +30,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
             public string Slug { get; private set; }
 
-            public Result(int id, string name, string slug)
+            public Result(string id, string name, string slug)
             {
                 Id = id;
                 Name = name;

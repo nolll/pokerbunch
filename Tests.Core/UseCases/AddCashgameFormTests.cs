@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void AddCashgameOptions_WithRunningCashgame_ThrowsException()
         {
-            Repos.Cashgame.SetupRunningGame();
+            Deps.Cashgame.SetupRunningGame();
 
             const string slug = TestData.SlugA;
 
@@ -36,11 +36,11 @@ namespace Tests.Core.UseCases
         }
 
         private AddCashgameForm Sut => new AddCashgameForm(
-            Services.BunchService,
-            Services.CashgameService,
-            Services.UserService,
-            Services.PlayerService,
-            Repos.Location,
-            Services.EventService);
+            Deps.Bunch,
+            Deps.Cashgame,
+            Deps.User,
+            Deps.Player,
+            Deps.Location,
+            Deps.Event);
     }
 }

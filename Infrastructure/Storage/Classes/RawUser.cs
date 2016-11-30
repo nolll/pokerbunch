@@ -4,7 +4,7 @@ namespace Infrastructure.Storage.Classes
 {
 	public class RawUser
     {
-	    public int Id { get; }
+	    public string Id { get; }
 	    public string UserName { get; }
 	    public string DisplayName { get; }
 	    public string RealName { get; }
@@ -13,7 +13,7 @@ namespace Infrastructure.Storage.Classes
 	    public string EncryptedPassword { get; }
 	    public string Salt { get; }
 
-	    public RawUser(int id, string userName, string displayName, string realName, string email, int globalRole, string encryptedPassword, string salt)
+	    public RawUser(string id, string userName, string displayName, string realName, string email, int globalRole, string encryptedPassword, string salt)
 	    {
 	        Id = id;
 	        UserName = userName;

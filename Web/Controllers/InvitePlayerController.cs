@@ -1,11 +1,11 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using Web.Common.Routes;
-using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Extensions;
 using Web.Models.PlayerModels.Invite;
+using Web.Routes;
+using Web.Urls.SiteUrls;
 
 namespace Web.Controllers
 {
@@ -13,7 +13,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Player.Invite)]
-        public ActionResult Invite(int id)
+        public ActionResult Invite(string id)
         {
             return ShowForm(id);
         }
@@ -21,7 +21,7 @@ namespace Web.Controllers
         [HttpPost]
         [Authorize]
         [Route(WebRoutes.Player.Invite)]
-        public ActionResult Invite_Post(int id, InvitePlayerPostModel postModel)
+        public ActionResult Invite_Post(string id, InvitePlayerPostModel postModel)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Web.Controllers
         }
 
         [Route(WebRoutes.Player.InviteConfirmation)]
-        public ActionResult Invited(int id)
+        public ActionResult Invited(string id)
         {
             var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(invitePlayerConfirmation.Slug);
@@ -46,7 +46,7 @@ namespace Web.Controllers
             return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
         }
 
-        private ActionResult ShowForm(int id, InvitePlayerPostModel postModel = null)
+        private ActionResult ShowForm(string id, InvitePlayerPostModel postModel = null)
         {
             var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(Identity.UserName, id));
             var context = GetBunchContext(invitePlayerForm.Slug);

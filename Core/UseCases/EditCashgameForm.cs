@@ -7,48 +7,48 @@ namespace Core.UseCases
 {
     public class EditCashgameForm
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
         private readonly ILocationRepository _locationRepository;
-        private readonly EventService _eventService;
+        private readonly IEventRepository _eventRepository;
 
-        public EditCashgameForm(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, ILocationRepository locationRepository, EventService eventService)
+        public EditCashgameForm(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _userService = userService;
-            _playerService = playerService;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
             _locationRepository = locationRepository;
-            _eventService = eventService;
+            _eventRepository = eventRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameService.GetById(request.Id);
-            var bunch = _bunchService.Get(cashgame.Bunch);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var cashgame = _cashgameRepository.GetById(request.Id);
+            var bunch = _bunchRepository.Get(cashgame.BunchId);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
 
-            var locations = _locationRepository.List(bunch.Slug);
+            var locations = _locationRepository.List(bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
 
-            var events = _eventService.GetByBunch(bunch.Id);
+            var events = _eventRepository.ListByBunch(bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
-            var selectedEvent = _eventService.GetByCashgame(cashgame.Id);
-            var selectedEventId = selectedEvent?.Id ?? 0;
+            var selectedEvent = _eventRepository.GetByCashgame(cashgame.Id);
+            var selectedEventId = selectedEvent?.Id ?? "";
 
-            return new Result(cashgame.DateString, cashgame.Id, bunch.Slug, cashgame.LocationId, locationItems, selectedEventId, eventItems);
+            return new Result(cashgame.DateString, cashgame.Id, bunch.Id, cashgame.LocationId, locationItems, selectedEventId, eventItems);
         }
 
         public class Request
         {
             public string UserName { get; }
-            public int Id { get; }
+            public string Id { get; }
 
-            public Request(string userName, int id)
+            public Request(string userName, string id)
             {
                 UserName = userName;
                 Id = id;
@@ -58,14 +58,14 @@ namespace Core.UseCases
         public class Result
         {
             public string Date { get; private set; }
-            public int CashgameId { get; private set; }
+            public string CashgameId { get; private set; }
             public string Slug { get; private set; }
-            public int LocationId { get; private set; }
+            public string LocationId { get; private set; }
             public IList<LocationItem> Locations { get; private set; }
-            public int SelectedEventId { get; private set; }
+            public string SelectedEventId { get; private set; }
             public IList<EventItem> Events { get; private set; }
 
-            public Result(string date, int cashgameId, string slug, int locationId, IList<LocationItem> locations, int selectedEventId, IList<EventItem> events)
+            public Result(string date, string cashgameId, string slug, string locationId, IList<LocationItem> locations, string selectedEventId, IList<EventItem> events)
             {
                 Date = date;
                 CashgameId = cashgameId;
@@ -79,10 +79,10 @@ namespace Core.UseCases
 
         public class LocationItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
 
-            public LocationItem(int id, string name)
+            public LocationItem(string id, string name)
             {
                 Id = id;
                 Name = name;
@@ -91,10 +91,10 @@ namespace Core.UseCases
 
         public class EventItem
         {
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Name { get; private set; }
 
-            public EventItem(int id, string name)
+            public EventItem(string id, string name)
             {
                 Id = id;
                 Name = name;

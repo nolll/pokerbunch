@@ -8,21 +8,21 @@ namespace Core.UseCases
 {
     public class AddCashgame
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
         private readonly ILocationRepository _locationRepository;
-        private readonly EventService _eventService;
+        private readonly IEventRepository _eventRepository;
 
-        public AddCashgame(BunchService bunchService, CashgameService cashgameService, UserService userService, PlayerService playerService, ILocationRepository locationRepository, EventService eventService)
+        public AddCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _userService = userService;
-            _playerService = playerService;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
             _locationRepository = locationRepository;
-            _eventService = eventService;
+            _eventRepository = eventRepository;
         }
 
         public Result Execute(Request request)
@@ -32,17 +32,17 @@ namespace Core.UseCases
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var bunch = _bunchService.Get(request.Slug);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var bunch = _bunchRepository.Get(request.Slug);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
             var location = _locationRepository.Get(request.LocationId);
-            var cashgame = new Cashgame(bunch.Slug, bunch.Id, location.Id, GameStatus.Running);
-            var cashgameId = _cashgameService.AddGame(bunch, cashgame);
+            var cashgame = new Cashgame(bunch.Id, location.Id, GameStatus.Running);
+            var cashgameId = _cashgameRepository.Add(bunch, cashgame);
 
-            if (request.EventId > 0)
+            if (!string.IsNullOrEmpty(request.EventId))
             {
-                _eventService.AddCashgame(request.EventId, cashgameId);
+                _eventRepository.AddCashgame(request.EventId, cashgameId);
             }
 
             return new Result(request.Slug, cashgameId);
@@ -52,11 +52,11 @@ namespace Core.UseCases
         {
             public string UserName { get; }
             public string Slug { get; }
-            [Range(1, int.MaxValue, ErrorMessage = "Please select a location")]
-            public int LocationId { get; }
-            public int EventId { get; }
+            [Required(ErrorMessage = "Please select a location")]
+            public string LocationId { get; }
+            public string EventId { get; }
 
-            public Request(string userName, string slug, int locationId, int eventId)
+            public Request(string userName, string slug, string locationId, string eventId)
             {
                 UserName = userName;
                 Slug = slug;
@@ -68,9 +68,9 @@ namespace Core.UseCases
         public class Result
         {
             public string Slug { get; private set; }
-            public int CashgameId { get; private set; }
+            public string CashgameId { get; private set; }
 
-            public Result(string slug, int cashgameId)
+            public Result(string slug, string cashgameId)
             {
                 Slug = slug;
                 CashgameId = cashgameId;

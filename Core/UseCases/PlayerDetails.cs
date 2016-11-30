@@ -1,33 +1,36 @@
-﻿using Core.Entities;
+﻿using System.Linq;
+using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerDetails
     {
-        private readonly BunchService _bunchService;
-        private readonly PlayerService _playerService;
-        private readonly CashgameService _cashgameService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IUserRepository _userRepository;
 
-        public PlayerDetails(BunchService bunchService,  PlayerService playerService, CashgameService cashgameService, UserService userService)
+        public PlayerDetails(IBunchRepository bunchRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _playerService = playerService;
-            _cashgameService = cashgameService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _playerRepository = playerRepository;
+            _cashgameRepository = cashgameRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerService.Get(request.PlayerId);
-            var bunch = _bunchService.Get(player.Slug);
-            var user = _userService.GetById(player.UserId);
-            var currentUser = _userService.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, currentUser.Id);
+            var player = _playerRepository.Get(request.PlayerId);
+            var bunch = _bunchRepository.Get(player.BunchId);
+            var user = _userRepository.GetById(player.UserId);
+            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
+            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
             RequireRole.Player(currentUser, currentPlayer);
             var isManager = RoleHandler.IsInRole(currentUser, currentPlayer, Role.Manager);
-            var hasPlayed = _cashgameService.HasPlayed(request.PlayerId);
+            var cashgames = _cashgameRepository.ListByPlayer(player.Id);
+            var hasPlayed = cashgames.Any();
             var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;
 
             return new Result(bunch, player, user, isManager, hasPlayed, avatarUrl);
@@ -36,9 +39,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
 
-            public Request(string userName, int playerId)
+            public Request(string userName, string playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;
@@ -48,7 +51,7 @@ namespace Core.UseCases
         public class Result
         {
             public string DisplayName { get; private set; }
-            public int PlayerId { get; private set; }
+            public string PlayerId { get; private set; }
             public bool CanDelete { get; private set; }
             public bool IsUser { get; private set; }
             public string UserName { get; private set; }
@@ -67,7 +70,7 @@ namespace Core.UseCases
                 UserName = isUser ? user.UserName : string.Empty;
                 AvatarUrl = avatarUrl;
                 Color = player.Color;
-                Slug = bunch.Slug;
+                Slug = bunch.Id;
             }
         }
     }

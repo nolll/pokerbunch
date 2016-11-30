@@ -1,8 +1,8 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using Web.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.LocationModels.List;
+using Web.Routes;
 using Web.Security;
 
 namespace Web.Controllers

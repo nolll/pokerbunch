@@ -8,7 +8,7 @@ namespace Tests.Common.FakeRepositories
     public class FakePlayerRepository : IPlayerRepository
     {
         public Player Added { get; private set; }
-        public int Deleted { get; private set; }
+        public string Deleted { get; private set; }
         public JoinedData Joined { get; private set; }
         private readonly IList<Player> _list;
 
@@ -17,44 +17,39 @@ namespace Tests.Common.FakeRepositories
             _list = CreateList();
         }
 
-        public IList<int> Find(string slug)
+        public IList<Player> List(string bunchId)
         {
-            return _list.Where(o => o.Slug == slug).Select(o => o.Id).ToList();
+            return _list.Where(o => o.BunchId == bunchId).ToList();
         }
 
-        public IList<int> Find(string slug, string name)
+        public Player GetByUser(string bunchId, string userId)
         {
-            return _list.Where(o => o.Slug == slug && o.DisplayName == name).Select(o => o.Id).ToList();
+            return _list.First(o => o.BunchId == bunchId && o.UserId == userId);
         }
 
-        public IList<int> Find(string slug, int userId)
-        {
-            return _list.Where(o => o.Slug == slug && o.UserId == userId).Select(o => o.Id).ToList();
-        }
-
-        public IList<Player> Get(IList<int> ids)
+        public IList<Player> Get(IList<string> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public Player Get(int id)
+        public Player Get(string id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }
 
-        public int Add(Player player)
+        public string Add(Player player)
         {
             Added = player;
-            return 1;
+            return "1";
         }
 
-        public bool JoinHomegame(Player player, Bunch bunch, int userId)
+        public bool JoinBunch(Player player, Bunch bunch, string userId)
         {
             Joined = new JoinedData(player.Id, bunch.Id, userId);
             return true;
         }
 
-        public void Delete(int playerId)
+        public void Delete(string playerId)
         {
             Deleted = playerId;
         }
@@ -72,16 +67,16 @@ namespace Tests.Common.FakeRepositories
 
         public class JoinedData
         {
-            public JoinedData(int playerId, int bunchId, int userId)
+            public string PlayerId { get; private set; }
+            public string BunchId { get; private set; }
+            public string UserId { get; private set; }
+
+            public JoinedData(string playerId, string bunchId, string userId)
             {
                 PlayerId = playerId;
                 BunchId = bunchId;
                 UserId = userId;
             }
-
-            public int PlayerId { get; private set; }
-            public int BunchId { get; private set; }
-            public int UserId { get; private set; }
         }
     }
 }

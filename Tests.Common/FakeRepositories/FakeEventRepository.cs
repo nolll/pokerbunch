@@ -8,7 +8,7 @@ namespace Tests.Common.FakeRepositories
     public class FakeEventRepository : IEventRepository
     {
         public Event Added { get; private set; }
-        public int AddedCashgameId { get; private set; }
+        public string AddedCashgameId { get; private set; }
 
         private readonly IList<Event> _list;
 
@@ -17,33 +17,33 @@ namespace Tests.Common.FakeRepositories
             _list = CreateEventList();
         }
 
-        public Event Get(int id)
+        public Event Get(string id)
         {
             return _list.FirstOrDefault(o => o.Id == id);
         }
         
-        public IList<Event> Get(IList<int> ids)
+        public IList<Event> Get(IList<string> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();
         }
 
-        public IList<int> FindByBunchId(int bunchId)
+        public IList<Event> ListByBunch(string bunchId)
         {
-            return _list.Where(o => o.BunchId == bunchId).Select(o => o.Id).ToList();
+            return _list.Where(o => o.BunchId == bunchId).ToList();
         }
 
-        public IList<int> FindByCashgameId(int cashgameId)
+        public Event GetByCashgame(string cashgameId)
         {
-            return new List<int>(_list.First().Id);
+            return _list.First();
         }
 
-        public int Add(Event e)
+        public string Add(Event e)
         {
             Added = e;
-            return 1;
+            return "1";
         }
 
-        public void AddCashgame(int eventId, int cashgameId)
+        public void AddCashgame(string eventId, string cashgameId)
         {
             AddedCashgameId = cashgameId;
         }
@@ -52,8 +52,8 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Event>
             {
-                new Event(TestData.EventIdA, TestData.BunchA.Slug, TestData.BunchA.Id, TestData.EventNameA, TestData.LocationIdA, new Date(TestData.StartTimeA), new Date(TestData.StartTimeA.AddDays(1))),
-                new Event(TestData.EventIdB, TestData.BunchA.Slug, TestData.BunchA.Id, TestData.EventNameB, TestData.LocationIdB, new Date(TestData.StartTimeB), new Date(TestData.StartTimeB.AddDays(1)))
+                new Event(TestData.EventIdA, TestData.BunchA.Id, TestData.EventNameA, TestData.LocationIdA, new Date(TestData.StartTimeA), new Date(TestData.StartTimeA.AddDays(1))),
+                new Event(TestData.EventIdB, TestData.BunchA.Id, TestData.EventNameB, TestData.LocationIdB, new Date(TestData.StartTimeB), new Date(TestData.StartTimeB.AddDays(1)))
             };
         }
     }

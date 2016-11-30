@@ -7,29 +7,29 @@ namespace Infrastructure.Storage.Repositories
 {
     public class ApiLocationRepository : ILocationRepository
     {
-        private readonly ApiConnection _apiConnection;
+        private readonly ApiConnection _api;
 
-        public ApiLocationRepository(ApiConnection apiConnection)
+        public ApiLocationRepository(ApiConnection api)
         {
-            _apiConnection = apiConnection;
+            _api = api;
         }
 
-        public Location Get(int id)
+        public Location Get(string id)
         {
-            var apiLocation = _apiConnection.Get<ApiLocation>($"location/get/{id}");
+            var apiLocation = _api.Get<ApiLocation>($"locations/{id}");
             return CreateLocation(apiLocation);
         }
 
         public IList<Location> List(string slug)
         {
-            var apiLocation = _apiConnection.Get<IList<ApiLocation>>($"location/list/{slug}");
-            return apiLocation.Select(CreateLocation).ToList();
+            var apiLocations = _api.Get<IList<ApiLocation>>($"bunches/{slug}/locations");
+            return apiLocations.Select(CreateLocation).ToList();
         }
 
-        public int Add(Location location)
+        public string Add(Location location)
         {
-            var postLocation = new ApiLocation(location.Name, location.Slug);
-            var apiLocation = _apiConnection.Post<ApiLocation>($"location/add", postLocation);
+            var postLocation = new ApiLocation(location.Name, location.BunchId);
+            var apiLocation = _api.Post<ApiLocation>("locations", postLocation);
             return CreateLocation(apiLocation).Id;
         }
 
@@ -38,9 +38,9 @@ namespace Infrastructure.Storage.Repositories
             return new Location(l.Id, l.Name, l.Bunch);
         }
 
-        public class ApiLocation : IEntity
+        private class ApiLocation
         {
-            public int Id { get; set; }
+            public string Id { get; set; }
             public string Name { get; set; }
             public string Bunch { get; set; }
 

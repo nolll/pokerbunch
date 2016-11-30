@@ -1,30 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerList
     {
-        private readonly BunchService _bunchService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public PlayerList(BunchService bunchService, UserService userService, PlayerService playerService)
+        public PlayerList(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
-            _bunchService = bunchService;
-            _userService = userService;
-            _playerService = playerService;
+            _bunchRepository = bunchRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchService.Get(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var bunch = _bunchRepository.Get(request.Slug);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var players = _playerService.GetList(bunch.Slug);
+            var players = _playerRepository.List(bunch.Id);
             var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
 
             return new Result(bunch, players, isManager);
@@ -52,14 +53,14 @@ namespace Core.UseCases
             {
                 Players = players.Select(o => new PlayerListItem(o)).OrderBy(o => o.Name).ToList();
                 CanAddPlayer = isManager;
-                Slug = bunch.Slug;
+                Slug = bunch.Id;
             }
         }
 
         public class PlayerListItem
         {
             public string Name { get; }
-            public int Id { get; private set; }
+            public string Id { get; private set; }
             public string Color { get; set; }
 
             public PlayerListItem(Player player)

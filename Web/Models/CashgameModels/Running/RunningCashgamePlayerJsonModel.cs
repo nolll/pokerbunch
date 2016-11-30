@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.UseCases;
 using JetBrains.Annotations;
-using Web.Common.Urls.SiteUrls;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Running
 {
     public class RunningCashgamePlayerJsonModel
     {
         [UsedImplicitly]
-        public int Id { get; private set; }
+        public string Id { get; private set; }
 
         [UsedImplicitly]
         public string Name { get; private set; }

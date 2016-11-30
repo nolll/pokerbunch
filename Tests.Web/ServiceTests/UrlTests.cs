@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using Tests.Common;
-using Web.Common.Urls;
-using Web.Common.Urls.SiteUrls;
 using Web.Extensions;
+using Web.Urls;
+using Web.Urls.SiteUrls;
 
 namespace Tests.Web.ServiceTests
 {
@@ -74,7 +74,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void CashgameDeleteUrl()
         {
-            const int id = 1;
+            const string id = "1";
 
             var result = new DeleteCashgameUrl(id);
 
@@ -84,7 +84,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void CashgameDetailsUrl()
         {
-            const int id = 1;
+            const string id = "1";
 
             var result = new CashgameDetailsUrl(id);
 
@@ -94,7 +94,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void CashgameEditUrlModel_ReturnsCorrectUrl()
         {
-            const int id = 1;
+            const string id = "1";
 
             var result = new EditCashgameUrl(id);
 
@@ -177,8 +177,8 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void CashgameActionUrlModel_ReturnsCorrectUrl()
         {
-            const int cashgameId = 1;
-            const int playerId = 2;
+            const string cashgameId = "1";
+            const string playerId = "2";
 
             var result = new CashgameActionUrl(cashgameId, playerId);
 
@@ -345,7 +345,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void PlayerDeleteUrl()
         {
-            const int playerId = 1;
+            const string playerId = "1";
 
             var result = new DeletePlayerUrl(playerId);
 
@@ -355,7 +355,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void PlayerDetailsUrl()
         {
-            const int playerId = 1;
+            const string playerId = "1";
 
             var result = new PlayerDetailsUrl(playerId);
 
@@ -375,7 +375,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void PlayerInviteUrl()
         {
-            const int playerId = 1;
+            const string playerId = "1";
 
             var result = new InvitePlayerUrl(playerId);
 
@@ -429,7 +429,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void GetCashgameCheckpointDeleteUrl()
         {
-            const int checkpointId = 1;
+            const string checkpointId = "1";
 
             var result = new DeleteCheckpointUrl(checkpointId);
 
@@ -439,7 +439,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void GetCashgameCheckpointEditUrl()
         {
-            const int checkpointId = 1;
+            const string checkpointId = "1";
 
             var result = new EditCheckpointUrl(checkpointId);
 
@@ -470,7 +470,7 @@ namespace Tests.Web.ServiceTests
         [Test]
         public void GetPlayerInviteConfirmationUrl()
         {
-            const int playerId = 1;
+            const string playerId = "1";
 
             var result = new InvitePlayerConfirmationUrl(playerId);
 

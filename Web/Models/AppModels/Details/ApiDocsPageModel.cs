@@ -1,8 +1,8 @@
 using Core.UseCases;
-using Web.Common.Urls.ApiUrls;
-using Web.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Models.PageBaseModels;
+using Web.Urls.ApiUrls;
+using Web.Urls.SiteUrls;
 
 namespace Web.Models.AppModels.Details
 {

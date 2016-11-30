@@ -1,6 +1,4 @@
-﻿using Web.Common;
-
-namespace Web
+﻿namespace Web
 {
     public class SiteSettings : CommonSettings
     {

@@ -62,13 +62,15 @@
     <Compile Include="UseCases\AddUserTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\AppDetailsTests.cs" />
-    <Compile Include="UseCases\AppListTests.cs" />
+    <Compile Include="UseCases\GivenAppListAll\Arrange.cs" />
+    <Compile Include="UseCases\GivenAppListAll\WhenExecute.cs" />
+    <Compile Include="UseCases\GivenAppListUser\Arrange.cs" />
+    <Compile Include="UseCases\GivenAppListUser\WhenExecute.cs" />
     <Compile Include="UseCases\BaseContextTests.cs" />
     <Compile Include="UseCases\BunchContextTests.cs" />
-    <Compile Include="UseCases\BunchDetailsTests\WithManager.cs" />
-    <Compile Include="UseCases\BunchDetailsTests\WithNoRole.cs" />
-    <Compile Include="UseCases\BunchDetailsTests\WithPlayer.cs" />
-    <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />
+    <Compile Include="UseCases\GivenBunchDetails\WhenExecuteAsManager.cs" />
+    <Compile Include="UseCases\GivenBunchDetails\WhenExecuteAsPlayer.cs" />
+    <Compile Include="UseCases\GivenBunchDetails\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />
     <Compile Include="UseCases\BuyinTests.cs" />
     <Compile Include="UseCases\CashgameChartTests.cs" />
@@ -77,10 +79,10 @@
     <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\CashgameListTests.cs" />
-    <Compile Include="UseCases\CashoutTests\Arrange.cs" />
-    <Compile Include="UseCases\CashoutTests\PlayerHasNotCheckedOutBefore.cs" />
-    <Compile Include="UseCases\CashoutTests\PlayerHasCheckedOutBefore.cs" />
-    <Compile Include="UseCases\CashoutTests\InvalidStack.cs" />
+    <Compile Include="UseCases\GivenCashout\Arrange.cs" />
+    <Compile Include="UseCases\GivenCashout\WhenExecuteWithPlayerThatHasNotCheckedOutBefore.cs" />
+    <Compile Include="UseCases\GivenCashout\WhenExecuteWithPlayerThatHasCheckedOutBefore.cs" />
+    <Compile Include="UseCases\GivenCashout\WhenExecuteWithInvalidStack.cs" />
     <Compile Include="UseCases\ChangePasswordTests.cs" />
     <Compile Include="UseCases\DeleteCashgameTests.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests.cs" />
@@ -92,10 +94,10 @@
     <Compile Include="UseCases\EndCashgameTests.cs" />
     <Compile Include="UseCases\LocationDetailsTests.cs" />
     <Compile Include="UseCases\LoginFormTests.cs" />
-    <Compile Include="UseCases\LoginTests\Arrange.cs" />
-    <Compile Include="UseCases\LoginTests\WithCorrectPassword.cs" />
-    <Compile Include="UseCases\LoginTests\WithWrongPassword.cs" />
-    <Compile Include="UseCases\LoginTests\UnknownUser.cs" />
+    <Compile Include="UseCases\GivenLogin\Arrange.cs" />
+    <Compile Include="UseCases\GivenLogin\WhenExecuteWithCorrectPassword.cs" />
+    <Compile Include="UseCases\GivenLogin\WhenExecuteWithWrongPassword.cs" />
+    <Compile Include="UseCases\GivenLogin\WhenExecuteWithUnknownUser.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
     <Compile Include="UseCases\DeletePlayerTests.cs" />
     <Compile Include="UseCases\EditBunchFormTests.cs" />
@@ -116,12 +118,11 @@
     <Compile Include="UseCases\RunningCashgameTests.cs" />
     <Compile Include="UseCases\TestEmailTests.cs" />
     <Compile Include="UseCases\TopListTests.cs" />
-    <Compile Include="UseCases\UserDetailsTests\Arrange.cs" />
-    <Compile Include="UseCases\UserDetailsTests\OtherUserAsAdmin.cs" />
-    <Compile Include="UseCases\UserDetailsTests\OtherUser.cs" />
-    <Compile Include="UseCases\UserDetailsTests\OwnUser.cs" />
+    <Compile Include="UseCases\GivenUserDetails\Arrange.cs" />
+    <Compile Include="UseCases\GivenUserDetails\WhenExecuteAsAdmin.cs" />
+    <Compile Include="UseCases\GivenUserDetails\WhenExecuteAsOtherUser.cs" />
+    <Compile Include="UseCases\GivenUserDetails\WhenExecuteAsSpecifiedUser.cs" />
     <Compile Include="UseCases\UserListTests.cs" />
-    <Compile Include="UseCases\VerifyAppKeyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

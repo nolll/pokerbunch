@@ -47,16 +47,16 @@ namespace Tests.Core.UseCases
         {
             var result = Sut.Execute(CreateInput());
 
-            Assert.AreEqual(2, result.Events[0].EventId);
-            Assert.AreEqual(1, result.Events[1].EventId);
+            Assert.AreEqual("2", result.Events[0].EventId);
+            Assert.AreEqual("1", result.Events[1].EventId);
         }
 
         private EventList Sut => new EventList(
-            Services.BunchService,
-            Services.EventService,
-            Services.UserService,
-            Services.PlayerService,
-            Repos.Location);
+            Deps.Bunch,
+            Deps.Event,
+            Deps.User,
+            Deps.Player,
+            Deps.Location);
 
         private EventList.Request CreateInput()
         {

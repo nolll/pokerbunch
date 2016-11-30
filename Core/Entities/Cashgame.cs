@@ -12,10 +12,9 @@ namespace Core.Entities
         public IList<Checkpoint> AddedCheckpoints { get; }
         public IList<Checkpoint> UpdatedCheckpoints { get; }
         public IList<Checkpoint> DeletedCheckpoints { get; }
-        public int Id { get; }
-        public string Bunch { get; }
-        public int BunchId { get; private set; }
-        public int LocationId { get; private set; }
+        public string Id { get; }
+        public string BunchId { get; }
+        public string LocationId { get; private set; }
         public GameStatus Status { get; private set; }
         public DateTime? StartTime { get; private set; }
         public DateTime? EndTime { get; private set; }
@@ -24,11 +23,11 @@ namespace Core.Entities
         public int Turnover { get; private set; }
         public int AverageBuyin { get; private set; }
         public string DateString { get; private set; }
-        
-        public Cashgame(string bunch, int bunchId, int locationId, GameStatus status, int? id = null, IList<Checkpoint> checkpoints = null)
+        public string CacheId => Id;
+
+        public Cashgame(string bunchId, string locationId, GameStatus status, string id = null, IList<Checkpoint> checkpoints = null)
         {
-            Id = id ?? 0;
-            Bunch = bunch;
+            Id = id ?? "";
             BunchId = bunchId;
             LocationId = locationId;
             Status = status;
@@ -55,14 +54,14 @@ namespace Core.Entities
             DateString = StartTime.HasValue ? Globalization.FormatIsoDate(StartTime.Value) : string.Empty;
         }
 
-        public Checkpoint GetCheckpoint(int checkpointId)
+        public Checkpoint GetCheckpoint(string checkpointId)
         {
             return Checkpoints.FirstOrDefault(o => o.Id == checkpointId);
         }
 
         private static IList<CashgameResult> CreateResults(IEnumerable<Checkpoint> checkpoints)
         {
-            var map = new Dictionary<int, IList<Checkpoint>>();
+            var map = new Dictionary<string, IList<Checkpoint>>();
             foreach (var checkpoint in checkpoints)
             {
                 IList<Checkpoint> list;
@@ -152,12 +151,12 @@ namespace Core.Entities
             }
         }
 
-        public CashgameResult GetResult(int playerId)
+        public CashgameResult GetResult(string playerId)
 	    {
 	        return Results.FirstOrDefault(result => result.PlayerId == playerId);
 	    }
 
-        public bool IsInGame(int playerId)
+        public bool IsInGame(string playerId)
         {
             return GetResult(playerId) != null;
         }

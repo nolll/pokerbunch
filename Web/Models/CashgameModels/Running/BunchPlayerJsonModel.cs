@@ -6,7 +6,7 @@ namespace Web.Models.CashgameModels.Running
     public class BunchPlayerJsonModel
     {
         [UsedImplicitly]
-        public int Id { get; private set; }
+        public string Id { get; private set; }
 
         [UsedImplicitly]
         public string Name { get; private set; }

@@ -1,10 +1,10 @@
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using Web.Common.Routes;
-using Web.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Checkpoints;
+using Web.Routes;
+using Web.Urls.SiteUrls;
 
 namespace Web.Controllers
 {
@@ -12,7 +12,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Cashgame.CheckpointEdit)]
-        public ActionResult EditCheckpoint(int id)
+        public ActionResult EditCheckpoint(string id)
         {
             return ShowForm(id);
         }
@@ -20,7 +20,7 @@ namespace Web.Controllers
         [HttpPost]
         [Authorize]
         [Route(WebRoutes.Cashgame.CheckpointEdit)]
-        public ActionResult EditCheckpoint_Post(int id, EditCheckpointPostModel postModel)
+        public ActionResult EditCheckpoint_Post(string id, EditCheckpointPostModel postModel)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace Web.Controllers
             return ShowForm(id, postModel);
         }
 
-        private ActionResult ShowForm(int id, EditCheckpointPostModel postModel = null)
+        private ActionResult ShowForm(string id, EditCheckpointPostModel postModel = null)
         {
             var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(editCheckpointFormResult.Slug);

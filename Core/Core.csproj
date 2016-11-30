@@ -76,31 +76,19 @@
     <Compile Include="Repositories\IAppRepository.cs" />
     <Compile Include="Repositories\IEventRepository.cs" />
     <Compile Include="Repositories\ILocationRepository.cs" />
-    <Compile Include="Repositories\IRepositoryFactory.cs" />
     <Compile Include="Repositories\ITokenRepository.cs" />
     <Compile Include="Services\ApplicationVersion.cs" />
-    <Compile Include="Services\AppService.cs" />
-    <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Services\BunchService.cs" />
     <Compile Include="Services\CashgameService.cs" />
-    <Compile Include="Services\CheckpointService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
-    <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
-    <Compile Include="Services\Interfaces\IBunchService.cs" />
     <Compile Include="Services\Interfaces\ICacheContainer.cs" />
     <Compile Include="Services\Interfaces\ICacheProvider.cs" />
-    <Compile Include="Services\Interfaces\ICashgameService.cs" />
     <Compile Include="Services\Interfaces\IMessageSender.cs" />
-    <Compile Include="Services\Interfaces\IPlayerService.cs" />
     <Compile Include="Services\Interfaces\IRandomService.cs" />
-    <Compile Include="Services\Interfaces\ISocialService.cs" />
-    <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\InvitationCodeCreator.cs" />
     <Compile Include="Services\InvitationMessageBuilder.cs" />
     <Compile Include="Services\PasswordGenerator.cs" />
-    <Compile Include="Services\PlayerService.cs" />
     <Compile Include="Services\RandomService.cs" />
     <Compile Include="Services\RandomStringGenerator.cs" />
     <Compile Include="Services\RegistrationConfirmationMessageBuilder.cs" />
@@ -110,7 +98,6 @@
     <Compile Include="Services\SaltGenerator.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
-    <Compile Include="Services\UserService.cs" />
     <Compile Include="UseCases\ActionsChart.cs" />
     <Compile Include="UseCases\Actions.cs" />
     <Compile Include="UseCases\AddApp.cs" />
@@ -122,9 +109,11 @@
     <Compile Include="UseCases\AddLocation.cs" />
     <Compile Include="UseCases\AddPlayer.cs" />
     <Compile Include="UseCases\AddUser.cs" />
+    <Compile Include="UseCases\AppListAll.cs" />
+    <Compile Include="UseCases\ClearCache.cs" />
     <Compile Include="UseCases\CoreContext.cs" />
     <Compile Include="UseCases\AppDetails.cs" />
-    <Compile Include="UseCases\AppList.cs" />
+    <Compile Include="UseCases\AppListUser.cs" />
     <Compile Include="UseCases\BaseContext.cs" />
     <Compile Include="UseCases\BunchContext.cs" />
     <Compile Include="UseCases\BunchDetails.cs" />
@@ -176,7 +165,6 @@
     <Compile Include="UseCases\TestEmail.cs" />
     <Compile Include="UseCases\UserDetails.cs" />
     <Compile Include="UseCases\UserList.cs" />
-    <Compile Include="UseCases\VerifyAppKey.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>

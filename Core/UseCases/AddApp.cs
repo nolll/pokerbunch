@@ -1,30 +1,31 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddApp
     {
-        private readonly AppService _appService;
-        private readonly UserService _userService;
+        private readonly IAppRepository _appRepository;
+        private readonly IUserRepository _userRepository;
 
-        public AddApp(AppService appService, UserService userService)
+        public AddApp(IAppRepository appRepository, IUserRepository userRepository)
         {
-            _appService = appService;
-            _userService = userService;
+            _appRepository = appRepository;
+            _userRepository = userRepository;
         }
 
         public void Execute(Request request)
         {
             var appName = request.AppName;
             var apiKey = Guid.NewGuid().ToString();
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
 
-            var app = new App(0, apiKey, appName, user.Id);
+            var app = new App("", apiKey, appName, user.Id);
 
-            _appService.Add(app);
+            _appRepository.Add(app);
         }
 
         public class Request

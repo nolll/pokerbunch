@@ -5,19 +5,19 @@ namespace Core.Repositories
 {
 	public interface ICashgameRepository
     {
-        Cashgame Get(int cashgameId);
-	    IList<Cashgame> Get(IList<int> ids);
+        Cashgame GetById(string cashgameId);
+	    IList<Cashgame> Get(IList<string> ids);
 
-        IList<int> FindFinished(int bunchId, int? year = null);
-        IList<int> FindByEvent(int eventId);
-        IList<int> FindByPlayerId(int playerId);
-        IList<int> FindRunning(int bunchId);
-        IList<int> FindByCheckpoint(int checkpointId);
+        IList<Cashgame> ListFinished(string bunchId, int? year = null);
+        IList<Cashgame> ListByEvent(string eventId);
+        IList<Cashgame> ListByPlayer(string playerId);
+        Cashgame GetRunning(string bunchId);
+        Cashgame GetByCheckpoint(string checkpointId);
         
-        void DeleteGame(int id);
-		int AddGame(Bunch bunch, Cashgame cashgame);
-		void UpdateGame(Cashgame cashgame);
+        void DeleteGame(string id);
+        string Add(Bunch bunch, Cashgame cashgame);
+		void Update(Cashgame cashgame);
 
-        IList<int> GetYears(int bunchId);
+        IList<int> GetYears(string bunchId);
 	}
 }

@@ -4,7 +4,7 @@ namespace Infrastructure.Storage.Classes
 {
     public class RawBunch
     {
-        public int Id { get; private set; }
+        public string Id { get; private set; }
         public string Slug { get; private set; }
         public string DisplayName { get; private set; }
         public string Description { get; private set; }
@@ -17,7 +17,7 @@ namespace Infrastructure.Storage.Classes
         public bool TournamentsEnabled { get; private set; }
         public bool VideosEnabled { get; private set; }
 
-        public RawBunch(int id, string slug, string displayName, string description, string houseRules, string timezoneName, int defaultBuyin, string currencyLayout, string currencySymbol, bool cashgamesEnabled, bool tournamentsEnabled, bool videosEnabled)
+        public RawBunch(string id, string slug, string displayName, string description, string houseRules, string timezoneName, int defaultBuyin, string currencyLayout, string currencySymbol, bool cashgamesEnabled, bool tournamentsEnabled, bool videosEnabled)
         {
             Id = id;
             Slug = slug;
@@ -37,7 +37,7 @@ namespace Infrastructure.Storage.Classes
         {
             return new RawBunch(
                 bunch.Id,
-                bunch.Slug,
+                bunch.Id,
                 bunch.DisplayName,
                 bunch.Description,
                 bunch.HouseRules,

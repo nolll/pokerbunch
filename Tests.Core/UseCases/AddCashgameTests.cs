@@ -23,16 +23,16 @@ namespace Tests.Core.UseCases
             var request = CreateRequest(TestData.LocationIdA);
             Sut.Execute(request);
 
-            Assert.IsNotNull(Repos.Cashgame.Added);
+            Assert.IsNotNull(Deps.Cashgame.Added);
         }
 
         [Test]
         public void AddCashgame_WithEventId_GameIsAddedToEvent()
         {
-            var request = CreateRequest(TestData.LocationIdA, 2);
+            var request = CreateRequest(TestData.LocationIdA, "2");
             Sut.Execute(request);
 
-            Assert.AreEqual(1, Repos.Event.AddedCashgameId);
+            Assert.AreEqual("1", Deps.Event.AddedCashgameId);
         }
 
         [Test]
@@ -44,17 +44,17 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(1, ex.Messages.Count());
         }
 
-        private static AddCashgame.Request CreateRequest(int locationId = 0, int eventId = 0)
+        private static AddCashgame.Request CreateRequest(string locationId = "", string eventId = "")
         {
             return new AddCashgame.Request(TestData.UserNameA, TestData.SlugA, locationId, eventId);
         }
 
         private AddCashgame Sut => new AddCashgame(
-            Services.BunchService,
-            Services.CashgameService,
-            Services.UserService,
-            Services.PlayerService,
-            Repos.Location,
-            Services.EventService);
+            Deps.Bunch,
+            Deps.Cashgame,
+            Deps.User,
+            Deps.Player,
+            Deps.Location,
+            Deps.Event);
     }
 }

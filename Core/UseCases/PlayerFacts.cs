@@ -2,32 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerFacts
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public PlayerFacts(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
+        public PlayerFacts(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _playerService = playerService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerService.Get(request.PlayerId);
-            var user = _userService.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.Get(request.PlayerId);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
             RequireRole.Player(user, player);
-            var bunch = _bunchService.Get(player.Slug);
-            var cashgames = _cashgameService.GetFinished(bunch.Id);
+            var bunch = _bunchRepository.Get(player.BunchId);
+            var cashgames = _cashgameRepository.ListFinished(bunch.Id);
 
             return new Result(cashgames, player.Id, bunch.Currency);
         }
@@ -35,9 +36,9 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            public int PlayerId { get; }
+            public string PlayerId { get; }
 
-            public Request(string userName, int playerId)
+            public Request(string userName, string playerId)
             {
                 UserName = userName;
                 PlayerId = playerId;
@@ -56,7 +57,7 @@ namespace Core.UseCases
             public int WinningStreak { get; private set; }
             public int LosingStreak { get; private set; }
 
-            public Result(IEnumerable<Cashgame> cashgames, int playerId, Currency currency)
+            public Result(IEnumerable<Cashgame> cashgames, string playerId, Currency currency)
             {
                 var evaluator = new PlayerFactsEvaluator(cashgames, playerId);
 
@@ -75,9 +76,9 @@ namespace Core.UseCases
         private class PlayerFactsEvaluator
         {
             private readonly IEnumerable<Cashgame> _cashgames;
-            private readonly int _playerId;
+            private readonly string _playerId;
 
-            public PlayerFactsEvaluator(IEnumerable<Cashgame> cashgames, int playerId)
+            public PlayerFactsEvaluator(IEnumerable<Cashgame> cashgames, string playerId)
             {
                 _cashgames = FilterCashgames(cashgames, playerId);
                 _playerId = playerId;
@@ -253,7 +254,7 @@ namespace Core.UseCases
                 }
             }
 
-            private static IEnumerable<Cashgame> FilterCashgames(IEnumerable<Cashgame> cashgames, int playerId)
+            private static IEnumerable<Cashgame> FilterCashgames(IEnumerable<Cashgame> cashgames, string playerId)
             {
                 return cashgames.Where(cashgame => cashgame.IsInGame(playerId)).ToList();
             }

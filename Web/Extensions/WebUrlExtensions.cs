@@ -1,5 +1,4 @@
-using Web.Common;
-using Web.Common.Urls;
+using Web.Urls;
 
 namespace Web.Extensions
 {

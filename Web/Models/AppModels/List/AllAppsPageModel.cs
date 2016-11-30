@@ -10,7 +10,7 @@ namespace Web.Models.AppModels.List
         public IList<AppListItemModel> AppModels { get; private set; }
         public bool HasApps { get; private set; }
 
-        public AllAppsPageModel(CoreContext.Result contextResult, AppList.Result appListResult)
+        public AllAppsPageModel(CoreContext.Result contextResult, AppListAll.Result appListResult)
             : base(contextResult)
         {
             AppModels = appListResult.Items.Select(o => new AppListItemModel(o)).ToList();

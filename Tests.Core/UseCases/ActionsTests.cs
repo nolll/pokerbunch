@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(200, result.CheckpointItems[0].DisplayAmount.Amount);
             Assert.AreEqual(DateTime.Parse("2001-01-01 11:00:00"), result.CheckpointItems[0].Time);
             Assert.IsFalse(result.CheckpointItems[0].CanEdit);
-            Assert.AreEqual(1, result.CheckpointItems[0].CheckpointId);
+            Assert.AreEqual("1", result.CheckpointItems[0].CheckpointId);
 
             Assert.AreEqual(CashoutDescription, result.CheckpointItems[1].Type);
             Assert.AreEqual(50, result.CheckpointItems[1].DisplayAmount.Amount);
@@ -46,16 +46,10 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CheckpointItems[0].CanEdit);
         }
 
-        private Actions Sut
-        {
-            get
-            {
-                return new Actions(
-                    Services.BunchService,
-                    Services.CashgameService,
-                    Services.PlayerService,
-                    Services.UserService);
-            }
-        }
+        private Actions Sut => new Actions(
+            Deps.Bunch,
+            Deps.Cashgame,
+            Deps.Player,
+            Deps.User);
     }
 }

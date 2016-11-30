@@ -1,45 +1,46 @@
 ﻿using Core.Exceptions;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class DeleteCashgame
     {
-        private readonly CashgameService _cashgameService;
-        private readonly BunchService _bunchService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly IUserRepository _userRepository;
+        private readonly IPlayerRepository _playerRepository;
 
-        public DeleteCashgame(CashgameService cashgameService, BunchService bunchService, UserService userService, PlayerService playerService)
+        public DeleteCashgame(ICashgameRepository cashgameRepository, IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
-            _cashgameService = cashgameService;
-            _bunchService = bunchService;
-            _userService = userService;
-            _playerService = playerService;
+            _cashgameRepository = cashgameRepository;
+            _bunchRepository = bunchRepository;
+            _userRepository = userRepository;
+            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameService.GetById(request.Id);
-            var bunch = _bunchService.Get(cashgame.Bunch);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var cashgame = _cashgameRepository.GetById(request.Id);
+            var bunch = _bunchRepository.Get(cashgame.BunchId);
+            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Manager(user, player);
 
             if (cashgame.PlayerCount > 0)
                 throw new CashgameHasResultsException();
 
-            _cashgameService.DeleteGame(cashgame.Id);
+            _cashgameRepository.DeleteGame(cashgame.Id);
 
-            return new Result(bunch.Slug);
+            return new Result(bunch.Id);
         }
 
         public class Request
         {
             public string UserName { get; }
-            public int Id { get; }
+            public string Id { get; }
 
-            public Request(string userName, int id)
+            public Request(string userName, string id)
             {
                 UserName = userName;
                 Id = id;

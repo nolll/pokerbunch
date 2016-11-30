@@ -6,7 +6,7 @@ namespace Core.Entities.Checkpoints
     {
         public override string Description => "Buyin";
 
-        public BuyinCheckpoint(int cashgameId, int playerId, DateTime timestamp, int stack, int amount, int id = 0)
+        public BuyinCheckpoint(string cashgameId, string playerId, DateTime timestamp, int stack, int amount, string id = "")
             : base(cashgameId, playerId, timestamp, CheckpointType.Buyin, stack, amount, id)
         {
         }

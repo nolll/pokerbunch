@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases
 {
     class BuyinTests : TestBase
     {
-        private const int PlayerId = 1;
+        private const string PlayerId = "1";
         private const int ValidBuyin = 1;
         private const int InvalidBuyin = 0;
         private const int ValidStack = 0;
@@ -41,28 +41,22 @@ namespace Tests.Core.UseCases
             const int stack = 2;
             const int savedStack = 3;
 
-            Repos.Cashgame.SetupRunningGame();
+            Deps.Cashgame.SetupRunningGame();
 
             var request = new Buyin.Request(TestData.UserNameA, TestData.SlugA, PlayerId, buyin, stack, timestamp);
             Sut.Execute(request);
 
-            var result = Repos.Cashgame.Updated.AddedCheckpoints.First();
+            var result = Deps.Cashgame.Updated.AddedCheckpoints.First();
 
             Assert.AreEqual(timestamp, result.Timestamp);
             Assert.AreEqual(buyin, result.Amount);
             Assert.AreEqual(savedStack, result.Stack);
         }
 
-        private Buyin Sut
-        {
-            get
-            {
-                return new Buyin(
-                    Services.BunchService,
-                    Services.PlayerService,
-                    Services.CashgameService,
-                    Services.UserService);
-            }
-        }
+        private Buyin Sut => new Buyin(
+            Deps.Bunch,
+            Deps.Player,
+            Deps.Cashgame,
+            Deps.User);
     }
 }

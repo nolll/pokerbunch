@@ -58,12 +58,6 @@
     <Compile Include="ApiConnection.cs" />
     <Compile Include="BearerClient.cs" />
     <Compile Include="SignInClient.cs" />
-    <Compile Include="Storage\CachedRepositories\CachedAppRepository.cs" />
-    <Compile Include="Storage\CachedRepositories\CachedBunchRepository.cs" />
-    <Compile Include="Storage\CachedRepositories\CachedCashgameRepository.cs" />
-    <Compile Include="Storage\CachedRepositories\CachedEventRepository.cs" />
-    <Compile Include="Storage\CachedRepositories\CachedPlayerRepository.cs" />
-    <Compile Include="Storage\CachedRepositories\CachedUserRepository.cs" />
     <Compile Include="Storage\CacheTime.cs" />
     <Compile Include="Storage\Classes\RawBunch.cs" />
     <Compile Include="Storage\Classes\RawCashgame.cs" />
@@ -74,15 +68,19 @@
     <Compile Include="Storage\Classes\RawUser.cs" />
     <Compile Include="Storage\Interfaces\IStorageDataReader.cs" />
     <Compile Include="Storage\ListSqlParameter.cs" />
-    <Compile Include="Storage\Repositories\ApiTokenRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlAppRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlBunchRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlCashgameRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlEventRepository.cs" />
+    <Compile Include="Storage\Repositories\ApiBunchRepository.cs" />
     <Compile Include="Storage\Repositories\ApiLocationRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlPlayerRepository.cs" />
-    <Compile Include="Storage\Repositories\SqlUserRepository.cs" />
+    <Compile Include="Storage\Repositories\ApiTokenRepository.cs" />
+    <Compile Include="Storage\Repositories\ApiAppRepository.cs" />
+    <Compile Include="Storage\Repositories\CashgameRepository.cs" />
+    <Compile Include="Storage\Repositories\EventRepository.cs" />
+    <Compile Include="Storage\Repositories\PlayerRepository.cs" />
+    <Compile Include="Storage\Repositories\UserRepository.cs" />
     <Compile Include="Storage\SimpleSqlParameter.cs" />
+    <Compile Include="Storage\SqlDb\SqlCashgameDb.cs" />
+    <Compile Include="Storage\SqlDb\SqlEventDb.cs" />
+    <Compile Include="Storage\SqlDb\SqlPlayerDb.cs" />
+    <Compile Include="Storage\SqlDb\SqlUserDb.cs" />
     <Compile Include="Storage\SqlParameters.cs" />
     <Compile Include="Storage\SqlServerStorageProvider.cs" />
     <Compile Include="Storage\StorageDataReader.cs" />
@@ -100,7 +98,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Storage\CachedRepositories\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,42 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
+using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class Actions
     {
-        private readonly BunchService _bunchService;
-        private readonly CashgameService _cashgameService;
-        private readonly PlayerService _playerService;
-        private readonly UserService _userService;
+        private readonly IBunchRepository _bunchRepository;
+        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public Actions(BunchService bunchService, CashgameService cashgameService, PlayerService playerService, UserService userService)
+        public Actions(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _bunchService = bunchService;
-            _cashgameService = cashgameService;
-            _playerService = playerService;
-            _userService = userService;
+            _bunchRepository = bunchRepository;
+            _cashgameRepository = cashgameRepository;
+            _playerRepository = playerRepository;
+            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerService.Get(request.PlayerId);
-            var user = _userService.GetByNameOrEmail(request.CurrentUserName);
-            var bunch = _bunchService.Get(player.Slug);
-            var cashgame = _cashgameService.GetById(request.CashgameId);
+            var player = _playerRepository.Get(request.PlayerId);
+            var user = _userRepository.GetByNameOrEmail(request.CurrentUserName);
+            var bunch = _bunchRepository.Get(player.BunchId);
+            var cashgame = _cashgameRepository.GetById(request.CashgameId);
             
             RequireRole.Player(user, player);
             var playerResult = cashgame.GetResult(player.Id);
-            var currentPlayer = _playerService.GetByUserId(bunch.Slug, user.Id);
+            var currentPlayer = _playerRepository.GetByUser(bunch.Id, user.Id);
             var isManager = RoleHandler.IsInRole(user, currentPlayer, Role.Manager);
 
             var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
             var playerName = player.DisplayName;
             var checkpointItems = playerResult.Checkpoints.Select(o => CreateCheckpointItem(bunch, isManager, o)).ToList();
 
-            return new Result(date, playerName, bunch.Slug, checkpointItems);
+            return new Result(date, playerName, bunch.Id, checkpointItems);
         }
 
         private static CheckpointItem CreateCheckpointItem(Bunch bunch, bool isManager, Checkpoint checkpoint)
@@ -61,10 +62,10 @@ namespace Core.UseCases
         public class Request
         {
             public string CurrentUserName { get; }
-            public int CashgameId { get; }
-            public int PlayerId { get; }
+            public string CashgameId { get; }
+            public string PlayerId { get; }
 
-            public Request(string currentUserName, int cashgameId, int playerId)
+            public Request(string currentUserName, string cashgameId, string playerId)
             {
                 CurrentUserName = currentUserName;
                 CashgameId = cashgameId;
@@ -91,12 +92,12 @@ namespace Core.UseCases
         public class CheckpointItem
         {
             public DateTime Time { get; private set; }
-            public int CheckpointId { get; private set; }
+            public string CheckpointId { get; private set; }
             public string Type { get; private set; }
             public Money DisplayAmount { get; private set; }
             public bool CanEdit { get; private set; }
 
-            public CheckpointItem(DateTime time, int checkpointId, string type, Money displayAmount, bool canEdit)
+            public CheckpointItem(DateTime time, string checkpointId, string type, Money displayAmount, bool canEdit)
             {
                 Time = time;
                 CheckpointId = checkpointId;

@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_EmptyLocation_ThrowsException()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, 0, 0);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, "", "");
 
             Assert.Throws<ValidationException>(() => Sut.Execute(request));
         }
@@ -18,39 +18,39 @@ namespace Tests.Core.UseCases
         [Test]
         public void EditCashgame_ValidLocation_ReturnUrlIsSet()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, 0);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, "");
 
             var result = Sut.Execute(request);
 
-            Assert.AreEqual(1, result.CashgameId);
+            Assert.AreEqual("1", result.CashgameId);
         }
 
         [Test]
         public void EditCashgame_ValidLocation_SavesCashgame()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, 0);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, "");
 
             Sut.Execute(request);
 
-            Assert.AreEqual(TestData.BunchA.Id, Repos.Cashgame.Updated.Id);
-            Assert.AreEqual(TestData.ChangedLocationId, Repos.Cashgame.Updated.LocationId);
+            Assert.AreEqual(TestData.CashgameIdA, Deps.Cashgame.Updated.Id);
+            Assert.AreEqual(TestData.ChangedLocationId, Deps.Cashgame.Updated.LocationId);
         }
 
         [Test]
         public void EditCashgame_WithEventId_GameIsAddedToEvent()
         {
-            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, 1);
+            var request = new EditCashgame.Request(TestData.ManagerUser.UserName, TestData.CashgameIdA, TestData.ChangedLocationId, "1");
             Sut.Execute(request);
 
-            Assert.AreEqual(1, Repos.Event.AddedCashgameId);
+            Assert.AreEqual("1", Deps.Event.AddedCashgameId);
         }
 
         private EditCashgame Sut => new EditCashgame(
-            Services.CashgameService,
-            Services.UserService,
-            Services.PlayerService,
-            Repos.Location,
-            Services.EventService,
-            Services.BunchService);
+            Deps.Cashgame,
+            Deps.User,
+            Deps.Player,
+            Deps.Location,
+            Deps.Event,
+            Deps.Bunch);
     }
 }

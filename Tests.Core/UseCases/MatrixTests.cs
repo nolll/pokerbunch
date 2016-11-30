@@ -13,15 +13,15 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual(2, result.GameItems.Count);
             Assert.AreEqual("2002-02-02", result.GameItems[0].Date.IsoString);
-            Assert.AreEqual(2, result.GameItems[0].Id);
+            Assert.AreEqual("2", result.GameItems[0].Id);
             Assert.AreEqual("2001-01-01", result.GameItems[1].Date.IsoString);
-            Assert.AreEqual(1, result.GameItems[1].Id);
+            Assert.AreEqual("1", result.GameItems[1].Id);
         }
 
         [Test]
         public void Matrix_WithTwoGamesOnTheSameYear_SpansMultipleYearsIsFalse()
         {
-            Repos.Cashgame.SetupSingleYear();
+            Deps.Cashgame.SetupSingleYear();
 
             var result = Sut.Execute(CreateRequest());
 
@@ -41,17 +41,11 @@ namespace Tests.Core.UseCases
             return new Matrix.Request(TestData.UserNameA, TestData.SlugA, year);
         }
 
-        private Matrix Sut
-        {
-            get
-            {
-                return new Matrix(
-                    Services.BunchService,
-                    Services.CashgameService,
-                    Services.PlayerService,
-                    Services.UserService,
-                    Services.EventService);
-            }
-        }
+        private Matrix Sut => new Matrix(
+            Deps.Bunch,
+            Deps.Cashgame,
+            Deps.Player,
+            Deps.User,
+            Deps.Event);
     }
 }

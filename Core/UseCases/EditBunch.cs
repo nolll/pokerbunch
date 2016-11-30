@@ -1,51 +1,38 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
-using Core.Services;
-using ValidationException = Core.Exceptions.ValidationException;
+using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class EditBunch
     {
-        private readonly BunchService _bunchService;
-        private readonly UserService _userService;
-        private readonly PlayerService _playerService;
+        private readonly IBunchRepository _bunchRepository;
 
-        public EditBunch(BunchService bunchService, UserService userService, PlayerService playerService)
+        public EditBunch(IBunchRepository bunchRepository)
         {
-            _bunchService = bunchService;
-            _userService = userService;
-            _playerService = playerService;
+            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
         {
-            var validator = new Validator(request);
-            if(!validator.IsValid)
-                throw new ValidationException(validator);
-
-            var bunch = _bunchService.Get(request.Slug);
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var player = _playerService.GetByUserId(bunch.Slug, user.Id);
-            RequireRole.Manager(user, player);
+            var bunch = _bunchRepository.Get(request.Slug);
             var postedHomegame = CreateBunch(bunch, request);
-            _bunchService.Save(postedHomegame);
+            _bunchRepository.Update(postedHomegame);
 
-            return new Result(bunch.Id, bunch.Slug);
+            return new Result(bunch.Id, bunch.Id);
         }
 
         private static Bunch CreateBunch(Bunch bunch, Request request)
         {
             return new Bunch(
-                    bunch.Id,
-                    bunch.Slug,
-                    bunch.DisplayName,
-                    request.Description,
-                    request.HouseRules,
-                    TimeZoneInfo.FindSystemTimeZoneById(request.TimeZone),
-                    request.DefaultBuyin,
-                    new Currency(request.CurrencySymbol, request.CurrencyLayout));
+                bunch.Id,
+                bunch.DisplayName,
+                request.Description,
+                request.HouseRules,
+                TimeZoneInfo.FindSystemTimeZoneById(request.TimeZone),
+                request.DefaultBuyin,
+                new Currency(request.CurrencySymbol, request.CurrencyLayout));
         }
 
         public class Request
@@ -77,10 +64,10 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int BunchId { get; private set; }
+            public string BunchId { get; private set; }
             public string Slug { get; private set; }
 
-            public Result(int bunchId, string slug)
+            public Result(string bunchId, string slug)
             {
                 BunchId = bunchId;
                 Slug = slug;

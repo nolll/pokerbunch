@@ -6,6 +6,6 @@ namespace Core.Entities
 		Manager = 2,
 		Player = 1,
 		Guest = 0,
-		None = -1,
+		None = -1
 	}
 }

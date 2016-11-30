@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases
 
             Assert.AreEqual("bunch-a", result.Slug);
             Assert.AreEqual(4, result.Players.Count);
-            Assert.AreEqual(1, result.Players[0].Id);
+            Assert.AreEqual("1", result.Players[0].Id);
             Assert.AreEqual(TestData.PlayerNameA, result.Players[0].Name);
             Assert.IsFalse(result.CanAddPlayer);
         }
@@ -41,15 +41,9 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CanAddPlayer);
         }
 
-        private PlayerList Sut
-        {
-            get
-            {
-                return new PlayerList(
-                    Services.BunchService,
-                    Services.UserService,
-                    Services.PlayerService);
-            }
-        }
+        private PlayerList Sut => new PlayerList(
+            Deps.Bunch,
+            Deps.User,
+            Deps.Player);
     }
 }
