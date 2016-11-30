@@ -16,6 +16,6 @@
         public static string ApiUrl => $"{ApiProtocol}://{ApiHost}";
 
         private static string ApiProtocol => HttpsForApi ? "https" : "http";
-        private static bool HttpsForApi => Environment.IsProd || Environment.IsStage;
+        private static bool HttpsForApi => false;
     }
 }

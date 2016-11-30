@@ -13,7 +13,7 @@ using Web.Security;
 
 namespace Web.Controllers.Base
 {
-    [EnsureHttps]
+    //[EnsureHttps]
     public class BaseController : Controller
     {
         private Identity _identity;
