@@ -16,6 +16,6 @@
         public static string ApiUrl => $"{ApiProtocol}://{ApiHost}";
 
         private static string ApiProtocol => HttpsForApi ? "https" : "http";
-        private static bool HttpsForApi => false;
+        private static bool HttpsForApi => true;
     }
 }

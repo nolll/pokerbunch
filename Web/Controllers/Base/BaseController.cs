@@ -6,14 +6,13 @@ using Core.Exceptions;
 using Core.UseCases;
 using Microsoft.ApplicationInsights;
 using Plumbing;
-using Web.Cache;
 using Web.Extensions;
 using Web.Models.ErrorModels;
 using Web.Security;
 
 namespace Web.Controllers.Base
 {
-    //[EnsureHttps]
+    [EnsureHttps]
     public class BaseController : Controller
     {
         private Identity _identity;
