@@ -216,7 +216,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
         function defaultData() {
             return {
                 slug: "",
-                playerId: 0,
+                playerId: "0",
                 refreshUrl: "",
                 reportUrl: "",
                 buyinUrl: "",
@@ -237,7 +237,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 currentStack: 0,
                 beforeBuyinStack: 0,
                 buyinAmount: 0,
-                loadedPlayerId: 0,
+                loadedPlayerId: "0",
                 currencyFormat: "${0}",
                 thousandSeparator: ",",
                 initialized: false
