@@ -24,7 +24,7 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(_eventDb.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<Event> Get(IList<string> ids)
+        private IList<Event> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_eventDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
