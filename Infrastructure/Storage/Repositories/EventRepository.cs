@@ -5,6 +5,7 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage.SqlDb;
+using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
@@ -62,8 +63,11 @@ namespace Infrastructure.Storage.Repositories
 
         private class ApiEvent
         {
+            [UsedImplicitly]
             public string Id { get; set; }
+            [UsedImplicitly]
             public string Name { get; set; }
+            [UsedImplicitly]
             public string Bunch { get; set; }
 
             public ApiEvent(string name, string bunch)

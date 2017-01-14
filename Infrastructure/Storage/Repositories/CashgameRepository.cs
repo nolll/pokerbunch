@@ -11,11 +11,13 @@ namespace Infrastructure.Storage.Repositories
     public class CashgameRepository : ICashgameRepository
     {
         private readonly SqlCashgameDb _cashgameDb;
+        private readonly ApiConnection _api;
         private readonly ICacheContainer _cacheContainer;
 
-        public CashgameRepository(SqlServerStorageProvider db, ICacheContainer cacheContainer)
+        public CashgameRepository(ApiConnection api, SqlServerStorageProvider db, ICacheContainer cacheContainer)
         {
             _cashgameDb = new SqlCashgameDb(db);
+            _api = api;
             _cacheContainer = cacheContainer;
         }
 

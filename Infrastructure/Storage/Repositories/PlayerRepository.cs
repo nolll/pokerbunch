@@ -5,22 +5,27 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage.SqlDb;
+using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
     public class PlayerRepository : IPlayerRepository
     {
         private readonly SqlPlayerDb _playerDb;
+        private readonly ApiConnection _api;
         private readonly ICacheContainer _cacheContainer;
 
-        public PlayerRepository(SqlServerStorageProvider db, ICacheContainer cacheContainer)
+        public PlayerRepository(ApiConnection api, SqlServerStorageProvider db, ICacheContainer cacheContainer)
         {
             _playerDb = new SqlPlayerDb(db);
+            _api = api;
             _cacheContainer = cacheContainer;
         }
 
         public Player Get(string id)
         {
+            var apiEvent = _api.Get<ApiPlayer>($"players/{id}");
+            return CreateEvent(apiEvent);
             return _cacheContainer.GetAndStore(_playerDb.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
@@ -57,6 +62,41 @@ namespace Infrastructure.Storage.Repositories
         {
             _playerDb.Delete(playerId);
             _cacheContainer.Remove<Player>(playerId);
+        }
+
+        private Player CreateEvent(ApiPlayer l)
+        {
+            return new Player(l.BunchId, l.Id, l.UserId, l.DisplayName, (Role)l.RoleId, l.Color);
+        }
+
+        private class ApiPlayer
+        {
+            [UsedImplicitly]
+            public string BunchId { get; set; }
+            [UsedImplicitly]
+            public string Id { get; set; }
+            [UsedImplicitly]
+            public string UserId { get; set; }
+            [UsedImplicitly]
+            public string DisplayName { get; set; }
+            [UsedImplicitly]
+            public int RoleId { get; set; }
+            [UsedImplicitly]
+            public string Color { get; set; }
+
+            public ApiPlayer(string bunchId, string id, string userId, string displayName, int roleId, string color)
+            {
+                BunchId = bunchId;
+                Id = id;
+                UserId = userId;
+                DisplayName = displayName;
+                RoleId = roleId;
+                Color = color;
+            }
+
+            public ApiPlayer()
+            {
+            }
         }
     }
 }

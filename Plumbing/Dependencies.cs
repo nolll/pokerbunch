@@ -42,10 +42,10 @@ namespace Plumbing
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(Api));
         public IBunchRepository BunchRepository => _bunchRepository ?? (_bunchRepository = new ApiBunchRepository(Api));
         public IAppRepository AppRepository => _appRepository ?? (_appRepository = new ApiAppRepository(Api));
-        public ICashgameRepository CashgameRepository => _cashgameRepository ?? (_cashgameRepository = new CashgameRepository(Db, Cache));
+        public ICashgameRepository CashgameRepository => _cashgameRepository ?? (_cashgameRepository = new CashgameRepository(Api, Db, Cache));
         public IEventRepository EventRepository => _eventRepository ?? (_eventRepository = new EventRepository(Api, Db, Cache));
-        public IPlayerRepository PlayerRepository => _playerRepository ?? (_playerRepository = new PlayerRepository(Db, Cache));
-        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(Db, Cache));
+        public IPlayerRepository PlayerRepository => _playerRepository ?? (_playerRepository = new PlayerRepository(Api, Db, Cache));
+        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(Api, Db, Cache));
         public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());

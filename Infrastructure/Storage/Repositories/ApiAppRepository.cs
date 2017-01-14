@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
+using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
@@ -52,9 +53,13 @@ namespace Infrastructure.Storage.Repositories
 
         public class ApiApp
         {
+            [UsedImplicitly]
             public string Id { get; set; }
+            [UsedImplicitly]
             public string Key { get; set; }
+            [UsedImplicitly]
             public string Name { get; set; }
+            [UsedImplicitly]
             public string UserId { get; set; }
 
             public ApiApp(string id, string key, string name, string userId)
