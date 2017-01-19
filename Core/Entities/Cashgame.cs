@@ -6,6 +6,16 @@ using Core.Services;
 
 namespace Core.Entities
 {
+    public class DetailedCashgame
+    {
+        public string Id { get; set; }
+
+        public DetailedCashgame(string id)
+        {
+            Id = id;
+        }
+    }
+
     public class Cashgame : IEntity
     {
         public IList<Checkpoint> Checkpoints { get; private set; }

@@ -5,6 +5,7 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage.SqlDb;
+using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
@@ -21,12 +22,18 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer = cacheContainer;
         }
 
+        public DetailedCashgame GetDetailedById(string id)
+        {
+            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>($"cashgame/{id}");
+            return CreateDetailedCashgame(apiDetailedCashgame);
+        }
+
         public Cashgame GetById(string cashgameId)
         {
             return _cacheContainer.GetAndStore(_cashgameDb.Get, cashgameId, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public IList<Cashgame> Get(IList<string> ids)
+        private IList<Cashgame> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_cashgameDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
@@ -81,6 +88,17 @@ namespace Infrastructure.Storage.Repositories
         {
             _cashgameDb.UpdateGame(cashgame);
             _cacheContainer.Remove<Cashgame>(cashgame.Id);
+        }
+
+        private DetailedCashgame CreateDetailedCashgame(ApiDetailedCashgame c)
+        {
+            return new DetailedCashgame(c.Id);
+        }
+
+        private class ApiDetailedCashgame
+        {
+            [UsedImplicitly]
+            public string Id { get; set; }
         }
     }
 }

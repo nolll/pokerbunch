@@ -6,7 +6,6 @@ namespace Core.Repositories
 	public interface ICashgameRepository
     {
         Cashgame GetById(string cashgameId);
-	    IList<Cashgame> Get(IList<string> ids);
 
         IList<Cashgame> ListFinished(string bunchId, int? year = null);
         IList<Cashgame> ListByEvent(string eventId);
