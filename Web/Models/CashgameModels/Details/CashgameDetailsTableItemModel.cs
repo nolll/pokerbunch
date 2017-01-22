@@ -14,7 +14,7 @@ namespace Web.Models.CashgameModels.Details
         public string Cashout { get; private set; }
         public string Winnings { get; private set; }
         public string WinningsClass { get; private set; }
-        public string Winrate { get; private set; }
+        //public string Winrate { get; private set; }
 
         public CashgameDetailsTableItemModel(CashgameDetails.PlayerResultItem resultItem)
         {
@@ -25,7 +25,7 @@ namespace Web.Models.CashgameModels.Details
             Cashout = resultItem.Cashout.ToString();
             Winnings = ResultFormatter.FormatWinnings(resultItem.Winnings);
             WinningsClass = CssService.GetWinningsCssClass(resultItem.Winnings);
-            Winrate = ResultFormatter.FormatWinRate(resultItem.WinRate);
+            //Winrate = ResultFormatter.FormatWinRate(resultItem.WinRate);
         }
     }
 }

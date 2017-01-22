@@ -92,13 +92,65 @@ namespace Infrastructure.Storage.Repositories
 
         private DetailedCashgame CreateDetailedCashgame(ApiDetailedCashgame c)
         {
-            return new DetailedCashgame(c.Id);
+            var currency = new Currency(c.Bunch.CurrencySymbol, c.Bunch.CurrencyLayout);
+            var bunch = new DetailedCashgame.CashgameBunch(c.Bunch.Id, c.Bunch.Timezone, currency);
+            var role = Role.Manager;
+            var location = new DetailedCashgame.CashgameLocation(c.Location.Id, c.Location.Name);
+            return new DetailedCashgame(c.Id, c.StartTime, c.EndTime, c.IsRunning, bunch, role, location, );
         }
 
         private class ApiDetailedCashgame
         {
             [UsedImplicitly]
             public string Id { get; set; }
+            [UsedImplicitly]
+            public DateTime StartTime { get; set; }
+            [UsedImplicitly]
+            public DateTime? EndTime { get; set; }
+            [UsedImplicitly]
+            public bool IsRunning { get; set; }
+            [UsedImplicitly]
+            public ApiDetailedCashgameBunch Bunch { get; set; }
+            [UsedImplicitly]
+            public Role Role { get; set; }
+            [UsedImplicitly]
+            public ApiDetailedCashgameLocation Location { get; set; }
+            [UsedImplicitly]
+            public IList<ApiDetailedCashgamePlayer> Players { get; set; }
+
+            public class ApiDetailedCashgameBunch
+            {
+                [UsedImplicitly]
+                public string Id { get; set; }
+                [UsedImplicitly]
+                public TimeZoneInfo Timezone { get; set; }
+                [UsedImplicitly]
+                public string CurrencySymbol { get; set; }
+                [UsedImplicitly]
+                public string CurrencyLayout { get; set; }
+            }
+
+            public class ApiDetailedCashgameLocation
+            {
+                [UsedImplicitly]
+                public string Id { get; set; }
+                [UsedImplicitly]
+                public string Name { get; set; }
+            }
+
+            public class ApiDetailedCashgamePlayer
+            {
+                [UsedImplicitly]
+                public string Id { get; set; }
+                [UsedImplicitly]
+                public string Name { get; set; }
+                [UsedImplicitly]
+                public string Color { get; set; }
+                [UsedImplicitly]
+                public int Stack { get; set; }
+                [UsedImplicitly]
+                public int Buyin { get; set; }
+            }
         }
     }
 }

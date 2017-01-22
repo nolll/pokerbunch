@@ -11,6 +11,11 @@ namespace Core.Entities
             return new Time(TimeSpan.FromMinutes(minutes));
         }
 
+        public static Time FromTimespan(TimeSpan timespan)
+        {
+            return new Time(timespan);
+        }
+
         private Time(TimeSpan timeSpan)
         {
             _timeSpan = timeSpan;

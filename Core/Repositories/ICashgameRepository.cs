@@ -4,7 +4,8 @@ using Core.Entities;
 namespace Core.Repositories
 {
 	public interface ICashgameRepository
-    {
+	{
+	    DetailedCashgame GetDetailedById(string id);
         Cashgame GetById(string cashgameId);
 
         IList<Cashgame> ListFinished(string bunchId, int? year = null);

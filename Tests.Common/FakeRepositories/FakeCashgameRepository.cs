@@ -19,6 +19,11 @@ namespace Tests.Common.FakeRepositories
             SetupMultiYear();
         }
 
+        public DetailedCashgame GetDetailedById(string id)
+        {
+            throw new NotImplementedException();
+        }
+
         public Cashgame GetById(string cashgameId)
         {
             return _list.FirstOrDefault(o => o.Id == cashgameId);

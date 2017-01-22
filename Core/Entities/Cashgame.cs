@@ -8,11 +8,71 @@ namespace Core.Entities
 {
     public class DetailedCashgame
     {
-        public string Id { get; set; }
+        public string Id { get; }
+        public DateTime StartTime { get; }
+        public DateTime? EndTime { get; }
+        public bool IsRunning { get; }
+        public CashgameBunch Bunch { get; }
+        public Role Role { get; }
+        public CashgameLocation Location { get; }
+        public IList<CashgamePlayer> Players { get; }
 
-        public DetailedCashgame(string id)
+        public DetailedCashgame(string id, DateTime startTime, DateTime? endTime, bool isRunning, CashgameBunch bunch, Role role, CashgameLocation location, IList<CashgamePlayer> players)
         {
             Id = id;
+            StartTime = startTime;
+            EndTime = endTime;
+            IsRunning = isRunning;
+            Bunch = bunch;
+            Role = role;
+            Location = location;
+            Players = players;
+        }
+
+        public class CashgameBunch
+        {
+            public string Id { get; }
+            public TimeZoneInfo Timezone { get; }
+            public Currency Currency { get; }
+            
+            public CashgameBunch(string id, TimeZoneInfo timezone, Currency currency)
+            {
+                Id = id;
+                Timezone = timezone;
+                Currency = currency;
+            }
+        }
+
+        public class CashgameLocation
+        {
+            public string Id { get; }
+            public string Name { get; }
+
+            public CashgameLocation(string id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+        }
+
+        public class CashgamePlayer
+        {
+            public string Id { get; }
+            public string Name { get; }
+            public string Color { get; }
+            public int Stack { get; }
+            public int Buyin { get; }
+
+            public CashgamePlayer(string id, string name, string color, int stack, int buyin)
+            {
+                Id = id;
+                Name = name;
+                Color = color;
+                Stack = stack;
+                Buyin = buyin;
+            }
+
+            public int Winnings => Stack - Buyin;
         }
     }
 

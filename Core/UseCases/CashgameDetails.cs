@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
 
@@ -26,22 +27,12 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetById(request.CashgameId);
-            var bunch = _bunchRepository.Get(cashgame.BunchId);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
-            var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
-            var players = GetPlayers(_playerRepository, cashgame);
-            var location = _locationRepository.Get(cashgame.LocationId);
+            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
 
-            return new Result(bunch, cashgame, location, players, isManager);
-        }
+            if (cashgame.IsRunning)
+                throw new CashgameRunningException();
 
-        private static IEnumerable<Player> GetPlayers(IPlayerRepository playerRepository, Cashgame cashgame)
-        {
-            var playerIds = cashgame.Results.Select(o => o.PlayerId).ToList();
-            return playerRepository.Get(playerIds);
+            return new Result(cashgame);
         }
 
         public class Request
@@ -69,32 +60,37 @@ namespace Core.UseCases
             public string CashgameId { get; private set; }
             public IList<PlayerResultItem> PlayerItems { get; private set; }
 
-            public Result(Bunch bunch, Cashgame cashgame, Location location, IEnumerable<Player> players, bool isManager)
+            public Result(DetailedCashgame cashgame)
             {
-                var sortedResults = cashgame.Results.OrderByDescending(o => o.Winnings);
+                var sortedResults = cashgame.Players.OrderByDescending(o => o.Winnings);
 
-                Date = Date.Parse(cashgame.DateString);
-                LocationName = location.Name;
-                LocationId = location.Id;
-                Duration = Time.FromMinutes(cashgame.Duration);
-                StartTime = GetLocalTime(cashgame.StartTime, bunch.Timezone);
-                EndTime = GetLocalTime(cashgame.EndTime, bunch.Timezone);
-                CanEdit = isManager;
-                Slug = bunch.Id;
+                var timezone = cashgame.Bunch.Timezone;
+                var startTime = GetLocalTime(cashgame.StartTime, timezone);
+                var endTime = GetLocalTime(cashgame.EndTime, timezone);
+                var duration = endTime - startTime;
+
+                Date = new Date(startTime);
+                LocationName = cashgame.Location.Name;
+                LocationId = cashgame.Location.Id;
+                Duration = Time.FromTimespan(duration);
+                StartTime = startTime;
+                EndTime = endTime;
+                CanEdit = RoleHandler.IsInRole(cashgame.Role, Role.Manager);
+                Slug = cashgame.Bunch.Id;
                 CashgameId = cashgame.Id;
-                PlayerItems = sortedResults.Select(o => new PlayerResultItem(bunch, cashgame, GetPlayer(players, o.PlayerId), o)).ToList();
+                PlayerItems = sortedResults.Select(o => new PlayerResultItem(cashgame, o)).ToList();
             }
 
-            private static DateTime? GetLocalTime(DateTime? d, TimeZoneInfo timeZone)
+            private static DateTime GetLocalTime(DateTime? d, TimeZoneInfo timeZone)
             {
                 if (!d.HasValue)
-                    return null;
-                return TimeZoneInfo.ConvertTime(d.Value, timeZone);
+                    return DateTime.MaxValue;
+                return GetLocalTime(d.Value, timeZone);
             }
 
-            private static Player GetPlayer(IEnumerable<Player> players, string playerId)
+            private static DateTime GetLocalTime(DateTime d, TimeZoneInfo timeZone)
             {
-                return players.First(o => o.Id == playerId);
+                return TimeZoneInfo.ConvertTime(d, timeZone);
             }
         }
 
@@ -107,18 +103,20 @@ namespace Core.UseCases
             public Money Buyin { get; private set; }
             public Money Cashout { get; private set; }
             public Money Winnings { get; private set; }
-            public Money WinRate { get; private set; }
+            //public Money WinRate { get; private set; }
 
-            public PlayerResultItem(Bunch bunch, Cashgame cashgame, Player player, CashgameResult result)
+            public PlayerResultItem(DetailedCashgame cashgame, DetailedCashgame.CashgamePlayer player)
             {
-                Name = player.DisplayName;
+                var currency = cashgame.Bunch.Currency;
+
+                Name = player.Name;
                 Color = player.Color;
                 CashgameId = cashgame.Id;
                 PlayerId = player.Id;
-                Buyin = new Money(result.Buyin, bunch.Currency);
-                Cashout = new Money(result.Stack, bunch.Currency);
-                Winnings = new Money(result.Winnings, bunch.Currency);
-                WinRate = new Money(result.WinRate, bunch.Currency);
+                Buyin = new Money(player.Buyin, currency);
+                Cashout = new Money(player.Stack, currency);
+                Winnings = new Money(player.Winnings, currency);
+                //WinRate = new Money(result.WinRate, bunch.Currency);
             }
         }
     }
