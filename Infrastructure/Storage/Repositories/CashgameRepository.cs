@@ -24,7 +24,7 @@ namespace Infrastructure.Storage.Repositories
 
         public DetailedCashgame GetDetailedById(string id)
         {
-            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>($"cashgame/{id}");
+            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>($"cashgames/{id}");
             return CreateDetailedCashgame(apiDetailedCashgame);
         }
 
@@ -96,7 +96,8 @@ namespace Infrastructure.Storage.Repositories
             var bunch = new DetailedCashgame.CashgameBunch(c.Bunch.Id, c.Bunch.Timezone, currency);
             var role = Role.Manager;
             var location = new DetailedCashgame.CashgameLocation(c.Location.Id, c.Location.Name);
-            return new DetailedCashgame(c.Id, c.StartTime, c.EndTime, c.IsRunning, bunch, role, location, );
+            var players = c.Players.Select(o => new DetailedCashgame.CashgamePlayer(o.Id, o.Name, o.Color, o.Stack, o.Buyin)).ToList();
+            return new DetailedCashgame(c.Id, c.StartTime, c.EndTime, c.IsRunning, bunch, role, location, players);
         }
 
         private class ApiDetailedCashgame

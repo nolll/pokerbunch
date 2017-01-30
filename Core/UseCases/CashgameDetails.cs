@@ -10,19 +10,11 @@ namespace Core.UseCases
 {
     public class CashgameDetails
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly ILocationRepository _locationRepository;
 
-        public CashgameDetails(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository)
+        public CashgameDetails(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
-            _locationRepository = locationRepository;
         }
 
         public Result Execute(Request request)
@@ -37,12 +29,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string CashgameId { get; }
 
-            public Request(string userName, string cashgameId)
+            public Request(string cashgameId)
             {
-                UserName = userName;
                 CashgameId = cashgameId;
             }
         }
