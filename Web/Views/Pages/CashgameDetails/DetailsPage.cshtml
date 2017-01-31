@@ -14,18 +14,12 @@
 @section Aside2{
     <div class="block gutter">
         <dl class="value-list">
-            @if (Model.ShowStartTime)
+            @if (Model.ShowTime)
             {
                 <dt class="value-list__key">Start Time</dt>
                 <dd class="value-list__value">@Model.StartTime</dd>
-            }
-            @if (Model.ShowEndTime)
-            {
                 <dt class="value-list__key">End Time</dt>
                 <dd class="value-list__value">@Model.EndTime</dd>
-            }
-            @if (Model.DurationEnabled)
-            {
                 <dt class="value-list__key">Duration</dt>
                 <dd class="value-list__value">@Model.Duration</dd>
             }

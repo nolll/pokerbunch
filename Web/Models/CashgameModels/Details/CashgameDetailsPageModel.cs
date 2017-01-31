@@ -14,10 +14,8 @@ namespace Web.Models.CashgameModels.Details
         public string EndTime { get; private set; }
         public string Location { get; private set; }
         public string LocationUrl { get; private set; }
-        public bool ShowStartTime { get; private set; }
-        public bool ShowEndTime { get; private set; }
+        public bool ShowTime { get; private set; }
         public bool EnableEdit { get; private set; }
-        public bool DurationEnabled { get; private set; }
         public string EditUrl { get; private set; }
         public string ChartJson { get; private set; }
         public CashgameDetailsTableModel CashgameDetailsTableModel { get; private set; }
@@ -26,19 +24,15 @@ namespace Web.Models.CashgameModels.Details
             : base(contextResult)
         {
             var date = Globalization.FormatShortDate(detailsResult.Date, true);
-            var showStartTime = detailsResult.StartTime.HasValue;
-            var showEndTime = detailsResult.EndTime.HasValue;
-            var showDuration = showStartTime && showEndTime;
+            var showTime = detailsResult.StartTime < detailsResult.EndTime;
             
             Heading = string.Format("Cashgame {0}", date);
             Location = detailsResult.LocationName;
             LocationUrl = new LocationDetailsUrl(detailsResult.LocationId).Relative;
             Duration = detailsResult.Duration.ToString();
-			DurationEnabled = showDuration;
-            ShowStartTime = showStartTime;
-            StartTime = showStartTime ? Globalization.FormatTime(detailsResult.StartTime.Value) : "";
-			ShowEndTime = showEndTime;
-            EndTime = showEndTime ? Globalization.FormatTime(detailsResult.EndTime.Value) : "";
+            ShowTime = showTime;
+            StartTime = Globalization.FormatTime(detailsResult.StartTime);
+            EndTime = Globalization.FormatTime(detailsResult.EndTime);
             EnableEdit = detailsResult.CanEdit;
             EditUrl = new EditCashgameUrl(detailsResult.CashgameId).Relative;
             CashgameDetailsTableModel = new CashgameDetailsTableModel(detailsResult.PlayerItems);

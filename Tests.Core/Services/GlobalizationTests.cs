@@ -1,5 +1,4 @@
 using System;
-using Core.Entities;
 using Core.Services;
 using NUnit.Framework;
 
@@ -16,37 +15,6 @@ namespace Tests.Core.Services
 		public void FormatNumber(int input, string expected)
         {
 			var result = Globalization.FormatNumber(input);
-			Assert.AreEqual(expected, result);
-		}
-
-        [TestCase(1, "1 kr")]
-        [TestCase(1234, "1 234 kr")]
-		public void FormatCurrency(int input, string expected)
-        {
-			var currency = new Currency("kr", "{AMOUNT} {SYMBOL}");
-            
-            var result = Globalization.FormatCurrency(currency, input);
-			Assert.AreEqual(expected, result);
-		}
-
-        [TestCase(1, "1 kr/h")]
-        [TestCase(1234, "1 234 kr/h")]
-		public void FormatWinrate(int input, string expected)
-        {
-			var currency = new Currency("kr", "{AMOUNT} {SYMBOL}");
-            
-            var result = Globalization.FormatWinrate(currency, input);
-			Assert.AreEqual(expected, result);
-		}
-
-        [TestCase(0, "0 kr")]
-        [TestCase(1234, "+1 234 kr")]
-        [TestCase(-1234, "-1 234 kr")]
-		public void FormatResult(int input, string expected)
-        {
-			var currency = new Currency("kr", "{AMOUNT} {SYMBOL}");
-            
-            var result = Globalization.FormatResult(currency, input);
 			Assert.AreEqual(expected, result);
 		}
 

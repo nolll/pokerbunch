@@ -41,8 +41,8 @@ namespace Core.UseCases
         {
             public Date Date { get; private set; }
             public Time Duration { get; private set; }
-            public DateTime? StartTime { get; private set; }
-            public DateTime? EndTime { get; private set; }
+            public DateTime StartTime { get; private set; }
+            public DateTime EndTime { get; private set; }
             public string LocationName { get; private set; }
             public string LocationId { get; private set; }
             public bool CanEdit { get; private set; }
@@ -93,7 +93,7 @@ namespace Core.UseCases
             public Money Buyin { get; private set; }
             public Money Cashout { get; private set; }
             public Money Winnings { get; private set; }
-            //public Money WinRate { get; private set; }
+            public Money WinRate { get; private set; }
 
             public PlayerResultItem(DetailedCashgame cashgame, DetailedCashgame.CashgamePlayer player)
             {
@@ -106,7 +106,7 @@ namespace Core.UseCases
                 Buyin = new Money(player.Buyin, currency);
                 Cashout = new Money(player.Stack, currency);
                 Winnings = new Money(player.Winnings, currency);
-                //WinRate = new Money(result.WinRate, bunch.Currency);
+                WinRate = new Money(player.Winrate, currency);
             }
         }
     }

@@ -62,17 +62,24 @@ namespace Core.Entities
             public string Color { get; }
             public int Stack { get; }
             public int Buyin { get; }
+            public DateTime StartTime { get; }
+            public DateTime UpdatedTime { get; }
 
-            public CashgamePlayer(string id, string name, string color, int stack, int buyin)
+            public CashgamePlayer(string id, string name, string color, int stack, int buyin, DateTime startTime, DateTime updatedTime)
             {
                 Id = id;
                 Name = name;
                 Color = color;
                 Stack = stack;
                 Buyin = buyin;
+                StartTime = startTime;
+                UpdatedTime = updatedTime;
             }
 
             public int Winnings => Stack - Buyin;
+            public int Winrate => PlayedMinutes == 0 ? 0 : (int)Math.Round((double)Winnings / PlayedMinutes * 60);
+            private int PlayedMinutes => (int)Math.Round(PlayedTime.TotalMinutes);
+            private TimeSpan PlayedTime => UpdatedTime - StartTime;
         }
     }
 

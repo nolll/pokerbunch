@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
@@ -92,12 +93,25 @@ namespace Infrastructure.Storage.Repositories
 
         private DetailedCashgame CreateDetailedCashgame(ApiDetailedCashgame c)
         {
-            var currency = new Currency(c.Bunch.CurrencySymbol, c.Bunch.CurrencyLayout);
-            var bunch = new DetailedCashgame.CashgameBunch(c.Bunch.Id, c.Bunch.Timezone, currency);
-            var role = Role.Manager;
+            var culture = CultureInfo.CreateSpecificCulture(c.Bunch.Culture);
+            var currency = new Currency(c.Bunch.CurrencySymbol, c.Bunch.CurrencyLayout, culture, c.Bunch.ThousandSeparator);
+            var timezone = TimeZoneInfo.FindSystemTimeZoneById(c.Bunch.Timezone);
+            var bunch = new DetailedCashgame.CashgameBunch(c.Bunch.Id, timezone, currency);
+            var role = GetRole(c.Bunch.Role);
             var location = new DetailedCashgame.CashgameLocation(c.Location.Id, c.Location.Name);
-            var players = c.Players.Select(o => new DetailedCashgame.CashgamePlayer(o.Id, o.Name, o.Color, o.Stack, o.Buyin)).ToList();
-            return new DetailedCashgame(c.Id, c.StartTime, c.EndTime, c.IsRunning, bunch, role, location, players);
+            var players = c.Players.Select(o => new DetailedCashgame.CashgamePlayer(o.Id, o.Name, o.Color, o.Stack, o.Buyin, o.StartTime, o.UpdatedTime)).ToList();
+            return new DetailedCashgame(c.Id, c.StartTime, c.UpdatedTime, c.IsRunning, bunch, role, location, players);
+        }
+
+        private Role GetRole(string r)
+        {
+            if (r == "manager")
+                return Role.Manager;
+            if (r == "player")
+                return Role.Player;
+            if (r == "guest")
+                return Role.Guest;
+            return Role.None;
         }
 
         private class ApiDetailedCashgame
@@ -107,7 +121,7 @@ namespace Infrastructure.Storage.Repositories
             [UsedImplicitly]
             public DateTime StartTime { get; set; }
             [UsedImplicitly]
-            public DateTime? EndTime { get; set; }
+            public DateTime? UpdatedTime { get; set; }
             [UsedImplicitly]
             public bool IsRunning { get; set; }
             [UsedImplicitly]
@@ -124,11 +138,17 @@ namespace Infrastructure.Storage.Repositories
                 [UsedImplicitly]
                 public string Id { get; set; }
                 [UsedImplicitly]
-                public TimeZoneInfo Timezone { get; set; }
+                public string Timezone { get; set; }
                 [UsedImplicitly]
                 public string CurrencySymbol { get; set; }
                 [UsedImplicitly]
                 public string CurrencyLayout { get; set; }
+                [UsedImplicitly]
+                public string ThousandSeparator { get; set; }
+                [UsedImplicitly]
+                public string Culture { get; set; }
+                [UsedImplicitly]
+                public string Role { get; set; }
             }
 
             public class ApiDetailedCashgameLocation
@@ -151,6 +171,10 @@ namespace Infrastructure.Storage.Repositories
                 public int Stack { get; set; }
                 [UsedImplicitly]
                 public int Buyin { get; set; }
+                [UsedImplicitly]
+                public DateTime StartTime { get; set; }
+                [UsedImplicitly]
+                public DateTime UpdatedTime { get; set; }
             }
         }
     }

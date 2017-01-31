@@ -13,26 +13,6 @@ namespace Core.Services
             return number.ToString("N0", culture);
         }
 
-        public static string FormatCurrency(Currency currency, int amount)
-        {
-            var numberFormatted = FormatNumber(amount);
-            var amountFormatted = currency.Layout.Replace("{AMOUNT}", numberFormatted);
-            return amountFormatted.Replace("{SYMBOL}", currency.Symbol);
-        }
-
-        public static string FormatWinrate(Currency currency, int winrate)
-        {
-            return FormatCurrency(currency, winrate) + "/h";
-        }
-
-        public static string FormatResult(Currency currency, int result)
-        {
-            var currencyValue = FormatCurrency(currency, result);
-            if (result > 0)
-                return "+" + currencyValue;
-            return currencyValue;
-        }
-
         public static string FormatDuration(int minutes)
         {
             var h = (int)Math.Floor((double)minutes / 60);
