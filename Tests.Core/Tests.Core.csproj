@@ -62,6 +62,7 @@
     <Compile Include="UseCases\AddUserTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\AppDetailsTests.cs" />
+    <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
     <Compile Include="UseCases\GivenAppListAll\Arrange.cs" />
     <Compile Include="UseCases\GivenAppListAll\WhenExecute.cs" />
     <Compile Include="UseCases\GivenAppListUser\Arrange.cs" />
@@ -76,9 +77,10 @@
     <Compile Include="UseCases\CashgameChartTests.cs" />
     <Compile Include="UseCases\CashgameContextTests.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests.cs" />
-    <Compile Include="UseCases\CashgameDetailsTests.cs" />
     <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\CashgameListTests.cs" />
+    <Compile Include="UseCases\CashgameDetailsTests\Arrange.cs" />
+    <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\GivenCashout\Arrange.cs" />
     <Compile Include="UseCases\GivenCashout\WhenExecuteWithPlayerThatHasNotCheckedOutBefore.cs" />
     <Compile Include="UseCases\GivenCashout\WhenExecuteWithPlayerThatHasCheckedOutBefore.cs" />
