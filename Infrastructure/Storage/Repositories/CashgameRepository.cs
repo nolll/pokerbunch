@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Entities;
+using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage.SqlDb;
@@ -99,8 +100,14 @@ namespace Infrastructure.Storage.Repositories
             var bunch = new DetailedCashgame.CashgameBunch(c.Bunch.Id, timezone, currency);
             var role = GetRole(c.Bunch.Role);
             var location = new DetailedCashgame.CashgameLocation(c.Location.Id, c.Location.Name);
-            var players = c.Players.Select(o => new DetailedCashgame.CashgamePlayer(o.Id, o.Name, o.Color, o.Stack, o.Buyin, o.StartTime, o.UpdatedTime)).ToList();
+            var players = c.Players.Select(CreatePlayer).ToList();
             return new DetailedCashgame(c.Id, c.StartTime, c.UpdatedTime, c.IsRunning, bunch, role, location, players);
+        }
+
+        private DetailedCashgame.CashgamePlayer CreatePlayer(ApiDetailedCashgame.ApiDetailedCashgamePlayer p)
+        {
+            var actions = p.Actions.Select(o => new DetailedCashgame.CashgameAction(GetActionType(o.Type), o.Time, o.Stack, o.Added)).ToList();
+            return new DetailedCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, p.StartTime, p.UpdatedTime, actions);
         }
 
         private Role GetRole(string r)
@@ -112,6 +119,15 @@ namespace Infrastructure.Storage.Repositories
             if (r == "guest")
                 return Role.Guest;
             return Role.None;
+        }
+
+        private CheckpointType GetActionType(string t)
+        {
+            if (t == "buyin")
+                return CheckpointType.Buyin;
+            if (t == "cashout")
+                return CheckpointType.Cashout;
+            return CheckpointType.Report;
         }
 
         private class ApiDetailedCashgame
@@ -175,6 +191,20 @@ namespace Infrastructure.Storage.Repositories
                 public DateTime StartTime { get; set; }
                 [UsedImplicitly]
                 public DateTime UpdatedTime { get; set; }
+                [UsedImplicitly]
+                public IList<ApiDetailedCashgameAction> Actions { get; set; }
+            }
+
+            public class ApiDetailedCashgameAction
+            {
+                [UsedImplicitly]
+                public string Type { get; set; }
+                [UsedImplicitly]
+                public DateTime Time { get; set; }
+                [UsedImplicitly]
+                public int Stack { get; set; }
+                [UsedImplicitly]
+                public int Added { get; set; }
             }
         }
     }

@@ -64,8 +64,9 @@ namespace Core.Entities
             public int Buyin { get; }
             public DateTime StartTime { get; }
             public DateTime UpdatedTime { get; }
+            public IList<CashgameAction> Actions { get; set; }
 
-            public CashgamePlayer(string id, string name, string color, int stack, int buyin, DateTime startTime, DateTime updatedTime)
+            public CashgamePlayer(string id, string name, string color, int stack, int buyin, DateTime startTime, DateTime updatedTime, IList<CashgameAction> actions)
             {
                 Id = id;
                 Name = name;
@@ -74,12 +75,29 @@ namespace Core.Entities
                 Buyin = buyin;
                 StartTime = startTime;
                 UpdatedTime = updatedTime;
+                Actions = actions;
             }
 
             public int Winnings => Stack - Buyin;
             public int Winrate => PlayedMinutes == 0 ? 0 : (int)Math.Round((double)Winnings / PlayedMinutes * 60);
             private int PlayedMinutes => (int)Math.Round(PlayedTime.TotalMinutes);
             private TimeSpan PlayedTime => UpdatedTime - StartTime;
+        }
+
+        public class CashgameAction
+        {
+            public CheckpointType Type { get; }
+            public DateTime Time { get; }
+            public int Stack { get; }
+            public int Added { get; }
+
+            public CashgameAction(CheckpointType type, DateTime time, int stack, int added)
+            {
+                Type = type;
+                Time = time;
+                Stack = stack;
+                Added = added;
+            }
         }
     }
 

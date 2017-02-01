@@ -1,68 +1,53 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameDetailsChart
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
 
-        public CashgameDetailsChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public CashgameDetailsChart(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
-            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetById(request.CashgameId);
-            var bunch = _bunchRepository.Get(cashgame.BunchId);
-            var playerIds = cashgame.Results.Select(result => result.PlayerId).ToList();
-            var players = _playerRepository.Get(playerIds).OrderBy(o => o.Id).ToList();
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
+            //var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
 
-            var playerItems = GetPlayerItems(bunch, cashgame, players, request.CurrentTime);
+            var playerItems = GetPlayerItems(cashgame, request.CurrentTime);
 
             return new Result(playerItems);
         }
 
-        private static IList<PlayerItem> GetPlayerItems(Bunch bunch, Cashgame cashgame, IEnumerable<Player> players, DateTime now)
+        private static IList<PlayerItem> GetPlayerItems(DetailedCashgame cashgame, DateTime now)
         {
             var playerItems = new List<PlayerItem>();
-            foreach (var player in players)
+            foreach (var player in cashgame.Players)
             {
-                var result = cashgame.GetResult(player.Id);
                 var resultItems = new List<ResultItem>();
                 var totalBuyin = 0;
-                var checkpoints = result.Checkpoints;
-                foreach (var checkpoint in checkpoints)
+                foreach (var actions in player.Actions)
                 {
-                    if (checkpoint.Type == CheckpointType.Buyin)
+                    if (actions.Type == CheckpointType.Buyin)
                     {
-                        totalBuyin += checkpoint.Amount;
+                        totalBuyin += actions.Added;
                     }
-                    var localTime = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
-                    var winnings = checkpoint.Stack - totalBuyin;
+                    var localTime = TimeZoneInfo.ConvertTime(actions.Time, cashgame.Bunch.Timezone);
+                    var winnings = actions.Stack - totalBuyin;
                     resultItems.Add(new ResultItem(localTime, winnings));
                 }
-                if (cashgame.Status == GameStatus.Running)
+                if (cashgame.IsRunning)
                 {
-                    var timestamp = TimeZoneInfo.ConvertTime(now, bunch.Timezone);
-                    resultItems.Add(new ResultItem(timestamp, result.Winnings));
+                    var timestamp = TimeZoneInfo.ConvertTime(now, cashgame.Bunch.Timezone);
+                    resultItems.Add(new ResultItem(timestamp, player.Winnings));
                 }
-                playerItems.Add(new PlayerItem(player.Id, player.DisplayName, player.Color, resultItems));
+                playerItems.Add(new PlayerItem(player.Id, player.Name, player.Color, resultItems));
             }
             return playerItems;
         }
