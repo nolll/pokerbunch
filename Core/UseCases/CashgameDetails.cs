@@ -56,7 +56,7 @@ namespace Core.UseCases
 
                 var timezone = cashgame.Bunch.Timezone;
                 var startTime = GetLocalTime(cashgame.StartTime, timezone);
-                var endTime = GetLocalTime(cashgame.EndTime, timezone);
+                var endTime = GetLocalTime(cashgame.UpdatedTime, timezone);
                 var duration = endTime - startTime;
 
                 Date = new Date(startTime);

@@ -7,7 +7,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
     public class WithPlayer : Arrange
     {
         [Test]
-        public void CashgameDetails_AllBaseValuesAreSet()
+        public void AllBaseValuesAreSet()
         {
             var request = new CashgameDetails.Request(Id);
 
@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
         }
 
         [Test]
-        public void CashgameDetails_WithResultsAndPlayers_PlayerResultItemsCountAndOrderIsCorrect()
+        public void PlayerResultItemsCountAndOrderIsCorrect()
         {
             var request = new CashgameDetails.Request(Id);
 
@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
         }
 
         [Test]
-        public void CashgameDetails_AllResultItemPropertiesAreSet()
+        public void AllResultItemPropertiesAreSet()
         {
             var request = new CashgameDetails.Request(Id);
 
@@ -48,7 +48,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
             Assert.AreEqual(200, result.PlayerItems[0].Buyin.Amount);
             Assert.AreEqual(350, result.PlayerItems[0].Cashout.Amount);
             Assert.AreEqual(150, result.PlayerItems[0].Winnings.Amount);
-            //Assert.AreEqual(148, result.PlayerItems[0].WinRate.Amount);
+            Assert.AreEqual(145, result.PlayerItems[0].WinRate.Amount);
         }
     }
 }

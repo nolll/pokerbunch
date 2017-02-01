@@ -137,7 +137,7 @@ namespace Infrastructure.Storage.Repositories
             [UsedImplicitly]
             public DateTime StartTime { get; set; }
             [UsedImplicitly]
-            public DateTime? UpdatedTime { get; set; }
+            public DateTime UpdatedTime { get; set; }
             [UsedImplicitly]
             public bool IsRunning { get; set; }
             [UsedImplicitly]

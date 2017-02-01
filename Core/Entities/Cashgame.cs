@@ -10,18 +10,18 @@ namespace Core.Entities
     {
         public string Id { get; }
         public DateTime StartTime { get; }
-        public DateTime? EndTime { get; }
+        public DateTime UpdatedTime { get; }
         public bool IsRunning { get; }
         public CashgameBunch Bunch { get; }
         public Role Role { get; }
         public CashgameLocation Location { get; }
         public IList<CashgamePlayer> Players { get; }
 
-        public DetailedCashgame(string id, DateTime startTime, DateTime? endTime, bool isRunning, CashgameBunch bunch, Role role, CashgameLocation location, IList<CashgamePlayer> players)
+        public DetailedCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, CashgameBunch bunch, Role role, CashgameLocation location, IList<CashgamePlayer> players)
         {
             Id = id;
             StartTime = startTime;
-            EndTime = endTime;
+            UpdatedTime = updatedTime;
             IsRunning = isRunning;
             Bunch = bunch;
             Role = role;

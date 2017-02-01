@@ -17,15 +17,12 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            //var cashgame = _cashgameRepository.GetById(request.CashgameId);
             var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
-
-            var playerItems = GetPlayerItems(cashgame, request.CurrentTime);
-
+            var playerItems = GetPlayerItems(cashgame);
             return new Result(playerItems);
         }
 
-        private static IList<PlayerItem> GetPlayerItems(DetailedCashgame cashgame, DateTime now)
+        private static IList<PlayerItem> GetPlayerItems(DetailedCashgame cashgame)
         {
             var playerItems = new List<PlayerItem>();
             foreach (var player in cashgame.Players)
@@ -44,7 +41,7 @@ namespace Core.UseCases
                 }
                 if (cashgame.IsRunning)
                 {
-                    var timestamp = TimeZoneInfo.ConvertTime(now, cashgame.Bunch.Timezone);
+                    var timestamp = TimeZoneInfo.ConvertTime(cashgame.UpdatedTime, cashgame.Bunch.Timezone);
                     resultItems.Add(new ResultItem(timestamp, player.Winnings));
                 }
                 playerItems.Add(new PlayerItem(player.Id, player.Name, player.Color, resultItems));
@@ -54,14 +51,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
-            public DateTime CurrentTime { get; }
             public string CashgameId { get; }
 
-            public Request(string userName, DateTime currentTime, string cashgameId)
+            public Request(string cashgameId)
             {
-                UserName = userName;
-                CurrentTime = currentTime;
                 CashgameId = cashgameId;
             }
         }

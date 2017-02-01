@@ -1,13 +1,14 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.UseCases;
 using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.CashgameDetailsTests
+namespace Tests.Core.UseCases.CashgameDetailsChartTests
 {
     public abstract class Arrange
     {
@@ -23,16 +24,26 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
 
         protected virtual Role Role => Role.Player;
 
-        private CashgameDetails _sut;
+        private CashgameDetailsChart _sut;
 
         [SetUp]
         public void Setup()
         {
             var bunch = new DetailedCashgame.CashgameBunch(BunchId, _timezone, _currency);
             var location = new DetailedCashgame.CashgameLocation(LocationId, LocationName);
-            var player1Actions = new List<DetailedCashgame.CashgameAction>();
+            var player1BuyinTime = DateTime.Parse("2001-01-01 11:00");
+            var player1BuyinAction = new DetailedCashgame.CashgameAction(CheckpointType.Buyin, player1BuyinTime, 200, 200);
+            var player1CashoutTime = DateTime.Parse("2001-01-01 12:00");
+            var player1CashoutAction = new DetailedCashgame.CashgameAction(CheckpointType.Cashout, player1CashoutTime, 50, 0);
+            var player1Actions = new List<DetailedCashgame.CashgameAction> {player1BuyinAction, player1CashoutAction};
             var player1 = new DetailedCashgame.CashgamePlayer("player-1-id", "player-1-name", "#000", 350, 200, _startTime, _endTime, player1Actions);
-            var player2Actions = new List<DetailedCashgame.CashgameAction>();
+            var player2BuyinTime = DateTime.Parse("2001-01-01 11:05");
+            var player2BuyinAction = new DetailedCashgame.CashgameAction(CheckpointType.Buyin, player2BuyinTime, 200, 200);
+            var player2ReportTime = DateTime.Parse("2001-01-01 11:35");
+            var player2ReportAction = new DetailedCashgame.CashgameAction(CheckpointType.Report, player2ReportTime, 250, 0);
+            var player2CashoutTime = DateTime.Parse("2001-01-01 12:05");
+            var player2CashoutAction = new DetailedCashgame.CashgameAction(CheckpointType.Cashout, player2CashoutTime, 350, 0);
+            var player2Actions = new List<DetailedCashgame.CashgameAction> {player2BuyinAction, player2ReportAction, player2CashoutAction};
             var player2 = new DetailedCashgame.CashgamePlayer("player-2-id", "player-2-name", "#FFF", 50, 200, _startTime, _endTime, player2Actions);
             var players = new List<DetailedCashgame.CashgamePlayer> { player1, player2 };
 
@@ -40,10 +51,10 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
             var cashgameRepoMock = new Mock<ICashgameRepository>();
             cashgameRepoMock.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
 
-            _sut = new CashgameDetails(cashgameRepoMock.Object);
+            _sut = new CashgameDetailsChart(cashgameRepoMock.Object);
         }
 
-        protected CashgameDetails.Result Execute(CashgameDetails.Request request)
+        protected CashgameDetailsChart.Result Execute(CashgameDetailsChart.Request request)
         {
             return _sut.Execute(request);
         }

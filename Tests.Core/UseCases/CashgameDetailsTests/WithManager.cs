@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
         protected override Role Role => Role.Manager;
 
         [Test]
-        public void CashgameDetails_WithManager_CanEditIsTrue()
+        public void CanEditIsTrue()
         {
             var request = new CashgameDetails.Request(Id);
 

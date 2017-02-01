@@ -3,18 +3,18 @@ using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases
+namespace Tests.Core.UseCases.CashgameDetailsChartTests
 {
-    public class CashgameDetailsChartTests : TestBase
+    public class WithTwoPlayersWithTwoAndThreeActions : Arrange
     {
         [Test]
-        public void PlayerItems_EndedGame_TwoPlayersWithTwoAndThreeCheckpoints()
+        public void ResultsAreCorrect()
         {
-            var request = new CashgameDetailsChart.Request(TestData.UserNameA, DateTime.Now, TestData.CashgameIdA);
-            var result = Sut.Execute(request);
+            var request = new CashgameDetailsChart.Request(Id);
+            var result = Execute(request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
-            Assert.AreEqual(TestData.PlayerNameA, result.PlayerItems[0].Name);
+            Assert.AreEqual("player-1-name", result.PlayerItems[0].Name);
             Assert.AreEqual(2, result.PlayerItems[0].Results.Count);
             Assert.AreEqual(0, result.PlayerItems[0].Results[0].Winnings);
             Assert.AreEqual(-150, result.PlayerItems[0].Results[1].Winnings);
@@ -23,7 +23,5 @@ namespace Tests.Core.UseCases
             Assert.AreEqual(50, result.PlayerItems[1].Results[1].Winnings);
             Assert.AreEqual(150, result.PlayerItems[1].Results[2].Winnings);
         }
-
-        private CashgameDetailsChart Sut => new CashgameDetailsChart(Deps.Cashgame);
     }
 }
