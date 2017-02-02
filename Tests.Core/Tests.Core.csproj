@@ -65,6 +65,8 @@
     <Compile Include="UseCases\CashgameDetailsChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\WithTwoPlayersWithTwoAndThreeActions.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
+    <Compile Include="UseCases\EditCashgameFormTests\Arrange.cs" />
+    <Compile Include="UseCases\EditCashgameFormTests\WithManager.cs" />
     <Compile Include="UseCases\GivenAppListAll\Arrange.cs" />
     <Compile Include="UseCases\GivenAppListAll\WhenExecute.cs" />
     <Compile Include="UseCases\GivenAppListUser\Arrange.cs" />
@@ -90,7 +92,6 @@
     <Compile Include="UseCases\DeleteCashgameTests.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests.cs" />
     <Compile Include="UseCases\EditBunchTests.cs" />
-    <Compile Include="UseCases\EditCashgameFormTests.cs" />
     <Compile Include="UseCases\EditCashgameTests.cs" />
     <Compile Include="UseCases\EditCheckpointTests.cs" />
     <Compile Include="UseCases\EditUserTests.cs" />

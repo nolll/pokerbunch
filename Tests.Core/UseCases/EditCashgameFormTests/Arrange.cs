@@ -6,9 +6,9 @@ using Core.UseCases;
 using Moq;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.CashgameDetailsTests
+namespace Tests.Core.UseCases.EditCashgameFormTests
 {
-    public abstract class Arrange
+    public class Arrange
     {
         protected const string Id = "cashgame-id";
         protected readonly DateTime _startTime = DateTime.Parse("2001-01-01 12:00:00");
@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
 
         protected virtual Role Role => Role.Player;
 
-        private CashgameDetails _sut;
+        protected EditCashgameForm Sut;
 
         [SetUp]
         public void Setup()
@@ -39,12 +39,19 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
             var cashgameRepoMock = new Mock<ICashgameRepository>();
             cashgameRepoMock.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
 
-            _sut = new CashgameDetails(cashgameRepoMock.Object);
-        }
+            var location1 = new Location("location-id-1", "location-name-1", BunchId);
+            var location2 = new Location("location-id-2", "location-name-2", BunchId);
+            var locationList = new List<Location> {location1, location2};
+            var locationRepoMock = new Mock<ILocationRepository>();
+            locationRepoMock.Setup(o => o.List(BunchId)).Returns(locationList);
 
-        protected CashgameDetails.Result Execute(CashgameDetails.Request request)
-        {
-            return _sut.Execute(request);
+            var event1 = new Event("event-id-1", "event-name-1", BunchId);
+            var event2 = new Event("event-id-2", "event-name-2", BunchId);
+            var eventList = new List<Event> { event1, event2 };
+            var eventRepoMock = new Mock<IEventRepository>();
+            eventRepoMock.Setup(o => o.ListByBunch(BunchId)).Returns(eventList);
+
+            Sut = new EditCashgameForm(cashgameRepoMock.Object, locationRepoMock.Object, eventRepoMock.Object);
         }
     }
 }

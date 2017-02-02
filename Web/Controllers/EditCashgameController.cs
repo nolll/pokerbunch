@@ -38,7 +38,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string id, EditCashgamePostModel postModel = null)
         {
-            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(Identity.UserName, id));
+            var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(id));
             var contextResult = GetBunchContext(editCashgameFormResult.Slug);
             var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
             return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);

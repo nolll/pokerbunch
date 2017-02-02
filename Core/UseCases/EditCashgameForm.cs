@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Repositories;
@@ -7,50 +8,39 @@ namespace Core.UseCases
 {
     public class EditCashgameForm
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
         private readonly ILocationRepository _locationRepository;
         private readonly IEventRepository _eventRepository;
 
-        public EditCashgameForm(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
+        public EditCashgameForm(ICashgameRepository cashgameRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
             _locationRepository = locationRepository;
             _eventRepository = eventRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetById(request.Id);
-            var bunch = _bunchRepository.Get(cashgame.BunchId);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Manager(user, player);
-
-            var locations = _locationRepository.List(bunch.Id);
+            var cashgame = _cashgameRepository.GetDetailedById(request.Id);
+            var locations = _locationRepository.List(cashgame.Bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
 
-            var events = _eventRepository.ListByBunch(bunch.Id);
+            var events = _eventRepository.ListByBunch(cashgame.Bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
             var selectedEvent = _eventRepository.GetByCashgame(cashgame.Id);
             var selectedEventId = selectedEvent?.Id ?? "";
+            var localStartTime = TimeZoneInfo.ConvertTimeFromUtc(cashgame.StartTime, cashgame.Bunch.Timezone);
+            var dateString = Globalization.FormatIsoDate(localStartTime);
 
-            return new Result(cashgame.DateString, cashgame.Id, bunch.Id, cashgame.LocationId, locationItems, selectedEventId, eventItems);
+            return new Result(dateString, cashgame.Id, cashgame.Bunch.Id, cashgame.Location.Id, locationItems, selectedEventId, eventItems);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string Id { get; }
 
-            public Request(string userName, string id)
+            public Request(string id)
             {
-                UserName = userName;
                 Id = id;
             }
         }
