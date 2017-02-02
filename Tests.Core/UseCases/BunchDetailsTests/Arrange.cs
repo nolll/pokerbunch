@@ -6,7 +6,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.GivenBunchDetails
+namespace Tests.Core.UseCases.BunchDetailsTests
 {
     public abstract class Arrange : ArrangeBase
     {

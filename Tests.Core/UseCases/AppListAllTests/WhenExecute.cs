@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Core.UseCases.GivenAppListAll
+namespace Tests.Core.UseCases.AppListAllTests
 {
     public class WhenExecute : Arrange
     {

@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace Tests.Core.UseCases.GivenLogin
+namespace Tests.Core.UseCases.LoginTests
 {
     public class WhenExecuteWithCorrectPassword : Arrange
     {

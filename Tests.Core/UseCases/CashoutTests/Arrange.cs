@@ -8,7 +8,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.GivenCashout
+namespace Tests.Core.UseCases.CashoutTests
 {
     public abstract class Arrange : ArrangeBase
     {

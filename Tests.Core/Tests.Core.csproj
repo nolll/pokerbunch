@@ -67,15 +67,15 @@
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\Arrange.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\WithManager.cs" />
-    <Compile Include="UseCases\GivenAppListAll\Arrange.cs" />
-    <Compile Include="UseCases\GivenAppListAll\WhenExecute.cs" />
-    <Compile Include="UseCases\GivenAppListUser\Arrange.cs" />
-    <Compile Include="UseCases\GivenAppListUser\WhenExecute.cs" />
+    <Compile Include="UseCases\AppListAllTests\Arrange.cs" />
+    <Compile Include="UseCases\AppListAllTests\WhenExecute.cs" />
+    <Compile Include="UseCases\AppListUserTests\Arrange.cs" />
+    <Compile Include="UseCases\AppListUserTests\WhenExecute.cs" />
     <Compile Include="UseCases\BaseContextTests.cs" />
     <Compile Include="UseCases\BunchContextTests.cs" />
-    <Compile Include="UseCases\GivenBunchDetails\WhenExecuteAsManager.cs" />
-    <Compile Include="UseCases\GivenBunchDetails\WhenExecuteAsPlayer.cs" />
-    <Compile Include="UseCases\GivenBunchDetails\Arrange.cs" />
+    <Compile Include="UseCases\BunchDetailsTests\WhenExecuteAsManager.cs" />
+    <Compile Include="UseCases\BunchDetailsTests\WhenExecuteAsPlayer.cs" />
+    <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />
     <Compile Include="UseCases\BuyinTests.cs" />
     <Compile Include="UseCases\CashgameChartTests.cs" />
@@ -84,10 +84,10 @@
     <Compile Include="UseCases\CashgameListTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />
-    <Compile Include="UseCases\GivenCashout\Arrange.cs" />
-    <Compile Include="UseCases\GivenCashout\WhenExecuteWithPlayerThatHasNotCheckedOutBefore.cs" />
-    <Compile Include="UseCases\GivenCashout\WhenExecuteWithPlayerThatHasCheckedOutBefore.cs" />
-    <Compile Include="UseCases\GivenCashout\WhenExecuteWithInvalidStack.cs" />
+    <Compile Include="UseCases\CashoutTests\Arrange.cs" />
+    <Compile Include="UseCases\CashoutTests\WhenExecuteWithPlayerThatHasNotCheckedOutBefore.cs" />
+    <Compile Include="UseCases\CashoutTests\WhenExecuteWithPlayerThatHasCheckedOutBefore.cs" />
+    <Compile Include="UseCases\CashoutTests\WhenExecuteWithInvalidStack.cs" />
     <Compile Include="UseCases\ChangePasswordTests.cs" />
     <Compile Include="UseCases\DeleteCashgameTests.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests.cs" />
@@ -98,10 +98,10 @@
     <Compile Include="UseCases\EndCashgameTests.cs" />
     <Compile Include="UseCases\LocationDetailsTests.cs" />
     <Compile Include="UseCases\LoginFormTests.cs" />
-    <Compile Include="UseCases\GivenLogin\Arrange.cs" />
-    <Compile Include="UseCases\GivenLogin\WhenExecuteWithCorrectPassword.cs" />
-    <Compile Include="UseCases\GivenLogin\WhenExecuteWithWrongPassword.cs" />
-    <Compile Include="UseCases\GivenLogin\WhenExecuteWithUnknownUser.cs" />
+    <Compile Include="UseCases\LoginTests\Arrange.cs" />
+    <Compile Include="UseCases\LoginTests\WhenExecuteWithCorrectPassword.cs" />
+    <Compile Include="UseCases\LoginTests\WhenExecuteWithWrongPassword.cs" />
+    <Compile Include="UseCases\LoginTests\WhenExecuteWithUnknownUser.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
     <Compile Include="UseCases\DeletePlayerTests.cs" />
     <Compile Include="UseCases\EditBunchFormTests.cs" />
@@ -122,10 +122,10 @@
     <Compile Include="UseCases\RunningCashgameTests.cs" />
     <Compile Include="UseCases\TestEmailTests.cs" />
     <Compile Include="UseCases\TopListTests.cs" />
-    <Compile Include="UseCases\GivenUserDetails\Arrange.cs" />
-    <Compile Include="UseCases\GivenUserDetails\WhenExecuteAsAdmin.cs" />
-    <Compile Include="UseCases\GivenUserDetails\WhenExecuteAsOtherUser.cs" />
-    <Compile Include="UseCases\GivenUserDetails\WhenExecuteAsSpecifiedUser.cs" />
+    <Compile Include="UseCases\UserDetailsTests\Arrange.cs" />
+    <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsAdmin.cs" />
+    <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsOtherUser.cs" />
+    <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsSpecifiedUser.cs" />
     <Compile Include="UseCases\UserListTests.cs" />
   </ItemGroup>
   <ItemGroup>

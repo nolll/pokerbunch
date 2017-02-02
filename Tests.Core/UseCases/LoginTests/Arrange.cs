@@ -6,7 +6,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.GivenLogin
+namespace Tests.Core.UseCases.LoginTests
 {
     public class Arrange : ArrangeBase
     {

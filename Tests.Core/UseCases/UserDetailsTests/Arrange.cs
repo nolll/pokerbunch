@@ -4,7 +4,7 @@ using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.GivenUserDetails
+namespace Tests.Core.UseCases.UserDetailsTests
 {
     public class Arrange : ArrangeBase
     {

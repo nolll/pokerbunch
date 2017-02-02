@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.GivenUserDetails
+namespace Tests.Core.UseCases.UserDetailsTests
 {
     public class WhenExecuteAsOtherUser : Arrange
     {

@@ -6,7 +6,7 @@ using Moq;
 using NUnit.Framework;
 using Tests.Common;
 
-namespace Tests.Core.UseCases.GivenAppListAll
+namespace Tests.Core.UseCases.AppListAllTests
 {
     public abstract class Arrange : ArrangeBase
     {

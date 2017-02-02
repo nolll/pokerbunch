@@ -3,7 +3,7 @@ using Core.Entities.Checkpoints;
 using Core.UseCases;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.GivenCashout
+namespace Tests.Core.UseCases.CashoutTests
 {
     public class WhenExecuteWithPlayerThatHasNotCheckedOutBefore : Arrange
     {

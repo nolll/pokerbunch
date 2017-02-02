@@ -2,7 +2,7 @@
 using Core.UseCases;
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.GivenCashout
+namespace Tests.Core.UseCases.CashoutTests
 {
     public class WhenExecuteWithInvalidStack : Arrange
     {
