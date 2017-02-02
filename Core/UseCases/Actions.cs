@@ -4,59 +4,47 @@ using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
     public class Actions
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
 
-        public Actions(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public Actions(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
-            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.Get(request.PlayerId);
-            var user = _userRepository.GetByNameOrEmail(request.CurrentUserName);
-            var bunch = _bunchRepository.Get(player.BunchId);
-            var cashgame = _cashgameRepository.GetById(request.CashgameId);
+            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
             
-            RequireRole.Player(user, player);
-            var playerResult = cashgame.GetResult(player.Id);
-            var currentPlayer = _playerRepository.GetByUser(bunch.Id, user.Id);
-            var isManager = RoleHandler.IsInRole(user, currentPlayer, Role.Manager);
+            var playerResult = cashgame.Players.First(o => o.Id == request.PlayerId);
+            var isManager = cashgame.Role >= Role.Manager;
 
-            var date = cashgame.StartTime.HasValue ? cashgame.StartTime.Value : DateTime.MinValue;
-            var playerName = player.DisplayName;
-            var checkpointItems = playerResult.Checkpoints.Select(o => CreateCheckpointItem(bunch, isManager, o)).ToList();
+            var date = cashgame.StartTime;
+            var playerName = playerResult.Name;
+            var checkpointItems = playerResult.Actions.Select(o => CreateCheckpointItem(cashgame.Bunch, isManager, o)).ToList();
 
-            return new Result(date, playerName, bunch.Id, checkpointItems);
+            return new Result(date, playerName, cashgame.Bunch.Id, checkpointItems);
         }
 
-        private static CheckpointItem CreateCheckpointItem(Bunch bunch, bool isManager, Checkpoint checkpoint)
+        private static CheckpointItem CreateCheckpointItem(DetailedCashgame.CashgameBunch bunch, bool isManager, DetailedCashgame.CashgameAction action)
         {
-            var type = checkpoint.Description;
-            var displayAmount = new Money(GetDisplayAmount(checkpoint), bunch.Currency);
-            var time = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
+            var type = action.Type.ToString();
+            var displayAmount = new Money(GetDisplayAmount(action), bunch.Currency);
+            var time = TimeZoneInfo.ConvertTime(action.Time, bunch.Timezone);
             var canEdit = isManager;
 
-            return new CheckpointItem(time, checkpoint.Id, type, displayAmount, canEdit);
+            return new CheckpointItem(time, action.Id, type, displayAmount, canEdit);
         }
 
-        private static int GetDisplayAmount(Checkpoint checkpoint)
+        private static int GetDisplayAmount(DetailedCashgame.CashgameAction action)
         {
-            if (checkpoint.Type == CheckpointType.Buyin)
-                return checkpoint.Amount;
-            return checkpoint.Stack;
+            if (action.Type == CheckpointType.Buyin)
+                return action.Added;
+            return action.Stack;
         }
 
         public class Request

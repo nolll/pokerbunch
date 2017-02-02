@@ -46,10 +46,6 @@ namespace Tests.Core.UseCases
             Assert.IsTrue(result.CheckpointItems[0].CanEdit);
         }
 
-        private Actions Sut => new Actions(
-            Deps.Bunch,
-            Deps.Cashgame,
-            Deps.Player,
-            Deps.User);
+        private Actions Sut => new Actions(Deps.Cashgame);
     }
 }

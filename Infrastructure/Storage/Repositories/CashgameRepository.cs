@@ -106,7 +106,7 @@ namespace Infrastructure.Storage.Repositories
 
         private DetailedCashgame.CashgamePlayer CreatePlayer(ApiDetailedCashgame.ApiDetailedCashgamePlayer p)
         {
-            var actions = p.Actions.Select(o => new DetailedCashgame.CashgameAction(GetActionType(o.Type), o.Time, o.Stack, o.Added)).ToList();
+            var actions = p.Actions.Select(o => new DetailedCashgame.CashgameAction(o.Id, GetActionType(o.Type), o.Time, o.Stack, o.Added)).ToList();
             return new DetailedCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, p.StartTime, p.UpdatedTime, actions);
         }
 
@@ -197,6 +197,8 @@ namespace Infrastructure.Storage.Repositories
 
             public class ApiDetailedCashgameAction
             {
+                [UsedImplicitly]
+                public string Id { get; set; }
                 [UsedImplicitly]
                 public string Type { get; set; }
                 [UsedImplicitly]

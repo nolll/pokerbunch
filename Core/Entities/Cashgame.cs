@@ -86,13 +86,15 @@ namespace Core.Entities
 
         public class CashgameAction
         {
+            public string Id { get; }
             public CheckpointType Type { get; }
             public DateTime Time { get; }
             public int Stack { get; }
             public int Added { get; }
 
-            public CashgameAction(CheckpointType type, DateTime time, int stack, int added)
+            public CashgameAction(string id, CheckpointType type, DateTime time, int stack, int added)
             {
+                Id = id;
                 Type = type;
                 Time = time;
                 Stack = stack;
