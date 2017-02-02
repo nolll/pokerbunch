@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
 
         protected virtual Role Role => Role.Player;
 
-        private CashgameDetails _sut;
+        protected CashgameDetails Sut;
 
         [SetUp]
         public void Setup()
@@ -39,12 +39,9 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
             var cashgameRepoMock = new Mock<ICashgameRepository>();
             cashgameRepoMock.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
 
-            _sut = new CashgameDetails(cashgameRepoMock.Object);
+            Sut = new CashgameDetails(cashgameRepoMock.Object);
         }
 
-        protected CashgameDetails.Result Execute(CashgameDetails.Request request)
-        {
-            return _sut.Execute(request);
-        }
+        protected CashgameDetails.Request Request => new CashgameDetails.Request(Id);
     }
 }

@@ -4,11 +4,10 @@ using Core.Services;
 using Core.UseCases;
 using Moq;
 using NUnit.Framework;
-using Tests.Common;
 
 namespace Tests.Core.UseCases.LoginTests
 {
-    public class Arrange : ArrangeBase
+    public class Arrange
     {
         protected string ExistingUser => "existing-user";
         protected string UnknownUser => "unknow-user";
@@ -20,7 +19,7 @@ namespace Tests.Core.UseCases.LoginTests
         protected virtual string LoginName => null;
         protected virtual string Password => null;
         protected string Token => "token";
-        private Login Sut { get; set; }
+        protected Login Sut;
 
         [SetUp]
         public void Setup()
@@ -28,17 +27,15 @@ namespace Tests.Core.UseCases.LoginTests
             var user = new User(ExistingUserId, ExistingUser, "description", "real-name", "test@example.com", Role.None, EncryptedCorrectPassword, Salt);
 
             var userRepositoryMock = new Mock<IUserRepository>();
-            var tokenRepositoryMock = new Mock<ITokenRepository>();
             userRepositoryMock.Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
+
+            var tokenRepositoryMock = new Mock<ITokenRepository>();
             tokenRepositoryMock.Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
 
             Sut = new Login(userRepositoryMock.Object, tokenRepositoryMock.Object);
         }
 
-        protected Login.Result Execute()
-        {
-            return Sut.Execute(new Login.Request(LoginName, Password));
-        }
+        protected Login.Request Request => new Login.Request(LoginName, Password);
 
         //[Test]
         //public void Login_UserFoundAndPasswordIsCorrect_UserNameIsSet()

@@ -1,5 +1,4 @@
 using Core.Entities;
-using Core.UseCases;
 using NUnit.Framework;
 
 namespace Tests.Core.UseCases.CashgameDetailsTests
@@ -11,9 +10,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
         [Test]
         public void CanEditIsTrue()
         {
-            var request = new CashgameDetails.Request(Id);
-
-            var result = Execute(request);
+            var result = Sut.Execute(Request);
 
             Assert.IsTrue(result.CanEdit);
         }

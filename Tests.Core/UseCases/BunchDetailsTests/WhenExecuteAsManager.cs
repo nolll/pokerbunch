@@ -10,7 +10,8 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         [Test]
         public void CanEditIsTrue()
         {
-            Assert.IsTrue(Execute().CanEdit);
+            var result = Sut.Execute(Request);
+            Assert.IsTrue(result.CanEdit);
         }
     }
 }

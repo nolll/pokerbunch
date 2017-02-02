@@ -53,5 +53,7 @@ namespace Tests.Core.UseCases.EditCashgameFormTests
 
             Sut = new EditCashgameForm(cashgameRepoMock.Object, locationRepoMock.Object, eventRepoMock.Object);
         }
+
+        protected EditCashgameForm.Request Request => new EditCashgameForm.Request(Id);
     }
 }

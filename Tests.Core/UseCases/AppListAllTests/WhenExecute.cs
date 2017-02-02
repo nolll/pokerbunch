@@ -7,7 +7,7 @@ namespace Tests.Core.UseCases.AppListAllTests
         [Test]
         public void ReturnsList()
         {
-            var result = Execute();
+            var result = Sut.Execute();
 
             Assert.AreEqual(2, result.Items.Count);
             Assert.AreEqual("name-1", result.Items[0].AppName);

@@ -1,7 +1,4 @@
-using System;
-using Core.UseCases;
 using NUnit.Framework;
-using Tests.Common;
 
 namespace Tests.Core.UseCases.CashgameDetailsChartTests
 {
@@ -10,8 +7,7 @@ namespace Tests.Core.UseCases.CashgameDetailsChartTests
         [Test]
         public void ResultsAreCorrect()
         {
-            var request = new CashgameDetailsChart.Request(Id);
-            var result = Execute(request);
+            var result = Sut.Execute(Request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
             Assert.AreEqual("player-1-name", result.PlayerItems[0].Name);

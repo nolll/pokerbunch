@@ -6,11 +6,10 @@ using Core.Repositories;
 using Core.UseCases;
 using Moq;
 using NUnit.Framework;
-using Tests.Common;
 
 namespace Tests.Core.UseCases.CashoutTests
 {
-    public abstract class Arrange : ArrangeBase
+    public abstract class Arrange
     {
         protected const string BunchId = "slug";
         private const string CashgameId = "2";
@@ -31,17 +30,26 @@ namespace Tests.Core.UseCases.CashoutTests
         [SetUp]
         public void Setup()
         {
-            Sut = CreateSut<Cashout>();
-
             var cashgame = CreateCashgame();
             CheckpointCountBeforeCashout = cashgame.Checkpoints.Count;
-            MockOf<IBunchRepository>().Setup(s => s.Get(BunchId)).Returns(new Bunch(BunchId, BunchId));
-            MockOf<ICashgameRepository>().Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
-            MockOf<IPlayerRepository>().Setup(s => s.GetByUser(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
-            MockOf<IUserRepository>().Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
 
-            MockOf<ICashgameRepository>().Setup(o => o.Update(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
+            var bunchRepoMock = new Mock<IBunchRepository>();
+            bunchRepoMock.Setup(s => s.Get(BunchId)).Returns(new Bunch(BunchId, BunchId));
+
+            var cashgameRepoMock = new Mock<ICashgameRepository>();
+            cashgameRepoMock.Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
+            cashgameRepoMock.Setup(o => o.Update(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
+
+            var playerRepoMock = new Mock<IPlayerRepository>();
+            playerRepoMock.Setup(s => s.GetByUser(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
+
+            var userRepoMock = new Mock<IUserRepository>();
+            userRepoMock.Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
+
+            Sut = new Cashout(bunchRepoMock.Object, cashgameRepoMock.Object, playerRepoMock.Object, userRepoMock.Object);
         }
+
+        protected Cashout.Request Request => new Cashout.Request(UserName, BunchId, PlayerId, CashoutStack, CashoutTime);
 
         private Cashgame CreateCashgame()
         {

@@ -6,7 +6,6 @@ using Core.Repositories;
 using Core.UseCases;
 using Moq;
 using NUnit.Framework;
-using Tests.Common;
 
 namespace Tests.Core.UseCases.CashgameDetailsChartTests
 {
@@ -24,7 +23,7 @@ namespace Tests.Core.UseCases.CashgameDetailsChartTests
 
         protected virtual Role Role => Role.Player;
 
-        private CashgameDetailsChart _sut;
+        protected CashgameDetailsChart Sut;
 
         [SetUp]
         public void Setup()
@@ -51,12 +50,9 @@ namespace Tests.Core.UseCases.CashgameDetailsChartTests
             var cashgameRepoMock = new Mock<ICashgameRepository>();
             cashgameRepoMock.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
 
-            _sut = new CashgameDetailsChart(cashgameRepoMock.Object);
+            Sut = new CashgameDetailsChart(cashgameRepoMock.Object);
         }
 
-        protected CashgameDetailsChart.Result Execute(CashgameDetailsChart.Request request)
-        {
-            return _sut.Execute(request);
-        }
+        protected CashgameDetailsChart.Request Request => new CashgameDetailsChart.Request(Id);
     }
 }

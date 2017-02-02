@@ -12,7 +12,6 @@ namespace Tests.Common
         public FakeEventRepository Event { get; }
         public FakeLocationRepository Location { get; }
         public FakeAppRepository App { get; }
-        public FakeTokenRepository Token { get; }
 
         public FakeMessageSender MessageSender { get; }
         public FakeRandomService RandomService { get; }
@@ -26,7 +25,6 @@ namespace Tests.Common
             Event = new FakeEventRepository();
             Location = new FakeLocationRepository();
             App = new FakeAppRepository();
-            Token = new FakeTokenRepository();
 
             MessageSender = new FakeMessageSender();
             RandomService = new FakeRandomService();

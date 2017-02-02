@@ -1,5 +1,4 @@
 using System;
-using Core.UseCases;
 using NUnit.Framework;
 
 namespace Tests.Core.UseCases.CashgameDetailsTests
@@ -9,9 +8,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
         [Test]
         public void AllBaseValuesAreSet()
         {
-            var request = new CashgameDetails.Request(Id);
-
-            var result = Execute(request);
+            var result = Sut.Execute(Request);
 
             Assert.AreEqual("2001-01-01", result.Date.IsoString);
             Assert.AreEqual(LocationName, result.LocationName);
@@ -26,9 +23,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
         [Test]
         public void PlayerResultItemsCountAndOrderIsCorrect()
         {
-            var request = new CashgameDetails.Request(Id);
-
-            var result = Execute(request);
+            var result = Sut.Execute(Request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
             Assert.AreEqual(150, result.PlayerItems[0].Winnings.Amount);
@@ -38,9 +33,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
         [Test]
         public void AllResultItemPropertiesAreSet()
         {
-            var request = new CashgameDetails.Request(Id);
-
-            var result = Execute(request);
+            var result = Sut.Execute(Request);
 
             Assert.AreEqual("player-1-name", result.PlayerItems[0].Name);
             Assert.AreEqual(Id, result.PlayerItems[0].CashgameId);

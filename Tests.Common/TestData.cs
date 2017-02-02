@@ -40,8 +40,6 @@ namespace Tests.Common
         private const string UserDisplayNameB = "Display Name B";
         private const string UserDisplayNameC = "Display Name C";
         private const string UserDisplayNameD = "Display Name D";
-        public const string UserPasswordA = "PasswordA";
-        public const string UserPasswordB = "PasswordB";
         private const string UserEncryptedPasswordA = "5a99a164773c45966e5fcdd1c3110937861094aa";
         private const string UserEncryptedPasswordB = "6873088c1117d25d1abf4b75272d463b0ec6a504";
         private const string UserEncryptedPasswordC = "not_used_in_any_test_yet";
@@ -69,20 +67,9 @@ namespace Tests.Common
         public static readonly Player PlayerB = new Player(SlugA, PlayerIdB, UserIdB, PlayerNameB, Role.Player, "#9e9e9e");
         public static readonly Player PlayerC = new Player(SlugA, PlayerIdC, UserIdC, PlayerNameC, Role.Manager, "#9e9e9e");
         public static readonly Player PlayerD = new Player(SlugA, PlayerIdD, UserIdNone, PlayerNameD, Role.Player, "#9e9e9e");
-        public static readonly Player ManagerPlayer = PlayerC;
 
         public const string BuyinCheckpointId = "1";
-        public const int BuyinCheckpointStack = 100;
-        public const int BuyinCheckpointAmount = 200;
-        public static DateTime BuyinCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
         public const string ReportCheckpointId = "2"; 
-        public const int ReportCheckpointStack = 300;
-        public const int ReportCheckpointAmount = 400;
-        public static DateTime ReportCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
-        public const string CashoutCheckpointId = "3";
-        public const int CashoutCheckpointStack = 500;
-        public const int CashoutCheckpointAmount = 600;
-        public static DateTime CashoutCheckpointTimestamp = new DateTimeBuilder().AsUtc().Build();
 
         public const string PlayerIdA = "1";
         public const string PlayerIdB = "2";
@@ -105,8 +92,6 @@ namespace Tests.Common
         public const string LocationNameC = "Location C";
         public const string ChangedLocationName = "Changed Location";
         public const string DateStringA = "2001-01-01";
-        public const string DateStringB = "2002-02-02";
-        public const string DateStringC = "2003-03-03";
         public static DateTime StartTimeA = DateTime.Parse("2001-01-01 12:00:00");
         public static DateTime StartTimeB = DateTime.Parse("2002-02-02 12:00:00");
         public static DateTime StartTimeC = DateTime.Parse("2003-03-03 12:00:00");

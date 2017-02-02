@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases.EditCashgameFormTests
         [Test]
         public void HasBaseProperties()
         {
-            var result = Sut.Execute(new EditCashgameForm.Request(Id));
+            var result = Sut.Execute(Request);
 
             Assert.AreEqual(Id, result.CashgameId);
             Assert.AreEqual(LocationId, result.LocationId);
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases.EditCashgameFormTests
         [Test]
         public void HasTwoLocations()
         {
-            var result = Sut.Execute(new EditCashgameForm.Request(Id));
+            var result = Sut.Execute(Request);
 
             Assert.AreEqual(2, result.Locations.Count);
         }
@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases.EditCashgameFormTests
         [Test]
         public void HasTwoEvents()
         {
-            var result = Sut.Execute(new EditCashgameForm.Request(Id));
+            var result = Sut.Execute(Request);
 
             Assert.AreEqual(2, result.Events.Count);
         }
