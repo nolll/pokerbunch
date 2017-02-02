@@ -47,10 +47,10 @@ namespace Tests.Core.UseCases.CashgameDetailsChartTests
             var players = new List<DetailedCashgame.CashgamePlayer> { player1, player2 };
 
             var cashgame = new DetailedCashgame(Id, _startTime, _endTime, IsRunning, bunch, Role, location, players);
-            var cashgameRepoMock = new Mock<ICashgameRepository>();
-            cashgameRepoMock.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
+            var crm = new Mock<ICashgameRepository>();
+            crm.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
 
-            Sut = new CashgameDetailsChart(cashgameRepoMock.Object);
+            Sut = new CashgameDetailsChart(crm.Object);
         }
 
         protected CashgameDetailsChart.Request Request => new CashgameDetailsChart.Request(Id);

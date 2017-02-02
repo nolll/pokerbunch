@@ -36,10 +36,10 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
             var players = new List<DetailedCashgame.CashgamePlayer> { player1, player2 };
 
             var cashgame = new DetailedCashgame(Id, _startTime, _endTime, IsRunning, bunch, Role, location, players);
-            var cashgameRepoMock = new Mock<ICashgameRepository>();
-            cashgameRepoMock.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
+            var crm = new Mock<ICashgameRepository>();
+            crm.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
 
-            Sut = new CashgameDetails(cashgameRepoMock.Object);
+            Sut = new CashgameDetails(crm.Object);
         }
 
         protected CashgameDetails.Request Request => new CashgameDetails.Request(Id);

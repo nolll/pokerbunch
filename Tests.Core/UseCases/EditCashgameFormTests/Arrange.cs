@@ -36,22 +36,22 @@ namespace Tests.Core.UseCases.EditCashgameFormTests
             var players = new List<DetailedCashgame.CashgamePlayer> { player1, player2 };
 
             var cashgame = new DetailedCashgame(Id, _startTime, _endTime, IsRunning, bunch, Role, location, players);
-            var cashgameRepoMock = new Mock<ICashgameRepository>();
-            cashgameRepoMock.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
+            var crm = new Mock<ICashgameRepository>();
+            crm.Setup(o => o.GetDetailedById(Id)).Returns(cashgame);
 
             var location1 = new Location("location-id-1", "location-name-1", BunchId);
             var location2 = new Location("location-id-2", "location-name-2", BunchId);
             var locationList = new List<Location> {location1, location2};
-            var locationRepoMock = new Mock<ILocationRepository>();
-            locationRepoMock.Setup(o => o.List(BunchId)).Returns(locationList);
+            var lrm = new Mock<ILocationRepository>();
+            lrm.Setup(o => o.List(BunchId)).Returns(locationList);
 
             var event1 = new Event("event-id-1", "event-name-1", BunchId);
             var event2 = new Event("event-id-2", "event-name-2", BunchId);
             var eventList = new List<Event> { event1, event2 };
-            var eventRepoMock = new Mock<IEventRepository>();
-            eventRepoMock.Setup(o => o.ListByBunch(BunchId)).Returns(eventList);
+            var erm = new Mock<IEventRepository>();
+            erm.Setup(o => o.ListByBunch(BunchId)).Returns(eventList);
 
-            Sut = new EditCashgameForm(cashgameRepoMock.Object, locationRepoMock.Object, eventRepoMock.Object);
+            Sut = new EditCashgameForm(crm.Object, lrm.Object, erm.Object);
         }
 
         protected EditCashgameForm.Request Request => new EditCashgameForm.Request(Id);

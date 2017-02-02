@@ -22,19 +22,19 @@ namespace Tests.Core.UseCases.UserDetailsTests
         [SetUp]
         public void Setup()
         {
-            var userRepoMock = new Mock<IUserRepository>();
+            var urm = new Mock<IUserRepository>();
             if (ViewingOwnUser)
             {
-                userRepoMock.Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
+                urm.Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
                 _currentUserName = ViewUserName;
             }
             else
             {
-                userRepoMock.Setup(s => s.GetByNameOrEmail(_currentUserName)).Returns(new User(CurrentUserId, _currentUserName, globalRole: Role));
-                userRepoMock.Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
+                urm.Setup(s => s.GetByNameOrEmail(_currentUserName)).Returns(new User(CurrentUserId, _currentUserName, globalRole: Role));
+                urm.Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
             }
 
-            Sut = new UserDetails(userRepoMock.Object);
+            Sut = new UserDetails(urm.Object);
         }
 
         protected UserDetails.Request Request => new UserDetails.Request(_currentUserName, ViewUserName);

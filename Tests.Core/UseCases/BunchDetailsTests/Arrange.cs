@@ -24,18 +24,18 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         [SetUp]
         public void Setup()
         {
-            var bunchRepoMock = new Mock<IBunchRepository>();
+            var brm = new Mock<IBunchRepository>();
 
             if (Exception != null)
             {
-                bunchRepoMock.Setup(s => s.Get(Slug)).Throws(Exception);
+                brm.Setup(s => s.Get(Slug)).Throws(Exception);
             }
             else
             {
-                bunchRepoMock.Setup(s => s.Get(Slug)).Returns(new Bunch(Slug, DisplayName, Description, HouseRules, null, 0, null, Role));
+                brm.Setup(s => s.Get(Slug)).Returns(new Bunch(Slug, DisplayName, Description, HouseRules, null, 0, null, Role));
             }
 
-            Sut = new BunchDetails(bunchRepoMock.Object);
+            Sut = new BunchDetails(brm.Object);
         }
 
         protected BunchDetails.Request Request => new BunchDetails.Request(UserName, Slug);

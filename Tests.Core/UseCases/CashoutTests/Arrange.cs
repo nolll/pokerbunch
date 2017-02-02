@@ -33,20 +33,20 @@ namespace Tests.Core.UseCases.CashoutTests
             var cashgame = CreateCashgame();
             CheckpointCountBeforeCashout = cashgame.Checkpoints.Count;
 
-            var bunchRepoMock = new Mock<IBunchRepository>();
-            bunchRepoMock.Setup(s => s.Get(BunchId)).Returns(new Bunch(BunchId, BunchId));
+            var brm = new Mock<IBunchRepository>();
+            brm.Setup(s => s.Get(BunchId)).Returns(new Bunch(BunchId, BunchId));
 
-            var cashgameRepoMock = new Mock<ICashgameRepository>();
-            cashgameRepoMock.Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
-            cashgameRepoMock.Setup(o => o.Update(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
+            var crm = new Mock<ICashgameRepository>();
+            crm.Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
+            crm.Setup(o => o.Update(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
 
-            var playerRepoMock = new Mock<IPlayerRepository>();
-            playerRepoMock.Setup(s => s.GetByUser(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
+            var prm = new Mock<IPlayerRepository>();
+            prm.Setup(s => s.GetByUser(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
 
-            var userRepoMock = new Mock<IUserRepository>();
-            userRepoMock.Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
+            var urm = new Mock<IUserRepository>();
+            urm.Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
 
-            Sut = new Cashout(bunchRepoMock.Object, cashgameRepoMock.Object, playerRepoMock.Object, userRepoMock.Object);
+            Sut = new Cashout(brm.Object, crm.Object, prm.Object, urm.Object);
         }
 
         protected Cashout.Request Request => new Cashout.Request(UserName, BunchId, PlayerId, CashoutStack, CashoutTime);

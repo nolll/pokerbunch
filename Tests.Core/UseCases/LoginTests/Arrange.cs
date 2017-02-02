@@ -26,13 +26,13 @@ namespace Tests.Core.UseCases.LoginTests
         {
             var user = new User(ExistingUserId, ExistingUser, "description", "real-name", "test@example.com", Role.None, EncryptedCorrectPassword, Salt);
 
-            var userRepositoryMock = new Mock<IUserRepository>();
-            userRepositoryMock.Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
+            var urm = new Mock<IUserRepository>();
+            urm.Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
 
-            var tokenRepositoryMock = new Mock<ITokenRepository>();
-            tokenRepositoryMock.Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
+            var trm = new Mock<ITokenRepository>();
+            trm.Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
 
-            Sut = new Login(userRepositoryMock.Object, tokenRepositoryMock.Object);
+            Sut = new Login(urm.Object, trm.Object);
         }
 
         protected Login.Request Request => new Login.Request(LoginName, Password);
