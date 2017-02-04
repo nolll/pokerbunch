@@ -49,13 +49,11 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string CurrentUserName { get; }
             public string CashgameId { get; }
             public string PlayerId { get; }
 
-            public Request(string currentUserName, string cashgameId, string playerId)
+            public Request(string cashgameId, string playerId)
             {
-                CurrentUserName = currentUserName;
                 CashgameId = cashgameId;
                 PlayerId = playerId;
             }

@@ -8,10 +8,10 @@ namespace Tests.Core.Data
     public static class CashgameData
     {
         public const string Id1 = "cashgame-id-1";
-        public static readonly DateTime StartTime = DateTime.Parse("2001-01-01 12:00:00");
-        public static readonly DateTime EndTime = DateTime.Parse("2001-01-01 13:02:00");
+        public static readonly DateTime StartTime = TimeData.Utc("2001-01-01 12:00:00");
+        public static readonly DateTime EndTime = TimeData.Utc("2001-01-01 13:02:00");
         public const bool IsRunning = false;
-        public static readonly TimeZoneInfo Timezone = TimezoneData.Utc;
+        public static readonly TimeZoneInfo Timezone = TimezoneData.Swedish;
         public static readonly Currency Currency = CurrencyData.Sek;
 
         public static DetailedCashgame EndedGameWithTwoPlayers(Role role) => new DetailedCashgame(
@@ -37,13 +37,13 @@ namespace Tests.Core.Data
                         new DetailedCashgame.CashgameAction(
                             "1",
                             CheckpointType.Buyin,
-                            DateTime.Parse("2001-01-01 11:00"),
+                            TimeData.Utc("2001-01-01 12:00"),
                             200,
                             200),
                         new DetailedCashgame.CashgameAction(
                             "2",
                             CheckpointType.Cashout,
-                            DateTime.Parse("2001-01-01 12:00"),
+                            TimeData.Utc("2001-01-01 13:00"),
                             50,
                             0)
                     }),
@@ -60,19 +60,19 @@ namespace Tests.Core.Data
                         new DetailedCashgame.CashgameAction(
                             "3",
                             CheckpointType.Buyin,
-                            DateTime.Parse("2001-01-01 11:05"),
+                            TimeData.Utc("2001-01-01 12:05"),
                             200,
                             200),
                         new DetailedCashgame.CashgameAction(
                             "4",
                             CheckpointType.Report,
-                            DateTime.Parse("2001-01-01 11:35"),
+                            TimeData.Utc("2001-01-01 12:35"),
                             250,
                             0),
                         new DetailedCashgame.CashgameAction(
                             "5",
                             CheckpointType.Cashout,
-                            DateTime.Parse("2001-01-01 12:05"),
+                            TimeData.Utc("2001-01-01 13:00"),
                             350,
                             0)
                     })

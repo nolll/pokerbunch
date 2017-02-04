@@ -101,13 +101,23 @@ namespace Infrastructure.Storage.Repositories
             var role = GetRole(c.Bunch.Role);
             var location = new DetailedCashgame.CashgameLocation(c.Location.Id, c.Location.Name);
             var players = c.Players.Select(CreatePlayer).ToList();
-            return new DetailedCashgame(c.Id, c.StartTime, c.UpdatedTime, c.IsRunning, bunch, role, location, players);
+            var startTime = DateTime.SpecifyKind(c.StartTime, DateTimeKind.Utc);
+            var updatedTime = DateTime.SpecifyKind(c.UpdatedTime, DateTimeKind.Utc);
+            return new DetailedCashgame(c.Id, startTime, updatedTime, c.IsRunning, bunch, role, location, players);
         }
 
         private DetailedCashgame.CashgamePlayer CreatePlayer(ApiDetailedCashgame.ApiDetailedCashgamePlayer p)
         {
-            var actions = p.Actions.Select(o => new DetailedCashgame.CashgameAction(o.Id, GetActionType(o.Type), o.Time, o.Stack, o.Added)).ToList();
-            return new DetailedCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, p.StartTime, p.UpdatedTime, actions);
+            var startTime = DateTime.SpecifyKind(p.StartTime, DateTimeKind.Utc);
+            var updatedTime = DateTime.SpecifyKind(p.UpdatedTime, DateTimeKind.Utc);
+            var actions = p.Actions.Select(CreateAction).ToList();
+            return new DetailedCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, startTime, updatedTime, actions);
+        }
+
+        private DetailedCashgame.CashgameAction CreateAction(ApiDetailedCashgame.ApiDetailedCashgameAction a)
+        {
+            var time = DateTime.SpecifyKind(a.Time, DateTimeKind.Utc);
+            return new DetailedCashgame.CashgameAction(a.Id, GetActionType(a.Type), time, a.Stack, a.Added);
         }
 
         private Role GetRole(string r)

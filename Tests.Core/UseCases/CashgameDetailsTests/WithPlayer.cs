@@ -1,4 +1,3 @@
-using System;
 using Core.Entities;
 using NUnit.Framework;
 using Tests.Core.Data;
@@ -17,8 +16,8 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
             Assert.AreEqual("2001-01-01", result.Date.IsoString);
             Assert.AreEqual(LocationData.Name1, result.LocationName);
             Assert.AreEqual(62, result.Duration.Minutes);
-            Assert.AreEqual(DateTime.Parse("2001-01-01 11:00:00"), result.StartTime);
-            Assert.AreEqual(DateTime.Parse("2001-01-01 12:02:00"), result.EndTime);
+            Assert.AreEqual(TimeData.Swedish("2001-01-01 13:00:00"), result.StartTime);
+            Assert.AreEqual(TimeData.Swedish("2001-01-01 14:02:00"), result.EndTime);
             Assert.IsFalse(result.CanEdit);
             Assert.AreEqual(CashgameData.Id1, result.CashgameId);
             Assert.AreEqual(2, result.PlayerItems.Count);

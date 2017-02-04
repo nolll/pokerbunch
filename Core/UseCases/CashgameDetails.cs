@@ -55,8 +55,8 @@ namespace Core.UseCases
                 var sortedResults = cashgame.Players.OrderByDescending(o => o.Winnings);
 
                 var timezone = cashgame.Bunch.Timezone;
-                var startTime = GetLocalTime(cashgame.StartTime, timezone);
-                var endTime = GetLocalTime(cashgame.UpdatedTime, timezone);
+                var startTime = TimeZoneInfo.ConvertTime(cashgame.StartTime, timezone);
+                var endTime = TimeZoneInfo.ConvertTime(cashgame.UpdatedTime, timezone);
                 var duration = endTime - startTime;
 
                 Date = new Date(startTime);
@@ -69,18 +69,6 @@ namespace Core.UseCases
                 Slug = cashgame.Bunch.Id;
                 CashgameId = cashgame.Id;
                 PlayerItems = sortedResults.Select(o => new PlayerResultItem(cashgame, o)).ToList();
-            }
-
-            private static DateTime GetLocalTime(DateTime? d, TimeZoneInfo timeZone)
-            {
-                if (!d.HasValue)
-                    return DateTime.MaxValue;
-                return GetLocalTime(d.Value, timeZone);
-            }
-
-            private static DateTime GetLocalTime(DateTime d, TimeZoneInfo timeZone)
-            {
-                return TimeZoneInfo.ConvertTime(d, timeZone);
             }
         }
 

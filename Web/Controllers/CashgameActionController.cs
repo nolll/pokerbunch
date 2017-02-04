@@ -13,7 +13,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.Action)]
         public ActionResult Action(string cashgameId, string playerId)
         {
-            var actionsResult = UseCase.Actions.Execute(new Actions.Request(Identity.UserName, cashgameId, playerId));
+            var actionsResult = UseCase.Actions.Execute(new Actions.Request(cashgameId, playerId));
             var contextResult = GetBunchContext(actionsResult.Slug);
             var actionsChartResult = UseCase.ActionsChart.Execute(new ActionsChart.Request(Identity.UserName, cashgameId, playerId, DateTime.UtcNow));
             var model = new ActionPageModel(contextResult, actionsResult, actionsChartResult);

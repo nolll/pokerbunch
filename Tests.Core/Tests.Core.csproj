@@ -48,6 +48,7 @@
     <Compile Include="Data\BunchData.cs" />
     <Compile Include="Data\CashgameData.cs" />
     <Compile Include="Data\CurrencyData.cs" />
+    <Compile Include="Data\EventData.cs" />
     <Compile Include="Data\LocationData.cs" />
     <Compile Include="Data\PlayerData.cs" />
     <Compile Include="Data\TimezoneData.cs" />
@@ -58,7 +59,8 @@
     <Compile Include="Entities\MoneyTests\WithSwedishCurrency.cs" />
     <Compile Include="Services\GlobalizationTests.cs" />
     <Compile Include="UseCases\ActionsChartTests.cs" />
-    <Compile Include="UseCases\ActionsTests.cs" />
+    <Compile Include="UseCases\ActionTests\WithPlayer.cs" />
+    <Compile Include="UseCases\ActionTests\Arrange.cs" />
     <Compile Include="UseCases\AddAppTests.cs" />
     <Compile Include="UseCases\AddBunchFormTests.cs" />
     <Compile Include="UseCases\AddBunchTests.cs" />
@@ -74,7 +76,7 @@
     <Compile Include="UseCases\CashgameDetailsChartTests\WithTwoPlayersWithTwoAndThreeActions.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\Arrange.cs" />
-    <Compile Include="UseCases\EditCashgameFormTests\WithManager.cs" />
+    <Compile Include="UseCases\EditCashgameFormTests\WithPlayer.cs" />
     <Compile Include="UseCases\AppListAllTests\Arrange.cs" />
     <Compile Include="UseCases\AppListAllTests\WhenExecute.cs" />
     <Compile Include="UseCases\AppListUserTests\Arrange.cs" />
