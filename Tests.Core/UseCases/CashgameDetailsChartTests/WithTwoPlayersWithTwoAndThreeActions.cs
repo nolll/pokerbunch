@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameDetailsChartTests
 {
@@ -10,7 +11,7 @@ namespace Tests.Core.UseCases.CashgameDetailsChartTests
             var result = Sut.Execute(Request);
 
             Assert.AreEqual(2, result.PlayerItems.Count);
-            Assert.AreEqual("player-1-name", result.PlayerItems[0].Name);
+            Assert.AreEqual(PlayerData.Name1, result.PlayerItems[0].Name);
             Assert.AreEqual(2, result.PlayerItems[0].Results.Count);
             Assert.AreEqual(0, result.PlayerItems[0].Results[0].Winnings);
             Assert.AreEqual(-150, result.PlayerItems[0].Results[1].Winnings);

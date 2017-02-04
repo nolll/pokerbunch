@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Core.Entities;
-using Core.Repositories;
+﻿using Core.Repositories;
 using Core.UseCases;
 using Moq;
 using NUnit.Framework;
+using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AppListUserTests
 {
@@ -15,11 +14,7 @@ namespace Tests.Core.UseCases.AppListUserTests
         public void Setup()
         {
             var arm = new Mock<IAppRepository>();
-
-            var app1 = new App("app-id-1", "key-1", "name-1", "user-id-1");
-            var app2 = new App("app-id-2", "key-2", "name-2", "user-id-2");
-            var apps = new List<App> {app1, app2};
-            arm.Setup(s => s.List()).Returns(apps);
+            arm.Setup(s => s.List()).Returns(AppData.TwoApps);
 
             Sut = new AppListUser(arm.Object);
         }

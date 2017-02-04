@@ -44,6 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="Data\AppData.cs" />
+    <Compile Include="Data\BunchData.cs" />
+    <Compile Include="Data\CashgameData.cs" />
+    <Compile Include="Data\CurrencyData.cs" />
+    <Compile Include="Data\LocationData.cs" />
+    <Compile Include="Data\PlayerData.cs" />
+    <Compile Include="Data\TimezoneData.cs" />
+    <Compile Include="Data\UserData.cs" />
     <Compile Include="DateTests.cs" />
     <Compile Include="Entities\MoneyTests\Arrange.cs" />
     <Compile Include="Entities\MoneyTests\WithDefaultCurrency.cs" />

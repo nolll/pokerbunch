@@ -6,17 +6,12 @@ using Core.Repositories;
 using Core.UseCases;
 using Moq;
 using NUnit.Framework;
+using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashoutTests
 {
     public abstract class Arrange
     {
-        protected const string BunchId = "slug";
-        private const string CashgameId = "2";
-        private const string LocationId = "3";
-        private const string UserId = "4";
-        protected const string PlayerId = "5";
-        protected const string UserName = "username";
         private DateTime _startTime = DateTime.Parse("2001-01-01 12:00:00");
 
         protected virtual int CashoutStack => 123;
@@ -34,22 +29,22 @@ namespace Tests.Core.UseCases.CashoutTests
             CheckpointCountBeforeCashout = cashgame.Checkpoints.Count;
 
             var brm = new Mock<IBunchRepository>();
-            brm.Setup(s => s.Get(BunchId)).Returns(new Bunch(BunchId, BunchId));
+            brm.Setup(s => s.Get(BunchData.Id1)).Returns(new Bunch(BunchData.Id1, BunchData.DisplayName1));
 
             var crm = new Mock<ICashgameRepository>();
-            crm.Setup(s => s.GetRunning(BunchId)).Returns(CreateCashgame());
+            crm.Setup(s => s.GetRunning(BunchData.Id1)).Returns(CreateCashgame());
             crm.Setup(o => o.Update(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
 
             var prm = new Mock<IPlayerRepository>();
-            prm.Setup(s => s.GetByUser(BunchId, UserId)).Returns(new Player(BunchId, PlayerId, UserId));
+            prm.Setup(s => s.GetByUser(BunchData.Id1, UserData.Id1)).Returns(new Player(BunchData.Id1, PlayerData.Id1, UserData.Id1));
 
             var urm = new Mock<IUserRepository>();
-            urm.Setup(s => s.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName));
+            urm.Setup(s => s.GetByNameOrEmail(UserData.UserName1)).Returns(new User(UserData.Id1, UserData.UserName1));
 
             Sut = new Cashout(brm.Object, crm.Object, prm.Object, urm.Object);
         }
 
-        protected Cashout.Request Request => new Cashout.Request(UserName, BunchId, PlayerId, CashoutStack, CashoutTime);
+        protected Cashout.Request Request => new Cashout.Request(UserData.UserName1, BunchData.Id1, PlayerData.Id1, CashoutStack, CashoutTime);
 
         private Cashgame CreateCashgame()
         {
@@ -57,20 +52,20 @@ namespace Tests.Core.UseCases.CashoutTests
             {
                 var checkpoints1 = new List<Checkpoint>
                 {
-                    Checkpoint.Create(CashgameId, PlayerId, _startTime, CheckpointType.Buyin, 200, 200, "1"),
-                    Checkpoint.Create(CashgameId, PlayerId, _startTime.AddMinutes(1), CheckpointType.Cashout, 200, 0, "3")
+                    Checkpoint.Create(CashgameData.Id1, PlayerData.Id1, _startTime, CheckpointType.Buyin, 200, 200, "1"),
+                    Checkpoint.Create(CashgameData.Id1, PlayerData.Id1, _startTime.AddMinutes(1), CheckpointType.Cashout, 200, 0, "3")
                 };
 
-                return new Cashgame(BunchId, LocationId, GameStatus.Running, CashgameId, checkpoints1);
+                return new Cashgame(BunchData.Id1, LocationData.Id1, GameStatus.Running, CashgameData.Id1, checkpoints1);
             }
             else
             {
                 var checkpoints1 = new List<Checkpoint>
                 {
-                    Checkpoint.Create(CashgameId, PlayerId, _startTime, CheckpointType.Buyin, 200, 200, "1")
+                    Checkpoint.Create(CashgameData.Id1, PlayerData.Id1, _startTime, CheckpointType.Buyin, 200, 200, "1")
                 };
 
-                return new Cashgame(BunchId, LocationId, GameStatus.Running, CashgameId, checkpoints1);
+                return new Cashgame(BunchData.Id1, LocationData.Id1, GameStatus.Running, CashgameData.Id1, checkpoints1);
             }
         }
     }

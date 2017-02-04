@@ -28,12 +28,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
 
-            public Request(string userName, string slug)
+            public Request(string slug)
             {
-                UserName = userName;
                 Slug = slug;
             }
         }
