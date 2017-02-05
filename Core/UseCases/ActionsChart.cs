@@ -1,93 +1,68 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
     public class ActionsChart
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
 
-        public ActionsChart(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public ActionsChart(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetById(request.CashgameId);
-            var bunch = _bunchRepository.Get(cashgame.BunchId);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
-            RequireRole.Player(currentUser, currentPlayer);
+            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
             
-            var result = cashgame.GetResult(request.PlayerId);
+            var result = cashgame.Players.First(o => o.Id == request.PlayerId);
 
-            var checkpointItems = GetCheckpointItems(bunch, cashgame, result, request.CurrentTime);
+            var checkpointItems = GetCheckpointItems(cashgame, result);
 
             return new Result(checkpointItems);
         }
 
-        private static IList<CheckpointItem> GetCheckpointItems(Bunch bunch, Cashgame cashgame, CashgameResult result, DateTime now)
+        private static IList<CheckpointItem> GetCheckpointItems(DetailedCashgame cashgame, DetailedCashgame.CashgamePlayer player)
         {
             var checkpointItems = new List<CheckpointItem>();
-            var checkpoints = GetCheckpoints(result);
             var totalBuyin = 0;
-            foreach (var checkpoint in checkpoints)
+            foreach (var action in player.Actions)
             {
-                var stack = checkpoint.Stack;
+                var stack = action.Stack;
                 var addedMoney = 0;
-                if (checkpoint.Type == CheckpointType.Buyin)
+                if (action.Type == CheckpointType.Buyin)
                 {
                     if (totalBuyin > 0)
                     {
-                        addedMoney = checkpoint.Amount;
+                        addedMoney = action.Added;
                     }
-                    totalBuyin += checkpoint.Amount;
+                    totalBuyin += action.Added;
                 }
-                var localTime = TimeZoneInfo.ConvertTime(checkpoint.Timestamp, bunch.Timezone);
+                var localTime = TimeZoneInfo.ConvertTime(action.Time, cashgame.Bunch.Timezone);
                 checkpointItems.Add(new CheckpointItem(localTime, stack, totalBuyin, addedMoney));
             }
-            if (cashgame.Status == GameStatus.Running)
+            if (cashgame.IsRunning)
             {
-                var localTime = TimeZoneInfo.ConvertTime(now, bunch.Timezone);
-                checkpointItems.Add(new CheckpointItem(localTime, result.Stack, result.Buyin));
+                var localTime = TimeZoneInfo.ConvertTime(cashgame.UpdatedTime, cashgame.Bunch.Timezone);
+                checkpointItems.Add(new CheckpointItem(localTime, player.Stack, player.Buyin));
             }
             return checkpointItems;
         }
 
-        private static IEnumerable<Checkpoint> GetCheckpoints(CashgameResult result)
-        {
-            return PlayerIsInGame(result) ? result.Checkpoints : new List<Checkpoint>();
-        }
-
-        private static bool PlayerIsInGame(CashgameResult result)
-        {
-            return result != null;
-        }
-
         public class Request
         {
-            public string UserName { get; }
             public string CashgameId { get; }
             public string PlayerId { get; }
-            public DateTime CurrentTime { get; }
 
-            public Request(string userName, string cashgameId, string playerId, DateTime currentTime)
+            public Request(string cashgameId, string playerId)
             {
-                UserName = userName;
                 CashgameId = cashgameId;
                 PlayerId = playerId;
-                CurrentTime = currentTime;
             }
         }
 

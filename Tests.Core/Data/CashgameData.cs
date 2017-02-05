@@ -10,15 +10,14 @@ namespace Tests.Core.Data
         public const string Id1 = "cashgame-id-1";
         public static readonly DateTime StartTime = TimeData.Utc("2001-01-01 12:00:00");
         public static readonly DateTime EndTime = TimeData.Utc("2001-01-01 13:02:00");
-        public const bool IsRunning = false;
         public static readonly TimeZoneInfo Timezone = TimezoneData.Swedish;
         public static readonly Currency Currency = CurrencyData.Sek;
 
-        public static DetailedCashgame EndedGameWithTwoPlayers(Role role) => new DetailedCashgame(
+        public static DetailedCashgame EndedGameWithTwoPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
             Id1,
             StartTime,
             EndTime,
-            IsRunning,
+            isRunning,
             new DetailedCashgame.CashgameBunch(BunchData.Id1, Timezone, Currency),
             role,
             new DetailedCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),

@@ -1,4 +1,3 @@
-using System;
 using Core.Entities;
 using NUnit.Framework;
 using Tests.Core.Data;
