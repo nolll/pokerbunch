@@ -16,7 +16,8 @@ namespace Core.Repositories
         
         void DeleteGame(string id);
         string Add(Bunch bunch, Cashgame cashgame);
-		void Update(Cashgame cashgame);
+        void Update(Cashgame cashgame);
+        DetailedCashgame Update(string id, string locationId, string eventId);
 
         IList<int> GetYears(string bunchId);
 	}

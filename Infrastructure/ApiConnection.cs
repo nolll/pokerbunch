@@ -34,6 +34,12 @@ namespace Infrastructure
             return JsonConvert.DeserializeObject<T>(json);
         }
 
+        public T Put<T>(string apiUrl, object data)
+        {
+            var json = PutJson(apiUrl, data);
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+
         private string ReadJson(string apiUrl)
         {
             using (var client = new BearerClient(_url, _token))
@@ -51,6 +57,18 @@ namespace Infrastructure
                 var jsonData = JsonConvert.SerializeObject(data);
                 var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 var response = client.PostAsync(apiUrl, content).Result;
+                ValidateResponse(response);
+                return response.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        private string PutJson(string apiUrl, object data)
+        {
+            using (var client = new BearerClient(_url, _token))
+            {
+                var jsonData = JsonConvert.SerializeObject(data);
+                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                var response = client.PutAsync(apiUrl, content).Result;
                 ValidateResponse(response);
                 return response.Content.ReadAsStringAsync().Result;
             }

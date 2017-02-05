@@ -90,6 +90,11 @@ namespace Tests.Common.FakeRepositories
             Updated = cashgame;
         }
 
+        public DetailedCashgame Update(string id, string locationId, string eventId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetupMultiYear()
         {
             _list = GetGames();

@@ -92,6 +92,13 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer.Remove<Cashgame>(cashgame.Id);
         }
 
+        public DetailedCashgame Update(string id, string locationId, string eventId)
+        {
+            var updateObject = new ApiUpdateCashgame(locationId, eventId);
+            var apiCashgame = _api.Post<ApiDetailedCashgame>($"cashgames/{id}", updateObject);
+            return CreateDetailedCashgame(apiCashgame);
+        }
+
         private DetailedCashgame CreateDetailedCashgame(ApiDetailedCashgame c)
         {
             var culture = CultureInfo.CreateSpecificCulture(c.Bunch.Culture);
@@ -138,6 +145,18 @@ namespace Infrastructure.Storage.Repositories
             if (t == "cashout")
                 return CheckpointType.Cashout;
             return CheckpointType.Report;
+        }
+
+        private class ApiUpdateCashgame
+        {
+            public string LocationId { get; }
+            public string EventId { get; }
+
+            public ApiUpdateCashgame(string locationId, string eventId)
+            {
+                LocationId = locationId;
+                EventId = eventId;
+            }
         }
 
         private class ApiDetailedCashgame

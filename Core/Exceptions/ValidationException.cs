@@ -14,7 +14,7 @@ namespace Core.Exceptions
 
         public ValidationException(string message)
         {
-            Messages = new List<string> {message};
+            Messages = new List<string> { message };
         }
     }
 }

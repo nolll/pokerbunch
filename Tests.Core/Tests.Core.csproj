@@ -104,7 +104,9 @@
     <Compile Include="UseCases\DeleteCashgameTests.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests.cs" />
     <Compile Include="UseCases\EditBunchTests.cs" />
-    <Compile Include="UseCases\EditCashgameTests.cs" />
+    <Compile Include="UseCases\EditCashgameTests\Arrange.cs" />
+    <Compile Include="UseCases\EditCashgameTests\WithInvalidInput.cs" />
+    <Compile Include="UseCases\EditCashgameTests\WithValidInput.cs" />
     <Compile Include="UseCases\EditCheckpointTests.cs" />
     <Compile Include="UseCases\EditUserTests.cs" />
     <Compile Include="UseCases\EndCashgameTests.cs" />
