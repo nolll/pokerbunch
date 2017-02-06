@@ -95,7 +95,7 @@ namespace Infrastructure.Storage.Repositories
         public DetailedCashgame Update(string id, string locationId, string eventId)
         {
             var updateObject = new ApiUpdateCashgame(locationId, eventId);
-            var apiCashgame = _api.Post<ApiDetailedCashgame>($"cashgames/{id}", updateObject);
+            var apiCashgame = _api.Put<ApiDetailedCashgame>($"cashgames/{id}", updateObject);
             return CreateDetailedCashgame(apiCashgame);
         }
 
