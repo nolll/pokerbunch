@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
@@ -54,6 +55,11 @@ namespace Tests.Common.FakeRepositories
             const string id = "1000";
             _list.Add(new App(id, app.AppKey, app.Name, app.UserId));
             return id;
+        }
+
+        public string Add(string appName)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(App app)

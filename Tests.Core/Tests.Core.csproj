@@ -63,7 +63,9 @@
     <Compile Include="UseCases\ActionsChartTests\WithRunningGame.cs" />
     <Compile Include="UseCases\ActionTests\WithPlayer.cs" />
     <Compile Include="UseCases\ActionTests\Arrange.cs" />
-    <Compile Include="UseCases\AddAppTests.cs" />
+    <Compile Include="UseCases\AddAppTests\Arrange.cs" />
+    <Compile Include="UseCases\AddAppTests\WithInvalidName.cs" />
+    <Compile Include="UseCases\AddAppTests\WithValidName.cs" />
     <Compile Include="UseCases\AddBunchFormTests.cs" />
     <Compile Include="UseCases\AddBunchTests.cs" />
     <Compile Include="UseCases\AddCashgameFormTests.cs" />

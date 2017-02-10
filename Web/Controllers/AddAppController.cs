@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddApp.Request(Identity.UserName, postModel.AppName);
+                var request = new AddApp.Request(postModel.AppName);
                 UseCase.AddApp.Execute(request);
                 return Redirect(new UserAppsUrl().Relative);
             }

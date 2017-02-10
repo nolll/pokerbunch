@@ -34,11 +34,16 @@ namespace Infrastructure.Storage.Repositories
             return apiApps.Select(CreateApp).ToList();
         }
 
-        public string Add(App app)
+        public string Add(string appName)
         {
-            var postApp = new ApiApp(null, app.AppKey, app.Name, app.UserId);
+            var postApp = new ApiApp(null, null, appName, null);
             var apiApp = _api.Post<ApiApp>("apps", postApp);
             return CreateApp(apiApp).Id;
+        }
+
+        public string Add(App app)
+        {
+            throw new NotImplementedException();
         }
 
         public void Update(App app)
