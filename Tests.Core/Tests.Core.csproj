@@ -75,7 +75,7 @@
     <Compile Include="UseCases\AddPlayerTests.cs" />
     <Compile Include="UseCases\AddUserTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
-    <Compile Include="UseCases\AppDetailsTests.cs" />
+    <Compile Include="UseCases\AppDetailsTests\AppDetailsTests1.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\WithTwoPlayersWithTwoAndThreeActions.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />

@@ -13,9 +13,11 @@ namespace Tests.Core.Data
         public const string Key2 = "app-key-2";
         public const string Name2 = "app-name-2";
 
+        public static App OneApp => new App(Id1, Key1, Name1, UserData.Id1);
+
         public static IList<App> TwoApps => new List<App>
         {
-            new App(Id1, Key1, Name1, UserData.Id1),
+            OneApp,
             new App(Id2, Key2, Name2, UserData.Id2)
         };
     }
