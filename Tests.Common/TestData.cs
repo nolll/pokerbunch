@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Tests.Common.Builders;
 
 namespace Tests.Common
 {
@@ -100,15 +99,6 @@ namespace Tests.Common
         public const string EventIdB = "2";
         public const string EventNameA = "Event A";
         public const string EventNameB = "Event B";
-
-        public const string AppIdA = "1";
-        public const string AppIdB = "2";
-        public const string AppKeyA = "Key A";
-        public const string AppKeyB = "Key B";
-        public const string AppNameA = "App A";
-        public const string AppNameB = "App B";
-        public static App AppA = new App(AppIdA, AppKeyA, AppNameA, UserIdA);
-        public static App AppB = new App(AppIdB, AppKeyB, AppNameB, UserIdB);
 
         public const string TestUrl = "https://pokerbunch.com/test";
 
