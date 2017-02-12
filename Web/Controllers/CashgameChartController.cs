@@ -15,7 +15,7 @@ namespace Web.Controllers
         public ActionResult Chart(string slug, int? year = null)
         {
             var cashgameContextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Chart, year);
-            var cashgameChartResult = UseCase.CashgameChart.Execute(new CashgameChart.Request(Identity.UserName, slug, year));
+            var cashgameChartResult = UseCase.CashgameChart.Execute(new CashgameChart.Request(slug, year));
             var model = new CashgameChartPageModel(cashgameContextResult, cashgameChartResult);
             return View("~/Views/Pages/CashgameChart/Chart.cshtml", model);
         }

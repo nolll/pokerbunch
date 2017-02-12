@@ -87,5 +87,63 @@ namespace Tests.Core.Data
             role,
             new DetailedCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
             new List<DetailedCashgame.CashgamePlayer>());
+
+        public static IList<ListCashgame> TwoGamesWithTwoPlayers() => new List<ListCashgame>
+        {
+            new ListCashgame(
+            Id1,
+            StartTime,
+            EndTime,
+            false,
+            new ListCashgame.CashgameBunch(BunchData.Id1, Timezone, Currency),
+            Role.Player,
+            new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+            new List<ListCashgame.CashgamePlayer>
+            {
+                new ListCashgame.CashgamePlayer(
+                    PlayerData.Id1,
+                    PlayerData.Name1,
+                    PlayerData.Color1,
+                    350,
+                    200,
+                    StartTime,
+                    EndTime),
+                new ListCashgame.CashgamePlayer(
+                    PlayerData.Id2,
+                    PlayerData.Name2,
+                    PlayerData.Color2,
+                    50,
+                    200,
+                    StartTime,
+                    EndTime)
+            }),
+            new ListCashgame(
+            Id2,
+            StartTime,
+            EndTime,
+            false,
+            new ListCashgame.CashgameBunch(BunchData.Id1, Timezone, Currency),
+            Role.Player,
+            new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+            new List<ListCashgame.CashgamePlayer>
+            {
+                new ListCashgame.CashgamePlayer(
+                    PlayerData.Id1,
+                    PlayerData.Name1,
+                    PlayerData.Color1,
+                    350,
+                    200,
+                    StartTime,
+                    EndTime),
+                new ListCashgame.CashgamePlayer(
+                    PlayerData.Id2,
+                    PlayerData.Name2,
+                    PlayerData.Color2,
+                    50,
+                    200,
+                    StartTime,
+                    EndTime)
+            })
+        };
     }
 }

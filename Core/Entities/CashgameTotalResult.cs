@@ -14,20 +14,21 @@ namespace Core.Entities
 	    public int Buyin { get; }
 	    public int Cashout { get; }
 
-        public CashgameTotalResult(Player player, IEnumerable<Cashgame> cashgames)
+        public CashgameTotalResult(Player player, IEnumerable<ListCashgame> cashgames)
         {
             Player = player;
 
-            var playerCashgames = cashgames.Where(o => o.IsInGame(player.Id)).ToList();
+            var playerCashgames = cashgames.Where(o => o.Players.FirstOrDefault(p => p.Id == player.Id) != null).ToList();
 
             if (playerCashgames.Count > 0)
             {
                 foreach (var cashgame in playerCashgames)
                 {
-                    var result = cashgame.GetResult(player.Id);
+                    var result = cashgame.Players.First(o => o.Id == player.Id);
                     Winnings += result.Winnings;
                     GameCount++;
-                    TimePlayed += result.PlayedTime;
+                    var timePlayed = result.UpdatedTime - result.StartTime;
+                    TimePlayed += (int)Math.Round(timePlayed.TotalMinutes);
                     Buyin += result.Buyin;
                     Cashout += result.Stack;
                 }

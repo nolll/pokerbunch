@@ -30,7 +30,7 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameRepository.List(bunch.Id, request.Year);
             return Execute(bunch, cashgames);
         }
 
@@ -41,11 +41,11 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameRepository.ListByEvent(request.EventId);
+            var cashgames = _cashgameRepository.EventList(request.EventId);
             return Execute(bunch, cashgames);
         }
 
-        private Result Execute(Bunch bunch, IList<Cashgame> cashgames)
+        private Result Execute(Bunch bunch, IList<ListCashgame> cashgames)
         {
             var players = _playerRepository.List(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
@@ -75,12 +75,12 @@ namespace Core.UseCases
             return playerItems;
         }
 
-        private static IDictionary<string, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IEnumerable<Cashgame> cashgames, Player player)
+        private static IDictionary<string, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IEnumerable<ListCashgame> cashgames, Player player)
         {
             var items = new Dictionary<string, MatrixResultItem>();
             foreach (var cashgame in cashgames)
             {
-                var result = cashgame.GetResult(player.Id);
+                var result = cashgame.Players.FirstOrDefault(o => o.Id == player.Id);
                 if (result != null)
                 {
                     var hasTransactions = result.Buyin > 0;
@@ -95,12 +95,11 @@ namespace Core.UseCases
             return items;
         }
 
-        private static List<GameItem> CreateGameItems(IEnumerable<Cashgame> cashgames)
+        private static List<GameItem> CreateGameItems(IEnumerable<ListCashgame> cashgames)
         {
             return cashgames
-                .Where(o => o.StartTime.HasValue)
                 .OrderByDescending(o => o.StartTime)
-                .Select(o => CreateGameItem(o.Id, o.StartTime.Value))
+                .Select(o => CreateGameItem(o.Id, o.StartTime))
                 .ToList();
         }
 

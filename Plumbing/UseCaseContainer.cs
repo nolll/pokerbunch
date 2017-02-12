@@ -61,7 +61,7 @@ namespace Plumbing
         public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
         public CashgameDetails CashgameDetails => new CashgameDetails(_deps.CashgameRepository);
         public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.CashgameRepository);
-        public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
         public CashgameList CashgameList => new CashgameList(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository);
         public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository);
         public AddCashgame AddCashgame => new AddCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository, _deps.EventRepository);
@@ -69,7 +69,7 @@ namespace Plumbing
         public ActionsChart ActionsChart => new ActionsChart(_deps.CashgameRepository);
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
         public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.CashgameRepository);
-        public CashgameChart CashgameChart => new CashgameChart(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public CashgameChart CashgameChart => new CashgameChart(_deps.CashgameRepository, _deps.PlayerRepository);
         public Matrix Matrix => new Matrix(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository, _deps.EventRepository);
         public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository, _deps.LocationRepository);
         public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.CashgameRepository, _deps.LocationRepository, _deps.EventRepository);

@@ -35,6 +35,25 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(_cashgameDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
+        public IList<ListCashgame> List(string bunchId, int? year = null)
+        {
+            var url = year.HasValue ? $"bunches/{bunchId}/cashgames/{year}" : $"bunches/{bunchId}/cashgames";
+            var apiListCashgames = _api.Get<IList<ApiListCashgame>>(url);
+            return apiListCashgames.Select(CreateListCashgame).ToList();
+        }
+
+        public IList<ListCashgame> EventList(string eventId)
+        {
+            var apiListCashgames = _api.Get<IList<ApiListCashgame>>($"events/{eventId}/cashgames");
+            return apiListCashgames.Select(CreateListCashgame).ToList();
+        }
+
+        public IList<ListCashgame> PlayerList(string playerId)
+        {
+            var apiListCashgames = _api.Get<IList<ApiListCashgame>>($"players/{playerId}/cashgames");
+            return apiListCashgames.Select(CreateListCashgame).ToList();
+        }
+
         public IList<Cashgame> ListFinished(string bunchId, int? year = null)
         {
             var ids = _cashgameDb.FindFinished(bunchId, year);
@@ -91,6 +110,27 @@ namespace Infrastructure.Storage.Repositories
             var updateObject = new ApiUpdateCashgame(locationId, eventId);
             var apiCashgame = _api.Put<ApiDetailedCashgame>($"cashgames/{id}", updateObject);
             return CreateDetailedCashgame(apiCashgame);
+        }
+
+        private ListCashgame CreateListCashgame(ApiListCashgame c)
+        {
+            var culture = CultureInfo.CreateSpecificCulture(c.Bunch.Culture);
+            var currency = new Currency(c.Bunch.CurrencySymbol, c.Bunch.CurrencyLayout, culture, c.Bunch.ThousandSeparator);
+            var timezone = TimeZoneInfo.FindSystemTimeZoneById(c.Bunch.Timezone);
+            var bunch = new ListCashgame.CashgameBunch(c.Bunch.Id, timezone, currency);
+            var role = GetRole(c.Bunch.Role);
+            var location = new ListCashgame.CashgameLocation(c.Location.Id, c.Location.Name);
+            var players = c.Players.Select(CreatePlayer).ToList();
+            var startTime = DateTime.SpecifyKind(c.StartTime, DateTimeKind.Utc);
+            var updatedTime = DateTime.SpecifyKind(c.UpdatedTime, DateTimeKind.Utc);
+            return new ListCashgame(c.Id, startTime, updatedTime, c.IsRunning, bunch, role, location, players);
+        }
+
+        private ListCashgame.CashgamePlayer CreatePlayer(ApiListCashgame.ApiListCashgamePlayer p)
+        {
+            var startTime = DateTime.SpecifyKind(p.StartTime, DateTimeKind.Utc);
+            var updatedTime = DateTime.SpecifyKind(p.UpdatedTime, DateTimeKind.Utc);
+            return new ListCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, startTime, updatedTime);
         }
 
         private DetailedCashgame CreateDetailedCashgame(ApiDetailedCashgame c)
@@ -150,6 +190,84 @@ namespace Infrastructure.Storage.Repositories
             {
                 LocationId = locationId;
                 EventId = eventId;
+            }
+        }
+
+        private class ApiListCashgame
+        {
+            [UsedImplicitly]
+            public string Id { get; set; }
+            [UsedImplicitly]
+            public DateTime StartTime { get; set; }
+            [UsedImplicitly]
+            public DateTime UpdatedTime { get; set; }
+            [UsedImplicitly]
+            public bool IsRunning { get; set; }
+            [UsedImplicitly]
+            public ApiListCashgameBunch Bunch { get; set; }
+            [UsedImplicitly]
+            public Role Role { get; set; }
+            [UsedImplicitly]
+            public ApiListCashgameLocation Location { get; set; }
+            [UsedImplicitly]
+            public IList<ApiListCashgamePlayer> Players { get; set; }
+
+            public class ApiListCashgameBunch
+            {
+                [UsedImplicitly]
+                public string Id { get; set; }
+                [UsedImplicitly]
+                public string Timezone { get; set; }
+                [UsedImplicitly]
+                public string CurrencySymbol { get; set; }
+                [UsedImplicitly]
+                public string CurrencyLayout { get; set; }
+                [UsedImplicitly]
+                public string ThousandSeparator { get; set; }
+                [UsedImplicitly]
+                public string Culture { get; set; }
+                [UsedImplicitly]
+                public string Role { get; set; }
+            }
+
+            public class ApiListCashgameLocation
+            {
+                [UsedImplicitly]
+                public string Id { get; set; }
+                [UsedImplicitly]
+                public string Name { get; set; }
+            }
+
+            public class ApiListCashgamePlayer
+            {
+                [UsedImplicitly]
+                public string Id { get; set; }
+                [UsedImplicitly]
+                public string Name { get; set; }
+                [UsedImplicitly]
+                public string Color { get; set; }
+                [UsedImplicitly]
+                public int Stack { get; set; }
+                [UsedImplicitly]
+                public int Buyin { get; set; }
+                [UsedImplicitly]
+                public DateTime StartTime { get; set; }
+                [UsedImplicitly]
+                public DateTime UpdatedTime { get; set; }
+            }
+
+            public class ApiDetailedCashgameAction
+            {
+                [UsedImplicitly]
+                public string Id { get; set; }
+                [UsedImplicitly]
+                public string Type { get; set; }
+                [UsedImplicitly]
+                public DateTime Time { get; set; }
+                [UsedImplicitly]
+                public int Stack { get; set; }
+                [UsedImplicitly]
+                public int Added { get; set; }
             }
         }
 

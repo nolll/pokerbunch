@@ -29,7 +29,7 @@ namespace Core.UseCases
             RequireRole.Player(user, player);
             var years = _cashgameRepository.GetYears(bunch.Id);
             var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
-            var cashgames = _cashgameRepository.ListFinished(bunch.Id, latestYear);
+            var cashgames = _cashgameRepository.List(bunch.Id, latestYear);
             if (!cashgames.Any())
                 return new Result(new List<Item>(), "");
 
@@ -41,13 +41,13 @@ namespace Core.UseCases
             return new Result(items, lastGame.Id);
         }
         
-        private IEnumerable<Item> CreateItems(Bunch bunch, CashgameSuite suite, Cashgame lastGame)
+        private IEnumerable<Item> CreateItems(Bunch bunch, CashgameSuite suite, ListCashgame lastGame)
         {
             var items = new List<Item>();
             var index = 1;
             foreach (var totalResult in suite.TotalResults)
             {
-                var lastGameResult = lastGame.GetResult(totalResult.Player.Id);
+                var lastGameResult = lastGame.Players.FirstOrDefault(o => o.Id == totalResult.Player.Id);
                 var item = new Item(totalResult, lastGameResult, index++, bunch.Currency);
                 items.Add(item);
             }
@@ -87,7 +87,7 @@ namespace Core.UseCases
             public Money TotalWinnings { get; }
             public Money LastGameWinnings { get; }
 
-            public Item(CashgameTotalResult totalResult, CashgameResult lastGameResult, int index, Currency currency)
+            public Item(CashgameTotalResult totalResult, ListCashgame.CashgamePlayer lastGameResult, int index, Currency currency)
             {
                 Rank = index;
                 PlayerId = totalResult.Player.Id;

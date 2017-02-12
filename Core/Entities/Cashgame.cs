@@ -6,6 +6,116 @@ using Core.Services;
 
 namespace Core.Entities
 {
+    public class ListCashgame
+    {
+        public string Id { get; }
+        public DateTime StartTime { get; }
+        public DateTime UpdatedTime { get; }
+        public bool IsRunning { get; }
+        public CashgameBunch Bunch { get; }
+        public Role Role { get; }
+        public CashgameLocation Location { get; }
+        public IList<CashgamePlayer> Players { get; }
+
+        public ListCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, CashgameBunch bunch, Role role, CashgameLocation location, IList<CashgamePlayer> players)
+        {
+            Id = id;
+            StartTime = startTime;
+            UpdatedTime = updatedTime;
+            IsRunning = isRunning;
+            Bunch = bunch;
+            Role = role;
+            Location = location;
+            Players = players;
+        }
+
+        public class CashgameBunch
+        {
+            public string Id { get; }
+            public TimeZoneInfo Timezone { get; }
+            public Currency Currency { get; }
+
+            public CashgameBunch(string id, TimeZoneInfo timezone, Currency currency)
+            {
+                Id = id;
+                Timezone = timezone;
+                Currency = currency;
+            }
+        }
+
+        public class CashgameLocation
+        {
+            public string Id { get; }
+            public string Name { get; }
+
+            public CashgameLocation(string id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+        }
+
+        public class CashgamePlayer
+        {
+            public string Id { get; }
+            public string Name { get; }
+            public string Color { get; }
+            public int Stack { get; }
+            public int Buyin { get; }
+            public DateTime StartTime { get; }
+            public DateTime UpdatedTime { get; }
+
+            public CashgamePlayer(string id, string name, string color, int stack, int buyin, DateTime startTime, DateTime updatedTime)
+            {
+                Id = id;
+                Name = name;
+                Color = color;
+                Stack = stack;
+                Buyin = buyin;
+                StartTime = startTime;
+                UpdatedTime = updatedTime;
+            }
+
+            public int Winnings => Stack - Buyin;
+            public int Winrate => PlayedMinutes == 0 ? 0 : (int)Math.Round((double)Winnings / PlayedMinutes * 60);
+            private int PlayedMinutes => (int)Math.Round(PlayedTime.TotalMinutes);
+            private TimeSpan PlayedTime => UpdatedTime - StartTime;
+        }
+
+        public int Duration
+        {
+            get
+            {
+                var timespan = UpdatedTime - StartTime;
+                return (int)Math.Round(timespan.TotalMinutes);
+            }
+        }
+
+        public int Turnover
+        {
+            get { return Players.Sum(o => o.Buyin); }
+        }
+
+        public bool IsBestResult(CashgamePlayer resultToCheck)
+        {
+            var bestResult = GetBestResult();
+            return bestResult != null && resultToCheck.Winnings == bestResult.Winnings;
+        }
+
+        private CashgamePlayer GetBestResult()
+        {
+            CashgamePlayer bestResult = null;
+            foreach (var result in Players)
+            {
+                if (bestResult == null || result.Winnings > bestResult.Winnings)
+                {
+                    bestResult = result;
+                }
+            }
+            return bestResult;
+        }
+    }
+
     public class DetailedCashgame
     {
         public string Id { get; }

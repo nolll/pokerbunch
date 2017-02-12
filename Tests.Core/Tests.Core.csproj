@@ -51,6 +51,7 @@
     <Compile Include="Data\EventData.cs" />
     <Compile Include="Data\LocationData.cs" />
     <Compile Include="Data\PlayerData.cs" />
+    <Compile Include="Data\TimeData.cs" />
     <Compile Include="Data\TimezoneData.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="DateTests.cs" />
@@ -76,9 +77,12 @@
     <Compile Include="UseCases\AddUserTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\AppDetailsTests\AppDetailsTests1.cs" />
+    <Compile Include="UseCases\CashgameChartTests\Arrange.cs" />
+    <Compile Include="UseCases\CashgameChartTests\WithTwoGames.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\WithTwoPlayersWithTwoAndThreeActions.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
+    <Compile Include="UseCases\CashgameFactsTests\WithTwoGames.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasNoResults.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasResults.cs" />
@@ -95,9 +99,7 @@
     <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />
     <Compile Include="UseCases\BuyinTests.cs" />
-    <Compile Include="UseCases\CashgameChartTests.cs" />
     <Compile Include="UseCases\CashgameContextTests.cs" />
-    <Compile Include="UseCases\CashgameFactsTests.cs" />
     <Compile Include="UseCases\CashgameListTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />

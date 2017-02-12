@@ -11,24 +11,19 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
 
-        public CashgameFacts(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public CashgameFacts(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
-            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
-            var players = _playerRepository.List(bunch.Id).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
+            var players = _playerRepository.List(request.Slug).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = _cashgameRepository.List(request.Slug, request.Year);
             var factBuilder = new FactBuilder(cashgames, players);
 
             return GetFactsResult(_playerRepository, bunch, factBuilder);
@@ -52,14 +47,14 @@ namespace Core.UseCases
 
         private static MoneyFact GetBestResult(IPlayerRepository playerRepository, FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(playerRepository, facts.BestResult.PlayerId);
+            var playerName = GetPlayerName(playerRepository, facts.BestResult.Id);
             var amount = new Money(facts.BestResult.Winnings, currency);
             return new MoneyFact(playerName, amount);
         }
 
         private static MoneyFact GetWorstResult(IPlayerRepository playerRepository, FactBuilder facts, Currency currency)
         {
-            var playerName = GetPlayerName(playerRepository, facts.WorstResult.PlayerId);
+            var playerName = GetPlayerName(playerRepository, facts.WorstResult.Id);
             var amount = new Money(facts.WorstResult.Winnings, currency);
             return new MoneyFact(playerName, amount);
         }
@@ -102,13 +97,11 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
             public int? Year { get; }
 
-            public Request(string userName, string slug, int? year)
+            public Request(string slug, int? year)
             {
-                UserName = userName;
                 Slug = slug;
                 Year = year;
             }
@@ -177,8 +170,8 @@ namespace Core.UseCases
         private class FactBuilder
         {
             public int GameCount { get; }
-            public CashgameResult BestResult { get; }
-            public CashgameResult WorstResult { get; }
+            public ListCashgame.CashgamePlayer BestResult { get; }
+            public ListCashgame.CashgamePlayer WorstResult { get; }
             public CashgameTotalResult BestTotalResult { get; }
             public CashgameTotalResult WorstTotalResult { get; }
             public CashgameTotalResult MostTimeResult { get; }
@@ -187,7 +180,7 @@ namespace Core.UseCases
             public int TotalGameTime { get; }
             public int TotalTurnover { get; }
 
-            public FactBuilder(IList<Cashgame> cashgames, IEnumerable<Player> players)
+            public FactBuilder(IList<ListCashgame> cashgames, IEnumerable<Player> players)
             {
                 var gameData = GetGameData(cashgames);
                 var totalResults = GetTotalResults(players, cashgames);
@@ -204,16 +197,16 @@ namespace Core.UseCases
                 WorstTotalResult = totalResults.LastOrDefault();
             }
 
-            private GameData GetGameData(IList<Cashgame> cashgames)
+            private GameData GetGameData(IList<ListCashgame> cashgames)
             {
-                CashgameResult bestResult = null;
-                CashgameResult worstResult = null;
+                ListCashgame.CashgamePlayer bestResult = null;
+                ListCashgame.CashgamePlayer worstResult = null;
                 var totalGameTime = 0;
                 var totalTurnover = 0;
 
                 foreach (var cashgame in cashgames)
                 {
-                    var results = cashgame.Results;
+                    var results = cashgame.Players;
                     foreach (var result in results)
                     {
                         if (bestResult == null || result.Winnings > bestResult.Winnings)
@@ -235,12 +228,12 @@ namespace Core.UseCases
             private class GameData
             {
                 public int GameCount { get; }
-                public CashgameResult BestResult { get; }
-                public CashgameResult WorstResult { get; }
+                public ListCashgame.CashgamePlayer BestResult { get; }
+                public ListCashgame.CashgamePlayer WorstResult { get; }
                 public int TotalGameTime { get; }
                 public int TotalTurnover { get; }
 
-                public GameData(int gameCount, CashgameResult bestResult, CashgameResult worstResult, int totalGameTime, int totalTurnover)
+                public GameData(int gameCount, ListCashgame.CashgamePlayer bestResult, ListCashgame.CashgamePlayer worstResult, int totalGameTime, int totalTurnover)
                 {
                     GameCount = gameCount;
                     BestResult = bestResult;
@@ -250,8 +243,7 @@ namespace Core.UseCases
                 }
             }
 
-            private IList<CashgameTotalResult> GetTotalResults(IEnumerable<Player> players,
-                IEnumerable<Cashgame> cashgames)
+            private IList<CashgameTotalResult> GetTotalResults(IEnumerable<Player> players, IEnumerable<ListCashgame> cashgames)
             {
                 var list = players.Select(player => new CashgameTotalResult(player, cashgames)).ToList();
                 return list.Where(o => o.GameCount > 0).OrderByDescending(o => o.Winnings).ToList();

@@ -27,7 +27,7 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameRepository.List(bunch.Id, request.Year);
             var players = _playerRepository.List(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
 

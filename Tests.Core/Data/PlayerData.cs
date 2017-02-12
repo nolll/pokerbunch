@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using Core.Entities;
 
 namespace Tests.Core.Data
 {
@@ -11,22 +12,11 @@ namespace Tests.Core.Data
         public const string Id2 = "player-id-2";
         public const string Name2 = "player-name-2";
         public const string Color2 = "#222";
-    }
 
-    public static class TimeData
-    {
-        public static DateTime Swedish(string s)
+        public static IList<Player> TwoPlayers = new List<Player>
         {
-            var timeUnspec = DateTime.SpecifyKind(DateTime.Parse(s), DateTimeKind.Unspecified);
-            var timezone = TimezoneData.Swedish;
-            var timeUtc = TimeZoneInfo.ConvertTimeToUtc(timeUnspec, TimezoneData.Swedish);
-            return TimeZoneInfo.ConvertTime(timeUtc, timezone);
-        }
-
-        public static DateTime Utc(string s)
-        {
-            var time = DateTime.Parse(s);
-            return DateTime.SpecifyKind(time, DateTimeKind.Utc);
-        }
+            new Player(BunchData.Id1, Id1, null, Name1, Role.Player, Color1),
+            new Player(BunchData.Id1, Id2, null, Name2, Role.Player, Color2)
+        };
     }
 }

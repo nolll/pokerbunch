@@ -29,6 +29,21 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.Id == cashgameId);
         }
 
+        public IList<ListCashgame> List(string bunchId, int? year = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<ListCashgame> EventList(string eventId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<ListCashgame> PlayerList(string playerId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IList<Cashgame> Get(IList<string> ids)
         {
             return _list.Where(o => ids.Contains(o.Id)).ToList();

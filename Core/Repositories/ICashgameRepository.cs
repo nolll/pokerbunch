@@ -6,7 +6,10 @@ namespace Core.Repositories
 	public interface ICashgameRepository
 	{
 	    DetailedCashgame GetDetailedById(string id);
-        
+
+        IList<ListCashgame> List(string bunchId, int? year = null);
+        IList<ListCashgame> EventList(string eventId);
+        IList<ListCashgame> PlayerList(string playerId);
         IList<Cashgame> ListFinished(string bunchId, int? year = null);
         IList<Cashgame> ListByEvent(string eventId);
         IList<Cashgame> ListByPlayer(string playerId);
