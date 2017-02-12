@@ -8,6 +8,7 @@ namespace Tests.Core.Data
     public static class CashgameData
     {
         public const string Id1 = "cashgame-id-1";
+        public const string Id2 = "cashgame-id-2";
         public static readonly DateTime StartTime = TimeData.Utc("2001-01-01 12:00:00");
         public static readonly DateTime EndTime = TimeData.Utc("2001-01-01 13:02:00");
         public static readonly TimeZoneInfo Timezone = TimezoneData.Swedish;
@@ -76,5 +77,15 @@ namespace Tests.Core.Data
                             0)
                     })
             });
+
+        public static DetailedCashgame EndedGameWithoutPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
+            Id2,
+            StartTime,
+            EndTime,
+            isRunning,
+            new DetailedCashgame.CashgameBunch(BunchData.Id1, Timezone, Currency),
+            role,
+            new DetailedCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+            new List<DetailedCashgame.CashgamePlayer>());
     }
 }

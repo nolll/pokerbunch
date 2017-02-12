@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
@@ -22,22 +21,6 @@ namespace Infrastructure.Storage.SqlDb
 	        _db = db;
 	    }
 
-        public Cashgame Get(string cashgameId)
-        {
-            var sql = string.Concat(DataSql, "WHERE g.GameID = @cashgameId ORDER BY g.GameId");
-            var parameters = new List<SimpleSqlParameter>
-		        {
-                    new SimpleSqlParameter("@cashgameId", cashgameId)
-		        };
-            var reader = _db.Query(sql, parameters);
-            var rawGame = reader.ReadOne(CreateRawCashgame);
-            var rawCheckpoints = GetCheckpoints(cashgameId);
-            var checkpoints = CreateCheckpoints(rawCheckpoints);
-            var cashgame = CreateCashgame(rawGame);
-            cashgame.AddCheckpoints(checkpoints);
-            return cashgame;
-        }
-        
         public IList<Cashgame> Get(IList<string> ids)
 	    {
             if(ids.Count == 0)

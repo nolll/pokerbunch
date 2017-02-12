@@ -79,6 +79,9 @@
     <Compile Include="UseCases\CashgameDetailsChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\WithTwoPlayersWithTwoAndThreeActions.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
+    <Compile Include="UseCases\DeleteCashgameTests\Arrange.cs" />
+    <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasNoResults.cs" />
+    <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasResults.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\Arrange.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\WithPlayer.cs" />
     <Compile Include="UseCases\AppListAllTests\Arrange.cs" />
@@ -103,7 +106,6 @@
     <Compile Include="UseCases\CashoutTests\WhenExecuteWithPlayerThatHasCheckedOutBefore.cs" />
     <Compile Include="UseCases\CashoutTests\WhenExecuteWithInvalidStack.cs" />
     <Compile Include="UseCases\ChangePasswordTests.cs" />
-    <Compile Include="UseCases\DeleteCashgameTests.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests.cs" />
     <Compile Include="UseCases\EditBunchTests.cs" />
     <Compile Include="UseCases\EditCashgameTests\Arrange.cs" />
