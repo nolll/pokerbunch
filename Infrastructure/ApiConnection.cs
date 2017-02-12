@@ -40,6 +40,12 @@ namespace Infrastructure
             return JsonConvert.DeserializeObject<T>(json);
         }
 
+        public bool Delete(string apiUrl)
+        {
+            DeleteJson(apiUrl);
+            return true;
+        }
+
         private string ReadJson(string apiUrl)
         {
             using (var client = new BearerClient(_url, _token))
@@ -69,6 +75,16 @@ namespace Infrastructure
                 var jsonData = JsonConvert.SerializeObject(data);
                 var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                 var response = client.PutAsync(apiUrl, content).Result;
+                ValidateResponse(response);
+                return response.Content.ReadAsStringAsync().Result;
+            }
+        }
+
+        private string DeleteJson(string apiUrl)
+        {
+            using (var client = new BearerClient(_url, _token))
+            {
+                var response = client.DeleteAsync(apiUrl).Result;
                 ValidateResponse(response);
                 return response.Content.ReadAsStringAsync().Result;
             }

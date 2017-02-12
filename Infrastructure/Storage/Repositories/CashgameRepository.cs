@@ -30,11 +30,6 @@ namespace Infrastructure.Storage.Repositories
             return CreateDetailedCashgame(apiDetailedCashgame);
         }
 
-        public Cashgame GetById(string cashgameId)
-        {
-            return _cacheContainer.GetAndStore(_cashgameDb.Get, cashgameId, TimeSpan.FromMinutes(CacheTime.Long));
-        }
-
         private IList<Cashgame> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_cashgameDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
@@ -77,8 +72,7 @@ namespace Infrastructure.Storage.Repositories
 
         public void DeleteGame(string id)
         {
-            _cashgameDb.DeleteGame(id);
-            _cacheContainer.Remove<Cashgame>(id);
+            _api.Delete($"cashgames/{id}");
         }
 
         public string Add(Bunch bunch, Cashgame cashgame)
