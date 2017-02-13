@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
@@ -12,25 +11,20 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IEventRepository _eventService;
 
-        public Matrix(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository, IEventRepository eventRepository)
+        public Matrix(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IEventRepository eventRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
-            _userRepository = userRepository;
             _eventService = eventRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
-            var cashgames = _cashgameRepository.List(bunch.Id, request.Year);
+            var cashgames = _cashgameRepository.List(request.Slug, request.Year);
             return Execute(bunch, cashgames);
         }
 
@@ -38,9 +32,6 @@ namespace Core.UseCases
         {
             var e = _eventService.Get(request.EventId);
             var bunch = _bunchRepository.Get(e.BunchId);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
             var cashgames = _cashgameRepository.EventList(request.EventId);
             return Execute(bunch, cashgames);
         }
@@ -112,13 +103,11 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
             public int? Year { get; }
 
-            public Request(string userName, string slug, int? year)
+            public Request(string slug, int? year)
             {
-                UserName = userName;
                 Slug = slug;
                 Year = year;
             }

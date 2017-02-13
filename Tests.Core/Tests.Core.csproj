@@ -82,6 +82,7 @@
     <Compile Include="UseCases\CashgameDetailsChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\WithTwoPlayersWithTwoAndThreeActions.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
+    <Compile Include="UseCases\CashgameFactsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameFactsTests\WithTwoGames.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasNoResults.cs" />
@@ -122,6 +123,9 @@
     <Compile Include="UseCases\LoginTests\WhenExecuteWithCorrectPassword.cs" />
     <Compile Include="UseCases\LoginTests\WhenExecuteWithWrongPassword.cs" />
     <Compile Include="UseCases\LoginTests\WhenExecuteWithUnknownUser.cs" />
+    <Compile Include="UseCases\MatrixTests\Arrange.cs" />
+    <Compile Include="UseCases\MatrixTests\WithTwoGames.cs" />
+    <Compile Include="UseCases\MatrixTests\WithTwoGamesOnDifferentYears.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
     <Compile Include="UseCases\DeletePlayerTests.cs" />
     <Compile Include="UseCases\EditBunchFormTests.cs" />
@@ -134,7 +138,6 @@
     <Compile Include="UseCases\JoinBunchConfirmationTests.cs" />
     <Compile Include="UseCases\JoinBunchFormTests.cs" />
     <Compile Include="UseCases\JoinBunchTests.cs" />
-    <Compile Include="UseCases\MatrixTests.cs" />
     <Compile Include="UseCases\PlayerBadgesTests.cs" />
     <Compile Include="UseCases\PlayerDetailsTests.cs" />
     <Compile Include="UseCases\PlayerFactsTests.cs" />
