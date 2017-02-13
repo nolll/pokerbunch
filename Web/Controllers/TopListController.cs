@@ -15,7 +15,7 @@ namespace Web.Controllers
         public ActionResult Toplist(string slug, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Toplist, year);
-            var topListResult = UseCase.TopList.Execute(new TopList.Request(Identity.UserName, slug, year));
+            var topListResult = UseCase.TopList.Execute(new TopList.Request(slug, year));
             var model = new CashgameToplistPageModel(contextResult, topListResult);
             return View("~/Views/Pages/Toplist/ToplistPage.cshtml", model);
         }

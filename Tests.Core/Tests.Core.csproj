@@ -144,7 +144,7 @@
     <Compile Include="UseCases\PlayerListTests.cs" />
     <Compile Include="UseCases\RunningCashgameTests.cs" />
     <Compile Include="UseCases\TestEmailTests.cs" />
-    <Compile Include="UseCases\TopListTests.cs" />
+    <Compile Include="UseCases\TopListTests\WithTwoGames.cs" />
     <Compile Include="UseCases\UserDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsAdmin.cs" />
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsOtherUser.cs" />
