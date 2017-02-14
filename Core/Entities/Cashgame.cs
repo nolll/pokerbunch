@@ -6,24 +6,34 @@ using Core.Services;
 
 namespace Core.Entities
 {
+    public class CashgameCollection
+    {
+        public CashgameBunch Bunch { get; }
+        public IList<ListCashgame> Cashgames { get; }
+
+        public CashgameCollection(CashgameBunch bunch, IList<ListCashgame> cashgames)
+        {
+            Bunch = bunch;
+            Cashgames = cashgames;
+        }
+    }
+
     public class ListCashgame
     {
         public string Id { get; }
         public DateTime StartTime { get; }
         public DateTime UpdatedTime { get; }
         public bool IsRunning { get; }
-        public CashgameBunch Bunch { get; }
         public Role Role { get; }
         public CashgameLocation Location { get; }
         public IList<CashgamePlayer> Players { get; }
 
-        public ListCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, CashgameBunch bunch, Role role, CashgameLocation location, IList<CashgamePlayer> players)
+        public ListCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, Role role, CashgameLocation location, IList<CashgamePlayer> players)
         {
             Id = id;
             StartTime = startTime;
             UpdatedTime = updatedTime;
             IsRunning = isRunning;
-            Bunch = bunch;
             Role = role;
             Location = location;
             Players = players;
@@ -137,32 +147,6 @@ namespace Core.Entities
             Role = role;
             Location = location;
             Players = players;
-        }
-
-        public class CashgameBunch
-        {
-            public string Id { get; }
-            public TimeZoneInfo Timezone { get; }
-            public Currency Currency { get; }
-            
-            public CashgameBunch(string id, TimeZoneInfo timezone, Currency currency)
-            {
-                Id = id;
-                Timezone = timezone;
-                Currency = currency;
-            }
-        }
-
-        public class CashgameLocation
-        {
-            public string Id { get; }
-            public string Name { get; }
-
-            public CashgameLocation(string id, string name)
-            {
-                Id = id;
-                Name = name;
-            }
         }
 
         public class CashgamePlayer
@@ -386,4 +370,30 @@ namespace Core.Entities
             return bestResult;
         }
 	}
+
+    public class CashgameBunch
+    {
+        public string Id { get; }
+        public TimeZoneInfo Timezone { get; }
+        public Currency Currency { get; }
+
+        public CashgameBunch(string id, TimeZoneInfo timezone, Currency currency)
+        {
+            Id = id;
+            Timezone = timezone;
+            Currency = currency;
+        }
+    }
+
+    public class CashgameLocation
+    {
+        public string Id { get; }
+        public string Name { get; }
+
+        public CashgameLocation(string id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+    }
 }

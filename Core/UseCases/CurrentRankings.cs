@@ -29,13 +29,13 @@ namespace Core.UseCases
             RequireRole.Player(user, player);
             var years = _cashgameRepository.GetYears(bunch.Id);
             var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
-            var cashgames = _cashgameRepository.List(bunch.Id, latestYear);
-            if (!cashgames.Any())
+            var cashgameList = _cashgameRepository.List(bunch.Id, latestYear);
+            if (!cashgameList.Cashgames.Any())
                 return new Result(new List<Item>(), "");
 
             var players = _playerRepository.List(bunch.Id).ToList();
-            var suite = new CashgameSuite(cashgames, players);
-            var lastGame = cashgames.Last();
+            var suite = new CashgameSuite(cashgameList.Cashgames, players);
+            var lastGame = cashgameList.Cashgames.Last();
             var items = CreateItems(bunch, suite, lastGame);
             
             return new Result(items, lastGame.Id);

@@ -30,7 +30,7 @@ namespace Core.UseCases
             return new Result(date, playerName, cashgame.Bunch.Id, checkpointItems);
         }
 
-        private static CheckpointItem CreateCheckpointItem(DetailedCashgame.CashgameBunch bunch, bool isManager, DetailedCashgame.CashgameAction action)
+        private static CheckpointItem CreateCheckpointItem(CashgameBunch bunch, bool isManager, DetailedCashgame.CashgameAction action)
         {
             var type = action.Type.ToString();
             var displayAmount = new Money(GetDisplayAmount(action), bunch.Currency);

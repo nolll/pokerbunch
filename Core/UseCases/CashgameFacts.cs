@@ -23,8 +23,8 @@ namespace Core.UseCases
         {
             var bunch = _bunchRepository.Get(request.Slug);
             var players = _playerRepository.List(request.Slug).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = _cashgameRepository.List(request.Slug, request.Year);
-            var factBuilder = new FactBuilder(cashgames, players);
+            var cashgameList = _cashgameRepository.List(request.Slug, request.Year);
+            var factBuilder = new FactBuilder(cashgameList.Cashgames, players);
 
             return GetFactsResult(_playerRepository, bunch, factBuilder);
         }

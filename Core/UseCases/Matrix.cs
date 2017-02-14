@@ -36,12 +36,12 @@ namespace Core.UseCases
             return Execute(bunch, cashgames);
         }
 
-        private Result Execute(Bunch bunch, IList<ListCashgame> cashgames)
+        private Result Execute(Bunch bunch, CashgameCollection cashgameList)
         {
             var players = _playerRepository.List(bunch.Id);
-            var suite = new CashgameSuite(cashgames, players);
+            var suite = new CashgameSuite(cashgameList.Cashgames, players);
 
-            var gameItems = CreateGameItems(cashgames);
+            var gameItems = CreateGameItems(cashgameList.Cashgames);
             var playerItems = CreatePlayerItems(bunch, suite);
             var spansMultipleYears = suite.SpansMultipleYears;
 

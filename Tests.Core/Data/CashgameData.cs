@@ -23,9 +23,9 @@ namespace Tests.Core.Data
             StartTime1,
             EndTime1,
             isRunning,
-            new DetailedCashgame.CashgameBunch(BunchData.Id1, Timezone, Currency),
+            new CashgameBunch(BunchData.Id1, Timezone, Currency),
             role,
-            new DetailedCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+            new CashgameLocation(LocationData.Id1, LocationData.Name1),
             new List<DetailedCashgame.CashgamePlayer>
             {
                 new DetailedCashgame.CashgamePlayer(
@@ -87,70 +87,71 @@ namespace Tests.Core.Data
             StartTime1,
             EndTime1,
             isRunning,
-            new DetailedCashgame.CashgameBunch(BunchData.Id1, Timezone, Currency),
+            new CashgameBunch(BunchData.Id1, Timezone, Currency),
             role,
-            new DetailedCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+            new CashgameLocation(LocationData.Id1, LocationData.Name1),
             new List<DetailedCashgame.CashgamePlayer>());
 
-        public static IList<ListCashgame> TwoGamesOnSameYearWithTwoPlayers => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2, EndTime2);
-        public static IList<ListCashgame> TwoGamesOnDifferentYearWithTwoPlayers => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2DifferentYear, EndTime2DifferentYear);
+        public static CashgameCollection TwoGamesOnSameYearWithTwoPlayers => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2, EndTime2);
+        public static CashgameCollection TwoGamesOnDifferentYearWithTwoPlayers => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2DifferentYear, EndTime2DifferentYear);
 
-        private static IList<ListCashgame> TwoGamesWithTwoPlayers(DateTime startTime1, DateTime endTime1, DateTime startTime2, DateTime endTime2) => new List<ListCashgame>
-        {
-            new ListCashgame(
-            Id1,
-            startTime1,
-            endTime1,
-            false,
-            new ListCashgame.CashgameBunch(BunchData.Id1, Timezone, Currency),
-            Role.Player,
-            new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
-            new List<ListCashgame.CashgamePlayer>
-            {
-                new ListCashgame.CashgamePlayer(
-                    PlayerData.Id1,
-                    PlayerData.Name1,
-                    PlayerData.Color1,
-                    350,
-                    200,
-                    startTime1,
-                    endTime1),
-                new ListCashgame.CashgamePlayer(
-                    PlayerData.Id2,
-                    PlayerData.Name2,
-                    PlayerData.Color2,
-                    50,
-                    200,
-                    startTime1,
-                    endTime1)
-            }),
-            new ListCashgame(
-            Id2,
-            startTime2,
-            endTime2,
-            false,
-            new ListCashgame.CashgameBunch(BunchData.Id1, Timezone, Currency),
-            Role.Player,
-            new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
-            new List<ListCashgame.CashgamePlayer>
-            {
-                new ListCashgame.CashgamePlayer(
-                    PlayerData.Id1,
-                    PlayerData.Name1,
-                    PlayerData.Color1,
-                    350,
-                    200,
-                    startTime2,
-                    endTime2),
-                new ListCashgame.CashgamePlayer(
-                    PlayerData.Id2,
-                    PlayerData.Name2,
-                    PlayerData.Color2,
-                    50,
-                    200,
-                    startTime2,
-                    endTime2)
-            })
-        };
+        private static CashgameCollection TwoGamesWithTwoPlayers(DateTime startTime1, DateTime endTime1, DateTime startTime2, DateTime endTime2) =>
+            new CashgameCollection(
+                new CashgameBunch(BunchData.Id1, Timezone, Currency),
+                new List<ListCashgame>
+                {
+                    new ListCashgame(
+                        Id1,
+                        startTime1,
+                        endTime1,
+                        false,
+                        Role.Player,
+                        new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+                        new List<ListCashgame.CashgamePlayer>
+                        {
+                            new ListCashgame.CashgamePlayer(
+                                PlayerData.Id1,
+                                PlayerData.Name1,
+                                PlayerData.Color1,
+                                350,
+                                200,
+                                startTime1,
+                                endTime1),
+                            new ListCashgame.CashgamePlayer(
+                                PlayerData.Id2,
+                                PlayerData.Name2,
+                                PlayerData.Color2,
+                                50,
+                                200,
+                                startTime1,
+                                endTime1)
+                        }),
+                    new ListCashgame(
+                        Id2,
+                        startTime2,
+                        endTime2,
+                        false,
+                        Role.Player,
+                        new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+                        new List<ListCashgame.CashgamePlayer>
+                        {
+                            new ListCashgame.CashgamePlayer(
+                                PlayerData.Id1,
+                                PlayerData.Name1,
+                                PlayerData.Color1,
+                                350,
+                                200,
+                                startTime2,
+                                endTime2),
+                            new ListCashgame.CashgamePlayer(
+                                PlayerData.Id2,
+                                PlayerData.Name2,
+                                PlayerData.Color2,
+                                50,
+                                200,
+                                startTime2,
+                                endTime2)
+                        })
+                });
     }
 }
