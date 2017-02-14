@@ -14,10 +14,6 @@ namespace Tests.Core.UseCases.CashgameFactsTests
         [SetUp]
         public void Setup()
         {
-            var brm = new Mock<IBunchRepository>();
-            var bunch = BunchData.Bunch(Role.Player);
-            brm.Setup(o => o.Get(BunchData.Id1)).Returns(bunch);
-
             var crm = new Mock<ICashgameRepository>();
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
             crm.Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
@@ -26,7 +22,7 @@ namespace Tests.Core.UseCases.CashgameFactsTests
             var players = PlayerData.TwoPlayers;
             prm.Setup(o => o.List(BunchData.Id1)).Returns(players);
 
-            Sut = new CashgameFacts(brm.Object, crm.Object, prm.Object);
+            Sut = new CashgameFacts(crm.Object, prm.Object);
         }
 
         protected CashgameFacts.Request Request => new CashgameFacts.Request(BunchData.Id1, null);

@@ -60,12 +60,6 @@ namespace Infrastructure.Storage.Repositories
             return Get(ids);
         }
 
-        public IList<Cashgame> ListByEvent(string eventId)
-        {
-            var ids = _cashgameDb.FindByEvent(eventId);
-            return Get(ids);
-        }
-
         public IList<Cashgame> ListByPlayer(string playerId)
         {
             var ids = _cashgameDb.FindByPlayerId(playerId);

@@ -2,34 +2,30 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameFacts
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public CashgameFacts(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public CashgameFacts(ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
             var players = _playerRepository.List(request.Slug).OrderBy(o => o.DisplayName).ToList();
-            var cashgameList = _cashgameRepository.List(request.Slug, request.Year);
-            var factBuilder = new FactBuilder(cashgameList.Cashgames, players);
+            var cashgameCollection = _cashgameRepository.List(request.Slug, request.Year);
+            var factBuilder = new FactBuilder(cashgameCollection.Cashgames, players);
 
-            return GetFactsResult(_playerRepository, bunch, factBuilder);
+            return GetFactsResult(_playerRepository, cashgameCollection.Bunch, factBuilder);
         }
 
-        private static Result GetFactsResult(IPlayerRepository playerRepository, Bunch bunch, FactBuilder factBuilder)
+        private static Result GetFactsResult(IPlayerRepository playerRepository, CashgameBunch bunch, FactBuilder factBuilder)
         {
             var gameCount = factBuilder.GameCount;
             var timePlayed = Time.FromMinutes(factBuilder.TotalGameTime);

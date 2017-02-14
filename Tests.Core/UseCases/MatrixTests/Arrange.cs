@@ -16,10 +16,6 @@ namespace Tests.Core.UseCases.MatrixTests
         [SetUp]
         public void Setup()
         {
-            var brm = new Mock<IBunchRepository>();
-            var bunch = BunchData.Bunch(Role.Player);
-            brm.Setup(o => o.Get(BunchData.Id1)).Returns(bunch);
-
             var crm = new Mock<ICashgameRepository>();
             var cashgames = DifferentYears ?
                 CashgameData.TwoGamesOnDifferentYearWithTwoPlayers :
@@ -30,9 +26,7 @@ namespace Tests.Core.UseCases.MatrixTests
             var players = PlayerData.TwoPlayers;
             prm.Setup(o => o.List(BunchData.Id1)).Returns(players);
 
-            var erm = new Mock<IEventRepository>();
-
-            Sut = new Matrix(brm.Object, crm.Object, prm.Object, erm.Object);
+            Sut = new Matrix(crm.Object, prm.Object);
         }
 
         protected Matrix.Request Request => new Matrix.Request(BunchData.Id1, null);

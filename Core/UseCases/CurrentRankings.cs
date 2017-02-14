@@ -8,14 +8,12 @@ namespace Core.UseCases
 {
     public class CurrentRankings
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
 
-        public CurrentRankings(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public CurrentRankings(ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _userRepository = userRepository;
@@ -23,25 +21,24 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
             var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
+            var player = _playerRepository.GetByUser(request.Slug, user.Id);
             RequireRole.Player(user, player);
-            var years = _cashgameRepository.GetYears(bunch.Id);
+            var years = _cashgameRepository.GetYears(request.Slug);
             var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
-            var cashgameList = _cashgameRepository.List(bunch.Id, latestYear);
-            if (!cashgameList.Cashgames.Any())
+            var cashgameCollection = _cashgameRepository.List(request.Slug, latestYear);
+            if (!cashgameCollection.Cashgames.Any())
                 return new Result(new List<Item>(), "");
 
-            var players = _playerRepository.List(bunch.Id).ToList();
-            var suite = new CashgameSuite(cashgameList.Cashgames, players);
-            var lastGame = cashgameList.Cashgames.Last();
-            var items = CreateItems(bunch, suite, lastGame);
+            var players = _playerRepository.List(request.Slug).ToList();
+            var suite = new CashgameSuite(cashgameCollection.Cashgames, players);
+            var lastGame = cashgameCollection.Cashgames.Last();
+            var items = CreateItems(cashgameCollection.Bunch, suite, lastGame);
             
             return new Result(items, lastGame.Id);
         }
         
-        private IEnumerable<Item> CreateItems(Bunch bunch, CashgameSuite suite, ListCashgame lastGame)
+        private IEnumerable<Item> CreateItems(CashgameBunch bunch, CashgameSuite suite, ListCashgame lastGame)
         {
             var items = new List<Item>();
             var index = 1;
