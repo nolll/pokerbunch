@@ -7,7 +7,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class ApiBunchRepository : IBunchRepository
+    public class ApiBunchRepository : ApiRepository, IBunchRepository
     {
         private readonly ApiConnection _api;
 
@@ -18,34 +18,34 @@ namespace Infrastructure.Storage.Repositories
 
         public Bunch Get(string id)
         {
-            var apiBunch = _api.Get<ApiBunch>($"bunches/{id}");
+            var apiBunch = _api.Get<ApiBunch>(Url.BunchSingle(id));
             return ToBunch(apiBunch);
         }
 
         public IList<SmallBunch> List()
         {
-            var apiBunches = _api.Get<IList<ApiSmallBunch>>("bunches");
+            var apiBunches = _api.Get<IList<ApiSmallBunch>>(Url.BunchList);
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public IList<SmallBunch> ListForUser()
         {
-            var apiBunches = _api.Get<IList<ApiSmallBunch>>("user/bunches");
+            var apiBunches = _api.Get<IList<ApiSmallBunch>>(Url.BunchUserList);
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public Bunch Add(Bunch bunch)
         {
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _api.Post<ApiBunch>("bunches", postBunch);
+            var apiBunch = _api.Post<ApiBunch>(Url.BunchList, postBunch);
             return ToBunch(apiBunch);
         }
 
         public Bunch Update(Bunch bunch)
         {
-            var slug = bunch.Id;
+            var id = bunch.Id;
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _api.Post<ApiBunch>($"bunches/{slug}", postBunch);
+            var apiBunch = _api.Post<ApiBunch>(Url.BunchSingle(id), postBunch);
             return ToBunch(apiBunch);
         }
 

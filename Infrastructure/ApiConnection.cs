@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Core.Exceptions;
+using Infrastructure.Storage.Repositories;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -22,10 +23,20 @@ namespace Infrastructure
             _token = token;
         }
 
+        public T Get<T>(ApiUrl apiUrl)
+        {
+            return Get<T>(apiUrl.Url);
+        }
+
         public T Get<T>(string apiUrl)
         {
             var json = ReadJson(apiUrl);
             return JsonConvert.DeserializeObject<T>(json);
+        }
+
+        public T Post<T>(ApiUrl apiUrl, object data)
+        {
+            return Post<T>(apiUrl.Url, data);
         }
 
         public T Post<T>(string apiUrl, object data)

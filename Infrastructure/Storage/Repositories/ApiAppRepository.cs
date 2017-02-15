@@ -7,10 +7,10 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class ApiAppRepository : IAppRepository
+    public class ApiAppRepository : ApiRepository, IAppRepository
     {
         private readonly ApiConnection _api;
-
+        
         public ApiAppRepository(ApiConnection api)
         {
             _api = api;
@@ -18,32 +18,32 @@ namespace Infrastructure.Storage.Repositories
         
         public App GetById(string id)
         {
-            var apiApp = _api.Get<ApiApp>($"apps/{id}");
+            var apiApp = _api.Get<ApiApp>(Url.AppSingle(id));
             return CreateApp(apiApp);
         }
 
         public IList<App> ListAll()
         {
-            var apiApps = _api.Get<IList<ApiApp>>("apps");
+            var apiApps = _api.Get<IList<ApiApp>>(Url.AppList);
             return apiApps.Select(CreateApp).ToList();
         }
 
         public IList<App> List()
         {
-            var apiApps = _api.Get<IList<ApiApp>>("user/apps");
+            var apiApps = _api.Get<IList<ApiApp>>(Url.AppUserList);
             return apiApps.Select(CreateApp).ToList();
         }
 
         public string Add(string appName)
         {
             var postApp = new ApiApp(null, null, appName, null);
-            var apiApp = _api.Post<ApiApp>("apps", postApp);
+            var apiApp = _api.Post<ApiApp>(Url.AppList, postApp);
             return CreateApp(apiApp).Id;
         }
 
         public string Add(App app)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Add not implemented yet");
         }
 
         public void Update(App app)
