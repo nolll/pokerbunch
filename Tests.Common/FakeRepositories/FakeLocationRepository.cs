@@ -22,9 +22,9 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.Id == id);
         }
 
-        public IList<Location> List(string slug)
+        public IList<Location> List(string id)
         {
-            return _list.Where(o => o.BunchId == slug).ToList();
+            return _list.Where(o => o.BunchId == id).ToList();
         }
 
         public string Add(Location location)

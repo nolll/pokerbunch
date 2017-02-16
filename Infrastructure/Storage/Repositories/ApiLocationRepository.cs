@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class ApiLocationRepository : ILocationRepository
+    public class ApiLocationRepository : ApiRepository, ILocationRepository
     {
         private readonly ApiConnection _api;
 
@@ -17,20 +17,20 @@ namespace Infrastructure.Storage.Repositories
 
         public Location Get(string id)
         {
-            var apiLocation = _api.Get<ApiLocation>($"locations/{id}");
+            var apiLocation = _api.Get<ApiLocation>(Url.LocationSingle(id));
             return CreateLocation(apiLocation);
         }
 
-        public IList<Location> List(string slug)
+        public IList<Location> List(string id)
         {
-            var apiLocations = _api.Get<IList<ApiLocation>>($"bunches/{slug}/locations");
+            var apiLocations = _api.Get<IList<ApiLocation>>(Url.LocationBunchUserList(id));
             return apiLocations.Select(CreateLocation).ToList();
         }
 
         public string Add(Location location)
         {
             var postLocation = new ApiLocation(location.Name, location.BunchId);
-            var apiLocation = _api.Post<ApiLocation>("locations", postLocation);
+            var apiLocation = _api.Post<ApiLocation>(Url.LocationList, postLocation);
             return CreateLocation(apiLocation).Id;
         }
 
