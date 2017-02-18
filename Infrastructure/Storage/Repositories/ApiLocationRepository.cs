@@ -23,7 +23,7 @@ namespace Infrastructure.Storage.Repositories
 
         public IList<Location> List(string id)
         {
-            var apiLocations = _api.Get<IList<ApiLocation>>(Url.LocationBunchUserList(id));
+            var apiLocations = _api.Get<IList<ApiLocation>>(Url.LocationBunchList(id));
             return apiLocations.Select(CreateLocation).ToList();
         }
 

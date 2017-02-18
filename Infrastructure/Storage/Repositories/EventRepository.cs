@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class EventRepository : IEventRepository
+    public class EventRepository : ApiRepository, IEventRepository
     {
         private readonly SqlEventDb _eventDb;
         private readonly ApiConnection _api;
@@ -24,13 +24,13 @@ namespace Infrastructure.Storage.Repositories
 
         public Event Get(string id)
         {
-            var apiEvent = _api.Get<ApiEvent>($"events/{id}");
+            var apiEvent = _api.Get<ApiEvent>(Url.EventSingle(id));
             return CreateEvent(apiEvent);
         }
 
         public IList<Event> ListByBunch(string bunchId)
         {
-            var apiEvents = _api.Get<IList<ApiEvent>>($"bunches/{bunchId}/events");
+            var apiEvents = _api.Get<IList<ApiEvent>>(Url.EventBunchList(bunchId));
             return apiEvents.Select(CreateEvent).ToList();
         }
 

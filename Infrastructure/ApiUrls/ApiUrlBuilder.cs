@@ -12,12 +12,15 @@ namespace Infrastructure.ApiUrls
 
         public ApiUrl LocationSingle(string id) => new SimpleApiUrl($"locations/{id}");
         public ApiUrl LocationList => new SimpleApiUrl("locations");
-        public ApiUrl LocationBunchUserList(string id) => new SimpleApiUrl($"bunches/{id}/locations");
+        public ApiUrl LocationBunchList(string id) => new SimpleApiUrl($"bunches/{id}/locations");
 
         public ApiUrl CashgameSingle(string id) => new SimpleApiUrl($"cashgames/{id}");
         public ApiUrl CashgameBunchList(string bunchId, int? year) => new CashgameBunchListUrl(bunchId, year);
         public ApiUrl CashgameEventList(string eventId) => new SimpleApiUrl($"events/{eventId}/cashgames");
         public ApiUrl CashgamePlayerList(string playerId) => new SimpleApiUrl($"players/{playerId}/cashgames");
+
+        public ApiUrl EventSingle(string id) => new SimpleApiUrl($"events/{id}");
+        public ApiUrl EventBunchList(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/events");
 
         private class CashgameBunchListUrl : ApiUrl
         {
