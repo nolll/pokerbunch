@@ -2,34 +2,34 @@ namespace Infrastructure.ApiUrls
 {
     public class ApiUrlBuilder
     {
-        public ApiUrl AppSingle(string id) => new SimpleApiUrl($"apps/{id}");
-        public ApiUrl AppList => new SimpleApiUrl("apps");
-        public ApiUrl AppUserList => new SimpleApiUrl("user/apps");
+        public ApiUrl App(string id) => new SimpleApiUrl($"apps/{id}");
+        public ApiUrl Apps => new SimpleApiUrl("apps");
+        public ApiUrl AppsByUser => new SimpleApiUrl("user/apps");
 
-        public ApiUrl BunchSingle(string id) => new SimpleApiUrl($"bunches/{id}");
-        public ApiUrl BunchList => new SimpleApiUrl("bunches");
-        public ApiUrl BunchUserList => new SimpleApiUrl("user/bunches");
+        public ApiUrl Bunch(string id) => new SimpleApiUrl($"bunches/{id}");
+        public ApiUrl Bunches => new SimpleApiUrl("bunches");
+        public ApiUrl BunchesByUser => new SimpleApiUrl("user/bunches");
 
-        public ApiUrl LocationSingle(string id) => new SimpleApiUrl($"locations/{id}");
-        public ApiUrl LocationList => new SimpleApiUrl("locations");
-        public ApiUrl LocationBunchList(string id) => new SimpleApiUrl($"bunches/{id}/locations");
+        public ApiUrl Location(string id) => new SimpleApiUrl($"locations/{id}");
+        public ApiUrl Locations => new SimpleApiUrl("locations");
+        public ApiUrl LocationByBunch(string id) => new SimpleApiUrl($"bunches/{id}/locations");
 
-        public ApiUrl CashgameSingle(string id) => new SimpleApiUrl($"cashgames/{id}");
-        public ApiUrl CashgameBunchList(string bunchId, int? year) => new CashgameBunchListUrl(bunchId, year);
-        public ApiUrl CashgameEventList(string eventId) => new SimpleApiUrl($"events/{eventId}/cashgames");
-        public ApiUrl CashgamePlayerList(string playerId) => new SimpleApiUrl($"players/{playerId}/cashgames");
+        public ApiUrl Cashgame(string id) => new SimpleApiUrl($"cashgames/{id}");
+        public ApiUrl CashgamesByBunch(string bunchId, int? year) => new CashgamesByBunchUrl(bunchId, year);
+        public ApiUrl CashgamesByEvent(string eventId) => new SimpleApiUrl($"events/{eventId}/cashgames");
+        public ApiUrl CashgamesByPlayer(string playerId) => new SimpleApiUrl($"players/{playerId}/cashgames");
 
-        public ApiUrl EventSingle(string id) => new SimpleApiUrl($"events/{id}");
-        public ApiUrl EventBunchList(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/events");
+        public ApiUrl Event(string id) => new SimpleApiUrl($"events/{id}");
+        public ApiUrl EventsByBunch(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/events");
 
-        public ApiUrl PlayerSingle(string id) => new SimpleApiUrl($"players/{id}");
+        public ApiUrl Player(string id) => new SimpleApiUrl($"players/{id}");
 
-        private class CashgameBunchListUrl : ApiUrl
+        private class CashgamesByBunchUrl : ApiUrl
         {
             private readonly string _bunchId;
             private readonly int? _year;
 
-            public CashgameBunchListUrl(string bunchId, int? year = null)
+            public CashgamesByBunchUrl(string bunchId, int? year = null)
             {
                 _bunchId = bunchId;
                 _year = year;

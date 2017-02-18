@@ -24,13 +24,13 @@ namespace Infrastructure.Storage.Repositories
 
         public Event Get(string id)
         {
-            var apiEvent = _api.Get<ApiEvent>(Url.EventSingle(id));
+            var apiEvent = _api.Get<ApiEvent>(Url.Event(id));
             return CreateEvent(apiEvent);
         }
 
         public IList<Event> ListByBunch(string bunchId)
         {
-            var apiEvents = _api.Get<IList<ApiEvent>>(Url.EventBunchList(bunchId));
+            var apiEvents = _api.Get<IList<ApiEvent>>(Url.EventsByBunch(bunchId));
             return apiEvents.Select(CreateEvent).ToList();
         }
 

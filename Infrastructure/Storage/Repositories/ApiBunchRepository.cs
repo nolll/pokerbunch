@@ -18,26 +18,26 @@ namespace Infrastructure.Storage.Repositories
 
         public Bunch Get(string id)
         {
-            var apiBunch = _api.Get<ApiBunch>(Url.BunchSingle(id));
+            var apiBunch = _api.Get<ApiBunch>(Url.Bunch(id));
             return ToBunch(apiBunch);
         }
 
         public IList<SmallBunch> List()
         {
-            var apiBunches = _api.Get<IList<ApiSmallBunch>>(Url.BunchList);
+            var apiBunches = _api.Get<IList<ApiSmallBunch>>(Url.Bunches);
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public IList<SmallBunch> ListForUser()
         {
-            var apiBunches = _api.Get<IList<ApiSmallBunch>>(Url.BunchUserList);
+            var apiBunches = _api.Get<IList<ApiSmallBunch>>(Url.BunchesByUser);
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public Bunch Add(Bunch bunch)
         {
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _api.Post<ApiBunch>(Url.BunchList, postBunch);
+            var apiBunch = _api.Post<ApiBunch>(Url.Bunches, postBunch);
             return ToBunch(apiBunch);
         }
 
@@ -45,7 +45,7 @@ namespace Infrastructure.Storage.Repositories
         {
             var id = bunch.Id;
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _api.Post<ApiBunch>(Url.BunchSingle(id), postBunch);
+            var apiBunch = _api.Post<ApiBunch>(Url.Bunch(id), postBunch);
             return ToBunch(apiBunch);
         }
 

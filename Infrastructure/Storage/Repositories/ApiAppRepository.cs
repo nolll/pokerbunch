@@ -18,26 +18,26 @@ namespace Infrastructure.Storage.Repositories
         
         public App GetById(string id)
         {
-            var apiApp = _api.Get<ApiApp>(Url.AppSingle(id));
+            var apiApp = _api.Get<ApiApp>(Url.App(id));
             return CreateApp(apiApp);
         }
 
         public IList<App> ListAll()
         {
-            var apiApps = _api.Get<IList<ApiApp>>(Url.AppList);
+            var apiApps = _api.Get<IList<ApiApp>>(Url.Apps);
             return apiApps.Select(CreateApp).ToList();
         }
 
         public IList<App> List()
         {
-            var apiApps = _api.Get<IList<ApiApp>>(Url.AppUserList);
+            var apiApps = _api.Get<IList<ApiApp>>(Url.AppsByUser);
             return apiApps.Select(CreateApp).ToList();
         }
 
         public string Add(string appName)
         {
             var postApp = new ApiApp(null, null, appName, null);
-            var apiApp = _api.Post<ApiApp>(Url.AppList, postApp);
+            var apiApp = _api.Post<ApiApp>(Url.Apps, postApp);
             return CreateApp(apiApp).Id;
         }
 

@@ -26,7 +26,7 @@ namespace Infrastructure.Storage.Repositories
 
         public DetailedCashgame GetDetailedById(string id)
         {
-            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>(Url.CashgameSingle(id));
+            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>(Url.Cashgame(id));
             return CreateDetailedCashgame(apiDetailedCashgame);
         }
 
@@ -37,19 +37,19 @@ namespace Infrastructure.Storage.Repositories
 
         public CashgameCollection List(string bunchId, int? year = null)
         {
-            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgameBunchList(bunchId, year));
+            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgamesByBunch(bunchId, year));
             return CreateCashgameCollection(apiCashgameList);
         }
 
         public CashgameCollection EventList(string eventId)
         {
-            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgameEventList(eventId));
+            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgamesByEvent(eventId));
             return CreateCashgameCollection(apiCashgameList);
         }
 
         public CashgameCollection PlayerList(string playerId)
         {
-            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgamePlayerList(playerId));
+            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgamesByPlayer(playerId));
             return CreateCashgameCollection(apiCashgameList);
         }
 

@@ -24,7 +24,7 @@ namespace Infrastructure.Storage.Repositories
 
         public Player Get(string id)
         {
-            var apiEvent = _api.Get<ApiPlayer>(Url.PlayerSingle(id));
+            var apiEvent = _api.Get<ApiPlayer>(Url.Player(id));
             return CreateEvent(apiEvent);
         }
 
