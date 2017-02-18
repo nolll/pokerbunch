@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Core.Exceptions;
+using Infrastructure.ApiUrls;
 using Infrastructure.Storage.Repositories;
 using JetBrains.Annotations;
 using Newtonsoft.Json;

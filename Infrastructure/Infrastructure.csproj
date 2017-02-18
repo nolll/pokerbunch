@@ -56,6 +56,9 @@
     </Compile>
     <Compile Include="ApiClient.cs" />
     <Compile Include="ApiConnection.cs" />
+    <Compile Include="ApiUrls\ApiUrl.cs" />
+    <Compile Include="ApiUrls\ApiUrlBuilder.cs" />
+    <Compile Include="ApiUrls\SimpleApiUrl.cs" />
     <Compile Include="BearerClient.cs" />
     <Compile Include="SignInClient.cs" />
     <Compile Include="Storage\CacheTime.cs" />
@@ -73,8 +76,6 @@
     <Compile Include="Storage\Repositories\ApiRepository.cs" />
     <Compile Include="Storage\Repositories\ApiTokenRepository.cs" />
     <Compile Include="Storage\Repositories\ApiAppRepository.cs" />
-    <Compile Include="Storage\Repositories\ApiUrl.cs" />
-    <Compile Include="Storage\Repositories\ApiUrlBuilder.cs" />
     <Compile Include="Storage\Repositories\CashgameRepository.cs" />
     <Compile Include="Storage\Repositories\EventRepository.cs" />
     <Compile Include="Storage\Repositories\PlayerRepository.cs" />

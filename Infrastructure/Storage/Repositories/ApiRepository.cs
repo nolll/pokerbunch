@@ -1,3 +1,5 @@
+using Infrastructure.ApiUrls;
+
 namespace Infrastructure.Storage.Repositories
 {
     public abstract class ApiRepository

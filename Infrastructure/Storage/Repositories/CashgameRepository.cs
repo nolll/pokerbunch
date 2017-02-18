@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class CashgameRepository : ICashgameRepository
+    public class CashgameRepository : ApiRepository, ICashgameRepository
     {
         private readonly SqlCashgameDb _cashgameDb;
         private readonly ApiConnection _api;
@@ -26,7 +26,7 @@ namespace Infrastructure.Storage.Repositories
 
         public DetailedCashgame GetDetailedById(string id)
         {
-            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>($"cashgames/{id}");
+            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>(Url.CashgameSingle(id));
             return CreateDetailedCashgame(apiDetailedCashgame);
         }
 
@@ -37,20 +37,19 @@ namespace Infrastructure.Storage.Repositories
 
         public CashgameCollection List(string bunchId, int? year = null)
         {
-            var url = year.HasValue ? $"bunches/{bunchId}/cashgames/{year}" : $"bunches/{bunchId}/cashgames";
-            var apiCashgameList = _api.Get<ApiCashgameList>(url);
+            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgameBunchList(bunchId, year));
             return CreateCashgameCollection(apiCashgameList);
         }
 
         public CashgameCollection EventList(string eventId)
         {
-            var apiCashgameList = _api.Get<ApiCashgameList>($"events/{eventId}/cashgames");
+            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgameEventList(eventId));
             return CreateCashgameCollection(apiCashgameList);
         }
 
         public CashgameCollection PlayerList(string playerId)
         {
-            var apiCashgameList = _api.Get<ApiCashgameList>($"players/{playerId}/cashgames");
+            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgamePlayerList(playerId));
             return CreateCashgameCollection(apiCashgameList);
         }
 
