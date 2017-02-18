@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Text;
 using Core.Exceptions;
 using Infrastructure.ApiUrls;
-using Infrastructure.Storage.Repositories;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -26,12 +25,7 @@ namespace Infrastructure
 
         public T Get<T>(ApiUrl apiUrl)
         {
-            return Get<T>(apiUrl.Url);
-        }
-
-        public T Get<T>(string apiUrl)
-        {
-            var json = ReadJson(apiUrl);
+            var json = ReadJson(apiUrl.Url);
             return JsonConvert.DeserializeObject<T>(json);
         }
 

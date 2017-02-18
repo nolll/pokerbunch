@@ -22,6 +22,8 @@ namespace Infrastructure.ApiUrls
         public ApiUrl EventSingle(string id) => new SimpleApiUrl($"events/{id}");
         public ApiUrl EventBunchList(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/events");
 
+        public ApiUrl PlayerSingle(string id) => new SimpleApiUrl($"players/{id}");
+
         private class CashgameBunchListUrl : ApiUrl
         {
             private readonly string _bunchId;

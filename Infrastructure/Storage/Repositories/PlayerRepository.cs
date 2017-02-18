@@ -9,7 +9,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class PlayerRepository : IPlayerRepository
+    public class PlayerRepository : ApiRepository, IPlayerRepository
     {
         private readonly SqlPlayerDb _playerDb;
         private readonly ApiConnection _api;
@@ -24,9 +24,8 @@ namespace Infrastructure.Storage.Repositories
 
         public Player Get(string id)
         {
-            var apiEvent = _api.Get<ApiPlayer>($"players/{id}");
+            var apiEvent = _api.Get<ApiPlayer>(Url.PlayerSingle(id));
             return CreateEvent(apiEvent);
-            return _cacheContainer.GetAndStore(_playerDb.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<Player> Get(IList<string> ids)
