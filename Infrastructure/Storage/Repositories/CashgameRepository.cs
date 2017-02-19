@@ -84,7 +84,7 @@ namespace Infrastructure.Storage.Repositories
 
         public void DeleteGame(string id)
         {
-            _api.Delete($"cashgames/{id}");
+            _api.Delete(Url.Cashgame(id));
         }
 
         public string Add(Bunch bunch, Cashgame cashgame)
@@ -101,7 +101,7 @@ namespace Infrastructure.Storage.Repositories
         public DetailedCashgame Update(string id, string locationId, string eventId)
         {
             var updateObject = new ApiUpdateCashgame(locationId, eventId);
-            var apiCashgame = _api.Put<ApiDetailedCashgame>($"cashgames/{id}", updateObject);
+            var apiCashgame = _api.Put<ApiDetailedCashgame>(Url.Cashgame(id), updateObject);
             return CreateDetailedCashgame(apiCashgame);
         }
 

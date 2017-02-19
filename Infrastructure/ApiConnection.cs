@@ -31,69 +31,72 @@ namespace Infrastructure
 
         public T Post<T>(ApiUrl apiUrl, object data)
         {
-            return Post<T>(apiUrl.Url, data);
-        }
-
-        public T Post<T>(string apiUrl, object data)
-        {
-            var json = PostJson(apiUrl, data);
+            var json = PostJson(apiUrl.Url, data);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
-        public T Put<T>(string apiUrl, object data)
+        public T Put<T>(ApiUrl apiUrl, object data)
         {
-            var json = PutJson(apiUrl, data);
+            var json = PutJson(apiUrl.Url, data);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
-        public bool Delete(string apiUrl)
+        public bool Delete(ApiUrl apiUrl)
         {
-            DeleteJson(apiUrl);
+            DeleteJson(apiUrl.Url);
             return true;
         }
 
         private string ReadJson(string apiUrl)
         {
-            using (var client = new BearerClient(_url, _token))
+            using (var client = Client)
             {
                 var response = client.GetAsync(apiUrl).Result;
-                ValidateResponse(response);
-                return response.Content.ReadAsStringAsync().Result;
+                return ReadResponse(response);
             }
         }
 
         private string PostJson(string apiUrl, object data)
         {
-            using (var client = new BearerClient(_url, _token))
+            using (var client = Client)
             {
-                var jsonData = JsonConvert.SerializeObject(data);
-                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                var content = GetJsonContent(data);
                 var response = client.PostAsync(apiUrl, content).Result;
-                ValidateResponse(response);
-                return response.Content.ReadAsStringAsync().Result;
+                return ReadResponse(response);
             }
         }
 
         private string PutJson(string apiUrl, object data)
         {
-            using (var client = new BearerClient(_url, _token))
+            using (var client = Client)
             {
-                var jsonData = JsonConvert.SerializeObject(data);
-                var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                var content = GetJsonContent(data);
                 var response = client.PutAsync(apiUrl, content).Result;
-                ValidateResponse(response);
-                return response.Content.ReadAsStringAsync().Result;
+                return ReadResponse(response);
             }
         }
 
         private string DeleteJson(string apiUrl)
         {
-            using (var client = new BearerClient(_url, _token))
+            using (var client = Client)
             {
                 var response = client.DeleteAsync(apiUrl).Result;
-                ValidateResponse(response);
-                return response.Content.ReadAsStringAsync().Result;
+                return ReadResponse(response);
             }
+        }
+
+        private BearerClient Client => new BearerClient(_url, _token);
+
+        private string ReadResponse(HttpResponseMessage response)
+        {
+            ValidateResponse(response);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+
+        private static StringContent GetJsonContent(object data)
+        {
+            var jsonData = JsonConvert.SerializeObject(data);
+            return new StringContent(jsonData, Encoding.UTF8, "application/json");
         }
 
         private void ValidateResponse(HttpResponseMessage response)
