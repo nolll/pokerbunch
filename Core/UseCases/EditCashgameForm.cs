@@ -27,8 +27,7 @@ namespace Core.UseCases
 
             var events = _eventRepository.ListByBunch(cashgame.Bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
-            var selectedEvent = _eventRepository.GetByCashgame(cashgame.Id);
-            var selectedEventId = selectedEvent?.Id ?? "";
+            var selectedEventId = cashgame.BelongsToEvent ? cashgame.Event.Id : "";
             var localStartTime = TimeZoneInfo.ConvertTimeFromUtc(cashgame.StartTime, cashgame.Bunch.Timezone);
             var dateString = Globalization.FormatIsoDate(localStartTime);
 

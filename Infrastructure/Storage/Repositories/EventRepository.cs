@@ -33,18 +33,7 @@ namespace Infrastructure.Storage.Repositories
             var apiEvents = _api.Get<IList<ApiEvent>>(Url.EventsByBunch(bunchId));
             return apiEvents.Select(CreateEvent).ToList();
         }
-
-        public Event GetByCashgame(string cashgameId)
-        {
-            var ids = _eventDb.FindByBunchId(cashgameId);
-            return Get(ids).FirstOrDefault();
-        }
-
-        private IList<Event> Get(IList<string> ids)
-        {
-            return _cacheContainer.GetAndStore(_eventDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
-        }
-
+        
         public string Add(Event e)
         {
             return _eventDb.Add(e);

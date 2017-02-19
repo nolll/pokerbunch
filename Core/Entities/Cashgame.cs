@@ -135,9 +135,10 @@ namespace Core.Entities
         public CashgameBunch Bunch { get; }
         public Role Role { get; }
         public CashgameLocation Location { get; }
+        public CashgameEvent Event { get; }
         public IList<CashgamePlayer> Players { get; }
 
-        public DetailedCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, CashgameBunch bunch, Role role, CashgameLocation location, IList<CashgamePlayer> players)
+        public DetailedCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, CashgameBunch bunch, Role role, CashgameLocation location, CashgameEvent @event, IList<CashgamePlayer> players)
         {
             Id = id;
             StartTime = startTime;
@@ -146,8 +147,11 @@ namespace Core.Entities
             Bunch = bunch;
             Role = role;
             Location = location;
+            Event = @event;
             Players = players;
         }
+
+        public bool BelongsToEvent => Event != null;
 
         public class CashgamePlayer
         {
@@ -391,6 +395,18 @@ namespace Core.Entities
         public string Name { get; }
 
         public CashgameLocation(string id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
+    }
+
+    public class CashgameEvent
+    {
+        public string Id { get; }
+        public string Name { get; }
+
+        public CashgameEvent(string id, string name)
         {
             Id = id;
             Name = name;

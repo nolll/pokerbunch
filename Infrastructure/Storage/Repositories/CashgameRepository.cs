@@ -141,10 +141,11 @@ namespace Infrastructure.Storage.Repositories
             var bunch = new CashgameBunch(c.Bunch.Id, timezone, currency);
             var role = GetRole(c.Bunch.Role);
             var location = new CashgameLocation(c.Location.Id, c.Location.Name);
+            var @event = c.Event != null ? new CashgameEvent(c.Event.Id, c.Event.Name) : null;
             var players = c.Players.Select(CreatePlayer).ToList();
             var startTime = DateTime.SpecifyKind(c.StartTime, DateTimeKind.Utc);
             var updatedTime = DateTime.SpecifyKind(c.UpdatedTime, DateTimeKind.Utc);
-            return new DetailedCashgame(c.Id, startTime, updatedTime, c.IsRunning, bunch, role, location, players);
+            return new DetailedCashgame(c.Id, startTime, updatedTime, c.IsRunning, bunch, role, location, @event, players);
         }
 
         private DetailedCashgame.CashgamePlayer CreatePlayer(ApiDetailedCashgame.ApiDetailedCashgamePlayer p)
@@ -277,6 +278,14 @@ namespace Infrastructure.Storage.Repositories
             public string Name { get; set; }
         }
 
+        public class ApiCashgameEvent
+        {
+            [UsedImplicitly]
+            public string Id { get; set; }
+            [UsedImplicitly]
+            public string Name { get; set; }
+        }
+
         private class ApiDetailedCashgame
         {
             [UsedImplicitly]
@@ -293,6 +302,8 @@ namespace Infrastructure.Storage.Repositories
             public Role Role { get; set; }
             [UsedImplicitly]
             public ApiCashgameLocation Location { get; set; }
+            [UsedImplicitly]
+            public ApiCashgameEvent Event { get; set; }
             [UsedImplicitly]
             public IList<ApiDetailedCashgamePlayer> Players { get; set; }
 

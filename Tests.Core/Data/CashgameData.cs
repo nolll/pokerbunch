@@ -26,6 +26,7 @@ namespace Tests.Core.Data
             new CashgameBunch(BunchData.Id1, Timezone, Currency),
             role,
             new CashgameLocation(LocationData.Id1, LocationData.Name1),
+            null,
             new List<DetailedCashgame.CashgamePlayer>
             {
                 new DetailedCashgame.CashgamePlayer(
@@ -90,6 +91,7 @@ namespace Tests.Core.Data
             new CashgameBunch(BunchData.Id1, Timezone, Currency),
             role,
             new CashgameLocation(LocationData.Id1, LocationData.Name1),
+            null,
             new List<DetailedCashgame.CashgamePlayer>());
 
         public static CashgameCollection TwoGamesOnSameYearWithTwoPlayers => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2, EndTime2);
