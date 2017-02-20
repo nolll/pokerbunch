@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Player.Details)]
         public ActionResult Details(string id)
         {
-            var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(Identity.UserName, id));
+            var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(id));
             var contextResult = GetBunchContext(detailsResult.Slug);
             var factsResult = UseCase.PlayerFacts.Execute(new PlayerFacts.Request(Identity.UserName, id));
             var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadges.Request(Identity.UserName, id));

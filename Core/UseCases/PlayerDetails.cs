@@ -25,12 +25,9 @@ namespace Core.UseCases
             var player = _playerRepository.Get(request.PlayerId);
             var bunch = _bunchRepository.Get(player.BunchId);
             var user = _userRepository.GetById(player.UserId);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
-            RequireRole.Player(currentUser, currentPlayer);
-            var isManager = RoleHandler.IsInRole(currentUser, currentPlayer, Role.Manager);
-            var cashgames = _cashgameRepository.ListByPlayer(player.Id);
-            var hasPlayed = cashgames.Any();
+            var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
+            var cashgames = _cashgameRepository.PlayerList(player.Id);
+            var hasPlayed = cashgames.Cashgames.Any();
             var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;
 
             return new Result(bunch, player, user, isManager, hasPlayed, avatarUrl);
@@ -38,12 +35,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string PlayerId { get; }
 
-            public Request(string userName, string playerId)
+            public Request(string playerId)
             {
-                UserName = userName;
                 PlayerId = playerId;
             }
         }

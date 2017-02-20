@@ -25,7 +25,7 @@ namespace Infrastructure.Storage.Repositories
         public Player Get(string id)
         {
             var apiEvent = _api.Get<ApiPlayer>(Url.Player(id));
-            return CreateEvent(apiEvent);
+            return CreatePlayer(apiEvent);
         }
 
         public IList<Player> Get(IList<string> ids)
@@ -63,7 +63,7 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer.Remove<Player>(playerId);
         }
 
-        private Player CreateEvent(ApiPlayer l)
+        private Player CreatePlayer(ApiPlayer l)
         {
             return new Player(l.BunchId, l.Id, l.UserId, l.DisplayName, (Role)l.RoleId, l.Color);
         }

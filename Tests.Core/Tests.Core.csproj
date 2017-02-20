@@ -129,6 +129,7 @@
     <Compile Include="UseCases\MatrixTests\Arrange.cs" />
     <Compile Include="UseCases\MatrixTests\WithTwoGames.cs" />
     <Compile Include="UseCases\MatrixTests\WithTwoGamesOnDifferentYears.cs" />
+    <Compile Include="UseCases\PlayerDetailsTests\WithPlayerThatIsNotUser.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
     <Compile Include="UseCases\EditBunchFormTests.cs" />
     <Compile Include="UseCases\EditCheckpointFormTests.cs" />
@@ -141,7 +142,6 @@
     <Compile Include="UseCases\JoinBunchFormTests.cs" />
     <Compile Include="UseCases\JoinBunchTests.cs" />
     <Compile Include="UseCases\PlayerBadgesTests.cs" />
-    <Compile Include="UseCases\PlayerDetailsTests.cs" />
     <Compile Include="UseCases\PlayerFactsTests.cs" />
     <Compile Include="UseCases\PlayerListTests.cs" />
     <Compile Include="UseCases\RunningCashgameTests.cs" />
