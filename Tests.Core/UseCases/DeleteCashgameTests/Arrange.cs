@@ -29,6 +29,9 @@ namespace Tests.Core.UseCases.DeleteCashgameTests
                 .Returns(cashgameWithoutResults)
                 .Callback((string id) => { DeletedId = id; });
 
+            crm.Setup(o => o.DeleteGame(IdWithoutResults))
+                .Callback((string id) => { DeletedId = id; });
+
             Sut = new DeleteCashgame(crm.Object);
         }
 

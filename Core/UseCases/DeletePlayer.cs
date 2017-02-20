@@ -1,6 +1,5 @@
 using System.Linq;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
@@ -8,26 +7,17 @@ namespace Core.UseCases
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IBunchRepository _bunchRepository;
 
-        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IBunchRepository bunchRepository)
+        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
         {
             _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.Get(request.PlayerId);
-            var bunch = _bunchRepository.Get(player.BunchId);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
-            RequireRole.Manager(currentUser, currentPlayer);
-            var cashgames = _cashgameRepository.ListByPlayer(player.Id);
-            var hasPlayed = cashgames.Any();
+            var cashgameCollection = _cashgameRepository.PlayerList(request.PlayerId);
+            var hasPlayed = cashgameCollection.Cashgames.Any();
             var canDelete = !hasPlayed;
 
             if (canDelete)
@@ -35,17 +25,15 @@ namespace Core.UseCases
                 _playerRepository.Delete(request.PlayerId);
             }
 
-            return new Result(canDelete, bunch.Id, request.PlayerId);
+            return new Result(canDelete, cashgameCollection.Bunch.Id, request.PlayerId);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string PlayerId { get; }
 
-            public Request(string userName, string playerId)
+            public Request(string playerId)
             {
-                UserName = userName;
                 PlayerId = playerId;
             }
         }

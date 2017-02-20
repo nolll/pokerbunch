@@ -87,6 +87,9 @@
     <Compile Include="UseCases\DeleteCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasNoResults.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasResults.cs" />
+    <Compile Include="UseCases\DeletePlayerTests\Arrange.cs" />
+    <Compile Include="UseCases\DeletePlayerTests\WithPlayerThatHasNotPlayed.cs" />
+    <Compile Include="UseCases\DeletePlayerTests\WithPlayerThatHasPlayed.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\Arrange.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\WithPlayer.cs" />
     <Compile Include="UseCases\AppListAllTests\Arrange.cs" />
@@ -127,7 +130,6 @@
     <Compile Include="UseCases\MatrixTests\WithTwoGames.cs" />
     <Compile Include="UseCases\MatrixTests\WithTwoGamesOnDifferentYears.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
-    <Compile Include="UseCases\DeletePlayerTests.cs" />
     <Compile Include="UseCases\EditBunchFormTests.cs" />
     <Compile Include="UseCases\EditCheckpointFormTests.cs" />
     <Compile Include="UseCases\EditUserFormTests.cs" />

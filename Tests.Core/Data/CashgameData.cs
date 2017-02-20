@@ -155,5 +155,10 @@ namespace Tests.Core.Data
                                 endTime2)
                         })
                 });
+
+        public static CashgameCollection EmptyCollection =>
+            new CashgameCollection(
+                new CashgameBunch(BunchData.Id1, Timezone, Currency),
+                new List<ListCashgame>());
     }
 }
