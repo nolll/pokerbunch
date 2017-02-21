@@ -136,6 +136,14 @@
     <Compile Include="UseCases\MatrixTests\Arrange.cs" />
     <Compile Include="UseCases\MatrixTests\WithTwoGames.cs" />
     <Compile Include="UseCases\MatrixTests\WithTwoGamesOnDifferentYears.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests\Arrange.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests\With100Games.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests\With10Games.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests\With200Games.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests\With500Games.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests\With50Games.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests\WithNoGames.cs" />
+    <Compile Include="UseCases\PlayerBadgesTests\WithOneGame.cs" />
     <Compile Include="UseCases\PlayerDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\PlayerDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\PlayerDetailsTests\WithPlayerThatHasNotPlayedGamesAndUserIsManager.cs" />
@@ -152,7 +160,6 @@
     <Compile Include="UseCases\JoinBunchConfirmationTests.cs" />
     <Compile Include="UseCases\JoinBunchFormTests.cs" />
     <Compile Include="UseCases\JoinBunchTests.cs" />
-    <Compile Include="UseCases\PlayerBadgesTests.cs" />
     <Compile Include="UseCases\PlayerFactsTests.cs" />
     <Compile Include="UseCases\PlayerListTests.cs" />
     <Compile Include="UseCases\RunningCashgameTests.cs" />

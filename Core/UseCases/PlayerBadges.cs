@@ -2,44 +2,31 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerBadges
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
 
-        public PlayerBadges(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public PlayerBadges(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
-            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.Get(request.PlayerId);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            RequireRole.Player(user, player);
-            var bunch = _bunchRepository.Get(player.BunchId);
-            var cashgames = _cashgameRepository.ListFinished(bunch.Id);
+            var cashgames = _cashgameRepository.PlayerList(request.PlayerId).Where(o => !o.IsRunning);
 
-            return new Result(player.Id, cashgames);
+            return new Result(cashgames);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string PlayerId { get; }
 
-            public Request(string userName, string playerId)
+            public Request(string playerId)
             {
-                UserName = userName;
                 PlayerId = playerId;
             }
         }
@@ -53,9 +40,9 @@ namespace Core.UseCases
             public bool Played200Games { get; private set; }
             public bool Played500Games { get; private set; }
 
-            public Result(string playerId, IEnumerable<Cashgame> cashgames)
+            public Result(IEnumerable<ListCashgame> cashgames)
             {
-                var gameCount = GetNumberOfPlayedGames(playerId, cashgames);
+                var gameCount = cashgames.Count();
 
                 PlayedOneGame = PlayedEnoughGames(gameCount, 1);
                 PlayedTenGames = PlayedEnoughGames(gameCount, 10);
@@ -63,11 +50,6 @@ namespace Core.UseCases
                 Played100Games = PlayedEnoughGames(gameCount, 100);
                 Played200Games = PlayedEnoughGames(gameCount, 200);
                 Played500Games = PlayedEnoughGames(gameCount, 500);
-            }
-
-            private int GetNumberOfPlayedGames(string playerId, IEnumerable<Cashgame> cashgames)
-            {
-                return cashgames.Count(cashgame => cashgame.IsInGame(playerId));
             }
 
             private bool PlayedEnoughGames(int gameCount, int requiredGameCount)

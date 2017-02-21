@@ -86,6 +86,16 @@ namespace Core.Entities
             }
         }
 
+        public bool IsInGame(string playerId)
+        {
+            return GetResult(playerId) != null;
+        }
+
+        private CashgamePlayer GetResult(string playerId)
+        {
+            return Players.FirstOrDefault(o => o.Id == playerId);
+        }
+
         public bool IsBestResult(CashgamePlayer resultToCheck)
         {
             var bestResult = GetBestResult();
@@ -315,17 +325,6 @@ namespace Core.Entities
             DeletedCheckpoints.Add(checkpoint);
         }
         
-        public int Duration
-        {
-            get
-            {
-                if (!StartTime.HasValue || !EndTime.HasValue)
-                    return 0;
-                var timespan = EndTime - StartTime;
-                return (int) Math.Round(timespan.Value.TotalMinutes);
-            }
-        }
-
         public CashgameResult GetResult(string playerId)
 	    {
 	        return Results.FirstOrDefault(result => result.PlayerId == playerId);
@@ -334,12 +333,6 @@ namespace Core.Entities
         public bool IsInGame(string playerId)
         {
             return GetResult(playerId) != null;
-        }
-
-        public bool IsBestResult(CashgameResult resultToCheck)
-        {
-            var bestResult = GetBestResult();
-            return bestResult != null && resultToCheck.Winnings == bestResult.Winnings;
         }
 
         public CashgameResult GetBestResult()
