@@ -29,7 +29,7 @@ namespace Core.UseCases
             RequireRole.Player(user, player);
             var years = _cashgameRepository.GetYears(request.Slug);
             var latestYear = years.Count > 0 ? years.OrderBy(o => o).Last() : (int?)null;
-            var cashgames = _cashgameRepository.List(request.Slug, latestYear);
+            var cashgames = _cashgameRepository.List(request.Slug, latestYear).Where(o => !o.IsRunning).ToList();
             if (!cashgames.Any())
                 return new Result(new List<Item>(), "");
 

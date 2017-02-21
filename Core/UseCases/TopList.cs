@@ -21,7 +21,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.Get(request.Slug);
-            var cashgames = _cashgameRepository.List(request.Slug, request.Year);
+            var cashgames = _cashgameRepository.List(request.Slug, request.Year).Where(o => !o.IsRunning).ToList();
             var players = _playerRepository.List(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
 
