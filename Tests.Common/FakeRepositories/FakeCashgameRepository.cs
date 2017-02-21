@@ -39,13 +39,6 @@ namespace Tests.Common.FakeRepositories
             throw new NotImplementedException();
         }
 
-        public IList<Cashgame> ListFinished(string bunchId, int? year = null)
-        {
-            if (year.HasValue)
-                return _list.Where(o => o.StartTime.HasValue && o.StartTime.Value.Year == year && o.Status == GameStatus.Finished).ToList();
-            return _list.Where(o => o.Status == GameStatus.Finished).ToList();
-        }
-
         public Cashgame GetRunning(string bunchId)
         {
             return _list.FirstOrDefault(o => o.Status == GameStatus.Running);

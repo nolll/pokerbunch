@@ -14,7 +14,7 @@ namespace Tests.Core.UseCases.CashgameDetailsChartTests
         [SetUp]
         public void Setup()
         {
-            var cashgame = CashgameData.EndedGameWithTwoPlayers(Role.Player);
+            var cashgame = CashgameData.GameWithTwoPlayers(Role.Player);
             var crm = new Mock<ICashgameRepository>();
             crm.Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
 

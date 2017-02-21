@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases.EditCashgameTests
         {
             var crm = new Mock<ICashgameRepository>();
 
-            var cashgame = CashgameData.EndedGameWithTwoPlayers(Role.Manager);
+            var cashgame = CashgameData.GameWithTwoPlayers(Role.Manager);
             crm.Setup(o => o.Update(CashgameData.Id1, ValidLocationId, ValidEventId))
                 .Returns(cashgame)
                 .Callback((string cashgameId, string locationId, string eventId) => { SavedLocationId = locationId; SavedEventId = eventId; });

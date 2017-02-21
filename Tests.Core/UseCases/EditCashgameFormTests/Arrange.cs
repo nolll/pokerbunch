@@ -16,7 +16,7 @@ namespace Tests.Core.UseCases.EditCashgameFormTests
         [SetUp]
         public void Setup()
         {
-            var cashgame = CashgameData.EndedGameWithTwoPlayers(Role);
+            var cashgame = CashgameData.GameWithTwoPlayers(Role);
             var crm = new Mock<ICashgameRepository>();
             crm.Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
 

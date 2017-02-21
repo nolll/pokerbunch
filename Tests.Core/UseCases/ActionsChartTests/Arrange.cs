@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.ActionsChartTests
         public void Setup()
         {
             var crm = new Mock<ICashgameRepository>();
-            var cashgame = CashgameData.EndedGameWithTwoPlayers(Role.Player, GameIsRunning);
+            var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, GameIsRunning);
             crm.Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
 
             Sut = new ActionsChart(crm.Object);

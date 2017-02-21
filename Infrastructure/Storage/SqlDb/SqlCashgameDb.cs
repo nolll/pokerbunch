@@ -33,24 +33,6 @@ namespace Infrastructure.Storage.SqlDb
             return CreateCashgameList(rawCashgames, rawCheckpoints);
 	    }
 
-	    public IList<string> FindFinished(string bunchId, int? year = null)
-	    {
-            var sql = string.Concat(SearchSql, "JOIN Homegame h on h.HomegameID = g.HomegameID WHERE h.Name = @homegameId AND g.Status = @status");
-            const int status = (int)GameStatus.Finished;
-            var parameters = new List<SimpleSqlParameter>
-            {
-                new SimpleSqlParameter("@homegameId", bunchId),
-                new SimpleSqlParameter("@status", status)
-            };
-            if (year.HasValue)
-            {
-                sql = string.Concat(sql, " AND YEAR(g.Date) = @year");
-                parameters.Add(new SimpleSqlParameter("@year", year.Value));
-            }
-            var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
-	    }
-
 	    public IList<string> FindRunning(string bunchId)
 	    {
             const int status = (int)GameStatus.Running;

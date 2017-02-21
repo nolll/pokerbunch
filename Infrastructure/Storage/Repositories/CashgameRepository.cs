@@ -53,12 +53,6 @@ namespace Infrastructure.Storage.Repositories
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
-        public IList<Cashgame> ListFinished(string bunchId, int? year = null)
-        {
-            var ids = _cashgameDb.FindFinished(bunchId, year);
-            return Get(ids);
-        }
-
         public Cashgame GetRunning(string bunchId)
         {
             var ids = _cashgameDb.FindRunning(bunchId);
