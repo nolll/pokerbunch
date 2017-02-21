@@ -127,7 +127,7 @@
     <Compile Include="UseCases\EditCheckpointTests.cs" />
     <Compile Include="UseCases\EditUserTests.cs" />
     <Compile Include="UseCases\EndCashgameTests.cs" />
-    <Compile Include="UseCases\LocationDetailsTests.cs" />
+    <Compile Include="UseCases\LocationDetailsTests\LocationDetailsTests1.cs" />
     <Compile Include="UseCases\LoginFormTests.cs" />
     <Compile Include="UseCases\LoginTests\Arrange.cs" />
     <Compile Include="UseCases\LoginTests\WhenExecuteWithCorrectPassword.cs" />
