@@ -129,7 +129,11 @@
     <Compile Include="UseCases\MatrixTests\Arrange.cs" />
     <Compile Include="UseCases\MatrixTests\WithTwoGames.cs" />
     <Compile Include="UseCases\MatrixTests\WithTwoGamesOnDifferentYears.cs" />
-    <Compile Include="UseCases\PlayerDetailsTests\WithPlayerThatIsNotUser.cs" />
+    <Compile Include="UseCases\PlayerDetailsTests\Arrange.cs" />
+    <Compile Include="UseCases\PlayerDetailsTests\WithPlayer.cs" />
+    <Compile Include="UseCases\PlayerDetailsTests\WithPlayerThatHasNotPlayedGamesAndUserIsManager.cs" />
+    <Compile Include="UseCases\PlayerDetailsTests\WithPlayerThatHasPlayedGamesAndUserIsManager.cs" />
+    <Compile Include="UseCases\PlayerDetailsTests\WithPlayerThatIsUser.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
     <Compile Include="UseCases\EditBunchFormTests.cs" />
     <Compile Include="UseCases\EditCheckpointFormTests.cs" />

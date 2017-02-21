@@ -51,17 +51,6 @@ namespace Infrastructure.Storage.SqlDb
             return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
 	    }
 
-	    public IList<string> FindByEvent(string eventId)
-	    {
-            var sql = string.Concat(SearchSql, "WHERE g.GameID IN (SELECT ecg.GameID FROM eventcashgame ecg WHERE ecg.EventId = @eventId)");
-            var parameters = new List<SimpleSqlParameter>
-		        {
-                    new SimpleSqlParameter("@eventId", eventId),
-		        };
-            var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
-	    }
-
 	    public IList<string> FindRunning(string bunchId)
 	    {
             const int status = (int)GameStatus.Running;
@@ -109,16 +98,7 @@ namespace Infrastructure.Storage.SqlDb
             return reader.ReadIntList("Year");
         }
 
-		public void DeleteGame(string id){
-            const string sql = "DELETE FROM game WHERE GameID = @cashgameId";
-		    var parameters = new List<SimpleSqlParameter>
-		    {
-		        new SimpleSqlParameter("@cashgameId", id)
-		    };
-            _db.Execute(sql, parameters);
-		}
-        
-		public string AddGame(Bunch bunch, Cashgame cashgame)
+        public string AddGame(Bunch bunch, Cashgame cashgame)
 		{
 		    var rawCashgame = CreateRawCashgame(cashgame);
             const string sql = "INSERT INTO game (HomegameID, LocationId, Status, Date) SELECT h.HomegameID, @locationId, @status, @date FROM Homegame h WHERE h.Name = @homegameId SELECT SCOPE_IDENTITY() AS [SCOPE_IDENTITY]";
@@ -168,17 +148,6 @@ namespace Infrastructure.Storage.SqlDb
             _db.Execute(sql, parameters);
 		}
         
-        public IList<string> FindByPlayerId(string playerId)
-        {
-            const string sql = "SELECT DISTINCT GameID FROM cashgamecheckpoint WHERE PlayerId = @playerId";
-            var parameters = new List<SimpleSqlParameter>
-		        {
-                    new SimpleSqlParameter("@playerId", playerId)
-		        };
-            var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("GameID").Select(o => o.ToString()).ToList();
-        }
-
         private RawCashgame CreateRawCashgame(Cashgame cashgame, GameStatus? status = null)
 	    {
 	        var rawStatus = status.HasValue ? (int) status.Value : (int) cashgame.Status;
@@ -269,17 +238,6 @@ namespace Infrastructure.Storage.SqlDb
 		            new SimpleSqlParameter("@checkpointId", checkpoint.Id)
 		        };
             _db.Execute(sql, parameters);
-        }
-
- 	    private IList<RawCheckpoint> GetCheckpoints(string cashgameId)
-        {
-            const string sql = "SELECT cp.GameID, cp.CheckpointID, cp.PlayerID, cp.Type, cp.Stack, cp.Amount, cp.Timestamp FROM cashgamecheckpoint cp WHERE cp.GameID = @cashgameId ORDER BY cp.PlayerID, cp.Timestamp";
-            var parameters = new List<SimpleSqlParameter>
-		        {
-		            new SimpleSqlParameter("@cashgameId", cashgameId)
-		        };
-            var reader = _db.Query(sql, parameters);
-            return reader.ReadList(CreateRawCheckpoint);
         }
 
         private static RawCheckpoint CreateRawCheckpoint(IStorageDataReader reader)
