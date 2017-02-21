@@ -16,8 +16,9 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var cashgameCollection = _cashgameRepository.PlayerList(request.PlayerId);
-            var hasPlayed = cashgameCollection.Cashgames.Any();
+            var player = _playerRepository.Get(request.PlayerId);
+            var cashgame = _cashgameRepository.PlayerList(request.PlayerId);
+            var hasPlayed = cashgame.Any();
             var canDelete = !hasPlayed;
 
             if (canDelete)
@@ -25,7 +26,7 @@ namespace Core.UseCases
                 _playerRepository.Delete(request.PlayerId);
             }
 
-            return new Result(canDelete, cashgameCollection.Bunch.Id, request.PlayerId);
+            return new Result(canDelete, player.BunchId, request.PlayerId);
         }
 
         public class Request

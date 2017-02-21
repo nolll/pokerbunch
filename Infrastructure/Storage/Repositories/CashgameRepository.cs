@@ -35,22 +35,22 @@ namespace Infrastructure.Storage.Repositories
             return _cacheContainer.GetAndStore(_cashgameDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
-        public CashgameCollection List(string bunchId, int? year = null)
+        public IList<ListCashgame> List(string bunchId, int? year = null)
         {
-            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgamesByBunch(bunchId, year));
-            return CreateCashgameCollection(apiCashgameList);
+            var apiCashgames = _api.Get<IList<ApiListCashgame>>(Url.CashgamesByBunch(bunchId, year));
+            return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
-        public CashgameCollection EventList(string eventId)
+        public IList<ListCashgame> EventList(string eventId)
         {
-            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgamesByEvent(eventId));
-            return CreateCashgameCollection(apiCashgameList);
+            var apiCashgames = _api.Get<IList<ApiListCashgame>>(Url.CashgamesByEvent(eventId));
+            return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
-        public CashgameCollection PlayerList(string playerId)
+        public IList<ListCashgame> PlayerList(string playerId)
         {
-            var apiCashgameList = _api.Get<ApiCashgameList>(Url.CashgamesByPlayer(playerId));
-            return CreateCashgameCollection(apiCashgameList);
+            var apiCashgames = _api.Get<IList<ApiListCashgame>>(Url.CashgamesByPlayer(playerId));
+            return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
         public IList<Cashgame> ListFinished(string bunchId, int? year = null)
@@ -98,26 +98,14 @@ namespace Infrastructure.Storage.Repositories
             var apiCashgame = _api.Put<ApiDetailedCashgame>(Url.Cashgame(id), updateObject);
             return CreateDetailedCashgame(apiCashgame);
         }
-
-        private CashgameCollection CreateCashgameCollection(ApiCashgameList apiCashgameList)
+        
+        private ListCashgame CreateListCashgame(ApiListCashgame c)
         {
-            var apiBunch = apiCashgameList.Bunch;
-            var culture = CultureInfo.CreateSpecificCulture(apiBunch.Culture);
-            var currency = new Currency(apiBunch.CurrencySymbol, apiBunch.CurrencyLayout, culture, apiBunch.ThousandSeparator);
-            var timezone = TimeZoneInfo.FindSystemTimeZoneById(apiBunch.Timezone);
-            var bunch = new CashgameBunch(apiBunch.Id, timezone, currency);
-            var cashgames = apiCashgameList.Cashgames.Select(o => CreateListCashgame(apiCashgameList.Bunch, o)).ToList();
-            return new CashgameCollection(bunch, cashgames);
-        }
-
-        private ListCashgame CreateListCashgame(ApiCashgameBunch b, ApiListCashgame c)
-        {
-            var role = GetRole(b.Role);
             var location = new ListCashgame.CashgameLocation(c.Location.Id, c.Location.Name);
             var players = c.Players.Select(CreatePlayer).ToList();
             var startTime = DateTime.SpecifyKind(c.StartTime, DateTimeKind.Utc);
             var updatedTime = DateTime.SpecifyKind(c.UpdatedTime, DateTimeKind.Utc);
-            return new ListCashgame(c.Id, startTime, updatedTime, c.IsRunning, role, location, players);
+            return new ListCashgame(c.Id, startTime, updatedTime, c.IsRunning, location, players);
         }
 
         private ListCashgame.CashgamePlayer CreatePlayer(ApiListCashgame.ApiListCashgamePlayer p)
@@ -186,14 +174,6 @@ namespace Infrastructure.Storage.Repositories
                 LocationId = locationId;
                 EventId = eventId;
             }
-        }
-
-        private class ApiCashgameList
-        {
-            [UsedImplicitly]
-            public ApiCashgameBunch Bunch { get; set; }
-            [UsedImplicitly]
-            public IList<ApiListCashgame> Cashgames { get; set; }
         }
 
         private class ApiListCashgame

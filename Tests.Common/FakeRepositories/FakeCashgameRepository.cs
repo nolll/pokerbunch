@@ -24,17 +24,17 @@ namespace Tests.Common.FakeRepositories
             throw new NotImplementedException();
         }
 
-        public CashgameCollection List(string bunchId, int? year = null)
+        public IList<ListCashgame> List(string bunchId, int? year = null)
         {
             throw new NotImplementedException();
         }
 
-        public CashgameCollection EventList(string eventId)
+        public IList<ListCashgame> EventList(string eventId)
         {
             throw new NotImplementedException();
         }
 
-        public CashgameCollection PlayerList(string playerId)
+        public IList<ListCashgame> PlayerList(string playerId)
         {
             throw new NotImplementedException();
         }
@@ -44,19 +44,6 @@ namespace Tests.Common.FakeRepositories
             if (year.HasValue)
                 return _list.Where(o => o.StartTime.HasValue && o.StartTime.Value.Year == year && o.Status == GameStatus.Finished).ToList();
             return _list.Where(o => o.Status == GameStatus.Finished).ToList();
-        }
-
-        public IList<Cashgame> ListByPlayer(string playerId)
-        {
-            var cashgames = new List<Cashgame>();
-            foreach (var game in _list)
-            {
-                if (game.GetResult(playerId) != null)
-                {
-                    cashgames.Add(game);
-                }
-            }
-            return cashgames;
         }
 
         public Cashgame GetRunning(string bunchId)

@@ -19,8 +19,8 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var players = _playerRepository.List(request.Slug).OrderBy(o => o.DisplayName).ToList();
-            var cashgameList = _cashgameRepository.List(request.Slug, request.Year);
-            var suite = new CashgameSuite(cashgameList.Cashgames, players);
+            var cashgames = _cashgameRepository.List(request.Slug, request.Year);
+            var suite = new CashgameSuite(cashgames, players);
 
             var playerItems = GetPlayerItems(suite.TotalResults);
             var gameItems = GetGameItems(suite.Cashgames, suite.TotalResults);

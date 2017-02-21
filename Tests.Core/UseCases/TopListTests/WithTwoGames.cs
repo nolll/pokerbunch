@@ -14,6 +14,10 @@ namespace Tests.Core.UseCases.TopListTests
         [SetUp]
         public void Setup()
         {
+            var brm = new Mock<IBunchRepository>();
+            brm.Setup(o => o.Get(BunchData.Id1))
+                .Returns(BunchData.Bunch(Role.Player));
+
             var crm = new Mock<ICashgameRepository>();
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
             crm.Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
@@ -22,7 +26,7 @@ namespace Tests.Core.UseCases.TopListTests
             var players = PlayerData.TwoPlayers;
             prm.Setup(o => o.List(BunchData.Id1)).Returns(players);
 
-            Sut = new TopList(crm.Object, prm.Object);
+            Sut = new TopList(brm.Object, crm.Object, prm.Object);
         }
 
         protected TopList.Request Request => new TopList.Request(BunchData.Id1, null);

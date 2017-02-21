@@ -27,7 +27,7 @@ namespace Core.UseCases
             var user = _userRepository.GetById(player.UserId);
             var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
             var cashgames = _cashgameRepository.PlayerList(player.Id);
-            var hasPlayed = cashgames.Cashgames.Any();
+            var hasPlayed = cashgames.Any();
             var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;
 
             return new Result(bunch, player, user, isManager, hasPlayed, avatarUrl);

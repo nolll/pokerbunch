@@ -11,11 +11,15 @@ namespace Tests.Core.UseCases.MatrixTests
     {
         protected virtual bool DifferentYears => false;
 
-        protected Matrix Sut;
+        protected BunchMatrix Sut;
 
         [SetUp]
         public void Setup()
         {
+            var brm = new Mock<IBunchRepository>();
+            brm.Setup(o => o.Get(BunchData.Id1))
+                .Returns(BunchData.Bunch(Role.Player));
+
             var crm = new Mock<ICashgameRepository>();
             var cashgames = DifferentYears ?
                 CashgameData.TwoGamesOnDifferentYearWithTwoPlayers :
@@ -26,9 +30,9 @@ namespace Tests.Core.UseCases.MatrixTests
             var players = PlayerData.TwoPlayers;
             prm.Setup(o => o.List(BunchData.Id1)).Returns(players);
 
-            Sut = new Matrix(crm.Object, prm.Object);
+            Sut = new BunchMatrix(brm.Object, crm.Object, prm.Object);
         }
 
-        protected Matrix.Request Request => new Matrix.Request(BunchData.Id1, null);
+        protected BunchMatrix.Request Request => new BunchMatrix.Request(BunchData.Id1, null);
     }
 }

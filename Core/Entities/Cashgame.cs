@@ -24,17 +24,15 @@ namespace Core.Entities
         public DateTime StartTime { get; }
         public DateTime UpdatedTime { get; }
         public bool IsRunning { get; }
-        public Role Role { get; }
         public CashgameLocation Location { get; }
         public IList<CashgamePlayer> Players { get; }
 
-        public ListCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, Role role, CashgameLocation location, IList<CashgamePlayer> players)
+        public ListCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, CashgameLocation location, IList<CashgamePlayer> players)
         {
             Id = id;
             StartTime = startTime;
             UpdatedTime = updatedTime;
             IsRunning = isRunning;
-            Role = role;
             Location = location;
             Players = players;
         }

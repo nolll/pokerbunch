@@ -14,7 +14,7 @@ namespace Web.Controllers
         {
             var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(Identity.UserName, id));
             var contextResult = GetBunchContext(eventDetails.Slug);
-            var matrixResult = UseCase.Matrix.Execute(new Matrix.EventMatrixRequest(Identity.UserName, id));
+            var matrixResult = UseCase.EventMatrix.Execute(new EventMatrix.Request(id));
             var model = new EventDetailsPageModel(contextResult, eventDetails, matrixResult);
             return View("~/Views/Pages/EventDetails/EventDetails.cshtml", model);
         }

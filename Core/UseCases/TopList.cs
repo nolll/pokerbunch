@@ -7,23 +7,25 @@ namespace Core.UseCases
 {
     public class TopList
     {
+        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public TopList(ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public TopList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
+            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgameCollection = _cashgameRepository.List(request.Slug, request.Year);
-            var players = _playerRepository.List(cashgameCollection.Bunch.Id).ToList();
-            var suite = new CashgameSuite(cashgameCollection.Cashgames, players);
+            var bunch = _bunchRepository.Get(request.Slug);
+            var cashgames = _cashgameRepository.List(request.Slug, request.Year);
+            var players = _playerRepository.List(bunch.Id).ToList();
+            var suite = new CashgameSuite(cashgames, players);
 
-            var bunch = cashgameCollection.Bunch;
-            var items = suite.TotalResults.Select((o, index) => new Item(o, index, cashgameCollection.Bunch.Currency));
+            var items = suite.TotalResults.Select((o, index) => new Item(o, index, bunch.Currency));
             items = SortItems(items);
 
             return new Result(items, bunch.Id, bunch.Currency.Format, bunch.Currency.ThousandSeparator, request.Year);

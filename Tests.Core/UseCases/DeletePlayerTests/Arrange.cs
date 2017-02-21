@@ -1,3 +1,4 @@
+using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
 using Moq;
@@ -19,6 +20,10 @@ namespace Tests.Core.UseCases.DeletePlayerTests
         public void Setup()
         {
             var prm = new Mock<IPlayerRepository>();
+            prm.Setup(o => o.Get(IdForPlayerThatHasNotPlayed))
+                .Returns(new Player(BunchData.Id1, IdForPlayerThatHasNotPlayed, null));
+            prm.Setup(o => o.Get(IdForPlayerThatHasPlayed))
+                .Returns(new Player(BunchData.Id1, IdForPlayerThatHasPlayed, null));
             prm.Setup(o => o.Delete(IdForPlayerThatHasNotPlayed))
                 .Callback((string id) => { DeletedId = id; });
 

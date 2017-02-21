@@ -6,42 +6,28 @@ using Core.Repositories;
 
 namespace Core.UseCases
 {
-    public class Matrix
+    public abstract class Matrix
     {
-        private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public Matrix(ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        protected Matrix(IPlayerRepository playerRepository)
         {
-            _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
         }
 
-        public Result Execute(Request request)
+        protected Result Execute(Bunch bunch, IList<ListCashgame> cashgames)
         {
-            var cashgames = _cashgameRepository.List(request.Slug, request.Year);
-            return Execute(cashgames);
-        }
+            var players = _playerRepository.List(bunch.Id);
+            var suite = new CashgameSuite(cashgames, players);
 
-        public Result Execute(EventMatrixRequest request)
-        {
-            var cashgames = _cashgameRepository.EventList(request.EventId);
-            return Execute(cashgames);
-        }
-
-        private Result Execute(CashgameCollection cashgameCollection)
-        {
-            var players = _playerRepository.List(cashgameCollection.Bunch.Id);
-            var suite = new CashgameSuite(cashgameCollection.Cashgames, players);
-
-            var gameItems = CreateGameItems(cashgameCollection.Cashgames);
-            var playerItems = CreatePlayerItems(cashgameCollection.Bunch, suite);
+            var gameItems = CreateGameItems(cashgames);
+            var playerItems = CreatePlayerItems(bunch, suite);
             var spansMultipleYears = suite.SpansMultipleYears;
 
             return new Result(gameItems, playerItems, spansMultipleYears);
         }
 
-        private static IList<MatrixPlayerItem> CreatePlayerItems(CashgameBunch bunch, CashgameSuite suite)
+        private static IList<MatrixPlayerItem> CreatePlayerItems(Bunch bunch, CashgameSuite suite)
         {
             var index = 0;
             var playerItems = new List<MatrixPlayerItem>();
@@ -59,7 +45,7 @@ namespace Core.UseCases
             return playerItems;
         }
 
-        private static IDictionary<string, MatrixResultItem> CreatePlayerResultItems(CashgameBunch bunch, IEnumerable<ListCashgame> cashgames, Player player)
+        private static IDictionary<string, MatrixResultItem> CreatePlayerResultItems(Bunch bunch, IEnumerable<ListCashgame> cashgames, Player player)
         {
             var items = new Dictionary<string, MatrixResultItem>();
             foreach (var cashgame in cashgames)
@@ -92,30 +78,6 @@ namespace Core.UseCases
             var date = new Date(startTime);
             
             return new GameItem(cashgameId, date);
-        }
-
-        public class Request
-        {
-            public string Slug { get; }
-            public int? Year { get; }
-
-            public Request(string slug, int? year)
-            {
-                Slug = slug;
-                Year = year;
-            }
-        }
-
-        public class EventMatrixRequest
-        {
-            public string UserName { get; }
-            public string EventId { get; }
-
-            public EventMatrixRequest(string userName, string eventId)
-            {
-                UserName = userName;
-                EventId = eventId;
-            }
         }
 
         public class Result
