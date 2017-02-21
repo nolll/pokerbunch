@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
@@ -11,25 +9,18 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
 
-        public CashgameList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public CashgameList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
             var cashgames = _cashgameRepository.List(bunch.Id, request.Year).Where(o => !o.IsRunning);
-            cashgames = SortItems(cashgames, request.SortOrder).ToList();
+            cashgames = SortItems(cashgames, request.SortOrder);
             var list = cashgames.Select(o => new Item(bunch, o));
 
             return new Result(request.Slug, list.ToList(), request.SortOrder, request.Year, bunch.Currency.Format, bunch.Currency.ThousandSeparator);
@@ -54,14 +45,12 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
             public SortOrder SortOrder { get; }
             public int? Year { get; }
 
-            public Request(string userName, string slug, SortOrder sortOrder, int? year)
+            public Request(string slug, SortOrder sortOrder, int? year)
             {
-                UserName = userName;
                 Slug = slug;
                 SortOrder = sortOrder;
                 Year = year;
@@ -116,7 +105,6 @@ namespace Core.UseCases
         {
             Date,
             PlayerCount,
-            Location,
             Duration,
             Turnover,
             AverageBuyin

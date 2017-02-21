@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         {
             var brm = new Mock<IBunchRepository>();
 
-            var bunch = BunchData.Bunch(Role);
+            var bunch = BunchData.Bunch1(Role);
             brm.Setup(s => s.Get(BunchData.Id1)).Returns(bunch);
 
             Sut = new BunchDetails(brm.Object);

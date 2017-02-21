@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
         {
             var brm = new Mock<IBunchRepository>();
             brm.Setup(o => o.Get(BunchData.Id1))
-                .Returns(BunchData.Bunch(Role));
+                .Returns(BunchData.Bunch1(Role));
 
             var prm = new Mock<IPlayerRepository>();
             prm.Setup(o => o.Get(IdForPlayerThatIsUser))

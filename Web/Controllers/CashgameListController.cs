@@ -15,7 +15,7 @@ namespace Web.Controllers
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.List, year);
-            var listResult = UseCase.CashgameList.Execute(new CashgameList.Request(Identity.UserName, slug, ParseListSortOrder(orderBy), year));
+            var listResult = UseCase.CashgameList.Execute(new CashgameList.Request(slug, ParseListSortOrder(orderBy), year));
             var model = new CashgameListPageModel(contextResult, listResult);
             return View("~/Views/Pages/CashgameList/List.cshtml", model);
         }

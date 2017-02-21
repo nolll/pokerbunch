@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases.MatrixTests
         {
             var brm = new Mock<IBunchRepository>();
             brm.Setup(o => o.Get(BunchData.Id1))
-                .Returns(BunchData.Bunch(Role.Player));
+                .Returns(BunchData.Bunch1(Role.Player));
 
             var crm = new Mock<ICashgameRepository>();
             var cashgames = DifferentYears ?

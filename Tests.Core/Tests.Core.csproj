@@ -84,6 +84,14 @@
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
     <Compile Include="UseCases\CashgameFactsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameFactsTests\WithTwoGames.cs" />
+    <Compile Include="UseCases\CashgameListTests\Arrange.cs" />
+    <Compile Include="UseCases\CashgameListTests\WithoutGames.cs" />
+    <Compile Include="UseCases\CashgameListTests\WithSortOrderAverageBuyin.cs" />
+    <Compile Include="UseCases\CashgameListTests\WithDefaultParameters.cs" />
+    <Compile Include="UseCases\CashgameListTests\WithSortOrderDuration.cs" />
+    <Compile Include="UseCases\CashgameListTests\WithSortOrderPlayerCount.cs" />
+    <Compile Include="UseCases\CashgameListTests\WithSortOrderTurnover.cs" />
+    <Compile Include="UseCases\CashgameListTests\WithYear.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasNoResults.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasResults.cs" />
@@ -104,7 +112,6 @@
     <Compile Include="UseCases\BunchListTests.cs" />
     <Compile Include="UseCases\BuyinTests.cs" />
     <Compile Include="UseCases\CashgameContextTests.cs" />
-    <Compile Include="UseCases\CashgameListTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\CashoutTests\Arrange.cs" />
