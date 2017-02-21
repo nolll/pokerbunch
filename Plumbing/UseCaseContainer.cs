@@ -85,7 +85,7 @@ namespace Plumbing
         // Player
         public PlayerList PlayerList => new PlayerList(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository);
         public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository);
-        public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
         public PlayerBadges PlayerBadges => new PlayerBadges(_deps.CashgameRepository);
         public InvitePlayer InvitePlayer => new InvitePlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender, _deps.UserRepository);
         public InvitePlayerForm InvitePlayerForm => new InvitePlayerForm(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);

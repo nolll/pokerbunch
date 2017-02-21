@@ -60,7 +60,7 @@ namespace Core.Entities
 
             public int Winnings => Stack - Buyin;
             public int Winrate => PlayedMinutes == 0 ? 0 : (int)Math.Round((double)Winnings / PlayedMinutes * 60);
-            private int PlayedMinutes => (int)Math.Round(PlayedTime.TotalMinutes);
+            public int PlayedMinutes => (int)Math.Round(PlayedTime.TotalMinutes);
             private TimeSpan PlayedTime => UpdatedTime - StartTime;
         }
 
@@ -86,12 +86,7 @@ namespace Core.Entities
             }
         }
 
-        public bool IsInGame(string playerId)
-        {
-            return GetResult(playerId) != null;
-        }
-
-        private CashgamePlayer GetResult(string playerId)
+        public CashgamePlayer GetResult(string playerId)
         {
             return Players.FirstOrDefault(o => o.Id == playerId);
         }
@@ -102,7 +97,7 @@ namespace Core.Entities
             return bestResult != null && resultToCheck.Winnings == bestResult.Winnings;
         }
 
-        private CashgamePlayer GetBestResult()
+        public CashgamePlayer GetBestResult()
         {
             CashgamePlayer bestResult = null;
             foreach (var result in Players)
