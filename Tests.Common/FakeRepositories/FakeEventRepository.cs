@@ -22,19 +22,9 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.Id == id);
         }
         
-        public IList<Event> Get(IList<string> ids)
-        {
-            return _list.Where(o => ids.Contains(o.Id)).ToList();
-        }
-
         public IList<Event> ListByBunch(string bunchId)
         {
             return _list.Where(o => o.BunchId == bunchId).ToList();
-        }
-
-        public Event GetByCashgame(string cashgameId)
-        {
-            return _list.First();
         }
 
         public string Add(Event e)

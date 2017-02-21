@@ -21,11 +21,6 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.Id == id);
         }
 
-        public IList<User> Get(IList<string> ids)
-        {
-            return _list.Where(o => ids.Contains(o.Id)).ToList();
-        }
-
         public IList<User> List()
         {
             return _list;

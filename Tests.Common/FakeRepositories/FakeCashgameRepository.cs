@@ -87,11 +87,6 @@ namespace Tests.Common.FakeRepositories
             _list = GetGames();
         }
 
-        public void SetupSingleYear()
-        {
-            _list = GetGames(TestData.StartTimeA.AddDays(7));
-        }
-
         public void SetupGameCount(int gameCount)
         {
             _list = GetGames(gameCount);
@@ -147,25 +142,6 @@ namespace Tests.Common.FakeRepositories
         public void SetupRunningGame()
         {
             _list.Add(new Cashgame(TestData.BunchA.Id, TestData.LocationIdC, GameStatus.Running, TestData.CashgameIdC, TestData.RunningGameCheckpoints));
-        }
-
-        public void SetupRunningGameWithCashoutCheckpoint()
-        {
-            var checkpoints1 = new List<Checkpoint>
-            {
-                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdA, TestData.StartTimeC, CheckpointType.Buyin, 200, 200, "1"),
-                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdB, TestData.StartTimeC, CheckpointType.Buyin, 200, 200, "2"),
-                Checkpoint.Create(TestData.CashgameIdC, TestData.PlayerIdA, TestData.StartTimeC.AddMinutes(1), CheckpointType.Cashout, 200, 0, "3"),
-            };
-
-            _list.Add(new Cashgame(TestData.BunchA.Id, TestData.LocationIdC, GameStatus.Running, TestData.CashgameIdC, checkpoints1));
-        }
-
-        public void SetupEmptyGame()
-        {
-            var checkpoints1 = new List<Checkpoint>();
-            _list.Clear();
-            _list.Add(new Cashgame(TestData.BunchA.Id, TestData.LocationIdA, GameStatus.Running, TestData.CashgameIdA, checkpoints1));
         }
 
         public void ClearList()

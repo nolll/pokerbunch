@@ -25,11 +25,6 @@ namespace Tests.Common.FakeRepositories
             return bunch;
         }
 
-        public IList<Bunch> Get(IList<string> ids)
-        {
-            return _list.Where(o => ids.Contains(o.Id)).ToList();
-        }
-
         public IList<SmallBunch> List()
         {
             return _list.Select(o => (SmallBunch)o).ToList();
