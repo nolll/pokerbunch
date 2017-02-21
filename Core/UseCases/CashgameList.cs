@@ -13,15 +13,13 @@ namespace Core.UseCases
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IUserRepository _userRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly ILocationRepository _locationRepository;
 
-        public CashgameList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository)
+        public CashgameList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _userRepository = userRepository;
             _playerRepository = playerRepository;
-            _locationRepository = locationRepository;
         }
 
         public Result Execute(Request request)
@@ -30,20 +28,14 @@ namespace Core.UseCases
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             RequireRole.Player(user, player);
-            var cashgames = _cashgameRepository.ListFinished(bunch.Id, request.Year);
+            var cashgames = _cashgameRepository.List(bunch.Id, request.Year).Where(o => !o.IsRunning);
             cashgames = SortItems(cashgames, request.SortOrder).ToList();
-            var locations = _locationRepository.List(bunch.Id);
-            var list = cashgames.Select(o => new Item(bunch, o, GetLocation(o, locations)));
+            var list = cashgames.Select(o => new Item(bunch, o));
 
             return new Result(request.Slug, list.ToList(), request.SortOrder, request.Year, bunch.Currency.Format, bunch.Currency.ThousandSeparator);
         }
-
-        private Location GetLocation(Cashgame cashgame, IEnumerable<Location> locations)
-        {
-            return locations.First(o => o.Id == cashgame.LocationId);
-        }
-
-        private static IEnumerable<Cashgame> SortItems(IEnumerable<Cashgame> items, SortOrder orderBy)
+        
+        private static IEnumerable<ListCashgame> SortItems(IEnumerable<ListCashgame> items, SortOrder orderBy)
         {
             switch (orderBy)
             {
@@ -108,12 +100,12 @@ namespace Core.UseCases
             public Money AverageBuyin { get; private set; }
             public int PlayerCount { get; private set; }
 
-            public Item(Bunch bunch, Cashgame cashgame, Location location)
+            public Item(Bunch bunch, ListCashgame cashgame)
             {
-                Location = location.Name;
+                Location = cashgame.Location.Name;
                 CashgameId = cashgame.Id;
                 Duration = Time.FromMinutes(cashgame.Duration);
-                Date = cashgame.StartTime.HasValue ? new Date(cashgame.StartTime.Value) : new Date(DateTime.MinValue);
+                Date = new Date(cashgame.StartTime);
                 Turnover = new Money(cashgame.Turnover, bunch.Currency);
                 AverageBuyin = new Money(cashgame.AverageBuyin, bunch.Currency);
                 PlayerCount = cashgame.PlayerCount;

@@ -5,7 +5,7 @@ using Tests.Common;
 
 namespace Tests.Core.UseCases
 {
-    class CashgameListTests : TestBase
+    public class CashgameListTests : TestBase
     {
         private const int Year = 2001;
 
@@ -171,7 +171,6 @@ namespace Tests.Core.UseCases
             Deps.Bunch,
             Deps.Cashgame,
             Deps.User,
-            Deps.Player,
-            Deps.Location);
+            Deps.Player);
     }
 }

@@ -6,18 +6,6 @@ using Core.Services;
 
 namespace Core.Entities
 {
-    public class CashgameCollection
-    {
-        public CashgameBunch Bunch { get; }
-        public IList<ListCashgame> Cashgames { get; }
-
-        public CashgameCollection(CashgameBunch bunch, IList<ListCashgame> cashgames)
-        {
-            Bunch = bunch;
-            Cashgames = cashgames;
-        }
-    }
-
     public class ListCashgame
     {
         public string Id { get; }
@@ -35,20 +23,6 @@ namespace Core.Entities
             IsRunning = isRunning;
             Location = location;
             Players = players;
-        }
-
-        public class CashgameBunch
-        {
-            public string Id { get; }
-            public TimeZoneInfo Timezone { get; }
-            public Currency Currency { get; }
-
-            public CashgameBunch(string id, TimeZoneInfo timezone, Currency currency)
-            {
-                Id = id;
-                Timezone = timezone;
-                Currency = currency;
-            }
         }
 
         public class CashgameLocation
@@ -99,9 +73,17 @@ namespace Core.Entities
             }
         }
 
-        public int Turnover
+        public int PlayerCount => Players.Count;
+        public int Turnover => Players.Sum(o => o.Buyin);
+
+        public int AverageBuyin
         {
-            get { return Players.Sum(o => o.Buyin); }
+            get
+            {
+                if (PlayerCount == 0)
+                    return 0;
+                return (int) Math.Round(Turnover/(double) PlayerCount);
+            }
         }
 
         public bool IsBestResult(CashgamePlayer resultToCheck)
