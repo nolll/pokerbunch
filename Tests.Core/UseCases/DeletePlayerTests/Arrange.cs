@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
@@ -32,7 +33,7 @@ namespace Tests.Core.UseCases.DeletePlayerTests
             crm.Setup(o => o.PlayerList(IdForPlayerThatHasPlayed))
                 .Returns(cashgames);
 
-            var cashgameWithoutResults = CashgameData.EmptyCollection;
+            var cashgameWithoutResults = new List<ListCashgame>();
             crm.Setup(o => o.PlayerList(IdForPlayerThatHasNotPlayed))
                 .Returns(cashgameWithoutResults);
 

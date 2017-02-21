@@ -20,11 +20,11 @@ namespace Tests.Core.UseCases.DeleteCashgameTests
         {
             var crm = new Mock<ICashgameRepository>();
 
-            var cashgameWithResults = CashgameData.EndedGameWithTwoPlayers(Role.Manager);
+            var cashgameWithResults = CashgameData.GameWithTwoPlayers(Role.Manager);
             crm.Setup(o => o.GetDetailedById(IdWithResults))
                 .Returns(cashgameWithResults);
 
-            var cashgameWithoutResults = CashgameData.EndedGameWithoutPlayers(Role.Manager);
+            var cashgameWithoutResults = CashgameData.GameWithoutPlayers(Role.Manager);
             crm.Setup(o => o.GetDetailedById(IdWithoutResults))
                 .Returns(cashgameWithoutResults)
                 .Callback((string id) => { DeletedId = id; });

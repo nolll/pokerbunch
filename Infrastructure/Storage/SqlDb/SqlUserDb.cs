@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
@@ -98,17 +97,6 @@ namespace Infrastructure.Storage.SqlDb
             var sql = string.Concat(SearchSql, "ORDER BY u.DisplayName");
             var reader = _db.Query(sql);
             return reader.ReadIntList("UserID").Select(o => o.ToString()).ToList();
-        }
-
-        public bool DeleteUser(int userId)
-        {
-            const string sql = "DELETE FROM [user] WHERE UserID = @userId";
-            var parameters = new List<SimpleSqlParameter>
-            {
-                new SimpleSqlParameter("@userId", userId)
-            };
-            var rowCount = _db.Execute(sql, parameters);
-            return rowCount > 0;
         }
 
         private static RawUser CreateRawUser(IStorageDataReader reader)

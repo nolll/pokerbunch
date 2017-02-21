@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Infrastructure.Storage.Classes;
 using Infrastructure.Storage.Interfaces;
 
@@ -30,19 +29,6 @@ namespace Infrastructure.Storage.SqlDb
             return reader.ReadIntList("PlayerID").Select(o => o.ToString()).ToList();
 	    }
 
-	    public IList<string> FindByName(string bunchId, string name)
-	    {
-            var sql = string.Concat(SearchSql, "LEFT JOIN [user] u on p.UserID = u.UserID JOIN homegame h on h.HomegameId = p.HomegameId WHERE h.Name = @slug AND (p.PlayerName = @playerName OR u.DisplayName = @playerName)");
-            var parameters = new List<SimpleSqlParameter>
-                {
-                    new SimpleSqlParameter("@slug", bunchId),
-                    new SimpleSqlParameter("@playerName", name)
-                };
-            var reader = _db.Query(sql, parameters);
-            return reader.ReadIntList("PlayerID").Select(o => o.ToString()).ToList();
-
-	    }
-        
 	    public IList<string> FindByUserId(string bunchId, string userId)
 	    {
             var sql = string.Concat(SearchSql, "JOIN homegame h ON h.HomegameId = p.HomegameId WHERE h.Name = @slug AND p.UserID = @userId");
@@ -64,18 +50,6 @@ namespace Infrastructure.Storage.SqlDb
             var reader = _db.Query(sql, parameter);
             var rawPlayers = reader.ReadList(CreateRawPlayer);
             return rawPlayers.Select(CreatePlayer).ToList();
-        }
-
-        public Player Get(string id)
-        {
-            var sql = string.Concat(DataSql, "WHERE p.PlayerID = @id");
-            var parameters = new List<SimpleSqlParameter>
-                {
-                    new SimpleSqlParameter("@id", id)
-                };
-            var reader = _db.Query(sql, parameters);
-            var rawPlayer = reader.ReadOne(CreateRawPlayer);
-            return rawPlayer != null ? CreatePlayer(rawPlayer) : null;
         }
 
         public string Add(Player player)

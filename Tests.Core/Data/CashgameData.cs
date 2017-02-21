@@ -18,7 +18,7 @@ namespace Tests.Core.Data
         public static readonly TimeZoneInfo Timezone = TimezoneData.Swedish;
         public static readonly Currency Currency = CurrencyData.Sek;
 
-        public static DetailedCashgame EndedGameWithTwoPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
+        public static DetailedCashgame GameWithTwoPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
             Id1,
             StartTime1,
             EndTime1,
@@ -83,7 +83,7 @@ namespace Tests.Core.Data
                     })
             });
 
-        public static DetailedCashgame EndedGameWithoutPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
+        public static DetailedCashgame GameWithoutPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
             Id2,
             StartTime1,
             EndTime1,
