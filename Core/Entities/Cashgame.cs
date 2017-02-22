@@ -165,6 +165,7 @@ namespace Core.Entities
             public int Winrate => PlayedMinutes == 0 ? 0 : (int)Math.Round((double)Winnings / PlayedMinutes * 60);
             private int PlayedMinutes => (int)Math.Round(PlayedTime.TotalMinutes);
             private TimeSpan PlayedTime => UpdatedTime - StartTime;
+            public CashgameAction CashoutAction => Actions.FirstOrDefault(o => o.Type == CheckpointType.Cashout);
         }
 
         public class CashgameAction
