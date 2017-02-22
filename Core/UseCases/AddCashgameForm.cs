@@ -10,17 +10,13 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
         private readonly ILocationRepository _locationRepository;
         private readonly IEventRepository _eventRepository;
 
-        public AddCashgameForm(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
+        public AddCashgameForm(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
             _locationRepository = locationRepository;
             _eventRepository = eventRepository;
         }
@@ -28,10 +24,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
-            var runningGame = _cashgameRepository.GetRunning(bunch.Id);
+            var runningGame = _cashgameRepository.GetCurrent(bunch.Id);
             if (runningGame != null)
             {
                 throw new CashgameRunningException();
@@ -45,12 +38,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
 
-            public Request(string userName, string slug)
+            public Request(string slug)
             {
-                UserName = userName;
                 Slug = slug;
             }
         }

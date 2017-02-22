@@ -30,6 +30,14 @@ namespace Infrastructure.Storage.Repositories
             return CreateDetailedCashgame(apiDetailedCashgame);
         }
 
+        public DetailedCashgame GetCurrent(string bunchId)
+        {
+            var apiCashgames = _api.Get<IList<ApiListCashgame>>(Url.CashgamesCurrent(bunchId));
+            if(apiCashgames.Any())
+                return GetDetailedById(apiCashgames.First().Id);
+            return null;
+        }
+
         private IList<Cashgame> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_cashgameDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));

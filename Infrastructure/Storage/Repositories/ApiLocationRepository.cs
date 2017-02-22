@@ -21,9 +21,9 @@ namespace Infrastructure.Storage.Repositories
             return CreateLocation(apiLocation);
         }
 
-        public IList<Location> List(string id)
+        public IList<Location> List(string bunchId)
         {
-            var apiLocations = _api.Get<IList<ApiLocation>>(Url.LocationByBunch(id));
+            var apiLocations = _api.Get<IList<ApiLocation>>(Url.LocationByBunch(bunchId));
             return apiLocations.Select(CreateLocation).ToList();
         }
 

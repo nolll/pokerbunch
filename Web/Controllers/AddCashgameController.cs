@@ -40,7 +40,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, AddCashgamePostModel postModel = null)
         {
             var contextResult = GetBunchContext(slug);
-            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(Identity.UserName, slug));
+            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(slug));
             var model = new AddCashgamePageModel(contextResult, optionsResult, postModel);
             return View("~/Views/Pages/AddCashgame/Add.cshtml", model);
         }

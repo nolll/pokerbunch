@@ -24,6 +24,11 @@ namespace Tests.Common.FakeRepositories
             throw new NotImplementedException();
         }
 
+        public DetailedCashgame GetCurrent(string bunchId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IList<ListCashgame> List(string bunchId, int? year = null)
         {
             throw new NotImplementedException();

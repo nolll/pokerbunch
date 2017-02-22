@@ -6,7 +6,7 @@ namespace Core.Repositories
     public interface ILocationRepository
     {
         Location Get(string id);
-        IList<Location> List(string id);
+        IList<Location> List(string bunchId);
         string Add(Location location);
     }
 }
