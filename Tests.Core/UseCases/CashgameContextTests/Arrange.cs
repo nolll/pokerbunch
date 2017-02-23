@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
@@ -6,15 +8,22 @@ using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 
-namespace Tests.Core.UseCases.RunningCashgameTests
+namespace Tests.Core.UseCases.CashgameContextTests
 {
     public abstract class Arrange
     {
-        protected RunningCashgame Sut;
+        protected CashgameContext Sut;
 
         protected const string BunchIdWithoutRunningGame = BunchData.Id1;
         protected const string BunchIdWithRunningGame = BunchData.Id2;
-        protected virtual string BunchId => BunchIdWithRunningGame;
+        protected const int FirstYear = 2001;
+        protected const int LastYear = 2002;
+
+        private const string UserName = UserData.UserName1;
+        protected virtual string BunchId => BunchIdWithoutRunningGame;
+        private static readonly DateTime CurrentTime = DateTime.Now;
+        protected virtual CashgameContext.CashgamePage SelectedPage => CashgameContext.CashgamePage.Overview;
+        protected virtual int? Year => null;
 
         [SetUp]
         public void Setup()
@@ -26,6 +35,7 @@ namespace Tests.Core.UseCases.RunningCashgameTests
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
             var crm = new Mock<ICashgameRepository>();
             crm.Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
+            crm.Setup(o => o.GetYears(BunchId)).Returns(new List<int> { FirstYear, LastYear });
 
             var players = PlayerData.TwoPlayers;
             var player = players.First();
@@ -37,9 +47,9 @@ namespace Tests.Core.UseCases.RunningCashgameTests
             var urm = new Mock<IUserRepository>();
             urm.Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
 
-            Sut = new RunningCashgame(brm.Object, crm.Object, prm.Object, urm.Object);
+            Sut = new CashgameContext(urm.Object, brm.Object, crm.Object);
         }
 
-        protected RunningCashgame.Request Request => new RunningCashgame.Request(UserData.UserName1, BunchId);
+        protected CashgameContext.Request Request => new CashgameContext.Request(UserName, BunchId, CurrentTime, SelectedPage, Year);
     }
 }

@@ -21,19 +21,11 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var bunchContextResult = new BunchContext(_userRepository, _bunchRepository).Execute(request);
-            var runningGame = _cashgameRepository.GetRunning(bunchContextResult.BunchId);
+            var runningGame = _cashgameRepository.GetCurrent(bunchContextResult.BunchId);
 
             var gameIsRunning = runningGame != null;
-            var years = _cashgameRepository.GetYears(bunchContextResult.BunchId);
-
-            var selectedYear = request.Year;
-            if (request.SelectedPage == CashgamePage.Overview)
-            {
-                if(years.Count > 0)
-                    selectedYear = years.Max(o => o);
-                else
-                    selectedYear = request.CurrentTime.Year; // todo: convert to local bunch time
-            }
+            var years = _cashgameRepository.GetYears(bunchContextResult.BunchId).OrderByDescending(o => o).ToList();
+            var selectedYear = GetSelectedYear(request, years);
 
             return new Result(
                 bunchContextResult,
@@ -42,6 +34,15 @@ namespace Core.UseCases
                 request.SelectedPage,
                 years,
                 selectedYear);
+        }
+
+        private static int? GetSelectedYear(Request request, List<int> years)
+        {
+            if (request.SelectedPage != CashgamePage.Overview)
+                return request.Year;
+            if (years.Count > 0)
+                return years.Max(o => o);
+            return request.CurrentTime.Year; // todo: convert to local bunch time
         }
 
         public class Request : BunchContext.BunchRequest

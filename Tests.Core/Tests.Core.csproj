@@ -81,6 +81,18 @@
     <Compile Include="UseCases\AppDetailsTests\AppDetailsTests1.cs" />
     <Compile Include="UseCases\CashgameChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameChartTests\WithTwoGames.cs" />
+    <Compile Include="UseCases\CashgameContextTests\Arrange.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithRunningGame.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithoutYearAndAnyPageButOverview.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithoutYearSelectedOverviewPage.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithSelectedChartPage.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithSelectedFactsPage.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithSelectedListPage.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithSelectedMatrixPage.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithSelectedOverviewPage.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithSelectedToplistPage.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithYearAndAnyPageButOverview.cs" />
+    <Compile Include="UseCases\CashgameContextTests\WithYearAndSelectedOverviewPage.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\WithTwoPlayersWithTwoAndThreeActions.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
@@ -113,7 +125,6 @@
     <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests.cs" />
     <Compile Include="UseCases\BuyinTests.cs" />
-    <Compile Include="UseCases\CashgameContextTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\CashoutTests\Arrange.cs" />
