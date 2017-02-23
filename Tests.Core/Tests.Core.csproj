@@ -165,7 +165,9 @@
     <Compile Include="UseCases\JoinBunchFormTests.cs" />
     <Compile Include="UseCases\JoinBunchTests.cs" />
     <Compile Include="UseCases\PlayerListTests.cs" />
-    <Compile Include="UseCases\RunningCashgameTests.cs" />
+    <Compile Include="UseCases\RunningCashgameTests\Arrange.cs" />
+    <Compile Include="UseCases\RunningCashgameTests\WithoutRunningGame.cs" />
+    <Compile Include="UseCases\RunningCashgameTests\WithRunningGame.cs" />
     <Compile Include="UseCases\TestEmailTests.cs" />
     <Compile Include="UseCases\TopListTests\WithTwoGames.cs" />
     <Compile Include="UseCases\UserDetailsTests\Arrange.cs" />

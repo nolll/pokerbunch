@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Entities.Checkpoints;
 using Core.Exceptions;
 using Core.Repositories;
 using Core.Services;
@@ -15,15 +14,13 @@ namespace Core.UseCases
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
         private readonly IUserRepository _userRepository;
-        private readonly ILocationRepository _locationRepository;
 
-        public RunningCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository, ILocationRepository locationRepository)
+        public RunningCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
             _userRepository = userRepository;
-            _locationRepository = locationRepository;
         }
 
         public Result Execute(Request request)
@@ -36,14 +33,11 @@ namespace Core.UseCases
 
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            var players = _playerRepository.Get(GetPlayerIds(cashgame));
             var bunchPlayers = _playerRepository.List(bunch.Id);
 
             var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
             
-            var location = _locationRepository.Get(cashgame.Location.Id);
-
-            var playerItems = GetPlayerItems(cashgame, players);
+            var playerItems = GetPlayerItems(cashgame);
             var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName, o.Color)).OrderBy(o => o.Name).ToList();
             
             var defaultBuyin = bunch.DefaultBuyin;
@@ -53,8 +47,8 @@ namespace Core.UseCases
             return new Result(
                 bunch.Id,
                 player.Id,
-                location.Name,
-                location.Id,
+                cashgame.Location.Name,
+                cashgame.Location.Id,
                 playerItems,
                 bunchPlayerItems,
                 defaultBuyin,
@@ -68,16 +62,15 @@ namespace Core.UseCases
             return cashgame.Players.Select(o => o.Id).ToList();
         }
 
-        private static IList<RunningCashgamePlayerItem> GetPlayerItems(DetailedCashgame cashgame, IList<Player> players)
+        private static IList<RunningCashgamePlayerItem> GetPlayerItems(DetailedCashgame cashgame)
         {
             var results = GetSortedResults(cashgame);
             var items = new List<RunningCashgamePlayerItem>();
             foreach (var result in results)
             {
                 var playerId = result.Id;
-                var player = players.First(o => o.Id == playerId);
                 var hasCheckedOut = result.CashoutAction != null;
-                var item = new RunningCashgamePlayerItem(playerId, player.DisplayName, player.Color, cashgame.Id, hasCheckedOut, result.Actions);
+                var item = new RunningCashgamePlayerItem(playerId, result.Name, result.Color, cashgame.Id, hasCheckedOut, result.Actions);
                 items.Add(item);
             }
 
