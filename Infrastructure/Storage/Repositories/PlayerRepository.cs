@@ -28,7 +28,7 @@ namespace Infrastructure.Storage.Repositories
             return CreatePlayer(apiEvent);
         }
 
-        public IList<Player> Get(IList<string> ids)
+        private IList<Player> Get(IList<string> ids)
         {
             return _cacheContainer.GetAndStore(_playerDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }

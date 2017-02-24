@@ -83,7 +83,7 @@ namespace Plumbing
         public EndCashgame EndCashgame => new EndCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
 
         // Player
-        public PlayerList PlayerList => new PlayerList(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository);
+        public PlayerList PlayerList => new PlayerList(_deps.BunchRepository, _deps.PlayerRepository);
         public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository);
         public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
         public PlayerBadges PlayerBadges => new PlayerBadges(_deps.CashgameRepository);

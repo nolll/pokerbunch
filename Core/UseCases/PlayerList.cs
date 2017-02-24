@@ -9,37 +9,30 @@ namespace Core.UseCases
     public class PlayerList
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public PlayerList(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public PlayerList(IBunchRepository bunchRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
-            _userRepository = userRepository;
             _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
+            var bunch = _bunchRepository.Get(request.BunchId);
             var players = _playerRepository.List(bunch.Id);
-            var isManager = RoleHandler.IsInRole(user, player, Role.Manager);
+            var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
 
             return new Result(bunch, players, isManager);
         }
 
         public class Request
         {
-            public string UserName { get; }
-            public string Slug { get; }
+            public string BunchId { get; }
 
-            public Request(string userName, string slug)
+            public Request(string bunchId)
             {
-                UserName = userName;
-                Slug = slug;
+                BunchId = bunchId;
             }
         }
 
@@ -60,8 +53,8 @@ namespace Core.UseCases
         public class PlayerListItem
         {
             public string Name { get; }
-            public string Id { get; private set; }
-            public string Color { get; set; }
+            public string Id { get; }
+            public string Color { get; }
 
             public PlayerListItem(Player player)
             {

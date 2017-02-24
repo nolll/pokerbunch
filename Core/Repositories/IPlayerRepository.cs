@@ -6,7 +6,6 @@ namespace Core.Repositories
 	public interface IPlayerRepository
     {
         Player Get(string id);
-        IList<Player> Get(IList<string> ids);
 
 	    IList<Player> List(string bunchId);
         Player GetByUser(string bunchId, string userId);

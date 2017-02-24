@@ -13,7 +13,7 @@ namespace Web.Controllers
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);
-            var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request(Identity.UserName, slug));
+            var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request(slug));
             var model = new PlayerListPageModel(contextResult, playerListResult);
             return View("~/Views/Pages/PlayerList/List.cshtml", model);
         }
