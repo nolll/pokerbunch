@@ -8,10 +8,8 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.DeletePlayerTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
-        protected DeletePlayer Sut;
-
         protected string IdForPlayerThatHasPlayed = PlayerData.Id1;
         protected string IdForPlayerThatHasNotPlayed = PlayerData.Id2;
         protected abstract string PlayerId { get; }

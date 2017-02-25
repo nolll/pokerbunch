@@ -1,28 +1,25 @@
 ﻿using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.ActionTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<Actions>
     {
-        protected Actions Sut;
+        protected Actions.Result Result;
 
         protected abstract Role Role { get; }
 
         [SetUp]
         public void Setup()
         {
-            var crm = new Mock<ICashgameRepository>();
             var cashgame = CashgameData.GameWithTwoPlayers(Role);
-            crm.Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
 
-            Sut = new Actions(crm.Object);
+            Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
+
+            Result = Sut.Execute(new Actions.Request(CashgameData.Id1, PlayerData.Id1));
         }
-
-        protected Actions.Request Request => new Actions.Request(CashgameData.Id1, PlayerData.Id1);
     }
 }

@@ -7,28 +7,22 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameFactsTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<CashgameFacts>
     {
-        protected CashgameFacts Sut;
+        protected CashgameFacts.Result Result;
 
         [SetUp]
         public void Setup()
         {
-            var brm = new Mock<IBunchRepository>();
-            brm.Setup(o => o.Get(BunchData.Id1))
-                .Returns(BunchData.Bunch1(Role.Player));
-
-            var crm = new Mock<ICashgameRepository>();
+            var bunch = BunchData.Bunch1(Role.Player);
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
-            crm.Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
-
-            var prm = new Mock<IPlayerRepository>();
             var players = PlayerData.TwoPlayers;
-            prm.Setup(o => o.List(BunchData.Id1)).Returns(players);
 
-            Sut = new CashgameFacts(brm.Object, crm.Object, prm.Object);
+            Mock<IBunchRepository>().Setup(o => o.Get(BunchData.Id1)).Returns(bunch);
+            Mock<ICashgameRepository>().Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
+            Mock<IPlayerRepository>().Setup(o => o.List(BunchData.Id1)).Returns(players);
+
+            Result = Sut.Execute(new CashgameFacts.Request(BunchData.Id1, null));
         }
-
-        protected CashgameFacts.Request Request => new CashgameFacts.Request(BunchData.Id1, null);
     }
 }

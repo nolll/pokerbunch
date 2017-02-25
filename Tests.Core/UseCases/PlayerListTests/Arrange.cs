@@ -1,15 +1,14 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerListTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
-        protected PlayerList Sut;
+        protected PlayerList.Result Result;
 
         private const string BunchId = BunchData.Id1;
         protected virtual Role Role => Role.Player;
@@ -18,15 +17,11 @@ namespace Tests.Core.UseCases.PlayerListTests
         public void Setup()
         {
             var bunch = new Bunch(BunchId, role: Role);
-            var brm = new Mock<IBunchRepository>();
-            brm.Setup(o => o.Get(BunchId)).Returns(bunch);
 
-            var prm = new Mock<IPlayerRepository>();
-            prm.Setup(o => o.List(BunchId)).Returns(PlayerData.TwoPlayers);
+            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
+            Mock<IPlayerRepository>().Setup(o => o.List(BunchId)).Returns(PlayerData.TwoPlayers);
 
-            Sut = new PlayerList(brm.Object, prm.Object);
+            Result = Sut.Execute(new PlayerList.Request(BunchId));
         }
-
-        protected PlayerList.Request Request => new PlayerList.Request(BunchId);
     }
 }

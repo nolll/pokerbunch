@@ -7,9 +7,8 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.DeleteCashgameTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
-        protected DeleteCashgame Sut;
         protected const string IdWithResults = CashgameData.Id1;
         protected const string IdWithoutResults = CashgameData.Id2;
         protected abstract string Id { get; }

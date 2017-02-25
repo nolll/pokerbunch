@@ -9,7 +9,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerFactsTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
         public static readonly DateTime StartTime1 = TimeData.Utc("2001-01-01 12:00:00");
         public static readonly DateTime EndTime1 = TimeData.Utc("2001-01-01 13:02:00");
@@ -18,8 +18,6 @@ namespace Tests.Core.UseCases.PlayerFactsTests
         protected const string BunchId = BunchData.Id1;
         protected const string PlayerId = PlayerData.Id1;
         protected int? Year = null;
-
-        protected PlayerFacts Sut;
 
         [SetUp]
         public void Setup()

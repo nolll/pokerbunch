@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
       <Private>True</Private>
@@ -55,6 +56,7 @@
     <Compile Include="Data\TimezoneData.cs" />
     <Compile Include="Data\UserData.cs" />
     <Compile Include="DateTests.cs" />
+    <Compile Include="DependencyMocker.cs" />
     <Compile Include="Entities\MoneyTests\Arrange.cs" />
     <Compile Include="Entities\MoneyTests\WithDefaultCurrency.cs" />
     <Compile Include="Entities\MoneyTests\WithSwedishCurrency.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="UseCases\ActionsChartTests\WithEndedGame.cs" />
     <Compile Include="UseCases\ActionsChartTests\Arrange.cs" />
     <Compile Include="UseCases\ActionsChartTests\WithRunningGame.cs" />
+    <Compile Include="UseCases\ActionTests\WithManager.cs" />
     <Compile Include="UseCases\ActionTests\WithPlayer.cs" />
     <Compile Include="UseCases\ActionTests\Arrange.cs" />
     <Compile Include="UseCases\AddAppTests\Arrange.cs" />
@@ -78,7 +81,8 @@
     <Compile Include="UseCases\AddPlayerTests.cs" />
     <Compile Include="UseCases\AddUserTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
-    <Compile Include="UseCases\AppDetailsTests\AppDetailsTests1.cs" />
+    <Compile Include="UseCases\AppDetailsTests\Arrange.cs" />
+    <Compile Include="UseCases\AppDetailsTests\WithApp.cs" />
     <Compile Include="UseCases\CashgameChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameChartTests\WithTwoGames.cs" />
     <Compile Include="UseCases\CashgameContextTests\Arrange.cs" />
@@ -188,6 +192,7 @@
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsOtherUser.cs" />
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsSpecifiedUser.cs" />
     <Compile Include="UseCases\UserListTests.cs" />
+    <Compile Include="UseCaseTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

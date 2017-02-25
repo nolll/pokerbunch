@@ -1,29 +1,24 @@
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameChartTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<CashgameChart>
     {
-        protected CashgameChart Sut;
+        protected CashgameChart.Result Result;
 
         [SetUp]
         public void Setup()
         {
-            var crm = new Mock<ICashgameRepository>();
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
-            crm.Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
-
-            var prm = new Mock<IPlayerRepository>();
             var players = PlayerData.TwoPlayers;
-            prm.Setup(o => o.List(BunchData.Id1)).Returns(players);
 
-            Sut = new CashgameChart(crm.Object, prm.Object);
+            Mock<ICashgameRepository>().Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
+            Mock<IPlayerRepository>().Setup(o => o.List(BunchData.Id1)).Returns(players);
+
+            Result = Sut.Execute(new CashgameChart.Request(BunchData.Id1, null));
         }
-
-        protected CashgameChart.Request Request => new CashgameChart.Request(BunchData.Id1, null);
     }
 }

@@ -10,7 +10,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashoutTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
         private DateTime _startTime = DateTime.Parse("2001-01-01 12:00:00");
 
@@ -20,7 +20,6 @@ namespace Tests.Core.UseCases.CashoutTests
 
         protected int CheckpointCountBeforeCashout;
         protected Cashgame UpdatedCashgame;
-        protected Cashout Sut;
 
         [SetUp]
         public void Setup()

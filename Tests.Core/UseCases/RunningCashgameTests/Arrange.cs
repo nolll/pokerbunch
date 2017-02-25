@@ -8,10 +8,8 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.RunningCashgameTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
-        protected RunningCashgame Sut;
-
         protected const string BunchIdWithoutRunningGame = BunchData.Id1;
         protected const string BunchIdWithRunningGame = BunchData.Id2;
         protected virtual string BunchId => BunchIdWithRunningGame;

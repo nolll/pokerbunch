@@ -8,10 +8,8 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerDetailsTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
-        protected PlayerDetails Sut;
-
         protected abstract Role Role { get; }
         protected abstract string PlayerId { get; }
         protected string IdForPlayerThatIsUser = PlayerData.Id1;

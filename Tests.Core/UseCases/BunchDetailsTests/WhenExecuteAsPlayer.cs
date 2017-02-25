@@ -9,27 +9,15 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         protected override Role Role => Role.Player;
 
         [Test]
-        public void BunchNameIsSet()
-        {
-            Assert.AreEqual(BunchData.DisplayName1, Sut.Execute(Request).BunchName);
-        }
+        public void BunchNameIsSet() => Assert.AreEqual(BunchData.DisplayName1, Result.BunchName);
 
         [Test]
-        public void DescriptionIsSet()
-        {
-            Assert.AreEqual(BunchData.Description1, Sut.Execute(Request).Description);
-        }
+        public void DescriptionIsSet() => Assert.AreEqual(BunchData.Description1, Result.Description);
 
         [Test]
-        public void HouseRulesIsSet()
-        {
-            Assert.AreEqual(BunchData.HouseRules1, Sut.Execute(Request).HouseRules);
-        }
+        public void HouseRulesIsSet() => Assert.AreEqual(BunchData.HouseRules1, Result.HouseRules);
 
         [Test]
-        public void CanEditIsFalse()
-        {
-            Assert.IsFalse(Sut.Execute(Request).CanEdit);
-        }
+        public void CanEditIsFalse() => Assert.IsFalse(Result.CanEdit);
     }
 }

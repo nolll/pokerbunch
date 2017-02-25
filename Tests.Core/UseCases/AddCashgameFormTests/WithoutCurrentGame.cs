@@ -6,19 +6,9 @@ namespace Tests.Core.UseCases.AddCashgameFormTests
     public class WithoutCurrentGame : Arrange
     {
         [Test]
-        public void AddCashgameOptions_ReturnsResultObject()
-        {
-            var result = Sut.Execute(Request);
-
-            Assert.IsInstanceOf<AddCashgameForm.Result>(result);
-        }
+        public void ReturnsResultObject() => Assert.IsInstanceOf<AddCashgameForm.Result>(Execute());
 
         [Test]
-        public void AddCashgameOptions_LocationsAreSet()
-        {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(2, result.Locations.Count);
-        }
+        public void LocationsAreSet() => Assert.AreEqual(2, Execute().Locations.Count);
     }
 }

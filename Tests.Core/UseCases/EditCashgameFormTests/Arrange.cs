@@ -7,12 +7,10 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.EditCashgameFormTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
         protected abstract Role Role { get; }
-
-        protected EditCashgameForm Sut;
-
+        
         [SetUp]
         public void Setup()
         {

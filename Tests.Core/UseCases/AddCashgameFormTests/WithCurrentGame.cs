@@ -8,9 +8,6 @@ namespace Tests.Core.UseCases.AddCashgameFormTests
         protected override string BunchId => BunchIdWithRunningGame;
 
         [Test]
-        public void AddCashgameOptions_WithRunningCashgame_ThrowsException()
-        {
-            Assert.Throws<CashgameRunningException>(() => Sut.Execute(Request));
-        }
+        public void ThrowsException() => Assert.Throws<CashgameRunningException>(() => Execute());
     }
 }

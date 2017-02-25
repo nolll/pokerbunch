@@ -10,9 +10,9 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameContextTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<CashgameContext>
     {
-        protected CashgameContext Sut;
+        protected CashgameContext.Result Result;
 
         protected const string BunchIdWithoutRunningGame = BunchData.Id1;
         protected const string BunchIdWithRunningGame = BunchData.Id2;
@@ -29,27 +29,19 @@ namespace Tests.Core.UseCases.CashgameContextTests
         public void Setup()
         {
             var bunch = new Bunch(BunchId, null, null, null, null, 100);
-            var brm = new Mock<IBunchRepository>();
-            brm.Setup(o => o.Get(BunchId)).Returns(bunch);
-
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
-            var crm = new Mock<ICashgameRepository>();
-            crm.Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
-            crm.Setup(o => o.GetYears(BunchId)).Returns(new List<int> { FirstYear, LastYear });
-
             var players = PlayerData.TwoPlayers;
             var player = players.First();
-            var prm = new Mock<IPlayerRepository>();
-            prm.Setup(o => o.List(BunchId)).Returns(players);
-            prm.Setup(o => o.GetByUser(BunchId, UserData.Id1)).Returns(player);
-
             var user = new User(UserData.Id1, UserData.UserName1);
-            var urm = new Mock<IUserRepository>();
-            urm.Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
 
-            Sut = new CashgameContext(urm.Object, brm.Object, crm.Object);
+            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
+            Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
+            Mock<ICashgameRepository>().Setup(o => o.GetYears(BunchId)).Returns(new List<int> { FirstYear, LastYear });
+            Mock<IPlayerRepository>().Setup(o => o.List(BunchId)).Returns(players);
+            Mock<IPlayerRepository>().Setup(o => o.GetByUser(BunchId, UserData.Id1)).Returns(player);
+            Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
+
+            Result = Sut.Execute(new CashgameContext.Request(UserName, BunchId, CurrentTime, SelectedPage, Year));
         }
-
-        protected CashgameContext.Request Request => new CashgameContext.Request(UserName, BunchId, CurrentTime, SelectedPage, Year);
     }
 }

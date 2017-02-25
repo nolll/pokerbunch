@@ -7,15 +7,14 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddAppTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<AddApp>
     {
         protected string AddedAppName;
         private const string GeneratedId = AppData.Id1;
 
-        private const string ValidAppName = AppData.Name1;
-        private const string InvalidAppName = "";
-
-        protected AddApp Sut;
+        protected const string ValidAppName = AppData.Name1;
+        protected const string InvalidAppName = "";
+        protected abstract string AppName { get; }
 
         [SetUp]
         public void Setup()
@@ -27,12 +26,8 @@ namespace Tests.Core.UseCases.AddAppTests
                 .Callback((string appName) => { AddedAppName = appName; });
             arm.Setup(o => o.Add(InvalidAppName))
                 .Throws(new ValidationException("validation-error"));
-
-
-            Sut = new AddApp(arm.Object);
         }
 
-        protected AddApp.Request ValidRequest => new AddApp.Request(ValidAppName);
-        protected AddApp.Request InvalidRequest => new AddApp.Request(InvalidAppName);
+        protected void Execute() => Sut.Execute(new AddApp.Request(AppName));
     }
 }

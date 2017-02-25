@@ -8,22 +8,18 @@ namespace Tests.Core.UseCases.PlayerListTests
         [Test]
         public void BunchIdAndPlayersAreSet()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(BunchData.Id1, result.Slug);
-            Assert.AreEqual(2, result.Players.Count);
-            Assert.AreEqual(PlayerData.Id1, result.Players[0].Id);
-            Assert.AreEqual(PlayerData.Name1, result.Players[0].Name);
-            Assert.IsFalse(result.CanAddPlayer);
+            Assert.AreEqual(BunchData.Id1, Result.Slug);
+            Assert.AreEqual(2, Result.Players.Count);
+            Assert.AreEqual(PlayerData.Id1, Result.Players[0].Id);
+            Assert.AreEqual(PlayerData.Name1, Result.Players[0].Name);
+            Assert.IsFalse(Result.CanAddPlayer);
         }
 
         [Test]
         public void Execute_PlayersAreSortedAlphabetically()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(PlayerData.Name1, result.Players[0].Name);
-            Assert.AreEqual(PlayerData.Name2, result.Players[1].Name);
+            Assert.AreEqual(PlayerData.Name1, Result.Players[0].Name);
+            Assert.AreEqual(PlayerData.Name2, Result.Players[1].Name);
         }
     }
 }

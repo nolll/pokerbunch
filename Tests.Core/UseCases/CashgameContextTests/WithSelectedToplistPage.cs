@@ -8,11 +8,6 @@ namespace Tests.Core.UseCases.CashgameContextTests
         protected override CashgameContext.CashgamePage SelectedPage => CashgameContext.CashgamePage.Toplist;
 
         [Test]
-        public void SelectedPageIsCorrect()
-        {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(SelectedPage, result.SelectedPage);
-        }
+        public void SelectedPageIsCorrect() => Assert.AreEqual(SelectedPage, Result.SelectedPage);
     }
 }

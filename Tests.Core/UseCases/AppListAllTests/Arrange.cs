@@ -1,22 +1,22 @@
 ﻿using Core.Repositories;
 using Core.UseCases;
-using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AppListAllTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<AppListAll>
     {
-        protected AppListAll Sut;
+        protected AppListAll.Result Result;
 
         [SetUp]
         public void Setup()
         {
-            var arm = new Mock<IAppRepository>();
-            arm.Setup(s => s.ListAll()).Returns(AppData.TwoApps);
+            var apps = AppData.TwoApps;
 
-            Sut = new AppListAll(arm.Object);
+            Mock<IAppRepository>().Setup(s => s.ListAll()).Returns(apps);
+
+            Result = Sut.Execute();
         }
     }
 }

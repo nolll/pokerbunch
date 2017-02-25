@@ -8,11 +8,6 @@ namespace Tests.Core.UseCases.CashgameContextTests
         protected override CashgameContext.CashgamePage SelectedPage => CashgameContext.CashgamePage.Unknown;
 
         [Test]
-        public void Execute_WithoutYear_SelectedYearIsNull()
-        {
-            var result = Sut.Execute(Request);
-
-            Assert.IsNull(result.SelectedYear);
-        }
+        public void SelectedYearIsNull() => Assert.IsNull(Result.SelectedYear);
     }
 }

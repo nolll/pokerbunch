@@ -7,10 +7,8 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.TopListTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
-        protected TopList Sut;
-
         [SetUp]
         public void Setup()
         {

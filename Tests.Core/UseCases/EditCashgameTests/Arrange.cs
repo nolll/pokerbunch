@@ -8,7 +8,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.EditCashgameTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
         protected string SavedLocationId;
         protected string SavedEventId;
@@ -18,8 +18,6 @@ namespace Tests.Core.UseCases.EditCashgameTests
 
         private const string InvalidLocationId = "";
         private const string InvalidEventId = "";
-
-        protected EditCashgame Sut;
 
         [SetUp]
         public void Setup()

@@ -9,11 +9,6 @@ namespace Tests.Core.UseCases.CashgameContextTests
         protected override int? Year => FirstYear;
 
         [Test]
-        public void YearIsSetToLatestYear()
-        {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(FirstYear, result.SelectedYear);
-        }
+        public void YearIsSetToLatestYear() => Assert.AreEqual(FirstYear, Result.SelectedYear);
     }
 }

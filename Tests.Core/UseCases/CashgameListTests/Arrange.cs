@@ -9,8 +9,10 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameListTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<CashgameList>
     {
+        protected CashgameList.Result Result;
+
         public static readonly DateTime StartTime1 = TimeData.Utc("2001-01-01 12:00:00");
         public static readonly DateTime EndTime1 = TimeData.Utc("2001-01-01 13:02:00");
         public static readonly DateTime StartTime2 = TimeData.Utc("2001-01-02 12:00:00");
@@ -21,8 +23,6 @@ namespace Tests.Core.UseCases.CashgameListTests
         protected virtual CashgameList.SortOrder SortOrder => CashgameList.SortOrder.Date;
         protected virtual int? Year => null;
         protected virtual string BunchId => BunchIdWithGames;
-
-        protected CashgameList Sut;
 
         [SetUp]
         public void Setup()
@@ -37,10 +37,8 @@ namespace Tests.Core.UseCases.CashgameListTests
             crm.Setup(o => o.List(BunchIdWithGames, Year)).Returns(Games);
             crm.Setup(o => o.List(BunchIdWithoutGames, Year)).Returns(new List<ListCashgame>());
 
-            Sut = new CashgameList(brm.Object, crm.Object);
+            Result = Sut.Execute(new CashgameList.Request(BunchId, SortOrder, Year));
         }
-
-        protected CashgameList.Request Request => new CashgameList.Request(BunchId, SortOrder, Year);
 
         private static IList<ListCashgame> Games => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2, EndTime2);
         private static IList<ListCashgame> TwoGamesWithTwoPlayers(DateTime startTime1, DateTime endTime1, DateTime startTime2, DateTime endTime2) =>

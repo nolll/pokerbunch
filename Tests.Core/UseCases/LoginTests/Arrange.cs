@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Tests.Core.UseCases.LoginTests
 {
-    public class Arrange
+    public class Arrange : UseCaseTest<PlayerList>
     {
         protected string ExistingUser => "existing-user";
         protected string UnknownUser => "unknow-user";
@@ -19,7 +19,6 @@ namespace Tests.Core.UseCases.LoginTests
         protected virtual string LoginName => null;
         protected virtual string Password => null;
         protected string Token => "token";
-        protected Login Sut;
 
         [SetUp]
         public void Setup()

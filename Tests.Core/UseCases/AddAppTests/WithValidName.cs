@@ -4,11 +4,12 @@ namespace Tests.Core.UseCases.AddAppTests
 {
     public class WithValidName : Arrange
     {
-        [Test]
-        public void AddApp_AppIsAdded()
-        {
-            Sut.Execute(ValidRequest);
+        protected override string AppName => ValidAppName;
 
+        [Test]
+        public void AppIsAdded()
+        {
+            Execute();
             Assert.AreEqual(AddedAppName, AddedAppName);
         }
     }

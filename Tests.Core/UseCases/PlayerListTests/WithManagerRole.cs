@@ -8,11 +8,6 @@ namespace Tests.Core.UseCases.PlayerListTests
         protected override Role Role => Role.Manager;
 
         [Test]
-        public void Execute_PlayerIsManager_CanAddPlayerIsTrue()
-        {
-            var result = Sut.Execute(Request);
-
-            Assert.IsTrue(result.CanAddPlayer);
-        }
+        public void CanAddPlayerIsTrue() => Assert.IsTrue(Result.CanAddPlayer);
     }
 }

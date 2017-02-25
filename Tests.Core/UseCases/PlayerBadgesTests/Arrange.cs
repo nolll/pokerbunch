@@ -9,10 +9,8 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerBadgesTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
-        protected PlayerBadges Sut;
-
         private const string PlayerId = PlayerData.Id1;
         protected abstract int NumberOfGames { get; }
 

@@ -7,10 +7,8 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.LocationDetailsTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
-        protected LocationDetails Sut;
-
         [SetUp]
         public void Setup()
         {

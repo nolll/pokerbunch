@@ -5,20 +5,18 @@ namespace Tests.Core.UseCases.CashgameFactsTests
     public class WithTwoGames : Arrange
     {
         [Test]
-        public void GetFactsResult_AllPropertiesAreSet()
+        public void AllPropertiesAreSet()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(2, result.GameCount);
-            Assert.AreEqual(124, result.TotalTimePlayed.Minutes);
-            Assert.AreEqual(800, result.Turnover.Amount);
-            Assert.AreEqual(-150, result.WorstResult.Amount.Amount);
-            Assert.AreEqual(+150, result.BestResult.Amount.Amount);
-            Assert.AreEqual(-300, result.WorstTotalResult.Amount.Amount);
-            Assert.AreEqual(300, result.BestTotalResult.Amount.Amount);
-            Assert.AreEqual(400, result.BiggestBuyin.Amount.Amount);
-            Assert.AreEqual(700, result.BiggestCashout.Amount.Amount);
-            Assert.AreEqual(124, result.MostTimePlayed.Time.Minutes);
+            Assert.AreEqual(2, Result.GameCount);
+            Assert.AreEqual(124, Result.TotalTimePlayed.Minutes);
+            Assert.AreEqual(800, Result.Turnover.Amount);
+            Assert.AreEqual(-150, Result.WorstResult.Amount.Amount);
+            Assert.AreEqual(+150, Result.BestResult.Amount.Amount);
+            Assert.AreEqual(-300, Result.WorstTotalResult.Amount.Amount);
+            Assert.AreEqual(300, Result.BestTotalResult.Amount.Amount);
+            Assert.AreEqual(400, Result.BiggestBuyin.Amount.Amount);
+            Assert.AreEqual(700, Result.BiggestCashout.Amount.Amount);
+            Assert.AreEqual(124, Result.MostTimePlayed.Time.Minutes);
         }
     }
 }

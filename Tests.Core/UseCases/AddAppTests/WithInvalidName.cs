@@ -5,10 +5,9 @@ namespace Tests.Core.UseCases.AddAppTests
 {
     public class WithInvalidName : Arrange
     {
+        protected override string AppName => InvalidAppName;
+
         [Test]
-        public void AddApp_AppIsAdded()
-        {
-            Assert.Throws<ValidationException>(() => Sut.Execute(InvalidRequest));
-        }
+        public void AppIsAdded() => Assert.Throws<ValidationException>(Execute);
     }
 }

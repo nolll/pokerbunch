@@ -7,11 +7,9 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.MatrixTests
 {
-    public abstract class Arrange
+    public abstract class Arrange : UseCaseTest<PlayerList>
     {
         protected virtual bool DifferentYears => false;
-
-        protected BunchMatrix Sut;
 
         [SetUp]
         public void Setup()
