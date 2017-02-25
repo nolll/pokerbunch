@@ -10,11 +10,9 @@ namespace Tests.Core.UseCases.DeletePlayerTests
         [Test]
         public void DeletePlayer_PlayerHasPlayed_ReturnUrlIsPlayerDetails()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.IsFalse(result.Deleted);
-            Assert.AreEqual(BunchData.Id1, result.Slug);
-            Assert.AreEqual(IdForPlayerThatHasPlayed, result.PlayerId);
+            Assert.IsFalse(Result.Deleted);
+            Assert.AreEqual(BunchData.Id1, Result.Slug);
+            Assert.AreEqual(IdForPlayerThatHasPlayed, Result.PlayerId);
         }
     }
 }

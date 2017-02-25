@@ -10,17 +10,11 @@ namespace Tests.Core.UseCases.DeleteCashgameTests
         [Test]
         public void DeletesGame()
         {
-            Sut.Execute(Request);
-
+            Execute();
             Assert.AreEqual(Id, DeletedId);
         }
 
         [Test]
-        public void BunchIdIsSet()
-        {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(BunchData.Id1, result.Slug);
-        }
+        public void BunchIdIsSet() => Assert.AreEqual(BunchData.Id1, Execute().Slug);
     }
 }

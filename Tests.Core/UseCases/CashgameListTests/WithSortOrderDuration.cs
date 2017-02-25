@@ -10,11 +10,9 @@ namespace Tests.Core.UseCases.CashgameListTests
         [Test]
         public void HighestDurationIsFirst()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(CashgameList.SortOrder.Duration, result.SortOrder);
-            Assert.AreEqual(122, result.List[0].Duration.Minutes);
-            Assert.AreEqual(62, result.List[1].Duration.Minutes);
+            Assert.AreEqual(CashgameList.SortOrder.Duration, Result.SortOrder);
+            Assert.AreEqual(122, Result.List[0].Duration.Minutes);
+            Assert.AreEqual(62, Result.List[1].Duration.Minutes);
         }
     }
 }

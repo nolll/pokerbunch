@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 namespace Tests.Core.UseCases.LoginTests
 {
-    public class Arrange : UseCaseTest<PlayerList>
+    public class Arrange : UseCaseTest<Login>
     {
         protected string ExistingUser => "existing-user";
         protected string UnknownUser => "unknow-user";
@@ -25,23 +25,13 @@ namespace Tests.Core.UseCases.LoginTests
         {
             var user = new User(ExistingUserId, ExistingUser, "description", "real-name", "test@example.com", Role.None, EncryptedCorrectPassword, Salt);
 
-            var urm = new Mock<IUserRepository>();
-            urm.Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
-
-            var trm = new Mock<ITokenRepository>();
-            trm.Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
-
-            Sut = new Login(urm.Object, trm.Object);
+            Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
+            Mock<ITokenRepository>().Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
         }
 
-        protected Login.Request Request => new Login.Request(LoginName, Password);
-
-        //[Test]
-        //public void Login_UserFoundAndPasswordIsCorrect_UserNameIsSet()
-        //{
-        //    var result = Sut.Execute(CreateRequest());
-
-        //    Assert.AreEqual(TestData.UserA.UserName, result.UserName);
-        //}
+        protected Login.Result Execute()
+        {
+            return Sut.Execute(new Login.Request(LoginName, Password));
+        }
     }
 }

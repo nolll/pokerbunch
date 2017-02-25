@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 
@@ -30,15 +28,11 @@ namespace Tests.Core.UseCases.CashgameContextTests
         {
             var bunch = new Bunch(BunchId, null, null, null, null, 100);
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
-            var players = PlayerData.TwoPlayers;
-            var player = players.First();
             var user = new User(UserData.Id1, UserData.UserName1);
 
             Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
             Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
             Mock<ICashgameRepository>().Setup(o => o.GetYears(BunchId)).Returns(new List<int> { FirstYear, LastYear });
-            Mock<IPlayerRepository>().Setup(o => o.List(BunchId)).Returns(players);
-            Mock<IPlayerRepository>().Setup(o => o.GetByUser(BunchId, UserData.Id1)).Returns(player);
             Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
 
             Result = Sut.Execute(new CashgameContext.Request(UserName, BunchId, CurrentTime, SelectedPage, Year));

@@ -9,8 +9,10 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerBadgesTests
 {
-    public abstract class Arrange : UseCaseTest<PlayerList>
+    public abstract class Arrange : UseCaseTest<PlayerBadges>
     {
+        protected PlayerBadges.Result Result;
+
         private const string PlayerId = PlayerData.Id1;
         protected abstract int NumberOfGames { get; }
 
@@ -18,14 +20,11 @@ namespace Tests.Core.UseCases.PlayerBadgesTests
         public void Setup()
         {
             var cashgames = GetGames(NumberOfGames);
-            var crm = new Mock<ICashgameRepository>();
-            crm.Setup(o => o.PlayerList(PlayerId))
-                .Returns(cashgames);
 
-            Sut = new PlayerBadges(crm.Object);
+            Mock<ICashgameRepository>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);
+
+            Result = Sut.Execute(new PlayerBadges.Request(PlayerId));
         }
-
-        protected PlayerBadges.Request Request => new PlayerBadges.Request(PlayerId);
 
         private IList<ListCashgame> GetGames(int numberOfGames)
         {

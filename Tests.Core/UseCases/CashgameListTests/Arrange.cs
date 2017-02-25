@@ -27,15 +27,14 @@ namespace Tests.Core.UseCases.CashgameListTests
         [SetUp]
         public void Setup()
         {
-            var brm = new Mock<IBunchRepository>();
-            brm.Setup(o => o.Get(BunchIdWithGames))
-                .Returns(BunchData.Bunch1(Role.Player));
-            brm.Setup(o => o.Get(BunchIdWithoutGames))
-                .Returns(BunchData.Bunch2(Role.Player));
+            var bunchWithGames = BunchData.Bunch1(Role.Player);
+            var bunchWithoutGames = BunchData.Bunch2(Role.Player);
+            var cashgames = Games;
 
-            var crm = new Mock<ICashgameRepository>();
-            crm.Setup(o => o.List(BunchIdWithGames, Year)).Returns(Games);
-            crm.Setup(o => o.List(BunchIdWithoutGames, Year)).Returns(new List<ListCashgame>());
+            Mock<IBunchRepository>().Setup(o => o.Get(BunchIdWithGames)).Returns(bunchWithGames);
+            Mock<IBunchRepository>().Setup(o => o.Get(BunchIdWithoutGames)).Returns(bunchWithoutGames);
+            Mock<ICashgameRepository>().Setup(o => o.List(BunchIdWithGames, Year)).Returns(cashgames);
+            Mock<ICashgameRepository>().Setup(o => o.List(BunchIdWithoutGames, Year)).Returns(new List<ListCashgame>());
 
             Result = Sut.Execute(new CashgameList.Request(BunchId, SortOrder, Year));
         }

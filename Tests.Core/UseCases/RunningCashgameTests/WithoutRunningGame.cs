@@ -12,9 +12,7 @@ namespace Tests.Core.UseCases.RunningCashgameTests
         [Test]
         public void RunningCashgame_CashgameNotRunning_ThrowsException()
         {
-            var request = new RunningCashgame.Request(TestData.UserNameA, TestData.SlugA);
-
-            Assert.Throws<CashgameNotRunningException>(() => Sut.Execute(request));
+            Assert.Throws<CashgameNotRunningException>(() => Execute());
         }
     }
 }

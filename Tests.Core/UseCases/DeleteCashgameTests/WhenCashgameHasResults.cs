@@ -8,9 +8,6 @@ namespace Tests.Core.UseCases.DeleteCashgameTests
         protected override string Id => IdWithResults;
 
         [Test]
-        public void ThrowsCashgameHasResultsException()
-        {
-            Assert.Throws<CashgameHasResultsException>(() => Sut.Execute(Request));
-        }
+        public void ThrowsCashgameHasResultsException() => Assert.Throws<CashgameHasResultsException>(() => Execute());
     }
 }

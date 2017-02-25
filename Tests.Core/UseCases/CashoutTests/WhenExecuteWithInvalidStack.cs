@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases.CashoutTests
         [Test]
         public void ThrowsValidationException()
         {
-            Assert.Throws<ValidationException>(() => Sut.Execute(Request));
+            Assert.Throws<ValidationException>(() => Execute());
         }
     }
 }

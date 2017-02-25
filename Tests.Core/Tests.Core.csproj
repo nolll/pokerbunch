@@ -139,12 +139,14 @@
     <Compile Include="UseCases\DeleteCheckpointTests.cs" />
     <Compile Include="UseCases\EditBunchTests.cs" />
     <Compile Include="UseCases\EditCashgameTests\Arrange.cs" />
-    <Compile Include="UseCases\EditCashgameTests\WithInvalidInput.cs" />
+    <Compile Include="UseCases\EditCashgameTests\WithInvalidEvent.cs" />
+    <Compile Include="UseCases\EditCashgameTests\WithInvalidLocation.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithValidInput.cs" />
     <Compile Include="UseCases\EditCheckpointTests.cs" />
     <Compile Include="UseCases\EditUserTests.cs" />
     <Compile Include="UseCases\EndCashgameTests.cs" />
-    <Compile Include="UseCases\LocationDetailsTests\LocationDetailsTests1.cs" />
+    <Compile Include="UseCases\LocationDetailsTests\Arrange.cs" />
+    <Compile Include="UseCases\LocationDetailsTests\WithLocation.cs" />
     <Compile Include="UseCases\LoginFormTests.cs" />
     <Compile Include="UseCases\LoginTests\Arrange.cs" />
     <Compile Include="UseCases\LoginTests\WhenExecuteWithCorrectPassword.cs" />
@@ -186,6 +188,7 @@
     <Compile Include="UseCases\RunningCashgameTests\WithoutRunningGame.cs" />
     <Compile Include="UseCases\RunningCashgameTests\WithRunningGame.cs" />
     <Compile Include="UseCases\TestEmailTests.cs" />
+    <Compile Include="UseCases\TopListTests\Arrange.cs" />
     <Compile Include="UseCases\TopListTests\WithTwoGames.cs" />
     <Compile Include="UseCases\UserDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsAdmin.cs" />

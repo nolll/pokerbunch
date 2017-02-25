@@ -9,9 +9,7 @@ namespace Tests.Core.UseCases.MatrixTests
         [Test]
         public void Matrix_WithTwoGamesOnDifferentYears_SpansMultipleYearsIsTrue()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.IsTrue(result.SpansMultipleYears);
+            Assert.IsTrue(Result.SpansMultipleYears);
         }
     }
 }

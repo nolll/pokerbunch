@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases.LoginTests
         [Test]
         public void ThrowsException()
         {
-            Assert.Throws<LoginException>(() => Sut.Execute(Request));
+            Assert.Throws<LoginException>(() => Execute());
         }
     }
 }

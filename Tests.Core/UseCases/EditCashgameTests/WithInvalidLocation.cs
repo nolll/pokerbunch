@@ -3,12 +3,14 @@ using NUnit.Framework;
 
 namespace Tests.Core.UseCases.EditCashgameTests
 {
-    public class WithInvalidInput : Arrange
+    public class WithInvalidLocation : Arrange
     {
+        protected override string LocationId => InvalidLocationId;
+
         [Test]
         public void ThrowsException()
         {
-            Assert.Throws<ValidationException>(() => Sut.Execute(InvalidRequest));
+            Assert.Throws<ValidationException>(() => Execute());
         }
     }
 }

@@ -11,9 +11,7 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
         [Test]
         public void PlayerDetails_WithManagerAndPlayerHasNotPlayedGames_CanDeleteIsTrue()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.IsTrue(result.CanDelete);
+            Assert.IsTrue(Result.CanDelete);
         }
     }
 }

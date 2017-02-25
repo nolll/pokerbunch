@@ -7,11 +7,6 @@ namespace Tests.Core.UseCases.PlayerBadgesTests
         protected override int NumberOfGames => 1;
 
         [Test]
-        public void PlayedOneGameIsTrue()
-        {
-            var result = Sut.Execute(Request);
-
-            Assert.IsTrue(result.PlayedOneGame);
-        }
+        public void PlayedOneGameIsTrue() => Assert.IsTrue(Result.PlayedOneGame);
     }
 }

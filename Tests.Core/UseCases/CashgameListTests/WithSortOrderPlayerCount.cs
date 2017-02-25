@@ -10,11 +10,9 @@ namespace Tests.Core.UseCases.CashgameListTests
         [Test]
         public void TopList_SortByPlayerCount_HighestPlayerCountIsFirst()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(CashgameList.SortOrder.PlayerCount, result.SortOrder);
-            Assert.AreEqual(2, result.List[0].PlayerCount);
-            Assert.AreEqual(2, result.List[1].PlayerCount);
+            Assert.AreEqual(CashgameList.SortOrder.PlayerCount, Result.SortOrder);
+            Assert.AreEqual(2, Result.List[0].PlayerCount);
+            Assert.AreEqual(2, Result.List[1].PlayerCount);
         }
     }
 }

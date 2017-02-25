@@ -11,7 +11,7 @@ namespace Tests.Core.UseCases.CashoutTests
         [Test]
         public void UpdatesCheckpoint()
         {
-            Sut.Execute(Request);
+            Execute();
 
             Assert.AreEqual(CheckpointCountBeforeCashout, UpdatedCashgame.Checkpoints.Count);
             Assert.IsTrue(UpdatedCashgame.UpdatedCheckpoints.First(o => o.Type == CheckpointType.Cashout).Stack == CashoutStack);

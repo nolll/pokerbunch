@@ -12,49 +12,37 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
         [Test]
         public void DisplayNameIsSet()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(PlayerData.Name1, result.DisplayName);
+            Assert.AreEqual(PlayerData.Name1, Result.DisplayName);
         }
 
         [Test]
         public void PlayerIdIsSet()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(PlayerId, result.PlayerId);
+            Assert.AreEqual(PlayerId, Result.PlayerId);
         }
 
         [Test]
         public void AvatarUrlIsEmpty()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual("", result.AvatarUrl);
+            Assert.AreEqual("", Result.AvatarUrl);
         }
 
         [Test]
         public void UserNameIsEmpty()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(string.Empty, result.UserName);
+            Assert.AreEqual(string.Empty, Result.UserName);
         }
 
         [Test]
         public void IsUserIsFalse()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.IsFalse(result.IsUser);
+            Assert.IsFalse(Result.IsUser);
         }
 
         [Test]
         public void CanDeleteIsFalse()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.IsFalse(result.CanDelete);
+            Assert.IsFalse(Result.CanDelete);
         }
     }
 }

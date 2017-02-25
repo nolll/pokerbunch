@@ -10,11 +10,9 @@ namespace Tests.Core.UseCases.CashgameListTests
         [Test]
         public void HighestTurnoverIsFirst()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(CashgameList.SortOrder.Turnover, result.SortOrder);
-            Assert.AreEqual(600, result.List[0].Turnover.Amount);
-            Assert.AreEqual(400, result.List[1].Turnover.Amount);
+            Assert.AreEqual(CashgameList.SortOrder.Turnover, Result.SortOrder);
+            Assert.AreEqual(600, Result.List[0].Turnover.Amount);
+            Assert.AreEqual(400, Result.List[1].Turnover.Amount);
         }
     }
 }

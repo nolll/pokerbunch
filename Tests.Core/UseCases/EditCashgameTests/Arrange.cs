@@ -2,40 +2,43 @@
 using Core.Exceptions;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.EditCashgameTests
 {
-    public abstract class Arrange : UseCaseTest<PlayerList>
+    public abstract class Arrange : UseCaseTest<EditCashgame>
     {
         protected string SavedLocationId;
         protected string SavedEventId;
 
         private const string ValidLocationId = LocationData.Id1;
         private const string ValidEventId = EventData.Id1;
+        protected const string InvalidLocationId = "";
+        protected const string InvalidEventId = "";
 
-        private const string InvalidLocationId = "";
-        private const string InvalidEventId = "";
+        protected virtual string LocationId => ValidLocationId;
+        protected virtual string EventId => ValidEventId;
 
         [SetUp]
         public void Setup()
         {
-            var crm = new Mock<ICashgameRepository>();
+            SavedLocationId = null;
+            SavedEventId = null;
 
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Manager);
-            crm.Setup(o => o.Update(CashgameData.Id1, ValidLocationId, ValidEventId))
-                .Returns(cashgame)
+
+            Mock<ICashgameRepository>().Setup(o => o.Update(CashgameData.Id1, ValidLocationId, ValidEventId)).Returns(cashgame)
                 .Callback((string cashgameId, string locationId, string eventId) => { SavedLocationId = locationId; SavedEventId = eventId; });
-            crm.Setup(o => o.Update(CashgameData.Id1, InvalidLocationId, InvalidEventId))
+            Mock<ICashgameRepository>().Setup(o => o.Update(CashgameData.Id1, ValidLocationId, InvalidEventId))
                 .Throws(new ValidationException("validation-error"));
-
-
-            Sut = new EditCashgame(crm.Object);
+            Mock<ICashgameRepository>().Setup(o => o.Update(CashgameData.Id1, InvalidLocationId, ValidEventId))
+                .Throws(new ValidationException("validation-error"));
         }
 
-        protected EditCashgame.Request ValidRequest => new EditCashgame.Request(CashgameData.Id1, ValidLocationId, ValidEventId);
-        protected EditCashgame.Request InvalidRequest => new EditCashgame.Request(CashgameData.Id1, InvalidLocationId, InvalidEventId);
+        protected void Execute()
+        {
+            Sut.Execute(new EditCashgame.Request(CashgameData.Id1, LocationId, EventId));
+        }
     }
 }

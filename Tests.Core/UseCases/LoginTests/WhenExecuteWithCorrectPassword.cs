@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases.LoginTests
         [Test]
         public void ThrowsException()
         {
-            var result = Sut.Execute(Request);
+            var result = Execute();
             Assert.AreEqual(LoginName, result.UserName);
             Assert.AreEqual(Token, result.Token);
         }

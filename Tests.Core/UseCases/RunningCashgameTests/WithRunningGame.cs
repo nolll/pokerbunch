@@ -8,27 +8,24 @@ namespace Tests.Core.UseCases.RunningCashgameTests
         [Test]
         public void RunningCashgame_CashgameRunning_AllSimplePropertiesAreSet()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(PlayerData.Id1, result.PlayerId);
-            Assert.AreEqual(LocationData.Name1, result.LocationName);
-            Assert.AreEqual(100, result.DefaultBuyin);
-            Assert.IsFalse(result.IsManager);
+            var execute = Execute();
+            Assert.AreEqual(PlayerData.Id1, execute.PlayerId);
+            Assert.AreEqual(LocationData.Name1, execute.LocationName);
+            Assert.AreEqual(100, execute.DefaultBuyin);
+            Assert.IsFalse(execute.IsManager);
         }
 
         [Test]
         public void RunningCashgame_CashgameRunning_SlugIsSet()
         {
-            var result = Sut.Execute(Request);
-
+            var result = Execute();
             Assert.AreEqual(BunchIdWithRunningGame, result.Slug);
         }
 
         [Test]
         public void RunningCashgame_CashgameRunning_PlayerItemsAreSet()
         {
-            var result = Sut.Execute(Request);
-
+            var result = Execute();
             Assert.AreEqual(2, result.PlayerItems.Count);
 
             Assert.AreEqual(2, result.PlayerItems[0].Checkpoints.Count);
@@ -47,8 +44,7 @@ namespace Tests.Core.UseCases.RunningCashgameTests
         [Test]
         public void RunningCashgame_CashgameRunning_BunchPlayerItemsAreSet()
         {
-            var result = Sut.Execute(Request);
-
+            var result = Execute();
             Assert.AreEqual(2, result.BunchPlayerItems.Count);
             Assert.AreEqual(PlayerData.Name1, result.BunchPlayerItems[0].Name);
             Assert.AreEqual(PlayerData.Id1, result.BunchPlayerItems[0].PlayerId);

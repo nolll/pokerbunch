@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases.CashoutTests
         [Test]
         public void AddsCheckpoint()
         {
-            Sut.Execute(Request);
+            Execute();
 
             Assert.AreEqual(CheckpointCountBeforeCashout + 1, UpdatedCashgame.Checkpoints.Count);
             Assert.IsTrue(UpdatedCashgame.Checkpoints.First(o => o.Type == CheckpointType.Cashout).Stack == CashoutStack);

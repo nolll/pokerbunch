@@ -10,11 +10,9 @@ namespace Tests.Core.UseCases.CashgameListTests
         [Test]
         public void HighestAverageBuyinIsFirst()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(CashgameList.SortOrder.AverageBuyin, result.SortOrder);
-            Assert.AreEqual(300, result.List[0].AverageBuyin.Amount);
-            Assert.AreEqual(200, result.List[1].AverageBuyin.Amount);
+            Assert.AreEqual(CashgameList.SortOrder.AverageBuyin, Result.SortOrder);
+            Assert.AreEqual(300, Result.List[0].AverageBuyin.Amount);
+            Assert.AreEqual(200, Result.List[1].AverageBuyin.Amount);
         }
     }
 }

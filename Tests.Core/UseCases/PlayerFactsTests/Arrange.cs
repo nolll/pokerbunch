@@ -9,8 +9,10 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerFactsTests
 {
-    public abstract class Arrange : UseCaseTest<PlayerList>
+    public abstract class Arrange : UseCaseTest<PlayerFacts>
     {
+        protected PlayerFacts.Result Result;
+
         public static readonly DateTime StartTime1 = TimeData.Utc("2001-01-01 12:00:00");
         public static readonly DateTime EndTime1 = TimeData.Utc("2001-01-01 13:02:00");
         public static readonly DateTime StartTime2 = TimeData.Utc("2001-01-02 12:00:00");
@@ -22,21 +24,16 @@ namespace Tests.Core.UseCases.PlayerFactsTests
         [SetUp]
         public void Setup()
         {
-            var brm = new Mock<IBunchRepository>();
-            brm.Setup(o => o.Get(BunchId))
-                .Returns(BunchData.Bunch1(Role.Player));
+            var bunch = BunchData.Bunch1(Role.Player);
+            var cashgames = Games;
+            var player = new Player(BunchId, PlayerId, null);
 
-            var crm = new Mock<ICashgameRepository>();
-            crm.Setup(o => o.PlayerList(PlayerId)).Returns(Games);
+            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
+            Mock<ICashgameRepository>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);
+            Mock<IPlayerRepository>().Setup(o => o.Get(PlayerId)).Returns(player);
 
-            var prm = new Mock<IPlayerRepository>();
-            prm.Setup(o => o.Get(PlayerId))
-                .Returns(new Player(BunchId, PlayerId, null));
-
-            Sut = new PlayerFacts(brm.Object, crm.Object, prm.Object);
+            Result = Sut.Execute(new PlayerFacts.Request(PlayerId));
         }
-
-        protected PlayerFacts.Request Request => new PlayerFacts.Request(PlayerId);
 
         private static IList<ListCashgame> Games => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2, EndTime2);
         private static IList<ListCashgame> TwoGamesWithTwoPlayers(DateTime startTime1, DateTime endTime1, DateTime startTime2, DateTime endTime2) =>

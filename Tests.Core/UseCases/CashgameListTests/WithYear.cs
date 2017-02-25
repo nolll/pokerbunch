@@ -9,10 +9,8 @@ namespace Tests.Core.UseCases.CashgameListTests
         [Test]
         public void CashgameList_WithYear_YearIsSet()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.IsTrue(result.ShowYear);
-            Assert.AreEqual(Year, result.Year);
+            Assert.IsTrue(Result.ShowYear);
+            Assert.AreEqual(Year, Result.Year);
         }
     }
 }

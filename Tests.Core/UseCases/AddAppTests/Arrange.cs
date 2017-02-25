@@ -1,7 +1,6 @@
 using Core.Exceptions;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 
@@ -19,12 +18,9 @@ namespace Tests.Core.UseCases.AddAppTests
         [SetUp]
         public void Setup()
         {
-            var arm = new Mock<IAppRepository>();
-
-            arm.Setup(o => o.Add(ValidAppName))
-                .Returns(GeneratedId)
+            Mock<IAppRepository>().Setup(o => o.Add(ValidAppName)).Returns(GeneratedId)
                 .Callback((string appName) => { AddedAppName = appName; });
-            arm.Setup(o => o.Add(InvalidAppName))
+            Mock<IAppRepository>().Setup(o => o.Add(InvalidAppName))
                 .Throws(new ValidationException("validation-error"));
         }
 

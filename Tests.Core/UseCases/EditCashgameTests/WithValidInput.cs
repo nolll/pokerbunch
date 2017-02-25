@@ -8,7 +8,7 @@ namespace Tests.Core.UseCases.EditCashgameTests
         [Test]
         public void RepositoryIsCalledWithSavedValues()
         {
-            Sut.Execute(ValidRequest);
+            Execute();
 
             Assert.AreEqual(LocationData.Id1, SavedLocationId);
             Assert.AreEqual(EventData.Id1, SavedEventId);

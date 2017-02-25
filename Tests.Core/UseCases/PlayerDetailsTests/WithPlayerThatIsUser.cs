@@ -12,26 +12,20 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
         [Test]
         public void PlayerDetails_WithUser_AvatarUrlIsSet()
         {
-            var result = Sut.Execute(Request);
-
             const string expected = "http://www.gravatar.com/avatar/111d68d06e2d317b5a59c2c6c5bad808?s=100";
-            Assert.AreEqual(expected, result.AvatarUrl);
+            Assert.AreEqual(expected, Result.AvatarUrl);
         }
 
         [Test]
         public void PlayerDetails_WithUser_UserNameIsSet()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.AreEqual(UserData.UserName1, result.UserName);
+            Assert.AreEqual(UserData.UserName1, Result.UserName);
         }
 
         [Test]
         public void PlayerDetails_WithUser_IsUserIsTrue()
         {
-            var result = Sut.Execute(Request);
-
-            Assert.IsTrue(result.IsUser);
+            Assert.IsTrue(Result.IsUser);
         }
     }
 }
