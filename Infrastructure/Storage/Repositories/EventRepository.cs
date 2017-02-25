@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
@@ -45,9 +44,10 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer.Remove<Event>(eventId);
         }
 
-        private Event CreateEvent(ApiEvent l)
+        private Event CreateEvent(ApiEvent e)
         {
-            return new Event(l.Id, l.Bunch, l.Name);
+            var location = new SmallLocation(e.Location.Id, e.Location.Name);
+            return new Event(e.Id, e.BunchId, e.Name);
         }
 
         private class ApiEvent
@@ -55,19 +55,29 @@ namespace Infrastructure.Storage.Repositories
             [UsedImplicitly]
             public string Id { get; set; }
             [UsedImplicitly]
+            public string BunchId { get; set; }
+            [UsedImplicitly]
             public string Name { get; set; }
             [UsedImplicitly]
-            public string Bunch { get; set; }
+            public ApiEventLocation Location { get; set; }
 
-            public ApiEvent(string name, string bunch)
+            public ApiEvent(string name, string bunchId)
             {
                 Name = name;
-                Bunch = bunch;
+                BunchId = bunchId;
             }
 
             public ApiEvent()
             {
             }
+        }
+
+        public class ApiEventLocation
+        {
+            [UsedImplicitly]
+            public string Id { get; set; }
+            [UsedImplicitly]
+            public string Name { get; set; }
         }
     }
 }

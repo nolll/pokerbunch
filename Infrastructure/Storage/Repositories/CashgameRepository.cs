@@ -103,7 +103,7 @@ namespace Infrastructure.Storage.Repositories
         
         private ListCashgame CreateListCashgame(ApiListCashgame c)
         {
-            var location = new ListCashgame.CashgameLocation(c.Location.Id, c.Location.Name);
+            var location = new SmallLocation(c.Location.Id, c.Location.Name);
             var players = c.Players.Select(CreatePlayer).ToList();
             var startTime = DateTime.SpecifyKind(c.StartTime, DateTimeKind.Utc);
             var updatedTime = DateTime.SpecifyKind(c.UpdatedTime, DateTimeKind.Utc);

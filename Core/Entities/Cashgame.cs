@@ -12,10 +12,10 @@ namespace Core.Entities
         public DateTime StartTime { get; }
         public DateTime UpdatedTime { get; }
         public bool IsRunning { get; }
-        public CashgameLocation Location { get; }
+        public SmallLocation Location { get; }
         public IList<CashgamePlayer> Players { get; }
 
-        public ListCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, CashgameLocation location, IList<CashgamePlayer> players)
+        public ListCashgame(string id, DateTime startTime, DateTime updatedTime, bool isRunning, SmallLocation location, IList<CashgamePlayer> players)
         {
             Id = id;
             StartTime = startTime;
@@ -23,18 +23,6 @@ namespace Core.Entities
             IsRunning = isRunning;
             Location = location;
             Players = players;
-        }
-
-        public class CashgameLocation
-        {
-            public string Id { get; }
-            public string Name { get; }
-
-            public CashgameLocation(string id, string name)
-            {
-                Id = id;
-                Name = name;
-            }
         }
 
         public class CashgamePlayer
@@ -108,6 +96,18 @@ namespace Core.Entities
                 }
             }
             return bestResult;
+        }
+    }
+
+    public class SmallLocation
+    {
+        public string Id { get; }
+        public string Name { get; }
+
+        public SmallLocation(string id, string name)
+        {
+            Id = id;
+            Name = name;
         }
     }
 

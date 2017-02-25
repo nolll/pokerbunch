@@ -13,7 +13,7 @@ namespace Web.Controllers
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);
-            var eventListOutput = UseCase.EventList.Execute(new EventList.Request(Identity.UserName, slug));
+            var eventListOutput = UseCase.EventList.Execute(new EventList.Request(slug));
             var model = new EventListPageModel(contextResult, eventListOutput);
             return View("~/Views/Pages/EventList/EventList.cshtml", model);
         }

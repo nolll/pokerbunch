@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases.PlayerBadgesTests
         {
             var startTime = DateTime.Parse("2001-01-01 10:00:00");
             var endTime = DateTime.Parse("2001-01-01 11:00:00");
-            var location = new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1);
+            var location = new SmallLocation(LocationData.Id1, LocationData.Name1);
             var players = new List<ListCashgame.CashgamePlayer>();
             var games = new List<ListCashgame>();
             for (var i = 0; i < numberOfGames; i++)

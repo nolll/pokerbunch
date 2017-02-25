@@ -9,52 +9,35 @@ namespace Core.UseCases
 {
     public class EventList
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly IEventRepository _eventRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly ILocationRepository _locationRepository;
 
-        public EventList(IBunchRepository bunchRepository, IEventRepository eventRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository)
+        public EventList(IEventRepository eventRepository)
         {
-            _bunchRepository = bunchRepository;
             _eventRepository = eventRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
-            _locationRepository = locationRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
-            var events = _eventRepository.ListByBunch(bunch.Id);
-            var locations = _locationRepository.List(bunch.Id);
+            var events = _eventRepository.ListByBunch(request.Slug);
 
-            var eventItems = events.OrderByDescending(o => o, new EventComparer()).Select(o => CreateEventItem(o, locations)).ToList();
+            var eventItems = events.OrderByDescending(o => o, new EventComparer()).Select(CreateEventItem).ToList();
 
             return new Result(eventItems);
         }
 
-        private static Item CreateEventItem(Event e, IList<Location> locations)
+        private static Item CreateEventItem(Event e)
         {
-            var location = locations.FirstOrDefault(o => o.Id == e.LocationId);
-            var locationName = location != null ? location.Name : "";
             if(e.HasGames)
-                return new Item(e.Id, e.Name, locationName, e.StartDate, e.EndDate);
+                return new Item(e.Id, e.Name, e.Location.Name, e.StartDate, e.EndDate);
             return new Item(e.Id, e.Name);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
 
-            public Request(string userName, string slug)
+            public Request(string slug)
             {
-                UserName = userName;
                 Slug = slug;
             }
         }

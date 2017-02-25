@@ -105,7 +105,7 @@ namespace Tests.Core.Data
                     startTime1,
                     endTime1,
                     false,
-                    new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+                    new SmallLocation(LocationData.Id1, LocationData.Name1),
                     new List<ListCashgame.CashgamePlayer>
                     {
                         new ListCashgame.CashgamePlayer(
@@ -130,7 +130,7 @@ namespace Tests.Core.Data
                     startTime2,
                     endTime2,
                     false,
-                    new ListCashgame.CashgameLocation(LocationData.Id1, LocationData.Name1),
+                    new SmallLocation(LocationData.Id1, LocationData.Name1),
                     new List<ListCashgame.CashgamePlayer>
                     {
                         new ListCashgame.CashgamePlayer(

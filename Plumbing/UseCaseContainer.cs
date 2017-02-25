@@ -46,7 +46,7 @@ namespace Plumbing
         public JoinBunchConfirmation JoinBunchConfirmation => new JoinBunchConfirmation(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository);
 
         // Events
-        public EventList EventList => new EventList(_deps.BunchRepository, _deps.EventRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.LocationRepository);
+        public EventList EventList => new EventList(_deps.EventRepository);
         public EventDetails EventDetails => new EventDetails(_deps.EventRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.BunchRepository);
         public AddEvent AddEvent => new AddEvent(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository, _deps.EventRepository);
 

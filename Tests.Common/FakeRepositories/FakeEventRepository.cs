@@ -42,8 +42,8 @@ namespace Tests.Common.FakeRepositories
         {
             return new List<Event>
             {
-                new Event(TestData.EventIdA, TestData.BunchA.Id, TestData.EventNameA, TestData.LocationIdA, new Date(TestData.StartTimeA), new Date(TestData.StartTimeA.AddDays(1))),
-                new Event(TestData.EventIdB, TestData.BunchA.Id, TestData.EventNameB, TestData.LocationIdB, new Date(TestData.StartTimeB), new Date(TestData.StartTimeB.AddDays(1)))
+                new Event(TestData.EventIdA, TestData.BunchA.Id, TestData.EventNameA, new SmallLocation(TestData.LocationIdA, TestData.LocationNameA), new Date(TestData.StartTimeA), new Date(TestData.StartTimeA.AddDays(1))),
+                new Event(TestData.EventIdB, TestData.BunchA.Id, TestData.EventNameB, new SmallLocation(TestData.LocationIdB, TestData.LocationNameB), new Date(TestData.StartTimeB), new Date(TestData.StartTimeB.AddDays(1)))
             };
         }
     }
