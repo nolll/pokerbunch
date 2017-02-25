@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
@@ -14,25 +13,12 @@ namespace Core.UseCases
             _userRepository = userRepository;
         }
 
-        public Result Execute(Request request)
+        public Result Execute()
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            RequireRole.Admin(user);
-            
             var users = _userRepository.List();
             var userItems = users.Select(o => new UserListItem(o.DisplayName, o.UserName)).ToList();
 
             return new Result(userItems);
-        }
-
-        public class Request
-        {
-            public string UserName { get; }
-
-            public Request(string userName)
-            {
-                UserName = userName;
-            }
         }
 
         public class Result
