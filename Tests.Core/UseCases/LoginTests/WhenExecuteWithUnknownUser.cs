@@ -5,12 +5,13 @@ namespace Tests.Core.UseCases.LoginTests
 {
     public class WhenExecuteWithUnknownUser : Arrange
     {
+        protected override bool ExecuteAutomatically => false;
         protected override string LoginName => UnknownUser;
 
         [Test]
         public void ThrowsException()
         {
-            Assert.Throws<LoginException>(() => Execute());
+            Assert.Throws<LoginException>(Execute);
         }
     }
 }

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerBadgesTests
@@ -16,13 +14,15 @@ namespace Tests.Core.UseCases.PlayerBadgesTests
         private const string PlayerId = PlayerData.Id1;
         protected abstract int NumberOfGames { get; }
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var cashgames = GetGames(NumberOfGames);
 
             Mock<ICashgameRepository>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new PlayerBadges.Request(PlayerId));
         }
 

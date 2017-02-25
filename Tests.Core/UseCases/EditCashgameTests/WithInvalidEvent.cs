@@ -5,6 +5,7 @@ namespace Tests.Core.UseCases.EditCashgameTests
 {
     public class WithInvalidEvent : Arrange
     {
+        protected override bool ExecuteAutomatically => false;
         protected override string EventId => InvalidEventId;
 
         [Test]

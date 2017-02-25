@@ -2,13 +2,13 @@
 using Core.Repositories;
 using Core.Services;
 using Core.UseCases;
-using Moq;
-using NUnit.Framework;
 
 namespace Tests.Core.UseCases.LoginTests
 {
     public class Arrange : UseCaseTest<Login>
     {
+        protected Login.Result Result;
+
         protected string ExistingUser => "existing-user";
         protected string UnknownUser => "unknow-user";
         protected string CorrectPassword => "correct-password";
@@ -20,8 +20,7 @@ namespace Tests.Core.UseCases.LoginTests
         protected virtual string Password => null;
         protected string Token => "token";
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var user = new User(ExistingUserId, ExistingUser, "description", "real-name", "test@example.com", Role.None, EncryptedCorrectPassword, Salt);
 
@@ -29,9 +28,9 @@ namespace Tests.Core.UseCases.LoginTests
             Mock<ITokenRepository>().Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
         }
 
-        protected Login.Result Execute()
+        protected override void Execute()
         {
-            return Sut.Execute(new Login.Request(LoginName, Password));
+            Result = Sut.Execute(new Login.Request(LoginName, Password));
         }
     }
 }

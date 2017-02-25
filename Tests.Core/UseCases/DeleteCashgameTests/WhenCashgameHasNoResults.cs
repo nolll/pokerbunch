@@ -8,13 +8,9 @@ namespace Tests.Core.UseCases.DeleteCashgameTests
         protected override string Id => IdWithoutResults;
 
         [Test]
-        public void DeletesGame()
-        {
-            Execute();
-            Assert.AreEqual(Id, DeletedId);
-        }
+        public void DeletesGame() => Assert.AreEqual(Id, DeletedId);
 
         [Test]
-        public void BunchIdIsSet() => Assert.AreEqual(BunchData.Id1, Execute().Slug);
+        public void BunchIdIsSet() => Assert.AreEqual(BunchData.Id1, Result.Slug);
     }
 }

@@ -7,10 +7,6 @@ namespace Tests.Core.UseCases.AddAppTests
         protected override string AppName => ValidAppName;
 
         [Test]
-        public void AppIsAdded()
-        {
-            Execute();
-            Assert.AreEqual(AddedAppName, AddedAppName);
-        }
+        public void AppIsAdded() => Assert.AreEqual(AddedAppName, AddedAppName);
     }
 }

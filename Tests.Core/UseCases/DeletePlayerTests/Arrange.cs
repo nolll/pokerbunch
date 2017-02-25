@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.DeletePlayerTests
@@ -17,8 +15,7 @@ namespace Tests.Core.UseCases.DeletePlayerTests
         protected abstract string PlayerId { get; }
         protected string DeletedId;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var playerThatHasNotPlayed = new Player(BunchData.Id1, IdForPlayerThatHasPlayed, null);
             var playerThatHasPlayed = new Player(BunchData.Id1, IdForPlayerThatHasNotPlayed, null);
@@ -30,7 +27,10 @@ namespace Tests.Core.UseCases.DeletePlayerTests
             Mock<IPlayerRepository>().Setup(o => o.Delete(IdForPlayerThatHasNotPlayed)).Callback((string id) => { DeletedId = id; });
             Mock<ICashgameRepository>().Setup(o => o.PlayerList(IdForPlayerThatHasPlayed)).Returns(cashgames);
             Mock<ICashgameRepository>().Setup(o => o.PlayerList(IdForPlayerThatHasNotPlayed)).Returns(cashgameWithoutResults);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new DeletePlayer.Request(PlayerId));
         }
     }

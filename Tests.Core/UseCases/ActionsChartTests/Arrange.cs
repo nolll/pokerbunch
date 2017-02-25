@@ -1,7 +1,6 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.ActionsChartTests
@@ -12,12 +11,14 @@ namespace Tests.Core.UseCases.ActionsChartTests
 
         protected virtual bool GameIsRunning => false; 
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, GameIsRunning);
             Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new ActionsChart.Request(CashgameData.Id1, PlayerData.Id1));
         }
     }

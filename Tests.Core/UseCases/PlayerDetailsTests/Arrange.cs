@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerDetailsTests
@@ -19,8 +17,7 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
         protected string IdForPlayerThatHasPlayedGames = PlayerData.Id1;
         protected string IdForPlayerThatHasNotPlayedGames = PlayerData.Id2;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var bunch = BunchData.Bunch1(Role);
             var playerThatIsUser = new Player(BunchData.Id1, IdForPlayerThatIsUser, UserData.Id1, PlayerData.Name1, Role, PlayerData.Color1);
@@ -34,7 +31,10 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
             Mock<ICashgameRepository>().Setup(o => o.PlayerList(IdForPlayerThatHasPlayedGames)).Returns(cashgames);
             Mock<ICashgameRepository>().Setup(o => o.PlayerList(IdForPlayerThatHasNotPlayedGames)).Returns(new List<ListCashgame>());
             Mock<IUserRepository>().Setup(o => o.GetById(UserData.Id1)).Returns(user);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new PlayerDetails.Request(PlayerId));
         }
     }

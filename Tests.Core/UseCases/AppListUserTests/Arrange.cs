@@ -1,6 +1,5 @@
 ﻿using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AppListUserTests
@@ -9,13 +8,15 @@ namespace Tests.Core.UseCases.AppListUserTests
     {
         protected AppListUser.Result Result;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var apps = AppData.TwoApps;
 
             Mock<IAppRepository>().Setup(s => s.List()).Returns(apps);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute();
         }
     }

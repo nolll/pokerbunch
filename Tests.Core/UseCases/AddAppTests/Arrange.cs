@@ -1,13 +1,13 @@
 using Core.Exceptions;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddAppTests
 {
     public abstract class Arrange : UseCaseTest<AddApp>
     {
+        protected override bool ExecuteAutomatically => false;
         protected string AddedAppName;
         private const string GeneratedId = AppData.Id1;
 
@@ -15,8 +15,7 @@ namespace Tests.Core.UseCases.AddAppTests
         protected const string InvalidAppName = "";
         protected abstract string AppName { get; }
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             Mock<IAppRepository>().Setup(o => o.Add(ValidAppName)).Returns(GeneratedId)
                 .Callback((string appName) => { AddedAppName = appName; });
@@ -24,6 +23,9 @@ namespace Tests.Core.UseCases.AddAppTests
                 .Throws(new ValidationException("validation-error"));
         }
 
-        protected void Execute() => Sut.Execute(new AddApp.Request(AppName));
+        protected override void Execute()
+        {
+            Sut.Execute(new AddApp.Request(AppName));
+        }
     }
 }

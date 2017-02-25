@@ -1,8 +1,6 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameFactsTests
@@ -11,8 +9,7 @@ namespace Tests.Core.UseCases.CashgameFactsTests
     {
         protected CashgameFacts.Result Result;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var bunch = BunchData.Bunch1(Role.Player);
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
@@ -21,7 +18,10 @@ namespace Tests.Core.UseCases.CashgameFactsTests
             Mock<IBunchRepository>().Setup(o => o.Get(BunchData.Id1)).Returns(bunch);
             Mock<ICashgameRepository>().Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
             Mock<IPlayerRepository>().Setup(o => o.List(BunchData.Id1)).Returns(players);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new CashgameFacts.Request(BunchData.Id1, null));
         }
     }

@@ -8,48 +8,43 @@ namespace Tests.Core.UseCases.RunningCashgameTests
         [Test]
         public void RunningCashgame_CashgameRunning_AllSimplePropertiesAreSet()
         {
-            var execute = Execute();
-            Assert.AreEqual(PlayerData.Id1, execute.PlayerId);
-            Assert.AreEqual(LocationData.Name1, execute.LocationName);
-            Assert.AreEqual(100, execute.DefaultBuyin);
-            Assert.IsFalse(execute.IsManager);
+            Assert.AreEqual(PlayerData.Id1, Result.PlayerId);
+            Assert.AreEqual(LocationData.Name1, Result.LocationName);
+            Assert.AreEqual(100, Result.DefaultBuyin);
+            Assert.IsFalse(Result.IsManager);
         }
 
         [Test]
         public void RunningCashgame_CashgameRunning_SlugIsSet()
         {
-            var result = Execute();
-            Assert.AreEqual(BunchIdWithRunningGame, result.Slug);
+            Assert.AreEqual(BunchIdWithRunningGame, Result.Slug);
         }
 
         [Test]
         public void RunningCashgame_CashgameRunning_PlayerItemsAreSet()
         {
-            var result = Execute();
-            Assert.AreEqual(2, result.PlayerItems.Count);
+            Assert.AreEqual(2, Result.PlayerItems.Count);
+            Assert.AreEqual(2, Result.PlayerItems[0].Checkpoints.Count);
+            Assert.IsTrue(Result.PlayerItems[0].HasCashedOut);
+            Assert.AreEqual(PlayerData.Name1, Result.PlayerItems[0].Name);
+            Assert.AreEqual(PlayerData.Id1, Result.PlayerItems[0].PlayerId);
+            Assert.AreEqual(CashgameData.Id1, Result.PlayerItems[0].CashgameId);
 
-            Assert.AreEqual(2, result.PlayerItems[0].Checkpoints.Count);
-            Assert.IsTrue(result.PlayerItems[0].HasCashedOut);
-            Assert.AreEqual(PlayerData.Name1, result.PlayerItems[0].Name);
-            Assert.AreEqual(PlayerData.Id1, result.PlayerItems[0].PlayerId);
-            Assert.AreEqual(CashgameData.Id1, result.PlayerItems[0].CashgameId);
-
-            Assert.AreEqual(3, result.PlayerItems[1].Checkpoints.Count);
-            Assert.IsTrue(result.PlayerItems[1].HasCashedOut);
-            Assert.AreEqual(PlayerData.Name2, result.PlayerItems[1].Name);
-            Assert.AreEqual(PlayerData.Id2, result.PlayerItems[1].PlayerId);
-            Assert.AreEqual(CashgameData.Id1, result.PlayerItems[1].CashgameId);
+            Assert.AreEqual(3, Result.PlayerItems[1].Checkpoints.Count);
+            Assert.IsTrue(Result.PlayerItems[1].HasCashedOut);
+            Assert.AreEqual(PlayerData.Name2, Result.PlayerItems[1].Name);
+            Assert.AreEqual(PlayerData.Id2, Result.PlayerItems[1].PlayerId);
+            Assert.AreEqual(CashgameData.Id1, Result.PlayerItems[1].CashgameId);
         }
 
         [Test]
         public void RunningCashgame_CashgameRunning_BunchPlayerItemsAreSet()
         {
-            var result = Execute();
-            Assert.AreEqual(2, result.BunchPlayerItems.Count);
-            Assert.AreEqual(PlayerData.Name1, result.BunchPlayerItems[0].Name);
-            Assert.AreEqual(PlayerData.Id1, result.BunchPlayerItems[0].PlayerId);
-            Assert.AreEqual(PlayerData.Name2, result.BunchPlayerItems[1].Name);
-            Assert.AreEqual(PlayerData.Id2, result.BunchPlayerItems[1].PlayerId);
+            Assert.AreEqual(2, Result.BunchPlayerItems.Count);
+            Assert.AreEqual(PlayerData.Name1, Result.BunchPlayerItems[0].Name);
+            Assert.AreEqual(PlayerData.Id1, Result.BunchPlayerItems[0].PlayerId);
+            Assert.AreEqual(PlayerData.Name2, Result.BunchPlayerItems[1].Name);
+            Assert.AreEqual(PlayerData.Id2, Result.BunchPlayerItems[1].PlayerId);
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameDetailsChartTests
@@ -10,13 +9,15 @@ namespace Tests.Core.UseCases.CashgameDetailsChartTests
     {
         protected CashgameDetailsChart.Result Result;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player);
 
             Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new CashgameDetailsChart.Request(CashgameData.Id1));
         }
     }

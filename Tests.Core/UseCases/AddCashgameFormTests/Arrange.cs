@@ -1,19 +1,19 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddCashgameFormTests
 {
     public abstract class Arrange : UseCaseTest<AddCashgameForm>
     {
+        protected AddCashgameForm.Result Result;
+
         private const string BunchIdWithoutRunningGame = BunchData.Id1;
         protected const string BunchIdWithRunningGame = BunchData.Id2;
         protected virtual string BunchId => BunchIdWithoutRunningGame;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var bunch = new Bunch(BunchId);
             var cashgame = CashgameData.GameWithoutPlayers(Role.Player);
@@ -26,6 +26,9 @@ namespace Tests.Core.UseCases.AddCashgameFormTests
             Mock<IEventRepository>().Setup(o => o.ListByBunch(BunchId)).Returns(events);
         }
 
-        protected AddCashgameForm.Result Execute() => Sut.Execute(new AddCashgameForm.Request(BunchId));
+        protected override void Execute()
+        {
+            Result = Sut.Execute(new AddCashgameForm.Request(BunchId));
+        }
     }
 }

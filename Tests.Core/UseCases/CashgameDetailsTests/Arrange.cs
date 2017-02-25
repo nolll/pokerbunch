@@ -1,7 +1,6 @@
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameDetailsTests
@@ -12,13 +11,15 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
 
         protected abstract Role Role { get; }
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var cashgame = CashgameData.GameWithTwoPlayers(Role);
 
             Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new CashgameDetails.Request(CashgameData.Id1));
         }
     }

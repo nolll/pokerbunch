@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.BunchDetailsTests
@@ -12,13 +11,15 @@ namespace Tests.Core.UseCases.BunchDetailsTests
 
         protected abstract Role Role { get; }
     
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var bunch = BunchData.Bunch1(Role);
 
             Mock<IBunchRepository>().Setup(s => s.Get(BunchData.Id1)).Returns(bunch);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new BunchDetails.Request(BunchData.Id1));
         }
     }

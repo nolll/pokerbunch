@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 
 namespace Tests.Core.UseCases.UserDetailsTests
 {
@@ -19,8 +18,7 @@ namespace Tests.Core.UseCases.UserDetailsTests
         protected virtual Role Role => Role.Player;
         protected virtual bool ViewingOwnUser => false; 
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             if (ViewingOwnUser)
             {
@@ -32,7 +30,10 @@ namespace Tests.Core.UseCases.UserDetailsTests
                 Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(_currentUserName)).Returns(new User(CurrentUserId, _currentUserName, globalRole: Role));
                 Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
             }
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new UserDetails.Request(_currentUserName, ViewUserName));
         }
     }

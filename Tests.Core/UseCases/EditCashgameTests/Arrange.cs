@@ -2,7 +2,6 @@
 using Core.Exceptions;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.EditCashgameTests
@@ -20,8 +19,7 @@ namespace Tests.Core.UseCases.EditCashgameTests
         protected virtual string LocationId => ValidLocationId;
         protected virtual string EventId => ValidEventId;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             SavedLocationId = null;
             SavedEventId = null;
@@ -36,7 +34,7 @@ namespace Tests.Core.UseCases.EditCashgameTests
                 .Throws(new ValidationException("validation-error"));
         }
 
-        protected void Execute()
+        protected override void Execute()
         {
             Sut.Execute(new EditCashgame.Request(CashgameData.Id1, LocationId, EventId));
         }

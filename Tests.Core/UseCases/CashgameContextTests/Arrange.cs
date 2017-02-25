@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameContextTests
@@ -23,8 +22,7 @@ namespace Tests.Core.UseCases.CashgameContextTests
         protected virtual CashgameContext.CashgamePage SelectedPage => CashgameContext.CashgamePage.Overview;
         protected virtual int? Year => null;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var bunch = new Bunch(BunchId, null, null, null, null, 100);
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
@@ -34,7 +32,10 @@ namespace Tests.Core.UseCases.CashgameContextTests
             Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
             Mock<ICashgameRepository>().Setup(o => o.GetYears(BunchId)).Returns(new List<int> { FirstYear, LastYear });
             Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new CashgameContext.Request(UserName, BunchId, CurrentTime, SelectedPage, Year));
         }
     }

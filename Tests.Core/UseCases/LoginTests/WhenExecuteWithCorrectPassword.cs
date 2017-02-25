@@ -10,9 +10,8 @@ namespace Tests.Core.UseCases.LoginTests
         [Test]
         public void ThrowsException()
         {
-            var result = Execute();
-            Assert.AreEqual(LoginName, result.UserName);
-            Assert.AreEqual(Token, result.Token);
+            Assert.AreEqual(LoginName, Result.UserName);
+            Assert.AreEqual(Token, Result.Token);
         }
     }
 }

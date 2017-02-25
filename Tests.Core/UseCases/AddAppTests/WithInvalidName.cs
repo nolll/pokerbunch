@@ -5,6 +5,7 @@ namespace Tests.Core.UseCases.AddAppTests
 {
     public class WithInvalidName : Arrange
     {
+        protected override bool ExecuteAutomatically => false;
         protected override string AppName => InvalidAppName;
 
         [Test]

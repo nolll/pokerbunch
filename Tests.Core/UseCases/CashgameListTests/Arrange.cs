@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashgameListTests
@@ -24,8 +22,7 @@ namespace Tests.Core.UseCases.CashgameListTests
         protected virtual int? Year => null;
         protected virtual string BunchId => BunchIdWithGames;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var bunchWithGames = BunchData.Bunch1(Role.Player);
             var bunchWithoutGames = BunchData.Bunch2(Role.Player);
@@ -35,7 +32,10 @@ namespace Tests.Core.UseCases.CashgameListTests
             Mock<IBunchRepository>().Setup(o => o.Get(BunchIdWithoutGames)).Returns(bunchWithoutGames);
             Mock<ICashgameRepository>().Setup(o => o.List(BunchIdWithGames, Year)).Returns(cashgames);
             Mock<ICashgameRepository>().Setup(o => o.List(BunchIdWithoutGames, Year)).Returns(new List<ListCashgame>());
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new CashgameList.Request(BunchId, SortOrder, Year));
         }
 

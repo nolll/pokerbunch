@@ -2,20 +2,19 @@ using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.RunningCashgameTests
 {
     public abstract class Arrange : UseCaseTest<RunningCashgame>
     {
+        protected RunningCashgame.Result Result;
+
         protected const string BunchIdWithoutRunningGame = BunchData.Id1;
         protected const string BunchIdWithRunningGame = BunchData.Id2;
         protected virtual string BunchId => BunchIdWithRunningGame;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var bunch = new Bunch(BunchId, null, null, null, null, 100);
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
@@ -30,9 +29,9 @@ namespace Tests.Core.UseCases.RunningCashgameTests
             Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
         }
 
-        protected RunningCashgame.Result Execute()
+        protected override void Execute()
         {
-            return Sut.Execute(new RunningCashgame.Request(UserData.UserName1, BunchId));
+            Result = Sut.Execute(new RunningCashgame.Request(UserData.UserName1, BunchId));
         }
     }
 }

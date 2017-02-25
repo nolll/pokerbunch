@@ -5,7 +5,6 @@ using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.UseCases;
 using Moq;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.CashoutTests
@@ -23,8 +22,7 @@ namespace Tests.Core.UseCases.CashoutTests
         protected int CheckpointCountBeforeCashout;
         protected Cashgame UpdatedCashgame;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             UpdatedCashgame = null;
             var bunch = new Bunch(BunchData.Id1, BunchData.DisplayName1);
@@ -40,9 +38,9 @@ namespace Tests.Core.UseCases.CashoutTests
             Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(UserData.UserName1)).Returns(user);
         }
 
-        protected Cashout.Result Execute()
+        protected override void Execute()
         {
-            return Sut.Execute(new Cashout.Request(UserData.UserName1, BunchData.Id1, PlayerData.Id1, CashoutStack, CashoutTime));
+            Result = Sut.Execute(new Cashout.Request(UserData.UserName1, BunchData.Id1, PlayerData.Id1, CashoutStack, CashoutTime));
         }
 
         private Cashgame CreateCashgame()

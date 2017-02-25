@@ -9,8 +9,6 @@ namespace Tests.Core.UseCases.CashoutTests
         [Test]
         public void AddsCheckpoint()
         {
-            Execute();
-
             Assert.AreEqual(CheckpointCountBeforeCashout + 1, UpdatedCashgame.Checkpoints.Count);
             Assert.IsTrue(UpdatedCashgame.Checkpoints.First(o => o.Type == CheckpointType.Cashout).Stack == CashoutStack);
         }

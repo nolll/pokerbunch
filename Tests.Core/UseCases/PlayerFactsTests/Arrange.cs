@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.PlayerFactsTests
@@ -19,10 +17,8 @@ namespace Tests.Core.UseCases.PlayerFactsTests
         public static readonly DateTime EndTime2 = TimeData.Utc("2001-01-02 14:02:00");
         protected const string BunchId = BunchData.Id1;
         protected const string PlayerId = PlayerData.Id1;
-        protected int? Year = null;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var bunch = BunchData.Bunch1(Role.Player);
             var cashgames = Games;
@@ -31,7 +27,10 @@ namespace Tests.Core.UseCases.PlayerFactsTests
             Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
             Mock<ICashgameRepository>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);
             Mock<IPlayerRepository>().Setup(o => o.Get(PlayerId)).Returns(player);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new PlayerFacts.Request(PlayerId));
         }
 

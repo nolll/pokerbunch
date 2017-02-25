@@ -1,6 +1,5 @@
 using Core.Repositories;
 using Core.UseCases;
-using NUnit.Framework;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AppDetailsTests
@@ -9,13 +8,15 @@ namespace Tests.Core.UseCases.AppDetailsTests
     {
         protected AppDetails.Result Result;
 
-        [SetUp]
-        public void Setup()
+        protected override void Setup()
         {
             var app = AppData.OneApp;
 
             Mock<IAppRepository>().Setup(s => s.GetById(AppData.Id1)).Returns(app);
+        }
 
+        protected override void Execute()
+        {
             Result = Sut.Execute(new AppDetails.Request(AppData.Id1));
         }
     }
