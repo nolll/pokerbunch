@@ -39,7 +39,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(string slug, EditBunchPostModel postModel = null)
         {
             var contextResult = GetBunchContext(slug);
-            var editBunchFormRequest = new EditBunchForm.Request(Identity.UserName, slug);
+            var editBunchFormRequest = new EditBunchForm.Request(slug);
             var editBunchFormResult = UseCase.EditBunchForm.Execute(editBunchFormRequest);
             var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel);
             return View("~/Views/Pages/EditBunch/Edit.cshtml", model);

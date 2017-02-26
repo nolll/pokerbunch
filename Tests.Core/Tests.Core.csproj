@@ -116,6 +116,8 @@
     <Compile Include="UseCases\DeletePlayerTests\Arrange.cs" />
     <Compile Include="UseCases\DeletePlayerTests\WithPlayerThatHasNotPlayed.cs" />
     <Compile Include="UseCases\DeletePlayerTests\WithPlayerThatHasPlayed.cs" />
+    <Compile Include="UseCases\EditBunchFormTests\Arrange.cs" />
+    <Compile Include="UseCases\EditBunchFormTests\WhenExecute.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\Arrange.cs" />
     <Compile Include="UseCases\EditCashgameFormTests\WithPlayer.cs" />
     <Compile Include="UseCases\AppListAllTests\Arrange.cs" />
@@ -178,7 +180,6 @@
     <Compile Include="UseCases\PlayerListTests\WithManagerRole.cs" />
     <Compile Include="UseCases\PlayerListTests\WithPlayerRole.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
-    <Compile Include="UseCases\EditBunchFormTests.cs" />
     <Compile Include="UseCases\EditCheckpointFormTests.cs" />
     <Compile Include="UseCases\EditUserFormTests.cs" />
     <Compile Include="UseCases\ForgotPasswordTests.cs" />

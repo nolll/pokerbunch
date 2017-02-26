@@ -7,23 +7,16 @@ namespace Core.UseCases
     public class EditBunchForm
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
 
-        public EditBunchForm(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public EditBunchForm(IBunchRepository bunchRepository)
         {
             _bunchRepository = bunchRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
             var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Manager(user, player);
-            var heading = string.Format("{0} Settings", bunch.DisplayName);
+            var heading = $"{bunch.DisplayName} Settings";
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;
             var defaultBuyin = bunch.DefaultBuyin;
@@ -38,12 +31,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
 
-            public Request(string userName, string slug)
+            public Request(string slug)
             {
-                UserName = userName;
                 Slug = slug;
             }
         }
