@@ -1,42 +1,29 @@
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
     public class EventDetails
     {
         private readonly IEventRepository _eventRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IBunchRepository _bunchRepository;
 
-        public EventDetails(IEventRepository eventRepository, IUserRepository userRepository, IPlayerRepository playerRepository, IBunchRepository bunchRepository)
+        public EventDetails(IEventRepository eventRepository)
         {
             _eventRepository = eventRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
-            _bunchRepository = bunchRepository;
         }
 
         public Result Execute(Request request)
         {
             var e = _eventRepository.Get(request.EventId);
-            var bunch = _bunchRepository.Get(e.BunchId);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
             
-            return new Result(e.Name, bunch.Id);
+            return new Result(e.Name, e.BunchId);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string EventId { get; }
 
-            public Request(string userName, string eventId)
+            public Request(string eventId)
             {
-                UserName = userName;
                 EventId = eventId;
             }
         }

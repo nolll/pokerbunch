@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Event.Details)]
         public ActionResult List(string id)
         {
-            var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(Identity.UserName, id));
+            var eventDetails = UseCase.EventDetails.Execute(new EventDetails.Request(id));
             var contextResult = GetBunchContext(eventDetails.Slug);
             var matrixResult = UseCase.EventMatrix.Execute(new EventMatrix.Request(id));
             var model = new EventDetailsPageModel(contextResult, eventDetails, matrixResult);
