@@ -6,7 +6,7 @@ using Moq;
 
 namespace Tests.Core
 {
-    public class DependencyMocker
+    public class Mocker
     {
         readonly Dictionary<Type, Mock> _mocks = new Dictionary<Type, Mock>();
 
@@ -40,13 +40,13 @@ namespace Tests.Core
             return (T)Activator.CreateInstance(typeof(T), ctor.ToArray());
         }
 
-        object Create(Type type) => type.IsValueType
+        private object Create(Type type) => type.IsValueType
             ? Activator.CreateInstance(type)
             : (type.IsInterface
                 ? InterfaceBuilder(type)
                 : null);
 
-        Dictionary<string, object> ToDictionary(dynamic dynObj)
+        private Dictionary<string, object> ToDictionary(dynamic dynObj)
         {
             if (dynObj == null) return null;
             var dictionary = new Dictionary<string, object>();
