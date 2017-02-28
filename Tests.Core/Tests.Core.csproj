@@ -147,6 +147,8 @@
     <Compile Include="UseCases\EditCashgameTests\WithInvalidLocation.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithValidInput.cs" />
     <Compile Include="UseCases\EditCheckpointTests.cs" />
+    <Compile Include="UseCases\EditUserFormTests\Arrange.cs" />
+    <Compile Include="UseCases\EditUserFormTests\WhenExecute.cs" />
     <Compile Include="UseCases\EditUserTests.cs" />
     <Compile Include="UseCases\EndCashgameTests.cs" />
     <Compile Include="UseCases\EventDetailsTests\Arrange.cs" />
@@ -183,7 +185,6 @@
     <Compile Include="UseCases\PlayerListTests\WithPlayerRole.cs" />
     <Compile Include="UseCases\ReportTests.cs" />
     <Compile Include="UseCases\EditCheckpointFormTests.cs" />
-    <Compile Include="UseCases\EditUserFormTests.cs" />
     <Compile Include="UseCases\ForgotPasswordTests.cs" />
     <Compile Include="UseCases\InvitePlayerTests.cs" />
     <Compile Include="UseCases\JoinBunchConfirmationTests.cs" />
