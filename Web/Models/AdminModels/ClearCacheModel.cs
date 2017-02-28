@@ -4,18 +4,9 @@ namespace Web.Models.AdminModels
     {
         public string Message { get; private set; }
 
-        public ClearCacheModel(int objectCount)
+        public ClearCacheModel(string message)
         {
-            Message = GetMessage(objectCount);
-        }
-
-        private string GetMessage(int objectCount)
-        {
-            if (objectCount == 0)
-                return "The cache contained no objects";
-            if (objectCount == 1)
-                return "1 object was removed from the cache";
-            return $"{objectCount} objects was removed from the cache";
+            Message = message;
         }
     }
 }

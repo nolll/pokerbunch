@@ -4,11 +4,11 @@ namespace Web.Models.AdminModels
 {
     public class EmailModel
     {
-        public string Email { get; }
+        public string Message { get; }
 
         public EmailModel(TestEmail.Result result)
         {
-            Email = result.Email;
+            Message = result.Message;
         }
     }
 }

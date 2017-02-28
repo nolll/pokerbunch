@@ -22,8 +22,8 @@ namespace Plumbing
         public Login Login => new Login(_deps.UserRepository, _deps.TokenRepository);
 
         // Admin
-        public TestEmail TestEmail => new TestEmail(_deps.MessageSender, _deps.UserRepository);
-        public ClearCache ClearCache => new ClearCache(_deps.Cache);
+        public TestEmail TestEmail => new TestEmail(_deps.AdminService);
+        public ClearCache ClearCache => new ClearCache(_deps.AdminService);
 
         // User
         public UserList UserList => new UserList(_deps.UserRepository);

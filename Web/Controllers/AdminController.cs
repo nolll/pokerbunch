@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using Core.UseCases;
 using Web.Controllers.Base;
 using Web.Models.AdminModels;
 using Web.Routes;
@@ -12,7 +11,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Admin.SendEmail)]
         public ActionResult SendEmail()
         {
-            var result = UseCase.TestEmail.Execute(new TestEmail.Request(Identity.UserName));
+            var result = UseCase.TestEmail.Execute();
 
             var model = new EmailModel(result);
 
@@ -24,7 +23,7 @@ namespace Web.Controllers
         public ActionResult ClearCache()
         {
             var result = UseCase.ClearCache.Execute();
-            var model = new ClearCacheModel(result.ClearCount);
+            var model = new ClearCacheModel(result.Message);
 
             return View("ClearCache", model);
         }

@@ -2,6 +2,9 @@ namespace Infrastructure.ApiUrls
 {
     public class ApiUrlBuilder
     {
+        public ApiUrl AdminSendEmail => new SimpleApiUrl($"admin/sendemail");
+        public ApiUrl AdminClearCache => new SimpleApiUrl($"admin/clearcache");
+
         public ApiUrl App(string id) => new SimpleApiUrl($"apps/{id}");
         public ApiUrl Apps => new SimpleApiUrl("apps");
         public ApiUrl AppsByUser => new SimpleApiUrl("user/apps");

@@ -1,60 +1,30 @@
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class TestEmail
     {
-        private readonly IMessageSender _messageSender;
-        private readonly IUserRepository _userRepository;
+        private readonly IAdminService _adminService;
 
-        public TestEmail(IMessageSender messageSender, IUserRepository userRepository)
+        public TestEmail(IAdminService adminService)
         {
-            _messageSender = messageSender;
-            _userRepository = userRepository;
+            _adminService = adminService;
         }
 
-        public Result Execute(Request request)
+        public Result Execute()
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            RequireRole.Admin(user);
-            const string email = "henriks@gmail.com";
-            var message = new TestMessage();
-            _messageSender.Send(email, message);
+            var message = _adminService.SendEmail();
 
-            return new Result(email);
-        }
-
-        public class Request
-        {
-            public string UserName { get; }
-
-            public Request(string userName)
-            {
-                UserName = userName;
-            }
+            return new Result(message);
         }
 
         public class Result
         {
-            public string Email { get; private set; }
+            public string Message { get; private set; }
 
-            public Result(string email)
+            public Result(string message)
             {
-                Email = email;
-            }
-        }
-
-        private class TestMessage : IMessage
-        {
-            public string Subject
-            {
-                get { return "Test Email"; }
-            }
-
-            public string Body
-            {
-                get { return "This is a test email from pokerbunch.com"; }
+                Message = message;
             }
         }
     }

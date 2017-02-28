@@ -4,27 +4,27 @@ namespace Core.UseCases
 {
     public class ClearCache
     {
-        private readonly ICacheContainer _cache;
+        private readonly IAdminService _adminService;
 
-        public ClearCache(ICacheContainer cache)
+        public ClearCache(IAdminService adminService)
         {
-            _cache = cache;
+            _adminService = adminService;
         }
 
         public Result Execute()
         {
-            var clearCount = _cache.ClearAll();
+            var message = _adminService.ClearCache();
 
-            return new Result(clearCount);
+            return new Result(message);
         }
 
         public class Result
         {
-            public int ClearCount { get; }
+            public string Message { get; }
 
-            public Result(int clearCount)
+            public Result(string message)
             {
-                ClearCount = clearCount;
+                Message = message;
             }
         }
     }

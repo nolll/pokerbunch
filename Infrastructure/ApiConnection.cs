@@ -29,7 +29,7 @@ namespace Infrastructure
             return JsonConvert.DeserializeObject<T>(json);
         }
 
-        public T Post<T>(ApiUrl apiUrl, object data)
+        public T Post<T>(ApiUrl apiUrl, object data = null)
         {
             var json = PostJson(apiUrl.Url, data);
             return JsonConvert.DeserializeObject<T>(json);

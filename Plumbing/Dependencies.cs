@@ -3,6 +3,7 @@ using Core.Services;
 using Infrastructure;
 using Infrastructure.Storage;
 using Infrastructure.Storage.Repositories;
+using Infrastructure.Storage.Services;
 using Infrastructure.Web;
 
 namespace Plumbing
@@ -26,6 +27,7 @@ namespace Plumbing
         private ITokenRepository _tokenRepository;
         private IRandomService _randomService;
         private IMessageSender _messageSender;
+        private IAdminService _adminService;
                 
         public Dependencies(ICacheContainer cacheContainer, string connectionString, string apiUrl, string apiKey, string apiToken)
         {
@@ -49,6 +51,7 @@ namespace Plumbing
         public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));
         public IRandomService RandomService => _randomService ?? (_randomService = new RandomService());
         public IMessageSender MessageSender => _messageSender ?? (_messageSender = new MessageSender());
+        public IAdminService AdminService => _adminService ?? (_adminService = new AdminService(Api));
         public ICacheContainer Cache { get; }
     }
 }

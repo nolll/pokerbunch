@@ -110,6 +110,8 @@
     <Compile Include="UseCases\CashgameListTests\WithSortOrderPlayerCount.cs" />
     <Compile Include="UseCases\CashgameListTests\WithSortOrderTurnover.cs" />
     <Compile Include="UseCases\CashgameListTests\WithYear.cs" />
+    <Compile Include="UseCases\ClearCacheTests\Arrange.cs" />
+    <Compile Include="UseCases\ClearCacheTests\WhenExecute.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasNoResults.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasResults.cs" />
@@ -190,7 +192,8 @@
     <Compile Include="UseCases\RunningCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\RunningCashgameTests\WithoutRunningGame.cs" />
     <Compile Include="UseCases\RunningCashgameTests\WithRunningGame.cs" />
-    <Compile Include="UseCases\TestEmailTests.cs" />
+    <Compile Include="UseCases\TestEmailTests\WhenExecute.cs" />
+    <Compile Include="UseCases\TestEmailTests\Arrange.cs" />
     <Compile Include="UseCases\TopListTests\Arrange.cs" />
     <Compile Include="UseCases\TopListTests\WithTwoGames.cs" />
     <Compile Include="UseCases\UserDetailsTests\Arrange.cs" />
