@@ -70,7 +70,8 @@
     <Compile Include="UseCases\AddAppTests\Arrange.cs" />
     <Compile Include="UseCases\AddAppTests\WithInvalidName.cs" />
     <Compile Include="UseCases\AddAppTests\WithValidName.cs" />
-    <Compile Include="UseCases\AddBunchFormTests.cs" />
+    <Compile Include="UseCases\AddBunchFormTests\WhenExecute.cs" />
+    <Compile Include="UseCases\AddBunchFormTests\Arrange.cs" />
     <Compile Include="UseCases\AddBunchTests.cs" />
     <Compile Include="UseCases\AddCashgameFormTests\Arrange.cs" />
     <Compile Include="UseCases\AddCashgameFormTests\WithCurrentGame.cs" />
