@@ -9,7 +9,7 @@ namespace Tests.Core.UseCases.EditUserFormTests
     {
         protected EditUserForm.Result Result;
 
-        private const string _userId = UserData.Id1;
+        private const string UserId = UserData.Id1;
         protected const string UserName = UserData.UserName1;
         protected const string RealName = "real-name";
         protected const string DisplayName = UserData.DisplayName1;
@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.EditUserFormTests
 
         protected override void Setup()
         {
-            var user = new User(_userId, UserName, DisplayName, RealName, Email);
+            var user = new User(UserId, UserName, DisplayName, RealName, Email);
 
             Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(user);
         }
