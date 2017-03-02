@@ -159,7 +159,9 @@
     <Compile Include="UseCases\EventListTests\WhenExecute.cs" />
     <Compile Include="UseCases\LocationDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\LocationDetailsTests\WithLocation.cs" />
-    <Compile Include="UseCases\LoginFormTests.cs" />
+    <Compile Include="UseCases\LoginFormTests\Arrange.cs" />
+    <Compile Include="UseCases\LoginFormTests\WithoutReturnUrl.cs" />
+    <Compile Include="UseCases\LoginFormTests\WithReturnUrl.cs" />
     <Compile Include="UseCases\LoginTests\Arrange.cs" />
     <Compile Include="UseCases\LoginTests\WhenExecuteWithCorrectPassword.cs" />
     <Compile Include="UseCases\LoginTests\WhenExecuteWithWrongPassword.cs" />
