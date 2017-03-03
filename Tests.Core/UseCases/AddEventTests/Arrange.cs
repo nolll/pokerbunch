@@ -12,8 +12,8 @@ namespace Tests.Core.UseCases.AddEventTests
 
         protected Event Added;
 
-        protected string BunchId = BunchData.Id1;
-        protected string EventName = EventData.Name1;
+        protected const string BunchId = BunchData.Id1;
+        protected const string EventName = EventData.Name1;
 
         protected override void Setup()
         {

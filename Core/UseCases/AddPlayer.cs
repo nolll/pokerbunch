@@ -11,49 +11,28 @@ namespace Core.UseCases
 {
     public class AddPlayer
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
 
-        public AddPlayer(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public AddPlayer(IPlayerRepository playerRepository)
         {
-            _bunchRepository = bunchRepository;
             _playerRepository = playerRepository;
-            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var validator = new Validator(request);
-
-            if (!validator.IsValid)
-                throw new ValidationException(validator);
-
-            var bunch = _bunchRepository.Get(request.Slug);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
-            RequireRole.Manager(currentUser, currentPlayer);
-            var existingPlayers = _playerRepository.List(bunch.Id);
-            var player = existingPlayers.FirstOrDefault(o => string.Equals(o.DisplayName, request.Name, StringComparison.CurrentCultureIgnoreCase));
-            if(player != null)
-                throw new PlayerExistsException();
-
-            player = Player.NewWithoutUser(bunch.Id, request.Name);
+            var player = Player.NewWithoutUser(request.Slug, request.Name);
             _playerRepository.Add(player);
 
-            return new Result(bunch.Id);
+            return new Result(request.Slug);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
-            [Required(ErrorMessage = "Name can't be empty")]
             public string Name { get; }
 
-            public Request(string userName, string slug, string name)
+            public Request(string slug, string name)
             {
-                UserName = userName;
                 Slug = slug;
                 Name = name;
             }

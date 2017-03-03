@@ -90,7 +90,7 @@ namespace Plumbing
         public InvitePlayer InvitePlayer => new InvitePlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.MessageSender, _deps.UserRepository);
         public InvitePlayerForm InvitePlayerForm => new InvitePlayerForm(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
         public InvitePlayerConfirmation InvitePlayerConfirmation => new InvitePlayerConfirmation(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
-        public AddPlayer AddPlayer => new AddPlayer(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public AddPlayer AddPlayer => new AddPlayer(_deps.PlayerRepository);
         public DeletePlayer DeletePlayer => new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository);
 
         // Apps
