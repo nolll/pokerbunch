@@ -24,7 +24,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new AddEvent.Request(Identity.UserName, slug, postModel.Name);
+                var request = new AddEvent.Request(slug, postModel.Name);
                 var result = UseCase.AddEvent.Execute(request);
                 return Redirect(new AddEventConfirmationUrl(result.Slug).Relative);
             }
