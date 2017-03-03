@@ -1,7 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
@@ -10,18 +8,12 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly ILocationRepository _locationRepository;
         private readonly IEventRepository _eventRepository;
 
-        public AddCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
+        public AddCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IEventRepository eventRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
-            _locationRepository = locationRepository;
             _eventRepository = eventRepository;
         }
 
@@ -32,12 +24,8 @@ namespace Core.UseCases
             if (!validator.IsValid)
                 throw new ValidationException(validator);
 
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
             var bunch = _bunchRepository.Get(request.Slug);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
-            var location = _locationRepository.Get(request.LocationId);
-            var cashgame = new Cashgame(bunch.Id, location.Id, GameStatus.Running);
+            var cashgame = new Cashgame(bunch.Id, request.LocationId, GameStatus.Running);
             var cashgameId = _cashgameRepository.Add(bunch, cashgame);
 
             if (!string.IsNullOrEmpty(request.EventId))
@@ -50,15 +38,12 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
-            [Required(ErrorMessage = "Please select a location")]
             public string LocationId { get; }
             public string EventId { get; }
 
-            public Request(string userName, string slug, string locationId, string eventId)
+            public Request(string slug, string locationId, string eventId)
             {
-                UserName = userName;
                 Slug = slug;
                 LocationId = locationId;
                 EventId = eventId;

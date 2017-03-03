@@ -77,7 +77,9 @@
     <Compile Include="UseCases\AddCashgameFormTests\Arrange.cs" />
     <Compile Include="UseCases\AddCashgameFormTests\WithCurrentGame.cs" />
     <Compile Include="UseCases\AddCashgameFormTests\WithoutCurrentGame.cs" />
-    <Compile Include="UseCases\AddCashgameTests.cs" />
+    <Compile Include="UseCases\AddCashgameTests\Arrange.cs" />
+    <Compile Include="UseCases\AddCashgameTests\WhenExecute.cs" />
+    <Compile Include="UseCases\AddCashgameTests\WithEvent.cs" />
     <Compile Include="UseCases\AddEventTests.cs" />
     <Compile Include="UseCases\AddLocationTests.cs" />
     <Compile Include="UseCases\AddPlayerTests.cs" />
