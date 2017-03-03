@@ -81,7 +81,8 @@
     <Compile Include="UseCases\AddCashgameTests\WhenExecute.cs" />
     <Compile Include="UseCases\AddCashgameTests\WithEvent.cs" />
     <Compile Include="UseCases\AddEventTests.cs" />
-    <Compile Include="UseCases\AddLocationTests.cs" />
+    <Compile Include="UseCases\AddLocationTests\Arrange.cs" />
+    <Compile Include="UseCases\AddLocationTests\WhenExecute.cs" />
     <Compile Include="UseCases\AddPlayerTests.cs" />
     <Compile Include="UseCases\AddUserTests.cs" />
     <Compile Include="UseCases\AppContextTests.cs" />
