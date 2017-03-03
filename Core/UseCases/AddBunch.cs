@@ -23,32 +23,23 @@ namespace Core.UseCases
 
         private static Bunch CreateBunch(Request request)
         {
-            return new Bunch(
-                SlugGenerator.GetSlug(request.DisplayName),
-                request.DisplayName,
-                request.Description,
-                string.Empty,
-                TimeZoneInfo.FindSystemTimeZoneById(request.TimeZone),
-                200,
-                new Currency(request.CurrencySymbol, request.CurrencyLayout));
+            var slug = SlugGenerator.GetSlug(request.DisplayName);
+            var timezone = TimeZoneInfo.FindSystemTimeZoneById(request.TimeZone);
+            var currency = new Currency(request.CurrencySymbol, request.CurrencyLayout);
+
+            return new Bunch(slug, request.DisplayName, request.Description, string.Empty, timezone, 200, currency);
         }
 
         public class Request
         {
-            public string UserName { get; }
-            [Required(ErrorMessage = "Display Name can't be empty")]
             public string DisplayName { get; }
             public string Description { get; }
-            [Required(ErrorMessage = "Currency Symbol can't be empty")]
             public string CurrencySymbol { get; }
-            [Required(ErrorMessage = "Currency Layout can't be empty")]
             public string CurrencyLayout { get; }
-            [Required(ErrorMessage = "Timezone can't be empty")]
             public string TimeZone { get; }
 
-            public Request(string userName, string displayName, string description, string currencySymbol, string currencyLayout, string timeZone)
+            public Request(string displayName, string description, string currencySymbol, string currencyLayout, string timeZone)
             {
-                UserName = userName;
                 DisplayName = displayName;
                 Description = description;
                 CurrencySymbol = currencySymbol;

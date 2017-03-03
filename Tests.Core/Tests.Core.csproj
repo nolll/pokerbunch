@@ -72,7 +72,8 @@
     <Compile Include="UseCases\AddAppTests\WithValidName.cs" />
     <Compile Include="UseCases\AddBunchFormTests\WhenExecute.cs" />
     <Compile Include="UseCases\AddBunchFormTests\Arrange.cs" />
-    <Compile Include="UseCases\AddBunchTests.cs" />
+    <Compile Include="UseCases\AddBunchTests\Arrange.cs" />
+    <Compile Include="UseCases\AddBunchTests\WhenExecute.cs" />
     <Compile Include="UseCases\AddCashgameFormTests\Arrange.cs" />
     <Compile Include="UseCases\AddCashgameFormTests\WithCurrentGame.cs" />
     <Compile Include="UseCases\AddCashgameFormTests\WithoutCurrentGame.cs" />
