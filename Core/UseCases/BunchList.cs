@@ -2,7 +2,6 @@
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
@@ -17,11 +16,8 @@ namespace Core.UseCases
             _userRepository = userRepository;
         }
 
-        public Result Execute(AllBunchesRequest request)
+        public Result Execute()
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            RequireRole.Admin(user);
-
             var bunches = _bunchRepository.List();
             return new Result(bunches);
         }
@@ -32,16 +28,6 @@ namespace Core.UseCases
             var homegames = user != null ? _bunchRepository.ListForUser() : new List<SmallBunch>();
             
             return new Result(homegames);
-        }
-
-        public class AllBunchesRequest
-        {
-            public string UserName { get; }
-
-            public AllBunchesRequest(string userName)
-            {
-                UserName = userName;
-            }
         }
 
         public class UserBunchesRequest
