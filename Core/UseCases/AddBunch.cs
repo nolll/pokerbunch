@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Repositories;
 using Core.Services;

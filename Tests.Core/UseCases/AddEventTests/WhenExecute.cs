@@ -1,4 +1,3 @@
-using Core.Exceptions;
 using NUnit.Framework;
 namespace Tests.Core.UseCases.AddEventTests
 {

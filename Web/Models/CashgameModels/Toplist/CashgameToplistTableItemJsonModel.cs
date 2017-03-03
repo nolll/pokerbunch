@@ -1,6 +1,5 @@
 using Core.UseCases;
 using JetBrains.Annotations;
-using Newtonsoft.Json;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Toplist

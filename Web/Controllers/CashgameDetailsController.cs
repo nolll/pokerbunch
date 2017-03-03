@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using Core.UseCases;
 using Web.Controllers.Base;

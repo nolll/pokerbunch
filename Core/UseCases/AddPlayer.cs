@@ -1,13 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using Core.Entities;
-using Core.Exceptions;
+﻿using Core.Entities;
 using Core.Repositories;
-using Core.Services;
-using ValidationException = Core.Exceptions.ValidationException;
 
-namespace Core.UseCases
+    namespace Core.UseCases
 {
     public class AddPlayer
     {

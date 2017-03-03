@@ -1,7 +1,4 @@
-using System.Linq;
-using Core.Exceptions;
 using NUnit.Framework;
-using Tests.Common;
 
 namespace Tests.Core.UseCases.AddCashgameTests
 {

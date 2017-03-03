@@ -2,7 +2,6 @@ using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
 using Web.Controllers.Base;
-using Web.Extensions;
 using Web.Models.UserModels.Add;
 using Web.Routes;
 using Web.Urls.SiteUrls;

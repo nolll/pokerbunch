@@ -1,4 +1,3 @@
-using Moq;
 using NUnit.Framework;
 using Tests.Core.Data;
 

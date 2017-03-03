@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using Tests.Common;
-using Web.Extensions;
 using Web.Urls;
 using Web.Urls.SiteUrls;
 
