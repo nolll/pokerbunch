@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases.ActionsChartTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new ActionsChart.Request(CashgameData.Id1, PlayerData.Id1));
+            Result = Subject.Execute(new ActionsChart.Request(CashgameData.Id1, PlayerData.Id1));
         }
     }
 }

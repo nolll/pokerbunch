@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases.EditCashgameTests
 
         protected override void Execute()
         {
-            Sut.Execute(new EditCashgame.Request(CashgameData.Id1, LocationId, EventId));
+            Subject.Execute(new EditCashgame.Request(CashgameData.Id1, LocationId, EventId));
         }
     }
 }

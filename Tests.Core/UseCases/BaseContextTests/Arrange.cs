@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases.BaseContextTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute();
+            Result = Subject.Execute();
         }
     }
 }

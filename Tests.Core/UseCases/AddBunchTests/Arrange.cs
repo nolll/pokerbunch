@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases.AddBunchTests
 
         protected override void Execute()
         {
-            Sut.Execute(new AddBunch.Request(DisplayName, Description, CurrencySymbol, CurrencyLayout, _timezone));
+            Subject.Execute(new AddBunch.Request(DisplayName, Description, CurrencySymbol, CurrencyLayout, _timezone));
         }
     }
 }

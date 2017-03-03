@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases.AddLocationTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new AddLocation.Request(BunchId, LocationName));
+            Result = Subject.Execute(new AddLocation.Request(BunchId, LocationName));
         }
     }
 }

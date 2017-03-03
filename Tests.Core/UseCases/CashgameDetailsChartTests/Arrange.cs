@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases.CashgameDetailsChartTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new CashgameDetailsChart.Request(CashgameData.Id1));
+            Result = Subject.Execute(new CashgameDetailsChart.Request(CashgameData.Id1));
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases.CashgameContextTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new CashgameContext.Request(UserName, BunchId, CurrentTime, SelectedPage, Year));
+            Result = Subject.Execute(new CashgameContext.Request(UserName, BunchId, CurrentTime, SelectedPage, Year));
         }
     }
 }

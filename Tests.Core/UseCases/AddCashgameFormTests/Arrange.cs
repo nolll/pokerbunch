@@ -28,7 +28,7 @@ namespace Tests.Core.UseCases.AddCashgameFormTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new AddCashgameForm.Request(BunchId));
+            Result = Subject.Execute(new AddCashgameForm.Request(BunchId));
         }
     }
 }

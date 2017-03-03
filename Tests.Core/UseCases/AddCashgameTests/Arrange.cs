@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases.AddCashgameTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new AddCashgame.Request(BunchId, LocationId, EventId));
+            Result = Subject.Execute(new AddCashgame.Request(BunchId, LocationId, EventId));
         }
     }
 }

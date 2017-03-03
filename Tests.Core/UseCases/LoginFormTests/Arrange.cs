@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.LoginFormTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new LoginForm.Request(HomeUrl, ReturnUrl));
+            Result = Subject.Execute(new LoginForm.Request(HomeUrl, ReturnUrl));
         }
     }
 }

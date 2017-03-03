@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases.PlayerBadgesTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new PlayerBadges.Request(PlayerId));
+            Result = Subject.Execute(new PlayerBadges.Request(PlayerId));
         }
 
         private IList<ListCashgame> GetGames(int numberOfGames)

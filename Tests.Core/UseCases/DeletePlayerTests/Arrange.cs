@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases.DeletePlayerTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new DeletePlayer.Request(PlayerId));
+            Result = Subject.Execute(new DeletePlayer.Request(PlayerId));
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases.CashgameListTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new CashgameList.Request(BunchId, SortOrder, Year));
+            Result = Subject.Execute(new CashgameList.Request(BunchId, SortOrder, Year));
         }
 
         private static IList<ListCashgame> Games => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2, EndTime2);

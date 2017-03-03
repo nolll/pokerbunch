@@ -16,7 +16,7 @@ namespace Tests.Core.UseCases.TestEmailTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute();
+            Result = Subject.Execute();
         }
     }
 }

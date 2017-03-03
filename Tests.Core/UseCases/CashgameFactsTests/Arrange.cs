@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases.CashgameFactsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new CashgameFacts.Request(BunchData.Id1, null));
+            Result = Subject.Execute(new CashgameFacts.Request(BunchData.Id1, null));
         }
     }
 }

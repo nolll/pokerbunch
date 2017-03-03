@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases.TopListTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new TopList.Request(BunchData.Id1, null));
+            Result = Subject.Execute(new TopList.Request(BunchData.Id1, null));
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases.EditCashgameFormTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new EditCashgameForm.Request(CashgameData.Id1));
+            Result = Subject.Execute(new EditCashgameForm.Request(CashgameData.Id1));
         }
     }
 }

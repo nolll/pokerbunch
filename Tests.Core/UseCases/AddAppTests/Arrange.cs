@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases.AddAppTests
 
         protected override void Execute()
         {
-            Sut.Execute(new AddApp.Request(AppName));
+            Subject.Execute(new AddApp.Request(AppName));
         }
     }
 }

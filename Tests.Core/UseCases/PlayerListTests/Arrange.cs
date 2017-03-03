@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases.PlayerListTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new PlayerList.Request(BunchId));
+            Result = Subject.Execute(new PlayerList.Request(BunchId));
         }
     }
 }

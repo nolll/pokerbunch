@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases.BunchDetailsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new BunchDetails.Request(BunchData.Id1));
+            Result = Subject.Execute(new BunchDetails.Request(BunchData.Id1));
         }
     }
 }

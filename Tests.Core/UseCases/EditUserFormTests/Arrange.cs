@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases.EditUserFormTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new EditUserForm.Request(UserName));
+            Result = Subject.Execute(new EditUserForm.Request(UserName));
         }
     }
 }

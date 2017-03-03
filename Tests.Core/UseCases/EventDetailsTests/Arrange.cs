@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases.EventDetailsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new EventDetails.Request(EventId));
+            Result = Subject.Execute(new EventDetails.Request(EventId));
         }
     }
 }

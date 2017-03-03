@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.AppListUserTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute();
+            Result = Subject.Execute();
         }
     }
 }

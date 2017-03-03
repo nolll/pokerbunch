@@ -23,7 +23,7 @@ namespace Tests.Core.UseCases.AddEventTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new AddEvent.Request(BunchId, EventName));
+            Result = Subject.Execute(new AddEvent.Request(BunchId, EventName));
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Tests.Core.UseCases.UserDetailsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new UserDetails.Request(_currentUserName, ViewUserName));
+            Result = Subject.Execute(new UserDetails.Request(_currentUserName, ViewUserName));
         }
     }
 }

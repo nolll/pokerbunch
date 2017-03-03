@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases.AddPlayerTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new AddPlayer.Request(BunchId, PlayerName));
+            Result = Subject.Execute(new AddPlayer.Request(BunchId, PlayerName));
         }
     }
 }

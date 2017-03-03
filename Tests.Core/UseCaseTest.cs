@@ -6,14 +6,14 @@ namespace Tests.Core
     public abstract class UseCaseTest<T> where T : class
     {
         private Mocker _mocker;
-        protected T Sut { get; private set; }
+        protected T Subject { get; private set; }
         protected virtual bool ExecuteAutomatically => true;
 
         [SetUp]
         public void UseCaseSetup()
         {
             _mocker = new Mocker();
-            Sut = _mocker.New<T>();
+            Subject = _mocker.New<T>();
             Setup();
             if (ExecuteAutomatically) Execute();
         }

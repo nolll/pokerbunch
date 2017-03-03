@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases.MatrixTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new BunchMatrix.Request(BunchData.Id1, null));
+            Result = Subject.Execute(new BunchMatrix.Request(BunchData.Id1, null));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases.CashgameChartTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new CashgameChart.Request(BunchData.Id1, null));
+            Result = Subject.Execute(new CashgameChart.Request(BunchData.Id1, null));
         }
     }
 }

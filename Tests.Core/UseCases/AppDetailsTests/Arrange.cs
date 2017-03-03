@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.AppDetailsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new AppDetails.Request(AppData.Id1));
+            Result = Subject.Execute(new AppDetails.Request(AppData.Id1));
         }
     }
 }

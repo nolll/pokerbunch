@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases.LoginTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new Login.Request(LoginName, Password));
+            Result = Subject.Execute(new Login.Request(LoginName, Password));
         }
     }
 }

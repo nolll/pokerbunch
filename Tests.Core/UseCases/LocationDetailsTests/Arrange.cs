@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases.LocationDetailsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new LocationDetails.Request(LocationData.Id1));
+            Result = Subject.Execute(new LocationDetails.Request(LocationData.Id1));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.UserListTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute();
+            Result = Subject.Execute();
         }
 
         private IList<User> TwoUsers => new List<User>

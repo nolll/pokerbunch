@@ -24,7 +24,7 @@ namespace Tests.Core.UseCases.EditBunchFormTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new EditBunchForm.Request(BunchId));
+            Result = Subject.Execute(new EditBunchForm.Request(BunchId));
         }
     }
 }

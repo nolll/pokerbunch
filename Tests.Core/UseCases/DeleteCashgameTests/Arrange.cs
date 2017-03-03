@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases.DeleteCashgameTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new DeleteCashgame.Request(Id));
+            Result = Subject.Execute(new DeleteCashgame.Request(Id));
         }
     }
 }

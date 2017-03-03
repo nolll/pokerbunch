@@ -40,7 +40,7 @@ namespace Tests.Core.UseCases.CashoutTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new Cashout.Request(UserData.UserName1, BunchData.Id1, PlayerData.Id1, CashoutStack, CashoutTime));
+            Result = Subject.Execute(new Cashout.Request(UserData.UserName1, BunchData.Id1, PlayerData.Id1, CashoutStack, CashoutTime));
         }
 
         private Cashgame CreateCashgame()

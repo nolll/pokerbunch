@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new CashgameDetails.Request(CashgameData.Id1));
+            Result = Subject.Execute(new CashgameDetails.Request(CashgameData.Id1));
         }
     }
 }

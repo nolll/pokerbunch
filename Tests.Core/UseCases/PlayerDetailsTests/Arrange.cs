@@ -35,7 +35,7 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new PlayerDetails.Request(PlayerId));
+            Result = Subject.Execute(new PlayerDetails.Request(PlayerId));
         }
     }
 }

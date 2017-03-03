@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases.RunningCashgameTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new RunningCashgame.Request(UserData.UserName1, BunchId));
+            Result = Subject.Execute(new RunningCashgame.Request(UserData.UserName1, BunchId));
         }
     }
 }

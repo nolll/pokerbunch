@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases.PlayerFactsTests
 
         protected override void Execute()
         {
-            Result = Sut.Execute(new PlayerFacts.Request(PlayerId));
+            Result = Subject.Execute(new PlayerFacts.Request(PlayerId));
         }
 
         private static IList<ListCashgame> Games => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2, EndTime2);
