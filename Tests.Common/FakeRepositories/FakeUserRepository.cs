@@ -31,7 +31,7 @@ namespace Tests.Common.FakeRepositories
             return _list.FirstOrDefault(o => o.UserName == nameOrEmail || o.Email == nameOrEmail);
         }
 
-        public string Add(User user)
+        public string Add(User user, string password)
         {
             Added = user;
             return "1";

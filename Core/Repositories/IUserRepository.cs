@@ -9,6 +9,6 @@ namespace Core.Repositories
         IList<User> List();
         User GetByNameOrEmail(string nameOrEmail);
         void Update(User user);
-        string Add(User user);
+        string Add(User user, string password);
     }
 }

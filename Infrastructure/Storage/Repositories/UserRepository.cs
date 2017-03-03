@@ -51,7 +51,7 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer.Remove<User>(user.Id);
         }
 
-        public string Add(User user)
+        public string Add(User user, string password)
         {
             return _userDb.Add(user);
         }
