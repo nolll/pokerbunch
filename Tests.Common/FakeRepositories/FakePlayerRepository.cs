@@ -27,11 +27,6 @@ namespace Tests.Common.FakeRepositories
             return _list.First(o => o.BunchId == bunchId && o.UserId == userId);
         }
 
-        public IList<Player> Get(IList<string> ids)
-        {
-            return _list.Where(o => ids.Contains(o.Id)).ToList();
-        }
-
         public Player Get(string id)
         {
             return _list.FirstOrDefault(o => o.Id == id);

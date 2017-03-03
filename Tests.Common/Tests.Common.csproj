@@ -43,7 +43,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\DateTimeBuilder.cs" />
     <Compile Include="FakeRepositories\FakeLocationRepository.cs" />
     <Compile Include="Mocker.cs" />
     <Compile Include="TestData.cs" />
