@@ -24,9 +24,9 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new EditBunch.Request(Identity.UserName, slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
+                var request = new EditBunch.Request(slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
                 var result = UseCase.EditBunch.Execute(request);
-                return Redirect(new BunchDetailsUrl(result.Slug).Relative);
+                return Redirect(new BunchDetailsUrl(result.BunchId).Relative);
             }
             catch (ValidationException ex)
             {

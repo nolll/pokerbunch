@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Repositories;
 
@@ -20,7 +19,7 @@ namespace Core.UseCases
             var postedHomegame = CreateBunch(bunch, request);
             _bunchRepository.Update(postedHomegame);
 
-            return new Result(bunch.Id, bunch.Id);
+            return new Result(bunch.Id);
         }
 
         private static Bunch CreateBunch(Bunch bunch, Request request)
@@ -37,21 +36,16 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
             public string Description { get; }
-            [Required(ErrorMessage = "Currency Symbol can't be empty")]
             public string CurrencySymbol { get; }
-            [Required(ErrorMessage = "Currency Layout can't be empty")]
             public string CurrencyLayout { get; }
-            [Required(ErrorMessage = "Timezone can't be empty")]
             public string TimeZone { get; }
             public string HouseRules { get; }
             public int DefaultBuyin { get; }
 
-            public Request(string userName, string slug, string description, string currencySymbol, string currencyLayout, string timeZone, string houseRules, int defaultBuyin)
+            public Request(string slug, string description, string currencySymbol, string currencyLayout, string timeZone, string houseRules, int defaultBuyin)
             {
-                UserName = userName;
                 Slug = slug;
                 Description = description;
                 CurrencySymbol = currencySymbol;
@@ -65,12 +59,10 @@ namespace Core.UseCases
         public class Result
         {
             public string BunchId { get; private set; }
-            public string Slug { get; private set; }
 
-            public Result(string bunchId, string slug)
+            public Result(string bunchId)
             {
                 BunchId = bunchId;
-                Slug = slug;
             }
         }
     }
