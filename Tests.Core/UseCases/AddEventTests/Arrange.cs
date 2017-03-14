@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddEventTests
 {
-    public class Arrange : UseCaseTest<AddEvent>
+    public abstract class Arrange : UseCaseTest<AddEvent>
     {
         protected AddEvent.Result Result;
 

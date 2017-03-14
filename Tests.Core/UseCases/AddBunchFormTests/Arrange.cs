@@ -2,7 +2,7 @@ using Core.UseCases;
 
 namespace Tests.Core.UseCases.AddBunchFormTests
 {
-    public class Arrange : UseCaseTest<AddBunchForm>
+    public abstract class Arrange : UseCaseTest<AddBunchForm>
     {
         protected AddBunchForm.Result Result;
 

@@ -2,7 +2,7 @@ using Core.UseCases;
 
 namespace Tests.Core.UseCases.BaseContextTests
 {
-    public class Arrange : UseCaseTest<BaseContext>
+    public abstract class Arrange : UseCaseTest<BaseContext>
     {
         protected BaseContext.Result Result;
 

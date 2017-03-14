@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.BunchListTests
 {
-    public class Arrange : UseCaseTest<BunchList>
+    public abstract class Arrange : UseCaseTest<BunchList>
     {
         protected BunchList.Result Result;
 

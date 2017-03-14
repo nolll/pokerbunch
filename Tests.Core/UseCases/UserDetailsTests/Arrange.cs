@@ -4,7 +4,7 @@ using Core.UseCases;
 
 namespace Tests.Core.UseCases.UserDetailsTests
 {
-    public class Arrange : UseCaseTest<UserDetails>
+    public abstract class Arrange : UseCaseTest<UserDetails>
     {
         protected UserDetails.Result Result;
 

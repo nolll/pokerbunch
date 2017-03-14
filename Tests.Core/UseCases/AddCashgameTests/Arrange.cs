@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddCashgameTests
 {
-    public class Arrange : UseCaseTest<AddCashgame>
+    public abstract class Arrange : UseCaseTest<AddCashgame>
     {
         protected AddCashgame.Result Result;
         protected Cashgame AddedCashgame;

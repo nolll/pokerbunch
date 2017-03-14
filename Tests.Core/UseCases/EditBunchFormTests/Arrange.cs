@@ -5,7 +5,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.EditBunchFormTests
 {
-    public class Arrange : UseCaseTest<EditBunchForm>
+    public abstract class Arrange : UseCaseTest<EditBunchForm>
     {
         protected EditBunchForm.Result Result;
 

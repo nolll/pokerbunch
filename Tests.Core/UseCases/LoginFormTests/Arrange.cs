@@ -2,7 +2,7 @@ using Core.UseCases;
 
 namespace Tests.Core.UseCases.LoginFormTests
 {
-    public class Arrange : UseCaseTest<LoginForm>
+    public abstract class Arrange : UseCaseTest<LoginForm>
     {
         protected LoginForm.Result Result;
 

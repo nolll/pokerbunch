@@ -5,7 +5,7 @@ using Core.UseCases;
 
 namespace Tests.Core.UseCases.LoginTests
 {
-    public class Arrange : UseCaseTest<Login>
+    public abstract class Arrange : UseCaseTest<Login>
     {
         protected Login.Result Result;
 

@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddUserTests
 {
-    public class Arrange : UseCaseTest<AddUser>
+    public abstract class Arrange : UseCaseTest<AddUser>
     {
         protected User Added;
         protected string SentPassword;

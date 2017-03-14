@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddLocationTests
 {
-    public class Arrange : UseCaseTest<AddLocation>
+    public abstract class Arrange : UseCaseTest<AddLocation>
     {
         protected AddLocation.Result Result;
         protected Location Added;

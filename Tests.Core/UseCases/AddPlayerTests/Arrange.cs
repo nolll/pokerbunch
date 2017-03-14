@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddPlayerTests
 {
-    public class Arrange : UseCaseTest<AddPlayer>
+    public abstract class Arrange : UseCaseTest<AddPlayer>
     {
         protected AddPlayer.Result Result;
 

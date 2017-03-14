@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddBunchTests
 {
-    public class Arrange : UseCaseTest<AddBunch>
+    public abstract class Arrange : UseCaseTest<AddBunch>
     {
         protected Bunch Added;
 

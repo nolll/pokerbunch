@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.EditBunchTests
 {
-    public class Arrange : UseCaseTest<EditBunch>
+    public abstract class Arrange : UseCaseTest<EditBunch>
     {
         protected EditBunch.Result Result;
         protected Bunch Saved;
