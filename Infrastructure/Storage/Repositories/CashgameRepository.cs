@@ -78,6 +78,12 @@ namespace Infrastructure.Storage.Repositories
             return _cashgameDb.GetYears(bunchId);
         }
 
+        public void Report(string cashgameId, string playerId, int stack)
+        {
+            var apiReport = new ApiReport(playerId, stack);
+            _api.Post(Url.Report(cashgameId), apiReport);
+        }
+
         public void DeleteGame(string id)
         {
             _api.Delete(Url.Cashgame(id));
@@ -315,6 +321,13 @@ namespace Infrastructure.Storage.Repositories
                 public int Stack { get; set; }
                 [UsedImplicitly]
                 public int Added { get; set; }
+            }
+        }
+
+        public class ApiReport
+        {
+            public ApiReport(string playerId, int stack)
+            {
             }
         }
     }

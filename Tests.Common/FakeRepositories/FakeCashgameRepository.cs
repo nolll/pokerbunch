@@ -59,6 +59,11 @@ namespace Tests.Common.FakeRepositories
             return _list.Where(o => o.StartTime.HasValue && o.Status == GameStatus.Finished).Select(o => o.StartTime.Value.Year).ToList();
         }
 
+        public void Report(string cashgameId, string playerId, int stack)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteGame(string id)
         {
             Deleted = id;

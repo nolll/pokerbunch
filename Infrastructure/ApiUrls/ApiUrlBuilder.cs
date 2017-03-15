@@ -22,6 +22,9 @@ namespace Infrastructure.ApiUrls
         public ApiUrl CashgamesByEvent(string eventId) => new SimpleApiUrl($"events/{eventId}/cashgames");
         public ApiUrl CashgamesByPlayer(string playerId) => new SimpleApiUrl($"players/{playerId}/cashgames");
         public ApiUrl CashgamesCurrent(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/cashgames");
+        public ApiUrl Buyin(string cashgameId) => new SimpleApiUrl($"cashgames/{cashgameId}/buyin");
+        public ApiUrl Report(string cashgameId) => new SimpleApiUrl($"cashgames/{cashgameId}/report");
+        public ApiUrl Cashout(string cashgameId) => new SimpleApiUrl($"cashgames/{cashgameId}/cashout");
 
         public ApiUrl Event(string id) => new SimpleApiUrl($"events/{id}");
         public ApiUrl EventsByBunch(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/events");

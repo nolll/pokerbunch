@@ -21,5 +21,7 @@ namespace Core.Repositories
         DetailedCashgame Update(string id, string locationId, string eventId);
 
         IList<int> GetYears(string bunchId);
+
+	    void Report(string cashgameId, string playerId, int stack);
 	}
 }
