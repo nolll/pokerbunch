@@ -23,17 +23,17 @@ namespace Tests.Core.UseCases.EditBunchTests
         protected override void Setup()
         {
             Saved = null;
-        }
 
-        protected override void Execute()
-        {
             var bunch = new Bunch(BunchId, DisplayName);
 
             Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
 
             Mock<IBunchRepository>().Setup(o => o.Update(It.IsAny<Bunch>()))
                 .Callback((Bunch b) => Saved = b);
+        }
 
+        protected override void Execute()
+        {
             Result = Subject.Execute(new EditBunch.Request(BunchId, Description, CurrencySymbol, CurrencyLayout, Timezone, HouseRules, DefaultBuyin));
         }
     }

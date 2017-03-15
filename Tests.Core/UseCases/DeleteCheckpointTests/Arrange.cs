@@ -25,17 +25,17 @@ namespace Tests.Core.UseCases.DeleteCheckpointTests
         protected override void Setup()
         {
             UpdatedCashgame = null;
-        }
 
-        protected override void Execute()
-        {
             Mock<ICashgameRepository>().Setup(o => o.GetByCheckpoint(_checkpointId)).Returns(Cashgame);
 
             Mock<ICashgameRepository>().Setup(o => o.Update(It.IsAny<Cashgame>()))
                 .Callback((Cashgame c) => UpdatedCashgame = c);
 
             Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(Bunch);
+        }
 
+        protected override void Execute()
+        {
             Result = Subject.Execute(new DeleteCheckpoint.Request(_checkpointId));
         }
 
