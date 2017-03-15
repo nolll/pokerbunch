@@ -127,6 +127,8 @@
     <Compile Include="UseCases\DeleteCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasNoResults.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasResults.cs" />
+    <Compile Include="UseCases\DeleteCheckpointTests\Arrange.cs" />
+    <Compile Include="UseCases\DeleteCheckpointTests\WhenExecute.cs" />
     <Compile Include="UseCases\DeletePlayerTests\Arrange.cs" />
     <Compile Include="UseCases\DeletePlayerTests\WithPlayerThatHasNotPlayed.cs" />
     <Compile Include="UseCases\DeletePlayerTests\WithPlayerThatHasPlayed.cs" />
@@ -152,7 +154,6 @@
     <Compile Include="UseCases\CashoutTests\WhenExecuteWithPlayerThatHasCheckedOutBefore.cs" />
     <Compile Include="UseCases\CashoutTests\WhenExecuteWithInvalidStack.cs" />
     <Compile Include="UseCases\ChangePasswordTests.cs" />
-    <Compile Include="UseCases\DeleteCheckpointTests.cs" />
     <Compile Include="UseCases\EditCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithInvalidEvent.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithInvalidLocation.cs" />

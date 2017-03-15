@@ -1,6 +1,5 @@
 ﻿using Core.Entities;
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
@@ -8,15 +7,11 @@ namespace Core.UseCases
     {
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
 
-        public DeleteCheckpoint(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public DeleteCheckpoint(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
@@ -24,9 +19,6 @@ namespace Core.UseCases
             var cashgame = _cashgameRepository.GetByCheckpoint(request.CheckpointId);
             var checkpoint = cashgame.GetCheckpoint(request.CheckpointId);
             var bunch = _bunchRepository.Get(cashgame.BunchId);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
-            RequireRole.Manager(currentUser, currentPlayer);
             cashgame.DeleteCheckpoint(checkpoint);
             _cashgameRepository.Update(cashgame);
 
@@ -36,12 +28,10 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string UserName { get; }
             public string CheckpointId { get; }
 
-            public Request(string userName, string checkpointId)
+            public Request(string checkpointId)
             {
-                UserName = userName;
                 CheckpointId = checkpointId;
             }
         }
