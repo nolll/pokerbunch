@@ -27,17 +27,17 @@ namespace Web.Controllers.Base
         
         protected CoreContext.Result GetAppContext()
         {
-            return UseCase.CoreContext.Execute(new CoreContext.Request(Identity.UserName));
+            return UseCase.CoreContext.Execute(GetBaseContext(), new CoreContext.Request(Identity.UserName));
         }
 
         protected BunchContext.Result GetBunchContext(string slug = null)
         {
-            return UseCase.BunchContext.Execute(new BunchContext.BunchRequest(Identity.UserName, slug));
+            return UseCase.BunchContext.Execute(GetAppContext(), new BunchContext.BunchRequest(slug));
         }
 
         protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
         {
-            return UseCase.CashgameContext.Execute(new CashgameContext.Request(Identity.UserName, slug, currentTime, selectedPage, year));
+            return UseCase.CashgameContext.Execute(GetBunchContext(slug), new CashgameContext.Request(slug, currentTime, selectedPage, year));
         }
 
         protected Identity Identity

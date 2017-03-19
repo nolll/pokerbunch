@@ -7,28 +7,23 @@ namespace Core.UseCases
 {
     public class CashgameContext
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public CashgameContext(IUserRepository userRepository, IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public CashgameContext(ICashgameRepository cashgameRepository)
         {
-            _userRepository = userRepository;
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
-        public Result Execute(Request request)
+        public Result Execute(BunchContext.Result bunchContext, Request request)
         {
-            var bunchContextResult = new BunchContext(_userRepository, _bunchRepository).Execute(request);
-            var runningGame = _cashgameRepository.GetCurrent(bunchContextResult.BunchId);
+            var runningGame = _cashgameRepository.GetCurrent(bunchContext.BunchId);
 
             var gameIsRunning = runningGame != null;
-            var years = _cashgameRepository.GetYears(bunchContextResult.BunchId).OrderByDescending(o => o).ToList();
+            var years = _cashgameRepository.GetYears(bunchContext.BunchId).OrderByDescending(o => o).ToList();
             var selectedYear = GetSelectedYear(request, years);
 
             return new Result(
-                bunchContextResult,
+                bunchContext,
                 request.BunchId,
                 gameIsRunning,
                 request.SelectedPage,
@@ -45,15 +40,16 @@ namespace Core.UseCases
             return request.CurrentTime.Year; // todo: convert to local bunch time
         }
 
-        public class Request : BunchContext.BunchRequest
+        public class Request
         {
+            public string BunchId { get; }
             public DateTime CurrentTime { get; }
             public CashgamePage SelectedPage { get; }
             public int? Year { get; }
 
-            public Request(string userName, string bunchId, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
-                : base(userName, bunchId)
+            public Request(string bunchId, DateTime currentTime, CashgamePage selectedPage = CashgamePage.Unknown, int? year = null)
             {
+                BunchId = bunchId;
                 CurrentTime = currentTime;
                 SelectedPage = selectedPage;
                 Year = year;

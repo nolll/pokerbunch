@@ -12,23 +12,20 @@ namespace Core.UseCases
             _userRepository = userRepository;
         }
 
-        public Result Execute(Request request)
+        public Result Execute(BaseContext.Result baseContext, Request request)
         {
             var isAuthenticated = !string.IsNullOrEmpty(request.UserName);
             var userName = isAuthenticated ? request.UserName : string.Empty;
             var user = isAuthenticated ? _userRepository.GetByNameOrEmail(userName) : null;
             if (isAuthenticated && user == null) // Broken auth cookie
                 throw new NotLoggedInException();
-            var userId = isAuthenticated ? user.Id : "";
             var userDisplayName = isAuthenticated ? user.DisplayName : string.Empty;
             var isAdmin = isAuthenticated && user.IsAdmin;
-            var baseContextResult = new BaseContext().Execute();
 
             return new Result(
-                baseContextResult,
+                baseContext,
                 isAuthenticated,
                 isAdmin,
-                userId,
                 userName,
                 userDisplayName);
         }
@@ -47,7 +44,6 @@ namespace Core.UseCases
         {
             public bool IsLoggedIn { get; private set; }
             public bool IsAdmin { get; private set; }
-            public string UserId { get; private set; }
             public string UserDisplayName { get; private set; }
             public BaseContext.Result BaseContext { get; private set; }
             public string UserName { get; private set; }
@@ -56,14 +52,12 @@ namespace Core.UseCases
                 BaseContext.Result baseContextResult,
                 bool isLoggedIn,
                 bool isAdmin,
-                string userId,
                 string userName,
                 string userDisplayName)
             {
                 BaseContext = baseContextResult;
                 IsLoggedIn = isLoggedIn;
                 IsAdmin = isAdmin;
-                UserId = userId;
                 UserDisplayName = userDisplayName;
                 UserName = userName;
             }

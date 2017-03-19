@@ -16,7 +16,6 @@ namespace Tests.Core.UseCases.CashgameContextTests
         protected const int FirstYear = 2001;
         protected const int LastYear = 2002;
 
-        private const string UserName = UserData.UserName1;
         protected virtual string BunchId => BunchIdWithoutRunningGame;
         private static readonly DateTime CurrentTime = DateTime.Now;
         protected virtual CashgameContext.CashgamePage SelectedPage => CashgameContext.CashgamePage.Overview;
@@ -24,19 +23,18 @@ namespace Tests.Core.UseCases.CashgameContextTests
 
         protected override void Setup()
         {
-            var bunch = new Bunch(BunchId, null, null, null, null, 100);
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
-            var user = new User(UserData.Id1, UserData.UserName1);
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
             Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
             Mock<ICashgameRepository>().Setup(o => o.GetYears(BunchId)).Returns(new List<int> { FirstYear, LastYear });
-            Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
         }
 
         protected override void Execute()
         {
-            Result = Subject.Execute(new CashgameContext.Request(UserName, BunchId, CurrentTime, SelectedPage, Year));
+            var baseContext = new BaseContext.Result("1");
+            var coreContext = new CoreContext.Result(baseContext, true, false, UserData.UserName1, UserData.DisplayName1);
+            var bunchContext = new BunchContext.Result(coreContext, BunchId, BunchId, BunchData.DisplayName1);
+            Result = Subject.Execute(bunchContext, new CashgameContext.Request(BunchId, CurrentTime, SelectedPage, Year));
         }
     }
 }

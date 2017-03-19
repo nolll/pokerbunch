@@ -1,15 +1,16 @@
 ﻿using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Core.Data;
 
 namespace Tests.Core.UseCases
 {
-    class BunchContextTests : TestBase
+    public class BunchContextTests : TestBase
     {
         [Test]
         public void BunchContext_WithSlug_HasBunchIsTrue()
         {
-            var result = Sut.Execute(new BunchContext.BunchRequest(TestData.UserA.UserName, TestData.SlugA));
+            var result = Sut.Execute(CoreContext, new BunchContext.BunchRequest(TestData.SlugA));
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -19,7 +20,7 @@ namespace Tests.Core.UseCases
         {
             Deps.Bunch.SetupOneBunchList();
 
-            var result = Sut.Execute(new BunchContext.BunchRequest(TestData.UserA.UserName));
+            var result = Sut.Execute(CoreContext, new BunchContext.BunchRequest());
 
             Assert.IsTrue(result.HasBunch);
         }
@@ -29,7 +30,7 @@ namespace Tests.Core.UseCases
         {
             Deps.Bunch.ClearList();
 
-            var result = Sut.Execute(new BunchContext.BunchRequest(TestData.UserA.UserName));
+            var result = Sut.Execute(CoreContext, new BunchContext.BunchRequest());
 
             Assert.IsFalse(result.HasBunch);
         }
@@ -37,15 +38,15 @@ namespace Tests.Core.UseCases
         [Test]
         public void Execute_AppContextIsSet()
         {
-            var cashgameContextRequest = new BunchContext.BunchRequest(TestData.UserA.UserName, TestData.SlugA);
+            var request = new BunchContext.BunchRequest(TestData.SlugA);
 
-            var result = Sut.Execute(cashgameContextRequest);
+            var result = Sut.Execute(CoreContext, request);
 
             Assert.IsInstanceOf<CoreContext.Result>(result.AppContext);
         }
 
-        private BunchContext Sut => new BunchContext(
-            Deps.User,
-            Deps.Bunch);
+        private static BaseContext.Result BaseContext => new BaseContext.Result("1");
+        private static CoreContext.Result CoreContext => new CoreContext.Result(BaseContext, true, false, UserData.UserName1, UserData.DisplayName1);
+        private BunchContext Sut => new BunchContext(Deps.Bunch);
     }
 }
