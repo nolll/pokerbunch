@@ -88,7 +88,6 @@
     <Compile Include="UseCases\AddPlayerTests\WhenExecute.cs" />
     <Compile Include="UseCases\AddUserTests\Arrange.cs" />
     <Compile Include="UseCases\AddUserTests\WhenExecute.cs" />
-    <Compile Include="UseCases\AppContextTests.cs" />
     <Compile Include="UseCases\AppDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\AppDetailsTests\WithApp.cs" />
     <Compile Include="UseCases\BaseContextTests\Arrange.cs" />
@@ -126,6 +125,9 @@
     <Compile Include="UseCases\CashgameListTests\WithYear.cs" />
     <Compile Include="UseCases\ClearCacheTests\Arrange.cs" />
     <Compile Include="UseCases\ClearCacheTests\WhenExecute.cs" />
+    <Compile Include="UseCases\CoreContextTests\Arrange.cs" />
+    <Compile Include="UseCases\CoreContextTests\WithoutUserName.cs" />
+    <Compile Include="UseCases\CoreContextTests\WithUserName.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasNoResults.cs" />
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasResults.cs" />
