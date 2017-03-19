@@ -77,7 +77,7 @@ namespace Plumbing
         public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameRepository);
         public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameRepository);
         public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository);
-        public Buyin Buyin => new Buyin(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository);
+        public Buyin Buyin => new Buyin(_deps.CashgameRepository);
         public Report Report => new Report(_deps.CashgameRepository);
         public Cashout Cashout => new Cashout(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
         public EndCashgame EndCashgame => new EndCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);

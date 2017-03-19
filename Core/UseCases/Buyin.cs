@@ -1,65 +1,35 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
     public class Buyin
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IPlayerRepository _playerRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
 
-        public Buyin(IBunchRepository bunchRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository)
+        public Buyin(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
-            _playerRepository = playerRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
         }
 
         public void Execute(Request request)
         {
-            var validator = new Validator(request);
-
-            if (!validator.IsValid)
-                throw new ValidationException(validator);
-
-            var bunch = _bunchRepository.Get(request.Slug);
-            var currentUser = _userRepository.GetByNameOrEmail(request.UserName);
-            var currentPlayer = _playerRepository.GetByUser(bunch.Id, currentUser.Id);
-            RequireRole.Me(currentUser, currentPlayer, request.PlayerId);
-            var cashgame = _cashgameRepository.GetRunning(bunch.Id);
-
-            var stackAfterBuyin = request.StackAmount + request.BuyinAmount;
-            var checkpoint = new BuyinCheckpoint(cashgame.Id, request.PlayerId, request.CurrentTime, stackAfterBuyin, request.BuyinAmount);
-            cashgame.AddCheckpoint(checkpoint);
-            _cashgameRepository.Update(cashgame);
+            var cashgame = _cashgameRepository.GetRunning(request.Slug);
+            _cashgameRepository.Buyin(cashgame.Id, request.PlayerId, request.BuyinAmount, request.StackAmount);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
             public string PlayerId { get; }
-            [Range(1, int.MaxValue, ErrorMessage = "Amount needs to be positive")]
             public int BuyinAmount { get; }
-            [Range(0, int.MaxValue, ErrorMessage = "Stack can't be negative")]
             public int StackAmount { get; }
-            public DateTime CurrentTime { get; }
 
-            public Request(string userName, string slug, string playerId, int buyinAmount, int stackAmount, DateTime currentTime)
+            public Request(string slug, string playerId, int buyinAmount, int stackAmount)
             {
-                UserName = userName;
                 Slug = slug;
                 PlayerId = playerId;
                 BuyinAmount = buyinAmount;
                 StackAmount = stackAmount;
-                CurrentTime = currentTime;
             }
         }
     }

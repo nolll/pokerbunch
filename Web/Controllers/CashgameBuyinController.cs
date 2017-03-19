@@ -1,4 +1,3 @@
-using System;
 using System.Web.Mvc;
 using Core.UseCases;
 using Web.Controllers.Base;
@@ -14,7 +13,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.Buyin)]
         public ActionResult Buyin_Post(string slug, BuyinPostModel postModel)
         {
-            var request = new Buyin.Request(Identity.UserName, slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack, DateTime.UtcNow);
+            var request = new Buyin.Request(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack);
             UseCase.Buyin.Execute(request);
             return JsonView(new JsonViewModelOk());
         }

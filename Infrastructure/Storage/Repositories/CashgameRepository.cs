@@ -84,6 +84,12 @@ namespace Infrastructure.Storage.Repositories
             _api.Post(Url.Report(cashgameId), apiReport);
         }
 
+        public void Buyin(string cashgameId, string playerId, int added, int stack)
+        {
+            var apiBuyin = new ApiBuyin(playerId, added, stack);
+            _api.Post(Url.Buyin(cashgameId), apiBuyin);
+        }
+
         public void DeleteGame(string id)
         {
             _api.Delete(Url.Cashgame(id));
@@ -327,6 +333,13 @@ namespace Infrastructure.Storage.Repositories
         public class ApiReport
         {
             public ApiReport(string playerId, int stack)
+            {
+            }
+        }
+
+        public class ApiBuyin
+        {
+            public ApiBuyin(string playerId, int added, int stack)
             {
             }
         }

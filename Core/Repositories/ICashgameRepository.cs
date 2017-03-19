@@ -22,6 +22,7 @@ namespace Core.Repositories
 
         IList<int> GetYears(string bunchId);
 
-	    void Report(string cashgameId, string playerId, int stack);
-	}
+        void Report(string cashgameId, string playerId, int stack);
+        void Buyin(string cashgameId, string playerId, int added, int stack);
+    }
 }

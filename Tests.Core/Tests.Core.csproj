@@ -95,6 +95,8 @@
     <Compile Include="UseCases\BaseContextTests\WhenExecute.cs" />
     <Compile Include="UseCases\BunchListTests\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests\WhenExecute.cs" />
+    <Compile Include="UseCases\BuyinTests\Arrange.cs" />
+    <Compile Include="UseCases\BuyinTests\WhenExecute.cs" />
     <Compile Include="UseCases\CashgameChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameChartTests\WithTwoGames.cs" />
     <Compile Include="UseCases\CashgameContextTests\Arrange.cs" />
@@ -146,7 +148,6 @@
     <Compile Include="UseCases\BunchDetailsTests\WhenExecuteAsManager.cs" />
     <Compile Include="UseCases\BunchDetailsTests\WhenExecuteAsPlayer.cs" />
     <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />
-    <Compile Include="UseCases\BuyinTests.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\CashoutTests\Arrange.cs" />
