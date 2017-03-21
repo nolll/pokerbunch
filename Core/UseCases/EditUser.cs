@@ -1,7 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Repositories;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
@@ -16,16 +14,12 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var validator = new Validator(request);
-            if(!validator.IsValid)
-                throw new ValidationException(validator);
-
             var user = _userRepository.GetByNameOrEmail(request.UserName);
             var userToSave = GetUser(user, request);
 
             _userRepository.Update(userToSave);
 
-            return new Result(userToSave.UserName, userToSave.Id);
+            return new Result(userToSave.UserName);
         }
 
         private static User GetUser(User user, Request request)
@@ -44,11 +38,8 @@ namespace Core.UseCases
         public class Request
         {
             public string UserName { get; }
-            [Required(ErrorMessage = "Display Name can't be empty")]
             public string DisplayName { get; }
             public string RealName { get; }
-            [Required(ErrorMessage = "Email can't be empty")]
-            [EmailAddress(ErrorMessage = "The email address is not valid")]
             public string Email { get; }
 
             public Request(string userName, string displayName, string realName, string email)
@@ -63,12 +54,10 @@ namespace Core.UseCases
         public class Result
         {
             public string UserName { get; private set; }
-            public string UserId { get; private set; }
 
-            public Result(string userName, string userId)
+            public Result(string userName)
             {
                 UserName = userName;
-                UserId = userId;
             }
         }
     }

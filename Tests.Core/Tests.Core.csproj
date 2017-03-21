@@ -167,7 +167,8 @@
     <Compile Include="UseCases\EditCheckpointTests.cs" />
     <Compile Include="UseCases\EditUserFormTests\Arrange.cs" />
     <Compile Include="UseCases\EditUserFormTests\WhenExecute.cs" />
-    <Compile Include="UseCases\EditUserTests.cs" />
+    <Compile Include="UseCases\EditUserTests\Arrange.cs" />
+    <Compile Include="UseCases\EditUserTests\WhenExecute.cs" />
     <Compile Include="UseCases\EndCashgameTests.cs" />
     <Compile Include="UseCases\EventDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\EventDetailsTests\WhenExecute.cs" />
