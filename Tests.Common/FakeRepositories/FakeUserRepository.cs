@@ -37,6 +37,11 @@ namespace Tests.Common.FakeRepositories
             return "1";
         }
 
+        public void ChangePassword(string oldPassword, string newPassword, string repeat)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Update(User user)
         {
             Saved = user;

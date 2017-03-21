@@ -1,63 +1,31 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Core.Entities;
-using Core.Repositories;
-using Core.Services;
-using ValidationException = Core.Exceptions.ValidationException;
+﻿using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class ChangePassword
     {
         private readonly IUserRepository _userRepository;
-        private readonly IRandomService _randomService;
 
-        public ChangePassword(IUserRepository userRepository, IRandomService randomService)
+        public ChangePassword(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _randomService = randomService;
         }
 
         public void Execute(Request request)
         {
-            var validator = new Validator(request);
-            if(!validator.IsValid)
-                throw new ValidationException(validator);
-
-            if (request.Password != request.Repeat)
-                throw new ValidationException("The passwords dos not match");
-
-            var salt = SaltGenerator.CreateSalt(_randomService.GetAllowedChars());
-            var encryptedPassword = EncryptionService.Encrypt(request.Password, salt);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            user = CreateUser(user, encryptedPassword, salt);
-
-            _userRepository.Update(user);
-        }
-
-        private static User CreateUser(User user, string encryptedPassword, string salt)
-        {
-            return new User(
-                user.Id,
-                user.UserName,
-                user.DisplayName,
-                user.RealName,
-                user.Email,
-                user.GlobalRole,
-                encryptedPassword,
-                salt);
+            _userRepository.ChangePassword(request.OldPassword, request.NewPassword, request.Repeat);
         }
 
         public class Request
         {
-            public string UserName { get; }
-            [Required(ErrorMessage = "Password can't be empty")]
-            public string Password { get; }
+            public string OldPassword { get; }
+            public string NewPassword { get; }
             public string Repeat { get; }
 
-            public Request(string userName, string password, string repeat)
+            public Request(string oldPassword, string newPassword, string repeat)
             {
-                UserName = userName;
-                Password = password;
+                OldPassword = oldPassword;
+                NewPassword = newPassword;
                 Repeat = repeat;
             }
         }

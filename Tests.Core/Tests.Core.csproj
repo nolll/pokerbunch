@@ -127,6 +127,8 @@
     <Compile Include="UseCases\CashgameListTests\WithSortOrderPlayerCount.cs" />
     <Compile Include="UseCases\CashgameListTests\WithSortOrderTurnover.cs" />
     <Compile Include="UseCases\CashgameListTests\WithYear.cs" />
+    <Compile Include="UseCases\ChangePasswordTests\Arrange.cs" />
+    <Compile Include="UseCases\ChangePasswordTests\WhenExecute.cs" />
     <Compile Include="UseCases\ClearCacheTests\Arrange.cs" />
     <Compile Include="UseCases\ClearCacheTests\WhenExecute.cs" />
     <Compile Include="UseCases\CoreContextTests\Arrange.cs" />
@@ -157,7 +159,6 @@
     <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\CashoutTests\Arrange.cs" />
     <Compile Include="UseCases\CashoutTests\WhenExecute.cs" />
-    <Compile Include="UseCases\ChangePasswordTests.cs" />
     <Compile Include="UseCases\EditCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithInvalidEvent.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithInvalidLocation.cs" />

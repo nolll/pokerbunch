@@ -10,5 +10,6 @@ namespace Core.Repositories
         User GetByNameOrEmail(string nameOrEmail);
         void Update(User user);
         string Add(User user, string password);
+        void ChangePassword(string oldPassword, string newPassword, string repeat);
     }
 }

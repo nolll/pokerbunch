@@ -32,7 +32,7 @@ namespace Plumbing
         public EditUserForm EditUserForm => new EditUserForm(_deps.UserRepository);
         public EditUser EditUser => new EditUser(_deps.UserRepository);
         public ForgotPassword ForgotPassword => new ForgotPassword(_deps.UserRepository, _deps.MessageSender, _deps.RandomService);
-        public ChangePassword ChangePassword => new ChangePassword(_deps.UserRepository, _deps.RandomService);
+        public ChangePassword ChangePassword => new ChangePassword(_deps.UserRepository);
 
         // Bunch
         public BunchList BunchList => new BunchList(_deps.BunchRepository, _deps.UserRepository);

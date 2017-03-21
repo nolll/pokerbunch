@@ -5,10 +5,11 @@ using Core.Entities;
 using Core.Repositories;
 using Core.Services;
 using Infrastructure.Storage.SqlDb;
+using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : ApiRepository, IUserRepository
     {
         private readonly SqlUserDb _userDb;
         private readonly ApiConnection _api;
@@ -54,6 +55,29 @@ namespace Infrastructure.Storage.Repositories
         public string Add(User user, string password)
         {
             return _userDb.Add(user);
+        }
+
+        public void ChangePassword(string oldPassword, string newPassword, string repeat)
+        {
+            var apiChangePassword = new ApiChangePassword(oldPassword, newPassword, repeat);
+            _api.Post(Url.ChangePassword, apiChangePassword);
+        }
+
+        public class ApiChangePassword
+        {
+            [UsedImplicitly]
+            public string OldPassword { get; set; }
+            [UsedImplicitly]
+            public string NewPassword { get; set; }
+            [UsedImplicitly]
+            public string Repeat { get; set; }
+
+            public ApiChangePassword(string oldPassword, string newPassword, string repeat)
+            {
+                OldPassword = oldPassword;
+                NewPassword = newPassword;
+                Repeat = repeat;
+            }
         }
     }
 }
