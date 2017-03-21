@@ -11,5 +11,6 @@ namespace Core.Repositories
         void Update(User user);
         string Add(User user, string password);
         void ChangePassword(string oldPassword, string newPassword, string repeat);
+        void ResetPassword(string email);
     }
 }

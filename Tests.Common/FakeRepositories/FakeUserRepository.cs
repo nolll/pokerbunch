@@ -42,6 +42,11 @@ namespace Tests.Common.FakeRepositories
             throw new System.NotImplementedException();
         }
 
+        public void ResetPassword(string email)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Update(User user)
         {
             Saved = user;

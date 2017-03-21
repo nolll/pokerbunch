@@ -6,6 +6,7 @@ namespace Infrastructure.ApiUrls
         public ApiUrl AdminClearCache => new SimpleApiUrl("admin/clearcache");
 
         public ApiUrl ChangePassword => new SimpleApiUrl("user/changepassword");
+        public ApiUrl ResetPassword => new SimpleApiUrl("user/resetpassword");
 
         public ApiUrl App(string id) => new SimpleApiUrl($"apps/{id}");
         public ApiUrl Apps => new SimpleApiUrl("apps");

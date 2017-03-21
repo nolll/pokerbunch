@@ -63,6 +63,12 @@ namespace Infrastructure.Storage.Repositories
             _api.Post(Url.ChangePassword, apiChangePassword);
         }
 
+        public void ResetPassword(string email)
+        {
+            var apiResetPassword = new ApiResetPassword(email);
+            _api.Post(Url.ResetPassword, apiResetPassword);
+        }
+
         public class ApiChangePassword
         {
             [UsedImplicitly]
@@ -77,6 +83,17 @@ namespace Infrastructure.Storage.Repositories
                 OldPassword = oldPassword;
                 NewPassword = newPassword;
                 Repeat = repeat;
+            }
+        }
+
+        public class ApiResetPassword
+        {
+            [UsedImplicitly]
+            public string Email { get; set; }
+
+            public ApiResetPassword(string email)
+            {
+                Email = email;
             }
         }
     }

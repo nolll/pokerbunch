@@ -31,7 +31,7 @@ namespace Plumbing
         public AddUser AddUser => new AddUser(_deps.UserRepository);
         public EditUserForm EditUserForm => new EditUserForm(_deps.UserRepository);
         public EditUser EditUser => new EditUser(_deps.UserRepository);
-        public ForgotPassword ForgotPassword => new ForgotPassword(_deps.UserRepository, _deps.MessageSender, _deps.RandomService);
+        public ForgotPassword ForgotPassword => new ForgotPassword(_deps.UserRepository);
         public ChangePassword ChangePassword => new ChangePassword(_deps.UserRepository);
 
         // Bunch

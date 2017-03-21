@@ -23,7 +23,7 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new ForgotPassword.Request(postModel.Email, new LoginUrl().GetAbsolute());
+                var request = new ForgotPassword.Request(postModel.Email);
                 UseCase.ForgotPassword.Execute(request);
                 return Redirect(new ForgotPasswordConfirmationUrl().Relative);
             }
