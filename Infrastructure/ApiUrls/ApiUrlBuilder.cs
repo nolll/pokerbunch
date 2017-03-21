@@ -12,6 +12,7 @@ namespace Infrastructure.ApiUrls
         public ApiUrl Bunch(string id) => new SimpleApiUrl($"bunches/{id}");
         public ApiUrl Bunches => new SimpleApiUrl("bunches");
         public ApiUrl BunchesByUser => new SimpleApiUrl("user/bunches");
+        public ApiUrl Join(string id) => new SimpleApiUrl($"bunches/{id}/join");
 
         public ApiUrl Location(string id) => new SimpleApiUrl($"locations/{id}");
         public ApiUrl Locations => new SimpleApiUrl("locations");

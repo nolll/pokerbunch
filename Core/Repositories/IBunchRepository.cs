@@ -10,5 +10,6 @@ namespace Core.Repositories
         IList<SmallBunch> ListForUser();
         Bunch Add(Bunch bunch);
         Bunch Update(Bunch bunch);
+        void Join(string id, string code);
     }
 }

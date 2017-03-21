@@ -47,6 +47,11 @@ namespace Tests.Common.FakeRepositories
             return bunch;
         }
 
+        public void Join(string id, string code)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void SetupDefaultList()
         {
             _list = new List<Bunch>

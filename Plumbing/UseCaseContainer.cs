@@ -42,7 +42,7 @@ namespace Plumbing
         public EditBunchForm EditBunchForm => new EditBunchForm(_deps.BunchRepository);
         public EditBunch EditBunch => new EditBunch(_deps.BunchRepository);
         public JoinBunchForm JoinBunchForm => new JoinBunchForm(_deps.BunchRepository);
-        public JoinBunch JoinBunch => new JoinBunch(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public JoinBunch JoinBunch => new JoinBunch(_deps.BunchRepository);
         public JoinBunchConfirmation JoinBunchConfirmation => new JoinBunchConfirmation(_deps.BunchRepository);
 
         // Events

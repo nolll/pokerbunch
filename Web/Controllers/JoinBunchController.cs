@@ -37,9 +37,9 @@ namespace Web.Controllers
         {
             try
             {
-                var request = new JoinBunch.Request(slug, Identity.UserName, code);
+                var request = new JoinBunch.Request(slug, code);
                 var result = UseCase.JoinBunch.Execute(request);
-                return Redirect(new JoinBunchConfirmationUrl(result.Slug).Relative);
+                return Redirect(new JoinBunchConfirmationUrl(result.BunchId).Relative);
             }
             catch (ValidationException ex)
             {

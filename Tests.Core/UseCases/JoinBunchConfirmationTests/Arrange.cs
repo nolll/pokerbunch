@@ -5,7 +5,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.JoinBunchConfirmationTests
 {
-    public class Arrange : UseCaseTest<JoinBunchConfirmation>
+    public abstract class Arrange : UseCaseTest<JoinBunchConfirmation>
     {
         protected JoinBunchConfirmation.Result Result;
 

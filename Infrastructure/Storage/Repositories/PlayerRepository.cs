@@ -66,7 +66,7 @@ namespace Infrastructure.Storage.Repositories
         public void Invite(string playerId, string email)
         {
             var apiInvite = new ApiInvite(email);
-            _api.Post(Url.End(playerId), apiInvite);
+            _api.Post(Url.Invite(playerId), apiInvite);
         }
 
         private Player CreatePlayer(ApiPlayer l)

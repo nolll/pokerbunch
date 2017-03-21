@@ -11,69 +11,37 @@ namespace Core.UseCases
     public class JoinBunch
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
 
-        public JoinBunch(IBunchRepository bunchRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public JoinBunch(IBunchRepository bunchRepository)
         {
             _bunchRepository = bunchRepository;
-            _playerRepository = playerRepository;
-            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
         {
-            var validator = new Validator(request);
-            if(!validator.IsValid)
-                throw new ValidationException(validator);
-
-            var bunch = _bunchRepository.Get(request.Slug);
-            var players = _playerRepository.List(bunch.Id);
-            var player = GetMatchedPlayer(players, request.Code);
-            
-            if (player == null)
-                throw new InvalidJoinCodeException();
-
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            _playerRepository.JoinBunch(player, bunch, user.Id);
-            return new Result(bunch.Id, player.Id);
+            _bunchRepository.Join(request.BunchId, request.Code);
+            return new Result(request.BunchId);
         }
         
-        private static Player GetMatchedPlayer(IEnumerable<Player> players, string postedCode)
-        {
-            foreach (var player in players)
-            {
-                var code = InvitationCodeCreator.GetCode(player);
-                if (code == postedCode)
-                    return player;
-            }
-            return null;
-        }
-
         public class Request
         {
-            public string Slug { get; }
-            public string UserName { get; }
-            [Required(ErrorMessage = "Code can't be empty")]
+            public string BunchId { get; }
             public string Code { get; }
 
-            public Request(string slug, string userName, string code)
+            public Request(string bunchId, string code)
             {
-                Slug = slug;
-                UserName = userName;
+                BunchId = bunchId;
                 Code = code;
             }
         }
 
         public class Result
         {
-            public string Slug { get; private set; }
-            public string PlayerId { get; private set; }
+            public string BunchId { get; private set; }
 
-            public Result(string slug, string playerId)
+            public Result(string bunchId)
             {
-                Slug = slug;
-                PlayerId = playerId;
+                BunchId = bunchId;
             }
         }
     }

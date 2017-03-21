@@ -49,6 +49,12 @@ namespace Infrastructure.Storage.Repositories
             return ToBunch(apiBunch);
         }
 
+        public void Join(string id, string code)
+        {
+            var apiJoin = new ApiJoin(code);
+            _api.Post(Url.Join(id), apiJoin);
+        }
+
         private Bunch ToBunch(ApiBunch b)
         {
             var timezone = TimeZoneInfo.FindSystemTimeZoneById(b.Timezone);
@@ -124,6 +130,17 @@ namespace Infrastructure.Storage.Repositories
 
             public ApiSmallBunch()
             {
+            }
+        }
+
+        private class ApiJoin
+        {
+            [UsedImplicitly]
+            public string Code { get; set; }
+
+            public ApiJoin(string code)
+            {
+                Code = code;
             }
         }
     }
