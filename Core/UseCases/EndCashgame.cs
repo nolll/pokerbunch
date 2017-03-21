@@ -1,47 +1,28 @@
-﻿using Core.Entities;
-using Core.Repositories;
-using Core.Services;
+﻿using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class EndCashgame
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
 
-        public EndCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public EndCashgame(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
         }
 
         public void Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
-            var cashgame = _cashgameRepository.GetRunning(bunch.Id);
-
-            if (cashgame != null)
-            {
-                cashgame.ChangeStatus(GameStatus.Finished);
-                _cashgameRepository.Update(cashgame);
-            }
+            var cashgame = _cashgameRepository.GetRunning(request.Slug);
+            _cashgameRepository.End(cashgame.Id);
         }
 
         public class Request
         {
-            public string UserName { get; }
             public string Slug { get; }
 
-            public Request(string userName, string slug)
+            public Request(string slug)
             {
-                UserName = userName;
                 Slug = slug;
             }
         }

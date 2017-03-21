@@ -96,6 +96,11 @@ namespace Infrastructure.Storage.Repositories
             _api.Post(Url.Cashout(cashgameId), apiCashout);
         }
 
+        public void End(string cashgameId)
+        {
+            _api.Post(Url.End(cashgameId));
+        }
+
         public void DeleteGame(string id)
         {
             _api.Delete(Url.Cashgame(id));

@@ -74,6 +74,11 @@ namespace Tests.Common.FakeRepositories
             throw new NotImplementedException();
         }
 
+        public void End(string cashgameId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DeleteGame(string id)
         {
             Deleted = id;

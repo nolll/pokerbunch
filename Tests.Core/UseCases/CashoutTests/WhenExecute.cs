@@ -5,7 +5,7 @@ namespace Tests.Core.UseCases.CashoutTests
     public class WhenExecute : Arrange
     {
         [Test]
-        public void AddsCheckpoint()
+        public void CallsCashout()
         {
             Assert.AreEqual(CashgameId, PostedCashgameId);
             Assert.AreEqual(PlayerId, PostedPlayerId);

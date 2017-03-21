@@ -25,5 +25,6 @@ namespace Core.Repositories
         void Report(string cashgameId, string playerId, int stack);
         void Buyin(string cashgameId, string playerId, int added, int stack);
         void Cashout(string cashgameId, string playerId, int stack);
+        void End(string cashgameId);
     }
 }

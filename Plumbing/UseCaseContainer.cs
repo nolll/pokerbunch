@@ -80,7 +80,7 @@ namespace Plumbing
         public Buyin Buyin => new Buyin(_deps.CashgameRepository);
         public Report Report => new Report(_deps.CashgameRepository);
         public Cashout Cashout => new Cashout(_deps.CashgameRepository);
-        public EndCashgame EndCashgame => new EndCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
+        public EndCashgame EndCashgame => new EndCashgame(_deps.CashgameRepository);
 
         // Player
         public PlayerList PlayerList => new PlayerList(_deps.BunchRepository, _deps.PlayerRepository);

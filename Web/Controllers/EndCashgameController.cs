@@ -12,7 +12,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.End)]
         public ActionResult Post(string slug)
         {
-            UseCase.EndCashgame.Execute(new EndCashgame.Request(Identity.UserName, slug));
+            UseCase.EndCashgame.Execute(new EndCashgame.Request(slug));
             return JsonView(new JsonViewModelOk());
         }
     }

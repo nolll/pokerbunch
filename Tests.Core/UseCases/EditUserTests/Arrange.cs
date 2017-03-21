@@ -6,7 +6,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.EditUserTests
 {
-    public class Arrange : UseCaseTest<EditUser>
+    public abstract class Arrange : UseCaseTest<EditUser>
     {
         protected EditUser.Result Result;
 
