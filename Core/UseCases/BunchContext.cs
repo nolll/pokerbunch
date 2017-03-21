@@ -13,7 +13,7 @@ namespace Core.UseCases
             _bunchRepository = bunchRepository;
         }
 
-        public Result Execute(CoreContext.Result coreContext, BunchRequest request)
+        public Result Execute(CoreContext.Result coreContext, Request request)
         {
             var bunch = GetBunch(coreContext, request);
             return GetResult(coreContext, bunch);
@@ -27,7 +27,7 @@ namespace Core.UseCases
             return new Result(appContext, bunch.Id, bunch.Id, bunch.DisplayName);
         }
 
-        private SmallBunch GetBunch(CoreContext.Result appContext, BunchRequest request)
+        private SmallBunch GetBunch(CoreContext.Result appContext, Request request)
         {
             if (!appContext.IsLoggedIn)
                 return null;
@@ -47,11 +47,11 @@ namespace Core.UseCases
             return bunches.Count == 1 ? bunches[0] : null;
         }
 
-        public class BunchRequest
+        public class Request
         {
             public string BunchId { get; }
 
-            public BunchRequest(string bunchId = null)
+            public Request(string bunchId = null)
             {
                 BunchId = bunchId;
             }

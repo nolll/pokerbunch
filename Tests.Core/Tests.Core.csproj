@@ -92,6 +92,10 @@
     <Compile Include="UseCases\AppDetailsTests\WithApp.cs" />
     <Compile Include="UseCases\BaseContextTests\Arrange.cs" />
     <Compile Include="UseCases\BaseContextTests\WhenExecute.cs" />
+    <Compile Include="UseCases\BunchContextTests\Arrange.cs" />
+    <Compile Include="UseCases\BunchContextTests\WithoutBunchIdWithOneBunch.cs" />
+    <Compile Include="UseCases\BunchContextTests\WithoutBunchIdWithoutBunches.cs" />
+    <Compile Include="UseCases\BunchContextTests\WithBunchId.cs" />
     <Compile Include="UseCases\BunchListTests\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests\WhenExecute.cs" />
     <Compile Include="UseCases\BuyinTests\Arrange.cs" />
@@ -146,7 +150,6 @@
     <Compile Include="UseCases\AppListAllTests\WhenExecute.cs" />
     <Compile Include="UseCases\AppListUserTests\Arrange.cs" />
     <Compile Include="UseCases\AppListUserTests\WhenExecute.cs" />
-    <Compile Include="UseCases\BunchContextTests.cs" />
     <Compile Include="UseCases\BunchDetailsTests\WhenExecuteAsManager.cs" />
     <Compile Include="UseCases\BunchDetailsTests\WhenExecuteAsPlayer.cs" />
     <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />

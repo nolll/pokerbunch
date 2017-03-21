@@ -32,7 +32,7 @@ namespace Web.Controllers.Base
 
         protected BunchContext.Result GetBunchContext(string slug = null)
         {
-            return UseCase.BunchContext.Execute(GetAppContext(), new BunchContext.BunchRequest(slug));
+            return UseCase.BunchContext.Execute(GetAppContext(), new BunchContext.Request(slug));
         }
 
         protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
