@@ -156,9 +156,7 @@
     <Compile Include="UseCases\CashgameDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\CashoutTests\Arrange.cs" />
-    <Compile Include="UseCases\CashoutTests\WhenExecuteWithPlayerThatHasNotCheckedOutBefore.cs" />
-    <Compile Include="UseCases\CashoutTests\WhenExecuteWithPlayerThatHasCheckedOutBefore.cs" />
-    <Compile Include="UseCases\CashoutTests\WhenExecuteWithInvalidStack.cs" />
+    <Compile Include="UseCases\CashoutTests\WhenExecute.cs" />
     <Compile Include="UseCases\ChangePasswordTests.cs" />
     <Compile Include="UseCases\EditCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithInvalidEvent.cs" />

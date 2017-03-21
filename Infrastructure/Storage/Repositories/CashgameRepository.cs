@@ -90,6 +90,12 @@ namespace Infrastructure.Storage.Repositories
             _api.Post(Url.Buyin(cashgameId), apiBuyin);
         }
 
+        public void Cashout(string cashgameId, string playerId, int stack)
+        {
+            var apiCashout = new ApiCashout(playerId, stack);
+            _api.Post(Url.Cashout(cashgameId), apiCashout);
+        }
+
         public void DeleteGame(string id)
         {
             _api.Delete(Url.Cashgame(id));
@@ -332,15 +338,46 @@ namespace Infrastructure.Storage.Repositories
 
         public class ApiReport
         {
+            [UsedImplicitly]
+            public string PlayerId { get; set; }
+            [UsedImplicitly]
+            public int Stack { get; set; }
+
             public ApiReport(string playerId, int stack)
             {
+                PlayerId = playerId;
+                Stack = stack;
             }
         }
 
         public class ApiBuyin
         {
+            [UsedImplicitly]
+            public string PlayerId { get; set; }
+            [UsedImplicitly]
+            public int Added { get; set; }
+            [UsedImplicitly]
+            public int Stack { get; set; }
+
             public ApiBuyin(string playerId, int added, int stack)
             {
+                PlayerId = playerId;
+                Added = added;
+                Stack = stack;
+            }
+        }
+
+        public class ApiCashout
+        {
+            [UsedImplicitly]
+            public string PlayerId { get; set; }
+            [UsedImplicitly]
+            public int Stack { get; set; }
+
+            public ApiCashout(string playerId, int stack)
+            {
+                PlayerId = playerId;
+                Stack = stack;
             }
         }
     }

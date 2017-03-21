@@ -79,7 +79,7 @@ namespace Plumbing
         public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository);
         public Buyin Buyin => new Buyin(_deps.CashgameRepository);
         public Report Report => new Report(_deps.CashgameRepository);
-        public Cashout Cashout => new Cashout(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public Cashout Cashout => new Cashout(_deps.CashgameRepository);
         public EndCashgame EndCashgame => new EndCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
 
         // Player

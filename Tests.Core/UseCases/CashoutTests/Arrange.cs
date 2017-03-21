@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
@@ -11,59 +10,31 @@ namespace Tests.Core.UseCases.CashoutTests
 {
     public abstract class Arrange : UseCaseTest<Cashout>
     {
-        protected Cashout.Result Result;
+        private const string BunchId = BunchData.Id1;
+        protected const string CashgameId = CashgameData.Id1;
+        protected const string PlayerId = PlayerData.Id1;
+        protected const int CashoutStack = 123;
 
-        private DateTime _startTime = DateTime.Parse("2001-01-01 12:00:00");
-
-        protected virtual int CashoutStack => 123;
-        protected DateTime CashoutTime => _startTime.AddMinutes(1);
-        protected virtual bool HasCashedOutBefore => false;
-
-        protected int CheckpointCountBeforeCashout;
-        protected Cashgame UpdatedCashgame;
+        protected string PostedCashgameId;
+        protected string PostedPlayerId;
+        protected int PostedStack;
 
         protected override void Setup()
         {
-            UpdatedCashgame = null;
-            var bunch = new Bunch(BunchData.Id1, BunchData.DisplayName1);
-            var cashgame = CreateCashgame();
-            CheckpointCountBeforeCashout = cashgame.Checkpoints.Count;
-            var player = new Player(BunchData.Id1, PlayerData.Id1, UserData.Id1);
-            var user = new User(UserData.Id1, UserData.UserName1);
+            PostedCashgameId = null;
+            PostedPlayerId = null;
+            PostedStack = 0;
 
-            Mock<IBunchRepository>().Setup(s => s.Get(BunchData.Id1)).Returns(bunch);
+            var cashgame = new Cashgame(BunchId, LocationData.Id1, GameStatus.Running, CashgameId, new List<Checkpoint>());
+
             Mock<ICashgameRepository>().Setup(s => s.GetRunning(BunchData.Id1)).Returns(cashgame);
-            Mock<ICashgameRepository>().Setup(o => o.Update(It.IsAny<Cashgame>())).Callback((Cashgame c) => UpdatedCashgame = c);
-            Mock<IPlayerRepository>().Setup(s => s.GetByUser(BunchData.Id1, UserData.Id1)).Returns(player);
-            Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(UserData.UserName1)).Returns(user);
+            Mock<ICashgameRepository>().Setup(o => o.Cashout(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+                .Callback((string cashgameId, string playerId, int stack) => { PostedCashgameId = cashgameId; PostedPlayerId = playerId; PostedStack = stack; });
         }
 
         protected override void Execute()
         {
-            Result = Subject.Execute(new Cashout.Request(UserData.UserName1, BunchData.Id1, PlayerData.Id1, CashoutStack, CashoutTime));
-        }
-
-        private Cashgame CreateCashgame()
-        {
-            if (HasCashedOutBefore)
-            {
-                var checkpoints1 = new List<Checkpoint>
-                {
-                    Checkpoint.Create(CashgameData.Id1, PlayerData.Id1, _startTime, CheckpointType.Buyin, 200, 200, "1"),
-                    Checkpoint.Create(CashgameData.Id1, PlayerData.Id1, _startTime.AddMinutes(1), CheckpointType.Cashout, 200, 0, "3")
-                };
-
-                return new Cashgame(BunchData.Id1, LocationData.Id1, GameStatus.Running, CashgameData.Id1, checkpoints1);
-            }
-            else
-            {
-                var checkpoints1 = new List<Checkpoint>
-                {
-                    Checkpoint.Create(CashgameData.Id1, PlayerData.Id1, _startTime, CheckpointType.Buyin, 200, 200, "1")
-                };
-
-                return new Cashgame(BunchData.Id1, LocationData.Id1, GameStatus.Running, CashgameData.Id1, checkpoints1);
-            }
+            Subject.Execute(new Cashout.Request(BunchId, PlayerId, CashoutStack));
         }
     }
 }
