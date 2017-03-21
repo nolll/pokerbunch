@@ -49,6 +49,11 @@ namespace Tests.Common.FakeRepositories
             Deleted = playerId;
         }
 
+        public void Invite(string playerId, string email)
+        {
+            throw new System.NotImplementedException();
+        }
+
         private IList<Player> CreateList()
         {
             return new List<Player>

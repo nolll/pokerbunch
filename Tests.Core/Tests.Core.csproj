@@ -173,6 +173,8 @@
     <Compile Include="UseCases\EventDetailsTests\WhenExecute.cs" />
     <Compile Include="UseCases\EventListTests\Arrange.cs" />
     <Compile Include="UseCases\EventListTests\WhenExecute.cs" />
+    <Compile Include="UseCases\InvitePlayerTests\Arrange.cs" />
+    <Compile Include="UseCases\InvitePlayerTests\WhenExecute.cs" />
     <Compile Include="UseCases\LocationDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\LocationDetailsTests\WithLocation.cs" />
     <Compile Include="UseCases\LoginFormTests\Arrange.cs" />
@@ -205,7 +207,6 @@
     <Compile Include="UseCases\PlayerListTests\WithPlayerRole.cs" />
     <Compile Include="UseCases\EditCheckpointFormTests.cs" />
     <Compile Include="UseCases\ForgotPasswordTests.cs" />
-    <Compile Include="UseCases\InvitePlayerTests.cs" />
     <Compile Include="UseCases\JoinBunchConfirmationTests.cs" />
     <Compile Include="UseCases\JoinBunchFormTests.cs" />
     <Compile Include="UseCases\JoinBunchTests.cs" />

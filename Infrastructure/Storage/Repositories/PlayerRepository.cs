@@ -63,6 +63,12 @@ namespace Infrastructure.Storage.Repositories
             _cacheContainer.Remove<Player>(playerId);
         }
 
+        public void Invite(string playerId, string email)
+        {
+            var apiInvite = new ApiInvite(email);
+            _api.Post(Url.End(playerId), apiInvite);
+        }
+
         private Player CreatePlayer(ApiPlayer l)
         {
             return new Player(l.BunchId, l.Id, l.UserId, l.DisplayName, (Role)l.RoleId, l.Color);
@@ -95,6 +101,17 @@ namespace Infrastructure.Storage.Repositories
 
             public ApiPlayer()
             {
+            }
+        }
+
+        private class ApiInvite
+        {
+            [UsedImplicitly]
+            public string Email { get; set; }
+
+            public ApiInvite(string email)
+            {
+                Email = email;
             }
         }
     }

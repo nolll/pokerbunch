@@ -13,5 +13,7 @@ namespace Core.Repositories
         bool JoinBunch(Player player, Bunch bunch, string userId);
         string Add(Player player);
 		void Delete(string playerId);
-	}
+
+	    void Invite(string playerId, string email);
+    }
 }
