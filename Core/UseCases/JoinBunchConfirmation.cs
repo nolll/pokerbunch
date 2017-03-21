@@ -1,52 +1,42 @@
 using Core.Repositories;
-using Core.Services;
 
 namespace Core.UseCases
 {
     public class JoinBunchConfirmation
     {
         private readonly IBunchRepository _bunchRepository;
-        private readonly IUserRepository _userRepository;
-        private readonly IPlayerRepository _playerRepository;
 
-        public JoinBunchConfirmation(IBunchRepository bunchRepository, IUserRepository userRepository, IPlayerRepository playerRepository)
+        public JoinBunchConfirmation(IBunchRepository bunchRepository)
         {
             _bunchRepository = bunchRepository;
-            _userRepository = userRepository;
-            _playerRepository = playerRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
-            RequireRole.Player(user, player);
+            var bunch = _bunchRepository.Get(request.BunchId);
             var bunchName = bunch.DisplayName;
 
-            return new Result(bunchName, bunch.Id);
+            return new Result(bunch.Id, bunchName);
         }
 
         public class Request
         {
-            public string UserName { get; }
-            public string Slug { get; }
+            public string BunchId { get; }
 
-            public Request(string userName, string slug)
+            public Request(string bunchId)
             {
-                UserName = userName;
-                Slug = slug;
+                BunchId = bunchId;
             }
         }
 
         public class Result
         {
+            public string BunchId { get; private set; }
             public string BunchName { get; private set; }
-            public string Slug { get; private set; }
 
-            public Result(string bunchName, string slug)
+            public Result(string bunchId, string bunchName)
             {
-                Slug = slug;
+                BunchId = bunchId;
                 BunchName = bunchName;
             }
         }

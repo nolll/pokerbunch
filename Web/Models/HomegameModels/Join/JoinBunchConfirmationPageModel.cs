@@ -13,7 +13,7 @@ namespace Web.Models.HomegameModels.Join
             : base(contextResult)
         {
             BunchName = joinBunchConfirmationResult.BunchName;
-            BunchUrl = new BunchDetailsUrl(joinBunchConfirmationResult.Slug).Relative;
+            BunchUrl = new BunchDetailsUrl(joinBunchConfirmationResult.BunchId).Relative;
         }
 
         public override string BrowserTitle => "Welcome";
