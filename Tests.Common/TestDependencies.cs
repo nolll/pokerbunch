@@ -1,5 +1,4 @@
 ﻿using Tests.Common.FakeRepositories;
-using Tests.Common.FakeServices;
 
 namespace Tests.Common
 {
@@ -12,9 +11,6 @@ namespace Tests.Common
         public FakeEventRepository Event { get; }
         public FakeLocationRepository Location { get; }
 
-        public FakeMessageSender MessageSender { get; }
-        public FakeRandomService RandomService { get; }
-
         public TestDependencies()
         {
             Bunch = new FakeBunchRepository();
@@ -23,9 +19,6 @@ namespace Tests.Common
             Cashgame = new FakeCashgameRepository();
             Event = new FakeEventRepository();
             Location = new FakeLocationRepository();
-
-            MessageSender = new FakeMessageSender();
-            RandomService = new FakeRandomService();
         }
     }
 }

@@ -89,7 +89,6 @@
     <Compile Include="Storage\SqlParameters.cs" />
     <Compile Include="Storage\SqlServerStorageProvider.cs" />
     <Compile Include="Storage\StorageDataReader.cs" />
-    <Compile Include="Web\EmailMessageSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
