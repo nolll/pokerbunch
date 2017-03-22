@@ -138,6 +138,11 @@ namespace Core.Entities
 
         public bool BelongsToEvent => Event != null;
 
+        public CashgameAction GetAction(string id)
+        {
+            return Players.SelectMany(p => p.Actions).FirstOrDefault(a => a.Id == id);
+        }
+
         public class CashgamePlayer
         {
             public string Id { get; }

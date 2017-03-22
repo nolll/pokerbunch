@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Core.Entities;
+using Core.Entities.Checkpoints;
 
 namespace Core.Repositories
 {
@@ -26,5 +28,6 @@ namespace Core.Repositories
         void Buyin(string cashgameId, string playerId, int added, int stack);
         void Cashout(string cashgameId, string playerId, int stack);
         void End(string cashgameId);
-    }
+	    void UpdateAction(string actionId, DateTime timestamp, int stack, int added);
+	}
 }

@@ -1,0 +1,20 @@
+﻿<SolutionConfiguration>
+  <Settings>
+    <AllowParallelTestExecution>False</AllowParallelTestExecution>
+    <SolutionConfigured>True</SolutionConfigured>
+  </Settings>
+  <EngineModes>
+    <EngineMode>
+      <Name>Run all tests automatically</Name>
+      <Settings>
+        <TestsToExecuteAutomatically>(True AND DoesNotHaveCategory 'integration')</TestsToExecuteAutomatically>
+      </Settings>
+    </EngineMode>
+    <EngineMode>
+      <Name>Run impacted tests automatically, others manually (experimental!)</Name>
+      <Settings>
+        <TestsToExecuteAutomatically>IsImpacted</TestsToExecuteAutomatically>
+      </Settings>
+    </EngineMode>
+  </EngineModes>
+</SolutionConfiguration>

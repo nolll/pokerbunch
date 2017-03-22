@@ -163,7 +163,7 @@
     <Compile Include="UseCases\EditCashgameTests\WithInvalidEvent.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithInvalidLocation.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithValidInput.cs" />
-    <Compile Include="UseCases\EditCheckpointTests.cs" />
+    <Compile Include="UseCases\EditCheckpointTests\EditCheckpointTests.cs" />
     <Compile Include="UseCases\EditUserFormTests\Arrange.cs" />
     <Compile Include="UseCases\EditUserFormTests\WhenExecute.cs" />
     <Compile Include="UseCases\EditUserTests\Arrange.cs" />
