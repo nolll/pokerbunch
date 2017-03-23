@@ -166,5 +166,10 @@ namespace Tests.Common.FakeRepositories
         {
             _list.Clear();
         }
+
+        public void UpdateAction(string actionId, DateTime timestamp, int stack, int added)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

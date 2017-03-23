@@ -1,20 +1,15 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
     public class EditCheckpoint
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public EditCheckpoint(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public EditCheckpoint(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
@@ -26,7 +21,6 @@ namespace Core.UseCases
 
             var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
             var existingCheckpoint = cashgame.GetAction(request.ActionId);
-            var bunch = _bunchRepository.Get(cashgame.BunchId);
             
             _cashgameRepository.UpdateAction(existingCheckpoint.Id, request.Timestamp, request.Stack, request.Amount);
 

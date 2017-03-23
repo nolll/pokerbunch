@@ -68,7 +68,7 @@ namespace Plumbing
         public Actions Actions => new Actions(_deps.CashgameRepository);
         public ActionsChart ActionsChart => new ActionsChart(_deps.CashgameRepository);
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
-        public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.BunchRepository, _deps.UserRepository, _deps.PlayerRepository, _deps.CashgameRepository);
+        public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.CashgameRepository);
         public CashgameChart CashgameChart => new CashgameChart(_deps.CashgameRepository, _deps.PlayerRepository);
         public BunchMatrix BunchMatrix => new BunchMatrix(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
         public EventMatrix EventMatrix => new EventMatrix(_deps.BunchRepository, _deps.EventRepository, _deps.CashgameRepository, _deps.PlayerRepository);

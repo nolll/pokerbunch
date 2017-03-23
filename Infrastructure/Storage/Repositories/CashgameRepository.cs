@@ -159,14 +159,14 @@ namespace Infrastructure.Storage.Repositories
         {
             var startTime = DateTime.SpecifyKind(p.StartTime, DateTimeKind.Utc);
             var updatedTime = DateTime.SpecifyKind(p.UpdatedTime, DateTimeKind.Utc);
-            var actions = p.Actions.Select(CreateAction).ToList();
+            var actions = p.Actions.Select(o => CreateAction(p.Id, o)).ToList();
             return new DetailedCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, startTime, updatedTime, actions);
         }
 
-        private DetailedCashgame.CashgameAction CreateAction(ApiDetailedCashgame.ApiDetailedCashgameAction a)
+        private DetailedCashgame.CashgameAction CreateAction(string playerId, ApiDetailedCashgame.ApiDetailedCashgameAction a)
         {
             var time = DateTime.SpecifyKind(a.Time, DateTimeKind.Utc);
-            return new DetailedCashgame.CashgameAction(a.Id, GetActionType(a.Type), time, a.Stack, a.Added);
+            return new DetailedCashgame.CashgameAction(a.Id, playerId, GetActionType(a.Type), time, a.Stack, a.Added);
         }
 
         private Role GetRole(string r)
@@ -187,6 +187,11 @@ namespace Infrastructure.Storage.Repositories
             if (t == "cashout")
                 return CheckpointType.Cashout;
             return CheckpointType.Report;
+        }
+
+        public void UpdateAction(string actionId, DateTime timestamp, int stack, int added)
+        {
+            throw new NotImplementedException();
         }
 
         private class ApiUpdateCashgame

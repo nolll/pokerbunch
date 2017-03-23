@@ -1,6 +1,4 @@
-using System.Linq;
 using Core.Entities.Checkpoints;
-using Core.Exceptions;
 using Core.UseCases;
 using NUnit.Framework;
 using Tests.Common;
