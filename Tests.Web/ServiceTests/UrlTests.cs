@@ -1,11 +1,10 @@
 using NUnit.Framework;
-using Tests.Common;
 using Web.Urls;
 using Web.Urls.SiteUrls;
 
 namespace Tests.Web.ServiceTests
 {
-    public class UrlTests : TestBase
+    public class UrlTests
     {
         [Test]
         public void HomeUrl_Relative_UrlIsRelativeAndIsEmptyIsFalse()

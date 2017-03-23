@@ -43,16 +43,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakeRepositories\FakeLocationRepository.cs" />
     <Compile Include="Mocker.cs" />
-    <Compile Include="TestData.cs" />
-    <Compile Include="FakeRepositories\FakeBunchRepository.cs" />
-    <Compile Include="FakeRepositories\FakeCashgameRepository.cs" />
-    <Compile Include="FakeRepositories\FakeEventRepository.cs" />
-    <Compile Include="FakeRepositories\FakePlayerRepository.cs" />
-    <Compile Include="FakeRepositories\FakeUserRepository.cs" />
-    <Compile Include="TestDependencies.cs" />
-    <Compile Include="TestBase.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

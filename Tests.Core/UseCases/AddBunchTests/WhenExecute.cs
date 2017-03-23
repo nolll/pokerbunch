@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using Tests.Common;
+using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.AddBunchTests
 {
@@ -12,7 +13,7 @@ namespace Tests.Core.UseCases.AddBunchTests
             Assert.AreEqual(DisplayName, Added.DisplayName);
             Assert.AreEqual(Description, Added.Description);
             Assert.AreEqual("", Added.HouseRules);
-            Assert.AreEqual(TestData.TimeZoneLocal.Id, Added.Timezone.Id);
+            Assert.AreEqual(TimezoneData.Swedish.Id, Added.Timezone.Id);
             Assert.AreEqual(200, Added.DefaultBuyin);
             Assert.AreEqual(CurrencySymbol, Added.Currency.Symbol);
             Assert.AreEqual(CurrencyLayout, Added.Currency.Layout);
