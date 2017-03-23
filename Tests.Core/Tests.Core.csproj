@@ -163,6 +163,10 @@
     <Compile Include="UseCases\EditCashgameTests\WithInvalidEvent.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithInvalidLocation.cs" />
     <Compile Include="UseCases\EditCashgameTests\WithValidInput.cs" />
+    <Compile Include="UseCases\EditCheckpointFormTests\Arrange.cs" />
+    <Compile Include="UseCases\EditCheckpointFormTests\WhenExecute.cs" />
+    <Compile Include="UseCases\EditCheckpointFormTests\WithBuyinAction.cs" />
+    <Compile Include="UseCases\EditCheckpointFormTests\WithReportAction.cs" />
     <Compile Include="UseCases\EditCheckpointTests\Arrange.cs" />
     <Compile Include="UseCases\EditCheckpointTests\WhenExecute.cs" />
     <Compile Include="UseCases\EditUserFormTests\Arrange.cs" />
@@ -215,7 +219,6 @@
     <Compile Include="UseCases\PlayerListTests\Arrange.cs" />
     <Compile Include="UseCases\PlayerListTests\WithManagerRole.cs" />
     <Compile Include="UseCases\PlayerListTests\WithPlayerRole.cs" />
-    <Compile Include="UseCases\EditCheckpointFormTests.cs" />
     <Compile Include="UseCases\ReportTests\Arrange.cs" />
     <Compile Include="UseCases\ReportTests\WhenExecute.cs" />
     <Compile Include="UseCases\RunningCashgameTests\Arrange.cs" />

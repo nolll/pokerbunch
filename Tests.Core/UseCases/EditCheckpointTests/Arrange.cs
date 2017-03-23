@@ -7,7 +7,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.EditCheckpointTests
 {
-    public class Arrange : UseCaseTest<EditCheckpoint>
+    public abstract class Arrange : UseCaseTest<EditCheckpoint>
     {
         protected EditCheckpoint.Result Result;
 

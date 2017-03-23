@@ -4,7 +4,7 @@ using Moq;
 
 namespace Tests.Core.UseCases.ChangePasswordTests
 {
-    public class Arrange : UseCaseTest<ChangePassword>
+    public abstract class Arrange : UseCaseTest<ChangePassword>
     {
         protected const string OldPassword = "old-password";
         protected const string NewPassword = "new-password";

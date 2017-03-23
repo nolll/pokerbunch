@@ -5,7 +5,7 @@ using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.ForgotPasswordTests
 {
-    public class Arrange : UseCaseTest<ForgotPassword>
+    public abstract class Arrange : UseCaseTest<ForgotPassword>
     {
         protected const string Email = UserData.Email1;
 
