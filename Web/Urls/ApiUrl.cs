@@ -7,9 +7,6 @@ namespace Web.Urls
         {
         }
 
-        public override UrlType Type
-        {
-            get { return UrlType.Api; }
-        }
+        public override UrlType Type => UrlType.Api;
     }
 }

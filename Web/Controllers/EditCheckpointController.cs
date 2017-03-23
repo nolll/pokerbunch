@@ -12,15 +12,15 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(WebRoutes.Cashgame.CheckpointEdit)]
-        public ActionResult EditCheckpoint(string id)
+        public ActionResult EditCheckpoint(string cashgameId, string id)
         {
-            return ShowForm(id);
+            return ShowForm(cashgameId, id);
         }
 
         [HttpPost]
         [Authorize]
         [Route(WebRoutes.Cashgame.CheckpointEdit)]
-        public ActionResult EditCheckpoint_Post(string id, EditCheckpointPostModel postModel)
+        public ActionResult EditCheckpoint_Post(string cashgameId, string id, EditCheckpointPostModel postModel)
         {
             try
             {
@@ -33,12 +33,12 @@ namespace Web.Controllers
                 AddModelErrors(ex.Messages);
             }
 
-            return ShowForm(id, postModel);
+            return ShowForm(cashgameId, id, postModel);
         }
 
-        private ActionResult ShowForm(string id, EditCheckpointPostModel postModel = null)
+        private ActionResult ShowForm(string cashgameId, string id, EditCheckpointPostModel postModel = null)
         {
-            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(Identity.UserName, id));
+            var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(cashgameId, id));
             var contextResult = GetBunchContext(editCheckpointFormResult.Slug);
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
             return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);

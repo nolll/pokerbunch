@@ -21,7 +21,7 @@ namespace Web.Models.CashgameModels.Checkpoints
             Stack = editCheckpointFormResult.Stack;
             Amount = editCheckpointFormResult.Amount;
             Timestamp = editCheckpointFormResult.TimeStamp;
-            DeleteUrl = new DeleteCheckpointUrl(editCheckpointFormResult.ActionId).Relative;
+            DeleteUrl = new DeleteCheckpointUrl(editCheckpointFormResult.CashgameId, editCheckpointFormResult.ActionId).Relative;
             CancelUrl = new CashgameActionUrl(editCheckpointFormResult.CashgameId, editCheckpointFormResult.PlayerId).Relative;
             EnableAmountField = editCheckpointFormResult.CanEditAmount;
             StackLabel = editCheckpointFormResult.CanEditAmount ? "Stack after buyin" : "Stack";

@@ -7,9 +7,6 @@ namespace Web.Urls.SiteUrls
         {
         }
 
-        public override UrlType Type
-        {
-            get { return UrlType.Site; }
-        }
+        public override UrlType Type => UrlType.Site;
     }
 }

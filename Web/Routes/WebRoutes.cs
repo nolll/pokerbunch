@@ -36,8 +36,8 @@ namespace Web.Routes
             public const string Dashboard = "cashgame/dashboard/{slug}";
             public const string RunningGameJson = "cashgame/runninggamejson/{slug}";
             public const string RunningPlayersJson = "cashgame/runningplayersjson/{slug}";
-            public const string CheckpointDelete = "cashgame/deletecheckpoint/{id}";
-            public const string CheckpointEdit = "cashgame/editcheckpoint/{id}";
+            public const string CheckpointDelete = "cashgame/deletecheckpoint/{cashgameId}/{id}";
+            public const string CheckpointEdit = "cashgame/editcheckpoint/{cashgameId}/{id}";
         }
 
         public static class Bunch

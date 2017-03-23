@@ -25,19 +25,19 @@ namespace Core.UseCases
 
             var date = cashgame.StartTime;
             var playerName = playerResult.Name;
-            var checkpointItems = playerResult.Actions.Select(o => CreateCheckpointItem(cashgame.Bunch, isManager, o)).ToList();
+            var checkpointItems = playerResult.Actions.Select(o => CreateCheckpointItem(cashgame.Id, cashgame.Bunch, isManager, o)).ToList();
 
             return new Result(date, playerName, cashgame.Bunch.Id, checkpointItems);
         }
 
-        private static CheckpointItem CreateCheckpointItem(CashgameBunch bunch, bool isManager, DetailedCashgame.CashgameAction action)
+        private static CheckpointItem CreateCheckpointItem(string cashgameId, CashgameBunch bunch, bool isManager, DetailedCashgame.CashgameAction action)
         {
             var type = action.Type.ToString();
             var displayAmount = new Money(GetDisplayAmount(action), bunch.Currency);
             var time = TimeZoneInfo.ConvertTime(action.Time, bunch.Timezone);
             var canEdit = isManager;
 
-            return new CheckpointItem(time, action.Id, type, displayAmount, canEdit);
+            return new CheckpointItem(time, action.Id, cashgameId, type, displayAmount, canEdit);
         }
 
         private static int GetDisplayAmount(DetailedCashgame.CashgameAction action)
@@ -79,14 +79,16 @@ namespace Core.UseCases
         {
             public DateTime Time { get; private set; }
             public string CheckpointId { get; private set; }
+            public string CashgameId { get; }
             public string Type { get; private set; }
             public Money DisplayAmount { get; private set; }
             public bool CanEdit { get; private set; }
 
-            public CheckpointItem(DateTime time, string checkpointId, string type, Money displayAmount, bool canEdit)
+            public CheckpointItem(DateTime time, string checkpointId, string cashgameId, string type, Money displayAmount, bool canEdit)
             {
                 Time = time;
                 CheckpointId = checkpointId;
+                CashgameId = cashgameId;
                 Type = type;
                 DisplayAmount = displayAmount;
                 CanEdit = canEdit;
