@@ -2,23 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
-using Infrastructure.Storage.SqlDb;
 using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
     public class EventRepository : ApiRepository, IEventRepository
     {
-        private readonly SqlEventDb _eventDb;
         private readonly ApiConnection _api;
-        private readonly ICacheContainer _cacheContainer;
 
-        public EventRepository(ApiConnection api, SqlServerStorageProvider db, ICacheContainer cacheContainer)
+        public EventRepository(ApiConnection api)
         {
-            _eventDb = new SqlEventDb(db);
             _api = api;
-            _cacheContainer = cacheContainer;
         }
 
         public Event Get(string id)
@@ -35,19 +29,31 @@ namespace Infrastructure.Storage.Repositories
         
         public string Add(Event e)
         {
-            return _eventDb.Add(e);
+            var postEvent = new ApiEvent(e.Name, e.BunchId);
+            var apiEvent = _api.Post<ApiEvent>(Url.EventsByBunch(e.BunchId), postEvent);
+            return CreateEvent(apiEvent).Id;
         }
 
         public void AddCashgame(string eventId, string cashgameId)
         {
-            _eventDb.AddCashgame(eventId, cashgameId);
-            _cacheContainer.Remove<Event>(eventId);
+            var postCashame = new ApiEventCashgame(cashgameId);
+            _api.Post<ApiEventCashgame>(Url.CashgamesByEvent(eventId), postCashame);
         }
 
         private Event CreateEvent(ApiEvent e)
         {
-            var location = new SmallLocation(e.Location.Id, e.Location.Name);
             return new Event(e.Id, e.BunchId, e.Name);
+        }
+
+        private class ApiEventCashgame
+        {
+            [UsedImplicitly]
+            public string CashgameId { get; set; }
+
+            public ApiEventCashgame(string cashgameId)
+            {
+                CashgameId = cashgameId;
+            }
         }
 
         private class ApiEvent
