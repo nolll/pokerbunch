@@ -1,6 +1,5 @@
 ﻿using System;
 using Core.Repositories;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
@@ -15,10 +14,6 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var validator = new Validator(request);
-            if(!validator.IsValid)
-                throw new ValidationException(validator);
-
             var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
             var existingCheckpoint = cashgame.GetAction(request.ActionId);
             

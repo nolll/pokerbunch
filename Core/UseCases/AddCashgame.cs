@@ -1,6 +1,5 @@
 using Core.Entities;
 using Core.Repositories;
-using ValidationException = Core.Exceptions.ValidationException;
 
 namespace Core.UseCases
 {
@@ -19,11 +18,6 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var validator = new Validator(request);
-
-            if (!validator.IsValid)
-                throw new ValidationException(validator);
-
             var bunch = _bunchRepository.Get(request.Slug);
             var cashgame = new Cashgame(bunch.Id, request.LocationId, GameStatus.Running);
             var cashgameId = _cashgameRepository.Add(bunch, cashgame);
