@@ -1,4 +1,3 @@
-using System.Linq;
 using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
@@ -16,17 +15,13 @@ namespace Tests.Core.UseCases.RunningCashgameTests
 
         protected override void Setup()
         {
-            var bunch = new Bunch(BunchId, null, null, null, null, 100);
+            var bunch = new Bunch(BunchId, null, null, null, null, 100, null, Role.None, PlayerData.Id1);
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
             var players = PlayerData.TwoPlayers;
-            var player = players.First();
-            var user = new User(UserData.Id1, UserData.UserName1);
 
             Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
             Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
             Mock<IPlayerRepository>().Setup(o => o.List(BunchId)).Returns(players);
-            Mock<IPlayerRepository>().Setup(o => o.GetByUser(BunchId, UserData.Id1)).Returns(player);
-            Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
         }
 
         protected override void Execute()

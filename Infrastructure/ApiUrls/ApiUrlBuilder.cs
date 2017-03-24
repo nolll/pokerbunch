@@ -35,6 +35,7 @@ namespace Infrastructure.ApiUrls
         public ApiUrl EventsByBunch(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/events");
 
         public ApiUrl Player(string id) => new SimpleApiUrl($"players/{id}");
+        public ApiUrl PlayersByBunch(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/players");
         public ApiUrl Invite(string id) => new SimpleApiUrl($"players/{id}/invite");
 
         private class CashgamesByBunchUrl : ApiUrl

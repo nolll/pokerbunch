@@ -3,7 +3,8 @@ using Core.Entities;
 
 namespace Core.Repositories
 {
-    public interface IBunchRepository
+    public interface 
+        IBunchRepository
     {
         Bunch Get(string id);
         IList<SmallBunch> List();

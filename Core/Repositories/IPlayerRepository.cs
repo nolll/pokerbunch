@@ -8,9 +8,7 @@ namespace Core.Repositories
         Player Get(string id);
 
 	    IList<Player> List(string bunchId);
-        Player GetByUser(string bunchId, string userId);
 
-        bool JoinBunch(Player player, Bunch bunch, string userId);
         string Add(Player player);
 		void Delete(string playerId);
 

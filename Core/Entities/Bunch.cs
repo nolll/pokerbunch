@@ -8,6 +8,7 @@ namespace Core.Entities
         public TimeZoneInfo Timezone { get; }
         public int DefaultBuyin { get; }
         public Role Role { get; }
+        public string PlayerId { get; }
         public Currency Currency { get; }
         public bool CashgamesEnabled { get; }
         public bool TournamentsEnabled { get; }
@@ -21,7 +22,8 @@ namespace Core.Entities
             TimeZoneInfo timezone = null,
             int defaultBuyin = 0,
             Currency currency = null,
-            Role role = Role.None)
+            Role role = Role.None,
+            string playerId = null)
             : base(
                   id,
                   displayName,
@@ -31,6 +33,7 @@ namespace Core.Entities
             Timezone = timezone ?? TimeZoneInfo.Utc;
             DefaultBuyin = defaultBuyin;
             Role = role;
+            PlayerId = playerId;
             Currency = currency ?? Currency.Default;
             CashgamesEnabled = true;
             TournamentsEnabled = false;

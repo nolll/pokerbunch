@@ -11,56 +11,35 @@ namespace Infrastructure.Storage.Repositories
 {
     public class PlayerRepository : ApiRepository, IPlayerRepository
     {
-        private readonly SqlPlayerDb _playerDb;
         private readonly ApiConnection _api;
-        private readonly ICacheContainer _cacheContainer;
 
-        public PlayerRepository(ApiConnection api, SqlServerStorageProvider db, ICacheContainer cacheContainer)
+        public PlayerRepository(ApiConnection api)
         {
-            _playerDb = new SqlPlayerDb(db);
             _api = api;
-            _cacheContainer = cacheContainer;
         }
 
         public Player Get(string id)
         {
-            var apiEvent = _api.Get<ApiPlayer>(Url.Player(id));
-            return CreatePlayer(apiEvent);
-        }
-
-        private IList<Player> Get(IList<string> ids)
-        {
-            return _cacheContainer.GetAndStore(_playerDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
+            var apiPlayer = _api.Get<ApiPlayer>(Url.Player(id));
+            return CreatePlayer(apiPlayer);
         }
 
         public IList<Player> List(string bunchId)
         {
-            var ids = _playerDb.Find(bunchId);
-            return Get(ids);
+            var apiPlayers = _api.Get<IList<ApiPlayer>>(Url.PlayersByBunch(bunchId));
+            return apiPlayers.Select(CreatePlayer).ToList();
         }
-
-        public Player GetByUser(string bunchId, string userId)
-        {
-            var ids = _playerDb.FindByUserId(bunchId, userId);
-            if (!ids.Any())
-                return null;
-            return Get(ids).First();
-        }
-
+        
         public string Add(Player player)
         {
-            return _playerDb.Add(player);
-        }
-
-        public bool JoinBunch(Player player, Bunch bunch, string userId)
-        {
-            return _playerDb.JoinHomegame(player, bunch, userId);
+            var postPlayer = new ApiPlayer(player.BunchId, player.UserId, player.DisplayName, (int)player.Role, player.Color);
+            var apiLocation = _api.Post<ApiPlayer>(Url.PlayersByBunch(player.BunchId), postPlayer);
+            return CreatePlayer(apiLocation).Id;
         }
 
         public void Delete(string playerId)
         {
-            _playerDb.Delete(playerId);
-            _cacheContainer.Remove<Player>(playerId);
+            _api.Delete(Url.Player(playerId));
         }
 
         public void Invite(string playerId, string email)
@@ -89,10 +68,9 @@ namespace Infrastructure.Storage.Repositories
             [UsedImplicitly]
             public string Color { get; set; }
 
-            public ApiPlayer(string bunchId, string id, string userId, string displayName, int roleId, string color)
+            public ApiPlayer(string bunchId, string userId, string displayName, int roleId, string color)
             {
                 BunchId = bunchId;
-                Id = id;
                 UserId = userId;
                 DisplayName = displayName;
                 RoleId = roleId;

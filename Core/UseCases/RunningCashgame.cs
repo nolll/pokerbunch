@@ -13,14 +13,12 @@ namespace Core.UseCases
         private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IPlayerRepository _playerRepository;
-        private readonly IUserRepository _userRepository;
 
-        public RunningCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository, IUserRepository userRepository)
+        public RunningCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
         {
             _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _playerRepository = playerRepository;
-            _userRepository = userRepository;
         }
 
         public Result Execute(Request request)
@@ -31,8 +29,6 @@ namespace Core.UseCases
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var player = _playerRepository.GetByUser(bunch.Id, user.Id);
             var bunchPlayers = _playerRepository.List(bunch.Id);
 
             var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
@@ -46,7 +42,7 @@ namespace Core.UseCases
 
             return new Result(
                 bunch.Id,
-                player.Id,
+                bunch.PlayerId,
                 cashgame.Location.Name,
                 cashgame.Location.Id,
                 playerItems,

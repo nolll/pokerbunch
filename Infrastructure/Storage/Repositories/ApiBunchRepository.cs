@@ -59,8 +59,8 @@ namespace Infrastructure.Storage.Repositories
         {
             var timezone = TimeZoneInfo.FindSystemTimeZoneById(b.Timezone);
             var currency = new Currency(b.CurrencySymbol, b.CurrencyLayout);
-            var role = ParseRole(b.Role);
-            return new Bunch(b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role);
+            var role = ParseRole(b.Player.Role);
+            return new Bunch(b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role, b.Player.Id);
         }
 
         private SmallBunch ToSmallBunch(ApiSmallBunch b)
@@ -94,7 +94,7 @@ namespace Infrastructure.Storage.Repositories
             [UsedImplicitly]
             public int DefaultBuyin { get; set; }
             [UsedImplicitly]
-            public string Role { get; set; }
+            public ApiBunchPlayer Player { get; set; }
 
             public ApiBunch(Bunch b)
                 : base(b)
@@ -104,10 +104,29 @@ namespace Infrastructure.Storage.Repositories
                 CurrencySymbol = b.Currency.Symbol;
                 CurrencyLayout = b.Currency.Layout;
                 DefaultBuyin = b.DefaultBuyin;
-                Role = b.Role.ToString().ToLower();
+                Player = new ApiBunchPlayer(b);
             }
 
             public ApiBunch()
+            {
+            }
+        }
+
+        private class ApiBunchPlayer
+        {
+            [UsedImplicitly]
+            public string Id { get; set; }
+            [UsedImplicitly]
+            public string Name { get; set; }
+            [UsedImplicitly]
+            public string Role { get; set; }
+
+            public ApiBunchPlayer(Bunch b)
+            {
+                Role = b.Role.ToString().ToLower();
+            }
+
+            public ApiBunchPlayer()
             {
             }
         }
