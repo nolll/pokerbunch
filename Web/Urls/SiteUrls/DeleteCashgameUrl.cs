@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class DeleteCashgameUrl : IdUrl
+    public class DeleteCashgameUrl : SiteUrl
     {
+        private readonly string _id;
+
         public DeleteCashgameUrl(string id)
-            : base(WebRoutes.Cashgame.Delete, id)
         {
+            _id = id;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Delete, RouteParam.Id(_id));
     }
 }

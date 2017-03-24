@@ -157,7 +157,7 @@ namespace Tests.Web.ServiceTests
             const string slug = "a";
             const int year = 2010;
 
-            var result = new CashgameListUrl(slug, year);
+            var result = new ListUrl(slug, year);
 
             Assert.AreEqual("/cashgame/list/a/2010", result.Relative);
         }
@@ -167,7 +167,7 @@ namespace Tests.Web.ServiceTests
         {
             const string slug = "a";
 
-            var result = new CashgameListUrl(slug, null);
+            var result = new ListUrl(slug, null);
 
             Assert.AreEqual("/cashgame/list/a", result.Relative);
         }

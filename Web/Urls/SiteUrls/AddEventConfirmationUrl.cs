@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class AddEventConfirmationUrl : SlugUrl
+    public class AddEventConfirmationUrl : SiteUrl
     {
+        private readonly string _slug;
+
         public AddEventConfirmationUrl(string slug)
-            : base(WebRoutes.Event.AddConfirmation, slug)
         {
+            _slug = slug;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Event.AddConfirmation, RouteParam.Slug(_slug));
     }
 }

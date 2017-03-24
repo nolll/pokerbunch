@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class LogoutUrl : SiteUrl
     {
-        public LogoutUrl()
-            : base(WebRoutes.Auth.Logout)
-        {
-        }
+        protected override string Input => WebRoutes.Auth.Logout;
     }
 }

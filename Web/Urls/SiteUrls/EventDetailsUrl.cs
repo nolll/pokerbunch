@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class EventDetailsUrl : IdUrl
+    public class EventDetailsUrl : SiteUrl
     {
-        public EventDetailsUrl(string eventId)
-            : base(WebRoutes.Event.Details, eventId)
+        private readonly string _id;
+
+        public EventDetailsUrl(string id)
         {
+            _id = id;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Event.Details, RouteParam.Id(_id));
     }
 }

@@ -4,9 +4,6 @@ namespace Web.Urls.ApiUrls
 {
     public class TokenUrl : ApiUrl
     {
-        public TokenUrl()
-            : base(ApiRoutes.Token)
-        {
-        }
+        protected override string Input => ApiRoutes.Token;
     }
 }

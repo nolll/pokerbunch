@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class LoginUrl : SiteUrl
     {
-        public LoginUrl()
-            : base(WebRoutes.Auth.Login)
-        {
-        }
+        protected override string Input => WebRoutes.Auth.Login;
     }
 }

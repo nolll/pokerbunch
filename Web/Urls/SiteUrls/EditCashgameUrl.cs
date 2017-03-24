@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class EditCashgameUrl : IdUrl
+    public class EditCashgameUrl : SiteUrl
     {
+        private readonly string _id;
+
         public EditCashgameUrl(string id)
-            : base(WebRoutes.Cashgame.Edit, id)
         {
+            _id = id;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Edit, RouteParam.Id(_id));
     }
 }

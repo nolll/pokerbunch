@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class BunchListAllUrl : SiteUrl
     {
-        public BunchListAllUrl()
-            : base(WebRoutes.Bunch.All)
-        {
-        }
+        protected override string Input => WebRoutes.Bunch.All;
     }
 }

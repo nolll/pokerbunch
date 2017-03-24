@@ -8,18 +8,10 @@ namespace Web.Urls
 
     public abstract class Url
     {
-        public string Relative { get; }
         public abstract UrlType Type { get; }
-
-        protected Url(string url)
-        {
-            Relative = url != null ? string.Concat("/", url) : string.Empty;
-        }
-        
-        public override string ToString()
-        {
-            return Relative;
-        }
+        protected abstract string Input { get; }
+        public string Relative => Input != null ? string.Concat("/", Input) : string.Empty;
+        public override string ToString() => Relative;
     }
 
     public static class AbsoluteUrl
@@ -33,9 +25,7 @@ namespace Web.Urls
         
         private static string GetDomainName(UrlType type, string siteHost, string apiHost)
         {
-            if (type == UrlType.Api)
-                return apiHost;
-            return siteHost;
+            return type == UrlType.Api ? apiHost : siteHost;
         }
     }
 }

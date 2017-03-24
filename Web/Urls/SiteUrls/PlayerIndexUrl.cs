@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class PlayerIndexUrl : SlugUrl
+    public class PlayerIndexUrl : SiteUrl
     {
+        private readonly string _slug;
+
         public PlayerIndexUrl(string slug)
-            : base(WebRoutes.Player.List, slug)
         {
+            _slug = slug;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Player.List, RouteParam.Slug(_slug));
     }
 }

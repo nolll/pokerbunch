@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class AddAppUrl : SiteUrl
     {
-        public AddAppUrl()
-            : base(WebRoutes.App.Add)
-        {
-        }
+        protected override string Input => WebRoutes.App.Add;
     }
 }

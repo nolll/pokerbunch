@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class EditLocationUrl : IdUrl
+    public class EditLocationUrl : SiteUrl
     {
-        public EditLocationUrl(string locationId)
-            : base(WebRoutes.Location.Edit, locationId)
+        private readonly string _id;
+
+        public EditLocationUrl(string id)
         {
+            _id = id;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Location.Edit, RouteParam.Id(_id));
     }
 }

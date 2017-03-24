@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class ForgotPasswordConfirmationUrl : SiteUrl
     {
-        public ForgotPasswordConfirmationUrl()
-            : base(WebRoutes.User.ForgotPasswordConfirmation)
-        {
-        }
+        protected override string Input => WebRoutes.User.ForgotPasswordConfirmation;
     }
 }

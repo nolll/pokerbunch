@@ -2,16 +2,24 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class JoinBunchUrl : SlugUrl
+    public class JoinBunchUrl : SiteUrl
     {
+        private readonly string _code;
+        private readonly string _slug;
+
         public JoinBunchUrl(string slug)
-            : base(WebRoutes.Bunch.Join, slug)
         {
+            _slug = slug;
         }
 
         public JoinBunchUrl(string slug, string code)
-            : base(WebRoutes.Bunch.JoinWithCode.Replace("{code}", code), slug)
+            : this(slug)
         {
+            _code = code;
         }
+
+        protected override string Input => _code != null ? InputWithCode : InputWithoutCode;
+        private string InputWithCode => RouteParams.Replace(WebRoutes.Bunch.JoinWithCode, RouteParam.Slug(_slug), RouteParam.Code(_code));
+        private string InputWithoutCode => RouteParams.Replace(WebRoutes.Bunch.Join, RouteParam.Slug(_slug));
     }
 }

@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class AddAppConfirmationUrl : SiteUrl
     {
-        public AddAppConfirmationUrl()
-            : base(WebRoutes.App.AddConfirmation)
-        {
-        }
+        protected override string Input => WebRoutes.App.AddConfirmation;
     }
 }

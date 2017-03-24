@@ -2,11 +2,15 @@
 
 namespace Web.Urls.SiteUrls
 {
-    public class CashgameIndexUrl : SlugUrl
+    public class CashgameIndexUrl : SiteUrl
     {
+        private readonly string _slug;
+
         public CashgameIndexUrl(string slug)
-            : base(WebRoutes.Cashgame.Index, slug)
         {
+            _slug = slug;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Index, RouteParam.Slug(_slug));
     }
 }

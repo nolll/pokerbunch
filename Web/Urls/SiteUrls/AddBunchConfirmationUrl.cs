@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class AddBunchConfirmationUrl : SiteUrl
     {
-        public AddBunchConfirmationUrl()
-            : base(WebRoutes.Bunch.AddConfirmation)
-        {
-        }
+        protected override string Input => WebRoutes.Bunch.AddConfirmation;
     }
 }

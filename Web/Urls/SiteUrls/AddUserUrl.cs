@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class AddUserUrl : SiteUrl
     {
-        public AddUserUrl()
-            : base(WebRoutes.User.Add)
-        {
-        }
+        protected override string Input => WebRoutes.User.Add;
     }
 }

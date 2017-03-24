@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class AddBunchUrl : SiteUrl
     {
-        public AddBunchUrl()
-            : base(WebRoutes.Bunch.Add)
-        {
-        }
+        protected override string Input => WebRoutes.Bunch.Add;
     }
 }

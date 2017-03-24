@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class PlayerDetailsUrl : IdUrl
+    public class PlayerDetailsUrl : SiteUrl
     {
-        public PlayerDetailsUrl(string playerId)
-            : base(WebRoutes.Player.Details, playerId)
+        private readonly string _id;
+
+        public PlayerDetailsUrl(string id)
         {
+            _id = id;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Player.Details, RouteParam.Id(_id));
     }
 }

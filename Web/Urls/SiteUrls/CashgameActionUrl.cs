@@ -4,15 +4,15 @@ namespace Web.Urls.SiteUrls
 {
     public class CashgameActionUrl : SiteUrl
     {
-        public CashgameActionUrl(string cashgameId, string playerId)
-            : base(BuildUrl(WebRoutes.Cashgame.Action, cashgameId, playerId))
-        {
-        }
+        private readonly string _cashgameId;
+        private readonly string _playerId;
 
-        private static string BuildUrl(string format, string cashgameId, string playerId)
+        public CashgameActionUrl(string cashgameId, string playerId)
         {
-            var url = RouteParams.ReplaceCashgameId(format, cashgameId);
-            return RouteParams.ReplacePlayerId(url, playerId);
+            _cashgameId = cashgameId;
+            _playerId = playerId;
         }
+        
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Action, RouteParam.CashgameId(_cashgameId), RouteParam.PlayerId(_playerId));
     }
 }

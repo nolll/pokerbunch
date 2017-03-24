@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class JoinBunchConfirmationUrl : SlugUrl
+    public class JoinBunchConfirmationUrl : SiteUrl
     {
+        private readonly string _slug;
+
         public JoinBunchConfirmationUrl(string slug)
-            : base(WebRoutes.Bunch.JoinConfirmation, slug)
         {
+            _slug = slug;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Bunch.JoinConfirmation, RouteParam.Slug(_slug));
     }
 }

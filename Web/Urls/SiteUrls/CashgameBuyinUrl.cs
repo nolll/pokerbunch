@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class CashgameBuyinUrl : SlugUrl
+    public class CashgameBuyinUrl : SiteUrl
     {
+        private readonly string _slug;
+
         public CashgameBuyinUrl(string slug)
-            : base(WebRoutes.Cashgame.Buyin, slug)
         {
+            _slug = slug;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Buyin, RouteParam.Slug(_slug));
     }
 }

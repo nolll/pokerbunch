@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class BunchDetailsUrl : SlugUrl
+    public class BunchDetailsUrl : SiteUrl
     {
+        private readonly string _slug;
+
         public BunchDetailsUrl(string slug)
-            : base(WebRoutes.Bunch.Details, slug)
         {
+            _slug = slug;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Bunch.Details, RouteParam.Slug(_slug));
     }
 }

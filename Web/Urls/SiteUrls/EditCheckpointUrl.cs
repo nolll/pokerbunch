@@ -4,15 +4,15 @@ namespace Web.Urls.SiteUrls
 {
     public class EditCheckpointUrl : SiteUrl
     {
+        private readonly string _cashgameId;
+        private readonly string _id;
+
         public EditCheckpointUrl(string cashgameId, string id)
-            : base(BuildUrl(WebRoutes.Cashgame.CheckpointEdit, cashgameId, id))
         {
+            _cashgameId = cashgameId;
+            _id = id;
         }
 
-        private static string BuildUrl(string format, string cashgameId, string id)
-        {
-            var url = RouteParams.ReplaceCashgameId(format, cashgameId);
-            return RouteParams.ReplaceId(url, id);
-        }
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.CheckpointEdit, RouteParam.CashgameId(_cashgameId), RouteParam.Id(_id));
     }
 }

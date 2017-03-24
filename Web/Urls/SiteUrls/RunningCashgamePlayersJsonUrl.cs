@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class RunningCashgamePlayersJsonUrl : SlugUrl
+    public class RunningCashgamePlayersJsonUrl : SiteUrl
     {
+        private readonly string _slug;
+
         public RunningCashgamePlayersJsonUrl(string slug)
-            : base(WebRoutes.Cashgame.RunningPlayersJson, slug)
         {
+            _slug = slug;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.RunningPlayersJson, RouteParam.Slug(_slug));
     }
 }

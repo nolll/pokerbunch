@@ -2,11 +2,16 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class AddPlayerConfirmationUrl : SlugUrl
+    public class AddPlayerConfirmationUrl : SiteUrl
     {
+        private readonly string _slug;
+
         public AddPlayerConfirmationUrl(string slug)
-            : base(WebRoutes.Player.AddConfirmation, slug)
         {
+            _slug = slug;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Player.AddConfirmation, RouteParam.Slug(_slug))
+        ;
     }
 }

@@ -4,9 +4,6 @@ namespace Web.Urls.SiteUrls
 {
     public class ChangePasswordConfirmationUrl : SiteUrl
     {
-        public ChangePasswordConfirmationUrl()
-            : base(WebRoutes.User.ChangePasswordConfirmation)
-        {
-        }
+        protected override string Input => WebRoutes.User.ChangePasswordConfirmation;
     }
 }

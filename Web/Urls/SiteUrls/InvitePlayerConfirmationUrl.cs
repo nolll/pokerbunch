@@ -2,11 +2,15 @@ using Web.Routes;
 
 namespace Web.Urls.SiteUrls
 {
-    public class InvitePlayerConfirmationUrl : IdUrl
+    public class InvitePlayerConfirmationUrl : SiteUrl
     {
-        public InvitePlayerConfirmationUrl(string playerId)
-            : base(WebRoutes.Player.InviteConfirmation, playerId)
+        private readonly string _id;
+
+        public InvitePlayerConfirmationUrl(string id)
         {
+            _id = id;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.Player.InviteConfirmation, RouteParam.Id(_id));
     }
 }

@@ -2,11 +2,15 @@
 
 namespace Web.Urls.SiteUrls
 {
-    public class UserDetailsUrl : UserUrl
+    public class UserDetailsUrl : SiteUrl
     {
+        private readonly string _userName;
+
         public UserDetailsUrl(string userName)
-            : base(WebRoutes.User.Details, userName)
         {
+            _userName = userName;
         }
+
+        protected override string Input => RouteParams.Replace(WebRoutes.User.Details, RouteParam.UserName(_userName));
     }
 }
