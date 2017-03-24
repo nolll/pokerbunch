@@ -61,12 +61,6 @@ namespace Infrastructure.Storage.Repositories
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
-        public Cashgame GetRunning(string bunchId)
-        {
-            var ids = _cashgameDb.FindRunning(bunchId);
-            return Get(ids).FirstOrDefault();
-        }
-
         public Cashgame GetByCheckpoint(string checkpointId)
         {
             var ids = _cashgameDb.FindByCheckpoint(checkpointId);

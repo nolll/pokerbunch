@@ -36,7 +36,7 @@ namespace Tests.Core.UseCases.DeleteCheckpointTests
 
         protected override void Execute()
         {
-            Result = Subject.Execute(new DeleteCheckpoint.Request(_checkpointId));
+            Result = Subject.Execute(new DeleteCheckpoint.Request(CashgameId, _checkpointId));
         }
 
         private Bunch Bunch => new Bunch(BunchId);

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Entities.Checkpoints;
 
 namespace Core.Repositories
 {
@@ -14,7 +13,6 @@ namespace Core.Repositories
         IList<ListCashgame> EventList(string eventId);
         IList<ListCashgame> PlayerList(string playerId);
         
-        Cashgame GetRunning(string bunchId);
         Cashgame GetByCheckpoint(string checkpointId);
         
         void DeleteGame(string id);

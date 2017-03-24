@@ -1,4 +1,3 @@
-using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
 using Moq;
@@ -17,8 +16,8 @@ namespace Tests.Core.UseCases.EndCashgameTests
         {
             PostedCashgameId = null;
 
-            var cashgame = new Cashgame(BunchId, LocationData.Id1, GameStatus.Running, CashgameId);
-            Mock<ICashgameRepository>().Setup(o => o.GetRunning(BunchId)).Returns(cashgame);
+            var cashgame = CashgameData.CreateDetailed(CashgameId);
+            Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchId)).Returns(cashgame);
             Mock<ICashgameRepository>().Setup(o => o.End(It.IsAny<string>())).Callback((string cashgameId) => PostedCashgameId = cashgameId);
         }
 

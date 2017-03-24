@@ -13,7 +13,7 @@ namespace Core.UseCases
 
         public void Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetRunning(request.Slug);
+            var cashgame = _cashgameRepository.GetCurrent(request.Slug);
             _cashgameRepository.Buyin(cashgame.Id, request.PlayerId, request.BuyinAmount, request.StackAmount);
         }
 

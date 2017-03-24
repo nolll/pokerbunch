@@ -28,10 +28,12 @@ namespace Core.UseCases
 
         public class Request
         {
+            public string CashgameId { get; }
             public string CheckpointId { get; }
 
-            public Request(string checkpointId)
+            public Request(string cashgameId, string checkpointId)
             {
+                CashgameId = cashgameId;
                 CheckpointId = checkpointId;
             }
         }

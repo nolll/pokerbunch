@@ -1,4 +1,3 @@
-using Core.Entities;
 using Core.Repositories;
 using Core.UseCases;
 using Moq;
@@ -23,7 +22,8 @@ namespace Tests.Core.UseCases.ReportTests
             PostedPlayerId = null;
             PostedStack = 0;
 
-            Mock<ICashgameRepository>().Setup(o => o.GetRunning(BunchId)).Returns(new Cashgame(BunchId, LocationData.Id1, GameStatus.Running, CashgameId));
+            var cashgame = CashgameData.CreateDetailed(CashgameId);
+            Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchId)).Returns(cashgame);
 
             Mock<ICashgameRepository>().Setup(o => o.Report(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Callback((string cashgameId, string playerId, int stack) =>

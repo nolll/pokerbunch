@@ -13,7 +13,7 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var runningGame = _cashgameRepository.GetRunning(request.Slug);
+            var runningGame = _cashgameRepository.GetCurrent(request.Slug);
 
             var gameIsRunning = runningGame != null;
 

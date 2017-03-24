@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Core.Entities;
-using Core.Entities.Checkpoints;
-using Core.Repositories;
+﻿using Core.Repositories;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -25,9 +22,9 @@ namespace Tests.Core.UseCases.CashoutTests
             PostedPlayerId = null;
             PostedStack = 0;
 
-            var cashgame = new Cashgame(BunchId, LocationData.Id1, GameStatus.Running, CashgameId, new List<Checkpoint>());
+            var cashgame = CashgameData.CreateDetailed(CashgameId);
 
-            Mock<ICashgameRepository>().Setup(s => s.GetRunning(BunchData.Id1)).Returns(cashgame);
+            Mock<ICashgameRepository>().Setup(s => s.GetCurrent(BunchData.Id1)).Returns(cashgame);
             Mock<ICashgameRepository>().Setup(o => o.Cashout(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Callback((string cashgameId, string playerId, int stack) => { PostedCashgameId = cashgameId; PostedPlayerId = playerId; PostedStack = stack; });
         }

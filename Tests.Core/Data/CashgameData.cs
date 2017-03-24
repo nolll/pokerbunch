@@ -18,6 +18,29 @@ namespace Tests.Core.Data
         public static readonly TimeZoneInfo Timezone = TimezoneData.Swedish;
         public static readonly Currency Currency = CurrencyData.Sek;
 
+        public static DetailedCashgame CreateDetailed(
+            string id = null,
+            DateTime? startTime = null,
+            DateTime? updatedTime = null,
+            bool isRunning = false,
+            CashgameBunch bunch = null,
+            Role role = default(Role),
+            CashgameLocation location = null,
+            CashgameEvent @event = null,
+            IList<DetailedCashgame.CashgamePlayer> players = null)
+        {
+            return new DetailedCashgame(
+                id,
+                startTime ?? new DateTime(),
+                updatedTime ?? new DateTime(),
+                isRunning,
+                bunch,
+                role,
+                location,
+                @event,
+                players);
+        }
+
         public static DetailedCashgame GameWithTwoPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
             Id1,
             StartTime1,
