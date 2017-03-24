@@ -56,9 +56,9 @@ namespace Plumbing
         public AddLocation AddLocation => new AddLocation(_deps.LocationRepository);
 
         // Cashgame
-        public CashgameStatus CashgameStatus => new CashgameStatus(_deps.BunchRepository, _deps.CashgameRepository, _deps.UserRepository, _deps.PlayerRepository);
+        public CashgameStatus CashgameStatus => new CashgameStatus(_deps.CashgameRepository);
         public TopList TopList => new TopList(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
-        public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
         public CashgameDetails CashgameDetails => new CashgameDetails(_deps.CashgameRepository);
         public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.CashgameRepository);
         public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
@@ -88,8 +88,8 @@ namespace Plumbing
         public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
         public PlayerBadges PlayerBadges => new PlayerBadges(_deps.CashgameRepository);
         public InvitePlayer InvitePlayer => new InvitePlayer(_deps.PlayerRepository);
-        public InvitePlayerForm InvitePlayerForm => new InvitePlayerForm(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
-        public InvitePlayerConfirmation InvitePlayerConfirmation => new InvitePlayerConfirmation(_deps.BunchRepository, _deps.PlayerRepository, _deps.UserRepository);
+        public InvitePlayerForm InvitePlayerForm => new InvitePlayerForm(_deps.BunchRepository, _deps.PlayerRepository);
+        public InvitePlayerConfirmation InvitePlayerConfirmation => new InvitePlayerConfirmation(_deps.BunchRepository, _deps.PlayerRepository);
         public AddPlayer AddPlayer => new AddPlayer(_deps.PlayerRepository);
         public DeletePlayer DeletePlayer => new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository);
 

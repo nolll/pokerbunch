@@ -40,7 +40,7 @@ namespace Web.Controllers
         [Route(WebRoutes.Player.InviteConfirmation)]
         public ActionResult Invited(string id)
         {
-            var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(Identity.UserName, id));
+            var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(id));
             var contextResult = GetBunchContext(invitePlayerConfirmation.Slug);
             var model = new InvitePlayerConfirmationPageModel(contextResult);
             return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
@@ -48,7 +48,7 @@ namespace Web.Controllers
 
         private ActionResult ShowForm(string id, InvitePlayerPostModel postModel = null)
         {
-            var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(Identity.UserName, id));
+            var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(id));
             var context = GetBunchContext(invitePlayerForm.Slug);
             var model = new InvitePlayerPageModel(context, postModel);
             return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);

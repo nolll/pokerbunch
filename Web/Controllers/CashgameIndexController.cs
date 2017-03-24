@@ -14,8 +14,8 @@ namespace Web.Controllers
         public ActionResult Index(string slug)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Overview);
-            var statusResult = UseCase.CashgameStatus.Execute(new CashgameStatus.Request(Identity.UserName, slug));
-            var currentRankingsResult = UseCase.CurrentRankings.Execute(new CurrentRankings.Request(Identity.UserName, slug));
+            var statusResult = UseCase.CashgameStatus.Execute(new CashgameStatus.Request(slug));
+            var currentRankingsResult = UseCase.CurrentRankings.Execute(new CurrentRankings.Request(slug));
             var model = new CashgameIndexPageModel(contextResult, statusResult, currentRankingsResult);
             return View("~/Views/Pages/CashgameIndex/CashgameIndex.cshtml", model);
         }
