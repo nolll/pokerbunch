@@ -1,5 +1,5 @@
 ﻿using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 
 namespace Tests.Core.UseCases.UserDetailsTests
@@ -22,13 +22,13 @@ namespace Tests.Core.UseCases.UserDetailsTests
         {
             if (ViewingOwnUser)
             {
-                Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
+                Mock<IUserService>().Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
                 _currentUserName = ViewUserName;
             }
             else
             {
-                Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(_currentUserName)).Returns(new User(CurrentUserId, _currentUserName, globalRole: Role));
-                Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
+                Mock<IUserService>().Setup(s => s.GetByNameOrEmail(_currentUserName)).Returns(new User(CurrentUserId, _currentUserName, globalRole: Role));
+                Mock<IUserService>().Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
             }
         }
 

@@ -72,17 +72,16 @@
     <Compile Include="Exceptions\UserExistsException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
-    <Compile Include="Repositories\IAppRepository.cs" />
-    <Compile Include="Repositories\IEventRepository.cs" />
-    <Compile Include="Repositories\ILocationRepository.cs" />
-    <Compile Include="Repositories\ITokenRepository.cs" />
+    <Compile Include="Services\Interfaces\IAppService.cs" />
+    <Compile Include="Services\Interfaces\IEventService.cs" />
+    <Compile Include="Services\Interfaces\ILocationService.cs" />
+    <Compile Include="Services\Interfaces\ITokenService.cs" />
     <Compile Include="Services\ApplicationVersion.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\Interfaces\IAdminService.cs" />
-    <Compile Include="Services\Interfaces\ICacheProvider.cs" />
     <Compile Include="Services\ResultFormatter.cs" />
     <Compile Include="Services\RoleHandler.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
@@ -164,7 +163,7 @@
     <Compile Include="Entities\Role.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\ICashgameRepository.cs" />
+    <Compile Include="Services\Interfaces\ICashgameService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Cashgame.cs" />
@@ -195,14 +194,15 @@
     <Compile Include="Entities\Bunch.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\IBunchRepository.cs" />
-    <Compile Include="Repositories\IPlayerRepository.cs" />
+    <Compile Include="Services\Interfaces\IBunchService.cs" />
+    <Compile Include="Services\Interfaces\IPlayerService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

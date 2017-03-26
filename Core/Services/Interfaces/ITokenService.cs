@@ -1,6 +1,6 @@
-namespace Core.Repositories
+namespace Core.Services
 {
-    public interface ITokenRepository
+    public interface ITokenService
     {
         string Get(string userName, string password);
     }

@@ -1,5 +1,5 @@
 ﻿using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases.BunchDetailsTests
         {
             var bunch = BunchData.Bunch1(Role);
 
-            Mock<IBunchRepository>().Setup(s => s.Get(BunchData.Id1)).Returns(bunch);
+            Mock<IBunchService>().Setup(s => s.Get(BunchData.Id1)).Returns(bunch);
         }
 
         protected override void Execute()

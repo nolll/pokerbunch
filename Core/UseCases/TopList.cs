@@ -1,28 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class TopList
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IBunchService _bunchService;
+        private readonly ICashgameService _cashgameService;
+        private readonly IPlayerService _playerService;
 
-        public TopList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public TopList(IBunchService bunchService, ICashgameService cashgameService, IPlayerService playerService)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
+            _bunchService = bunchService;
+            _cashgameService = cashgameService;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var cashgames = _cashgameRepository.List(request.Slug, request.Year).Where(o => !o.IsRunning).ToList();
-            var players = _playerRepository.List(bunch.Id).ToList();
+            var bunch = _bunchService.Get(request.Slug);
+            var cashgames = _cashgameService.List(request.Slug, request.Year).Where(o => !o.IsRunning).ToList();
+            var players = _playerService.List(bunch.Id).ToList();
             var suite = new CashgameSuite(cashgames, players);
 
             var items = suite.TotalResults.Select((o, index) => new Item(o, index, bunch.Currency));

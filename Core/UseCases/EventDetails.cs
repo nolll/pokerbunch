@@ -1,19 +1,19 @@
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class EventDetails
     {
-        private readonly IEventRepository _eventRepository;
+        private readonly IEventService _eventService;
 
-        public EventDetails(IEventRepository eventRepository)
+        public EventDetails(IEventService eventService)
         {
-            _eventRepository = eventRepository;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
         {
-            var e = _eventRepository.Get(request.EventId);
+            var e = _eventService.Get(request.EventId);
             
             return new Result(e.Name, e.BunchId);
         }

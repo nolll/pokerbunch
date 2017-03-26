@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases.AddBunchTests
         {
             Added = null;
 
-            Mock<IBunchRepository>().Setup(o => o.Add(It.IsAny<Bunch>()))
+            Mock<IBunchService>().Setup(o => o.Add(It.IsAny<Bunch>()))
                 .Callback((Bunch bunch) => Added = bunch);
         }
 

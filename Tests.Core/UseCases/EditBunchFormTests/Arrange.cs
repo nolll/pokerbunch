@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases.EditBunchFormTests
         {
             var bunch = new Bunch(BunchId, BunchName, Description, HouseRules, null, DefaultBuyin);
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
+            Mock<IBunchService>().Setup(o => o.Get(BunchId)).Returns(bunch);
         }
 
         protected override void Execute()

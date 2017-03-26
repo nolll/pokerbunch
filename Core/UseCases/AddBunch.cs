@@ -1,23 +1,22 @@
 ﻿using System;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddBunch
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly IBunchService _bunchService;
 
-        public AddBunch(IBunchRepository bunchRepository)
+        public AddBunch(IBunchService bunchService)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
         }
 
         public void Execute(Request request)
         {
             var bunch = CreateBunch(request);
-            _bunchRepository.Add(bunch);
+            _bunchService.Add(bunch);
         }
 
         private static Bunch CreateBunch(Request request)

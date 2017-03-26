@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Core.Entities;
 
-namespace Core.Repositories
+namespace Core.Services
 {
-    public interface IEventRepository
+    public interface IEventService
     {
         Event Get(string id);
         IList<Event> ListByBunch(string bunchId);

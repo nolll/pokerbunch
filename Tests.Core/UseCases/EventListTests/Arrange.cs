@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -25,7 +25,7 @@ namespace Tests.Core.UseCases.EventListTests
                 new Event(EventData.Id2, BunchData.Id1, EventData.Name2, location, _startDate2, _endDate2)
             };
 
-            Mock<IEventRepository>().Setup(o => o.ListByBunch(BunchId)).Returns(events);
+            Mock<IEventService>().Setup(o => o.ListByBunch(BunchId)).Returns(events);
         }
 
         protected override void Execute()

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -28,10 +28,10 @@ namespace Tests.Core.UseCases.CashgameListTests
             var bunchWithoutGames = BunchData.Bunch2(Role.Player);
             var cashgames = Games;
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchIdWithGames)).Returns(bunchWithGames);
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchIdWithoutGames)).Returns(bunchWithoutGames);
-            Mock<ICashgameRepository>().Setup(o => o.List(BunchIdWithGames, Year)).Returns(cashgames);
-            Mock<ICashgameRepository>().Setup(o => o.List(BunchIdWithoutGames, Year)).Returns(new List<ListCashgame>());
+            Mock<IBunchService>().Setup(o => o.Get(BunchIdWithGames)).Returns(bunchWithGames);
+            Mock<IBunchService>().Setup(o => o.Get(BunchIdWithoutGames)).Returns(bunchWithoutGames);
+            Mock<ICashgameService>().Setup(o => o.List(BunchIdWithGames, Year)).Returns(cashgames);
+            Mock<ICashgameService>().Setup(o => o.List(BunchIdWithoutGames, Year)).Returns(new List<ListCashgame>());
         }
 
         protected override void Execute()

@@ -4,16 +4,16 @@ using System.Globalization;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
+using Core.Services;
 using JetBrains.Annotations;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.Services
 {
-    public class CashgameRepository : ApiRepository, ICashgameRepository
+    public class CashgameService : BaseService, ICashgameService
     {
         private readonly ApiConnection _api;
 
-        public CashgameRepository(ApiConnection api)
+        public CashgameService(ApiConnection api)
         {
             _api = api;
         }

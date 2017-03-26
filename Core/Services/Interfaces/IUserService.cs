@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Core.Entities;
 
-namespace Core.Repositories
+namespace Core.Services
 {
-    public interface IUserRepository
+    public interface IUserService
     {
         User GetById(string id);
         IList<User> List();

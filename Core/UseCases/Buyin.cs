@@ -1,20 +1,20 @@
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class Buyin
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public Buyin(ICashgameRepository cashgameRepository)
+        public Buyin(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public void Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetCurrent(request.Slug);
-            _cashgameRepository.Buyin(cashgame.Id, request.PlayerId, request.BuyinAmount, request.StackAmount);
+            var cashgame = _cashgameService.GetCurrent(request.Slug);
+            _cashgameService.Buyin(cashgame.Id, request.PlayerId, request.BuyinAmount, request.StackAmount);
         }
 
         public class Request

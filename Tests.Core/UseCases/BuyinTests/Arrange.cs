@@ -1,4 +1,4 @@
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -25,9 +25,9 @@ namespace Tests.Core.UseCases.BuyinTests
             PostedAmount = 0;
             PostedStack = 0;
 
-            Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchId)).Returns(CashgameData.CreateDetailed(CashgameId));
+            Mock<ICashgameService>().Setup(o => o.GetCurrent(BunchId)).Returns(CashgameData.CreateDetailed(CashgameId));
 
-            Mock<ICashgameRepository>().Setup(o => o.Buyin(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
+            Mock<ICashgameService>().Setup(o => o.Buyin(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Callback((string cashgameId, string playerId, int added, int stack) =>
                 {
                     PostedCashgameId = cashgameId;

@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -16,8 +16,8 @@ namespace Tests.Core.UseCases.PlayerListTests
         {
             var bunch = new Bunch(BunchId, role: Role);
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
-            Mock<IPlayerRepository>().Setup(o => o.List(BunchId)).Returns(PlayerData.TwoPlayers);
+            Mock<IBunchService>().Setup(o => o.Get(BunchId)).Returns(bunch);
+            Mock<IPlayerService>().Setup(o => o.List(BunchId)).Returns(PlayerData.TwoPlayers);
         }
 
         protected override void Execute()

@@ -1,21 +1,21 @@
 using System;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditCheckpointForm
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public EditCheckpointForm(ICashgameRepository cashgameRepository)
+        public EditCheckpointForm(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
+            var cashgame = _cashgameService.GetDetailedById(request.CashgameId);
             var action = cashgame.GetAction(request.CheckpointId);
             var stack = action.Stack;
             var amount = action.Added;

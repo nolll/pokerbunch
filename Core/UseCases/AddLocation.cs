@@ -1,21 +1,21 @@
 ﻿using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddLocation
     {
-        private readonly ILocationRepository _locationRepository;
+        private readonly ILocationService _locationService;
 
-        public AddLocation(ILocationRepository locationRepository)
+        public AddLocation(ILocationService locationService)
         {
-            _locationRepository = locationRepository;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
         {
             var location = new Location("", request.Name, request.Slug);
-            _locationRepository.Add(location);
+            _locationService.Add(location);
 
             return new Result(request.Slug);
         }

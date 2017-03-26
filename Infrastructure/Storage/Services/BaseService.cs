@@ -1,12 +1,12 @@
 using Infrastructure.ApiUrls;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.Services
 {
-    public abstract class ApiRepository
+    public abstract class BaseService
     {
         protected readonly ApiUrlBuilder Url;
 
-        protected ApiRepository()
+        protected BaseService()
         {
             Url = new ApiUrlBuilder();
         }

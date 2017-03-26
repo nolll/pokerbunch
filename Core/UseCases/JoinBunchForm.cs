@@ -1,19 +1,19 @@
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class JoinBunchForm
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly IBunchService _bunchService;
 
-        public JoinBunchForm(IBunchRepository bunchRepository)
+        public JoinBunchForm(IBunchService bunchService)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
 
             return new Result(bunch.DisplayName);
         }

@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using JetBrains.Annotations;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.Services
 {
-    public class ApiAppRepository : ApiRepository, IAppRepository
+    public class AppService : BaseService, IAppService
     {
         private readonly ApiConnection _api;
         
-        public ApiAppRepository(ApiConnection api)
+        public AppService(ApiConnection api)
         {
             _api = api;
         }

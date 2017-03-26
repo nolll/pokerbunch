@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases.LocationDetailsTests
         {
             var location = new Location(LocationData.Id1, LocationData.Name1, BunchData.Id1);
 
-            Mock<ILocationRepository>().Setup(o => o.Get(LocationData.Id1)).Returns(location);
+            Mock<ILocationService>().Setup(o => o.Get(LocationData.Id1)).Returns(location);
         }
 
         protected override void Execute()

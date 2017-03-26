@@ -2,16 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using JetBrains.Annotations;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.Services
 {
-    public class ApiBunchRepository : ApiRepository, IBunchRepository
+    public class BunchService : BaseService, IBunchService
     {
         private readonly ApiConnection _api;
 
-        public ApiBunchRepository(ApiConnection api)
+        public BunchService(ApiConnection api)
         {
             _api = api;
         }

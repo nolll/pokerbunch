@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using JetBrains.Annotations;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.Services
 {
-    public class ApiLocationRepository : ApiRepository, ILocationRepository
+    public class LocationService : BaseService, ILocationService
     {
         private readonly ApiConnection _api;
 
-        public ApiLocationRepository(ApiConnection api)
+        public LocationService(ApiConnection api)
         {
             _api = api;
         }

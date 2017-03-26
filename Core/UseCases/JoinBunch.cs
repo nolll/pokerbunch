@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 using ValidationException = Core.Exceptions.ValidationException;
 
@@ -10,16 +9,16 @@ namespace Core.UseCases
 {
     public class JoinBunch
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly IBunchService _bunchService;
 
-        public JoinBunch(IBunchRepository bunchRepository)
+        public JoinBunch(IBunchService bunchService)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
         }
 
         public Result Execute(Request request)
         {
-            _bunchRepository.Join(request.BunchId, request.Code);
+            _bunchService.Join(request.BunchId, request.Code);
             return new Result(request.BunchId);
         }
         

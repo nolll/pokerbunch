@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -28,8 +28,8 @@ namespace Tests.Core.UseCases.EditUserTests
 
             var existingUser = new User(UserId, UserName, DisplayName, RealName, Email);
 
-            Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(existingUser);
-            Mock<IUserRepository>().Setup(o => o.Update(It.IsAny<User>())).Callback((User user) => PostedUser = user);
+            Mock<IUserService>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(existingUser);
+            Mock<IUserService>().Setup(o => o.Update(It.IsAny<User>())).Callback((User user) => PostedUser = user);
         }
 
         protected override void Execute()

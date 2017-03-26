@@ -1,25 +1,25 @@
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddCashgame
     {
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IEventRepository _eventRepository;
+        private readonly ICashgameService _cashgameService;
+        private readonly IEventService _eventService;
 
-        public AddCashgame(ICashgameRepository cashgameRepository, IEventRepository eventRepository)
+        public AddCashgame(ICashgameService cashgameService, IEventService eventService)
         {
-            _cashgameRepository = cashgameRepository;
-            _eventRepository = eventRepository;
+            _cashgameService = cashgameService;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgameId = _cashgameRepository.Add(request.Slug, request.LocationId);
+            var cashgameId = _cashgameService.Add(request.Slug, request.LocationId);
 
             if (!string.IsNullOrEmpty(request.EventId))
             {
-                _eventRepository.AddCashgame(request.EventId, cashgameId);
+                _eventService.AddCashgame(request.EventId, cashgameId);
             }
 
             return new Result(request.Slug, cashgameId);

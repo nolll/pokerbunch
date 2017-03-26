@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.AddEventTests
 
         protected override void Setup()
         {
-            Mock<IEventRepository>().Setup(o => o.Add(It.IsAny<Event>()))
+            Mock<IEventService>().Setup(o => o.Add(It.IsAny<Event>()))
                 .Callback((Event @event) => Added = @event);
         }
 

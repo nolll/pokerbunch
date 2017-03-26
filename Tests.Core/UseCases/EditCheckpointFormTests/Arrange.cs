@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -26,7 +26,7 @@ namespace Tests.Core.UseCases.EditCheckpointFormTests
 
         protected override void Setup()
         {
-            Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(CashgameId)).Returns(GameWithTwoPlayers);
+            Mock<ICashgameService>().Setup(o => o.GetDetailedById(CashgameId)).Returns(GameWithTwoPlayers);
         }
 
         protected override void Execute()

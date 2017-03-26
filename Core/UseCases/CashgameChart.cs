@@ -1,25 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameChart
     {
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly ICashgameService _cashgameService;
+        private readonly IPlayerService _playerService;
 
-        public CashgameChart(ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public CashgameChart(ICashgameService cashgameService, IPlayerService playerService)
         {
-            _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
+            _cashgameService = cashgameService;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            var players = _playerRepository.List(request.Slug).OrderBy(o => o.DisplayName).ToList();
-            var cashgames = _cashgameRepository.List(request.Slug, request.Year).Where(o => !o.IsRunning).ToList();
+            var players = _playerService.List(request.Slug).OrderBy(o => o.DisplayName).ToList();
+            var cashgames = _cashgameService.List(request.Slug, request.Year).Where(o => !o.IsRunning).ToList();
             var suite = new CashgameSuite(cashgames, players);
 
             var playerItems = GetPlayerItems(suite.TotalResults);

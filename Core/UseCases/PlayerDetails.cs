@@ -1,32 +1,31 @@
 ﻿using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerDetails
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IPlayerRepository _playerRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IBunchService _bunchService;
+        private readonly IPlayerService _playerService;
+        private readonly ICashgameService _cashgameService;
+        private readonly IUserService _userService;
 
-        public PlayerDetails(IBunchRepository bunchRepository, IPlayerRepository playerRepository, ICashgameRepository cashgameRepository, IUserRepository userRepository)
+        public PlayerDetails(IBunchService bunchService, IPlayerService playerService, ICashgameService cashgameService, IUserService userService)
         {
-            _bunchRepository = bunchRepository;
-            _playerRepository = playerRepository;
-            _cashgameRepository = cashgameRepository;
-            _userRepository = userRepository;
+            _bunchService = bunchService;
+            _playerService = playerService;
+            _cashgameService = cashgameService;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.Get(request.PlayerId);
-            var bunch = _bunchRepository.Get(player.BunchId);
-            var user = _userRepository.GetById(player.UserId);
+            var player = _playerService.Get(request.PlayerId);
+            var bunch = _bunchService.Get(player.BunchId);
+            var user = _userService.GetById(player.UserId);
             var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
-            var cashgames = _cashgameRepository.PlayerList(player.Id);
+            var cashgames = _cashgameService.PlayerList(player.Id);
             var hasPlayed = cashgames.Any();
             var avatarUrl = user != null ? GravatarService.GetAvatarUrl(user.Email) : string.Empty;
 

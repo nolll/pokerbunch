@@ -1,19 +1,18 @@
 using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class Login
     {
-        private readonly IUserRepository _userRepository;
-        private readonly ITokenRepository _tokenRepository;
+        private readonly IUserService _userService;
+        private readonly ITokenService _tokenService;
 
-        public Login(IUserRepository userRepository, ITokenRepository tokenRepository)
+        public Login(IUserService userService, ITokenService tokenService)
         {
-            _userRepository = userRepository;
-            _tokenRepository = tokenRepository;
+            _userService = userService;
+            _tokenService = tokenService;
         }
 
         public Result Execute(Request request)
@@ -23,7 +22,7 @@ namespace Core.UseCases
             if (user == null)
                 throw new LoginException();
 
-            var token = _tokenRepository.Get(request.LoginName, request.Password);
+            var token = _tokenService.Get(request.LoginName, request.Password);
             if(string.IsNullOrEmpty(token))
                 throw new LoginException();
 
@@ -32,7 +31,7 @@ namespace Core.UseCases
 
         private User GetLoggedInUser(string loginName, string password)
         {
-            var user = _userRepository.GetByNameOrEmail(loginName);
+            var user = _userService.GetByNameOrEmail(loginName);
             if (user == null)
                 return null;
             var encryptedPassword = EncryptionService.Encrypt(password, user.Salt);

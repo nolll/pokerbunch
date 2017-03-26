@@ -2,22 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class EventList
     {
-        private readonly IEventRepository _eventRepository;
+        private readonly IEventService _eventService;
 
-        public EventList(IEventRepository eventRepository)
+        public EventList(IEventService eventService)
         {
-            _eventRepository = eventRepository;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
         {
-            var events = _eventRepository.ListByBunch(request.Slug);
+            var events = _eventService.ListByBunch(request.Slug);
 
             var eventItems = events.OrderByDescending(o => o, new EventComparer()).Select(CreateEventItem).ToList();
 

@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -17,9 +17,9 @@ namespace Tests.Core.UseCases.MatrixTests
             var cashgames = DifferentYears ? CashgameData.TwoGamesOnDifferentYearWithTwoPlayers : CashgameData.TwoGamesOnSameYearWithTwoPlayers;
             var players = PlayerData.TwoPlayers;
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchData.Id1)).Returns(bunch);
-            Mock<ICashgameRepository>().Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
-            Mock<IPlayerRepository>().Setup(o => o.List(BunchData.Id1)).Returns(players);
+            Mock<IBunchService>().Setup(o => o.Get(BunchData.Id1)).Returns(bunch);
+            Mock<ICashgameService>().Setup(o => o.List(BunchData.Id1, null)).Returns(cashgames);
+            Mock<IPlayerService>().Setup(o => o.List(BunchData.Id1)).Returns(players);
         }
 
         protected override void Execute()

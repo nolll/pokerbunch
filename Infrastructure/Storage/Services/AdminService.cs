@@ -1,10 +1,9 @@
 ﻿using Core.Services;
-using Infrastructure.Storage.Repositories;
 using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Services
 {
-    public class AdminService : ApiRepository, IAdminService
+    public class AdminService : BaseService, IAdminService
     {
         private readonly ApiConnection _api;
 

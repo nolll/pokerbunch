@@ -1,4 +1,4 @@
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases.ChangePasswordTests
             PostedNewPassword = null;
             PostedRepeat = null;
 
-            Mock<IUserRepository>().Setup(o => o.ChangePassword(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            Mock<IUserService>().Setup(o => o.ChangePassword(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Callback((string oldPassword, string newPassword, string repeat) => { PostedOldPassword = oldPassword; PostedNewPassword = newPassword; PostedRepeat = repeat; });
         }
 

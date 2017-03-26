@@ -1,19 +1,19 @@
-﻿using Core.Repositories;
+﻿using Core.Services;
 
 namespace Core.UseCases
 {
     public class ChangePassword
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public ChangePassword(IUserRepository userRepository)
+        public ChangePassword(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public void Execute(Request request)
         {
-            _userRepository.ChangePassword(request.OldPassword, request.NewPassword, request.Repeat);
+            _userService.ChangePassword(request.OldPassword, request.NewPassword, request.Repeat);
         }
 
         public class Request

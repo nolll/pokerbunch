@@ -1,21 +1,21 @@
-﻿using Core.Repositories;
+﻿using Core.Services;
 
 namespace Core.UseCases
 {
     public class Report
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public Report(ICashgameRepository cashgameRepository)
+        public Report(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public void Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetCurrent(request.Slug);
+            var cashgame = _cashgameService.GetCurrent(request.Slug);
 
-            _cashgameRepository.Report(cashgame.Id, request.PlayerId, request.Stack);
+            _cashgameService.Report(cashgame.Id, request.PlayerId, request.Stack);
         }
 
         public class Request

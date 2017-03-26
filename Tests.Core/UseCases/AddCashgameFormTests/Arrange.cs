@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -20,10 +20,10 @@ namespace Tests.Core.UseCases.AddCashgameFormTests
             var locations = LocationData.TwoLocations;
             var events = EventData.TwoEvents;
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
-            Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
-            Mock<ILocationRepository>().Setup(o => o.List(BunchId)).Returns(locations);
-            Mock<IEventRepository>().Setup(o => o.ListByBunch(BunchId)).Returns(events);
+            Mock<IBunchService>().Setup(o => o.Get(BunchId)).Returns(bunch);
+            Mock<ICashgameService>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
+            Mock<ILocationService>().Setup(o => o.List(BunchId)).Returns(locations);
+            Mock<IEventService>().Setup(o => o.ListByBunch(BunchId)).Returns(events);
         }
 
         protected override void Execute()

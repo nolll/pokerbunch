@@ -1,4 +1,4 @@
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases.ForgotPasswordTests
         {
             PostedEmail = null;
 
-            Mock<IUserRepository>().Setup(o => o.ResetPassword(It.IsAny<string>())).Callback((string email) => PostedEmail = email);
+            Mock<IUserService>().Setup(o => o.ResetPassword(It.IsAny<string>())).Callback((string email) => PostedEmail = email);
         }
 
         protected override void Execute()

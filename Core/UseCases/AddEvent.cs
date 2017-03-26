@@ -1,21 +1,21 @@
 ﻿using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddEvent
     {
-        private readonly IEventRepository _eventRepository;
+        private readonly IEventService _eventService;
 
-        public AddEvent(IEventRepository eventRepository)
+        public AddEvent(IEventService eventService)
         {
-            _eventRepository = eventRepository;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
         {
             var e = new Event("", request.Slug, request.Name);
-            _eventRepository.Add(e);
+            _eventService.Add(e);
 
             return new Result(request.Slug);
         }

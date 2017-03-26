@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -26,11 +26,11 @@ namespace Tests.Core.UseCases.AddCashgameTests
             CashgameIdAddedToEvent = null;
             EventIdThatCashgameWasAddedTo = null;
 
-            Mock<ICashgameRepository>().Setup(o => o.Add(BunchId, It.IsAny<string>()))
+            Mock<ICashgameService>().Setup(o => o.Add(BunchId, It.IsAny<string>()))
                 .Returns(GeneratedCashgameId)
                 .Callback((string bunchId, string locationId) => PostedLocationId = locationId);
 
-            Mock<IEventRepository>().Setup(o => o.AddCashgame(It.IsAny<string>(), It.IsAny<string>()))
+            Mock<IEventService>().Setup(o => o.AddCashgame(It.IsAny<string>(), It.IsAny<string>()))
                 .Callback((string eventId, string cashgameId) => { CashgameIdAddedToEvent = cashgameId; EventIdThatCashgameWasAddedTo = EventId; });
         }
 

@@ -1,6 +1,6 @@
 ﻿using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -26,11 +26,11 @@ namespace Tests.Core.UseCases.EditCashgameTests
 
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Manager);
 
-            Mock<ICashgameRepository>().Setup(o => o.Update(CashgameData.Id1, ValidLocationId, ValidEventId)).Returns(cashgame)
+            Mock<ICashgameService>().Setup(o => o.Update(CashgameData.Id1, ValidLocationId, ValidEventId)).Returns(cashgame)
                 .Callback((string cashgameId, string locationId, string eventId) => { SavedLocationId = locationId; SavedEventId = eventId; });
-            Mock<ICashgameRepository>().Setup(o => o.Update(CashgameData.Id1, ValidLocationId, InvalidEventId))
+            Mock<ICashgameService>().Setup(o => o.Update(CashgameData.Id1, ValidLocationId, InvalidEventId))
                 .Throws(new ValidationException("validation-error"));
-            Mock<ICashgameRepository>().Setup(o => o.Update(CashgameData.Id1, InvalidLocationId, ValidEventId))
+            Mock<ICashgameService>().Setup(o => o.Update(CashgameData.Id1, InvalidLocationId, ValidEventId))
                 .Throws(new ValidationException("validation-error"));
         }
 

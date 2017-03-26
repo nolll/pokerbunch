@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameContext
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public CashgameContext(ICashgameRepository cashgameRepository)
+        public CashgameContext(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(BunchContext.Result bunchContext, Request request)
         {
-            var runningGame = _cashgameRepository.GetCurrent(bunchContext.BunchId);
+            var runningGame = _cashgameService.GetCurrent(bunchContext.BunchId);
 
             var gameIsRunning = runningGame != null;
-            var years = _cashgameRepository.GetYears(bunchContext.BunchId).OrderByDescending(o => o).ToList();
+            var years = _cashgameService.GetYears(bunchContext.BunchId).OrderByDescending(o => o).ToList();
             var selectedYear = GetSelectedYear(request, years);
 
             return new Result(

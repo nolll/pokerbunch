@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases.CashgameDetailsTests
         {
             var cashgame = CashgameData.GameWithTwoPlayers(Role);
 
-            Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
+            Mock<ICashgameService>().Setup(o => o.GetDetailedById(CashgameData.Id1)).Returns(cashgame);
         }
 
         protected override void Execute()

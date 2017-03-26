@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using Core.Entities;
 
-namespace Core.Repositories
+namespace Core.Services
 {
-	public interface ICashgameRepository
+	public interface ICashgameService
 	{
 	    DetailedCashgame GetDetailedById(string id);
 	    DetailedCashgame GetCurrent(string bunchId);

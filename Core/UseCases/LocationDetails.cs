@@ -1,19 +1,19 @@
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class LocationDetails
     {
-        private readonly ILocationRepository _locationRepository;
+        private readonly ILocationService _locationService;
 
-        public LocationDetails(ILocationRepository locationRepository)
+        public LocationDetails(ILocationService locationService)
         {
-            _locationRepository = locationRepository;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
         {
-            var location = _locationRepository.Get(request.LocationId);
+            var location = _locationService.Get(request.LocationId);
             
             return new Result(location.Id, location.Name, location.BunchId);
         }

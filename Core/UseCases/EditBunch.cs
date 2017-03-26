@@ -1,23 +1,23 @@
 ﻿using System;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditBunch
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly IBunchService _bunchService;
 
-        public EditBunch(IBunchRepository bunchRepository)
+        public EditBunch(IBunchService bunchService)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var postedHomegame = CreateBunch(bunch, request);
-            _bunchRepository.Update(postedHomegame);
+            _bunchService.Update(postedHomegame);
 
             return new Result(bunch.Id);
         }

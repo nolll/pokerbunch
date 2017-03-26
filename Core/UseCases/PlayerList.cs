@@ -1,26 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerList
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IBunchService _bunchService;
+        private readonly IPlayerService _playerService;
 
-        public PlayerList(IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        public PlayerList(IBunchService bunchService, IPlayerService playerService)
         {
-            _bunchRepository = bunchRepository;
-            _playerRepository = playerRepository;
+            _bunchService = bunchService;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.BunchId);
-            var players = _playerRepository.List(bunch.Id);
+            var bunch = _bunchService.Get(request.BunchId);
+            var players = _playerService.List(bunch.Id);
             var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
 
             return new Result(bunch, players, isManager);

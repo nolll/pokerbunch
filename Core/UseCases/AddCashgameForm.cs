@@ -1,36 +1,36 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Exceptions;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddCashgameForm
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly ILocationRepository _locationRepository;
-        private readonly IEventRepository _eventRepository;
+        private readonly IBunchService _bunchService;
+        private readonly ICashgameService _cashgameService;
+        private readonly ILocationService _locationService;
+        private readonly IEventService _eventService;
 
-        public AddCashgameForm(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
+        public AddCashgameForm(IBunchService bunchService, ICashgameService cashgameService, ILocationService locationService, IEventService eventService)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-            _locationRepository = locationRepository;
-            _eventRepository = eventRepository;
+            _bunchService = bunchService;
+            _cashgameService = cashgameService;
+            _locationService = locationService;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var runningGame = _cashgameRepository.GetCurrent(bunch.Id);
+            var bunch = _bunchService.Get(request.Slug);
+            var runningGame = _cashgameService.GetCurrent(bunch.Id);
             if (runningGame != null)
             {
                 throw new CashgameRunningException();
             }
-            var locations = _locationRepository.List(bunch.Id);
+            var locations = _locationService.List(bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
-            var events = _eventRepository.ListByBunch(bunch.Id);
+            var events = _eventService.ListByBunch(bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
             return new Result(locationItems, eventItems);
         }

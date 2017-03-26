@@ -1,31 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class BunchList
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IBunchService _bunchService;
+        private readonly IUserService _userService;
 
-        public BunchList(IBunchRepository bunchRepository, IUserRepository userRepository)
+        public BunchList(IBunchService bunchService, IUserService userService)
         {
-            _bunchRepository = bunchRepository;
-            _userRepository = userRepository;
+            _bunchService = bunchService;
+            _userService = userService;
         }
 
         public Result Execute()
         {
-            var bunches = _bunchRepository.List();
+            var bunches = _bunchService.List();
             return new Result(bunches);
         }
 
         public Result Execute(UserBunchesRequest request)
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
-            var homegames = user != null ? _bunchRepository.ListForUser() : new List<SmallBunch>();
+            var user = _userService.GetByNameOrEmail(request.UserName);
+            var homegames = user != null ? _bunchService.ListForUser() : new List<SmallBunch>();
             
             return new Result(homegames);
         }

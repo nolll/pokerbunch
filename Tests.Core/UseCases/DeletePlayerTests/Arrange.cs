@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -22,11 +22,11 @@ namespace Tests.Core.UseCases.DeletePlayerTests
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
             var cashgameWithoutResults = new List<ListCashgame>();
 
-            Mock<IPlayerRepository>().Setup(o => o.Get(IdForPlayerThatHasNotPlayed)).Returns(playerThatHasNotPlayed);
-            Mock<IPlayerRepository>().Setup(o => o.Get(IdForPlayerThatHasPlayed)).Returns(playerThatHasPlayed);
-            Mock<IPlayerRepository>().Setup(o => o.Delete(IdForPlayerThatHasNotPlayed)).Callback((string id) => { DeletedId = id; });
-            Mock<ICashgameRepository>().Setup(o => o.PlayerList(IdForPlayerThatHasPlayed)).Returns(cashgames);
-            Mock<ICashgameRepository>().Setup(o => o.PlayerList(IdForPlayerThatHasNotPlayed)).Returns(cashgameWithoutResults);
+            Mock<IPlayerService>().Setup(o => o.Get(IdForPlayerThatHasNotPlayed)).Returns(playerThatHasNotPlayed);
+            Mock<IPlayerService>().Setup(o => o.Get(IdForPlayerThatHasPlayed)).Returns(playerThatHasPlayed);
+            Mock<IPlayerService>().Setup(o => o.Delete(IdForPlayerThatHasNotPlayed)).Callback((string id) => { DeletedId = id; });
+            Mock<ICashgameService>().Setup(o => o.PlayerList(IdForPlayerThatHasPlayed)).Returns(cashgames);
+            Mock<ICashgameService>().Setup(o => o.PlayerList(IdForPlayerThatHasNotPlayed)).Returns(cashgameWithoutResults);
         }
 
         protected override void Execute()

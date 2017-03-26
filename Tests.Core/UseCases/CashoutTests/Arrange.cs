@@ -1,4 +1,4 @@
-﻿using Core.Repositories;
+﻿using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -24,8 +24,8 @@ namespace Tests.Core.UseCases.CashoutTests
 
             var cashgame = CashgameData.CreateDetailed(CashgameId);
 
-            Mock<ICashgameRepository>().Setup(s => s.GetCurrent(BunchData.Id1)).Returns(cashgame);
-            Mock<ICashgameRepository>().Setup(o => o.Cashout(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
+            Mock<ICashgameService>().Setup(s => s.GetCurrent(BunchData.Id1)).Returns(cashgame);
+            Mock<ICashgameService>().Setup(o => o.Cashout(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<int>()))
                 .Callback((string cashgameId, string playerId, int stack) => { PostedCashgameId = cashgameId; PostedPlayerId = playerId; PostedStack = stack; });
         }
 

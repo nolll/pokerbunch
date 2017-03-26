@@ -2,28 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerFacts
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IBunchService _bunchService;
+        private readonly ICashgameService _cashgameService;
+        private readonly IPlayerService _playerService;
 
-        public PlayerFacts(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public PlayerFacts(IBunchService bunchService, ICashgameService cashgameService, IPlayerService playerService)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
+            _bunchService = bunchService;
+            _cashgameService = cashgameService;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.Get(request.PlayerId);
-            var bunch = _bunchRepository.Get(player.BunchId);
-            var cashgames = _cashgameRepository.PlayerList(request.PlayerId);
+            var player = _playerService.Get(request.PlayerId);
+            var bunch = _bunchService.Get(player.BunchId);
+            var cashgames = _cashgameService.PlayerList(request.PlayerId);
 
             return new Result(cashgames, request.PlayerId, bunch.Currency);
         }

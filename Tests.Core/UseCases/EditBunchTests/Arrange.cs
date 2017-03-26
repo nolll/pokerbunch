@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -26,9 +26,9 @@ namespace Tests.Core.UseCases.EditBunchTests
 
             var bunch = new Bunch(BunchId, DisplayName);
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
+            Mock<IBunchService>().Setup(o => o.Get(BunchId)).Returns(bunch);
 
-            Mock<IBunchRepository>().Setup(o => o.Update(It.IsAny<Bunch>()))
+            Mock<IBunchService>().Setup(o => o.Update(It.IsAny<Bunch>()))
                 .Callback((Bunch b) => Saved = b);
         }
 

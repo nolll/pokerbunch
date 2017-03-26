@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AppListAll
     {
-        private readonly IAppRepository _appRepository;
+        private readonly IAppService _appService;
 
-        public AppListAll(IAppRepository appRepository)
+        public AppListAll(IAppService appService)
         {
-            _appRepository = appRepository;
+            _appService = appService;
         }
 
         public Result Execute()
         {
-            var apps = _appRepository.ListAll();
+            var apps = _appService.ListAll();
 
             return new Result(apps);
         }

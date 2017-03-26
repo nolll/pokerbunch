@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using JetBrains.Annotations;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.Services
 {
-    public class EventRepository : ApiRepository, IEventRepository
+    public class EventService : BaseService, IEventService
     {
         private readonly ApiConnection _api;
 
-        public EventRepository(ApiConnection api)
+        public EventService(ApiConnection api)
         {
             _api = api;
         }

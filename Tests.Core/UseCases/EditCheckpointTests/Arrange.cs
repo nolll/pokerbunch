@@ -1,6 +1,6 @@
 using System;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -30,9 +30,9 @@ namespace Tests.Core.UseCases.EditCheckpointTests
             PostedStack = 0;
             PostedAmount = 0;
         
-            Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(CashgameId)).Returns(CashgameData.GameWithTwoPlayers(Role.Admin));
+            Mock<ICashgameService>().Setup(o => o.GetDetailedById(CashgameId)).Returns(CashgameData.GameWithTwoPlayers(Role.Admin));
 
-            Mock<ICashgameRepository>()
+            Mock<ICashgameService>()
                 .Setup(o => o.UpdateAction("1", It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Callback((string actionId, DateTime timestamp, int stack, int added) =>
                 {

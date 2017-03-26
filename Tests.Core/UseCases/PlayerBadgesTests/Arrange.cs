@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases.PlayerBadgesTests
         {
             var cashgames = GetGames(NumberOfGames);
 
-            Mock<ICashgameRepository>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);
+            Mock<ICashgameService>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);
         }
 
         protected override void Execute()

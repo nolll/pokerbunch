@@ -1,25 +1,25 @@
 ﻿using Core.Exceptions;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class DeleteCashgame
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public DeleteCashgame(ICashgameRepository cashgameRepository)
+        public DeleteCashgame(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetDetailedById(request.Id);
+            var cashgame = _cashgameService.GetDetailedById(request.Id);
 
             if (cashgame.Players.Count > 0)
                 throw new CashgameHasResultsException();
 
-            _cashgameRepository.DeleteGame(cashgame.Id);
+            _cashgameService.DeleteGame(cashgame.Id);
 
             return new Result(cashgame.Bunch.Id);
         }

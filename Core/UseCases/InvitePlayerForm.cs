@@ -1,22 +1,22 @@
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class InvitePlayerForm
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IBunchService _bunchService;
+        private readonly IPlayerService _playerService;
 
-        public InvitePlayerForm(IBunchRepository bunchRepository, IPlayerRepository playerRepository)
+        public InvitePlayerForm(IBunchService bunchService, IPlayerService playerService)
         {
-            _bunchRepository = bunchRepository;
-            _playerRepository = playerRepository;
+            _bunchService = bunchService;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.Get(request.PlayerId);
-            var bunch = _bunchRepository.Get(player.BunchId);
+            var player = _playerService.Get(request.PlayerId);
+            var bunch = _bunchService.Get(player.BunchId);
             
             return new Result(bunch.Id);
         }

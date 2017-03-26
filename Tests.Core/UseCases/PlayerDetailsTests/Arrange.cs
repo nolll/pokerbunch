@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -25,12 +25,12 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
             var user = new User(UserData.Id1, UserData.UserName1, "user-display-name", "user-real-name", "user1@example.com");
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchData.Id1)).Returns(bunch);
-            Mock<IPlayerRepository>().Setup(o => o.Get(IdForPlayerThatIsUser)).Returns(playerThatIsUser);
-            Mock<IPlayerRepository>().Setup(o => o.Get(IdForPlayerThatIsNotUser)).Returns(playerThatIsNotUser);
-            Mock<ICashgameRepository>().Setup(o => o.PlayerList(IdForPlayerThatHasPlayedGames)).Returns(cashgames);
-            Mock<ICashgameRepository>().Setup(o => o.PlayerList(IdForPlayerThatHasNotPlayedGames)).Returns(new List<ListCashgame>());
-            Mock<IUserRepository>().Setup(o => o.GetById(UserData.Id1)).Returns(user);
+            Mock<IBunchService>().Setup(o => o.Get(BunchData.Id1)).Returns(bunch);
+            Mock<IPlayerService>().Setup(o => o.Get(IdForPlayerThatIsUser)).Returns(playerThatIsUser);
+            Mock<IPlayerService>().Setup(o => o.Get(IdForPlayerThatIsNotUser)).Returns(playerThatIsNotUser);
+            Mock<ICashgameService>().Setup(o => o.PlayerList(IdForPlayerThatHasPlayedGames)).Returns(cashgames);
+            Mock<ICashgameService>().Setup(o => o.PlayerList(IdForPlayerThatHasNotPlayedGames)).Returns(new List<ListCashgame>());
+            Mock<IUserService>().Setup(o => o.GetById(UserData.Id1)).Returns(user);
         }
 
         protected override void Execute()

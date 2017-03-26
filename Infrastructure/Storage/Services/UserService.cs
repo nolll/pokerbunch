@@ -1,17 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using JetBrains.Annotations;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.Services
 {
-    public class UserRepository : ApiRepository, IUserRepository
+    public class UserService : BaseService, IUserService
     {
         private readonly ApiConnection _api;
 
-        public UserRepository(ApiConnection api)
+        public UserService(ApiConnection api)
         {
             _api = api;
         }
@@ -37,14 +36,14 @@ namespace Infrastructure.Storage.Repositories
         public void Update(User user)
         {
             var id = user.Id;
-            var postBunch = new ApiUser(user);
-            _api.Post<ApiUser>(Url.User(id), postBunch);
+            var postUser = new ApiUser(user);
+            _api.Post<ApiUser>(Url.User(id), postUser);
         }
 
         public string Add(User user, string password)
         {
-            var postBunch = new ApiUser(user);
-            var apiUser = _api.Post<ApiUser>(Url.Users, postBunch);
+            var postUser = new ApiUser(user, password);
+            var apiUser = _api.Post<ApiUser>(Url.Users, postUser);
             return apiUser.Id;
         }
 
@@ -79,8 +78,10 @@ namespace Infrastructure.Storage.Repositories
             public string Email { get; set; }
             [UsedImplicitly]
             public Role GlobalRole { get; set; }
+            [UsedImplicitly]
+            public string Password { get; set; }
 
-            public ApiUser(User user)
+            public ApiUser(User user, string password = null)
             {
                 Id = user.Id;
                 UserName = user.UserName;
@@ -88,6 +89,7 @@ namespace Infrastructure.Storage.Repositories
                 RealName = user.RealName;
                 Email = user.Email;
                 GlobalRole = user.GlobalRole;
+                Password = password;
             }
 
             public ApiUser()

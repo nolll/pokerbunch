@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -24,9 +24,9 @@ namespace Tests.Core.UseCases.PlayerFactsTests
             var cashgames = Games;
             var player = new Player(BunchId, PlayerId, null);
 
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
-            Mock<ICashgameRepository>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);
-            Mock<IPlayerRepository>().Setup(o => o.Get(PlayerId)).Returns(player);
+            Mock<IBunchService>().Setup(o => o.Get(BunchId)).Returns(bunch);
+            Mock<ICashgameService>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);
+            Mock<IPlayerService>().Setup(o => o.Get(PlayerId)).Returns(player);
         }
 
         protected override void Execute()

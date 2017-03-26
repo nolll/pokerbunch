@@ -1,29 +1,29 @@
 using System.Linq;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class DeletePlayer
     {
-        private readonly IPlayerRepository _playerRepository;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IPlayerService _playerService;
+        private readonly ICashgameService _cashgameService;
 
-        public DeletePlayer(IPlayerRepository playerRepository, ICashgameRepository cashgameRepository)
+        public DeletePlayer(IPlayerService playerService, ICashgameService cashgameService)
         {
-            _playerRepository = playerRepository;
-            _cashgameRepository = cashgameRepository;
+            _playerService = playerService;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var player = _playerRepository.Get(request.PlayerId);
-            var cashgame = _cashgameRepository.PlayerList(request.PlayerId);
+            var player = _playerService.Get(request.PlayerId);
+            var cashgame = _cashgameService.PlayerList(request.PlayerId);
             var hasPlayed = cashgame.Any();
             var canDelete = !hasPlayed;
 
             if (canDelete)
             {
-                _playerRepository.Delete(request.PlayerId);
+                _playerService.Delete(request.PlayerId);
             }
 
             return new Result(canDelete, player.BunchId, request.PlayerId);

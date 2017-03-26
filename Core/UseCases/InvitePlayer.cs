@@ -1,19 +1,19 @@
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class InvitePlayer
     {
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IPlayerService _playerService;
 
-        public InvitePlayer(IPlayerRepository playerRepository)
+        public InvitePlayer(IPlayerService playerService)
         {
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            _playerRepository.Invite(request.PlayerId, request.Email);
+            _playerService.Invite(request.PlayerId, request.Email);
 
             return new Result(request.PlayerId);
         }

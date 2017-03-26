@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -18,7 +18,7 @@ namespace Tests.Core.UseCases.AddLocationTests
         {
             Added = null;
 
-            Mock<ILocationRepository>().Setup(o => o.Add(It.IsAny<Location>()))
+            Mock<ILocationService>().Setup(o => o.Add(It.IsAny<Location>()))
                 .Callback((Location location) => Added = location);
         }
 

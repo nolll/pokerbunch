@@ -1,4 +1,4 @@
-﻿using Core.Repositories;
+﻿using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases.AppListUserTests
         {
             var apps = AppData.TwoApps;
 
-            Mock<IAppRepository>().Setup(s => s.List()).Returns(apps);
+            Mock<IAppService>().Setup(s => s.List()).Returns(apps);
         }
 
         protected override void Execute()

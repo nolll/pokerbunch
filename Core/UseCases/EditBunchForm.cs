@@ -1,21 +1,20 @@
 using System.Collections.Generic;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditBunchForm
     {
-        private readonly IBunchRepository _bunchRepository;
+        private readonly IBunchService _bunchService;
 
-        public EditBunchForm(IBunchRepository bunchRepository)
+        public EditBunchForm(IBunchService bunchService)
         {
-            _bunchRepository = bunchRepository;
+            _bunchService = bunchService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
+            var bunch = _bunchService.Get(request.Slug);
             var heading = $"{bunch.DisplayName} Settings";
             var description = bunch.Description;
             var houseRules = bunch.HouseRules;

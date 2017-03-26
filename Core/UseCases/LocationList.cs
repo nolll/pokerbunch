@@ -1,22 +1,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class LocationList
     {
-        private readonly ILocationRepository _locationRepository;
+        private readonly ILocationService _locationService;
 
-        public LocationList(ILocationRepository locationRepository)
+        public LocationList(ILocationService locationService)
         {
-            _locationRepository = locationRepository;
+            _locationService = locationService;
         }
 
         public Result Execute(Request request)
         {
-            var locations = _locationRepository.List(request.Slug);
+            var locations = _locationService.List(request.Slug);
             var locationItems = locations.Select(CreateLocationItem).ToList();
             return new Result(locationItems);
         }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -25,8 +25,8 @@ namespace Tests.Core.UseCases.CashgameContextTests
         {
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
 
-            Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
-            Mock<ICashgameRepository>().Setup(o => o.GetYears(BunchId)).Returns(new List<int> { FirstYear, LastYear });
+            Mock<ICashgameService>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
+            Mock<ICashgameService>().Setup(o => o.GetYears(BunchId)).Returns(new List<int> { FirstYear, LastYear });
         }
 
         protected override void Execute()

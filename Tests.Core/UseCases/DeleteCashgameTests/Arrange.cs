@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -19,9 +19,9 @@ namespace Tests.Core.UseCases.DeleteCashgameTests
             var cashgameWithResults = CashgameData.GameWithTwoPlayers(Role.Manager);
             var cashgameWithoutResults = CashgameData.GameWithoutPlayers(Role.Manager);
 
-            Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(IdWithResults)).Returns(cashgameWithResults);
-            Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(IdWithoutResults)).Returns(cashgameWithoutResults).Callback((string id) => { DeletedId = id; });
-            Mock<ICashgameRepository>().Setup(o => o.DeleteGame(IdWithoutResults)).Callback((string id) => { DeletedId = id; });
+            Mock<ICashgameService>().Setup(o => o.GetDetailedById(IdWithResults)).Returns(cashgameWithResults);
+            Mock<ICashgameService>().Setup(o => o.GetDetailedById(IdWithoutResults)).Returns(cashgameWithoutResults).Callback((string id) => { DeletedId = id; });
+            Mock<ICashgameService>().Setup(o => o.DeleteGame(IdWithoutResults)).Callback((string id) => { DeletedId = id; });
         }
 
         protected override void Execute()

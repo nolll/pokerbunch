@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using Core.Entities;
 
-namespace Core.Repositories
+namespace Core.Services
 {
-	public interface IPlayerRepository
+	public interface IPlayerService
     {
         Player Get(string id);
 

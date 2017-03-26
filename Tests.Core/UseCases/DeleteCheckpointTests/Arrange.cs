@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -21,9 +21,9 @@ namespace Tests.Core.UseCases.DeleteCheckpointTests
 
             var cashgameBunch = new CashgameBunch(BunchId, null, null);
             var cashgame = CashgameData.CreateDetailed(CashgameId, isRunning: IsRunning, bunch: cashgameBunch);
-            Mock<ICashgameRepository>().Setup(o => o.GetDetailedById(CashgameId)).Returns(cashgame);
+            Mock<ICashgameService>().Setup(o => o.GetDetailedById(CashgameId)).Returns(cashgame);
 
-            Mock<ICashgameRepository>().Setup(o => o.DeleteAction(ActionId))
+            Mock<ICashgameService>().Setup(o => o.DeleteAction(ActionId))
                 .Callback((string acionId) => PostedActionId = acionId );
         }
 

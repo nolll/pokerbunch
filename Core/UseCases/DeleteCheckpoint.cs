@@ -1,20 +1,20 @@
-﻿using Core.Repositories;
+﻿using Core.Services;
 
 namespace Core.UseCases
 {
     public class DeleteCheckpoint
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public DeleteCheckpoint(ICashgameRepository cashgameRepository)
+        public DeleteCheckpoint(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
-            _cashgameRepository.DeleteAction(request.CheckpointId);
+            var cashgame = _cashgameService.GetDetailedById(request.CashgameId);
+            _cashgameService.DeleteAction(request.CheckpointId);
 
             return new Result(cashgame.Bunch.Id, cashgame.IsRunning, cashgame.Id);
         }

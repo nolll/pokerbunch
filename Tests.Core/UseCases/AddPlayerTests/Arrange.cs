@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases.AddPlayerTests
         {
             Added = null;
 
-            Mock<IPlayerRepository>().Setup(o => o.Add(It.IsAny<Player>()))
+            Mock<IPlayerService>().Setup(o => o.Add(It.IsAny<Player>()))
                 .Callback((Player p) => Added = p);
         }
 

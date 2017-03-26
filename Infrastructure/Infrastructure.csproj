@@ -61,15 +61,15 @@
     <Compile Include="ApiUrls\SimpleApiUrl.cs" />
     <Compile Include="BearerClient.cs" />
     <Compile Include="SignInClient.cs" />
-    <Compile Include="Storage\Repositories\ApiBunchRepository.cs" />
-    <Compile Include="Storage\Repositories\ApiLocationRepository.cs" />
-    <Compile Include="Storage\Repositories\ApiRepository.cs" />
-    <Compile Include="Storage\Repositories\ApiTokenRepository.cs" />
-    <Compile Include="Storage\Repositories\ApiAppRepository.cs" />
-    <Compile Include="Storage\Repositories\CashgameRepository.cs" />
-    <Compile Include="Storage\Repositories\EventRepository.cs" />
-    <Compile Include="Storage\Repositories\PlayerRepository.cs" />
-    <Compile Include="Storage\Repositories\UserRepository.cs" />
+    <Compile Include="Storage\Services\BunchService.cs" />
+    <Compile Include="Storage\Services\LocationService.cs" />
+    <Compile Include="Storage\Services\BaseService.cs" />
+    <Compile Include="Storage\Services\TokenService.cs" />
+    <Compile Include="Storage\Services\AppService.cs" />
+    <Compile Include="Storage\Services\CashgameService.cs" />
+    <Compile Include="Storage\Services\EventService.cs" />
+    <Compile Include="Storage\Services\PlayerService.cs" />
+    <Compile Include="Storage\Services\UserService.cs" />
     <Compile Include="Storage\Services\AdminService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,14 +1,14 @@
-using Core.Repositories;
+using Core.Services;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
-namespace Infrastructure.Storage.Repositories
+namespace Infrastructure.Storage.Services
 {
-    public class ApiTokenRepository : ITokenRepository
+    public class TokenService : ITokenService
     {
         private readonly ApiConnection _api;
 
-        public ApiTokenRepository(ApiConnection api)
+        public TokenService(ApiConnection api)
         {
             _api = api;
         }

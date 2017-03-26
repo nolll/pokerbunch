@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Core.Entities;
 
-namespace Core.Repositories
+namespace Core.Services
 {
-    public interface IAppRepository
+    public interface IAppService
     {
         App GetById(string id);
         IList<App> ListAll();

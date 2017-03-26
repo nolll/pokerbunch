@@ -1,23 +1,23 @@
 ﻿using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditUser
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public EditUser(IUserRepository userRepository)
+        public EditUser(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var user = _userRepository.GetByNameOrEmail(request.UserName);
+            var user = _userService.GetByNameOrEmail(request.UserName);
             var userToSave = GetUser(user, request);
 
-            _userRepository.Update(userToSave);
+            _userService.Update(userToSave);
 
             return new Result(userToSave.UserName);
         }

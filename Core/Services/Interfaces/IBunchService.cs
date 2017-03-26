@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using Core.Entities;
 
-namespace Core.Repositories
+namespace Core.Services
 {
-    public interface 
-        IBunchRepository
+    public interface IBunchService
     {
         Bunch Get(string id);
         IList<SmallBunch> List();

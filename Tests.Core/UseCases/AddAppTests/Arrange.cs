@@ -1,5 +1,5 @@
 using Core.Exceptions;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -17,9 +17,9 @@ namespace Tests.Core.UseCases.AddAppTests
 
         protected override void Setup()
         {
-            Mock<IAppRepository>().Setup(o => o.Add(ValidAppName)).Returns(GeneratedId)
+            Mock<IAppService>().Setup(o => o.Add(ValidAppName)).Returns(GeneratedId)
                 .Callback((string appName) => { AddedAppName = appName; });
-            Mock<IAppRepository>().Setup(o => o.Add(InvalidAppName))
+            Mock<IAppService>().Setup(o => o.Add(InvalidAppName))
                 .Throws(new ValidationException("validation-error"));
         }
 

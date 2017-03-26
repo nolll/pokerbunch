@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases.UserListTests
 
         protected override void Setup()
         {
-            Mock<IUserRepository>().Setup(o => o.List()).Returns(TwoUsers);
+            Mock<IUserService>().Setup(o => o.List()).Returns(TwoUsers);
         }
 
         protected override void Execute()

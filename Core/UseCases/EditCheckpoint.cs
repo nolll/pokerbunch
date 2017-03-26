@@ -1,23 +1,23 @@
 ﻿using System;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditCheckpoint
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public EditCheckpoint(ICashgameRepository cashgameRepository)
+        public EditCheckpoint(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
+            var cashgame = _cashgameService.GetDetailedById(request.CashgameId);
             var existingCheckpoint = cashgame.GetAction(request.ActionId);
             
-            _cashgameRepository.UpdateAction(existingCheckpoint.Id, request.Timestamp, request.Stack, request.Amount);
+            _cashgameService.UpdateAction(existingCheckpoint.Id, request.Timestamp, request.Stack, request.Amount);
 
             return new Result(cashgame.Id, existingCheckpoint.PlayerId);
         }

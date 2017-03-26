@@ -1,22 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class PlayerBadges
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public PlayerBadges(ICashgameRepository cashgameRepository)
+        public PlayerBadges(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgames = _cashgameRepository.PlayerList(request.PlayerId).Where(o => !o.IsRunning);
+            var cashgames = _cashgameService.PlayerList(request.PlayerId).Where(o => !o.IsRunning);
 
             return new Result(cashgames);
         }

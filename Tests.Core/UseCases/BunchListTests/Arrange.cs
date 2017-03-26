@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -12,7 +12,7 @@ namespace Tests.Core.UseCases.BunchListTests
 
         protected override void Setup()
         {
-            Mock<IBunchRepository>().Setup(o => o.List()).Returns(Bunches);
+            Mock<IBunchService>().Setup(o => o.List()).Returns(Bunches);
         }
 
         protected override void Execute()

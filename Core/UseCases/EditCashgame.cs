@@ -1,19 +1,19 @@
-﻿using Core.Repositories;
+﻿using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditCashgame
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public EditCashgame(ICashgameRepository cashgameRepository)
+        public EditCashgame(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.Update(request.Id, request.LocationId, request.EventId);
+            var cashgame = _cashgameService.Update(request.Id, request.LocationId, request.EventId);
             return new Result(cashgame.Id);
         }
 

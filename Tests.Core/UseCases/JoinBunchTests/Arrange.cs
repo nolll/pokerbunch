@@ -1,4 +1,4 @@
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -20,7 +20,7 @@ namespace Tests.Core.UseCases.JoinBunchTests
             PostedBunchId = null;
             PostedCode = null;
 
-            Mock<IBunchRepository>().Setup(o => o.Join(It.IsAny<string>(), It.IsAny<string>())).Callback((string bunchId, string code) => { PostedBunchId = bunchId; PostedCode = code; });
+            Mock<IBunchService>().Setup(o => o.Join(It.IsAny<string>(), It.IsAny<string>())).Callback((string bunchId, string code) => { PostedBunchId = bunchId; PostedCode = code; });
         }
 
         protected override void Execute()

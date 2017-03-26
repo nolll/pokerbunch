@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases.EventDetailsTests
         {
             var @event = new Event(EventId, BunchData.Id1, EventData.Name1);
 
-            Mock<IEventRepository>().Setup(o => o.Get(EventId)).Returns(@event);
+            Mock<IEventService>().Setup(o => o.Get(EventId)).Returns(@event);
         }
 
         protected override void Execute()

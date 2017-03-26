@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class ActionsChart
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public ActionsChart(ICashgameRepository cashgameRepository)
+        public ActionsChart(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
+            var cashgame = _cashgameService.GetDetailedById(request.CashgameId);
             
             var result = cashgame.Players.First(o => o.Id == request.PlayerId);
 

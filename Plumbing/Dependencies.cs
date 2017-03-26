@@ -1,8 +1,7 @@
-using Core.Repositories;
 using Core.Services;
 using Infrastructure;
-using Infrastructure.Storage.Repositories;
 using Infrastructure.Storage.Services;
+using CashgameService = Infrastructure.Storage.Services.CashgameService;
 
 namespace Plumbing
 {
@@ -13,14 +12,14 @@ namespace Plumbing
         private readonly string _apiToken;
         private ApiConnection _api;
 
-        private ILocationRepository _locationRepository;
-        private IBunchRepository _bunchRepository;
-        private IAppRepository _appRepository;
-        private ICashgameRepository _cashgameRepository;
-        private IEventRepository _eventRepository;
-        private IPlayerRepository _playerRepository;
-        private IUserRepository _userRepository;
-        private ITokenRepository _tokenRepository;
+        private ILocationService _locationService;
+        private IBunchService _bunchService;
+        private IAppService _appService;
+        private ICashgameService _cashgameService;
+        private IEventService _eventService;
+        private IPlayerService _playerService;
+        private IUserService _userService;
+        private ITokenService _tokenService;
         private IAdminService _adminService;
                 
         public Dependencies(string apiUrl, string apiKey, string apiToken)
@@ -32,14 +31,14 @@ namespace Plumbing
 
         private ApiConnection Api => _api ?? (_api = new ApiConnection(_apiUrl, _apiKey, _apiToken));
 
-        public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(Api));
-        public IBunchRepository BunchRepository => _bunchRepository ?? (_bunchRepository = new ApiBunchRepository(Api));
-        public IAppRepository AppRepository => _appRepository ?? (_appRepository = new ApiAppRepository(Api));
-        public ICashgameRepository CashgameRepository => _cashgameRepository ?? (_cashgameRepository = new CashgameRepository(Api));
-        public IEventRepository EventRepository => _eventRepository ?? (_eventRepository = new EventRepository(Api));
-        public IPlayerRepository PlayerRepository => _playerRepository ?? (_playerRepository = new PlayerRepository(Api));
-        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(Api));
-        public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));
+        public ILocationService LocationService => _locationService ?? (_locationService = new LocationService(Api));
+        public IBunchService BunchService => _bunchService ?? (_bunchService = new BunchService(Api));
+        public IAppService AppService => _appService ?? (_appService = new AppService(Api));
+        public ICashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(Api));
+        public IEventService EventService => _eventService ?? (_eventService = new EventService(Api));
+        public IPlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(Api));
+        public IUserService UserService => _userService ?? (_userService = new UserService(Api));
+        public ITokenService TokenService => _tokenService ?? (_tokenService = new TokenService(Api));
         public IAdminService AdminService => _adminService ?? (_adminService = new AdminService(Api));
     }
 }

@@ -1,22 +1,22 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddApp
     {
-        private readonly IAppRepository _appRepository;
+        private readonly IAppService _appService;
 
-        public AddApp(IAppRepository appRepository)
+        public AddApp(IAppService appService)
         {
-            _appRepository = appRepository;
+            _appService = appService;
         }
 
         public void Execute(Request request)
         {
             var appName = request.AppName;
 
-            _appRepository.Add(appName);
+            _appService.Add(appName);
         }
 
         public class Request

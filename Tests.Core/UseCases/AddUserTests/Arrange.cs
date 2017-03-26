@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -21,7 +21,7 @@ namespace Tests.Core.UseCases.AddUserTests
             Added = null;
             SentPassword = null;
 
-            Mock<IUserRepository>().Setup(o => o.Add(It.IsAny<User>(), Password))
+            Mock<IUserService>().Setup(o => o.Add(It.IsAny<User>(), Password))
                 .Callback((User u, string password) => { Added = u; SentPassword = password; });
         }
 

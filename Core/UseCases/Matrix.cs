@@ -2,22 +2,22 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public abstract class Matrix
     {
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IPlayerService _playerService;
 
-        protected Matrix(IPlayerRepository playerRepository)
+        protected Matrix(IPlayerService playerService)
         {
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         protected Result Execute(Bunch bunch, IList<ListCashgame> cashgames)
         {
-            var players = _playerRepository.List(bunch.Id);
+            var players = _playerService.List(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
 
             var gameItems = CreateGameItems(cashgames);

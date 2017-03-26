@@ -1,5 +1,4 @@
 ﻿using Core.Entities;
-using Core.Repositories;
 using Core.Services;
 using Core.UseCases;
 
@@ -24,8 +23,8 @@ namespace Tests.Core.UseCases.LoginTests
         {
             var user = new User(ExistingUserId, ExistingUser, "description", "real-name", "test@example.com", Role.None, EncryptedCorrectPassword, Salt);
 
-            Mock<IUserRepository>().Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
-            Mock<ITokenRepository>().Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
+            Mock<IUserService>().Setup(s => s.GetByNameOrEmail(ExistingUser)).Returns(user);
+            Mock<ITokenService>().Setup(s => s.Get(ExistingUser, CorrectPassword)).Returns(Token);
         }
 
         protected override void Execute()

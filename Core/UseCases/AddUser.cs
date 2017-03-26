@@ -1,21 +1,21 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class AddUser
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public AddUser(IUserRepository userRepository)
+        public AddUser(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public void Execute(Request request)
         {
             var user = new User("", request.UserName, request.DisplayName, string.Empty, request.Email);
-            _userRepository.Add(user, request.Password);
+            _userService.Add(user, request.Password);
         }
 
         public class Request

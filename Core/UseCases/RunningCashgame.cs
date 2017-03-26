@@ -3,33 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Exceptions;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class RunningCashgame
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IBunchService _bunchService;
+        private readonly ICashgameService _cashgameService;
+        private readonly IPlayerService _playerService;
 
-        public RunningCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
+        public RunningCashgame(IBunchService bunchService, ICashgameService cashgameService, IPlayerService playerService)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
-            _playerRepository = playerRepository;
+            _bunchService = bunchService;
+            _cashgameService = cashgameService;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.BunchId);
-            var cashgame = _cashgameRepository.GetCurrent(request.BunchId);
+            var bunch = _bunchService.Get(request.BunchId);
+            var cashgame = _cashgameService.GetCurrent(request.BunchId);
 
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
-            var bunchPlayers = _playerRepository.List(bunch.Id);
+            var bunchPlayers = _playerService.List(bunch.Id);
 
             var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
             

@@ -1,25 +1,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameList
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly IBunchService _bunchService;
+        private readonly ICashgameService _cashgameService;
 
-        public CashgameList(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public CashgameList(IBunchService bunchService, ICashgameService cashgameService)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
+            _bunchService = bunchService;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var cashgames = _cashgameRepository.List(bunch.Id, request.Year).Where(o => !o.IsRunning);
+            var bunch = _bunchService.Get(request.Slug);
+            var cashgames = _cashgameService.List(bunch.Id, request.Year).Where(o => !o.IsRunning);
             cashgames = SortItems(cashgames, request.SortOrder);
             var list = cashgames.Select(o => new Item(bunch, o));
 

@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases.CoreContextTests
 
         protected override void Setup()
         {
-            Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName, DisplayName));
+            Mock<IUserService>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName, DisplayName));
         }
 
         protected override void Execute()

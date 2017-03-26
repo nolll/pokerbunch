@@ -1,31 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Repositories;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class EditCashgameForm
     {
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly ILocationRepository _locationRepository;
-        private readonly IEventRepository _eventRepository;
+        private readonly ICashgameService _cashgameService;
+        private readonly ILocationService _locationService;
+        private readonly IEventService _eventService;
 
-        public EditCashgameForm(ICashgameRepository cashgameRepository, ILocationRepository locationRepository, IEventRepository eventRepository)
+        public EditCashgameForm(ICashgameService cashgameService, ILocationService locationService, IEventService eventService)
         {
-            _cashgameRepository = cashgameRepository;
-            _locationRepository = locationRepository;
-            _eventRepository = eventRepository;
+            _cashgameService = cashgameService;
+            _locationService = locationService;
+            _eventService = eventService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetDetailedById(request.Id);
-            var locations = _locationRepository.List(cashgame.Bunch.Id);
+            var cashgame = _cashgameService.GetDetailedById(request.Id);
+            var locations = _locationService.List(cashgame.Bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
 
-            var events = _eventRepository.ListByBunch(cashgame.Bunch.Id);
+            var events = _eventService.ListByBunch(cashgame.Bunch.Id);
             var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
             var selectedEventId = cashgame.BelongsToEvent ? cashgame.Event.Id : "";
             var localStartTime = TimeZoneInfo.ConvertTimeFromUtc(cashgame.StartTime, cashgame.Bunch.Timezone);

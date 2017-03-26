@@ -1,5 +1,5 @@
 using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
@@ -19,7 +19,7 @@ namespace Tests.Core.UseCases.EditUserFormTests
         {
             var user = new User(UserId, UserName, DisplayName, RealName, Email);
 
-            Mock<IUserRepository>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(user);
+            Mock<IUserService>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(user);
         }
 
         protected override void Execute()

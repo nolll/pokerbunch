@@ -13,90 +13,90 @@ namespace Plumbing
 
         // Contexts
         public BaseContext BaseContext => new BaseContext();
-        public CoreContext CoreContext => new CoreContext(_deps.UserRepository);
-        public BunchContext BunchContext => new BunchContext(_deps.BunchRepository);
-        public CashgameContext CashgameContext => new CashgameContext(_deps.CashgameRepository);
+        public CoreContext CoreContext => new CoreContext(_deps.UserService);
+        public BunchContext BunchContext => new BunchContext(_deps.BunchService);
+        public CashgameContext CashgameContext => new CashgameContext(_deps.CashgameService);
 
         // Auth and Home
         public LoginForm LoginForm => new LoginForm();
-        public Login Login => new Login(_deps.UserRepository, _deps.TokenRepository);
+        public Login Login => new Login(_deps.UserService, _deps.TokenService);
 
         // Admin
         public TestEmail TestEmail => new TestEmail(_deps.AdminService);
         public ClearCache ClearCache => new ClearCache(_deps.AdminService);
 
         // User
-        public UserList UserList => new UserList(_deps.UserRepository);
-        public UserDetails UserDetails => new UserDetails(_deps.UserRepository);
-        public AddUser AddUser => new AddUser(_deps.UserRepository);
-        public EditUserForm EditUserForm => new EditUserForm(_deps.UserRepository);
-        public EditUser EditUser => new EditUser(_deps.UserRepository);
-        public ForgotPassword ForgotPassword => new ForgotPassword(_deps.UserRepository);
-        public ChangePassword ChangePassword => new ChangePassword(_deps.UserRepository);
+        public UserList UserList => new UserList(_deps.UserService);
+        public UserDetails UserDetails => new UserDetails(_deps.UserService);
+        public AddUser AddUser => new AddUser(_deps.UserService);
+        public EditUserForm EditUserForm => new EditUserForm(_deps.UserService);
+        public EditUser EditUser => new EditUser(_deps.UserService);
+        public ForgotPassword ForgotPassword => new ForgotPassword(_deps.UserService);
+        public ChangePassword ChangePassword => new ChangePassword(_deps.UserService);
 
         // Bunch
-        public BunchList BunchList => new BunchList(_deps.BunchRepository, _deps.UserRepository);
-        public BunchDetails BunchDetails => new BunchDetails(_deps.BunchRepository);
+        public BunchList BunchList => new BunchList(_deps.BunchService, _deps.UserService);
+        public BunchDetails BunchDetails => new BunchDetails(_deps.BunchService);
         public AddBunchForm AddBunchForm => new AddBunchForm();
-        public AddBunch AddBunch => new AddBunch(_deps.BunchRepository);
-        public EditBunchForm EditBunchForm => new EditBunchForm(_deps.BunchRepository);
-        public EditBunch EditBunch => new EditBunch(_deps.BunchRepository);
-        public JoinBunchForm JoinBunchForm => new JoinBunchForm(_deps.BunchRepository);
-        public JoinBunch JoinBunch => new JoinBunch(_deps.BunchRepository);
-        public JoinBunchConfirmation JoinBunchConfirmation => new JoinBunchConfirmation(_deps.BunchRepository);
+        public AddBunch AddBunch => new AddBunch(_deps.BunchService);
+        public EditBunchForm EditBunchForm => new EditBunchForm(_deps.BunchService);
+        public EditBunch EditBunch => new EditBunch(_deps.BunchService);
+        public JoinBunchForm JoinBunchForm => new JoinBunchForm(_deps.BunchService);
+        public JoinBunch JoinBunch => new JoinBunch(_deps.BunchService);
+        public JoinBunchConfirmation JoinBunchConfirmation => new JoinBunchConfirmation(_deps.BunchService);
 
         // Events
-        public EventList EventList => new EventList(_deps.EventRepository);
-        public EventDetails EventDetails => new EventDetails(_deps.EventRepository);
-        public AddEvent AddEvent => new AddEvent(_deps.EventRepository);
+        public EventList EventList => new EventList(_deps.EventService);
+        public EventDetails EventDetails => new EventDetails(_deps.EventService);
+        public AddEvent AddEvent => new AddEvent(_deps.EventService);
 
         // Locations
-        public LocationList LocationList => new LocationList(_deps.LocationRepository);
-        public LocationDetails LocationDetails => new LocationDetails(_deps.LocationRepository);
-        public AddLocation AddLocation => new AddLocation(_deps.LocationRepository);
+        public LocationList LocationList => new LocationList(_deps.LocationService);
+        public LocationDetails LocationDetails => new LocationDetails(_deps.LocationService);
+        public AddLocation AddLocation => new AddLocation(_deps.LocationService);
 
         // Cashgame
-        public CashgameStatus CashgameStatus => new CashgameStatus(_deps.CashgameRepository);
-        public TopList TopList => new TopList(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
-        public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
-        public CashgameDetails CashgameDetails => new CashgameDetails(_deps.CashgameRepository);
-        public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.CashgameRepository);
-        public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
-        public CashgameList CashgameList => new CashgameList(_deps.BunchRepository, _deps.CashgameRepository);
-        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.LocationRepository, _deps.EventRepository);
-        public AddCashgame AddCashgame => new AddCashgame(_deps.CashgameRepository, _deps.EventRepository);
-        public Actions Actions => new Actions(_deps.CashgameRepository);
-        public ActionsChart ActionsChart => new ActionsChart(_deps.CashgameRepository);
-        public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.CashgameRepository);
-        public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.CashgameRepository);
-        public CashgameChart CashgameChart => new CashgameChart(_deps.CashgameRepository, _deps.PlayerRepository);
-        public BunchMatrix BunchMatrix => new BunchMatrix(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
-        public EventMatrix EventMatrix => new EventMatrix(_deps.BunchRepository, _deps.EventRepository, _deps.CashgameRepository, _deps.PlayerRepository);
-        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
-        public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.CashgameRepository, _deps.LocationRepository, _deps.EventRepository);
-        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameRepository);
-        public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameRepository);
-        public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.CashgameRepository);
-        public Buyin Buyin => new Buyin(_deps.CashgameRepository);
-        public Report Report => new Report(_deps.CashgameRepository);
-        public Cashout Cashout => new Cashout(_deps.CashgameRepository);
-        public EndCashgame EndCashgame => new EndCashgame(_deps.CashgameRepository);
+        public CashgameStatus CashgameStatus => new CashgameStatus(_deps.CashgameService);
+        public TopList TopList => new TopList(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
+        public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
+        public CashgameDetails CashgameDetails => new CashgameDetails(_deps.CashgameService);
+        public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.CashgameService);
+        public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
+        public CashgameList CashgameList => new CashgameList(_deps.BunchService, _deps.CashgameService);
+        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.LocationService, _deps.EventService);
+        public AddCashgame AddCashgame => new AddCashgame(_deps.CashgameService, _deps.EventService);
+        public Actions Actions => new Actions(_deps.CashgameService);
+        public ActionsChart ActionsChart => new ActionsChart(_deps.CashgameService);
+        public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.CashgameService);
+        public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.CashgameService);
+        public CashgameChart CashgameChart => new CashgameChart(_deps.CashgameService, _deps.PlayerService);
+        public BunchMatrix BunchMatrix => new BunchMatrix(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
+        public EventMatrix EventMatrix => new EventMatrix(_deps.BunchService, _deps.EventService, _deps.CashgameService, _deps.PlayerService);
+        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
+        public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.CashgameService, _deps.LocationService, _deps.EventService);
+        public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService);
+        public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameService);
+        public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.CashgameService);
+        public Buyin Buyin => new Buyin(_deps.CashgameService);
+        public Report Report => new Report(_deps.CashgameService);
+        public Cashout Cashout => new Cashout(_deps.CashgameService);
+        public EndCashgame EndCashgame => new EndCashgame(_deps.CashgameService);
 
         // Player
-        public PlayerList PlayerList => new PlayerList(_deps.BunchRepository, _deps.PlayerRepository);
-        public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchRepository, _deps.PlayerRepository, _deps.CashgameRepository, _deps.UserRepository);
-        public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
-        public PlayerBadges PlayerBadges => new PlayerBadges(_deps.CashgameRepository);
-        public InvitePlayer InvitePlayer => new InvitePlayer(_deps.PlayerRepository);
-        public InvitePlayerForm InvitePlayerForm => new InvitePlayerForm(_deps.BunchRepository, _deps.PlayerRepository);
-        public InvitePlayerConfirmation InvitePlayerConfirmation => new InvitePlayerConfirmation(_deps.BunchRepository, _deps.PlayerRepository);
-        public AddPlayer AddPlayer => new AddPlayer(_deps.PlayerRepository);
-        public DeletePlayer DeletePlayer => new DeletePlayer(_deps.PlayerRepository, _deps.CashgameRepository);
+        public PlayerList PlayerList => new PlayerList(_deps.BunchService, _deps.PlayerService);
+        public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchService, _deps.PlayerService, _deps.CashgameService, _deps.UserService);
+        public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
+        public PlayerBadges PlayerBadges => new PlayerBadges(_deps.CashgameService);
+        public InvitePlayer InvitePlayer => new InvitePlayer(_deps.PlayerService);
+        public InvitePlayerForm InvitePlayerForm => new InvitePlayerForm(_deps.BunchService, _deps.PlayerService);
+        public InvitePlayerConfirmation InvitePlayerConfirmation => new InvitePlayerConfirmation(_deps.BunchService, _deps.PlayerService);
+        public AddPlayer AddPlayer => new AddPlayer(_deps.PlayerService);
+        public DeletePlayer DeletePlayer => new DeletePlayer(_deps.PlayerService, _deps.CashgameService);
 
         // Apps
-        public AppDetails AppDetails => new AppDetails(_deps.AppRepository);
-        public AppListUser AppListUser => new AppListUser(_deps.AppRepository);
-        public AppListAll AllAppsList => new AppListAll(_deps.AppRepository);
-        public AddApp AddApp => new AddApp(_deps.AppRepository);
+        public AppDetails AppDetails => new AppDetails(_deps.AppService);
+        public AppListUser AppListUser => new AppListUser(_deps.AppService);
+        public AppListAll AllAppsList => new AppListAll(_deps.AppService);
+        public AddApp AddApp => new AddApp(_deps.AppService);
     }
 }

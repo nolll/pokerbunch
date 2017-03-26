@@ -1,25 +1,25 @@
 using System.Linq;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class BunchMatrix : Matrix
     {
-        private readonly IBunchRepository _bunchRepository;
-        private readonly ICashgameRepository _cashgameRepository;
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IBunchService _bunchService;
+        private readonly ICashgameService _cashgameService;
+        private readonly IPlayerService _playerService;
 
-        public BunchMatrix(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IPlayerRepository playerRepository)
-            : base(playerRepository)
+        public BunchMatrix(IBunchService bunchService, ICashgameService cashgameService, IPlayerService playerService)
+            : base(playerService)
         {
-            _bunchRepository = bunchRepository;
-            _cashgameRepository = cashgameRepository;
+            _bunchService = bunchService;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var cashgames = _cashgameRepository.List(request.Slug, request.Year).Where(o => !o.IsRunning).ToList();
+            var bunch = _bunchService.Get(request.Slug);
+            var cashgames = _cashgameService.List(request.Slug, request.Year).Where(o => !o.IsRunning).ToList();
             return Execute(bunch, cashgames);
         }
 

@@ -1,4 +1,4 @@
-using Core.Repositories;
+using Core.Services;
 using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
@@ -17,8 +17,8 @@ namespace Tests.Core.UseCases.EndCashgameTests
             PostedCashgameId = null;
 
             var cashgame = CashgameData.CreateDetailed(CashgameId);
-            Mock<ICashgameRepository>().Setup(o => o.GetCurrent(BunchId)).Returns(cashgame);
-            Mock<ICashgameRepository>().Setup(o => o.End(It.IsAny<string>())).Callback((string cashgameId) => PostedCashgameId = cashgameId);
+            Mock<ICashgameService>().Setup(o => o.GetCurrent(BunchId)).Returns(cashgame);
+            Mock<ICashgameService>().Setup(o => o.End(It.IsAny<string>())).Callback((string cashgameId) => PostedCashgameId = cashgameId);
         }
 
         protected override void Execute()

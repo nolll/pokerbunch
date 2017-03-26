@@ -1,21 +1,21 @@
 ﻿using Core.Entities;
-using Core.Repositories;
+using Core.Services;
 
-    namespace Core.UseCases
+namespace Core.UseCases
 {
     public class AddPlayer
     {
-        private readonly IPlayerRepository _playerRepository;
+        private readonly IPlayerService _playerService;
 
-        public AddPlayer(IPlayerRepository playerRepository)
+        public AddPlayer(IPlayerService playerService)
         {
-            _playerRepository = playerRepository;
+            _playerService = playerService;
         }
 
         public Result Execute(Request request)
         {
             var player = Player.NewWithoutUser(request.Slug, request.Name);
-            _playerRepository.Add(player);
+            _playerService.Add(player);
 
             return new Result(request.Slug);
         }

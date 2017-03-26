@@ -1,19 +1,19 @@
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class ForgotPassword
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public ForgotPassword(IUserRepository userRepository)
+        public ForgotPassword(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         public void Execute(Request request)
         {
-            _userRepository.ResetPassword(request.Email);
+            _userService.ResetPassword(request.Email);
         }
 
         public class Request

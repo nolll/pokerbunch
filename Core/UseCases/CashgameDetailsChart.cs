@@ -2,22 +2,22 @@ using System;
 using System.Collections.Generic;
 using Core.Entities;
 using Core.Entities.Checkpoints;
-using Core.Repositories;
+using Core.Services;
 
 namespace Core.UseCases
 {
     public class CashgameDetailsChart
     {
-        private readonly ICashgameRepository _cashgameRepository;
+        private readonly ICashgameService _cashgameService;
 
-        public CashgameDetailsChart(ICashgameRepository cashgameRepository)
+        public CashgameDetailsChart(ICashgameService cashgameService)
         {
-            _cashgameRepository = cashgameRepository;
+            _cashgameService = cashgameService;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
+            var cashgame = _cashgameService.GetDetailedById(request.CashgameId);
             var playerItems = GetPlayerItems(cashgame);
             return new Result(playerItems);
         }
