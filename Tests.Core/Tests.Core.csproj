@@ -139,6 +139,7 @@
     <Compile Include="UseCases\DeleteCashgameTests\WhenCashgameHasResults.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests\Arrange.cs" />
     <Compile Include="UseCases\DeleteCheckpointTests\WhenExecute.cs" />
+    <Compile Include="UseCases\DeleteCheckpointTests\WithRunningGame.cs" />
     <Compile Include="UseCases\DeletePlayerTests\Arrange.cs" />
     <Compile Include="UseCases\DeletePlayerTests\WithPlayerThatHasNotPlayed.cs" />
     <Compile Include="UseCases\DeletePlayerTests\WithPlayerThatHasPlayed.cs" />

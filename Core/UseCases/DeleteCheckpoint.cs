@@ -14,8 +14,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
-            var checkpoint = cashgame.GetAction(request.CheckpointId);
-            _cashgameRepository.DeleteAction(checkpoint.Id);
+            _cashgameRepository.DeleteAction(request.CheckpointId);
 
             return new Result(cashgame.Bunch.Id, cashgame.IsRunning, cashgame.Id);
         }
