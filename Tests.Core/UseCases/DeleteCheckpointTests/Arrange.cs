@@ -4,7 +4,6 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
 using Core.UseCases;
-using Moq;
 using Tests.Core.Data;
 
 namespace Tests.Core.UseCases.DeleteCheckpointTests
@@ -25,11 +24,6 @@ namespace Tests.Core.UseCases.DeleteCheckpointTests
         protected override void Setup()
         {
             UpdatedCashgame = null;
-
-            Mock<ICashgameRepository>().Setup(o => o.GetByCheckpoint(_checkpointId)).Returns(Cashgame);
-
-            Mock<ICashgameRepository>().Setup(o => o.Update(It.IsAny<Cashgame>()))
-                .Callback((Cashgame c) => UpdatedCashgame = c);
 
             Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(Bunch);
         }

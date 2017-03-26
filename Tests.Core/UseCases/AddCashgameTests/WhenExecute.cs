@@ -10,7 +10,7 @@ namespace Tests.Core.UseCases.AddCashgameTests
         [Test]
         public void GameIsAdded()
         {
-            Assert.IsNotNull(AddedCashgame);
+            Assert.AreEqual(LocationId, PostedLocationId);
         }
     }
 }

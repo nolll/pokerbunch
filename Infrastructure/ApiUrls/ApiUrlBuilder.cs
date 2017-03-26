@@ -26,10 +26,11 @@ namespace Infrastructure.ApiUrls
         public ApiUrl LocationByBunch(string id) => new SimpleApiUrl($"bunches/{id}/locations");
 
         public ApiUrl Cashgame(string id) => new SimpleApiUrl($"cashgames/{id}");
-        public ApiUrl CashgamesByBunch(string bunchId, int? year) => new CashgamesByBunchUrl(bunchId, year);
+        public ApiUrl CashgamesByBunch(string bunchId, int? year = null) => new CashgamesByBunchUrl(bunchId, year);
         public ApiUrl CashgamesByEvent(string eventId) => new SimpleApiUrl($"events/{eventId}/cashgames");
         public ApiUrl CashgamesByPlayer(string playerId) => new SimpleApiUrl($"players/{playerId}/cashgames");
-        public ApiUrl CashgamesCurrent(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/cashgames");
+        public ApiUrl CashgamesCurrent(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/cashgames/current");
+        public ApiUrl CashgameYears(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/cashgames/years");
         public ApiUrl Buyin(string cashgameId) => new SimpleApiUrl($"cashgames/{cashgameId}/buyin");
         public ApiUrl Report(string cashgameId) => new SimpleApiUrl($"cashgames/{cashgameId}/report");
         public ApiUrl Cashout(string cashgameId) => new SimpleApiUrl($"cashgames/{cashgameId}/cashout");

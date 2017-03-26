@@ -9,11 +9,10 @@ namespace Tests.Core.UseCases.AddCashgameTests
     public abstract class Arrange : UseCaseTest<AddCashgame>
     {
         protected AddCashgame.Result Result;
-        protected Cashgame AddedCashgame;
+        protected string PostedLocationId;
         protected string CashgameIdAddedToEvent;
         protected string EventIdThatCashgameWasAddedTo;
 
-        protected const string UserName = UserData.UserName1;
         protected const string BunchId = BunchData.Id1;
         protected const string LocationId = LocationData.Id1;
         protected const string ExistingEventId = EventData.Id1;
@@ -27,12 +26,9 @@ namespace Tests.Core.UseCases.AddCashgameTests
             CashgameIdAddedToEvent = null;
             EventIdThatCashgameWasAddedTo = null;
 
-            var bunch = new Bunch(BunchId);
-            Mock<IBunchRepository>().Setup(o => o.Get(BunchId)).Returns(bunch);
-
-            Mock<ICashgameRepository>().Setup(o => o.Add(It.IsAny<Bunch>(), It.IsAny<Cashgame>()))
+            Mock<ICashgameRepository>().Setup(o => o.Add(BunchId, It.IsAny<string>()))
                 .Returns(GeneratedCashgameId)
-                .Callback((Bunch b, Cashgame cashgame) => AddedCashgame = cashgame);
+                .Callback((string bunchId, string locationId) => PostedLocationId = locationId);
 
             Mock<IEventRepository>().Setup(o => o.AddCashgame(It.IsAny<string>(), It.IsAny<string>()))
                 .Callback((string eventId, string cashgameId) => { CashgameIdAddedToEvent = cashgameId; EventIdThatCashgameWasAddedTo = EventId; });

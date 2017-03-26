@@ -13,11 +13,8 @@ namespace Core.Repositories
         IList<ListCashgame> EventList(string eventId);
         IList<ListCashgame> PlayerList(string playerId);
         
-        Cashgame GetByCheckpoint(string checkpointId);
-        
         void DeleteGame(string id);
-        string Add(Bunch bunch, Cashgame cashgame);
-        void Update(Cashgame cashgame);
+        string Add(string bunchId, string locationId);
         DetailedCashgame Update(string id, string locationId, string eventId);
 
         IList<int> GetYears(string bunchId);
@@ -26,6 +23,7 @@ namespace Core.Repositories
         void Buyin(string cashgameId, string playerId, int added, int stack);
         void Cashout(string cashgameId, string playerId, int stack);
         void End(string cashgameId);
-	    void UpdateAction(string actionId, DateTime timestamp, int stack, int added);
-	}
+        void UpdateAction(string actionId, DateTime timestamp, int stack, int added);
+        void DeleteAction(string actionId);
+    }
 }

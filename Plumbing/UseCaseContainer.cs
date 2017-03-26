@@ -64,7 +64,7 @@ namespace Plumbing
         public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchRepository, _deps.CashgameRepository, _deps.PlayerRepository);
         public CashgameList CashgameList => new CashgameList(_deps.BunchRepository, _deps.CashgameRepository);
         public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchRepository, _deps.CashgameRepository, _deps.LocationRepository, _deps.EventRepository);
-        public AddCashgame AddCashgame => new AddCashgame(_deps.BunchRepository, _deps.CashgameRepository, _deps.EventRepository);
+        public AddCashgame AddCashgame => new AddCashgame(_deps.CashgameRepository, _deps.EventRepository);
         public Actions Actions => new Actions(_deps.CashgameRepository);
         public ActionsChart ActionsChart => new ActionsChart(_deps.CashgameRepository);
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.CashgameRepository);
@@ -76,7 +76,7 @@ namespace Plumbing
         public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.CashgameRepository, _deps.LocationRepository, _deps.EventRepository);
         public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameRepository);
         public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameRepository);
-        public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.BunchRepository, _deps.CashgameRepository);
+        public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.CashgameRepository);
         public Buyin Buyin => new Buyin(_deps.CashgameRepository);
         public Report Report => new Report(_deps.CashgameRepository);
         public Cashout Cashout => new Cashout(_deps.CashgameRepository);

@@ -5,23 +5,17 @@ using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Repositories;
-using Core.Services;
-using Infrastructure.Storage.SqlDb;
 using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
     public class CashgameRepository : ApiRepository, ICashgameRepository
     {
-        private readonly SqlCashgameDb _cashgameDb;
         private readonly ApiConnection _api;
-        private readonly ICacheContainer _cacheContainer;
 
-        public CashgameRepository(ApiConnection api, SqlServerStorageProvider db, ICacheContainer cacheContainer)
+        public CashgameRepository(ApiConnection api)
         {
-            _cashgameDb = new SqlCashgameDb(db);
             _api = api;
-            _cacheContainer = cacheContainer;
         }
 
         public DetailedCashgame GetDetailedById(string id)
@@ -36,11 +30,6 @@ namespace Infrastructure.Storage.Repositories
             if(apiCashgames.Any())
                 return GetDetailedById(apiCashgames.First().Id);
             return null;
-        }
-
-        private IList<Cashgame> Get(IList<string> ids)
-        {
-            return _cacheContainer.GetAndStore(_cashgameDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
         }
 
         public IList<ListCashgame> List(string bunchId, int? year = null)
@@ -61,15 +50,10 @@ namespace Infrastructure.Storage.Repositories
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
-        public Cashgame GetByCheckpoint(string checkpointId)
-        {
-            var ids = _cashgameDb.FindByCheckpoint(checkpointId);
-            return Get(ids).FirstOrDefault();
-        }
-
         public IList<int> GetYears(string bunchId)
         {
-            return _cashgameDb.GetYears(bunchId);
+            var apiYears = _api.Get<IList<ApiYear>>(Url.CashgameYears(bunchId));
+            return apiYears.Select(o => o.Year).ToList();
         }
 
         public void Report(string cashgameId, string playerId, int stack)
@@ -100,15 +84,11 @@ namespace Infrastructure.Storage.Repositories
             _api.Delete(Url.Cashgame(id));
         }
 
-        public string Add(Bunch bunch, Cashgame cashgame)
+        public string Add(string bunchId, string locationId)
         {
-            return _cashgameDb.AddGame(bunch, cashgame);
-        }
-
-        public void Update(Cashgame cashgame)
-        {
-            _cashgameDb.UpdateGame(cashgame);
-            _cacheContainer.Remove<Cashgame>(cashgame.Id);
+            var addObject = new ApiAddCashgame(locationId);
+            var apiCashgame = _api.Post<ApiDetailedCashgame>(Url.CashgamesByBunch(bunchId), addObject);
+            return CreateDetailedCashgame(apiCashgame).Id;
         }
 
         public DetailedCashgame Update(string id, string locationId, string eventId)
@@ -188,6 +168,11 @@ namespace Infrastructure.Storage.Repositories
             throw new NotImplementedException();
         }
 
+        public void DeleteAction(string actionId)
+        {
+            throw new NotImplementedException();
+        }
+
         private class ApiUpdateCashgame
         {
             public string LocationId { get; }
@@ -197,6 +182,26 @@ namespace Infrastructure.Storage.Repositories
             {
                 LocationId = locationId;
                 EventId = eventId;
+            }
+        }
+
+        private class ApiAddCashgame
+        {
+            public string LocationId { get; }
+
+            public ApiAddCashgame(string locationId)
+            {
+                LocationId = locationId;
+            }
+        }
+
+        private class ApiYear
+        {
+            public int Year { get; }
+
+            public ApiYear(int year)
+            {
+                Year = year;
             }
         }
 

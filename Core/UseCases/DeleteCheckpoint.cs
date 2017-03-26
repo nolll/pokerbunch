@@ -1,29 +1,23 @@
-﻿using Core.Entities;
-using Core.Repositories;
+﻿using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class DeleteCheckpoint
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
 
-        public DeleteCheckpoint(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository)
+        public DeleteCheckpoint(ICashgameRepository cashgameRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
         }
 
         public Result Execute(Request request)
         {
-            var cashgame = _cashgameRepository.GetByCheckpoint(request.CheckpointId);
-            var checkpoint = cashgame.GetCheckpoint(request.CheckpointId);
-            var bunch = _bunchRepository.Get(cashgame.BunchId);
-            cashgame.DeleteCheckpoint(checkpoint);
-            _cashgameRepository.Update(cashgame);
+            var cashgame = _cashgameRepository.GetDetailedById(request.CashgameId);
+            var checkpoint = cashgame.GetAction(request.CheckpointId);
+            _cashgameRepository.DeleteAction(checkpoint.Id);
 
-            var gameIsRunning = cashgame.Status == GameStatus.Running;
-            return new Result(bunch.Id, gameIsRunning, cashgame.Id);
+            return new Result(cashgame.Bunch.Id, cashgame.IsRunning, cashgame.Id);
         }
 
         public class Request

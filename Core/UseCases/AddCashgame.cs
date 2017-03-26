@@ -1,26 +1,21 @@
-using Core.Entities;
 using Core.Repositories;
 
 namespace Core.UseCases
 {
     public class AddCashgame
     {
-        private readonly IBunchRepository _bunchRepository;
         private readonly ICashgameRepository _cashgameRepository;
         private readonly IEventRepository _eventRepository;
 
-        public AddCashgame(IBunchRepository bunchRepository, ICashgameRepository cashgameRepository, IEventRepository eventRepository)
+        public AddCashgame(ICashgameRepository cashgameRepository, IEventRepository eventRepository)
         {
-            _bunchRepository = bunchRepository;
             _cashgameRepository = cashgameRepository;
             _eventRepository = eventRepository;
         }
 
         public Result Execute(Request request)
         {
-            var bunch = _bunchRepository.Get(request.Slug);
-            var cashgame = new Cashgame(bunch.Id, request.LocationId, GameStatus.Running);
-            var cashgameId = _cashgameRepository.Add(bunch, cashgame);
+            var cashgameId = _cashgameRepository.Add(request.Slug, request.LocationId);
 
             if (!string.IsNullOrEmpty(request.EventId))
             {
