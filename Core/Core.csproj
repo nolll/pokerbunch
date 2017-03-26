@@ -82,7 +82,6 @@
     <Compile Include="Services\Globalization.cs" />
     <Compile Include="Services\GravatarService.cs" />
     <Compile Include="Services\Interfaces\IAdminService.cs" />
-    <Compile Include="Services\Interfaces\ICacheContainer.cs" />
     <Compile Include="Services\Interfaces\ICacheProvider.cs" />
     <Compile Include="Services\ResultFormatter.cs" />
     <Compile Include="Services\RoleHandler.cs" />

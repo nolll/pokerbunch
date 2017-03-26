@@ -6,7 +6,6 @@
         public static bool HandleErrors => GetBool("HandleErrors");
         public static bool UseAssets => GetBool("UseAssets");
         public static bool EnableAnalytics => GetBool("EnableAnalytics");
-        public static string ConnectionString => Get("SqlConnectionString");
         public static bool EnableApplicationInsights => GetBool("EnableApplicationInsights");
         public static string ApplicationInsightsKey => Get("ApplicationInsightsKey");
         public static string ApiHost => Get("ApiHost");

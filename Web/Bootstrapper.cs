@@ -1,5 +1,4 @@
 using Plumbing;
-using Web.Cache;
 
 namespace Web
 {
@@ -7,10 +6,9 @@ namespace Web
     {
         public UseCaseContainer UseCases { get; private set; }
 
-        public Bootstrapper(string connectionString, string apiUrl, string apiKey, string apiToken)
+        public Bootstrapper(string apiUrl, string apiKey, string apiToken)
         {
-            var cacheContainer = new CacheContainer(new AspNetCacheProvider());
-            var deps = new Dependencies(cacheContainer, connectionString, apiUrl, apiKey, apiToken);
+            var deps = new Dependencies(apiUrl, apiKey, apiToken);
             UseCases = new UseCaseContainer(deps);
         }
     }

@@ -1,7 +1,6 @@
 using Core.Repositories;
 using Core.Services;
 using Infrastructure;
-using Infrastructure.Storage;
 using Infrastructure.Storage.Repositories;
 using Infrastructure.Storage.Services;
 
@@ -9,13 +8,10 @@ namespace Plumbing
 {
     public class Dependencies
     {
-        private readonly string _connectionString;
         private readonly string _apiUrl;
         private readonly string _apiKey;
         private readonly string _apiToken;
-        private SqlServerStorageProvider _db;
         private ApiConnection _api;
-        private readonly ICacheContainer _cache;
 
         private ILocationRepository _locationRepository;
         private IBunchRepository _bunchRepository;
@@ -27,16 +23,13 @@ namespace Plumbing
         private ITokenRepository _tokenRepository;
         private IAdminService _adminService;
                 
-        public Dependencies(ICacheContainer cacheContainer, string connectionString, string apiUrl, string apiKey, string apiToken)
+        public Dependencies(string apiUrl, string apiKey, string apiToken)
         {
-            _cache = cacheContainer;
-            _connectionString = connectionString;
             _apiUrl = apiUrl;
             _apiKey = apiKey;
             _apiToken = apiToken;
         }
 
-        private SqlServerStorageProvider Db => _db ?? (_db = new SqlServerStorageProvider(_connectionString));
         private ApiConnection Api => _api ?? (_api = new ApiConnection(_apiUrl, _apiKey, _apiToken));
 
         public ILocationRepository LocationRepository => _locationRepository ?? (_locationRepository = new ApiLocationRepository(Api));
