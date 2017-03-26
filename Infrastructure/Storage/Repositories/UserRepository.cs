@@ -3,58 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Repositories;
-using Core.Services;
-using Infrastructure.Storage.SqlDb;
 using JetBrains.Annotations;
 
 namespace Infrastructure.Storage.Repositories
 {
     public class UserRepository : ApiRepository, IUserRepository
     {
-        private readonly SqlUserDb _userDb;
         private readonly ApiConnection _api;
-        private readonly ICacheContainer _cacheContainer;
 
-        public UserRepository(ApiConnection api, SqlServerStorageProvider db, ICacheContainer cacheContainer)
+        public UserRepository(ApiConnection api)
         {
-            _userDb = new SqlUserDb(db);
             _api = api;
-            _cacheContainer = cacheContainer;
         }
 
         public User GetById(string id)
         {
-            return _cacheContainer.GetAndStore(_userDb.Get, id, TimeSpan.FromMinutes(CacheTime.Long));
+            var apiUser = _api.Get<ApiUser>(Url.User(id));
+            return CreateUser(apiUser);
         }
 
-        public IList<User> Get(IList<string> ids)
-        {
-            return _cacheContainer.GetAndStore(_userDb.Get, ids, TimeSpan.FromMinutes(CacheTime.Long));
-        }
-        
         public IList<User> List()
         {
-            var ids = _userDb.Find();
-            return Get(ids);
+            var apiUsers = _api.Get<IList<ApiUser>>(Url.Bunches);
+            return apiUsers.Select(CreateUser).ToList();
         }
 
         public User GetByNameOrEmail(string nameOrEmail)
         {
-            var ids = _userDb.Find(nameOrEmail);
-            if (ids.Any())
-                return GetById(ids.First());
-            return null;
+            var apiUser = _api.Get<ApiUser>(Url.UserByName(nameOrEmail));
+            return CreateUser(apiUser);
         }
 
         public void Update(User user)
         {
-            _userDb.Update(user);
-            _cacheContainer.Remove<User>(user.Id);
+            var id = user.Id;
+            var postBunch = new ApiUser(user);
+            _api.Post<ApiUser>(Url.User(id), postBunch);
         }
 
         public string Add(User user, string password)
         {
-            return _userDb.Add(user);
+            var postBunch = new ApiUser(user);
+            var apiUser = _api.Post<ApiUser>(Url.Users, postBunch);
+            return apiUser.Id;
         }
 
         public void ChangePassword(string oldPassword, string newPassword, string repeat)
@@ -67,6 +58,41 @@ namespace Infrastructure.Storage.Repositories
         {
             var apiResetPassword = new ApiResetPassword(email);
             _api.Post(Url.ResetPassword, apiResetPassword);
+        }
+
+        private User CreateUser(ApiUser u)
+        {
+            return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, u.GlobalRole);
+        }
+
+        private class ApiUser
+        {
+            [UsedImplicitly]
+            public string Id { get; set; }
+            [UsedImplicitly]
+            public string UserName { get; set; }
+            [UsedImplicitly]
+            public string DisplayName { get; set; }
+            [UsedImplicitly]
+            public string RealName { get; set; }
+            [UsedImplicitly]
+            public string Email { get; set; }
+            [UsedImplicitly]
+            public Role GlobalRole { get; set; }
+
+            public ApiUser(User user)
+            {
+                Id = user.Id;
+                UserName = user.UserName;
+                DisplayName = user.DisplayName;
+                RealName = user.RealName;
+                Email = user.Email;
+                GlobalRole = user.GlobalRole;
+            }
+
+            public ApiUser()
+            {
+            }
         }
 
         public class ApiChangePassword

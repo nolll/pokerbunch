@@ -45,7 +45,7 @@ namespace Plumbing
         public ICashgameRepository CashgameRepository => _cashgameRepository ?? (_cashgameRepository = new CashgameRepository(Api, Db, _cache));
         public IEventRepository EventRepository => _eventRepository ?? (_eventRepository = new EventRepository(Api));
         public IPlayerRepository PlayerRepository => _playerRepository ?? (_playerRepository = new PlayerRepository(Api));
-        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(Api, Db, _cache));
+        public IUserRepository UserRepository => _userRepository ?? (_userRepository = new UserRepository(Api));
         public ITokenRepository TokenRepository => _tokenRepository ?? (_tokenRepository = new ApiTokenRepository(Api));
         public IAdminService AdminService => _adminService ?? (_adminService = new AdminService(Api));
     }
