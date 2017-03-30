@@ -8,6 +8,7 @@ namespace Infrastructure.ApiUrls
         public ApiUrl ChangePassword => new SimpleApiUrl("user/changepassword");
         public ApiUrl ResetPassword => new SimpleApiUrl("user/resetpassword");
 
+        public ApiUrl User() => new SimpleApiUrl($"user");
         public ApiUrl User(string id) => new SimpleApiUrl($"users/{id}");
         public ApiUrl UserByName(string userName) => new SimpleApiUrl($"userbyname/{userName}");
         public ApiUrl Users => new SimpleApiUrl("users");

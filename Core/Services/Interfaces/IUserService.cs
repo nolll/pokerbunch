@@ -5,6 +5,7 @@ namespace Core.Services
 {
     public interface IUserService
     {
+        User Current();
         User GetById(string id);
         IList<User> List();
         User GetByNameOrEmail(string nameOrEmail);

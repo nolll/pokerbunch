@@ -24,10 +24,15 @@ namespace Core.UseCases
 
         public Result Execute(UserBunchesRequest request)
         {
-            var user = _userService.GetByNameOrEmail(request.UserName);
-            var homegames = user != null ? _bunchService.ListForUser() : new List<SmallBunch>();
-            
-            return new Result(homegames);
+            var bunchList = GetBunchList(request.UserName);
+            return new Result(bunchList);
+        }
+
+        private IList<SmallBunch> GetBunchList(string userName)
+        {
+            if (userName == null)
+                return new List<SmallBunch>();
+            return _bunchService.ListForUser();
         }
 
         public class UserBunchesRequest

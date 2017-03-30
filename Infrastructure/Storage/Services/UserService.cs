@@ -15,6 +15,12 @@ namespace Infrastructure.Storage.Services
             _api = api;
         }
 
+        public User Current()
+        {
+            var apiUser = _api.Get<ApiUser>(Url.User());
+            return CreateUser(apiUser);
+        }
+
         public User GetById(string id)
         {
             var apiUser = _api.Get<ApiUser>(Url.User(id));
