@@ -17,13 +17,15 @@ namespace Infrastructure.Storage.Services
 
         public Player Get(string id)
         {
-            var apiPlayer = _api.Get<ApiPlayer>(Url.Player(id));
+            var url = Url.Player(id);
+            var apiPlayer = _api.Get<ApiPlayer>(url);
             return CreatePlayer(apiPlayer);
         }
 
         public IList<Player> List(string bunchId)
         {
-            var apiPlayers = _api.Get<IList<ApiPlayer>>(Url.PlayersByBunch(bunchId));
+            var url = Url.PlayersByBunch(bunchId);
+            var apiPlayers = _api.Get<IList<ApiPlayer>>(url);
             return apiPlayers.Select(CreatePlayer).ToList();
         }
         
@@ -47,7 +49,7 @@ namespace Infrastructure.Storage.Services
 
         private Player CreatePlayer(ApiPlayer l)
         {
-            return new Player(l.BunchId, l.Id, l.UserId, l.DisplayName, (Role)l.RoleId, l.Color);
+            return new Player(l.BunchId, l.Id, l.UserId, l.Name, (Role)l.RoleId, l.Color);
         }
 
         private class ApiPlayer
@@ -59,17 +61,17 @@ namespace Infrastructure.Storage.Services
             [UsedImplicitly]
             public string UserId { get; set; }
             [UsedImplicitly]
-            public string DisplayName { get; set; }
+            public string Name { get; set; }
             [UsedImplicitly]
             public int RoleId { get; set; }
             [UsedImplicitly]
             public string Color { get; set; }
 
-            public ApiPlayer(string bunchId, string userId, string displayName, int roleId, string color)
+            public ApiPlayer(string bunchId, string userId, string name, int roleId, string color)
             {
                 BunchId = bunchId;
                 UserId = userId;
-                DisplayName = displayName;
+                Name = name;
                 RoleId = roleId;
                 Color = color;
             }
