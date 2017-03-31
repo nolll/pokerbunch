@@ -44,7 +44,7 @@ namespace Web.Controllers
         public void SignIn(string userName, string token, bool createPersistentCookie)
         {
             var currentTime = DateTime.UtcNow;
-            var expires = currentTime.AddYears(100);
+            var expires = currentTime.AddDays(365);
 
             var authTicket = new FormsAuthenticationTicket(
                 AuthVersion,
