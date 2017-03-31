@@ -29,6 +29,12 @@ namespace Infrastructure
             return JsonConvert.DeserializeObject<T>(json);
         }
 
+        public T Get<T>(string token, ApiUrl apiUrl)
+        {
+            var json = ReadJson(token, apiUrl.Url);
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+
         public void Post(ApiUrl apiUrl, object data = null)
         {
             PostJson(apiUrl.Url, data);
@@ -54,7 +60,16 @@ namespace Infrastructure
 
         private string ReadJson(string apiUrl)
         {
-            using (var client = Client)
+            using (var client = GetClient())
+            {
+                var response = client.GetAsync(apiUrl).Result;
+                return ReadResponse(response);
+            }
+        }
+
+        private string ReadJson(string token, string apiUrl)
+        {
+            using (var client = GetClient(token))
             {
                 var response = client.GetAsync(apiUrl).Result;
                 return ReadResponse(response);
@@ -63,7 +78,7 @@ namespace Infrastructure
 
         private string PostJson(string apiUrl, object data)
         {
-            using (var client = Client)
+            using (var client = GetClient())
             {
                 var content = GetJsonContent(data);
                 var response = client.PostAsync(apiUrl, content).Result;
@@ -73,7 +88,7 @@ namespace Infrastructure
 
         private string PutJson(string apiUrl, object data)
         {
-            using (var client = Client)
+            using (var client = GetClient())
             {
                 var content = GetJsonContent(data);
                 var response = client.PutAsync(apiUrl, content).Result;
@@ -83,14 +98,15 @@ namespace Infrastructure
 
         private string DeleteJson(string apiUrl)
         {
-            using (var client = Client)
+            using (var client = GetClient())
             {
                 var response = client.DeleteAsync(apiUrl).Result;
                 return ReadResponse(response);
             }
         }
 
-        private BearerClient Client => new BearerClient(_url, _token);
+        private BearerClient GetClient() => new BearerClient(_url, _token);
+        private BearerClient GetClient(string token) => new BearerClient(_url, token);
 
         private string ReadResponse(HttpResponseMessage response)
         {
@@ -140,13 +156,8 @@ namespace Infrastructure
             [UsedImplicitly]
             public string Message { get; set; }
         }
-
-        public string GetToken(string userName, string password)
-        {
-            return SignIn(userName, password);
-        }
-
-        private string SignIn(string userName, string password)
+        
+        public string SignIn(string userName, string password)
         {
             using (var client = new SignInClient(_url))
             {

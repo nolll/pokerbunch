@@ -15,9 +15,9 @@ namespace Infrastructure.Storage.Services
             _api = api;
         }
 
-        public User Current()
+        public User Current(string token)
         {
-            var apiUser = _api.Get<ApiUser>(Url.User());
+            var apiUser = _api.Get<ApiUser>(token, Url.User());
             return CreateUser(apiUser);
         }
 
@@ -70,7 +70,7 @@ namespace Infrastructure.Storage.Services
             return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, u.GlobalRole);
         }
 
-        private class ApiUser
+        public class ApiUser
         {
             [UsedImplicitly]
             public string Id { get; set; }

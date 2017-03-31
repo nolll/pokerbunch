@@ -19,7 +19,7 @@ namespace Plumbing
         private IEventService _eventService;
         private IPlayerService _playerService;
         private IUserService _userService;
-        private ITokenService _tokenService;
+        private IAuthService _authService;
         private IAdminService _adminService;
                 
         public Dependencies(string apiUrl, string apiKey, string apiToken)
@@ -38,7 +38,7 @@ namespace Plumbing
         public IEventService EventService => _eventService ?? (_eventService = new EventService(Api));
         public IPlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(Api));
         public IUserService UserService => _userService ?? (_userService = new UserService(Api));
-        public ITokenService TokenService => _tokenService ?? (_tokenService = new TokenService(Api));
+        public IAuthService AuthService => _authService ?? (_authService = new AuthService(Api));
         public IAdminService AdminService => _adminService ?? (_adminService = new AdminService(Api));
     }
 }

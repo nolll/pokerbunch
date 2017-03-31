@@ -1,24 +1,24 @@
-using Core.Exceptions;
 using Core.Services;
 
 namespace Core.UseCases
 {
     public class Login
     {
-        private readonly ITokenService _tokenService;
+        private readonly IAuthService _authService;
+        private readonly IUserService _userService;
 
-        public Login(ITokenService tokenService)
+        public Login(IAuthService authService, IUserService userService)
         {
-            _tokenService = tokenService;
+            _authService = authService;
+            _userService = userService;
         }
 
         public Result Execute(Request request)
         {
-            var token = _tokenService.Get(request.LoginName, request.Password);
-            if(string.IsNullOrEmpty(token))
-                throw new LoginException();
+            var token = _authService.SignIn(request.LoginName, request.Password);
+            var user = _userService.Current(token);
 
-            return new Result(request.LoginName, token);
+            return new Result(user.UserName, token);
         }
 
         public class Request 

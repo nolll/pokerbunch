@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\App.cs" />
+    <Compile Include="Entities\AuthToken.cs" />
     <Compile Include="Entities\Checkpoints\BuyinCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
@@ -75,7 +76,7 @@
     <Compile Include="Services\Interfaces\IAppService.cs" />
     <Compile Include="Services\Interfaces\IEventService.cs" />
     <Compile Include="Services\Interfaces\ILocationService.cs" />
-    <Compile Include="Services\Interfaces\ITokenService.cs" />
+    <Compile Include="Services\Interfaces\IAuthService.cs" />
     <Compile Include="Services\ApplicationVersion.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />

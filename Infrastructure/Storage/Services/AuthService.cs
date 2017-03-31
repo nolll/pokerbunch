@@ -4,18 +4,18 @@ using Newtonsoft.Json;
 
 namespace Infrastructure.Storage.Services
 {
-    public class TokenService : ITokenService
+    public class AuthService : IAuthService
     {
         private readonly ApiConnection _api;
 
-        public TokenService(ApiConnection api)
+        public AuthService(ApiConnection api)
         {
             _api = api;
         }
 
-        public string Get(string userName, string password)
+        public string SignIn(string userNameOrPassword, string password)
         {
-            var responseString = _api.GetToken(userName, password);
+            var responseString = _api.SignIn(userNameOrPassword, password);
             var response = JsonConvert.DeserializeObject<SignInResponse>(responseString);
             return response.access_token;
         }
