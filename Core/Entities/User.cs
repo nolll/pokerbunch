@@ -8,8 +8,6 @@ namespace Core.Entities
         public string RealName { get; private set; }
         public string Email { get; private set; }
         public Role Role { get; }
-        public string EncryptedPassword { get; private set; }
-        public string Salt { get; private set; }
         public string CacheId => Id;
 
         public User(
@@ -18,9 +16,7 @@ namespace Core.Entities
             string displayName = null, 
             string realName = null, 
             string email = null, 
-            Role role = Role.Player,
-            string encryptedPassword = null,
-            string salt = null)
+            Role role = Role.Player)
 	    {
 	        Id = id;
 	        UserName = userName;
@@ -28,17 +24,9 @@ namespace Core.Entities
 	        RealName = realName ?? string.Empty;
 	        Email = email ?? string.Empty;
 	        Role = role;
-	        EncryptedPassword = encryptedPassword ?? string.Empty;
-	        Salt = salt ?? string.Empty;
 	    }
 
 	    public bool IsAdmin => Role == Role.Admin;
-
-        public void SetPassword(string encryptedPassword, string salt)
-        {
-            EncryptedPassword = encryptedPassword;
-            Salt = salt;
-        }
 	}
 
 }

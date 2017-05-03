@@ -30,9 +30,7 @@ namespace Core.UseCases
                 request.DisplayName,
                 request.RealName,
                 request.Email,
-                user.Role,
-                user.EncryptedPassword,
-                user.Salt);
+                user.Role);
         }
 
         public class Request

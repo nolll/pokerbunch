@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
@@ -73,7 +74,8 @@ namespace Infrastructure.Storage.Services
 
         private User CreateUser(ApiUser u)
         {
-            return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, u.Role);
+            var role = (Role)Enum.Parse(typeof(Role), u.Role, true);
+            return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, role);
         }
 
         public class ApiUser
@@ -89,7 +91,7 @@ namespace Infrastructure.Storage.Services
             [UsedImplicitly]
             public string Email { get; set; }
             [UsedImplicitly]
-            public Role Role { get; set; }
+            public string Role { get; set; }
             [UsedImplicitly]
             public string Password { get; set; }
 
@@ -100,7 +102,7 @@ namespace Infrastructure.Storage.Services
                 DisplayName = user.DisplayName;
                 RealName = user.RealName;
                 Email = user.Email;
-                Role = user.Role;
+                Role = user.Role.ToString();
                 Password = password;
             }
 
