@@ -73,7 +73,7 @@ namespace Infrastructure.Storage.Services
 
         private User CreateUser(ApiUser u)
         {
-            return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, u.GlobalRole);
+            return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, u.Role);
         }
 
         public class ApiUser
@@ -89,7 +89,7 @@ namespace Infrastructure.Storage.Services
             [UsedImplicitly]
             public string Email { get; set; }
             [UsedImplicitly]
-            public Role GlobalRole { get; set; }
+            public Role Role { get; set; }
             [UsedImplicitly]
             public string Password { get; set; }
 
@@ -100,7 +100,7 @@ namespace Infrastructure.Storage.Services
                 DisplayName = user.DisplayName;
                 RealName = user.RealName;
                 Email = user.Email;
-                GlobalRole = user.GlobalRole;
+                Role = user.Role;
                 Password = password;
             }
 

@@ -13,7 +13,7 @@ namespace Tests.Core.UseCases.AddUserTests
             Assert.AreEqual(DisplayName, Added.DisplayName);
             Assert.AreEqual("", Added.RealName);
             Assert.AreEqual(Email, Added.Email);
-            Assert.AreEqual(Role.Player, Added.GlobalRole);
+            Assert.AreEqual(Role.Player, Added.Role);
             Assert.AreEqual(Password, SentPassword);
         }
     }

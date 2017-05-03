@@ -27,7 +27,7 @@ namespace Tests.Core.UseCases.UserDetailsTests
             }
             else
             {
-                Mock<IUserService>().Setup(s => s.GetByNameOrEmail(_currentUserName)).Returns(new User(CurrentUserId, _currentUserName, globalRole: Role));
+                Mock<IUserService>().Setup(s => s.GetByNameOrEmail(_currentUserName)).Returns(new User(CurrentUserId, _currentUserName, role: Role));
                 Mock<IUserService>().Setup(s => s.GetByNameOrEmail(ViewUserName)).Returns(new User(ViewUserId, ViewUserName, DisplayName, RealName, Email, Role));
             }
         }
