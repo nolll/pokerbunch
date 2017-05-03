@@ -15,7 +15,7 @@ namespace Tests.Core.UseCases.CoreContextTests
 
         protected override void Setup()
         {
-            Mock<IUserService>().Setup(o => o.GetByNameOrEmail(UserName)).Returns(new User(UserId, UserName, DisplayName));
+            Mock<IUserService>().Setup(o => o.Current()).Returns(new User(UserId, UserName, DisplayName));
         }
 
         protected override void Execute()
