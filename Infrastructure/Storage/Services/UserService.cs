@@ -34,10 +34,10 @@ namespace Infrastructure.Storage.Services
             return CreateUser(apiUser);
         }
 
-        public IList<User> List()
+        public IList<ListUser> List()
         {
-            var apiUsers = _api.Get<IList<ApiUser>>(Url.Bunches);
-            return apiUsers.Select(CreateUser).ToList();
+            var apiUsers = _api.Get<IList<ApiListUser>>(Url.Users);
+            return apiUsers.Select(CreateListUser).ToList();
         }
 
         public User GetByNameOrEmail(string nameOrEmail)
@@ -78,6 +78,11 @@ namespace Infrastructure.Storage.Services
             return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, role);
         }
 
+        private ListUser CreateListUser(ApiListUser u)
+        {
+            return new ListUser(u.UserName, u.DisplayName);
+        }
+
         public class ApiUser
         {
             [UsedImplicitly]
@@ -107,6 +112,24 @@ namespace Infrastructure.Storage.Services
             }
 
             public ApiUser()
+            {
+            }
+        }
+
+        public class ApiListUser
+        {
+            [UsedImplicitly]
+            public string UserName { get; set; }
+            [UsedImplicitly]
+            public string DisplayName { get; set; }
+
+            public ApiListUser(User user)
+            {
+                UserName = user.UserName;
+                DisplayName = user.DisplayName;
+            }
+
+            public ApiListUser()
             {
             }
         }

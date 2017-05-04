@@ -8,7 +8,7 @@ namespace Core.Services
         User Current(string token);
         User Current();
         User GetById(string id);
-        IList<User> List();
+        IList<ListUser> List();
         User GetByNameOrEmail(string nameOrEmail);
         void Update(User user);
         string Add(User user, string password);

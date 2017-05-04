@@ -28,5 +28,4 @@ namespace Core.Entities
 
 	    public bool IsAdmin => Role == Role.Admin;
 	}
-
 }

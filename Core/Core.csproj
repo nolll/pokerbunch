@@ -49,6 +49,7 @@
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
     <Compile Include="Entities\Date.cs" />
     <Compile Include="Entities\Event.cs" />
+    <Compile Include="Entities\ListUser.cs" />
     <Compile Include="Entities\Location.cs" />
     <Compile Include="Entities\Money.cs" />
     <Compile Include="Entities\Time.cs" />

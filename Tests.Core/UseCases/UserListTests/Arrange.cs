@@ -20,10 +20,10 @@ namespace Tests.Core.UseCases.UserListTests
             Result = Subject.Execute();
         }
 
-        private IList<User> TwoUsers => new List<User>
+        private IList<ListUser> TwoUsers => new List<ListUser>
         {
-            new User(UserData.Id1, UserData.UserName1, UserData.DisplayName1),
-            new User(UserData.Id2, UserData.UserName2, UserData.DisplayName2),
+            new ListUser(UserData.UserName1, UserData.DisplayName1),
+            new ListUser(UserData.UserName2, UserData.DisplayName2),
         };
     }
 }
