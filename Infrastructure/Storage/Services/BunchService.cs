@@ -59,8 +59,9 @@ namespace Infrastructure.Storage.Services
         {
             var timezone = TimeZoneInfo.FindSystemTimeZoneById(b.Timezone);
             var currency = new Currency(b.CurrencySymbol, b.CurrencyLayout);
-            var role = ParseRole(b.Player.Role);
-            return new Bunch(b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role, b.Player.Id);
+            var role = ParseRole(b.Role);
+            var id = b.Player?.Id ?? null;
+            return new Bunch(b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role, id);
         }
 
         private SmallBunch ToSmallBunch(ApiSmallBunch b)
@@ -95,6 +96,8 @@ namespace Infrastructure.Storage.Services
             public int DefaultBuyin { get; set; }
             [UsedImplicitly]
             public ApiBunchPlayer Player { get; set; }
+            [UsedImplicitly]
+            public string Role { get; set; }
 
             public ApiBunch(Bunch b)
                 : base(b)
@@ -104,7 +107,8 @@ namespace Infrastructure.Storage.Services
                 CurrencySymbol = b.Currency.Symbol;
                 CurrencyLayout = b.Currency.Layout;
                 DefaultBuyin = b.DefaultBuyin;
-                Player = new ApiBunchPlayer(b);
+                Player = new ApiBunchPlayer();
+                Role = b.Role.ToString().ToLower();
             }
 
             public ApiBunch()
@@ -118,17 +122,6 @@ namespace Infrastructure.Storage.Services
             public string Id { get; set; }
             [UsedImplicitly]
             public string Name { get; set; }
-            [UsedImplicitly]
-            public string Role { get; set; }
-
-            public ApiBunchPlayer(Bunch b)
-            {
-                Role = b.Role.ToString().ToLower();
-            }
-
-            public ApiBunchPlayer()
-            {
-            }
         }
 
         private class ApiSmallBunch
