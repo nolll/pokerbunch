@@ -10,7 +10,7 @@ namespace Infrastructure.ApiUrls
 
         public ApiUrl User() => new SimpleApiUrl($"user");
         public ApiUrl User(string id) => new SimpleApiUrl($"users/{id}");
-        public ApiUrl UserByName(string userName) => new SimpleApiUrl($"userbyname/{userName}");
+        public ApiUrl UserByName(string userName) => new SimpleApiUrl($"users/{userName}");
         public ApiUrl Users => new SimpleApiUrl("users");
 
         public ApiUrl App(string id) => new SimpleApiUrl($"apps/{id}");
