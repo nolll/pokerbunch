@@ -5,7 +5,7 @@ namespace Tests.Core.UseCases.RunningCashgameTests
 {
     public class WithoutRunningGame : Arrange
     {
-        protected override bool ExecuteAutomatically => false;
+        protected override ExecuteMode ExecuteMode => ExecuteMode.Manual;
         protected override string BunchId => BunchIdWithoutRunningGame;
 
         [Test]

@@ -5,7 +5,7 @@ namespace Tests.Core.UseCases.AddCashgameFormTests
 {
     public class WithCurrentGame : Arrange
     {
-        protected override bool ExecuteAutomatically => false;
+        protected override ExecuteMode ExecuteMode => ExecuteMode.Manual;
         protected override string BunchId => BunchIdWithRunningGame;
 
         [Test]

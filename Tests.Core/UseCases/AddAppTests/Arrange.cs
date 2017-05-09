@@ -7,7 +7,7 @@ namespace Tests.Core.UseCases.AddAppTests
 {
     public abstract class Arrange : UseCaseTest<AddApp>
     {
-        protected override bool ExecuteAutomatically => false;
+        protected override ExecuteMode ExecuteMode => ExecuteMode.Manual;
         protected string AddedAppName;
         private const string GeneratedId = AppData.Id1;
 

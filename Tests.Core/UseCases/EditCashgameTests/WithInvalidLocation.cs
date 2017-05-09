@@ -5,7 +5,7 @@ namespace Tests.Core.UseCases.EditCashgameTests
 {
     public class WithInvalidLocation : Arrange
     {
-        protected override bool ExecuteAutomatically => false;
+        protected override ExecuteMode ExecuteMode => ExecuteMode.Manual;
         protected override string LocationId => InvalidLocationId;
 
         [Test]

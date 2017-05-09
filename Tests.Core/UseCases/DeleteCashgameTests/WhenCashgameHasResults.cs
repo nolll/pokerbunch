@@ -5,7 +5,7 @@ namespace Tests.Core.UseCases.DeleteCashgameTests
 {
     public class WhenCashgameHasResults : Arrange
     {
-        protected override bool ExecuteAutomatically => false;
+        protected override ExecuteMode ExecuteMode => ExecuteMode.Manual;
         protected override string Id => IdWithResults;
 
         [Test]

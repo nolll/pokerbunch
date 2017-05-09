@@ -5,7 +5,7 @@ namespace Tests.Core.UseCases.LoginTests
 {
     public class WhenExecuteWithUnknownUser : Arrange
     {
-        protected override bool ExecuteAutomatically => false;
+        protected override ExecuteMode ExecuteMode => ExecuteMode.Manual;
         protected override string LoginName => UnknownUser;
 
         [Test]

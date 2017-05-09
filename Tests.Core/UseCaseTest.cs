@@ -7,7 +7,7 @@ namespace Tests.Core
     {
         private Mocker _mocker;
         protected T Subject { get; private set; }
-        protected virtual bool ExecuteAutomatically => true;
+        protected virtual ExecuteMode ExecuteMode => ExecuteMode.Automatic;
 
         [SetUp]
         public void UseCaseSetup()
@@ -15,7 +15,8 @@ namespace Tests.Core
             _mocker = new Mocker();
             Subject = _mocker.New<T>();
             Setup();
-            if (ExecuteAutomatically) Execute();
+            if (ExecuteMode == ExecuteMode.Automatic)
+                Execute();
         }
 
         protected Mock<TM> Mock<TM>() where TM : class => _mocker.MockOf<TM>();
