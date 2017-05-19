@@ -30,7 +30,7 @@ namespace Infrastructure.Storage.Services
         public string Add(Location location)
         {
             var postLocation = new ApiLocation(location.Name, location.BunchId);
-            var apiLocation = _api.Post<ApiLocation>(Url.Locations, postLocation);
+            var apiLocation = _api.Post<ApiLocation>(Url.LocationAdd(location.BunchId), postLocation);
             return CreateLocation(apiLocation).Id;
         }
 
