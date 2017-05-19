@@ -15,12 +15,14 @@ namespace Infrastructure
         private readonly string _url;
         private readonly string _key;
         private readonly string _token;
+        private readonly bool _enableDetailedErrors;
 
-        public ApiConnection(string url, string key, string token)
+        public ApiConnection(string url, string key, string token, bool enableDetailedErrors)
         {
             _url = url;
             _key = key;
             _token = token;
+            _enableDetailedErrors = enableDetailedErrors;
         }
 
         public T Get<T>(ApiUrl apiUrl)
@@ -125,6 +127,8 @@ namespace Infrastructure
             var statusCode = response.StatusCode;
             if ((int) statusCode >= 200 && (int) statusCode < 300)
                 return;
+            if (_enableDetailedErrors)
+                throw new ApiConnectionException(response);
             if (statusCode == HttpStatusCode.Forbidden)
                 throw new AccessDeniedException();
             if (statusCode == HttpStatusCode.Unauthorized)
@@ -188,5 +192,19 @@ namespace Infrastructure
         {
             return new KeyValuePair<string, string>(key, value);
         }
+    }
+
+    public class ApiConnectionException : Exception
+    {
+        private readonly string _url;
+        private readonly string _errorCode;
+
+        public ApiConnectionException(HttpResponseMessage response)
+        {
+            _url = response.RequestMessage.RequestUri.ToString();
+            _errorCode = response.StatusCode.ToString();
+        }
+
+        public override string Message => $"Api Error {_errorCode}: {_url}";
     }
 }
