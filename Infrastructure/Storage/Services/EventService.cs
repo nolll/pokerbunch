@@ -30,7 +30,7 @@ namespace Infrastructure.Storage.Services
         public string Add(Event e)
         {
             var postEvent = new ApiEvent(e.Name, e.BunchId);
-            var apiEvent = _api.Post<ApiEvent>(Url.EventsByBunch(e.BunchId), postEvent);
+            var apiEvent = _api.Post<ApiEvent>(Url.EventAdd(e.BunchId), postEvent);
             return CreateEvent(apiEvent).Id;
         }
 
