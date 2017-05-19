@@ -128,34 +128,20 @@ namespace Infrastructure
             if ((int) statusCode >= 200 && (int) statusCode < 300)
                 return;
             if (_enableDetailedErrors)
-                throw new ApiConnectionException(response);
+                throw new ApiException(response);
             if (statusCode == HttpStatusCode.Forbidden)
                 throw new AccessDeniedException();
             if (statusCode == HttpStatusCode.Unauthorized)
                 throw new NotLoggedInException();
             if (statusCode == HttpStatusCode.NotFound)
-                throw new NotFoundException(GetErrorMessage(response, "Not found"));
+                throw new NotFoundException(ApiErrorMessage.Get(response, "Not found"));
             if (statusCode == HttpStatusCode.BadRequest)
-                throw new ValidationException(GetErrorMessage(response, "Validation error"));
+                throw new ValidationException(ApiErrorMessage.Get(response, "Validation error"));
             throw new Exception("Unknown error");
         }
 
-        private string GetErrorMessage(HttpResponseMessage response, string defaultMessage)
-        {
-            try
-            {
-                var jsonMessage = response.Content.ReadAsStringAsync().Result;
-                var messageObj = JsonConvert.DeserializeObject<ResponseMessage>(jsonMessage);
-                return messageObj.Message;
-            }
-            catch (Exception)
-            {
-                return defaultMessage;
-            }
-        }
-
         [UsedImplicitly]
-        private class ResponseMessage
+        public class ResponseMessage
         {
             [UsedImplicitly]
             public string Message { get; set; }
@@ -192,19 +178,5 @@ namespace Infrastructure
         {
             return new KeyValuePair<string, string>(key, value);
         }
-    }
-
-    public class ApiConnectionException : Exception
-    {
-        private readonly string _url;
-        private readonly string _errorCode;
-
-        public ApiConnectionException(HttpResponseMessage response)
-        {
-            _url = response.RequestMessage.RequestUri.ToString();
-            _errorCode = response.StatusCode.ToString();
-        }
-
-        public override string Message => $"Api Error {_errorCode}: {_url}";
     }
 }
