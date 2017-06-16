@@ -42,6 +42,12 @@ namespace Infrastructure.Storage.Services
 
         private Event CreateEvent(ApiEvent e)
         {
+            if (e.Location != null && e.StartDate != null)
+            {
+                var location = new SmallLocation(e.Location.Id, e.Location.Name);
+                var startDate = new Date(e.StartDate);
+                return new Event(e.Id, e.BunchId, e.Name, location, startDate);
+            }
             return new Event(e.Id, e.BunchId, e.Name);
         }
 
@@ -64,6 +70,8 @@ namespace Infrastructure.Storage.Services
             public string BunchId { get; set; }
             [UsedImplicitly]
             public string Name { get; set; }
+            [UsedImplicitly]
+            public string StartDate { get; set; }
             [UsedImplicitly]
             public ApiEventLocation Location { get; set; }
 

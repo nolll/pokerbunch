@@ -20,15 +20,23 @@ namespace Core.Entities
         {
         }
 
-        public string IsoString
+        public Date(string isoDate)
+            : this(DateTime.Parse(isoDate))
         {
-            get { return string.Format("{0}-{1}-{2}", Year.ToString("D4"), Month.ToString("D2"), Day.ToString("D2")); }
         }
 
-        public DateTime UtcMidninght
+        public string IsoString
         {
-            get { return new DateTime(Year, Month, Day, 0, 0, 0, DateTimeKind.Utc); }
+            get
+            {
+                var year = Year.ToString("D4");
+                var month = Month.ToString("D2");
+                var day = Day.ToString("D2");
+                return $"{year}-{month}-{day}";
+            }
         }
+
+        public DateTime UtcMidninght => new DateTime(Year, Month, Day, 0, 0, 0, DateTimeKind.Utc);
 
         public static Date Parse(string s)
         {
