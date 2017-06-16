@@ -20,8 +20,8 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
         protected override void Setup()
         {
             var bunch = BunchData.Bunch1(Role);
-            var playerThatIsUser = new Player(BunchData.Id1, IdForPlayerThatIsUser, UserData.Id1, PlayerData.Name1, Role, PlayerData.Color1);
-            var playerThatIsNotUser = new Player(BunchData.Id1, IdForPlayerThatIsNotUser, null, PlayerData.Name1, Role, PlayerData.Color1);
+            var playerThatIsUser = new Player(BunchData.Id1, IdForPlayerThatIsUser, UserData.Id1, UserData.UserName1, PlayerData.Name1, Role, PlayerData.Color1);
+            var playerThatIsNotUser = new Player(BunchData.Id1, IdForPlayerThatIsNotUser, null, null, PlayerData.Name1, Role, PlayerData.Color1);
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
             var user = new User(UserData.Id1, UserData.UserName1, "user-display-name", "user-real-name", "user1@example.com");
 

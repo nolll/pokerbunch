@@ -31,7 +31,7 @@ namespace Infrastructure.Storage.Services
         
         public string Add(Player player)
         {
-            var postPlayer = new ApiPlayer(player.BunchId, player.UserId, player.DisplayName, (int)player.Role, player.Color);
+            var postPlayer = new ApiPlayer(player.BunchId, player.UserId, player.UserName, player.DisplayName, (int)player.Role, player.Color);
             var apiLocation = _api.Post<ApiPlayer>(Url.PlayersByBunch(player.BunchId), postPlayer);
             return CreatePlayer(apiLocation).Id;
         }
@@ -47,9 +47,9 @@ namespace Infrastructure.Storage.Services
             _api.Post(Url.Invite(playerId), apiInvite);
         }
 
-        private Player CreatePlayer(ApiPlayer l)
+        private Player CreatePlayer(ApiPlayer p)
         {
-            return new Player(l.BunchId, l.Id, l.UserId, l.Name, (Role)l.RoleId, l.Color);
+            return new Player(p.BunchId, p.Id, p.UserId, p.UserName, p.Name, (Role)p.RoleId, p.Color);
         }
 
         private class ApiPlayer
@@ -61,16 +61,19 @@ namespace Infrastructure.Storage.Services
             [UsedImplicitly]
             public string UserId { get; set; }
             [UsedImplicitly]
+            public string UserName { get; set; }
+            [UsedImplicitly]
             public string Name { get; set; }
             [UsedImplicitly]
             public int RoleId { get; set; }
             [UsedImplicitly]
             public string Color { get; set; }
 
-            public ApiPlayer(string bunchId, string userId, string name, int roleId, string color)
+            public ApiPlayer(string bunchId, string userId, string userName, string name, int roleId, string color)
             {
                 BunchId = bunchId;
                 UserId = userId;
+                UserName = userName;
                 Name = name;
                 RoleId = roleId;
                 Color = color;

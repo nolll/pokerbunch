@@ -17,8 +17,8 @@ namespace Tests.Core.UseCases.DeletePlayerTests
 
         protected override void Setup()
         {
-            var playerThatHasNotPlayed = new Player(BunchData.Id1, IdForPlayerThatHasPlayed, null);
-            var playerThatHasPlayed = new Player(BunchData.Id1, IdForPlayerThatHasNotPlayed, null);
+            var playerThatHasNotPlayed = new Player(BunchData.Id1, IdForPlayerThatHasPlayed, null, null);
+            var playerThatHasPlayed = new Player(BunchData.Id1, IdForPlayerThatHasNotPlayed, null, null);
             var cashgames = CashgameData.TwoGamesOnSameYearWithTwoPlayers;
             var cashgameWithoutResults = new List<ListCashgame>();
 
