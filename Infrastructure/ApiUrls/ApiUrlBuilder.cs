@@ -23,8 +23,8 @@ namespace Infrastructure.ApiUrls
         public ApiUrl Join(string id) => new SimpleApiUrl($"bunches/{id}/join");
 
         public ApiUrl Location(string id) => new SimpleApiUrl($"locations/{id}");
-        public ApiUrl Locations => new SimpleApiUrl("locations");
-        public ApiUrl LocationByBunch(string id) => new SimpleApiUrl($"bunches/{id}/locations");
+        public ApiUrl LocationByBunch(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/locations");
+        public ApiUrl LocationAdd(string bunchId) => LocationByBunch(bunchId);
 
         public ApiUrl Cashgame(string id) => new SimpleApiUrl($"cashgames/{id}");
         public ApiUrl CashgamesByBunch(string bunchId, int? year = null) => new CashgamesByBunchUrl(bunchId, year);
@@ -39,6 +39,7 @@ namespace Infrastructure.ApiUrls
 
         public ApiUrl Event(string id) => new SimpleApiUrl($"events/{id}");
         public ApiUrl EventsByBunch(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/events");
+        public ApiUrl EventAdd(string bunchId) => EventsByBunch(bunchId);
 
         public ApiUrl Player(string id) => new SimpleApiUrl($"players/{id}");
         public ApiUrl PlayersByBunch(string bunchId) => new SimpleApiUrl($"bunches/{bunchId}/players");

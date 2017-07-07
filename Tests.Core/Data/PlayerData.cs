@@ -17,8 +17,8 @@ namespace Tests.Core.Data
 
         public static IList<Player> TwoPlayers = new List<Player>
         {
-            new Player(BunchData.Id1, Id1, null, Name1, Role.Player, Color1),
-            new Player(BunchData.Id1, Id2, null, Name2, Role.Player, Color2)
+            new Player(BunchData.Id1, Id1, null, null, Name1, Role.Player, Color1),
+            new Player(BunchData.Id1, Id2, null, null, Name2, Role.Player, Color2)
         };
     }
 }

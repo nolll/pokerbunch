@@ -11,8 +11,8 @@
         public static string ApiHost => Get("ApiHost");
         public static string ApiKey => Get("ApiKey");
         public static string EnvironmentName => Get("Environment");
-
         public static string ApiUrl => $"{ApiProtocol}://{ApiHost}";
+        public static bool DetailedErrorsForApi => GetBool("DetailedErrorsForApi");
 
         private static string ApiProtocol => HttpsForApi ? "https" : "http";
         private static bool HttpsForApi => GetBool("HttpsForApi");

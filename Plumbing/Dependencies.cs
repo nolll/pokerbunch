@@ -10,6 +10,7 @@ namespace Plumbing
         private readonly string _apiUrl;
         private readonly string _apiKey;
         private readonly string _apiToken;
+        private readonly bool _isDetailedErrorMessagesEnabled;
         private ApiConnection _api;
 
         private ILocationService _locationService;
@@ -22,14 +23,15 @@ namespace Plumbing
         private IAuthService _authService;
         private IAdminService _adminService;
                 
-        public Dependencies(string apiUrl, string apiKey, string apiToken)
+        public Dependencies(string apiUrl, string apiKey, string apiToken, bool isDetailedErrorMessagesEnabled)
         {
             _apiUrl = apiUrl;
             _apiKey = apiKey;
             _apiToken = apiToken;
+            _isDetailedErrorMessagesEnabled = isDetailedErrorMessagesEnabled;
         }
 
-        private ApiConnection Api => _api ?? (_api = new ApiConnection(_apiUrl, _apiKey, _apiToken));
+        private ApiConnection Api => _api ?? (_api = new ApiConnection(_apiUrl, _apiKey, _apiToken, _isDetailedErrorMessagesEnabled));
 
         public ILocationService LocationService => _locationService ?? (_locationService = new LocationService(Api));
         public IBunchService BunchService => _bunchService ?? (_bunchService = new BunchService(Api));

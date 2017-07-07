@@ -15,12 +15,14 @@ namespace Infrastructure
         private readonly string _url;
         private readonly string _key;
         private readonly string _token;
+        private readonly bool _enableDetailedErrors;
 
-        public ApiConnection(string url, string key, string token)
+        public ApiConnection(string url, string key, string token, bool enableDetailedErrors)
         {
             _url = url;
             _key = key;
             _token = token;
+            _enableDetailedErrors = enableDetailedErrors;
         }
 
         public T Get<T>(ApiUrl apiUrl)
@@ -125,33 +127,21 @@ namespace Infrastructure
             var statusCode = response.StatusCode;
             if ((int) statusCode >= 200 && (int) statusCode < 300)
                 return;
+            if (_enableDetailedErrors)
+                throw new ApiException(response);
             if (statusCode == HttpStatusCode.Forbidden)
                 throw new AccessDeniedException();
             if (statusCode == HttpStatusCode.Unauthorized)
                 throw new NotLoggedInException();
             if (statusCode == HttpStatusCode.NotFound)
-                throw new NotFoundException(GetErrorMessage(response, "Not found"));
+                throw new NotFoundException(ApiErrorMessage.Get(response, "Not found"));
             if (statusCode == HttpStatusCode.BadRequest)
-                throw new ValidationException(GetErrorMessage(response, "Validation error"));
+                throw new ValidationException(ApiErrorMessage.Get(response, "Validation error"));
             throw new Exception("Unknown error");
         }
 
-        private string GetErrorMessage(HttpResponseMessage response, string defaultMessage)
-        {
-            try
-            {
-                var jsonMessage = response.Content.ReadAsStringAsync().Result;
-                var messageObj = JsonConvert.DeserializeObject<ResponseMessage>(jsonMessage);
-                return messageObj.Message;
-            }
-            catch (Exception)
-            {
-                return defaultMessage;
-            }
-        }
-
         [UsedImplicitly]
-        private class ResponseMessage
+        public class ResponseMessage
         {
             [UsedImplicitly]
             public string Message { get; set; }

@@ -13,10 +13,11 @@ namespace Core.UseCases
 
         public Result Execute(Request request)
         {
-            var currentUser = _userService.GetByNameOrEmail(request.CurrentUserName);
-            var displayUser = _userService.GetByNameOrEmail(request.UserName);
+            var currentUser = _userService.Current();
+            var specified = _userService.GetByNameOrEmail(request.UserName);
 
-            var isViewingCurrentUser = displayUser.UserName == currentUser.UserName;
+            var isViewingCurrentUser = specified.UserName == currentUser.UserName;
+            var displayUser = isViewingCurrentUser ? currentUser : specified;
 
             var userName = displayUser.UserName;
             var displayName = displayUser.DisplayName;

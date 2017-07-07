@@ -27,13 +27,6 @@ namespace Tests.Core.UseCases.EventListTests
         }
 
         [Test]
-        public void EventList_EachItem_EndDateIsSet()
-        {
-            Assert.AreEqual(new Date(2001, 2, 2), Result.Events[0].EndDate);
-            Assert.AreEqual(new Date(2001, 1, 2), Result.Events[1].EndDate);
-        }
-
-        [Test]
         public void IdIsSet()
         {
             Assert.AreEqual(EventData.Id2, Result.Events[0].EventId);

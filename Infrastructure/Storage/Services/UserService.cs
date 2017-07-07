@@ -48,9 +48,9 @@ namespace Infrastructure.Storage.Services
 
         public void Update(User user)
         {
-            var id = user.Id;
+            var userName = user.UserName;
             var postUser = new ApiUser(user);
-            _api.Post<ApiUser>(Url.User(id), postUser);
+            _api.Post<ApiUser>(Url.User(userName), postUser);
         }
 
         public string Add(User user, string password)

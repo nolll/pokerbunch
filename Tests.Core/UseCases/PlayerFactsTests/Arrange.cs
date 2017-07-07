@@ -22,7 +22,7 @@ namespace Tests.Core.UseCases.PlayerFactsTests
         {
             var bunch = BunchData.Bunch1(Role.Player);
             var cashgames = Games;
-            var player = new Player(BunchId, PlayerId, null);
+            var player = new Player(BunchId, PlayerId, null, null);
 
             Mock<IBunchService>().Setup(o => o.Get(BunchId)).Returns(bunch);
             Mock<ICashgameService>().Setup(o => o.PlayerList(PlayerId)).Returns(cashgames);

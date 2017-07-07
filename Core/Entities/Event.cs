@@ -7,7 +7,6 @@ namespace Core.Entities
         public string Name { get; private set; }
         public SmallLocation Location { get; }
         public Date StartDate { get; }
-        public Date EndDate { get; }
         public string CacheId => Id;
 
         public Event(string id, string bunchId, string name)
@@ -17,17 +16,15 @@ namespace Core.Entities
             Name = name;
         }
 
-        public Event(string id, string bunchId, string name, SmallLocation location, Date startDate, Date endDate)
+        public Event(string id, string bunchId, string name, SmallLocation location, Date startDate)
             : this(id, bunchId, name)
         {
             Location = location;
             StartDate = startDate;
-            EndDate = endDate;
         }
 
-        public bool HasGames => HasLocation && HasStartDate && HasEndDate;
+        public bool HasGames => HasLocation && HasStartDate;
         private bool HasLocation => Location != null;
         private bool HasStartDate => !StartDate.IsNull;
-        private bool HasEndDate => !EndDate.IsNull;
     }
 }

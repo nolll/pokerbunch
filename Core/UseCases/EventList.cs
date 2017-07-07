@@ -27,7 +27,7 @@ namespace Core.UseCases
         private static Item CreateEventItem(Event e)
         {
             if(e.HasGames)
-                return new Item(e.Id, e.Name, e.Location.Name, e.StartDate, e.EndDate);
+                return new Item(e.Id, e.Name, e.Location.Name, e.StartDate);
             return new Item(e.Id, e.Name);
         }
 
@@ -57,7 +57,6 @@ namespace Core.UseCases
             public string Name { get; private set; }
             public string Location { get; private set; }
             public Date StartDate { get; private set; }
-            public Date EndDate { get; private set; }
             public bool HasGames { get; private set; }
 
             public Item(string id, string name)
@@ -67,12 +66,11 @@ namespace Core.UseCases
                 HasGames = false;
             }
             
-            public Item(string id, string name, string location, Date startDate, Date endDate)
+            public Item(string id, string name, string location, Date startDate)
                 : this(id, name)
             {
                 Location = location;
                 StartDate = startDate;
-                EndDate = endDate;
                 HasGames = true;
             }
         }

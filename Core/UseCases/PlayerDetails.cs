@@ -23,7 +23,7 @@ namespace Core.UseCases
         {
             var player = _playerService.Get(request.PlayerId);
             var bunch = _bunchService.Get(player.BunchId);
-            var user = _userService.GetById(player.UserId);
+            var user = player.IsUser ? _userService.GetByNameOrEmail(player.UserName) : null;
             var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
             var cashgames = _cashgameService.PlayerList(player.Id);
             var hasPlayed = cashgames.Any();

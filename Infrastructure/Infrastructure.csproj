@@ -56,6 +56,8 @@
     </Compile>
     <Compile Include="ApiClient.cs" />
     <Compile Include="ApiConnection.cs" />
+    <Compile Include="ApiErrorMessage.cs" />
+    <Compile Include="ApiException.cs" />
     <Compile Include="ApiUrls\ApiUrl.cs" />
     <Compile Include="ApiUrls\ApiUrlBuilder.cs" />
     <Compile Include="ApiUrls\SimpleApiUrl.cs" />
