@@ -11,6 +11,6 @@ namespace Web.Urls.SiteUrls
             _slug = slug;
         }
 
-        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.RunningPlayersJson, RouteParam.Slug(_slug));
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.RunningPlayersJson, RouteReplace.Slug(_slug));
     }
 }

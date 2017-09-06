@@ -11,6 +11,6 @@ namespace Web.Urls.SiteUrls
             _userName = userName;
         }
 
-        protected override string Input => RouteParams.Replace(WebRoutes.User.Details, RouteParam.UserName(_userName));
+        protected override string Input => RouteParams.Replace(WebRoutes.User.Details, RouteReplace.UserName(_userName));
     }
 }

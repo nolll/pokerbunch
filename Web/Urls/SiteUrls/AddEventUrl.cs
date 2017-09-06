@@ -11,6 +11,6 @@ namespace Web.Urls.SiteUrls
             _slug = slug;
         }
 
-        protected override string Input => RouteParams.Replace(WebRoutes.Event.Add, RouteParam.Slug(_slug));
+        protected override string Input => RouteParams.Replace(WebRoutes.Event.Add, RouteReplace.Slug(_slug));
     }
 }

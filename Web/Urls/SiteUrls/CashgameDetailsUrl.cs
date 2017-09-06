@@ -11,6 +11,6 @@ namespace Web.Urls.SiteUrls
             _id = id;
         }
 
-        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Details, RouteParam.Id(_id));
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Details, RouteReplace.Id(_id));
     }
 }

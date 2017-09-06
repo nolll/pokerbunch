@@ -13,6 +13,6 @@ namespace Web.Urls.SiteUrls
             _id = id;
         }
 
-        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.CheckpointEdit, RouteParam.CashgameId(_cashgameId), RouteParam.Id(_id));
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.CheckpointEdit, RouteReplace.CashgameId(_cashgameId), RouteReplace.Id(_id));
     }
 }

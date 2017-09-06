@@ -2,13 +2,13 @@
 {
     public class SiteSettings : CommonSettings
     {
-        public static string SiteHost => Get("SiteHost");
+        public static string SiteHost => Get("SiteHost") ?? "pokerbunch.com";
         public static bool HandleErrors => GetBool("HandleErrors");
         public static bool UseAssets => GetBool("UseAssets");
         public static bool EnableAnalytics => GetBool("EnableAnalytics");
         public static bool EnableApplicationInsights => GetBool("EnableApplicationInsights");
         public static string ApplicationInsightsKey => Get("ApplicationInsightsKey");
-        public static string ApiHost => Get("ApiHost");
+        public static string ApiHost => Get("ApiHost") ?? "api.pokerbunch.com";
         public static string ApiKey => Get("ApiKey");
         public static string EnvironmentName => Get("Environment");
         public static string ApiUrl => $"{ApiProtocol}://{ApiHost}";

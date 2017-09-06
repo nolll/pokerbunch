@@ -7,7 +7,6 @@ namespace Core.UseCases
     {
         private readonly IBunchService _bunchService;
         private readonly ICashgameService _cashgameService;
-        private readonly IPlayerService _playerService;
 
         public BunchMatrix(IBunchService bunchService, ICashgameService cashgameService, IPlayerService playerService)
             : base(playerService)

@@ -11,6 +11,6 @@ namespace Web.Urls.SiteUrls
             _id = id;
         }
 
-        protected override string Input => RouteParams.Replace(WebRoutes.Player.InviteConfirmation, RouteParam.Id(_id));
+        protected override string Input => RouteParams.Replace(WebRoutes.Player.InviteConfirmation, RouteReplace.Id(_id));
     }
 }

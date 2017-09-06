@@ -13,6 +13,6 @@ namespace Web.Urls.SiteUrls
             _playerId = playerId;
         }
         
-        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Action, RouteParam.CashgameId(_cashgameId), RouteParam.PlayerId(_playerId));
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Action, RouteReplace.CashgameId(_cashgameId), RouteReplace.PlayerId(_playerId));
     }
 }

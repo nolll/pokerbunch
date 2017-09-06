@@ -11,6 +11,6 @@ namespace Web.Urls.SiteUrls
             _slug = slug;
         }
 
-        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Buyin, RouteParam.Slug(_slug));
+        protected override string Input => RouteParams.Replace(WebRoutes.Cashgame.Buyin, RouteReplace.Slug(_slug));
     }
 }

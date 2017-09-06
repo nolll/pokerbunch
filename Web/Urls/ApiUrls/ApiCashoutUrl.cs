@@ -12,6 +12,6 @@ namespace Web.Urls.ApiUrls
             _slug = slug;
         }
 
-        protected override string Input => RouteParams.Replace(ApiRoutes.Cashout, RouteParam.Slug(_slug));
+        protected override string Input => RouteParams.Replace(ApiRoutes.Cashout, RouteReplace.Slug(_slug));
     }
 }

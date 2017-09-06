@@ -14,7 +14,7 @@ namespace Web.Urls.SiteUrls
         }
 
         protected override string Input => _year.HasValue ? InputWithYear : InputWithoutYear;
-        private string InputWithYear => RouteParams.Replace(WebRoutes.Cashgame.FactsWithYear, RouteParam.Slug(_slug), RouteParam.Year(_year.Value));
-        private string InputWithoutYear => RouteParams.Replace(WebRoutes.Cashgame.Facts, RouteParam.Slug(_slug));
+        private string InputWithYear => RouteParams.Replace(WebRoutes.Cashgame.FactsWithYear, RouteReplace.Slug(_slug), RouteReplace.Year(_year.Value));
+        private string InputWithoutYear => RouteParams.Replace(WebRoutes.Cashgame.Facts, RouteReplace.Slug(_slug));
     }
 }
