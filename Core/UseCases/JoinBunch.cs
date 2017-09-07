@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Core.Entities;
-using Core.Exceptions;
-using Core.Services;
-using ValidationException = Core.Exceptions.ValidationException;
+﻿using Core.Services;
 
 namespace Core.UseCases
 {
