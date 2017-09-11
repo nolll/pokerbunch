@@ -19,7 +19,7 @@ namespace Tests.Web.ServiceTests
         {
             var result = new HomeUrl();
 
-            Assert.AreEqual("https://pokerbunch.com/", result.GetAbsoluteInTest());
+            Assert.AreEqual("https://pokerbunch.com/", result.Absolute);
         }
 
         [Test]
@@ -485,14 +485,6 @@ namespace Tests.Web.ServiceTests
             var result = new RunningCashgameUrl(slug);
 
             Assert.AreEqual("/cashgame/running/a", result.Relative);
-        }
-    }
-
-    public static class UrlExtensionsInTest
-    {
-        public static string GetAbsoluteInTest(this Url url)
-        {
-            return AbsoluteUrl.Create(url, "pokerbunch.com", "api.pokerbunch.com");
         }
     }
 }

@@ -233,7 +233,6 @@
     <Compile Include="Controllers\EventListController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Environment.cs" />
-    <Compile Include="Extensions\WebUrlExtensions.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemJsonModel.cs" />
