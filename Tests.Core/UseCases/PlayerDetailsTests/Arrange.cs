@@ -30,7 +30,7 @@ namespace Tests.Core.UseCases.PlayerDetailsTests
             Mock<IPlayerService>().Setup(o => o.Get(IdForPlayerThatIsNotUser)).Returns(playerThatIsNotUser);
             Mock<ICashgameService>().Setup(o => o.PlayerList(IdForPlayerThatHasPlayedGames)).Returns(cashgames);
             Mock<ICashgameService>().Setup(o => o.PlayerList(IdForPlayerThatHasNotPlayedGames)).Returns(new List<ListCashgame>());
-            Mock<IUserService>().Setup(o => o.GetById(UserData.Id1)).Returns(user);
+            Mock<IUserService>().Setup(o => o.GetByNameOrEmail(UserData.UserName1)).Returns(user);
         }
 
         protected override void Execute()
