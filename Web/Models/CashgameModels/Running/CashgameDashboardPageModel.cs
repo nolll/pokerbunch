@@ -1,5 +1,6 @@
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -8,6 +9,7 @@ namespace Web.Models.CashgameModels.Running
     public class CashgameDashboardPageModel : PageModel, IRunningCashgamePageModel
     {
         public string GameDataUrl { get; }
+        public SpinnerModel SpinnerModel => new SpinnerModel();
 
         public CashgameDashboardPageModel(BaseContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
             : base(contextResult)

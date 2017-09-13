@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.CashgameModels.Chart.CashgameChartPageModel
 
@@ -7,7 +8,7 @@
 
 <div class="block gutter">
     <div data-require="cashgame-chart">
-        @Html.Partial("~/Views/Misc/Spinner.cshtml")
+        @Html.RenderModel(Model.SpinnerModel)
         <script type="application/json">
             @Html.Raw(Model.ChartJson)
         </script>

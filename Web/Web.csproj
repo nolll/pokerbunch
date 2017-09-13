@@ -239,6 +239,7 @@
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\ToplistTableJsonModel.cs" />
     <Compile Include="Models\IViewModel.cs" />
+    <Compile Include="Models\MiscModels\SpinnerModel.cs" />
     <Compile Include="Routes\ApiRoutes.cs" />
     <Compile Include="Routes\WebRoutes.cs" />
     <Compile Include="Security\CustomAuthorizeAttribute.cs" />

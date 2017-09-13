@@ -1,6 +1,7 @@
 using Core.Services;
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Services;
 using Web.Urls.SiteUrls;
@@ -20,6 +21,7 @@ namespace Web.Models.CashgameModels.Details
         public string EditUrl { get; }
         public string ChartJson { get; }
         public CashgameDetailsTableModel CashgameDetailsTableModel { get; }
+        public SpinnerModel SpinnerModel { get; }
 
         public CashgameDetailsPageModel(BunchContext.Result contextResult, CashgameDetails.Result detailsResult, CashgameDetailsChart.Result cashgameDetailsChartResult)
             : base(contextResult)

@@ -1,9 +1,10 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.UserModels.List
 {
-    public class UserListItemModel
+    public class UserListItemModel : IViewModel
     {
         public string Name { get; private set; }
         public string Url { get; private set; }
@@ -12,6 +13,11 @@ namespace Web.Models.UserModels.List
         {
             Name = userListItem.DisplayName;
             Url = new UserDetailsUrl(userListItem.UserName).Relative;
+        }
+
+        public View GetView()
+        {
+            return new View("UserList/Item");
         }
     }
 }

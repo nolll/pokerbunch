@@ -1,6 +1,8 @@
+using Web.Extensions;
+
 namespace Web.Models.MiscModels
 {
-    public class AvatarModel
+    public class AvatarModel : IViewModel
     {
         public string AvatarUrl { get; }
         public bool AvatarEnabled => !string.IsNullOrEmpty(AvatarUrl);
@@ -13,6 +15,11 @@ namespace Web.Models.MiscModels
         public AvatarModel(string avatarUrl)
         {
             AvatarUrl = avatarUrl;
+        }
+
+        public View GetView()
+        {
+            return new View("~/Views/Misc/Avatar.cshtml");
         }
     }
 }
