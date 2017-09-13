@@ -12,7 +12,7 @@ namespace Web.Controllers
         {
             var context = GetAppContext();
             var model = new ApiDocsPageModel(context);
-            return View("~/Views/Pages/ApiDocs/ApiDocs.cshtml", model);
+            return View(model);
         }
     }
 }

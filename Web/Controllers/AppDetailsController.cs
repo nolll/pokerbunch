@@ -14,7 +14,7 @@ namespace Web.Controllers
             var context = GetAppContext();
             var appDetailsResult = UseCase.AppDetails.Execute(new AppDetails.Request(id));
             var model = new AppDetailsPageModel(context, appDetailsResult);
-            return View("~/Views/Pages/AppDetails/AppDetails.cshtml", model);
+            return View(model);
         }
     }
 }

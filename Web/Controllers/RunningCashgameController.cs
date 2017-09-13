@@ -20,7 +20,7 @@ namespace Web.Controllers
             {
                 var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
-                return View("~/Views/Pages/RunningCashgame/RunningPage.cshtml", model);
+                return View(model);
             }
             catch (CashgameNotRunningException)
             {
@@ -37,7 +37,7 @@ namespace Web.Controllers
             {
                 var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
                 var model = new CashgameDashboardPageModel(contextResult, runningCashgameResult);
-                return View("~/Views/Pages/RunningCashgame/DashboardPage.cshtml", model);
+                return View(model);
             }
             catch (CashgameNotRunningException)
             {

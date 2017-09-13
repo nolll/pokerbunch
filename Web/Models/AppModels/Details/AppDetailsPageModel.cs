@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -21,5 +22,10 @@ namespace Web.Models.AppModels.Details
         }
 
         public override string BrowserTitle => "All Details";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AppDetails/AppDetails.cshtml");
+        }
     }
 }

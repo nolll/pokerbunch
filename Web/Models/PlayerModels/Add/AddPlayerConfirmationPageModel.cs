@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.Add
@@ -14,5 +15,10 @@ namespace Web.Models.PlayerModels.Add
         }
 
         public override string BrowserTitle => "Player Added";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AddPlayer/AddConfirmation.cshtml");
+        }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add
@@ -30,5 +31,10 @@ namespace Web.Models.HomegameModels.Add
         }
 
         public override string BrowserTitle => "Create Bunch";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AddBunch/AddBunch.cshtml");
+        }
     }
 }

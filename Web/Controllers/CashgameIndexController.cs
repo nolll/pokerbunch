@@ -17,7 +17,7 @@ namespace Web.Controllers
             var statusResult = UseCase.CashgameStatus.Execute(new CashgameStatus.Request(slug));
             var currentRankingsResult = UseCase.CurrentRankings.Execute(new CurrentRankings.Request(slug));
             var model = new CashgameIndexPageModel(contextResult, statusResult, currentRankingsResult);
-            return View("~/Views/Pages/CashgameIndex/CashgameIndex.cshtml", model);
+            return View(model);
         }
     }
 }

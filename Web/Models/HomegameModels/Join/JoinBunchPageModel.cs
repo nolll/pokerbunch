@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Join
@@ -16,5 +17,10 @@ namespace Web.Models.HomegameModels.Join
         }
 
         public override string BrowserTitle => "Join Bunch";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/JoinBunch/Join.cshtml");
+        }
     }
 }

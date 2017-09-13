@@ -1,5 +1,6 @@
 using Core.UseCases;
 using Web.Components.PlayerModels.Badges;
+using Web.Extensions;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Facts;
@@ -36,5 +37,10 @@ namespace Web.Models.PlayerModels.Details
         }
 
         public override string BrowserTitle => "Player Details";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/PlayerDetails/Details.cshtml");
+        }
     }
 }

@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.ApiUrls;
 using Web.Urls.SiteUrls;
@@ -29,5 +30,10 @@ namespace Web.Models.AppModels.Details
         }
 
         public override string BrowserTitle => "Api Documentation";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/ApiDocs/ApiDocs.cshtml");
+        }
     }
 }

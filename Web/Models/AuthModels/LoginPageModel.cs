@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -25,5 +26,10 @@ namespace Web.Models.AuthModels
         }
 
         public override string BrowserTitle => "Login";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Login/Login.cshtml");
+        }
     }
 }

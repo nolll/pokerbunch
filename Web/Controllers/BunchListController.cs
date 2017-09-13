@@ -13,7 +13,7 @@ namespace Web.Controllers
             var context = GetAppContext();
             var bunchListResult = UseCase.BunchList.Execute();
             var model = new BunchListPageModel(context, bunchListResult);
-            return View("~/Views/Pages/BunchList/BunchList.cshtml", model);
+            return View(model);
         }
     }
 }

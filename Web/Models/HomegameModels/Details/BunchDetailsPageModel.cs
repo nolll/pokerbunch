@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -24,11 +25,16 @@ namespace Web.Models.HomegameModels.Details
             ShowEditLink = bunchDetails.CanEdit;
         }
 
-        public override string BrowserTitle => "Bunch Details";
-
-        private string FormatHouseRules(string houseRules)
+        private static string FormatHouseRules(string houseRules)
         {
             return houseRules?.Trim().Replace("\n\r", "<br />\n\r");
+        }
+
+        public override string BrowserTitle => "Bunch Details";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/BunchDetails/BunchDetails.cshtml");
         }
     }
 }

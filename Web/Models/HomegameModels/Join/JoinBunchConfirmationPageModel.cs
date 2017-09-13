@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -17,5 +18,10 @@ namespace Web.Models.HomegameModels.Join
         }
 
         public override string BrowserTitle => "Welcome";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/JoinBunch/Confirmation.cshtml");
+        }
     }
 }

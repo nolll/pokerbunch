@@ -12,10 +12,8 @@ namespace Web.Controllers
         public ActionResult SendEmail()
         {
             var result = UseCase.TestEmail.Execute();
-
             var model = new EmailModel(result);
-
-            return View("Email", model);
+            return View(model);
         }
 
         [Authorize]
@@ -24,8 +22,7 @@ namespace Web.Controllers
         {
             var result = UseCase.ClearCache.Execute();
             var model = new ClearCacheModel(result.Message);
-
-            return View("ClearCache", model);
+            return View(model);
         }
     }
 }

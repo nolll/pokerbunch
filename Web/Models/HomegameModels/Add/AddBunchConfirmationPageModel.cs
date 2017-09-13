@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add
@@ -11,5 +12,10 @@ namespace Web.Models.HomegameModels.Add
         }
 
         public override string BrowserTitle => "Bunch Created";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AddBunch/AddBunchConfirmation.cshtml");
+        }
     }
 }

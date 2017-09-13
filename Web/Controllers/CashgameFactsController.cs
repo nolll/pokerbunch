@@ -18,7 +18,7 @@ namespace Web.Controllers
             var factsResult = UseCase.CashgameFacts.Execute(new CashgameFacts.Request(slug, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);
-            return View("~/Views/Pages/CashgameFacts/FactsPage.cshtml", model);
+            return View(model);
         }
     }
 }

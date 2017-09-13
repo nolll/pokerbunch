@@ -16,7 +16,7 @@ namespace Web.Controllers
             var contextResult = GetBunchContext(actionsResult.Slug);
             var actionsChartResult = UseCase.ActionsChart.Execute(new ActionsChart.Request(cashgameId, playerId));
             var model = new ActionPageModel(contextResult, actionsResult, actionsChartResult);
-            return View("~/Views/Pages/CashgameAction/Action.cshtml", model);
+            return View(model);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.PlayerModels.Invite
@@ -11,5 +12,10 @@ namespace Web.Models.PlayerModels.Invite
 	    }
 
         public override string BrowserTitle => "Player Invited";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml");
+        }
     }
 }

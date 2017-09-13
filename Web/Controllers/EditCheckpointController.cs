@@ -41,7 +41,7 @@ namespace Web.Controllers
             var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(cashgameId, id));
             var contextResult = GetBunchContext(editCheckpointFormResult.Slug);
             var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
-            return View("~/Views/Pages/EditCheckpoint/Edit.cshtml", model);
+            return View(model);
         }
     }
 }

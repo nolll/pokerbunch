@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.HomegameModels.List;
 using Web.Models.NavigationModels;
 using Web.Models.PageBaseModels;
@@ -29,5 +30,10 @@ namespace Web.Models.HomeModels
         }
 
         public override string BrowserTitle => "Poker Bunch";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/Home/Index.cshtml");
+        }
     }
 }

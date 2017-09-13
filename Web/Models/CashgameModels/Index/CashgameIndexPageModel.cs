@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.CashgameModels.CurrentRankings;
 using Web.Models.CashgameModels.Status;
 using Web.Models.PageBaseModels;
@@ -20,5 +21,10 @@ namespace Web.Models.CashgameModels.Index
         }
 
         public override string BrowserTitle => "Cashgames";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/CashgameIndex/CashgameIndex.cshtml");
+        }
     }
 }

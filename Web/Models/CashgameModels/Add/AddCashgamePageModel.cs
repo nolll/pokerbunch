@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Add
@@ -24,8 +25,6 @@ namespace Web.Models.CashgameModels.Add
             EventId = postModel.EventId;
         }
 
-        public override string BrowserTitle => "Start Cashgame";
-
         private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<AddCashgameForm.LocationItem> locations)
         {
             var listItems = locations.Select(o => new SelectListItem { Text = o.Name, Value = o.Id.ToString(CultureInfo.InvariantCulture) }).ToList();
@@ -40,6 +39,13 @@ namespace Web.Models.CashgameModels.Add
             var firstItem = new SelectListItem { Text = "No Event", Value = "" };
             listItems.Insert(0, firstItem);
             return listItems;
+        }
+
+        public override string BrowserTitle => "Start Cashgame";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AddCashgame/Add.cshtml");
         }
     }
 }

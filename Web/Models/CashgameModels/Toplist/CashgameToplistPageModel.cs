@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Services;
 
@@ -15,5 +16,10 @@ namespace Web.Models.CashgameModels.Toplist
         }
 
         public override string BrowserTitle => "Cashgame Toplist";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/Toplist/ToplistPage.cshtml");
+        }
     }
 }

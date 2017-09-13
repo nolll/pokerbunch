@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -19,5 +20,10 @@ namespace Web.Models.EventModels.List
 	    }
 
 	    public override string BrowserTitle => "Events";
+
+	    public override View GetView()
+	    {
+	        return new View("~/Views/Pages/EventList/EventList.cshtml");
+	    }
     }
 }

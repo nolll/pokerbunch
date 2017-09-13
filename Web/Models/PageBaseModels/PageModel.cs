@@ -1,9 +1,10 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.MiscModels;
 
 namespace Web.Models.PageBaseModels
 {
-    public abstract class PageModel
+    public abstract class PageModel : IViewModel
     {
         public string CssUrl { get; private set; }
         public string Version { get; private set; }
@@ -23,5 +24,7 @@ namespace Web.Models.PageBaseModels
             JsPath = SiteSettings.UseAssets ? $"/assets/{contextResult.Version}/scripts.js" : "/Frontend/js/lib/require.js";
             JsLoaderPath = SiteSettings.UseAssets ? null : "/FrontEnd/js/require.loader";
         }
+
+        public abstract View GetView();
     }
 }

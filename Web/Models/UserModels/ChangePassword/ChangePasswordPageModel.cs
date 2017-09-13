@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.ChangePassword
@@ -11,5 +12,10 @@ namespace Web.Models.UserModels.ChangePassword
         }
 
         public override string BrowserTitle => "Change Password";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/ChangePassword/ChangePassword.cshtml");
+        }
     }
 }

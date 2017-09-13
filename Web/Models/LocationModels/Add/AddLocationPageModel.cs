@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.LocationModels.Add
@@ -15,5 +16,10 @@ namespace Web.Models.LocationModels.Add
         }
 
         public override string BrowserTitle => "Add Location";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AddLocation/Add.cshtml");
+        }
     }
 }

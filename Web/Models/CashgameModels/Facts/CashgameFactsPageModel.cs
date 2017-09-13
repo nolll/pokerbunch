@@ -1,5 +1,6 @@
 using Core.Services;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Facts
@@ -54,5 +55,10 @@ namespace Web.Models.CashgameModels.Facts
         }
 
 	    public override string BrowserTitle => "Cashgame Facts";
+
+	    public override View GetView()
+	    {
+	        return new View("~/Views/Pages/CashgameFacts/FactsPage.cshtml");
+	    }
     }
 }

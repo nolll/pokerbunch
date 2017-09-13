@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -21,5 +22,10 @@ namespace Web.Models.AppModels.List
         }
 
         public override string BrowserTitle => "User Apps";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AppList/UserApps.cshtml");
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace Web.Controllers
         {
             var contextResult = GetAppContext();
             var model = new ChangePasswordPageModel(contextResult);
-            return View("~/Views/Pages/ChangePassword/ChangePassword.cshtml", model);
+            return View(model);
         }
 
         [Route(WebRoutes.User.ChangePasswordConfirmation)]
@@ -48,7 +48,7 @@ namespace Web.Controllers
         {
             var contextResult = GetAppContext();
             var model = new ChangePasswordConfirmationPageModel(contextResult);
-            return View("~/Views/Pages/ChangePassword/ChangePasswordDone.cshtml", model);
+            return View(model);
         }
     }
 }

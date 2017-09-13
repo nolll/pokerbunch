@@ -42,7 +42,7 @@ namespace Web.Controllers
             var contextResult = GetBunchContext(slug);
             var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(slug));
             var model = new AddCashgamePageModel(contextResult, optionsResult, postModel);
-            return View("~/Views/Pages/AddCashgame/Add.cshtml", model);
+            return View(model);
         }
     }
 }

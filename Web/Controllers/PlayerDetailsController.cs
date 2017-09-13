@@ -17,7 +17,7 @@ namespace Web.Controllers
             var factsResult = UseCase.PlayerFacts.Execute(new PlayerFacts.Request(id));
             var badgesResult = UseCase.PlayerBadges.Execute(new PlayerBadges.Request(id));
             var model = new PlayerDetailsPageModel(contextResult, detailsResult, factsResult, badgesResult);
-            return View("~/Views/Pages/PlayerDetails/Details.cshtml", model);
+            return View(model);
         }
     }
 }

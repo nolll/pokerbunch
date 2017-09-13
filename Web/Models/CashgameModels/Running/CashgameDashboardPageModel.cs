@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -16,5 +17,10 @@ namespace Web.Models.CashgameModels.Running
 
         public override string Layout => ContextLayout.Base;
         public override string BrowserTitle => "Cashgame Dashboard";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/RunningCashgame/DashboardPage.cshtml");
+        }
     }
 }

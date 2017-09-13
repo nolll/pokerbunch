@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.ForgotPassword
@@ -15,5 +16,10 @@ namespace Web.Models.UserModels.ForgotPassword
         }
 
         public override string BrowserTitle => "Forgot Password";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/ForgotPassword/ForgotPassword.cshtml");
+        }
     }
 }

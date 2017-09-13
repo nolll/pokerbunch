@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -19,5 +20,10 @@ namespace Web.Models.LocationModels.Details
 	    }
 
 	    public override string BrowserTitle => $"Location - {_locationDetails.Name}";
+
+	    public override View GetView()
+	    {
+	        return new View("~/Views/Pages/LocationDetails/LocationDetails.cshtml");
+	    }
     }
 }

@@ -41,7 +41,7 @@ namespace Web.Controllers
             var contextResult = GetAppContext();
             var editUserFormResult = UseCase.EditUserForm.Execute(new EditUserForm.Request(userName));
             var model = new EditUserPageModel(contextResult, editUserFormResult, postModel);
-            return View("~/Views/Pages/EditUser/EditUser.cshtml", model);
+            return View(model);
         }
     }
 }

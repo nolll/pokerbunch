@@ -16,7 +16,7 @@ namespace Web.Controllers
             var contextResult = GetBunchContext(cashgameDetailsResult.Slug);
             var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(id));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);
-            return View("~/Views/Pages/CashgameDetails/DetailsPage.cshtml", model);
+            return View(model);
         }
     }
 }

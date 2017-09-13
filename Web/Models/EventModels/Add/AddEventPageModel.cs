@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.EventModels.Add
@@ -15,5 +16,10 @@ namespace Web.Models.EventModels.Add
         }
 
         public override string BrowserTitle => "Add Event";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AddEvent/Add.cshtml");
+        }
     }
 }

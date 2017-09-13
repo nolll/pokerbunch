@@ -16,7 +16,7 @@ namespace Web.Controllers
             var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request(slug));
 
             var model = new BunchDetailsPageModel(bunchContextResult, bunchDetailsResult);
-            return View("~/Views/Pages/BunchDetails/BunchDetails.cshtml", model);
+            return View(model);
         }
     }
 }

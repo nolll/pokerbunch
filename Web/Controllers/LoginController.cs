@@ -72,7 +72,7 @@ namespace Web.Controllers
             var contextResult = GetAppContext();
             var loginFormResult = UseCase.LoginForm.Execute(new LoginForm.Request(new HomeUrl().Relative, returnUrl));
             var model = new LoginPageModel(contextResult, loginFormResult, postModel);
-            return View("~/Views/Login/Login.cshtml", model);
+            return View(model);
         }
 
         private ActionResult ShowForm(LoginPostModel postModel)

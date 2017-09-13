@@ -15,7 +15,7 @@ namespace Web.Controllers
             var contextResult = GetBunchContext(slug);
             var eventListOutput = UseCase.EventList.Execute(new EventList.Request(slug));
             var model = new EventListPageModel(contextResult, eventListOutput);
-            return View("~/Views/Pages/EventList/EventList.cshtml", model);
+            return View(model);
         }
     }
 }

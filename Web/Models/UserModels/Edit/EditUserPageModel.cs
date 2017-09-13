@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Edit
@@ -24,5 +25,10 @@ namespace Web.Models.UserModels.Edit
         }
 
         public override string BrowserTitle => "Edit Profile";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/EditUser/EditUser.cshtml");
+        }
     }
 }

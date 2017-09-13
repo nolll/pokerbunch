@@ -41,14 +41,14 @@ namespace Web.Controllers
         {
             var contextResult = GetBunchContext(slug);
             var model = new AddLocationConfirmationPageModel(contextResult);
-            return View("~/Views/Pages/AddLocation/AddConfirmation.cshtml", model);
+            return View(model);
         }
 
         private ActionResult ShowForm(string slug, AddLocationPostModel postModel = null)
         {
             var contextResult = GetBunchContext(slug);
             var model = new AddLocationPageModel(contextResult, postModel);
-            return View("~/Views/Pages/AddLocation/Add.cshtml", model);
+            return View(model);
         }
     }
 }

@@ -7,6 +7,7 @@ using Core.UseCases;
 using Microsoft.ApplicationInsights;
 using Plumbing;
 using Web.Extensions;
+using Web.Models;
 using Web.Models.ErrorModels;
 using Web.Security;
 
@@ -135,12 +136,17 @@ namespace Web.Controllers.Base
 
         private ActionResult ShowError(ErrorPageModel model)
         {
-            return View("~/Views/Error/Error.cshtml", model);
+            return View(model);
         }
 
         protected ActionResult JsonView(object data, JsonRequestBehavior jsonRequestBehavior = JsonRequestBehavior.AllowGet)
         {
             return new JsonResult(data, jsonRequestBehavior);
+        }
+
+        protected ViewResult View(IViewModel model)
+        {
+            return View(model.GetView(), model);
         }
     }
 }

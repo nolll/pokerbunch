@@ -45,7 +45,7 @@ namespace Web.Controllers
         {
             var contextResult = GetAppContext();
             var model = new AddBunchConfirmationPageModel(contextResult);
-            return View("~/Views/Pages/AddBunch/AddBunchConfirmation.cshtml", model);
+            return View(model);
         }
 
         private ActionResult ShowForm(AddBunchPostModel postModel = null)
@@ -53,7 +53,7 @@ namespace Web.Controllers
             var contextResult = GetAppContext();
             var bunchFormResult = UseCase.AddBunchForm.Execute();
             var model = new AddBunchPageModel(contextResult, bunchFormResult, postModel);
-            return View("~/Views/Pages/AddBunch/AddBunch.cshtml", model);
+            return View(model);
         }
     }
 }

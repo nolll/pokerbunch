@@ -44,14 +44,14 @@ namespace Web.Controllers
         {
             var contextResult = GetAppContext();
             var model = new ForgotPasswordConfirmationPageModel(contextResult);
-            return View("~/Views/Pages/ForgotPassword/ForgotPasswordDone.cshtml", model);
+            return View(model);
         }
 
         private ActionResult ShowForm(ForgotPasswordPostModel postModel = null)
         {
             var contextResult = GetAppContext();
             var model = new ForgotPasswordPageModel(contextResult, postModel);
-            return View("~/Views/Pages/ForgotPassword/ForgotPassword.cshtml", model);
+            return View(model);
         }
     }
 }

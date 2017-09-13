@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Services;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Services;
 
@@ -23,11 +24,16 @@ namespace Web.Models.CashgameModels.Action
             ChartJson = JsonHelper.Serialize(new ActionChartModel(actionsChartResult));
         }
 
-        public override string BrowserTitle => "Player Actions";
-
         private List<CheckpointModel> GetCheckpointModels(Actions.Result actionsResult)
         {
             return actionsResult.CheckpointItems.Select(o => new CheckpointModel(o)).ToList();
+        }
+
+        public override string BrowserTitle => "Player Actions";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/CashgameAction/Action.cshtml");
         }
     }
 }

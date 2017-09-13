@@ -60,7 +60,7 @@ namespace Web.Controllers
             var contextResult = GetBunchContext(slug);
             var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(slug));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
-            return View("~/Views/Pages/JoinBunch/Confirmation.cshtml", model);
+            return View(model);
         }
 
         private ActionResult ShowForm(string slug, string code)
@@ -68,7 +68,7 @@ namespace Web.Controllers
             var contextResult = GetAppContext();
             var joinBunchFormResult = UseCase.JoinBunchForm.Execute(new JoinBunchForm.Request(slug));
             var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, code);
-            return View("~/Views/Pages/JoinBunch/Join.cshtml", model);
+            return View(model);
         }
     }
 }

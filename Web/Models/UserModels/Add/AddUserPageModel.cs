@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Add
@@ -19,5 +20,10 @@ namespace Web.Models.UserModels.Add
         }
 
         public override string BrowserTitle => "Register";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AddUser/AddUser.cshtml");
+        }
     }
 }

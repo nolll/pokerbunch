@@ -41,7 +41,7 @@ namespace Web.Controllers
             var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(id));
             var contextResult = GetBunchContext(editCashgameFormResult.Slug);
             var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
-            return View("~/Views/Pages/EditCashgame/Edit.cshtml", model);
+            return View(model);
         }
     }
 }

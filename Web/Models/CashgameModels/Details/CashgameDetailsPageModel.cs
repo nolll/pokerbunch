@@ -1,5 +1,6 @@
 using Core.Services;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Services;
 using Web.Urls.SiteUrls;
@@ -8,17 +9,17 @@ namespace Web.Models.CashgameModels.Details
 {
     public class CashgameDetailsPageModel : BunchPageModel
     {
-        public string Heading { get; private set; }
-        public string Duration { get; private set; }
-        public string StartTime { get; private set; }
-        public string EndTime { get; private set; }
-        public string Location { get; private set; }
-        public string LocationUrl { get; private set; }
-        public bool ShowTime { get; private set; }
-        public bool EnableEdit { get; private set; }
-        public string EditUrl { get; private set; }
-        public string ChartJson { get; private set; }
-        public CashgameDetailsTableModel CashgameDetailsTableModel { get; private set; }
+        public string Heading { get; }
+        public string Duration { get; }
+        public string StartTime { get; }
+        public string EndTime { get; }
+        public string Location { get; }
+        public string LocationUrl { get; }
+        public bool ShowTime { get; }
+        public bool EnableEdit { get; }
+        public string EditUrl { get; }
+        public string ChartJson { get; }
+        public CashgameDetailsTableModel CashgameDetailsTableModel { get; }
 
         public CashgameDetailsPageModel(BunchContext.Result contextResult, CashgameDetails.Result detailsResult, CashgameDetailsChart.Result cashgameDetailsChartResult)
             : base(contextResult)
@@ -26,7 +27,7 @@ namespace Web.Models.CashgameModels.Details
             var date = Globalization.FormatShortDate(detailsResult.Date, true);
             var showTime = detailsResult.StartTime < detailsResult.EndTime;
             
-            Heading = string.Format("Cashgame {0}", date);
+            Heading = $"Cashgame {date}";
             Location = detailsResult.LocationName;
             LocationUrl = new LocationDetailsUrl(detailsResult.LocationId).Relative;
             Duration = detailsResult.Duration.ToString();
@@ -40,5 +41,10 @@ namespace Web.Models.CashgameModels.Details
         }
 
         public override string BrowserTitle => "Cashgame";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/CashgameDetails/DetailsPage.cshtml");
+        }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -43,8 +44,6 @@ namespace Web.Models.HomegameModels.Edit
             CurrencyLayout = postModel.CurrencyLayout;
         }
 
-        public override string BrowserTitle => "Edit Bunch";
-
         private SelectListItem CreateTimezoneSelectListItem(AddBunchForm.TimeZoneItem item)
         {
             return CreateSelectListItem(item.Name, item.Id);
@@ -62,6 +61,13 @@ namespace Web.Models.HomegameModels.Edit
                 Text = text,
                 Value = val
             };
+        }
+
+        public override string BrowserTitle => "Edit Bunch";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/EditBunch/Edit.cshtml");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Web.Controllers
             var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(id));
             var contextResult = GetBunchContext(locationDetails.Slug);
             var model = new LocationDetailsPageModel(contextResult, locationDetails);
-            return View("~/Views/Pages/LocationDetails/LocationDetails.cshtml", model);
+            return View(model);
         }
     }
 }

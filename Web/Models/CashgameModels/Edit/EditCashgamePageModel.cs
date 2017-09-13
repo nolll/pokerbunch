@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -40,5 +41,10 @@ namespace Web.Models.CashgameModels.Edit
         }
 
         public override string BrowserTitle => "Edit Cashgame";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/EditCashgame/Edit.cshtml");
+        }
     }
 }

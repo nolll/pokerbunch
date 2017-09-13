@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.EventModels.Add
@@ -11,5 +12,10 @@ namespace Web.Models.EventModels.Add
         }
 
         public override string BrowserTitle => "Event Created";
+
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/AddEvent/AddConfirmation.cshtml");
+        }
     }
 }

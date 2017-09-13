@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.CashgameModels.Matrix;
 using Web.Models.PageBaseModels;
 
@@ -19,5 +20,10 @@ namespace Web.Models.EventModels.Details
 	    }
 
 	    public override string BrowserTitle => $"Event - {_eventDetails.Name}";
+
+	    public override View GetView()
+	    {
+	        return new View("~/Views/Pages/EventDetails/EventDetails.cshtml");
+	    }
     }
 }

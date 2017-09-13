@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.List
@@ -16,5 +17,10 @@ namespace Web.Models.HomegameModels.List
 	    }
 
 	    public override string BrowserTitle => "Bunches";
+
+	    public override View GetView()
+	    {
+	        return new View("~/Views/Pages/BunchList/BunchList.cshtml");
+	    }
     }
 }

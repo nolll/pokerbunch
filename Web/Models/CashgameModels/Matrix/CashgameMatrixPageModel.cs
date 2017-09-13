@@ -1,4 +1,5 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Matrix
@@ -14,5 +15,9 @@ namespace Web.Models.CashgameModels.Matrix
         }
 
         public override string BrowserTitle => "Cashgame Matrix";
+        public override View GetView()
+        {
+            return new View("~/Views/Pages/Matrix/MatrixPage.cshtml");
+        }
     }
 }

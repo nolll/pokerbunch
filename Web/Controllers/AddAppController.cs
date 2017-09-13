@@ -40,7 +40,7 @@ namespace Web.Controllers
         {
             var contextResult = GetAppContext();
             var model = new AddAppPageModel(contextResult, postModel);
-            return View("~/Views/Pages/AddApp/AddApp.cshtml", model);
+            return View(model);
         }
     }
 }

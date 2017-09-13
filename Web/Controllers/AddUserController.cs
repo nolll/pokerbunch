@@ -46,7 +46,7 @@ namespace Web.Controllers
         {
             var contextResult = GetAppContext();
             var model = new AddUserPageModel(contextResult, postModel);
-            return View("~/Views/Pages/AddUser/AddUser.cshtml", model);
+            return View(model);
         }
 
         [Route(WebRoutes.User.AddConfirmation)]
@@ -54,7 +54,7 @@ namespace Web.Controllers
         {
             var contextResult = GetAppContext();
             var model = new AddUserConfirmationPageModel(contextResult);
-            return View("~/Views/Pages/AddUser/AddUserDone.cshtml", model);
+            return View(model);
         }
     }
 }

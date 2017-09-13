@@ -43,7 +43,7 @@ namespace Web.Controllers
             var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(id));
             var contextResult = GetBunchContext(invitePlayerConfirmation.Slug);
             var model = new InvitePlayerConfirmationPageModel(contextResult);
-            return View("~/Views/Pages/InvitePlayer/InviteConfirmation.cshtml", model);
+            return View(model);
         }
 
         private ActionResult ShowForm(string id, InvitePlayerPostModel postModel = null)
@@ -51,7 +51,7 @@ namespace Web.Controllers
             var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(id));
             var context = GetBunchContext(invitePlayerForm.Slug);
             var model = new InvitePlayerPageModel(context, postModel);
-            return View("~/Views/Pages/InvitePlayer/Invite.cshtml", model);
+            return View(model);
         }
     }
 }
