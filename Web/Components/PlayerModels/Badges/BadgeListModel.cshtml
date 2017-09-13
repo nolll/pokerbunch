@@ -6,7 +6,7 @@
     @foreach (var badge in Model.NumberOfGamesBadges)
     {
         <li>
-            @Html.Component(@badge)
+            @Html.RenderModel(@badge)
         </li>
     }
 </ul>

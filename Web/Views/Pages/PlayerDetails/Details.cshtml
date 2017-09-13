@@ -14,7 +14,7 @@
 </div>
 <div class="block gutter">
     @Html.Partial("PlayerDetails/PlayerFacts", Model.PlayerFactsModel)
-    @Html.Component(Model.BadgeListModel)
+    @Html.RenderModel(Model.BadgeListModel)
     
     @if (Model.DeleteEnabled)
     {

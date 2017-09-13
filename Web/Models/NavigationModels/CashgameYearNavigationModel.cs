@@ -7,7 +7,7 @@ using Web.Urls.SiteUrls;
 
 namespace Web.Models.NavigationModels
 {
-    public class CashgameYearNavigationModel : Component
+    public class CashgameYearNavigationModel : IViewModel
     {
         private const string AllText = "All";
 
@@ -52,9 +52,9 @@ namespace Web.Models.NavigationModels
             return null;
         }
 
-        public override string ViewName
+        public View GetView()
         {
-            get { return "~/Views/Navigation/CashgameYearNavigation.cshtml"; }
+            return new View("~/Views/Navigation/CashgameYearNavigation.cshtml");
         }
     }
 }

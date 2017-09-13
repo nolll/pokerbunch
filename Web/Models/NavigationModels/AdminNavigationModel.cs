@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.NavigationModels
@@ -12,26 +14,23 @@ namespace Web.Models.NavigationModels
             Nodes = GetNodes(appContext);
         }
 
-        private IList<NavigationNode> GetNodes(CoreContext.Result appContext)
+        private static IList<NavigationNode> GetNodes(CoreContext.Result appContext)
         {
-            return appContext.IsAdmin ? GetAdminNodeList() : new List<NavigationNode>();
+            return appContext.IsAdmin ? AdminNodeList : new List<NavigationNode>();
         }
 
-        private List<NavigationNode> GetAdminNodeList()
+        private static List<NavigationNode> AdminNodeList => new List<NavigationNode>
         {
-            return new List<NavigationNode>
-                {
-                    new NavigationNode("Bunches", new BunchListAllUrl().Relative),
-                    new NavigationNode("Users", new UserListUrl().Relative),
-                    new NavigationNode("Apps", new AllAppsUrl().Relative),
-                    new NavigationNode("Test Email", new TestEmailUrl().Relative),
-                    new NavigationNode("Clear Cache", new ClearCacheUrl().Relative)
-                };
-        }
+            new NavigationNode("Bunches", new BunchListAllUrl().Relative),
+            new NavigationNode("Users", new UserListUrl().Relative),
+            new NavigationNode("Apps", new AllAppsUrl().Relative),
+            new NavigationNode("Test Email", new TestEmailUrl().Relative),
+            new NavigationNode("Clear Cache", new ClearCacheUrl().Relative)
+        };
 
-        public override string ViewName
+        public override View GetView()
         {
-            get { return "~/Views/Navigation/AdminNavigation.cshtml"; }
+            return new View("~/Views/Navigation/AdminNavigation.cshtml");
         }
     }
 }

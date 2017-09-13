@@ -1,7 +1,12 @@
-﻿namespace Web.Extensions
+﻿using Web.Models;
+
+namespace Web.Extensions
 {
-    public abstract class Component
+    public abstract class Component : IViewModel
     {
-        public virtual string ViewName => ComponentViewFinder.GetViewFor(GetType());
+        public View GetView()
+        {
+            return new View(ComponentViewFinder.GetViewFor(GetType()));
+        }
     }
 }

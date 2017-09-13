@@ -1,5 +1,4 @@
 using Core.UseCases;
-using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.ApiUrls;
 using Web.Urls.SiteUrls;

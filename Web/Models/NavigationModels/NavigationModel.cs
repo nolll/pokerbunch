@@ -3,7 +3,7 @@ using Web.Extensions;
 
 namespace Web.Models.NavigationModels
 {
-	public abstract class NavigationModel : Component
+	public abstract class NavigationModel : IViewModel
     {
 	    public string Heading { get; protected set; }
 	    public IList<NavigationNode> Nodes { get; protected set; }
@@ -15,9 +15,9 @@ namespace Web.Models.NavigationModels
             Nodes = new List<NavigationNode>();
 	    }
 
-	    public override string ViewName
-	    {
-	        get { return "~/Views/Navigation/Navigation.cshtml"; }
-	    }
+        public virtual View GetView()
+        {
+            return new View("~/Views/Navigation/Navigation.cshtml");
+        }
     }
 }

@@ -10,10 +10,10 @@
 
 @section ContentNav{
     <div class="heading-nav-container block gutter">
-        @Html.Component(Model.PageNavModel)
+        @Html.RenderModel(Model.PageNavModel)
         @if (Model.YearNavModel != null)
         {
-            @Html.Component(Model.YearNavModel)
+            @Html.RenderModel(Model.YearNavModel)
         }
     </div>
 }
