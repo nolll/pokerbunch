@@ -1,9 +1,10 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.PlayerModels.List
 {
-    public class PlayerItemModel
+    public class PlayerItemModel : IViewModel
     {
         public string Name { get; private set; }
         public string Url { get; private set; }
@@ -14,6 +15,11 @@ namespace Web.Models.PlayerModels.List
             Name = p.Name;
             Url = new PlayerDetailsUrl(p.Id).Relative;
             Color = p.Color;
+        }
+
+        public View GetView()
+        {
+            return new View("PlayerList/Item");
         }
     }
 }

@@ -1,10 +1,11 @@
 using Core.Services;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Action
 {
-    public class CheckpointModel
+    public class CheckpointModel : IViewModel
     {
         public string Description { get; private set; }
         public string Stack { get; private set; }
@@ -19,6 +20,11 @@ namespace Web.Models.CashgameModels.Action
             Timestamp = Globalization.FormatTime(checkpointItem.Time);
             ShowLink = checkpointItem.CanEdit;
             EditUrl = new EditCheckpointUrl(checkpointItem.CashgameId, checkpointItem.CheckpointId).Relative;
+        }
+
+        public View GetView()
+        {
+            return new View("CashgameAction/CheckpointItem");
         }
     }
 }

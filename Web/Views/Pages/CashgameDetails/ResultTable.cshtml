@@ -1,3 +1,4 @@
+@using Web.Extensions
 @model Web.Models.CashgameModels.Details.CashgameDetailsTableModel
 
 <table class="table-list">
@@ -13,7 +14,7 @@
     <tbody>
         @foreach (var resultModel in Model.ResultModels)
         {
-            @Html.Partial("CashgameDetails/ResultTableItem", resultModel)
+            @Html.RenderModel(resultModel)
         }
     </tbody>
 </table>

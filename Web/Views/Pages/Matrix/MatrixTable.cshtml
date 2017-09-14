@@ -1,3 +1,4 @@
+@using Web.Extensions
 @model Web.Models.CashgameModels.Matrix.CashgameMatrixTableModel
   
 <div class="matrix">
@@ -9,7 +10,7 @@
                 <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
                 @foreach (var columnHeaderModel in Model.ColumnHeaderModels)
                 {
-                    @Html.Partial("Matrix/MatrixTableColumnHeader", columnHeaderModel)
+                    @Html.RenderModel(columnHeaderModel)
                 }
 		    </tr>
         </thead>
@@ -17,7 +18,7 @@
         <tbody>
             @foreach (var rowModel in Model.RowModels)
             {
-                @Html.Partial("Matrix/MatrixTableRow", rowModel)
+                @Html.RenderModel(rowModel)
             }
         </tbody>
 

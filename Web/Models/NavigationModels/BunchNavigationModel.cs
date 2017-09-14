@@ -1,9 +1,10 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.NavigationModels
 {
-    public class BunchNavigationModel
+    public class BunchNavigationModel : IViewModel
     {
         public string Heading { get; private set; }
         public string HeadingUrl { get; private set; }
@@ -29,13 +30,7 @@ namespace Web.Models.NavigationModels
             LocationUrl = new LocationListUrl(bunchContextResult.Slug).Relative;
         }
 
-        public static BunchNavigationModel Empty
-        {
-            get
-            {
-                return new EmptyBunchNavigationModel();
-            }
-        }
+        public static BunchNavigationModel Empty => new EmptyBunchNavigationModel();
 
         private class EmptyBunchNavigationModel : BunchNavigationModel
         {
@@ -43,6 +38,11 @@ namespace Web.Models.NavigationModels
             {
                 IsEmpty = true;
             }
+        }
+
+        public View GetView()
+        {
+            return new View("~/Views/Navigation/BunchNavigation.cshtml");
         }
     }
 }

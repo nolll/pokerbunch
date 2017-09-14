@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using Core.Services;
+using Web.Extensions;
 using Web.Services;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Matrix
 {
-    public class CashgameMatrixTableRowModel
+    public class CashgameMatrixTableRowModel : IViewModel
     {
 	    public int Rank { get; private set; }
 	    public string Name { get; private set; }
@@ -52,6 +53,11 @@ namespace Web.Models.CashgameModels.Matrix
                 }
             }
             return models;
+        }
+
+        public View GetView()
+        {
+            return new View("Matrix/MatrixTableRow");
         }
     }
 }

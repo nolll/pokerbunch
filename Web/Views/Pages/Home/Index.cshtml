@@ -45,7 +45,7 @@ else
     {
         <div class="block gutter">
             <h1 class="module-heading">Your Bunches</h1>
-            @Html.Partial("BunchList/UserBunchList", Model.BunchList)
+            @Html.RenderModel(Model.BunchList)
         </div>
         <div class="block gutter">
             @Html.RenderModel(Model.AdminNav)

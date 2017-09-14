@@ -1,4 +1,5 @@
-﻿@using Web.Models.PageBaseModels
+﻿@using Web.Extensions
+@using Web.Models.PageBaseModels
 @model BunchPageModel
 
 @{
@@ -12,5 +13,5 @@
 }
 
 @section TopNav{
-    @Html.Partial("~/Views/Navigation/BunchNavigation.cshtml", Model.BunchNavModel)
+    @Html.RenderModel(Model.BunchNavModel)
 }

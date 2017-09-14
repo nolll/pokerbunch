@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.HomegameModels.List.BunchListPageModel
 
@@ -11,10 +12,10 @@
 <div class="block gutter">
 
     <ul class="simple-list">
-        @foreach (var homegameModel in Model.BunchModels)
+        @foreach (var bunchModel in Model.BunchModels)
         {
             <li class="simple-list__item">
-                @Html.Partial("BunchList/BunchListItem", homegameModel)
+                @Html.RenderModel(bunchModel)
             </li>
         }
     </ul>

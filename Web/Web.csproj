@@ -234,6 +234,7 @@
     <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Extensions\View.cs" />
+    <Compile Include="Models\CashgameModels\Action\CheckpointListModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemJsonModel.cs" />

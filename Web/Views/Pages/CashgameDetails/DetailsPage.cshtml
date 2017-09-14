@@ -38,7 +38,7 @@
 }
 
 <div class="block gutter">
-    @Html.Partial("CashgameDetails/ResultTable", Model.CashgameDetailsTableModel)
+    @Html.RenderModel(Model.CashgameDetailsTableModel)
 
     <div data-require="cashgame-game-chart">
         @Html.RenderModel(Model.SpinnerModel)

@@ -1,10 +1,11 @@
+@using Web.Extensions
 @model Web.Models.HomegameModels.List.BunchListModel
 
 <ul class="simple-list">
     @foreach (var bunchModel in Model.BunchModels)
     {
         <li class="simple-list__item">
-            @Html.Partial("BunchList/BunchListItem", bunchModel)
+            @Html.RenderModel(bunchModel)
         </li>
     }
 </ul>

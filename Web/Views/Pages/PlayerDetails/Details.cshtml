@@ -13,7 +13,7 @@
     </h1>
 </div>
 <div class="block gutter">
-    @Html.Partial("PlayerDetails/PlayerFacts", Model.PlayerFactsModel)
+    @Html.RenderModel(Model.PlayerFactsModel)
     @Html.RenderModel(Model.BadgeListModel)
     
     @if (Model.DeleteEnabled)
@@ -27,7 +27,7 @@
     <div class="block gutter">
         <h2 class="module-heading">User</h2>
         @if (Model.ShowUserInfo){
-            @Html.Partial("~/Views/Misc/Avatar.cshtml", Model.AvatarModel)
+            @Html.RenderModel(Model.AvatarModel)
             <p>
                 This player is a registered user.
             </p>

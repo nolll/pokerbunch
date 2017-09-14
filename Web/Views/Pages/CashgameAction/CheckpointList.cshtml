@@ -1,9 +1,10 @@
+@using Web.Extensions
 @model List<Web.Models.CashgameModels.Action.CheckpointModel>
 <ul class="checkpoint-list">
     @foreach (var checkpoint in Model)
     {
         <li class="checkpoint-list__item">
-            @Html.Partial("CashgameAction/CheckpointItem", checkpoint)
+            @Html.RenderModel(checkpoint)
         </li>
     }
 </ul>

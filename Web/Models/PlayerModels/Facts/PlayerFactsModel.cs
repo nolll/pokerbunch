@@ -1,11 +1,12 @@
 using System;
 using Core.Services;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Services;
 
 namespace Web.Models.PlayerModels.Facts
 {
-	public class PlayerFactsModel
+	public class PlayerFactsModel : IViewModel
     {
         public string Winnings { get; private set; }
         public string WinningsCssClass { get; private set; }
@@ -51,5 +52,10 @@ namespace Web.Models.PlayerModels.Facts
         {
             return $"Won in {streak} games";
         }
+
+	    public View GetView()
+	    {
+	        return new View("PlayerDetails/PlayerFacts");
+	    }
     }
 }

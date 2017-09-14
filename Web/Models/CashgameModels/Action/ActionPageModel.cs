@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Core.Services;
 using Core.UseCases;
 using Web.Extensions;
@@ -11,7 +9,7 @@ namespace Web.Models.CashgameModels.Action
 {
     public class ActionPageModel : BunchPageModel
     {
-        public List<CheckpointModel> Checkpoints { get; private set; }
+        public CheckpointListModel Checkpoints { get; private set; }
         public string ChartJson { get; private set; }
         public string Heading { get; private set; }
         public SpinnerModel SpinnerModel => new SpinnerModel();
@@ -22,13 +20,8 @@ namespace Web.Models.CashgameModels.Action
             var date = Globalization.FormatShortDate(actionsResult.Date, true);
             var playerName = actionsResult.PlayerName;
             Heading = $"Cashgame {date}, {playerName}";
-            Checkpoints = GetCheckpointModels(actionsResult);
+            Checkpoints = new CheckpointListModel(actionsResult);
             ChartJson = JsonHelper.Serialize(new ActionChartModel(actionsChartResult));
-        }
-
-        private List<CheckpointModel> GetCheckpointModels(Actions.Result actionsResult)
-        {
-            return actionsResult.CheckpointItems.Select(o => new CheckpointModel(o)).ToList();
         }
 
         public override string BrowserTitle => "Player Actions";

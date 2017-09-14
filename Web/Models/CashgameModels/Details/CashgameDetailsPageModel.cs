@@ -21,7 +21,7 @@ namespace Web.Models.CashgameModels.Details
         public string EditUrl { get; }
         public string ChartJson { get; }
         public CashgameDetailsTableModel CashgameDetailsTableModel { get; }
-        public SpinnerModel SpinnerModel { get; }
+        public SpinnerModel SpinnerModel => new SpinnerModel();
 
         public CashgameDetailsPageModel(BunchContext.Result contextResult, CashgameDetails.Result detailsResult, CashgameDetailsChart.Result cashgameDetailsChartResult)
             : base(contextResult)

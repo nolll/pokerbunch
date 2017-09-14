@@ -1,9 +1,10 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.AppModels.List
 {
-    public class AppListItemModel
+    public class AppListItemModel : IViewModel
     {
         public string Name { get; private set; }
         public string Key { get; private set; }
@@ -25,6 +26,11 @@ namespace Web.Models.AppModels.List
             Name = name;
             Key = key;
             Url = new AppDetailsUrl(id).Relative;
+        }
+
+        public View GetView()
+        {
+            return new View("AppList/Item");
         }
     }
 }

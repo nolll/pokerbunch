@@ -1,11 +1,12 @@
 using Core.Services;
 using Core.UseCases;
+using Web.Extensions;
 using Web.Services;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Details
 {
-    public class CashgameDetailsTableItemModel
+    public class CashgameDetailsTableItemModel : IViewModel
     {
         public string Name { get; private set; }
         public string Color { get; private set; }
@@ -26,6 +27,11 @@ namespace Web.Models.CashgameModels.Details
             Winnings = ResultFormatter.FormatWinnings(resultItem.Winnings);
             WinningsClass = CssService.GetWinningsCssClass(resultItem.Winnings);
             Winrate = ResultFormatter.FormatWinRate(resultItem.WinRate);
+        }
+
+        public View GetView()
+        {
+            return new View("CashgameDetails/ResultTableItem");
         }
     }
 }

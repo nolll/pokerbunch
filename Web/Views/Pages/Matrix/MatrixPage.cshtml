@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.CashgameModels.Matrix.CashgameMatrixPageModel
 
@@ -6,5 +7,5 @@
 }
 
 <div class="block gutter">
-    @Html.Partial("Matrix/MatrixTable", Model.TableModel)
+    @Html.RenderModel(Model.TableModel)
 </div>

@@ -1,4 +1,5 @@
-﻿@model Web.Models.PageBaseModels.PageModel
+﻿@using Web.Extensions
+@model Web.Models.PageBaseModels.PageModel
 <!DOCTYPE html>
 <html lang="en" class="@Model.HtmlCssClass">
 
@@ -25,8 +26,9 @@
         <![endif]-->
         <script src="@Model.JsPath" data-main="@Model.JsLoaderPath"></script>
 
-        @Html.Partial("~/Views/Misc/GoogleAnalytics.cshtml", Model.GoogleAnalyticsModel)
+        @Html.RenderModel(Model.GoogleAnalyticsModel)
     </body>
 </html>
 
 <!-- version: @Model.Version -->
+

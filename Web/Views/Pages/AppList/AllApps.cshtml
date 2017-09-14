@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.AppModels.List.AllAppsPageModel
 
@@ -15,7 +16,7 @@
             @foreach (var appModel in Model.AppModels)
             {
                 <li class="simple-list__item">
-                    @Html.Partial("AppList/Item", appModel)
+                    @Html.RenderModel(appModel)
                 </li>
             }
         </ul>

@@ -1,9 +1,10 @@
 using Core.UseCases;
+using Web.Extensions;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Status
 {
-    public class CashgameStatusModel
+    public class CashgameStatusModel : IViewModel
     {
         public string Heading { get; private set; }
         public string LinkText { get; private set; }
@@ -20,6 +21,11 @@ namespace Web.Models.CashgameModels.Status
             Url = statusResult.GameIsRunning ? new RunningCashgameUrl(statusResult.Slug).Relative : new AddCashgameUrl(statusResult.Slug).Relative;
             DashboardUrl = new DashboardCashgameUrl(statusResult.Slug).Relative;
             GameIsRunning = statusResult.GameIsRunning;
+        }
+
+        public View GetView()
+        {
+            return new View("CashgameIndex/Status");
         }
     }
 }

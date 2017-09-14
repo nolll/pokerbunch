@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.LocationModels.List.LocationListPageModel
 
@@ -14,7 +15,7 @@
         @foreach (var locationModel in Model.LocationModels)
         {
             <li class="simple-list__item">
-                @Html.Partial("LocationList/Item", locationModel)
+                @Html.RenderModel(locationModel)
             </li>
         }
     </ul>

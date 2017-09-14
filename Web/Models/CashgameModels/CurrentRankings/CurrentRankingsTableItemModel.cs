@@ -1,10 +1,11 @@
 using Core.Services;
+using Web.Extensions;
 using Web.Services;
 using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.CurrentRankings
 {
-    public class CurrentRankingsTableItemModel
+    public class CurrentRankingsTableItemModel : IViewModel
     {
         public int Rank { get; private set; }
         public string Name { get; private set; }
@@ -24,6 +25,11 @@ namespace Web.Models.CashgameModels.CurrentRankings
             LastGameResultClass = playedInLastGame ? CssService.GetWinningsCssClass(currentRankingsItem.LastGameWinnings) : string.Empty;
             Name = currentRankingsItem.Name;
             PlayerUrl = new PlayerDetailsUrl(currentRankingsItem.PlayerId).Relative;
+        }
+
+        public View GetView()
+        {
+            return new View("CurrentRankings/CurrentRankingsTableItem");
         }
     }
 }
