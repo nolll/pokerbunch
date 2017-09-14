@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Add
@@ -9,14 +11,16 @@ namespace Web.Models.UserModels.Add
         public string UserName { get; private set; }
         public string DisplayName { get; private set; }
         public string Email { get; private set; }
+        public ErrorListModel Errors { get; }
 
-        public AddUserPageModel(CoreContext.Result contextResult, AddUserPostModel postModel)
+        public AddUserPageModel(CoreContext.Result contextResult, AddUserPostModel postModel, IEnumerable<string> errors)
             : base(contextResult)
         {
             if (postModel == null) return;
             UserName = postModel.UserName;
             DisplayName = postModel.DisplayName;
             Email = postModel.Email;
+            Errors = new ErrorListModel(errors);
         }
 
         public override string BrowserTitle => "Register";

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -22,6 +23,8 @@ namespace Web.Controllers
         [Route(WebRoutes.Bunch.Add)]
         public ActionResult Add_Post(AddBunchPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new AddBunch.Request(postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
@@ -30,14 +33,14 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
             catch (BunchExistsException ex)
             {
-                AddModelError(ex.Message);
+                errors.Add(ex.Message);
             }
 
-            return ShowForm(postModel);
+            return ShowForm(postModel, errors);
         }
 
         [Route(WebRoutes.Bunch.AddConfirmation)]
@@ -48,11 +51,11 @@ namespace Web.Controllers
             return View(model);
         }
 
-        private ActionResult ShowForm(AddBunchPostModel postModel = null)
+        private ActionResult ShowForm(AddBunchPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
             var bunchFormResult = UseCase.AddBunchForm.Execute();
-            var model = new AddBunchPageModel(contextResult, bunchFormResult, postModel);
+            var model = new AddBunchPageModel(contextResult, bunchFormResult, postModel, errors);
             return View(model);
         }
     }

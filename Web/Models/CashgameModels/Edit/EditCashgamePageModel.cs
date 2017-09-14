@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -20,8 +21,9 @@ namespace Web.Models.CashgameModels.Edit
         public string LocationId { get; private set; }
         public IList<SelectListItem> Events { get; }
         public string EventId { get; private set; }
+        public ErrorListModel Errors { get; }
 
-        public EditCashgamePageModel(BunchContext.Result contextResult, EditCashgameForm.Result editCashgameFormResult, EditCashgamePostModel postModel)
+        public EditCashgamePageModel(BunchContext.Result contextResult, EditCashgameForm.Result editCashgameFormResult, EditCashgamePostModel postModel, IEnumerable<string> errors)
             : base(contextResult)
         {
             IsoDate = editCashgameFormResult.Date;
@@ -38,6 +40,7 @@ namespace Web.Models.CashgameModels.Edit
             if (postModel == null) return;
             LocationId = postModel.LocationId;
             EventId = postModel.EventId;
+            Errors = new ErrorListModel(errors);
         }
 
         public override string BrowserTitle => "Edit Cashgame";

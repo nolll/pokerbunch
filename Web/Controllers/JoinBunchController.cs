@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -35,6 +37,8 @@ namespace Web.Controllers
 
         private ActionResult JoinBunch(string slug, string code)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new JoinBunch.Request(slug, code);
@@ -43,14 +47,14 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
             catch (InvalidJoinCodeException ex)
             {
-                AddModelError(ex.Message);
+                errors.Add(ex.Message);
             }
 
-            return ShowForm(slug, code);
+            return ShowForm(slug, code, errors);
         }
 
         [Authorize]
@@ -63,11 +67,11 @@ namespace Web.Controllers
             return View(model);
         }
 
-        private ActionResult ShowForm(string slug, string code)
+        private ActionResult ShowForm(string slug, string code, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
             var joinBunchFormResult = UseCase.JoinBunchForm.Execute(new JoinBunchForm.Request(slug));
-            var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, code);
+            var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, code, errors);
             return View(model);
         }
     }

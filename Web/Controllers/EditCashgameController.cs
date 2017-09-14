@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -22,6 +23,8 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.Edit)]
         public ActionResult Post(string id, EditCashgamePostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new EditCashgame.Request(id, postModel.LocationId, postModel.EventId);
@@ -30,17 +33,17 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
 
-            return ShowForm(id, postModel);
+            return ShowForm(id, postModel, errors);
         }
 
-        private ActionResult ShowForm(string id, EditCashgamePostModel postModel = null)
+        private ActionResult ShowForm(string id, EditCashgamePostModel postModel = null, IEnumerable<string> errors = null)
         {
             var editCashgameFormResult = UseCase.EditCashgameForm.Execute(new EditCashgameForm.Request(id));
             var contextResult = GetBunchContext(editCashgameFormResult.Slug);
-            var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel);
+            var model = new EditCashgamePageModel(contextResult, editCashgameFormResult, postModel, errors);
             return View(model);
         }
     }

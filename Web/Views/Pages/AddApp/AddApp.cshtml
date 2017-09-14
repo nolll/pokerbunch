@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.AppModels.Add.AddAppPageModel
 
@@ -15,7 +16,7 @@
         Just enter a name for your app and a key will be generated for you.
 	</p>
 
-    @Html.Partial("~/Views/Forms/Errors.cshtml")
+    @Html.RenderModel(Model.Errors)
     
     <form method="post">
 		<fieldset>

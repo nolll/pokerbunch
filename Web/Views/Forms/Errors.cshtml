@@ -1,14 +1,12 @@
-@if(!ViewData.ModelState.IsValid)
+@model Web.Models.ErrorModels.ErrorListModel
+@if(Model.HasErrors)
 {
     <div class="errors">
-        @foreach (var modelState in ViewData.ModelState.Values)
+        @foreach (var message in Model.Messages)
         {
-            foreach (var error in modelState.Errors)
-            {
-                <p class="validation-error">
-                    @error.ErrorMessage
-                </p>
-            }
+            <p class="validation-error">
+                @message
+            </p>
         }
     </div>
 }

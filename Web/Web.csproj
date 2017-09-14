@@ -239,6 +239,7 @@
     <Compile Include="Models\CashgameModels\List\CashgameListTableJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\ToplistTableJsonModel.cs" />
+    <Compile Include="Models\ErrorModels\ErrorListModel.cs" />
     <Compile Include="Models\IViewModel.cs" />
     <Compile Include="Models\MiscModels\SpinnerModel.cs" />
     <Compile Include="Routes\ApiRoutes.cs" />

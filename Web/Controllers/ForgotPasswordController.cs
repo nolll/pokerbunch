@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -21,6 +22,8 @@ namespace Web.Controllers
         [Route(WebRoutes.User.ForgotPassword)]
         public ActionResult Post(ForgotPasswordPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new ForgotPassword.Request(postModel.Email);
@@ -29,14 +32,14 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
             catch (UserNotFoundException ex)
             {
-                AddModelError(ex.Message);
+                errors.Add(ex.Message);
             }
 
-            return ShowForm(postModel);
+            return ShowForm(postModel, errors);
         }
 
         [Route(WebRoutes.User.ForgotPasswordConfirmation)]
@@ -47,10 +50,10 @@ namespace Web.Controllers
             return View(model);
         }
 
-        private ActionResult ShowForm(ForgotPasswordPostModel postModel = null)
+        private ActionResult ShowForm(ForgotPasswordPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var model = new ForgotPasswordPageModel(contextResult, postModel);
+            var model = new ForgotPasswordPageModel(contextResult, postModel, errors);
             return View(model);
         }
     }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -20,8 +21,9 @@ namespace Web.Models.HomegameModels.Edit
         public string TimeZone { get; private set; }
         public string HouseRules { get; private set; }
         public int DefaultBuyin { get; private set; }
+        public ErrorListModel Errors { get; }
 
-        public EditBunchPageModel(BunchContext.Result contextResult, EditBunchForm.Result editBunchFormResult, EditBunchPostModel postModel)
+        public EditBunchPageModel(BunchContext.Result contextResult, EditBunchForm.Result editBunchFormResult, EditBunchPostModel postModel, IEnumerable<string> errors)
             : base(contextResult)
         {
             CancelUrl = new BunchDetailsUrl(editBunchFormResult.Slug).Relative;
@@ -42,6 +44,7 @@ namespace Web.Models.HomegameModels.Edit
             TimeZone = postModel.TimeZone;
             CurrencySymbol = postModel.CurrencySymbol;
             CurrencyLayout = postModel.CurrencyLayout;
+            Errors = new ErrorListModel(errors);
         }
 
         private SelectListItem CreateTimezoneSelectListItem(AddBunchForm.TimeZoneItem item)

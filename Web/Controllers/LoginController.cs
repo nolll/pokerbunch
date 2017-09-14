@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -25,20 +26,21 @@ namespace Web.Controllers
         [Route(WebRoutes.Auth.Login)]
         public ActionResult Post(LoginPostModel postModel)
         {
-            var request = new Login.Request(postModel.LoginName, postModel.Password);
+            var errors = new List<string>();
 
             try
             {
+                var request = new Login.Request(postModel.LoginName, postModel.Password);
                 var result = UseCase.Login.Execute(request);
                 SignIn(result.UserName, result.Token, postModel.RememberMe);
                 return Redirect(postModel.ReturnUrl);
             }
             catch (LoginException ex)
             {
-                AddModelError(ex.Message);
+                errors.Add(ex.Message);
             }
 
-            return ShowForm(postModel);
+            return ShowForm(postModel, errors);
         }
 
         public void SignIn(string userName, string token, bool createPersistentCookie)
@@ -67,17 +69,17 @@ namespace Web.Controllers
             }
         }
 
-        private ActionResult ShowForm(string returnUrl, LoginPostModel postModel = null)
+        private ActionResult ShowForm(string returnUrl, LoginPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
             var loginFormResult = UseCase.LoginForm.Execute(new LoginForm.Request(new HomeUrl().Relative, returnUrl));
-            var model = new LoginPageModel(contextResult, loginFormResult, postModel);
+            var model = new LoginPageModel(contextResult, loginFormResult, postModel, errors);
             return View(model);
         }
 
-        private ActionResult ShowForm(LoginPostModel postModel)
+        private ActionResult ShowForm(LoginPostModel postModel, IEnumerable<string> errors = null)
         {
-            return ShowForm(postModel.ReturnUrl, postModel);
+            return ShowForm(postModel.ReturnUrl, postModel, errors);
         }
     }
 }

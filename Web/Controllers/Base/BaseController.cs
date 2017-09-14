@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
@@ -52,20 +51,7 @@ namespace Web.Controllers.Base
                 return _identity;
             }
         }
-
-        protected void AddModelErrors(IEnumerable<string> errors)
-        {
-            foreach (var error in errors)
-            {
-                AddModelError(error);
-            }
-        }
-
-        protected void AddModelError(string error)
-        {
-            ModelState.AddModelError(error, error);
-        }
-
+        
         protected override void OnException(ExceptionContext filterContext)
         {
             if (filterContext.ExceptionHandled)

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -22,6 +23,8 @@ namespace Web.Controllers
         [Route(WebRoutes.Cashgame.CheckpointEdit)]
         public ActionResult EditCheckpoint_Post(string cashgameId, string id, EditCheckpointPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new EditCheckpoint.Request(Identity.UserName, id, postModel.Timestamp, postModel.Stack, postModel.Amount);
@@ -30,17 +33,17 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
 
-            return ShowForm(cashgameId, id, postModel);
+            return ShowForm(cashgameId, id, postModel, errors);
         }
 
-        private ActionResult ShowForm(string cashgameId, string id, EditCheckpointPostModel postModel = null)
+        private ActionResult ShowForm(string cashgameId, string id, EditCheckpointPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var editCheckpointFormResult = UseCase.EditCheckpointForm.Execute(new EditCheckpointForm.Request(cashgameId, id));
             var contextResult = GetBunchContext(editCheckpointFormResult.Slug);
-            var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel);
+            var model = new EditCheckpointPageModel(contextResult, editCheckpointFormResult, postModel, errors);
             return View(model);
         }
     }

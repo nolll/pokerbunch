@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -22,6 +23,8 @@ namespace Web.Controllers
         [Route(WebRoutes.User.Edit)]
         public ActionResult Post(string userName, EditUserPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new EditUser.Request(userName, postModel.DisplayName, postModel.RealName, postModel.Email);
@@ -30,17 +33,17 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
 
-            return ShowForm(userName, postModel);
+            return ShowForm(userName, postModel, errors);
         }
 
-        private ActionResult ShowForm(string userName, EditUserPostModel postModel = null)
+        private ActionResult ShowForm(string userName, EditUserPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
             var editUserFormResult = UseCase.EditUserForm.Execute(new EditUserForm.Request(userName));
-            var model = new EditUserPageModel(contextResult, editUserFormResult, postModel);
+            var model = new EditUserPageModel(contextResult, editUserFormResult, postModel, errors);
             return View(model);
         }
     }

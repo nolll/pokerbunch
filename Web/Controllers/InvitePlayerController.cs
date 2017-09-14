@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -23,6 +24,8 @@ namespace Web.Controllers
         [Route(WebRoutes.Player.Invite)]
         public ActionResult Invite_Post(string id, InvitePlayerPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new InvitePlayer.Request(id, postModel.Email);
@@ -31,10 +34,10 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
 
-            return ShowForm(id, postModel);
+            return ShowForm(id, postModel, errors);
         }
 
         [Route(WebRoutes.Player.InviteConfirmation)]
@@ -46,11 +49,11 @@ namespace Web.Controllers
             return View(model);
         }
 
-        private ActionResult ShowForm(string id, InvitePlayerPostModel postModel = null)
+        private ActionResult ShowForm(string id, InvitePlayerPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(id));
             var context = GetBunchContext(invitePlayerForm.Slug);
-            var model = new InvitePlayerPageModel(context, postModel);
+            var model = new InvitePlayerPageModel(context, postModel, errors);
             return View(model);
         }
     }

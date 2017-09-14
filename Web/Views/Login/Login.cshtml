@@ -1,4 +1,5 @@
-﻿@using Web.Models.PageBaseModels
+﻿@using Web.Extensions
+@using Web.Models.PageBaseModels
 @model Web.Models.AuthModels.LoginPageModel
 
 @{
@@ -17,7 +18,7 @@
 		If you are a new user, please <a href="@Model.AddUserUrl">register</a>!
 	</p>
 
-	@Html.Partial("~/Views/Forms/Errors.cshtml")
+	@Html.RenderModel(Model.Errors)
     
     <form method="post">
         @Html.HiddenFor(model => model.ReturnUrl)

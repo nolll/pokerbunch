@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.HomegameModels.Add
@@ -16,8 +17,9 @@ namespace Web.Models.HomegameModels.Add
         public string CurrencySymbol { get; private set; }
         public string CurrencyLayout { get; private set; }
         public string TimeZone { get; private set; }
+        public ErrorListModel Errors { get; }
 
-        public AddBunchPageModel(CoreContext.Result contextResult, AddBunchForm.Result bunchFormResult, AddBunchPostModel postModel)
+        public AddBunchPageModel(CoreContext.Result contextResult, AddBunchForm.Result bunchFormResult, AddBunchPostModel postModel, IEnumerable<string> errors)
             : base(contextResult)
         {
             CurrencyLayoutSelectItems = bunchFormResult.CurrencyLayouts.Select(o => new SelectListItem{ Text = o, Value = o }).ToList();
@@ -28,6 +30,7 @@ namespace Web.Models.HomegameModels.Add
             TimeZone = postModel.TimeZone;
             CurrencySymbol = postModel.CurrencySymbol;
             CurrencyLayout = postModel.CurrencyLayout;
+            Errors = new ErrorListModel(errors);
         }
 
         public override string BrowserTitle => "Create Bunch";

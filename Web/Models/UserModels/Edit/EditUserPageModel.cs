@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.UserModels.Edit
@@ -10,8 +12,9 @@ namespace Web.Models.UserModels.Edit
         public string DisplayName { get; private set; }
         public string RealName { get; private set; }
         public string Email { get; private set; }
+        public ErrorListModel Errors { get; }
 
-        public EditUserPageModel(CoreContext.Result contextResult, EditUserForm.Result editUserFormResult, EditUserPostModel postModel)
+        public EditUserPageModel(CoreContext.Result contextResult, EditUserForm.Result editUserFormResult, EditUserPostModel postModel, IEnumerable<string> errors)
             : base(contextResult)
         {
             UserName = editUserFormResult.UserName;
@@ -22,6 +25,7 @@ namespace Web.Models.UserModels.Edit
             RealName = postModel.RealName;
             DisplayName = postModel.DisplayName;
             Email = postModel.Email;
+            Errors = new ErrorListModel(errors);
         }
 
         public override string BrowserTitle => "Edit Profile";

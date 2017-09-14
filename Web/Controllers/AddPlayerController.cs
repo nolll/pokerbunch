@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -22,6 +23,8 @@ namespace Web.Controllers
         [Route(WebRoutes.Player.Add)]
         public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new AddPlayer.Request(slug, postModel.Name);
@@ -30,14 +33,14 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
             catch (PlayerExistsException ex)
             {
-                AddModelError(ex.Message);
+                errors.Add(ex.Message);
             }
 
-            return ShowForm(slug, postModel);
+            return ShowForm(slug, postModel, errors);
         }
 
         [Route(WebRoutes.Player.AddConfirmation)]
@@ -48,10 +51,10 @@ namespace Web.Controllers
             return View(model);
         }
 
-        private ActionResult ShowForm(string slug, AddPlayerPostModel postModel = null)
+        private ActionResult ShowForm(string slug, AddPlayerPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetBunchContext(slug);
-            var model = new AddPlayerPageModel(contextResult, postModel);
+            var model = new AddPlayerPageModel(contextResult, postModel, errors);
             return View(model);
         }
     }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -20,6 +21,8 @@ namespace Web.Controllers
         [Route(WebRoutes.User.Add)]
         public ActionResult Post(AddUserPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email, postModel.Password);
@@ -28,24 +31,24 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
             catch (UserExistsException ex)
             {
-                AddModelError(ex.Message);
+                errors.Add(ex.Message);
             }
             catch (EmailExistsException ex)
             {
-                AddModelError(ex.Message);
+                errors.Add(ex.Message);
             }
             
-            return ShowForm(postModel);
+            return ShowForm(postModel, errors);
         }
 
-        private ActionResult ShowForm(AddUserPostModel postModel = null)
+        private ActionResult ShowForm(AddUserPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var model = new AddUserPageModel(contextResult, postModel);
+            var model = new AddUserPageModel(contextResult, postModel, errors);
             return View(model);
         }
 

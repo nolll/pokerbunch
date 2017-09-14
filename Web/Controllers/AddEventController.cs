@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -22,6 +23,8 @@ namespace Web.Controllers
         [Route(WebRoutes.Event.Add)]
         public ActionResult Add_Post(string slug, AddEventPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new AddEvent.Request(slug, postModel.Name);
@@ -30,10 +33,10 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
 
-            return ShowForm(slug, postModel);
+            return ShowForm(slug, postModel, errors);
         }
 
         [Route(WebRoutes.Event.AddConfirmation)]
@@ -44,10 +47,10 @@ namespace Web.Controllers
             return View(model);
         }
 
-        private ActionResult ShowForm(string slug, AddEventPostModel postModel = null)
+        private ActionResult ShowForm(string slug, AddEventPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetBunchContext(slug);
-            var model = new AddEventPageModel(contextResult, postModel);
+            var model = new AddEventPageModel(contextResult, postModel, errors);
             return View(model);
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.CashgameModels.Add
@@ -14,8 +15,9 @@ namespace Web.Models.CashgameModels.Add
         public string LocationId { get; private set; }
         public IEnumerable<SelectListItem> Events { get; private set; }
         public string EventId { get; private set; }
+        public ErrorListModel Errors { get; }
 
-        public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel)
+        public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel, IEnumerable<string> errors)
             : base(contextResult)
         {
             Locations = GetLocationListItems(formResult.Locations);
@@ -23,6 +25,7 @@ namespace Web.Models.CashgameModels.Add
             if (postModel == null) return;
             LocationId = postModel.LocationId;
             EventId = postModel.EventId;
+            Errors = new ErrorListModel(errors);
         }
 
         private IEnumerable<SelectListItem> GetLocationListItems(IEnumerable<AddCashgameForm.LocationItem> locations)

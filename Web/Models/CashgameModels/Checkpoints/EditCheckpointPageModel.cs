@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using Core.UseCases;
 using Web.Extensions;
+using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
 using Web.Urls.SiteUrls;
 
@@ -15,8 +17,9 @@ namespace Web.Models.CashgameModels.Checkpoints
         public DateTime Timestamp { get; private set; }
         public int Stack { get; private set; }
         public int Amount { get; private set; }
+        public ErrorListModel Errors { get; }
 
-        public EditCheckpointPageModel(BunchContext.Result contextResult, EditCheckpointForm.Result editCheckpointFormResult, EditCheckpointPostModel postModel)
+        public EditCheckpointPageModel(BunchContext.Result contextResult, EditCheckpointForm.Result editCheckpointFormResult, EditCheckpointPostModel postModel, IEnumerable<string> errors)
             : base(contextResult)
         {
             Stack = editCheckpointFormResult.Stack;
@@ -30,6 +33,7 @@ namespace Web.Models.CashgameModels.Checkpoints
             Stack = postModel.Stack;
             Amount = postModel.Amount;
             Timestamp = postModel.Timestamp;
+            Errors = new ErrorListModel(errors);
         }
 
         public override string BrowserTitle => "Edit Checkpoint";

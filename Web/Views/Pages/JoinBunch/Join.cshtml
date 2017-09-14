@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.HomegameModels.Join.JoinBunchPageModel
 
@@ -14,7 +15,7 @@
 		Please enter your invitation code below to join the bunch @Model.Name
 	</p>
 
-    @Html.Partial("~/Views/Forms/Errors.cshtml")
+    @Html.RenderModel(Model.Errors)
 
     <form method="post">
 		<fieldset>

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
@@ -22,6 +23,8 @@ namespace Web.Controllers
         [Route(WebRoutes.User.ChangePassword)]
         public ActionResult Post(ChangePasswordPostModel postModel)
         {
+            var errors = new List<string>();
+
             try
             {
                 var request = new ChangePassword.Request(Identity.UserName, postModel.Password, postModel.Repeat);
@@ -30,16 +33,16 @@ namespace Web.Controllers
             }
             catch (ValidationException ex)
             {
-                AddModelErrors(ex.Messages);
+                errors.AddRange(ex.Messages);
             }
 
-            return ShowForm();
+            return ShowForm(errors);
         }
 
-        private ActionResult ShowForm()
+        private ActionResult ShowForm(IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var model = new ChangePasswordPageModel(contextResult);
+            var model = new ChangePasswordPageModel(contextResult, errors);
             return View(model);
         }
 
