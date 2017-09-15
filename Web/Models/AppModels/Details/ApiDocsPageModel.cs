@@ -21,7 +21,7 @@ namespace Web.Models.AppModels.Details
         {
             const string slug = "bunch-short-name";
             AppListUrl = new UserAppsUrl().Relative;
-            TokenUrl = new TokenUrl().Absolute;
+            TokenUrl = new TokenUrl().Relative;
             BunchListUrl = new ApiBunchListUrl().Absolute;
             RunningGameUrl = new ApiRunningGameUrl(slug).Absolute;
             BuyinUrl = new ApiBuyinUrl(slug).Absolute;

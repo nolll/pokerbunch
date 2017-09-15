@@ -38,13 +38,29 @@
 <div class="block gutter">
     <p>To authenticate, your application needs to post a request to <a href="@Model.TokenUrl">@Model.TokenUrl</a>.</p>
     <p>
-        Send the following POST parameters:<br />
-        grant_type = password<br />
-        client_id = {your API key}<br />
-        username = {your user's username}<br />
-        password = {your user's password}
+        <pre><code>POST @Model.TokenUrl</code></pre>
     </p>
-    <p>If your credentials are valid, the response will include a token, for example ABCDE. For subsequent requests, include an Authentication header with the content "bearer ABCDE".</p>
+    <p>
+        Send the following parameters in the body:
+    </p>
+    <p>
+        <pre><code>grant_type = password
+client_id = {your API key}
+username = {your user's username}
+password = {your user's password}</code></pre>
+    </p>
+    <p>
+        If your credentials are valid, the response will include a token, for example
+    </p>
+    <p>
+        <pre><code>ABCDE</code></pre>
+    </p>
+    <p>
+        For subsequent requests, include an Authentication header with the content
+    </p>
+    <p>
+        <pre><code>bearer ABCDE</code></pre>
+    </p>
 </div>
 
 <div class="block gutter">
