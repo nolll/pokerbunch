@@ -9,11 +9,11 @@ namespace Web.Models.AuthModels
 {
     public class LoginPageModel : AppPageModel
     {
-        public string AddUserUrl { get; private set; }
-        public string ForgotPasswordUrl { get; private set; }
-        public string LoginName { get; private set; }
-        public bool RememberMe { get; private set; }
-        public string ReturnUrl { get; private set; }
+        public string AddUserUrl { get; }
+        public string ForgotPasswordUrl { get; }
+        public string LoginName { get; }
+        public bool RememberMe { get; }
+        public string ReturnUrl { get; }
         public ErrorListModel Errors { get; }
 
         public LoginPageModel(CoreContext.Result contextResult, LoginForm.Result loginFormResult, LoginPostModel postModel, IEnumerable<string> errors)

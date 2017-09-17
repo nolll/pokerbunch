@@ -30,7 +30,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string BunchName { get; private set; }
+            public string BunchName { get; }
 
             public Result(string bunchName)
             {

@@ -33,12 +33,12 @@ namespace Core.UseCases
 
         public class Result
         {
-            public bool PlayedOneGame { get; private set; }
-            public bool PlayedTenGames { get; private set; }
-            public bool Played50Games { get; private set; }
-            public bool Played100Games { get; private set; }
-            public bool Played200Games { get; private set; }
-            public bool Played500Games { get; private set; }
+            public bool PlayedOneGame { get; }
+            public bool PlayedTenGames { get; }
+            public bool Played50Games { get; }
+            public bool Played100Games { get; }
+            public bool Played200Games { get; }
+            public bool Played500Games { get; }
 
             public Result(IEnumerable<ListCashgame> cashgames)
             {

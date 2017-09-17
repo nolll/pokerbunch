@@ -7,11 +7,11 @@ namespace Web.Models.CashgameModels.Action
 {
     public class CheckpointModel : IViewModel
     {
-        public string Description { get; private set; }
-        public string Stack { get; private set; }
-        public string Timestamp { get; private set; }
-        public bool ShowLink { get; private set; }
-        public string EditUrl { get; private set; }
+        public string Description { get; }
+        public string Stack { get; }
+        public string Timestamp { get; }
+        public bool ShowLink { get; }
+        public string EditUrl { get; }
 
         public CheckpointModel(Actions.CheckpointItem checkpointItem)
         {

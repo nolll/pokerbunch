@@ -92,16 +92,16 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string Slug { get; private set; }
-            public string PlayerId { get; private set; }
-            public string LocationName { get; private set; }
-            public string LocationId { get; private set; }
-            public IList<RunningCashgamePlayerItem> PlayerItems { get; private set; }
-            public IList<BunchPlayerItem> BunchPlayerItems { get; private set; }
-            public int DefaultBuyin { get; private set; }
-            public string CurrencyFormat { get; private set; }
-            public string ThousandSeparator { get; private set; }
-            public bool IsManager { get; private set; }
+            public string Slug { get; }
+            public string PlayerId { get; }
+            public string LocationName { get; }
+            public string LocationId { get; }
+            public IList<RunningCashgamePlayerItem> PlayerItems { get; }
+            public IList<BunchPlayerItem> BunchPlayerItems { get; }
+            public int DefaultBuyin { get; }
+            public string CurrencyFormat { get; }
+            public string ThousandSeparator { get; }
+            public bool IsManager { get; }
 
             public Result(
                 string slug,
@@ -130,9 +130,9 @@ namespace Core.UseCases
 
         public class BunchPlayerItem
         {
-            public string PlayerId { get; private set; }
+            public string PlayerId { get; }
             public string Name { get; }
-            public string Color { get; private set; }
+            public string Color { get; }
 
             public BunchPlayerItem(string playerId, string name, string color)
             {
@@ -144,9 +144,9 @@ namespace Core.UseCases
 
         public class RunningCashgameCheckpointItem
         {
-            public DateTime Time { get; private set; }
-            public int Stack { get; private set; }
-            public int AddedMoney { get; private set; }
+            public DateTime Time { get; }
+            public int Stack { get; }
+            public int AddedMoney { get; }
 
             public RunningCashgameCheckpointItem(DetailedCashgame.CashgameAction action)
             {
@@ -158,16 +158,16 @@ namespace Core.UseCases
 
         public class RunningCashgamePlayerItem
         {
-            public string PlayerId { get; private set; }
-            public string Name { get; private set; }
-            public string Color { get; private set; }
-            public string CashgameId { get; private set; }
-            public bool HasCashedOut { get; private set; }
+            public string PlayerId { get; }
+            public string Name { get; }
+            public string Color { get; }
+            public string CashgameId { get; }
+            public bool HasCashedOut { get; }
             public int Buyin { get; }
             public int Stack { get; }
-            public int Winnings { get; private set; }
-            public DateTime LastReport { get; set; }
-            public IList<RunningCashgameCheckpointItem> Checkpoints { get; private set; }
+            public int Winnings { get; }
+            public DateTime LastReport { get; }
+            public IList<RunningCashgameCheckpointItem> Checkpoints { get; }
 
             public RunningCashgamePlayerItem(string playerId, string name, string color, string cashgameId, bool hasCashedOut, IList<DetailedCashgame.CashgameAction> actions)
             {

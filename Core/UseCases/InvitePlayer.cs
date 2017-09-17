@@ -32,7 +32,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string PlayerId { get; private set; }
+            public string PlayerId { get; }
 
             public Result(string playerId)
             {

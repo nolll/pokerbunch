@@ -5,7 +5,7 @@ namespace Web.Models.PageBaseModels
 {
     public abstract class AppPageModel : WrappedPageModel
     {
-        public NavigationModel UserNavModel { get; private set; }
+        public NavigationModel UserNavModel { get; }
 
         protected AppPageModel(CoreContext.Result appContextResult)
             : base(appContextResult.BaseContext)

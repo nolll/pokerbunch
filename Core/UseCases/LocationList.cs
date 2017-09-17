@@ -38,7 +38,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<Item> Events { get; private set; }
+            public IList<Item> Events { get; }
 
             public Result(IList<Item> events)
             {
@@ -48,8 +48,8 @@ namespace Core.UseCases
 
         public class Item
         {
-            public string LocationId { get; private set; }
-            public string Name { get; private set; }
+            public string LocationId { get; }
+            public string Name { get; }
 
             public Item(string id, string name)
             {

@@ -8,18 +8,18 @@ namespace Web.Models.PlayerModels.Facts
 {
 	public class PlayerFactsModel : IViewModel
     {
-        public string Winnings { get; private set; }
-        public string WinningsCssClass { get; private set; }
-        public string BestResult { get; private set; }
-        public string BestResultCssClass { get; private set; }
-        public string WorstResult { get; private set; }
-        public string WorstResultCssClass { get; private set; }
-        public int GamesPlayed { get; private set; }
-	    public string TimePlayed { get; private set; }
-        public int BestResultCount { get; private set; }
-        public string CurrentStreak { get; private set; }
-        public string WinningStreak { get; private set; }
-        public string LosingStreak { get; private set; }
+        public string Winnings { get; }
+        public string WinningsCssClass { get; }
+        public string BestResult { get; }
+        public string BestResultCssClass { get; }
+        public string WorstResult { get; }
+        public string WorstResultCssClass { get; }
+        public int GamesPlayed { get; }
+	    public string TimePlayed { get; }
+        public int BestResultCount { get; }
+        public string CurrentStreak { get; }
+        public string WinningStreak { get; }
+        public string LosingStreak { get; }
 
 	    public PlayerFactsModel(PlayerFacts.Result factsResult)
 	    {

@@ -47,8 +47,8 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<LocationItem> Locations { get; private set; }
-            public IList<EventItem> Events { get; private set; }
+            public IList<LocationItem> Locations { get; }
+            public IList<EventItem> Events { get; }
 
             public Result(IList<LocationItem> locations, IList<EventItem> events)
             {
@@ -59,8 +59,8 @@ namespace Core.UseCases
 
         public class LocationItem
         {
-            public string Id { get; private set; }
-            public string Name { get; private set; }
+            public string Id { get; }
+            public string Name { get; }
 
             public LocationItem(string id, string name)
             {
@@ -71,8 +71,8 @@ namespace Core.UseCases
 
         public class EventItem
         {
-            public string Id { get; private set; }
-            public string Name { get; private set; }
+            public string Id { get; }
+            public string Name { get; }
 
             public EventItem(string id, string name)
             {

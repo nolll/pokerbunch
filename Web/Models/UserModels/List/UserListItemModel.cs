@@ -6,8 +6,8 @@ namespace Web.Models.UserModels.List
 {
     public class UserListItemModel : IViewModel
     {
-        public string Name { get; private set; }
-        public string Url { get; private set; }
+        public string Name { get; }
+        public string Url { get; }
 
         public UserListItemModel(UserList.UserListItem userListItem)
         {

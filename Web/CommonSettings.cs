@@ -8,7 +8,7 @@ namespace Web
         {
             bool ret;
             var str = Get(key);
-            return bool.TryParse(str, out ret) ? ret : ret;
+            return bool.TryParse(str, out ret) && ret;
         }
 
         protected static string Get(string key)

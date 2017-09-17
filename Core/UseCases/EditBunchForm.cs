@@ -40,16 +40,16 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string Heading { get; private set; }
-            public string Slug { get; private set; }
-            public string Description { get; private set; }
-            public string HouseRules { get; private set; }
-            public int DefaultBuyin { get; private set; }
-            public string TimeZoneId { get; private set; }
-            public string CurrencySymbol { get; private set; }
-            public string CurrencyLayout { get; private set; }
-            public IList<AddBunchForm.TimeZoneItem> TimeZones { get; private set; }
-            public IList<string> CurrencyLayouts { get; private set; }
+            public string Heading { get; }
+            public string Slug { get; }
+            public string Description { get; }
+            public string HouseRules { get; }
+            public int DefaultBuyin { get; }
+            public string TimeZoneId { get; }
+            public string CurrencySymbol { get; }
+            public string CurrencyLayout { get; }
+            public IList<AddBunchForm.TimeZoneItem> TimeZones { get; }
+            public IList<string> CurrencyLayouts { get; }
 
             public Result(string heading, string slug, string description, string houseRules, int defaultBuyin, string timeZoneId, string currencySymbol, string currencyLayout, IList<AddBunchForm.TimeZoneItem> timeZones, IList<string> currencyLayouts)
             {

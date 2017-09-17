@@ -4,9 +4,9 @@ namespace Web.Models.NavigationModels
 {
     public class NavigationYearModel
     {
-        public string Text { get; private set; }
-        public string Url { get; private set; }
-        public string SelectedCssClass { get; private set; }
+        public string Text { get; }
+        public string Url { get; }
+        public string SelectedCssClass { get; }
 
         public NavigationYearModel(string label, SiteUrl url, bool isSelected)
         {

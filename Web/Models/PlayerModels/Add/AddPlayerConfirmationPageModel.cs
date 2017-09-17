@@ -6,7 +6,7 @@ namespace Web.Models.PlayerModels.Add
 {
     public class AddPlayerConfirmationPageModel : BunchPageModel
     {
-        public string BunchName { get; private set; }
+        public string BunchName { get; }
 
         public AddPlayerConfirmationPageModel(BunchContext.Result contextResult)
             : base(contextResult)

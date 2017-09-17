@@ -31,7 +31,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string BunchId { get; private set; }
+            public string BunchId { get; }
 
             public Result(string bunchId)
             {

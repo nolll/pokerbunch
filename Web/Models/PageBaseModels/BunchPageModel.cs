@@ -5,7 +5,7 @@ namespace Web.Models.PageBaseModels
 {
     public abstract class BunchPageModel : AppPageModel
     {
-        public BunchNavigationModel BunchNavModel { get; private set; }
+        public BunchNavigationModel BunchNavModel { get; }
 
         protected BunchPageModel(BunchContext.Result bunchContextResult)
             : base(bunchContextResult.AppContext)

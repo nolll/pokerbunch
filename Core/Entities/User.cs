@@ -3,10 +3,10 @@ namespace Core.Entities
     public class User : IEntity
     {
 	    public string Id { get; }
-        public string UserName { get; private set; }
-        public string DisplayName { get; private set; }
-        public string RealName { get; private set; }
-        public string Email { get; private set; }
+        public string UserName { get; }
+        public string DisplayName { get; }
+        public string RealName { get; }
+        public string Email { get; }
         public Role Role { get; }
         public string CacheId => Id;
 

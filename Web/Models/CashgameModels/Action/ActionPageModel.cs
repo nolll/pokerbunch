@@ -9,9 +9,9 @@ namespace Web.Models.CashgameModels.Action
 {
     public class ActionPageModel : BunchPageModel
     {
-        public CheckpointListModel Checkpoints { get; private set; }
-        public string ChartJson { get; private set; }
-        public string Heading { get; private set; }
+        public CheckpointListModel Checkpoints { get; }
+        public string ChartJson { get; }
+        public string Heading { get; }
         public SpinnerModel SpinnerModel => new SpinnerModel();
 
         public ActionPageModel(BunchContext.Result contextResult, Actions.Result actionsResult, ActionsChart.Result actionsChartResult)

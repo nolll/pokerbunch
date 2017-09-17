@@ -9,13 +9,13 @@ namespace Web.Models.HomeModels
 {
     public class HomePageModel : BunchPageModel
     {
-        public bool IsLoggedIn { get; private set; }
-        public string AddBunchUrl { get; private set; }
-        public string LoginUrl { get; private set; }
-        public string RegisterUrl { get; private set; }
-        public string ApiDocsUrl { get; private set; }
-        public NavigationModel AdminNav { get; private set; }
-        public BunchListModel BunchList { get; private set; }
+        public bool IsLoggedIn { get; }
+        public string AddBunchUrl { get; }
+        public string LoginUrl { get; }
+        public string RegisterUrl { get; }
+        public string ApiDocsUrl { get; }
+        public NavigationModel AdminNav { get; }
+        public BunchListModel BunchList { get; }
 
         public HomePageModel(BunchContext.Result contextResult, BunchList.Result bunchListResult)
             : base(contextResult)

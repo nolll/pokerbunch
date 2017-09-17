@@ -79,8 +79,8 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<GameItem> GameItems { get; private set; }
-            public IList<PlayerItem> PlayerItems { get; private set; }
+            public IList<GameItem> GameItems { get; }
+            public IList<PlayerItem> PlayerItems { get; }
 
             public Result(IList<GameItem> gameItems, IList<PlayerItem> playerItems)
             {
@@ -91,8 +91,8 @@ namespace Core.UseCases
 
         public class GameItem
         {
-            public Date Date { get; private set; }
-            public IDictionary<string, int> Winnings { get; private set; }
+            public Date Date { get; }
+            public IDictionary<string, int> Winnings { get; }
 
             public GameItem(Date date, IDictionary<string, int> winnings)
             {
@@ -103,9 +103,9 @@ namespace Core.UseCases
 
         public class PlayerItem
         {
-            public string Id { get; private set; }
-            public string Name { get; private set; }
-            public string Color { get; private set; }
+            public string Id { get; }
+            public string Name { get; }
+            public string Color { get; }
 
             public PlayerItem(string id, string name, string color)
             {

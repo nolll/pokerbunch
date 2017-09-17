@@ -82,9 +82,9 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<GameItem> GameItems { get; private set; }
-            public IList<MatrixPlayerItem> PlayerItems { get; private set; }
-            public bool SpansMultipleYears { get; private set; }
+            public IList<GameItem> GameItems { get; }
+            public IList<MatrixPlayerItem> PlayerItems { get; }
+            public bool SpansMultipleYears { get; }
 
             public Result(IList<GameItem> gameItems, IList<MatrixPlayerItem> playerItems, bool spansMultipleYears)
             {
@@ -96,12 +96,12 @@ namespace Core.UseCases
 
         public class MatrixPlayerItem
         {
-            public int Rank { get; private set; }
-            public string Name { get; private set; }
-            public string Color { get; private set; }
-            public string PlayerId { get; private set; }
-            public IDictionary<string, MatrixResultItem> ResultItems { get; private set; }
-            public Money TotalResult { get; private set; }
+            public int Rank { get; }
+            public string Name { get; }
+            public string Color { get; }
+            public string PlayerId { get; }
+            public IDictionary<string, MatrixResultItem> ResultItems { get; }
+            public Money TotalResult { get; }
 
             public MatrixPlayerItem(int rank, string name, string color, string playerId, IDictionary<string, MatrixResultItem> resultItems, Money totalResult)
             {
@@ -116,11 +116,11 @@ namespace Core.UseCases
 
         public class MatrixResultItem
         {
-            public Money Buyin { get; private set; }
-            public Money Cashout { get; private set; }
-            public Money Winnings { get; private set; }
-            public bool HasBestResult { get; private set; }
-            public bool HasTransactions { get; private set; }
+            public Money Buyin { get; }
+            public Money Cashout { get; }
+            public Money Winnings { get; }
+            public bool HasBestResult { get; }
+            public bool HasTransactions { get; }
 
             public MatrixResultItem(Money buyin, Money cashout, Money winnings, bool hasBestResult, bool hasTransactions)
             {
@@ -134,8 +134,8 @@ namespace Core.UseCases
 
         public class GameItem
         {
-            public string Id { get; private set; }
-            public Date Date { get; private set; }
+            public string Id { get; }
+            public Date Date { get; }
 
             public GameItem(string id, Date date)
             {

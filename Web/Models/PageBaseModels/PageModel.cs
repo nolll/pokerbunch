@@ -6,11 +6,11 @@ namespace Web.Models.PageBaseModels
 {
     public abstract class PageModel : IViewModel
     {
-        public string CssUrl { get; private set; }
-        public string Version { get; private set; }
-        public GoogleAnalyticsModel GoogleAnalyticsModel { get; private set; }
-        public string JsPath { get; private set; }
-        public string JsLoaderPath { get; private set; }
+        public string CssUrl { get; }
+        public string Version { get; }
+        public GoogleAnalyticsModel GoogleAnalyticsModel { get; }
+        public string JsPath { get; }
+        public string JsLoaderPath { get; }
         public virtual string Layout => ContextLayout.Base;
         public virtual string HtmlCssClass => null;
         public virtual string BodyCssClass => "body-wide";

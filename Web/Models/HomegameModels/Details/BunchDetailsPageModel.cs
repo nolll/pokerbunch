@@ -7,12 +7,12 @@ namespace Web.Models.HomegameModels.Details
 {
     public class BunchDetailsPageModel : BunchPageModel
     {
-        public string DisplayName { get; private set; }
-        public string Description { get; private set; }
-        public string HouseRules { get; private set; }
-        public bool ShowHouseRules { get; private set; }
-        public string EditUrl { get; private set; }
-        public bool ShowEditLink { get; private set; }
+        public string DisplayName { get; }
+        public string Description { get; }
+        public string HouseRules { get; }
+        public bool ShowHouseRules { get; }
+        public string EditUrl { get; }
+        public bool ShowEditLink { get; }
 
         public BunchDetailsPageModel(BunchContext.Result contextResult, BunchDetails.Result bunchDetails)
             : base(contextResult)

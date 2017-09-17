@@ -4,7 +4,7 @@ namespace Web.Models.MiscModels
 {
     public class GoogleAnalyticsModel : IViewModel
     {
-        public bool EnableAnalytics { get; private set; }
+        public bool EnableAnalytics { get; }
 
         public GoogleAnalyticsModel()
         {

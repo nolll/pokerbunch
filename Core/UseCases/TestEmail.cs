@@ -20,7 +20,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string Message { get; private set; }
+            public string Message { get; }
 
             public Result(string message)
             {

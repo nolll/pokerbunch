@@ -42,11 +42,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public bool IsLoggedIn { get; private set; }
-            public bool IsAdmin { get; private set; }
-            public string UserDisplayName { get; private set; }
-            public BaseContext.Result BaseContext { get; private set; }
-            public string UserName { get; private set; }
+            public bool IsLoggedIn { get; }
+            public bool IsAdmin { get; }
+            public string UserDisplayName { get; }
+            public BaseContext.Result BaseContext { get; }
+            public string UserName { get; }
 
             public Result(
                 BaseContext.Result baseContextResult,

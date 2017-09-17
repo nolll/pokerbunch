@@ -44,14 +44,14 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string DisplayName { get; private set; }
-            public string PlayerId { get; private set; }
-            public bool CanDelete { get; private set; }
-            public bool IsUser { get; private set; }
-            public string UserName { get; private set; }
-            public string AvatarUrl { get; private set; }
-            public string Slug { get; private set; }
-            public string Color { get; private set; }
+            public string DisplayName { get; }
+            public string PlayerId { get; }
+            public bool CanDelete { get; }
+            public bool IsUser { get; }
+            public string UserName { get; }
+            public string AvatarUrl { get; }
+            public string Slug { get; }
+            public string Color { get; }
 
             public Result(Bunch bunch, Player player, User user, bool isManager, bool hasPlayed, string avatarUrl)
             {

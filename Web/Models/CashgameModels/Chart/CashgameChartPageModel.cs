@@ -8,7 +8,7 @@ namespace Web.Models.CashgameModels.Chart
 {
     public class CashgameChartPageModel : CashgamePageModel
     {
-        public string ChartJson { get; private set; }
+        public string ChartJson { get; }
         public SpinnerModel SpinnerModel => new SpinnerModel();
 
         public CashgameChartPageModel(CashgameContext.Result cashgameContextResult, CashgameChart.Result cashgameChartResult)

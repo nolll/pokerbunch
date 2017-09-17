@@ -6,8 +6,8 @@ namespace Web.Models.LocationModels.List
 {
     public class LocationListItemModel : IViewModel
     {
-        public string Name { get; private set; }
-        public string DetailsUrl { get; private set; }
+        public string Name { get; }
+        public string DetailsUrl { get; }
 
         public LocationListItemModel(LocationList.Item item)
         {

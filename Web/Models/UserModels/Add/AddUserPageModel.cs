@@ -8,9 +8,9 @@ namespace Web.Models.UserModels.Add
 {
     public class AddUserPageModel : AppPageModel
     {
-        public string UserName { get; private set; }
-        public string DisplayName { get; private set; }
-        public string Email { get; private set; }
+        public string UserName { get; }
+        public string DisplayName { get; }
+        public string Email { get; }
         public ErrorListModel Errors { get; }
 
         public AddUserPageModel(CoreContext.Result contextResult, AddUserPostModel postModel, IEnumerable<string> errors)

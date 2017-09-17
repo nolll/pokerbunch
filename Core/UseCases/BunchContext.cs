@@ -59,11 +59,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string BunchId { get; private set; }
-            public string Slug { get; private set; }
-            public string BunchName { get; private set; }
-            public bool HasBunch { get; private set; }
-            public CoreContext.Result AppContext { get; private set; }
+            public string BunchId { get; }
+            public string Slug { get; }
+            public string BunchName { get; }
+            public bool HasBunch { get; }
+            public CoreContext.Result AppContext { get; }
 
             public Result(CoreContext.Result appContextResult)
             {

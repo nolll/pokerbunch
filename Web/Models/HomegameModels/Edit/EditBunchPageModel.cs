@@ -11,16 +11,16 @@ namespace Web.Models.HomegameModels.Edit
 {
     public class EditBunchPageModel : BunchPageModel
     {
-        public string CancelUrl { get; private set; }
-        public string Heading { get; private set; }
-        public List<SelectListItem> CurrencyLayoutSelectItems { get; private set; }
-        public List<SelectListItem> TimezoneSelectItems { get; private set; }
-        public string Description { get; private set; }
-        public string CurrencySymbol { get; private set; }
-        public string CurrencyLayout { get; private set; }
-        public string TimeZone { get; private set; }
-        public string HouseRules { get; private set; }
-        public int DefaultBuyin { get; private set; }
+        public string CancelUrl { get; }
+        public string Heading { get; }
+        public List<SelectListItem> CurrencyLayoutSelectItems { get; }
+        public List<SelectListItem> TimezoneSelectItems { get; }
+        public string Description { get; }
+        public string CurrencySymbol { get; }
+        public string CurrencyLayout { get; }
+        public string TimeZone { get; }
+        public string HouseRules { get; }
+        public int DefaultBuyin { get; }
         public ErrorListModel Errors { get; }
 
         public EditBunchPageModel(BunchContext.Result contextResult, EditBunchForm.Result editBunchFormResult, EditBunchPostModel postModel, IEnumerable<string> errors)

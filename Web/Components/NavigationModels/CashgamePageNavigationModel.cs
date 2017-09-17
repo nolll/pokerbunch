@@ -6,25 +6,25 @@ namespace Web.Components.NavigationModels
 {
 	public class CashgamePageNavigationModel : Component
     {
-        public string SelectedName { get; private set; }
-        public string OverviewUrl { get; private set; }
-	    public string OverviewName { get; private set; }
-        public string OverviewSelectedClass { get; private set; }
-        public string MatrixUrl { get; private set; }
-        public string MatrixName { get; private set; }
-        public string MatrixSelectedClass { get; private set; }
-        public string ToplistUrl { get; private set; }
-        public string ToplistName { get; private set; }
-        public string ToplistSelectedClass { get; private set; }
-        public string ChartUrl { get; private set; }
-        public string ChartName { get; private set; }
-        public string ChartSelectedClass { get; private set; }
-        public string ListUrl { get; private set; }
-        public string ListName { get; private set; }
-        public string ListSelectedClass { get; private set; }
-        public string FactsUrl { get; private set; }
-        public string FactsName { get; private set; }
-        public string FactsSelectedClass { get; private set; }
+        public string SelectedName { get; }
+        public string OverviewUrl { get; }
+	    public string OverviewName { get; }
+        public string OverviewSelectedClass { get; }
+        public string MatrixUrl { get; }
+        public string MatrixName { get; }
+        public string MatrixSelectedClass { get; }
+        public string ToplistUrl { get; }
+        public string ToplistName { get; }
+        public string ToplistSelectedClass { get; }
+        public string ChartUrl { get; }
+        public string ChartName { get; }
+        public string ChartSelectedClass { get; }
+        public string ListUrl { get; }
+        public string ListName { get; }
+        public string ListSelectedClass { get; }
+        public string FactsUrl { get; }
+        public string FactsName { get; }
+        public string FactsSelectedClass { get; }
 
 	    public CashgamePageNavigationModel(CashgameContext.Result cashgameContextResult)
 	    {

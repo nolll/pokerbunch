@@ -6,12 +6,12 @@ namespace Web.Models.NavigationModels
 {
     public class BunchNavigationModel : IViewModel
     {
-        public string Heading { get; private set; }
-        public string HeadingUrl { get; private set; }
-        public string CashgameUrl { get; private set; }
-        public string PlayerUrl { get; private set; }
-        public string EventUrl { get; private set; }
-        public string LocationUrl { get; private set; }
+        public string Heading { get; }
+        public string HeadingUrl { get; }
+        public string CashgameUrl { get; }
+        public string PlayerUrl { get; }
+        public string EventUrl { get; }
+        public string LocationUrl { get; }
         public bool IsEmpty { get; private set; }
 
         protected BunchNavigationModel()

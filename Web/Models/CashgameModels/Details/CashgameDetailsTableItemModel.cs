@@ -8,14 +8,14 @@ namespace Web.Models.CashgameModels.Details
 {
     public class CashgameDetailsTableItemModel : IViewModel
     {
-        public string Name { get; private set; }
-        public string Color { get; private set; }
-        public string PlayerUrl { get; private set; }
-        public string Buyin { get; private set; }
-        public string Cashout { get; private set; }
-        public string Winnings { get; private set; }
-        public string WinningsClass { get; private set; }
-        public string Winrate { get; private set; }
+        public string Name { get; }
+        public string Color { get; }
+        public string PlayerUrl { get; }
+        public string Buyin { get; }
+        public string Cashout { get; }
+        public string Winnings { get; }
+        public string WinningsClass { get; }
+        public string Winrate { get; }
 
         public CashgameDetailsTableItemModel(CashgameDetails.PlayerResultItem resultItem)
         {

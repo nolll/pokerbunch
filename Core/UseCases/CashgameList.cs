@@ -59,13 +59,13 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<Item> List { get; private set; }
-            public SortOrder SortOrder { get; private set; }
-            public string Slug { get; private set; }
-            public int? Year { get; private set; }
-            public bool ShowYear { get; private set; }
-            public string CurrencyFormat { get; private set; }
-            public string ThousandSeparator { get; private set; }
+            public IList<Item> List { get; }
+            public SortOrder SortOrder { get; }
+            public string Slug { get; }
+            public int? Year { get; }
+            public bool ShowYear { get; }
+            public string CurrencyFormat { get; }
+            public string ThousandSeparator { get; }
 
             public Result(string slug, IList<Item> list, SortOrder sortOrder, int? year, string currencyFormat, string thousandSeparator)
             {
@@ -81,13 +81,13 @@ namespace Core.UseCases
 
         public class Item
         {
-            public string Location { get; private set; }
-            public string CashgameId { get; private set; }
-            public Time Duration { get; private set; }
-            public Date Date { get; private set; }
-            public Money Turnover { get; private set; }
-            public Money AverageBuyin { get; private set; }
-            public int PlayerCount { get; private set; }
+            public string Location { get; }
+            public string CashgameId { get; }
+            public Time Duration { get; }
+            public Date Date { get; }
+            public Money Turnover { get; }
+            public Money AverageBuyin { get; }
+            public int PlayerCount { get; }
 
             public Item(Bunch bunch, ListCashgame cashgame)
             {

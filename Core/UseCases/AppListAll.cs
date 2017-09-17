@@ -23,7 +23,7 @@ namespace Core.UseCases
         
         public class Result
         {
-            public IList<Item> Items { get; private set; }
+            public IList<Item> Items { get; }
 
             public Result(IEnumerable<App> apps)
             {
@@ -33,9 +33,9 @@ namespace Core.UseCases
 
         public class Item
         {
-            public string AppId { get; private set; }
-            public string AppKey { get; private set; }
-            public string AppName { get; private set; }
+            public string AppId { get; }
+            public string AppKey { get; }
+            public string AppName { get; }
 
             public Item(App app)
             {

@@ -9,8 +9,8 @@ namespace Web.Models.LocationModels.List
 {
 	public class LocationListPageModel : BunchPageModel
     {
-        public IList<LocationListItemModel> LocationModels { get; private set; }
-	    public string AddUrl { get; private set; }
+        public IList<LocationListItemModel> LocationModels { get; }
+	    public string AddUrl { get; }
 
         public LocationListPageModel(BunchContext.Result contextResult, LocationList.Result locationListResult)
             : base(contextResult)

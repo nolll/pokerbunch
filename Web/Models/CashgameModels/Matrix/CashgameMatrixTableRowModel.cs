@@ -8,13 +8,13 @@ namespace Web.Models.CashgameModels.Matrix
 {
     public class CashgameMatrixTableRowModel : IViewModel
     {
-	    public int Rank { get; private set; }
-	    public string Name { get; private set; }
-        public string Color { get; private set; }
-        public string TotalResult { get; private set; }
-	    public string ResultClass { get; private set; }
-	    public string PlayerUrl { get; private set; }
-        public IList<CashgameMatrixTableCellModel> CellModels { get; private set; }
+	    public int Rank { get; }
+	    public string Name { get; }
+        public string Color { get; }
+        public string TotalResult { get; }
+	    public string ResultClass { get; }
+	    public string PlayerUrl { get; }
+        public IList<CashgameMatrixTableCellModel> CellModels { get; }
 
         public CashgameMatrixTableRowModel(IEnumerable<Core.UseCases.Matrix.GameItem> gameItems, Core.UseCases.Matrix.MatrixPlayerItem playerItem)
         {

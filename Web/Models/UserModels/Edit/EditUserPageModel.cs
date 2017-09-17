@@ -8,10 +8,10 @@ namespace Web.Models.UserModels.Edit
 {
     public class EditUserPageModel : AppPageModel
     {
-        public string UserName { get; private set; }
-        public string DisplayName { get; private set; }
-        public string RealName { get; private set; }
-        public string Email { get; private set; }
+        public string UserName { get; }
+        public string DisplayName { get; }
+        public string RealName { get; }
+        public string Email { get; }
         public ErrorListModel Errors { get; }
 
         public EditUserPageModel(CoreContext.Result contextResult, EditUserForm.Result editUserFormResult, EditUserPostModel postModel, IEnumerable<string> errors)

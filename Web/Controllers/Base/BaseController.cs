@@ -40,18 +40,8 @@ namespace Web.Controllers.Base
             return UseCase.CashgameContext.Execute(GetBunchContext(slug), new CashgameContext.Request(slug, currentTime, selectedPage, year));
         }
 
-        protected Identity Identity
-        {
-            get
-            {
-                if (_identity == null)
-                {
-                    _identity = new Identity(User);
-                }
-                return _identity;
-            }
-        }
-        
+        protected Identity Identity => _identity ?? (_identity = new Identity(User));
+
         protected override void OnException(ExceptionContext filterContext)
         {
             if (filterContext.ExceptionHandled)

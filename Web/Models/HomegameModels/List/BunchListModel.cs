@@ -7,7 +7,7 @@ namespace Web.Models.HomegameModels.List
 {
     public class BunchListModel : IViewModel
     {
-        public List<BunchListItemModel> BunchModels { get; private set; }
+        public List<BunchListItemModel> BunchModels { get; }
 
         public BunchListModel(BunchList.Result bunchListResult)
         {

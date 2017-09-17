@@ -7,8 +7,8 @@ namespace Web.Models.HomegameModels.Join
 {
     public class JoinBunchConfirmationPageModel : BunchPageModel
     {
-        public string BunchName { get; private set; }
-        public string BunchUrl { get; private set; }
+        public string BunchName { get; }
+        public string BunchUrl { get; }
 
         public JoinBunchConfirmationPageModel(BunchContext.Result contextResult, JoinBunchConfirmation.Result joinBunchConfirmationResult)
             : base(contextResult)

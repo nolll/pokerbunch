@@ -61,7 +61,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<PlayerItem> PlayerItems { get; private set; }
+            public IList<PlayerItem> PlayerItems { get; }
 
             public Result(IList<PlayerItem> playerItems)
             {
@@ -71,10 +71,10 @@ namespace Core.UseCases
 
         public class PlayerItem
         {
-            public string Id { get; private set; }
-            public string Name { get; private set; }
-            public string Color { get; private set; }
-            public IList<ResultItem> Results { get; private set; }
+            public string Id { get; }
+            public string Name { get; }
+            public string Color { get; }
+            public IList<ResultItem> Results { get; }
 
             public PlayerItem(string id, string name, string color, IList<ResultItem> results)
             {
@@ -87,8 +87,8 @@ namespace Core.UseCases
 
         public class ResultItem
         {
-            public DateTime Timestamp { get; private set; }
-            public int Winnings { get; private set; }
+            public DateTime Timestamp { get; }
+            public int Winnings { get; }
 
             public ResultItem(DateTime timestamp, int winnings)
             {

@@ -8,7 +8,7 @@ namespace Web.Models.UserModels.List
 {
     public class UserListPageModel : AppPageModel
     {
-        public IList<UserListItemModel> UserModels { get; private set; }
+        public IList<UserListItemModel> UserModels { get; }
 
         public UserListPageModel(CoreContext.Result contextResult, UserList.Result userListResult)
             : base(contextResult)

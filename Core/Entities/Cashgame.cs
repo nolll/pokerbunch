@@ -152,7 +152,7 @@ namespace Core.Entities
             public int Buyin { get; }
             public DateTime StartTime { get; }
             public DateTime UpdatedTime { get; }
-            public IList<CashgameAction> Actions { get; set; }
+            public IList<CashgameAction> Actions { get; }
 
             public CashgamePlayer(string id, string name, string color, int stack, int buyin, DateTime startTime, DateTime updatedTime, IList<CashgameAction> actions)
             {
@@ -202,7 +202,7 @@ namespace Core.Entities
         public IList<Checkpoint> DeletedCheckpoints { get; }
         public string Id { get; }
         public string BunchId { get; }
-        public string LocationId { get; private set; }
+        public string LocationId { get; }
         public GameStatus Status { get; private set; }
         public DateTime? StartTime { get; private set; }
         public DateTime? EndTime { get; private set; }

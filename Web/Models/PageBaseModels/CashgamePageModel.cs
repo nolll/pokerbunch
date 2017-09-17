@@ -6,8 +6,8 @@ namespace Web.Models.PageBaseModels
 {
     public abstract class CashgamePageModel : BunchPageModel
     {
-        public CashgamePageNavigationModel PageNavModel { get; private set; }
-        public CashgameYearNavigationModel YearNavModel { get; private set; }
+        public CashgamePageNavigationModel PageNavModel { get; }
+        public CashgameYearNavigationModel YearNavModel { get; }
 
         protected CashgamePageModel(CashgameContext.Result cashgameContextResult)
             : base(cashgameContextResult.BunchContext)

@@ -40,15 +40,15 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Money Winnings { get; private set; }
-            public Money BestResult { get; private set; }
-            public Money WorstResult { get; private set; }
-            public int GamesPlayed { get; private set; }
-            public Time TimePlayed { get; private set; }
-            public int BestResultCount { get; private set; }
-            public int CurrentStreak { get; private set; }
-            public int WinningStreak { get; private set; }
-            public int LosingStreak { get; private set; }
+            public Money Winnings { get; }
+            public Money BestResult { get; }
+            public Money WorstResult { get; }
+            public int GamesPlayed { get; }
+            public Time TimePlayed { get; }
+            public int BestResultCount { get; }
+            public int CurrentStreak { get; }
+            public int WinningStreak { get; }
+            public int LosingStreak { get; }
 
             public Result(IEnumerable<ListCashgame> cashgames, string playerId, Currency currency)
             {

@@ -4,7 +4,7 @@ namespace Core.Exceptions
 {
     public class ValidationException : PokerBunchException
     {
-        public IEnumerable<string> Messages { get; private set; }
+        public IEnumerable<string> Messages { get; }
 
         public ValidationException(string message)
         {

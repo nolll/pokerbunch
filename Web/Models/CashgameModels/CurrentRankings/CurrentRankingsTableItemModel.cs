@@ -7,13 +7,13 @@ namespace Web.Models.CashgameModels.CurrentRankings
 {
     public class CurrentRankingsTableItemModel : IViewModel
     {
-        public int Rank { get; private set; }
-        public string Name { get; private set; }
-        public string TotalResult { get; private set; }
-        public string TotalResultClass { get; private set; }
-        public string LastGameResult { get; private set; }
-        public string LastGameResultClass { get; private set; }
-        public string PlayerUrl { get; private set; }
+        public int Rank { get; }
+        public string Name { get; }
+        public string TotalResult { get; }
+        public string TotalResultClass { get; }
+        public string LastGameResult { get; }
+        public string LastGameResultClass { get; }
+        public string PlayerUrl { get; }
 
         public CurrentRankingsTableItemModel(Core.UseCases.CurrentRankings.Item currentRankingsItem)
         {

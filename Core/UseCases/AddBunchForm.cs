@@ -15,8 +15,8 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<TimeZoneItem> TimeZones { get; private set; }
-            public IList<string> CurrencyLayouts { get; private set; }
+            public IList<TimeZoneItem> TimeZones { get; }
+            public IList<string> CurrencyLayouts { get; }
 
             public Result(IList<TimeZoneItem> timeZones, IList<string> currencyLayouts)
             {
@@ -27,8 +27,8 @@ namespace Core.UseCases
 
         public class TimeZoneItem
         {
-            public string Id { get; private set; }
-            public string Name { get; private set; }
+            public string Id { get; }
+            public string Name { get; }
 
             public TimeZoneItem(string id, string name)
             {

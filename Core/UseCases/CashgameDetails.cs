@@ -38,16 +38,16 @@ namespace Core.UseCases
 
         public class Result
         {
-            public Date Date { get; private set; }
-            public Time Duration { get; private set; }
-            public DateTime StartTime { get; private set; }
-            public DateTime EndTime { get; private set; }
-            public string LocationName { get; private set; }
-            public string LocationId { get; private set; }
-            public bool CanEdit { get; private set; }
-            public string Slug { get; private set; }
-            public string CashgameId { get; private set; }
-            public IList<PlayerResultItem> PlayerItems { get; private set; }
+            public Date Date { get; }
+            public Time Duration { get; }
+            public DateTime StartTime { get; }
+            public DateTime EndTime { get; }
+            public string LocationName { get; }
+            public string LocationId { get; }
+            public bool CanEdit { get; }
+            public string Slug { get; }
+            public string CashgameId { get; }
+            public IList<PlayerResultItem> PlayerItems { get; }
 
             public Result(DetailedCashgame cashgame)
             {
@@ -73,14 +73,14 @@ namespace Core.UseCases
 
         public class PlayerResultItem
         {
-            public string Name { get; private set; }
-            public string Color { get; private set; }
-            public string CashgameId { get; private set; }
-            public string PlayerId { get; private set; }
-            public Money Buyin { get; private set; }
-            public Money Cashout { get; private set; }
-            public Money Winnings { get; private set; }
-            public Money WinRate { get; private set; }
+            public string Name { get; }
+            public string Color { get; }
+            public string CashgameId { get; }
+            public string PlayerId { get; }
+            public Money Buyin { get; }
+            public Money Cashout { get; }
+            public Money Winnings { get; }
+            public Money WinRate { get; }
 
             public PlayerResultItem(DetailedCashgame cashgame, DetailedCashgame.CashgamePlayer player)
             {

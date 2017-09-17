@@ -9,9 +9,9 @@ namespace Web.Models.AppModels.List
 {
     public class UserAppsPageModel : AppPageModel
     {
-        public IList<AppListItemModel> AppModels { get; private set; }
-        public bool HasApps { get; private set; }
-        public string AddUrl { get; private set; }
+        public IList<AppListItemModel> AppModels { get; }
+        public bool HasApps { get; }
+        public string AddUrl { get; }
 
         public UserAppsPageModel(CoreContext.Result contextResult, AppListUser.Result appListResult)
             : base(contextResult)

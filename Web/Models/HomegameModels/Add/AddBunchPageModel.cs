@@ -10,13 +10,13 @@ namespace Web.Models.HomegameModels.Add
 {
     public class AddBunchPageModel : AppPageModel
     {
-        public List<SelectListItem> CurrencyLayoutSelectItems { get; private set; }
-        public List<SelectListItem> TimezoneSelectItems { get; private set; }
-        public string DisplayName { get; private set; }
-        public string Description { get; private set; }
-        public string CurrencySymbol { get; private set; }
-        public string CurrencyLayout { get; private set; }
-        public string TimeZone { get; private set; }
+        public List<SelectListItem> CurrencyLayoutSelectItems { get; }
+        public List<SelectListItem> TimezoneSelectItems { get; }
+        public string DisplayName { get; }
+        public string Description { get; }
+        public string CurrencySymbol { get; }
+        public string CurrencyLayout { get; }
+        public string TimeZone { get; }
         public ErrorListModel Errors { get; }
 
         public AddBunchPageModel(CoreContext.Result contextResult, AddBunchForm.Result bunchFormResult, AddBunchPostModel postModel, IEnumerable<string> errors)

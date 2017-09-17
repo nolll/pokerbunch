@@ -4,7 +4,7 @@ namespace Web.Extensions
 {
     public class View
     {
-        private string ViewName { get; set; }
+        private string ViewName { get; }
 
         public View([AspMvcView] string viewName)
         {

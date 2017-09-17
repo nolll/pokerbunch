@@ -7,10 +7,10 @@ namespace Web.Models.AppModels.Details
 {
     public class AppDetailsPageModel : AppPageModel
     {
-        public string AppName { get; private set; }
-        public string AppKey { get; private set; }
-        public bool ShowEditLink { get; private set; }
-        public string EditUrl { get; private set; }
+        public string AppName { get; }
+        public string AppKey { get; }
+        public bool ShowEditLink { get; }
+        public string EditUrl { get; }
 
         public AppDetailsPageModel(CoreContext.Result contextResult, AppDetails.Result appDetailsResult)
             : base(contextResult)

@@ -41,9 +41,9 @@ namespace Core.UseCases
 
         public class Result
         {
-            public bool Deleted { get; private set; }
-            public string Slug { get; private set; }
-            public string PlayerId { get; private set; }
+            public bool Deleted { get; }
+            public string Slug { get; }
+            public string PlayerId { get; }
 
             public Result(bool deleted, string slug, string playerId)
             {

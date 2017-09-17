@@ -47,7 +47,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<ResultItem> Bunches { get; private set; }
+            public IList<ResultItem> Bunches { get; }
 
             public Result(IEnumerable<SmallBunch> bunches)
             {
@@ -57,9 +57,9 @@ namespace Core.UseCases
 
         public class ResultItem
         {
-            public string Id { get; private set; }
-            public string Slug { get; private set; }
-            public string DisplayName { get; private set; }
+            public string Id { get; }
+            public string Slug { get; }
+            public string DisplayName { get; }
 
             public ResultItem(SmallBunch bunch)
             {

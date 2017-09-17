@@ -6,9 +6,9 @@ namespace Web.Models.EventModels.List
 {
     public class EventListItemModel : IViewModel
     {
-        public string Name { get; private set; }
-        public string DetailsUrl { get; private set; }
-        public string TimeAndLocation { get; private set; }
+        public string Name { get; }
+        public string DetailsUrl { get; }
+        public string TimeAndLocation { get; }
 
         public EventListItemModel(EventList.Item item)
         {

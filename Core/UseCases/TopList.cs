@@ -50,11 +50,11 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<Item> Items { get; private set; }
-            public string Slug { get; private set; }
-            public string CurrencyFormat { get; private set; }
-            public string ThousandSeparator { get; private set; }
-            public int? Year { get; private set; }
+            public IList<Item> Items { get; }
+            public string Slug { get; }
+            public string CurrencyFormat { get; }
+            public string ThousandSeparator { get; }
+            public int? Year { get; }
 
             public Result(IEnumerable<Item> items, string slug, string currencyFormat, string thousandSeparator, int? year)
             {
@@ -68,9 +68,9 @@ namespace Core.UseCases
 
         public class Item
         {
-            public int Rank { get; private set; }
-            public string PlayerId { get; private set; }
-            public string Name { get; private set; }
+            public int Rank { get; }
+            public string PlayerId { get; }
+            public string Name { get; }
             public Money Winnings { get; }
             public Money Buyin { get; }
             public Money Cashout { get; }

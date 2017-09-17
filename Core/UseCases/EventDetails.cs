@@ -30,8 +30,8 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string Name { get; private set; }
-            public string Slug { get; private set; }
+            public string Name { get; }
+            public string Slug { get; }
 
             public Result(string name, string slug)
             {

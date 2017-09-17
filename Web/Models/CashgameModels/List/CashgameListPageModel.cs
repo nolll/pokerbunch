@@ -7,7 +7,7 @@ namespace Web.Models.CashgameModels.List
 {
     public class CashgameListPageModel : CashgamePageModel
     {
-        public string ListJson { get; private set; }
+        public string ListJson { get; }
 
         public CashgameListPageModel(CashgameContext.Result cashgameContextResult, CashgameList.Result listResult)
             : base(cashgameContextResult)

@@ -7,23 +7,23 @@ namespace Web.Models.CashgameModels.Facts
 {
 	public class CashgameFactsPageModel : CashgamePageModel
     {
-        public int GameCount { get; private set; }
-        public string TotalGameTime { get; private set; }
-        public string TotalTurnover { get; private set; }
-        public string BestResultAmount { get; private set; }
-        public string BestResultName { get; private set; }
-        public string WorstResultAmount { get; private set; }
-        public string WorstResultName { get; private set; }
-        public string MostTimeDuration { get; private set; }
-        public string MostTimeName { get; private set; }
-        public string BestTotalWinningsName { get; private set; }
-        public string BestTotalWinningsAmount { get; private set; }
-        public string WorstTotalWinningsName { get; private set; }
-        public string WorstTotalWinningsAmount { get; private set; }
-        public string BiggestTotalBuyinName { get; private set; }
-        public string BiggestTotalBuyinAmount { get; private set; }
-        public string BiggestTotalCashoutName { get; private set; }
-        public string BiggestTotalCashoutAmount { get; private set; }
+        public int GameCount { get; }
+        public string TotalGameTime { get; }
+        public string TotalTurnover { get; }
+        public string BestResultAmount { get; }
+        public string BestResultName { get; }
+        public string WorstResultAmount { get; }
+        public string WorstResultName { get; }
+        public string MostTimeDuration { get; }
+        public string MostTimeName { get; }
+        public string BestTotalWinningsName { get; }
+        public string BestTotalWinningsAmount { get; }
+        public string WorstTotalWinningsName { get; }
+        public string WorstTotalWinningsAmount { get; }
+        public string BiggestTotalBuyinName { get; }
+        public string BiggestTotalBuyinAmount { get; }
+        public string BiggestTotalCashoutName { get; }
+        public string BiggestTotalCashoutAmount { get; }
 
 	    public CashgameFactsPageModel(CashgameContext.Result cashgameContextResult, CashgameFacts.Result factsResult)
             : base(cashgameContextResult)

@@ -6,12 +6,12 @@ namespace Web.Models.CashgameModels.Status
 {
     public class CashgameStatusModel : IViewModel
     {
-        public string Heading { get; private set; }
-        public string LinkText { get; private set; }
-        public string Description { get; private set; }
-        public string Url { get; private set; }
-        public string DashboardUrl { get; private set; }
-        public bool GameIsRunning { get; private set; }
+        public string Heading { get; }
+        public string LinkText { get; }
+        public string Description { get; }
+        public string Url { get; }
+        public string DashboardUrl { get; }
+        public bool GameIsRunning { get; }
 
         public CashgameStatusModel(CashgameStatus.Result statusResult)
         {

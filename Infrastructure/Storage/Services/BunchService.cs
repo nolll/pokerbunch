@@ -60,7 +60,7 @@ namespace Infrastructure.Storage.Services
             var timezone = TimeZoneInfo.FindSystemTimeZoneById(b.Timezone);
             var currency = new Currency(b.CurrencySymbol, b.CurrencyLayout);
             var role = ParseRole(b.Role);
-            var id = b.Player?.Id ?? null;
+            var id = b.Player?.Id;
             return new Bunch(b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role, id);
         }
 

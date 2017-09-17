@@ -43,7 +43,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<Item> Events { get; private set; }
+            public IList<Item> Events { get; }
 
             public Result(IList<Item> events)
             {
@@ -53,11 +53,11 @@ namespace Core.UseCases
 
         public class Item
         {
-            public string EventId { get; private set; }
-            public string Name { get; private set; }
-            public string Location { get; private set; }
-            public Date StartDate { get; private set; }
-            public bool HasGames { get; private set; }
+            public string EventId { get; }
+            public string Name { get; }
+            public string Location { get; }
+            public Date StartDate { get; }
+            public bool HasGames { get; }
 
             public Item(string id, string name)
             {

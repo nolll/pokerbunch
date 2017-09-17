@@ -8,15 +8,15 @@ namespace Web.Models.UserModels
 {
     public class UserDetailsPageModel : AppPageModel
     {
-        public string UserName { get; private set; }
-        public string DisplayName { get; private set; }
-        public string RealName { get; private set; }
-        public string Email { get; private set; }
-        public string EditUrl { get; private set; }
-        public string ChangePasswordUrl { get; private set; }
-        public bool ShowEditLink { get; private set; }
-        public bool ShowPasswordLink { get; private set; }
-        public AvatarModel AvatarModel { get; private set; }
+        public string UserName { get; }
+        public string DisplayName { get; }
+        public string RealName { get; }
+        public string Email { get; }
+        public string EditUrl { get; }
+        public string ChangePasswordUrl { get; }
+        public bool ShowEditLink { get; }
+        public bool ShowPasswordLink { get; }
+        public AvatarModel AvatarModel { get; }
 
         public UserDetailsPageModel(CoreContext.Result contextResult, UserDetails.Result userDetails)
             : base(contextResult)

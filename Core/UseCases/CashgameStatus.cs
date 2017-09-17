@@ -34,8 +34,8 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string Slug { get; private set; }
-            public bool GameIsRunning { get; private set; }
+            public string Slug { get; }
+            public bool GameIsRunning { get; }
 
             public Result(
                 string slug,

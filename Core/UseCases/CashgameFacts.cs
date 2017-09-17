@@ -108,16 +108,16 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int GameCount { get; private set; }
-            public Time TotalTimePlayed { get; private set; }
-            public Money Turnover { get; private set; }
-            public MoneyFact BestResult { get; private set; }
-            public MoneyFact WorstResult { get; private set; }
-            public MoneyFact BestTotalResult { get; private set; }
-            public MoneyFact WorstTotalResult { get; private set; }
-            public DurationFact MostTimePlayed { get; private set; }
-            public MoneyFact BiggestBuyin { get; private set; }
-            public MoneyFact BiggestCashout { get; private set; }
+            public int GameCount { get; }
+            public Time TotalTimePlayed { get; }
+            public Money Turnover { get; }
+            public MoneyFact BestResult { get; }
+            public MoneyFact WorstResult { get; }
+            public MoneyFact BestTotalResult { get; }
+            public MoneyFact WorstTotalResult { get; }
+            public DurationFact MostTimePlayed { get; }
+            public MoneyFact BiggestBuyin { get; }
+            public MoneyFact BiggestCashout { get; }
 
             public Result(int gameCount, Time totalTimePlayed, Money turnover, MoneyFact bestResult, MoneyFact worstResult, MoneyFact bestTotalResult, MoneyFact worstTotalResult, DurationFact mostTimePlayed, MoneyFact biggestBuyin, MoneyFact biggestCashout)
             {
@@ -136,7 +136,7 @@ namespace Core.UseCases
 
         public class DurationFact : PlayerFact
         {
-            public Time Time { get; private set; }
+            public Time Time { get; }
 
             public DurationFact(string playerName, Time time)
                 : base(playerName)
@@ -147,7 +147,7 @@ namespace Core.UseCases
 
         public class MoneyFact : PlayerFact
         {
-            public Money Amount { get; private set; }
+            public Money Amount { get; }
 
             public MoneyFact(string playerName, Money amount)
                 : base(playerName)
@@ -158,7 +158,7 @@ namespace Core.UseCases
 
         public class PlayerFact
         {
-            public string PlayerName { get; private set; }
+            public string PlayerName { get; }
 
             protected PlayerFact(string playerName)
             {

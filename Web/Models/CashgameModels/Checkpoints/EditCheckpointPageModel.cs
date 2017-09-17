@@ -10,13 +10,13 @@ namespace Web.Models.CashgameModels.Checkpoints
 {
     public class EditCheckpointPageModel : BunchPageModel
     {
-        public string DeleteUrl { get; private set; }
-        public string CancelUrl { get; private set; }
-        public string StackLabel { get; private set; }
-        public bool EnableAmountField { get; private set; }
-        public DateTime Timestamp { get; private set; }
-        public int Stack { get; private set; }
-        public int Amount { get; private set; }
+        public string DeleteUrl { get; }
+        public string CancelUrl { get; }
+        public string StackLabel { get; }
+        public bool EnableAmountField { get; }
+        public DateTime Timestamp { get; }
+        public int Stack { get; }
+        public int Amount { get; }
         public ErrorListModel Errors { get; }
 
         public EditCheckpointPageModel(BunchContext.Result contextResult, EditCheckpointForm.Result editCheckpointFormResult, EditCheckpointPostModel postModel, IEnumerable<string> errors)

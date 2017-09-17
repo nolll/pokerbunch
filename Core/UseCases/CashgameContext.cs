@@ -58,12 +58,12 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string BunchId { get; private set; }
-            public bool GameIsRunning { get; private set; }
-            public CashgamePage SelectedPage { get; private set; }
-            public int? SelectedYear { get; private set; }
-            public IList<int> Years { get; private set; }
-            public BunchContext.Result BunchContext { get; private set; }
+            public string BunchId { get; }
+            public bool GameIsRunning { get; }
+            public CashgamePage SelectedPage { get; }
+            public int? SelectedYear { get; }
+            public IList<int> Years { get; }
+            public BunchContext.Result BunchContext { get; }
 
             public Result(
                 BunchContext.Result bunchContextResult,

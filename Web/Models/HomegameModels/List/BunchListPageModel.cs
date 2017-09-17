@@ -8,7 +8,7 @@ namespace Web.Models.HomegameModels.List
 {
 	public class BunchListPageModel : AppPageModel
     {
-	    public IList<BunchListItemModel> BunchModels { get; private set; }
+	    public IList<BunchListItemModel> BunchModels { get; }
 
 	    public BunchListPageModel(CoreContext.Result contextResult, BunchList.Result bunchListResult)
             : base(contextResult)

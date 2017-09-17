@@ -6,7 +6,7 @@ namespace Web.Models.CashgameModels.Matrix
 {
     public class CashgameMatrixPageModel : CashgamePageModel
     {
-        public CashgameMatrixTableModel TableModel { get; private set; }
+        public CashgameMatrixTableModel TableModel { get; }
 
         public CashgameMatrixPageModel(CashgameContext.Result cashgameContextResult, Core.UseCases.Matrix.Result matrixResult)
             : base(cashgameContextResult)

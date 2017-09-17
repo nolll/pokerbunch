@@ -7,17 +7,17 @@ namespace Core.Entities
 {
     public class CashgameResult
     {
-        public string PlayerId { get; private set; }
+        public string PlayerId { get; }
         public int Buyin { get; }
         public int Winnings { get; }
-        public IList<Checkpoint> Checkpoints { get; private set; }
+        public IList<Checkpoint> Checkpoints { get; }
         public DateTime? BuyinTime { get; }
         public DateTime? CashoutTime { get; }
         public int PlayedTime { get; }
         public int Stack { get; }
-        public DateTime? LastReportTime { get; private set; }
+        public DateTime? LastReportTime { get; }
         public Checkpoint CashoutCheckpoint { get; }
-        public int WinRate { get; private set; }
+        public int WinRate { get; }
 
         public CashgameResult(string playerId, IList<Checkpoint> checkpoints)
         {

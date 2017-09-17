@@ -39,14 +39,14 @@ namespace Core.UseCases
 
         public class Result
         {
-            public int Stack { get; private set; }
-            public int Amount { get; private set; }
-            public DateTime TimeStamp { get; private set; }
-            public string ActionId { get; private set; }
-            public string CashgameId { get; private set; }
-            public string PlayerId { get; private set; }
-            public string Slug { get; private set; }
-            public bool CanEditAmount { get; private set; }
+            public int Stack { get; }
+            public int Amount { get; }
+            public DateTime TimeStamp { get; }
+            public string ActionId { get; }
+            public string CashgameId { get; }
+            public string PlayerId { get; }
+            public string Slug { get; }
+            public bool CanEditAmount { get; }
 
             public Result(int stack, int amount, DateTime timeStamp, string actionId, string cashgameId, string playerId, string slug, bool canEditAmount)
             {

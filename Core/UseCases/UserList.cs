@@ -23,7 +23,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<UserListItem> Users { get; private set; }
+            public IList<UserListItem> Users { get; }
 
             public Result(IList<UserListItem> userItems)
             {
@@ -33,8 +33,8 @@ namespace Core.UseCases
 
         public class UserListItem
         {
-            public string DisplayName { get; private set; }
-            public string UserName { get; private set; }
+            public string DisplayName { get; }
+            public string UserName { get; }
 
             public UserListItem(string displayName, string userName)
             {

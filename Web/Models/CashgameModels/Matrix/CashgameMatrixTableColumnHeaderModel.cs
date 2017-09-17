@@ -6,8 +6,8 @@ namespace Web.Models.CashgameModels.Matrix
 {
     public class CashgameMatrixTableColumnHeaderModel : IViewModel
     {
-        public string Date { get; private set; }
-        public string CashgameUrl { get; private set; }
+        public string Date { get; }
+        public string CashgameUrl { get; }
 
         public CashgameMatrixTableColumnHeaderModel(Core.UseCases.Matrix.GameItem gameItem, bool showYear = false)
         {

@@ -6,9 +6,9 @@ namespace Web.Models.AppModels.List
 {
     public class AppListItemModel : IViewModel
     {
-        public string Name { get; private set; }
-        public string Key { get; private set; }
-        public string Url { get; private set; }
+        public string Name { get; }
+        public string Key { get; }
+        public string Url { get; }
 
         public AppListItemModel(AppListAll.Item i)
             : this(i.AppId, i.AppName, i.AppKey)

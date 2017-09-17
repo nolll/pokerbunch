@@ -6,7 +6,7 @@ namespace Web.Components.PlayerModels.Badges
 {
 	public class BadgeListModel : Component
     {
-        public IList<BadgeModel> NumberOfGamesBadges { get; private set; }
+        public IList<BadgeModel> NumberOfGamesBadges { get; }
 
 	    public BadgeListModel(PlayerBadges.Result badgesResult)
 	    {

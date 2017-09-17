@@ -37,9 +37,9 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<PlayerListItem> Players { get; private set; }
-            public bool CanAddPlayer { get; private set; }
-            public string Slug { get; private set; }
+            public IList<PlayerListItem> Players { get; }
+            public bool CanAddPlayer { get; }
+            public string Slug { get; }
 
             public Result(Bunch bunch, IEnumerable<Player> players, bool isManager)
             {

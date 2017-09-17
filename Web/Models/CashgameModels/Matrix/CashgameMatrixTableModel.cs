@@ -6,8 +6,8 @@ namespace Web.Models.CashgameModels.Matrix
 {
 	public class CashgameMatrixTableModel : IViewModel
     {
-	    public List<CashgameMatrixTableColumnHeaderModel> ColumnHeaderModels { get; private set; }
-	    public List<CashgameMatrixTableRowModel> RowModels { get; private set; }
+	    public List<CashgameMatrixTableColumnHeaderModel> ColumnHeaderModels { get; }
+	    public List<CashgameMatrixTableRowModel> RowModels { get; }
 
         public CashgameMatrixTableModel(Core.UseCases.Matrix.Result matrixResult)
         {

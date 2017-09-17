@@ -11,10 +11,10 @@ namespace Web.Models.CashgameModels.Add
 {
     public class AddCashgamePageModel : BunchPageModel
     {
-        public IEnumerable<SelectListItem> Locations { get; private set; }
-        public string LocationId { get; private set; }
-        public IEnumerable<SelectListItem> Events { get; private set; }
-        public string EventId { get; private set; }
+        public IEnumerable<SelectListItem> Locations { get; }
+        public string LocationId { get; }
+        public IEnumerable<SelectListItem> Events { get; }
+        public string EventId { get; }
         public ErrorListModel Errors { get; }
 
         public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel, IEnumerable<string> errors)

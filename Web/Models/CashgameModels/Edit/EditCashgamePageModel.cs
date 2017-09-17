@@ -12,15 +12,15 @@ namespace Web.Models.CashgameModels.Edit
 {
     public class EditCashgamePageModel : BunchPageModel
     {
-        public string IsoDate { get; private set; }
-        public string CancelUrl { get; private set; }
-        public string DeleteUrl { get; private set; }
-        public string AddLocationUrl { get; private set; }
-        public string AddEventUrl { get; private set; }
+        public string IsoDate { get; }
+        public string CancelUrl { get; }
+        public string DeleteUrl { get; }
+        public string AddLocationUrl { get; }
+        public string AddEventUrl { get; }
         public IList<SelectListItem> Locations { get; }
-        public string LocationId { get; private set; }
+        public string LocationId { get; }
         public IList<SelectListItem> Events { get; }
-        public string EventId { get; private set; }
+        public string EventId { get; }
         public ErrorListModel Errors { get; }
 
         public EditCashgamePageModel(BunchContext.Result contextResult, EditCashgameForm.Result editCashgameFormResult, EditCashgamePostModel postModel, IEnumerable<string> errors)

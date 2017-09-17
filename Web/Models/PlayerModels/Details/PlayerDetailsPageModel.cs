@@ -10,16 +10,16 @@ namespace Web.Models.PlayerModels.Details
 {
     public class PlayerDetailsPageModel : BunchPageModel
     {
-        public string DisplayName { get; private set; }
-        public string DeleteUrl { get; private set; }
-        public bool ShowUserInfo { get; private set; }
-        public bool DeleteEnabled { get; private set; }
-        public string UserUrl { get; private set; }
-        public string InvitationUrl { get; private set; }
-        public AvatarModel AvatarModel { get; private set; }
-        public PlayerFactsModel PlayerFactsModel { get; private set; }
-        public BadgeListModel BadgeListModel { get; private set; }
-        public string Color { get; private set; }
+        public string DisplayName { get; }
+        public string DeleteUrl { get; }
+        public bool ShowUserInfo { get; }
+        public bool DeleteEnabled { get; }
+        public string UserUrl { get; }
+        public string InvitationUrl { get; }
+        public AvatarModel AvatarModel { get; }
+        public PlayerFactsModel PlayerFactsModel { get; }
+        public BadgeListModel BadgeListModel { get; }
+        public string Color { get; }
 
         public PlayerDetailsPageModel(BunchContext.Result contextResult, PlayerDetails.Result detailsResult, PlayerFacts.Result factsResult, PlayerBadges.Result badgesResult)
             : base(contextResult)

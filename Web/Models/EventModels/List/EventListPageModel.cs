@@ -9,8 +9,8 @@ namespace Web.Models.EventModels.List
 {
 	public class EventListPageModel : BunchPageModel
     {
-        public IList<EventListItemModel> EventModels { get; private set; }
-	    public string AddUrl { get; private set; }
+        public IList<EventListItemModel> EventModels { get; }
+	    public string AddUrl { get; }
 
 	    public EventListPageModel(BunchContext.Result contextResult, EventList.Result eventListResult)
             : base(contextResult)

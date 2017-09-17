@@ -4,7 +4,7 @@ namespace Web.Models.AdminModels
 {
     public class ClearCacheModel : IViewModel
     {
-        public string Message { get; private set; }
+        public string Message { get; }
 
         public ClearCacheModel(string message)
         {

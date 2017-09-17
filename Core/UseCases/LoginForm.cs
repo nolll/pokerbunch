@@ -10,7 +10,7 @@ namespace Core.UseCases
 
         public class Request
         {
-            public string DefaultUrl { get; set; }
+            public string DefaultUrl { get; }
             public string ReturnUrl { get; }
 
             public Request(string defaultUrl, string returnUrl)
@@ -22,7 +22,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string ReturnUrl { get; private set; }
+            public string ReturnUrl { get; }
 
             public Result(string returnUrl)
             {

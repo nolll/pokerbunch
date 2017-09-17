@@ -7,7 +7,7 @@ namespace Web.Models.CashgameModels.Details
 {
     public class CashgameDetailsTableModel : IViewModel
     {
-        public IList<CashgameDetailsTableItemModel> ResultModels { get; private set; }
+        public IList<CashgameDetailsTableItemModel> ResultModels { get; }
 
         public CashgameDetailsTableModel(IEnumerable<CashgameDetails.PlayerResultItem> playerItems)
         {

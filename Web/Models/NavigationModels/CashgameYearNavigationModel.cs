@@ -11,8 +11,8 @@ namespace Web.Models.NavigationModels
     {
         private const string AllText = "All";
 
-        public IList<NavigationYearModel> YearModels { get; private set; }
-        public string SelectedYear { get; private set; }
+        public IList<NavigationYearModel> YearModels { get; }
+        public string SelectedYear { get; }
 
         public CashgameYearNavigationModel(CashgameContext.Result cashgameContext)
         {

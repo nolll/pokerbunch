@@ -8,8 +8,8 @@ namespace Web.Models.EventModels.Details
 	public class EventDetailsPageModel : BunchPageModel
     {
 	    private readonly EventDetails.Result _eventDetails;
-	    public string Name { get; private set; }
-        public CashgameMatrixTableModel MatrixModel { get; private set; }
+	    public string Name { get; }
+        public CashgameMatrixTableModel MatrixModel { get; }
 
 	    public EventDetailsPageModel(BunchContext.Result contextResult, EventDetails.Result eventDetails, Matrix.Result matrixResult)
             : base(contextResult)

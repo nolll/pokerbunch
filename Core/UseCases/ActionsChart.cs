@@ -68,7 +68,7 @@ namespace Core.UseCases
 
         public class Result
         {
-            public IList<CheckpointItem> CheckpointItems { get; private set; }
+            public IList<CheckpointItem> CheckpointItems { get; }
 
             public Result(IList<CheckpointItem> checkpointItems)
             {
@@ -78,10 +78,10 @@ namespace Core.UseCases
 
         public class CheckpointItem
         {
-            public DateTime Timestamp { get; private set; }
-            public int Stack { get; private set; }
-            public int TotalBuyin { get; private set; }
-            public int AddedMoney { get; private set; }
+            public DateTime Timestamp { get; }
+            public int Stack { get; }
+            public int TotalBuyin { get; }
+            public int AddedMoney { get; }
 
             public CheckpointItem(DateTime timestamp, int stack, int totalBuyin, int addedMoney = 0)
             {

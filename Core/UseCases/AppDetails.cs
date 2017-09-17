@@ -30,9 +30,9 @@ namespace Core.UseCases
 
         public class Result
         {
-            public string AppId { get; private set; }
-            public string AppKey { get; private set; }
-            public string AppName { get; private set; }
+            public string AppId { get; }
+            public string AppKey { get; }
+            public string AppName { get; }
 
             public Result(string appId, string appKey, string appName)
             {

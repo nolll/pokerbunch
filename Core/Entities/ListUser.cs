@@ -2,8 +2,8 @@ namespace Core.Entities
 {
     public class ListUser
     {
-        public string UserName { get; private set; }
-        public string DisplayName { get; private set; }
+        public string UserName { get; }
+        public string DisplayName { get; }
 
         public ListUser(
             string userName,

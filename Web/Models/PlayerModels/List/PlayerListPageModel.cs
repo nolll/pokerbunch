@@ -9,9 +9,9 @@ namespace Web.Models.PlayerModels.List
 {
     public class PlayerListPageModel : BunchPageModel
     {
-        public IList<PlayerItemModel> PlayerModels { get; private set; }
-	    public string AddUrl { get; private set; }
-	    public bool ShowAddLink { get; private set; }
+        public IList<PlayerItemModel> PlayerModels { get; }
+	    public string AddUrl { get; }
+	    public bool ShowAddLink { get; }
 
         public PlayerListPageModel(BunchContext.Result contextResult, PlayerList.Result playerListResult)
             : base(contextResult)

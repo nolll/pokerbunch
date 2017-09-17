@@ -8,8 +8,8 @@ namespace Web.Models.LocationModels.Details
 	public class LocationDetailsPageModel : BunchPageModel
     {
 	    private readonly LocationDetails.Result _locationDetails;
-	    public string Name { get; private set; }
-	    public string EditUrl { get; private set; }
+	    public string Name { get; }
+	    public string EditUrl { get; }
 
         public LocationDetailsPageModel(BunchContext.Result contextResult, LocationDetails.Result locationDetails)
             : base(contextResult)

@@ -6,9 +6,9 @@ namespace Web.Models.PlayerModels.List
 {
     public class PlayerItemModel : IViewModel
     {
-        public string Name { get; private set; }
-        public string Url { get; private set; }
-        public string Color { get; private set; }
+        public string Name { get; }
+        public string Url { get; }
+        public string Color { get; }
 
         public PlayerItemModel(PlayerList.PlayerListItem p)
         {

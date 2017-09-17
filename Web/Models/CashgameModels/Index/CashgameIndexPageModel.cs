@@ -8,9 +8,9 @@ namespace Web.Models.CashgameModels.Index
 {
     public class CashgameIndexPageModel : CashgamePageModel
     {
-        public CashgameStatusModel StatusModel { get; private set; }
-        public CurrentRankingsTableModel CurrentRankingsModel { get; private set; }
-        public bool HasGames { get; private set; }
+        public CashgameStatusModel StatusModel { get; }
+        public CurrentRankingsTableModel CurrentRankingsModel { get; }
+        public bool HasGames { get; }
 
         public CashgameIndexPageModel(CashgameContext.Result contextResult, CashgameStatus.Result statusResult, Core.UseCases.CurrentRankings.Result currentRankingsResult)
             : base(contextResult)

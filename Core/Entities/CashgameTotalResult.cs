@@ -9,8 +9,8 @@ namespace Core.Entities
         public int Winnings { get; }
         public int GameCount { get; }
         public int TimePlayed { get; }
-        public int WinRate { get; private set; }
-        public Player Player { get; private set; }
+        public int WinRate { get; }
+        public Player Player { get; }
 	    public int Buyin { get; }
 	    public int Cashout { get; }
 

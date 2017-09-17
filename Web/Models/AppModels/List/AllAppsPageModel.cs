@@ -8,8 +8,8 @@ namespace Web.Models.AppModels.List
 {
     public class AllAppsPageModel : AppPageModel
     {
-        public IList<AppListItemModel> AppModels { get; private set; }
-        public bool HasApps { get; private set; }
+        public IList<AppListItemModel> AppModels { get; }
+        public bool HasApps { get; }
 
         public AllAppsPageModel(CoreContext.Result contextResult, AppListAll.Result appListResult)
             : base(contextResult)

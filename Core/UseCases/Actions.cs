@@ -61,10 +61,10 @@ namespace Core.UseCases
 
         public class Result
         {
-            public DateTime Date { get; private set; }
-            public string PlayerName { get; private set; }
-            public string Slug { get; private set; }
-            public IList<CheckpointItem> CheckpointItems { get; private set; }
+            public DateTime Date { get; }
+            public string PlayerName { get; }
+            public string Slug { get; }
+            public IList<CheckpointItem> CheckpointItems { get; }
 
             public Result(DateTime date, string playerName, string slug, List<CheckpointItem> checkpointItems)
             {
@@ -77,12 +77,12 @@ namespace Core.UseCases
 
         public class CheckpointItem
         {
-            public DateTime Time { get; private set; }
-            public string CheckpointId { get; private set; }
+            public DateTime Time { get; }
+            public string CheckpointId { get; }
             public string CashgameId { get; }
-            public string Type { get; private set; }
-            public Money DisplayAmount { get; private set; }
-            public bool CanEdit { get; private set; }
+            public string Type { get; }
+            public Money DisplayAmount { get; }
+            public bool CanEdit { get; }
 
             public CheckpointItem(DateTime time, string checkpointId, string cashgameId, string type, Money displayAmount, bool canEdit)
             {

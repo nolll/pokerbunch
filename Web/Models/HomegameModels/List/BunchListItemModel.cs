@@ -6,8 +6,8 @@ namespace Web.Models.HomegameModels.List
 {
     public class BunchListItemModel : IViewModel
     {
-        public string Name { get; private set; }
-        public string Url { get; private set; }
+        public string Name { get; }
+        public string Url { get; }
 
         public BunchListItemModel(BunchList.ResultItem bunchListItem)
         {
