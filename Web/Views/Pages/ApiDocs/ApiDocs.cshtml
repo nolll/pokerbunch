@@ -1,3 +1,4 @@
+@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.AppModels.Details.ApiDocsPageModel
 
@@ -5,70 +6,10 @@
     Layout = PageLayout.OneColumn;
 }
 
-<div class="block gutter">
-    <h1 class="page-heading">Api Documentation</h1>
-</div>
-<div class="block gutter">
-    <p>
-        You can build your own applications that interact with Poker Bunch, by using the Poker Bunch API. You'll find everything you need to know right here.
-    </p>
-</div>
-
-<div class="block gutter">
-    <h1 class="module-heading">API Key</h1>
-</div>
-<div class="block gutter">
-    <p>
-        The first thing you need to know is that you will need an <a href="@Model.AppListUrl">API Key</a> to access the API.
-    </p>
-</div>
-
-<div class="block gutter">
-    <h1 class="module-heading">Posting Data</h1>
-</div>
-<div class="block gutter">
-    <p>
-        The content type of all POST request has to be application/x-www-form-urlencoded.
-    </p>
-</div>
-
-<div class="block gutter">
-    <h1 class="module-heading">Authentication</h1>
-</div>
-<div class="block gutter">
-    <p>To authenticate, your application needs to post a request to <a href="@Model.TokenUrl">@Model.TokenUrl</a>.</p>
-    <p>
-        <pre><code>POST @Model.TokenUrl</code></pre>
-    </p>
-    <p>
-        Send the following parameters in the body:
-    </p>
-    <p>
-        <pre><code>grant_type = password
-client_id = {your API key}
-username = {your user's username}
-password = {your user's password}</code></pre>
-    </p>
-    <p>
-        If your credentials are valid, the response will include a token, for example
-    </p>
-    <p>
-        <pre><code>ABCDE</code></pre>
-    </p>
-    <p>
-        For subsequent requests, include an Authentication header with the content
-    </p>
-    <p>
-        <pre><code>bearer ABCDE</code></pre>
-    </p>
-</div>
-
-<div class="block gutter">
-    <h1 class="module-heading">Bunches</h1>
-</div>
-<div class="block gutter">
-    <p>To see the bunches you can access, call <a href="@Model.BunchListUrl">@Model.BunchListUrl</a>.</p>
-</div>
+@foreach (var section in Model.Sections)
+{
+    @Html.RenderModel(section)
+}
 
 <div class="block gutter">
     <h1 class="module-heading">Game Status</h1>

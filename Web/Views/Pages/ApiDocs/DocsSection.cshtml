@@ -1,0 +1,9 @@
+@using Web.Extensions
+@model Web.Models.AppModels.Details.DocsSectionModel
+
+@foreach (var block in Model.Blocks)
+{
+    <div class="block gutter">
+        @Html.RenderModel(block)
+    </div>
+}

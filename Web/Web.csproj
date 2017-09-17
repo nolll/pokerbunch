@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
     <ApplicationInsightsResourceId>/subscriptions/06e18347-ac5a-4537-9442-9e811c086c54/resourcegroups/Default-Web-NorthEurope/providers/microsoft.insights/components/pokerbunch-com</ApplicationInsightsResourceId>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -620,6 +621,11 @@
     <Content Include="package.json" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <None Include="Local.config" />
+    <Content Include="Views\Pages\ApiDocs\DocsContentBlock.cshtml" />
+    <Content Include="Views\Pages\ApiDocs\DocsSection.cshtml" />
+    <Content Include="Views\Pages\ApiDocs\DocsPageHeadingBlock.cshtml" />
+    <Content Include="Views\Pages\ApiDocs\DocsSectionHeadingBlock.cshtml" />
+    <Content Include="Views\Pages\ApiDocs\DocsCodeBlock.cshtml" />
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
