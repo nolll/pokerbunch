@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Core.UseCases;
+using Web.Components.ApiDocsModels;
 using Web.Extensions;
 using Web.Models.PageBaseModels;
 using Web.Urls.ApiUrls;
@@ -107,87 +106,5 @@ namespace Web.Models.AppModels.Details
         {
             return new View("~/Views/Pages/ApiDocs/ApiDocs.cshtml");
         }
-    }
-
-    public class DocsSectionModel : IViewModel
-    {
-        public IEnumerable<DocsBlockModel> Blocks { get; }
-
-        public DocsSectionModel(params DocsBlockModel[] blocks)
-        {
-            Blocks = blocks;
-        }
-
-        public View GetView()
-        {
-            return new View("~/Views/Pages/ApiDocs/DocsSection.cshtml");
-        }
-    }
-
-    public class DocsContentBlockModel : DocsBlockModel
-    {
-        public override string Content { get; }
-
-        public DocsContentBlockModel(string content)
-        {
-            Content = content;
-        }
-
-        public override View GetView()
-        {
-            return new View("~/Views/Pages/ApiDocs/DocsContentBlock.cshtml");
-        }
-    }
-
-    public class DocsPageHeadingBlockModel : DocsBlockModel
-    {
-        public override string Content { get; }
-
-        public DocsPageHeadingBlockModel(string content)
-        {
-            Content = content;
-        }
-
-        public override View GetView()
-        {
-            return new View("~/Views/Pages/ApiDocs/DocsPageHeadingBlock.cshtml");
-        }
-    }
-
-    public class DocsSectionHeadingBlockModel : DocsBlockModel
-    {
-        public override string Content { get; }
-
-        public DocsSectionHeadingBlockModel(string content)
-        {
-            Content = content;
-        }
-
-        public override View GetView()
-        {
-            return new View("~/Views/Pages/ApiDocs/DocsSectionHeadingBlock.cshtml");
-        }
-    }
-
-    public class DocsCodeBlockModel : DocsBlockModel
-    {
-        public override string Content { get; }
-
-        public DocsCodeBlockModel(params string[] content)
-        {
-            Content = string.Join("\n", content);
-        }
-
-        public override View GetView()
-        {
-            return new View("~/Views/Pages/ApiDocs/DocsCodeBlock.cshtml");
-        }
-    }
-
-    public abstract class DocsBlockModel : IViewModel
-    {
-        public abstract string Content { get; }
-        
-        public abstract View GetView();
     }
 }

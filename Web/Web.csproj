@@ -181,6 +181,12 @@
     <Compile Include="App_Start\LessTransform.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CommonSettings.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsCodeBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsContentBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsPageHeadingBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsSectionHeadingBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsSectionModel.cs" />
     <Compile Include="Components\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
@@ -621,11 +627,11 @@
     <Content Include="package.json" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <None Include="Local.config" />
-    <Content Include="Views\Pages\ApiDocs\DocsContentBlock.cshtml" />
-    <Content Include="Views\Pages\ApiDocs\DocsSection.cshtml" />
-    <Content Include="Views\Pages\ApiDocs\DocsPageHeadingBlock.cshtml" />
-    <Content Include="Views\Pages\ApiDocs\DocsSectionHeadingBlock.cshtml" />
-    <Content Include="Views\Pages\ApiDocs\DocsCodeBlock.cshtml" />
+    <Content Include="Components\ApiDocsModels\DocsContentBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\DocsSectionModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\DocsPageHeadingBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\DocsSectionHeadingBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\DocsCodeBlockModel.cshtml" />
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
