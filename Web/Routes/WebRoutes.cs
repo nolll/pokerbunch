@@ -95,7 +95,9 @@ namespace Web.Routes
 
         public static class Api
         {
-            public const string Docs = "api";
+            public const string DocsIndex = "apidocs";
+            public const string DocsAuth = "apidocs/auth";
+            public const string DocsBunches = "apidocs/bunches";
         }
 
         public static class App

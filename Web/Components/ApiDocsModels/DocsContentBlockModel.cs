@@ -1,3 +1,5 @@
+using Web.Urls;
+
 namespace Web.Components.ApiDocsModels
 {
     public class DocsContentBlockModel : DocsBlockModel

@@ -1,17 +1,33 @@
 using System.Web.Mvc;
 using Web.Controllers.Base;
-using Web.Models.AppModels.Details;
+using Web.Models.ApiDocsModels;
 using Web.Routes;
 
 namespace Web.Controllers
 {
     public class ApiDocsController : BaseController
     {
-        [Route(WebRoutes.Api.Docs)]
-        public ActionResult ApiDocs()
+        [Route(WebRoutes.Api.DocsIndex)]
+        public ActionResult Index()
         {
             var context = GetAppContext();
-            var model = new ApiDocsPageModel(context);
+            var model = new ApiDocsIndexPageModel(context);
+            return View(model);
+        }
+
+        [Route(WebRoutes.Api.DocsAuth)]
+        public ActionResult Auth()
+        {
+            var context = GetAppContext();
+            var model = new ApiDocsAuthPageModel(context);
+            return View(model);
+        }
+
+        [Route(WebRoutes.Api.DocsBunches)]
+        public ActionResult Bunches()
+        {
+            var context = GetAppContext();
+            var model = new ApiDocsBunchesPageModel(context);
             return View(model);
         }
     }

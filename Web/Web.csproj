@@ -184,6 +184,9 @@
     <Compile Include="Components\ApiDocsModels\DocsBlockModel.cs" />
     <Compile Include="Components\ApiDocsModels\DocsCodeBlockModel.cs" />
     <Compile Include="Components\ApiDocsModels\DocsContentBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsJsonBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsNavigationBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\DocsNavigationItemModel.cs" />
     <Compile Include="Components\ApiDocsModels\DocsPageHeadingBlockModel.cs" />
     <Compile Include="Components\ApiDocsModels\DocsSectionHeadingBlockModel.cs" />
     <Compile Include="Components\ApiDocsModels\DocsSectionModel.cs" />
@@ -241,6 +244,10 @@
     <Compile Include="Controllers\UserListController.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Extensions\View.cs" />
+    <Compile Include="Models\ApiDocsModels\ApiDocsAuthPageModel.cs" />
+    <Compile Include="Models\ApiDocsModels\ApiDocsBunchesPageModel.cs" />
+    <Compile Include="Models\ApiDocsModels\ApiDocsIndexPageModel.cs" />
+    <Compile Include="Models\ApiDocsModels\ApiDocsPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointListModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableJsonModel.cs" />
@@ -263,7 +270,6 @@
     <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
     <Compile Include="Models\AppModels\Add\AddAppPageModel.cs" />
     <Compile Include="Models\AppModels\Add\AddAppPostModel.cs" />
-    <Compile Include="Models\AppModels\Details\ApiDocsPageModel.cs" />
     <Compile Include="Models\AppModels\Details\AppDetailsPageModel.cs" />
     <Compile Include="Models\AppModels\List\AppListItemModel.cs" />
     <Compile Include="Models\AppModels\List\AllAppsPageModel.cs" />
@@ -379,7 +385,9 @@
     <Compile Include="Urls\SiteUrls\AddUserConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddUserUrl.cs" />
     <Compile Include="Urls\SiteUrls\AllAppsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ApiDocsUrl.cs" />
+    <Compile Include="Urls\SiteUrls\ApiDocsAuthUrl.cs" />
+    <Compile Include="Urls\SiteUrls\ApiDocsBunchesUrl.cs" />
+    <Compile Include="Urls\SiteUrls\ApiDocsIndexUrl.cs" />
     <Compile Include="Urls\SiteUrls\AppDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\BunchDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\BunchListAllUrl.cs" />
@@ -453,6 +461,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Components\ApiDocsModels\DocsJsonBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\DocsNavigationBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\DocsNavigationItemModel.cshtml" />
     <None Include="FrontEnd\Css\styles.less" />
     <Content Include="FrontEnd\Css\value-list.css">
       <DependentUpon>value-list.less</DependentUpon>

@@ -24,7 +24,7 @@ namespace Web.Models.HomeModels
             AddBunchUrl = new AddBunchUrl().Relative;
             LoginUrl = new LoginUrl().Relative;
             RegisterUrl = new AddUserUrl().Relative;
-            ApiDocsUrl = new ApiDocsUrl().Relative;
+            ApiDocsUrl = new ApiDocsIndexUrl().Relative;
             AdminNav = new AdminNavigationModel(contextResult.AppContext);
             BunchList = new BunchListModel(bunchListResult);
         }
