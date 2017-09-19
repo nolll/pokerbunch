@@ -11,14 +11,14 @@ namespace Web.Controllers
 {
     public class AddUserController : BaseController
     {
-        [Route(WebRoutes.User.Add)]
+        [Route(AddUserUrl.Route)]
         public ActionResult AddUser()
         {
             return ShowForm();
         }
 
         [HttpPost]
-        [Route(WebRoutes.User.Add)]
+        [Route(AddUserUrl.Route)]
         public ActionResult Post(AddUserPostModel postModel)
         {
             var errors = new List<string>();
@@ -52,7 +52,7 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [Route(WebRoutes.User.AddConfirmation)]
+        [Route(AddUserConfirmationUrl.Route)]
         public ActionResult Done()
         {
             var contextResult = GetAppContext();

@@ -82,8 +82,6 @@ namespace Web.Routes
 
         public static class User
         {
-            public const string Add = "user/add";
-            public const string AddConfirmation = "user/created";
             public const string Details = "user/details/{userName}";
             public const string Edit = "user/edit/{userName}";
             public const string List = "user/list";
