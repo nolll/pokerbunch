@@ -30,5 +30,13 @@ namespace Web.Controllers
             var model = new ApiDocsBunchesPageModel(context);
             return View(model);
         }
+
+        [Route(WebRoutes.Api.DocsCashgames)]
+        public ActionResult Cashgames()
+        {
+            var context = GetAppContext();
+            var model = new ApiDocsCashgamesPageModel(context);
+            return View(model);
+        }
     }
 }

@@ -98,6 +98,7 @@ namespace Web.Routes
             public const string DocsIndex = "apidocs";
             public const string DocsAuth = "apidocs/auth";
             public const string DocsBunches = "apidocs/bunches";
+            public const string DocsCashgames = "apidocs/cashgames";
         }
 
         public static class App

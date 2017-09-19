@@ -246,6 +246,7 @@
     <Compile Include="Extensions\View.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsAuthPageModel.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsBunchesPageModel.cs" />
+    <Compile Include="Models\ApiDocsModels\ApiDocsCashgamesPageModel.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsIndexPageModel.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointListModel.cs" />
@@ -365,11 +366,9 @@
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="Urls\ApiUrl.cs" />
+    <Compile Include="Urls\ApiUrls\ApiBunchDetailsUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchListUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiBuyinUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiCashoutUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiReportUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiRunningGameUrl.cs" />
+    <Compile Include="Urls\ApiUrls\ApiCurrentCashgamesUrl.cs" />
     <Compile Include="Urls\ApiUrls\TokenUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddAppConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\AddAppUrl.cs" />
@@ -387,6 +386,7 @@
     <Compile Include="Urls\SiteUrls\AllAppsUrl.cs" />
     <Compile Include="Urls\SiteUrls\ApiDocsAuthUrl.cs" />
     <Compile Include="Urls\SiteUrls\ApiDocsBunchesUrl.cs" />
+    <Compile Include="Urls\SiteUrls\ApiDocsCashgamesUrl.cs" />
     <Compile Include="Urls\SiteUrls\ApiDocsIndexUrl.cs" />
     <Compile Include="Urls\SiteUrls\AppDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\BunchDetailsUrl.cs" />

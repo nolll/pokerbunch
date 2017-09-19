@@ -12,7 +12,8 @@ namespace Web.Components.ApiDocsModels
             Items = new[]
             {
                 new DocsNavigationItemModel("Authentication", new ApiDocsAuthUrl().Relative),
-                new DocsNavigationItemModel("Bunches", new ApiDocsBunchesUrl().Relative)
+                new DocsNavigationItemModel("Bunches", new ApiDocsBunchesUrl().Relative),
+                new DocsNavigationItemModel("Cashgames", new ApiDocsCashgamesUrl().Relative)
             };
         }
     }
