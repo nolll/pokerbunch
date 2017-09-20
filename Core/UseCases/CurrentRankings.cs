@@ -29,7 +29,7 @@ namespace Core.UseCases
 
             var players = _playerService.List(request.Slug).ToList();
             var suite = new CashgameSuite(cashgames, players);
-            var lastGame = cashgames.Last();
+            var lastGame = cashgames.First();
             var items = CreateItems(bunch, suite, lastGame);
             
             return new Result(items, lastGame.Id);
