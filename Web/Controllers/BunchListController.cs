@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.List;
 
@@ -7,7 +7,7 @@ namespace Web.Controllers
 {
     public class BunchListController : BaseController
     {
-        [Route(WebRoutes.Bunch.All)]
+        [Route(BunchListAllUrl.Route)]
         public ActionResult All()
         {
             var context = GetAppContext();

@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Cashout;
 
@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.Cashgame.Cashout)]
+        [Route(CashgameCashoutUrl.Route)]
         public ActionResult Cashout_Post(string slug, CashoutPostModel postModel)
         {
             var request = new Cashout.Request(slug, postModel.PlayerId, postModel.Stack);

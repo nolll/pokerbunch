@@ -30,23 +30,32 @@ namespace Web.Components.NavigationModels
 	    {
 	        var selectedPage = cashgameContextResult.SelectedPage;
 
+	        var bunchId = cashgameContextResult.BunchId;
+	        var year = cashgameContextResult.SelectedYear;
+            var hasYear = year.HasValue;
+	        var matrixUrl = hasYear ? (SiteUrl)new MatrixWithYearUrl(bunchId, year) : new MatrixUrl(bunchId);
+	        var toplistUrl = hasYear ? (SiteUrl)new TopListWithYearUrl(bunchId, year) : new TopListUrl(bunchId);
+	        var chartUrl = hasYear ? (SiteUrl)new ChartWithYearUrl(bunchId, year) : new ChartUrl(bunchId);
+	        var listUrl = hasYear ? (SiteUrl)new ListWithYearUrl(bunchId, year) : new ListUrl(bunchId);
+	        var factsUrl = hasYear ? (SiteUrl)new FactsWithYearUrl(bunchId, year) : new FactsUrl(bunchId);
+
             SelectedName = GetPageName(selectedPage);
             OverviewUrl = new CashgameIndexUrl(cashgameContextResult.BunchId).Relative;
 	        OverviewName = GetPageName(CashgameContext.CashgamePage.Overview);
             OverviewSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Overview, selectedPage);
-            MatrixUrl = new MatrixUrl(cashgameContextResult.BunchId, cashgameContextResult.SelectedYear).Relative;
+            MatrixUrl = matrixUrl.Relative;
             MatrixName = GetPageName(CashgameContext.CashgamePage.Matrix);
             MatrixSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Matrix, selectedPage);
-            ToplistUrl = new TopListUrl(cashgameContextResult.BunchId, cashgameContextResult.SelectedYear).Relative;
+            ToplistUrl = toplistUrl.Relative;
             ToplistName = GetPageName(CashgameContext.CashgamePage.Toplist);
             ToplistSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Toplist, selectedPage);
-            ChartUrl = new ChartUrl(cashgameContextResult.BunchId, cashgameContextResult.SelectedYear).Relative;
+            ChartUrl = chartUrl.Relative;
             ChartName = GetPageName(CashgameContext.CashgamePage.Chart);
             ChartSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Chart, selectedPage);
-            ListUrl = new ListUrl(cashgameContextResult.BunchId, cashgameContextResult.SelectedYear).Relative;
+            ListUrl = listUrl.Relative;
             ListName = GetPageName(CashgameContext.CashgamePage.List);
             ListSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.List, selectedPage);
-            FactsUrl = new FactsUrl(cashgameContextResult.BunchId, cashgameContextResult.SelectedYear).Relative;
+            FactsUrl = factsUrl.Relative;
             FactsName = GetPageName(CashgameContext.CashgamePage.Facts);
             FactsSelectedClass = GetSelectedClass(CashgameContext.CashgamePage.Facts, selectedPage);
 	    }

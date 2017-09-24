@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Edit;
@@ -12,7 +11,7 @@ namespace Web.Controllers
     public class EditBunchController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Bunch.Edit)]
+        [Route(EditBunchUrl.Route)]
         public ActionResult Edit(string slug)
         {
             return ShowForm(slug);
@@ -20,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.Bunch.Edit)]
+        [Route(EditBunchUrl.Route)]
         public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
         {
             var errors = new List<string>();

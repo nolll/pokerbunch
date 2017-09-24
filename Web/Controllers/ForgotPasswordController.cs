@@ -2,24 +2,22 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
-using Web.Extensions;
 using Web.Models.UserModels.ForgotPassword;
 
 namespace Web.Controllers
 {
     public class ForgotPasswordController : BaseController
     {
-        [Route(WebRoutes.User.ForgotPassword)]
+        [Route(ForgotPasswordUrl.Route)]
         public ActionResult ForgotPassword()
         {
             return ShowForm();
         }
 
         [HttpPost]
-        [Route(WebRoutes.User.ForgotPassword)]
+        [Route(ForgotPasswordUrl.Route)]
         public ActionResult Post(ForgotPasswordPostModel postModel)
         {
             var errors = new List<string>();
@@ -42,7 +40,7 @@ namespace Web.Controllers
             return ShowForm(postModel, errors);
         }
 
-        [Route(WebRoutes.User.ForgotPasswordConfirmation)]
+        [Route(ForgotPasswordConfirmationUrl.Route)]
         public ActionResult Done()
         {
             var contextResult = GetAppContext();

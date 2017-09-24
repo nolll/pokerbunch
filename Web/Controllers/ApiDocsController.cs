@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.ApiDocsModels;
 
@@ -7,7 +7,7 @@ namespace Web.Controllers
 {
     public class ApiDocsController : BaseController
     {
-        [Route(WebRoutes.Api.DocsIndex)]
+        [Route(ApiDocsIndexUrl.Route)]
         public ActionResult Index()
         {
             var context = GetAppContext();
@@ -15,7 +15,7 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [Route(WebRoutes.Api.DocsAuth)]
+        [Route(ApiDocsAuthUrl.Route)]
         public ActionResult Auth()
         {
             var context = GetAppContext();
@@ -23,7 +23,7 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [Route(WebRoutes.Api.DocsBunches)]
+        [Route(ApiDocsBunchesUrl.Route)]
         public ActionResult Bunches()
         {
             var context = GetAppContext();
@@ -31,7 +31,7 @@ namespace Web.Controllers
             return View(model);
         }
 
-        [Route(WebRoutes.Api.DocsCashgames)]
+        [Route(ApiDocsCashgamesUrl.Route)]
         public ActionResult Cashgames()
         {
             var context = GetAppContext();

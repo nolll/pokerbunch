@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.LocationModels.Add;
@@ -12,7 +11,7 @@ namespace Web.Controllers
     public class AddLocationController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Location.Add)]
+        [Route(AddLocationUrl.Route)]
         public ActionResult Add(string slug)
         {
             return ShowForm(slug);
@@ -20,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.Location.Add)]
+        [Route(AddLocationUrl.Route)]
         public ActionResult Add_Post(string slug, AddLocationPostModel postModel)
         {
             var errors = new List<string>();
@@ -39,7 +38,7 @@ namespace Web.Controllers
             return ShowForm(slug, postModel, errors);
         }
 
-        [Route(WebRoutes.Location.AddConfirmation)]
+        [Route(AddLocationConfirmationUrl.Route)]
         public ActionResult Created(string slug)
         {
             var contextResult = GetBunchContext(slug);

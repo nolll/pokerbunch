@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 
 namespace Web.Controllers
@@ -7,7 +7,7 @@ namespace Web.Controllers
     [HandleError]
     public class ErrorController : BaseController
     {
-        [Route(WebRoutes.Error.NotFound)]
+        [Route(ErrorNotFoundUrl.Route)]
         public ActionResult NotFound()
         {
             Response.StatusCode = 404;
@@ -15,15 +15,15 @@ namespace Web.Controllers
             return Error404();
         }
 
-        [Route(WebRoutes.Error.Unauthorized)]
+        [Route(ErrorUnauthorizedUrl.Route)]
         public ActionResult Unauthorized()
         {
             Response.StatusCode = 401;
             Response.TrySkipIisCustomErrors = true;
             return Error401();
         }
-        
-        [Route(WebRoutes.Error.Forbidden)]
+
+        [Route(ErrorForbiddenUrl.Route)]
         public ActionResult Forbidden()
         {
             Response.StatusCode = 403;
@@ -31,7 +31,7 @@ namespace Web.Controllers
             return Error403();
         }
 
-        [Route(WebRoutes.Error.Other)]
+        [Route(ErrorOtherUrl.Route)]
         public ActionResult ServerError()
         {
             Response.StatusCode = 500;

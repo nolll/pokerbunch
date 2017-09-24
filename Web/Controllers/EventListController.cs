@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.EventModels.List;
 
@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class EventListController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Event.List)]
+        [Route(EventListUrl.Route)]
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);

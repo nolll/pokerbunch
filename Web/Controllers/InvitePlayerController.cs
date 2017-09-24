@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
-using Web.Extensions;
 using Web.Models.PlayerModels.Invite;
 
 namespace Web.Controllers
@@ -13,7 +11,7 @@ namespace Web.Controllers
     public class InvitePlayerController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Player.Invite)]
+        [Route(InvitePlayerUrl.Route)]
         public ActionResult Invite(string id)
         {
             return ShowForm(id);
@@ -21,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.Player.Invite)]
+        [Route(InvitePlayerUrl.Route)]
         public ActionResult Invite_Post(string id, InvitePlayerPostModel postModel)
         {
             var errors = new List<string>();
@@ -40,7 +38,7 @@ namespace Web.Controllers
             return ShowForm(id, postModel, errors);
         }
 
-        [Route(WebRoutes.Player.InviteConfirmation)]
+        [Route(InvitePlayerConfirmationUrl.Route)]
         public ActionResult Invited(string id)
         {
             var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(id));

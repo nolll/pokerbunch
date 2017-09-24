@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 
@@ -9,7 +8,7 @@ namespace Web.Controllers
     public class DeletePlayerController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Player.Delete)]
+        [Route(DeletePlayerUrl.Route)]
         public ActionResult Delete(string id)
         {
             var request = new DeletePlayer.Request(id);

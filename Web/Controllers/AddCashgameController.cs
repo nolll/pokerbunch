@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Add;
@@ -12,7 +11,7 @@ namespace Web.Controllers
     public class AddCashgameController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Cashgame.Add)]
+        [Route(AddCashgameUrl.Route)]
         public ActionResult AddCashgame(string slug)
         {
             return ShowForm(slug);
@@ -20,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.Cashgame.Add)]
+        [Route(AddCashgameUrl.Route)]
         public ActionResult Post(string slug, AddCashgamePostModel postModel)
         {
             var errors = new List<string>();

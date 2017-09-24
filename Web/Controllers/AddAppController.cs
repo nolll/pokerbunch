@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.AppModels.Add;
@@ -11,7 +10,7 @@ namespace Web.Controllers
 {
     public class AddAppController : BaseController
     {
-        [Route(WebRoutes.App.Add)]
+        [Route(AddAppUrl.Route)]
         [Authorize]
         public ActionResult AddUser()
         {
@@ -19,7 +18,7 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        [Route(WebRoutes.App.Add)]
+        [Route(AddAppUrl.Route)]
         [Authorize]
         public ActionResult Post(AddAppPostModel postModel)
         {

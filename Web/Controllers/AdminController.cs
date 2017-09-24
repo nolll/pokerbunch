@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.AdminModels;
 
@@ -8,7 +8,7 @@ namespace Web.Controllers
     public class AdminController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Admin.SendEmail)]
+        [Route(TestEmailUrl.Route)]
         public ActionResult SendEmail()
         {
             var result = UseCase.TestEmail.Execute();
@@ -17,7 +17,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route(WebRoutes.Admin.ClearCache)]
+        [Route(ClearCacheUrl.Route)]
         public ActionResult ClearCache()
         {
             var result = UseCase.ClearCache.Execute();

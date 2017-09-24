@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.AuthModels;
@@ -16,14 +15,14 @@ namespace Web.Controllers
     {
         private const int AuthVersion = 2;
 
-        [Route(WebRoutes.Auth.Login)]
+        [Route(LoginUrl.Route)]
         public ActionResult Login(string returnUrl = null)
         {
             return ShowForm(returnUrl);
         }
 
         [HttpPost]
-        [Route(WebRoutes.Auth.Login)]
+        [Route(LoginUrl.Route)]
         public ActionResult Post(LoginPostModel postModel)
         {
             var errors = new List<string>();
@@ -43,7 +42,7 @@ namespace Web.Controllers
             return ShowForm(postModel, errors);
         }
 
-        public void SignIn(string userName, string token, bool createPersistentCookie)
+        private void SignIn(string userName, string token, bool createPersistentCookie)
         {
             var currentTime = DateTime.UtcNow;
             var expires = currentTime.AddDays(365);

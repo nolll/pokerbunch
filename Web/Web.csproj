@@ -107,7 +107,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PokerBunch.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokerBunch.Common.1.0.23\lib\PokerBunch.Common.dll</HintPath>
+      <HintPath>..\packages\PokerBunch.Common.1.0.26\lib\PokerBunch.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -545,7 +545,9 @@
     <Content Include="Views\Pages\UserDetails\UserDetails.cshtml" />
     <Content Include="Views\Pages\UserList\Item.cshtml" />
     <Content Include="Views\Pages\UserList\UserList.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Pages\AppList\AllApps.cshtml" />
     <Content Include="Views\Pages\AppList\Item.cshtml" />
     <Content Include="Views\Pages\AppList\UserApps.cshtml" />

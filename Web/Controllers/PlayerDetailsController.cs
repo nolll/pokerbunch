@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.PlayerModels.Details;
 
@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class PlayerDetailsController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Player.Details)]
+        [Route(PlayerDetailsUrl.Route)]
         public ActionResult Details(string id)
         {
             var detailsResult = UseCase.PlayerDetails.Execute(new PlayerDetails.Request(id));

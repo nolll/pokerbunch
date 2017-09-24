@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Chart;
 
@@ -10,8 +10,8 @@ namespace Web.Controllers
     public class CashgameChartController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Cashgame.Chart)]
-        [Route(WebRoutes.Cashgame.ChartWithYear)]
+        [Route(ChartUrl.Route)]
+        [Route(ChartWithYearUrl.Route)]
         public ActionResult Chart(string slug, int? year = null)
         {
             var cashgameContextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Chart, year);

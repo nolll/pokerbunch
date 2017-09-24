@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Join;
@@ -12,14 +11,14 @@ namespace Web.Controllers
     public class JoinBunchController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Bunch.Join)]
+        [Route(JoinBunchUrl.Route)]
         public ActionResult Join(string slug)
         {
             return ShowForm(slug, "");
         }
 
         [Authorize]
-        [Route(WebRoutes.Bunch.JoinWithCode)]
+        [Route(JoinBunchWithCodeUrl.Route)]
         public ActionResult Join(string slug, string code)
         {
             return JoinBunch(slug, code);
@@ -27,7 +26,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.Bunch.Join)]
+        [Route(JoinBunchUrl.Route)]
         public ActionResult Post(string slug, JoinBunchPostModel postModel)
         {
             var code = postModel != null ? postModel.Code : "";
@@ -57,7 +56,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route(WebRoutes.Bunch.JoinConfirmation)]
+        [Route(JoinBunchConfirmationUrl.Route)]
         public ActionResult Joined(string slug)
         {
             var contextResult = GetBunchContext(slug);

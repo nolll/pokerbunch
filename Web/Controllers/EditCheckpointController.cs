@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Checkpoints;
@@ -12,7 +11,7 @@ namespace Web.Controllers
     public class EditCheckpointController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Cashgame.CheckpointEdit)]
+        [Route(EditCheckpointUrl.Route)]
         public ActionResult EditCheckpoint(string cashgameId, string id)
         {
             return ShowForm(cashgameId, id);
@@ -20,7 +19,7 @@ namespace Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.Cashgame.CheckpointEdit)]
+        [Route(EditCheckpointUrl.Route)]
         public ActionResult EditCheckpoint_Post(string cashgameId, string id, EditCheckpointPostModel postModel)
         {
             var errors = new List<string>();

@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Toplist;
 
@@ -10,8 +10,8 @@ namespace Web.Controllers
     public class TopListController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Cashgame.Toplist)]
-        [Route(WebRoutes.Cashgame.ToplistWithYear)]
+        [Route(TopListUrl.Route)]
+        [Route(TopListWithYearUrl.Route)]
         public ActionResult Toplist(string slug, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Toplist, year);

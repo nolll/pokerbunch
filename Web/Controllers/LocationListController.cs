@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.LocationModels.List;
 using Web.Security;
@@ -10,7 +10,7 @@ namespace Web.Controllers
     public class LocationListController : BaseController
     {
         [CustomAuthorize]
-        [Route(WebRoutes.Location.List)]
+        [Route(LocationListUrl.Route)]
         public ActionResult List(string slug)
         {
             var contextResult = GetBunchContext(slug);

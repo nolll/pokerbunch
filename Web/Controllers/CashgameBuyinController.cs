@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Buyin;
 
@@ -10,7 +10,7 @@ namespace Web.Controllers
     {
         [HttpPost]
         [Authorize]
-        [Route(WebRoutes.Cashgame.Buyin)]
+        [Route(CashgameBuyinUrl.Route)]
         public ActionResult Buyin_Post(string slug, BuyinPostModel postModel)
         {
             var request = new Buyin.Request(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack);

@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Details;
 
@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class BunchDetailsController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Bunch.Details)]
+        [Route(BunchDetailsUrl.Route)]
         public ActionResult Details(string slug)
         {
             var bunchContextResult = GetBunchContext(slug);

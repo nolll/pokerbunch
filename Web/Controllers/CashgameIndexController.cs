@@ -1,7 +1,7 @@
 using System;
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.CashgameModels.Index;
 
@@ -10,7 +10,7 @@ namespace Web.Controllers
     public class CashgameIndexController : BaseController
     {
         [Authorize]
-        [Route(WebRoutes.Cashgame.Index)]
+        [Route(CashgameIndexUrl.Route)]
         public ActionResult Index(string slug)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Overview);

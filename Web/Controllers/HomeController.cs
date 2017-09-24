@@ -1,6 +1,6 @@
 using System.Web.Mvc;
 using Core.UseCases;
-using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.HomeModels;
 
@@ -8,7 +8,7 @@ namespace Web.Controllers
 {
     public class HomeController : BaseController
     {
-        [Route(WebRoutes.Home)]
+        [Route(HomeUrl.Route)]
         public ActionResult Index()
         {
             var contextResult = GetBunchContext();

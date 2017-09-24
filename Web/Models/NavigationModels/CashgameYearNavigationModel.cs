@@ -40,15 +40,15 @@ namespace Web.Models.NavigationModels
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Overview))
                 return new CashgameIndexUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Matrix))
-                return new MatrixUrl(slug, year);
+                return year.HasValue ? (SiteUrl)new MatrixWithYearUrl(slug, year) : new MatrixUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Toplist))
-                return new TopListUrl(slug, year);
+                return year.HasValue ? (SiteUrl)new TopListWithYearUrl(slug, year) : new TopListUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Chart))
-                return new ChartUrl(slug, year);
+                return year.HasValue ? (SiteUrl)new ChartWithYearUrl(slug, year) : new ChartUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.List))
-                return new ListUrl(slug, year);
+                return year.HasValue ? (SiteUrl)new ListWithYearUrl(slug, year) : new ListUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Facts))
-                return new FactsUrl(slug, year);
+                return year.HasValue ? (SiteUrl)new FactsWithYearUrl(slug, year) : new FactsUrl(slug);
             return null;
         }
 
