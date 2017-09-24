@@ -84,7 +84,6 @@
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="ServiceTests\ResultFormatterTests.cs" />
-    <Compile Include="ServiceTests\UrlTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Web.Urls.SiteUrls;
+using PokerBunch.Common.Urls.SiteUrls;
 
 namespace Web.Components.ApiDocsModels
 {

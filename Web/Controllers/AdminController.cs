@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
+using PokerBunch.Common.Routes;
 using Web.Controllers.Base;
 using Web.Models.AdminModels;
-using Web.Routes;
 
 namespace Web.Controllers
 {

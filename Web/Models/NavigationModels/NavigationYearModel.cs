@@ -1,4 +1,4 @@
-using Web.Urls.SiteUrls;
+using PokerBunch.Common.Urls.SiteUrls;
 
 namespace Web.Models.NavigationModels
 {

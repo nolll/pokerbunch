@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using Core.UseCases;
+using PokerBunch.Common.Urls.ApiUrls;
 using Web.Components.ApiDocsModels;
- using Web.Urls.ApiUrls;
-using Web.Urls.SiteUrls;
 
 namespace Web.Models.ApiDocsModels
 {

@@ -3,10 +3,10 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using Core.UseCases;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
-using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.Edit
 {

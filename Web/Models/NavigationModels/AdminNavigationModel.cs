@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Runtime.Remoting.Messaging;
 using Core.UseCases;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
-using Web.Urls.SiteUrls;
 
 namespace Web.Models.NavigationModels
 {

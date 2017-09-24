@@ -1,7 +1,7 @@
 using Core.UseCases;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Models.PageBaseModels;
-using Web.Urls.SiteUrls;
 
 namespace Web.Models.UserModels.Add
 {

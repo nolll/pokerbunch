@@ -1,6 +1,6 @@
 using Core.UseCases;
 using JetBrains.Annotations;
-using Web.Urls.SiteUrls;
+using PokerBunch.Common.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.List
 {

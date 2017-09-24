@@ -1,10 +1,10 @@
 using Core.UseCases;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Components.PlayerModels.Badges;
 using Web.Extensions;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Models.PlayerModels.Facts;
-using Web.Urls.SiteUrls;
 
 namespace Web.Models.PlayerModels.Details
 {

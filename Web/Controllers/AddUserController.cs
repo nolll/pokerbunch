@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Core.Exceptions;
 using Core.UseCases;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Add;
-using Web.Routes;
-using Web.Urls.SiteUrls;
 
 namespace Web.Controllers
 {

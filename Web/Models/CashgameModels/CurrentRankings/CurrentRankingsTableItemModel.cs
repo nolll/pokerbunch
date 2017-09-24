@@ -1,7 +1,7 @@
 using Core.Services;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Services;
-using Web.Urls.SiteUrls;
 
 namespace Web.Models.CashgameModels.CurrentRankings
 {

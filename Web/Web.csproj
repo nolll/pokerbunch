@@ -106,6 +106,9 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PokerBunch.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PokerBunch.Common.1.0.23\lib\PokerBunch.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -257,8 +260,6 @@
     <Compile Include="Models\ErrorModels\ErrorListModel.cs" />
     <Compile Include="Models\IViewModel.cs" />
     <Compile Include="Models\MiscModels\SpinnerModel.cs" />
-    <Compile Include="Routes\ApiRoutes.cs" />
-    <Compile Include="Routes\WebRoutes.cs" />
     <Compile Include="Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Security\Identity.cs" />
     <Compile Include="Services\CssService.cs" />
@@ -365,82 +366,6 @@
     <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
     <Compile Include="Plumbing\TrimModelBinder.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs" />
-    <Compile Include="Urls\ApiUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiBunchDetailsUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiBunchListUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiCurrentCashgamesUrl.cs" />
-    <Compile Include="Urls\ApiUrls\TokenUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddAppConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddAppUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddBunchConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddBunchUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddCashgameUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddEventConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddEventUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddLocationConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddLocationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddPlayerConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddPlayerUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddUserConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AddUserUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AllAppsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ApiDocsAuthUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ApiDocsBunchesUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ApiDocsCashgamesUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ApiDocsIndexUrl.cs" />
-    <Compile Include="Urls\SiteUrls\AppDetailsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\BunchDetailsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\BunchListAllUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameActionUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameBuyinUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameCashoutUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameDetailsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameIndexUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameReportUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ChangePasswordConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ChangePasswordUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ChartUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ClearCacheUrl.cs" />
-    <Compile Include="Urls\SiteUrls\DashboardCashgameUrl.cs" />
-    <Compile Include="Urls\SiteUrls\DeleteCashgameUrl.cs" />
-    <Compile Include="Urls\SiteUrls\DeleteCheckpointUrl.cs" />
-    <Compile Include="Urls\SiteUrls\DeletePlayerUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EditAppUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EditBunchUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EditCashgameUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EditCheckpointUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EditLocationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EditUserUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EndCashgameUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EventDetailsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EventListUrl.cs" />
-    <Compile Include="Urls\SiteUrls\FactsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ForgotPasswordConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ForgotPasswordUrl.cs" />
-    <Compile Include="Urls\SiteUrls\HomeUrl.cs" />
-    <Compile Include="Urls\SiteUrls\InvitePlayerConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\InvitePlayerUrl.cs" />
-    <Compile Include="Urls\SiteUrls\JoinBunchConfirmationUrl.cs" />
-    <Compile Include="Urls\SiteUrls\JoinBunchUrl.cs" />
-    <Compile Include="Urls\SiteUrls\ListUrl.cs" />
-    <Compile Include="Urls\SiteUrls\LocationDetailsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\LocationListUrl.cs" />
-    <Compile Include="Urls\SiteUrls\LoginUrl.cs" />
-    <Compile Include="Urls\SiteUrls\LogoutUrl.cs" />
-    <Compile Include="Urls\SiteUrls\MatrixUrl.cs" />
-    <Compile Include="Urls\SiteUrls\PlayerDetailsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\PlayerIndexUrl.cs" />
-    <Compile Include="Urls\SiteUrls\RouteParams.cs" />
-    <Compile Include="Urls\SiteUrls\RunningCashgameGameJsonUrl.cs" />
-    <Compile Include="Urls\SiteUrls\RunningCashgamePlayersJsonUrl.cs" />
-    <Compile Include="Urls\SiteUrls\RunningCashgameUrl.cs" />
-    <Compile Include="Urls\SiteUrls\SiteUrl.cs" />
-    <Compile Include="Urls\SiteUrls\TestEmailUrl.cs" />
-    <Compile Include="Urls\SiteUrls\TopListUrl.cs" />
-    <Compile Include="Urls\SiteUrls\UserAppsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\UserDetailsUrl.cs" />
-    <Compile Include="Urls\SiteUrls\UserListUrl.cs" />
-    <Compile Include="Urls\Url.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
