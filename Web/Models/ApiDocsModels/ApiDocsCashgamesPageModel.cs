@@ -8,7 +8,7 @@ namespace Web.Models.ApiDocsModels
     public class ApiDocsCashgamesPageModel : ApiDocsPageModel
     {
         public override string BrowserTitle => "Api Documentation - Cashgames";
-        private static string CurrentCashgamesUrl => new ApiCurrentCashgamesUrl().Relative;
+        private static string CurrentCashgamesUrl => ApiBunchCashgamesCurrentUrl.Route;
 
         public ApiDocsCashgamesPageModel(CoreContext.Result contextResult)
             : base(contextResult)

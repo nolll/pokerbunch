@@ -11,7 +11,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(ChartUrl.Route)]
-        [Route(ChartWithYearUrl.Route)]
+        [Route(ChartUrl.RouteWithYear)]
         public ActionResult Chart(string slug, int? year = null)
         {
             var cashgameContextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Chart, year);

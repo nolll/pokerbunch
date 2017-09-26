@@ -11,7 +11,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(ListUrl.Route)]
-        [Route(ListWithYearUrl.Route)]
+        [Route(ListUrl.RouteWithYear)]
         public ActionResult List(string slug, int? year = null, string orderBy = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.List, year);

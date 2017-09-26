@@ -18,7 +18,7 @@ namespace Web.Controllers
         }
 
         [Authorize]
-        [Route(JoinBunchWithCodeUrl.Route)]
+        [Route(JoinBunchUrl.RouteWithCode)]
         public ActionResult Join(string slug, string code)
         {
             return JoinBunch(slug, code);

@@ -33,11 +33,11 @@ namespace Web.Components.NavigationModels
 	        var bunchId = cashgameContextResult.BunchId;
 	        var year = cashgameContextResult.SelectedYear;
             var hasYear = year.HasValue;
-	        var matrixUrl = hasYear ? (SiteUrl)new MatrixWithYearUrl(bunchId, year) : new MatrixUrl(bunchId);
-	        var toplistUrl = hasYear ? (SiteUrl)new TopListWithYearUrl(bunchId, year) : new TopListUrl(bunchId);
-	        var chartUrl = hasYear ? (SiteUrl)new ChartWithYearUrl(bunchId, year) : new ChartUrl(bunchId);
-	        var listUrl = hasYear ? (SiteUrl)new ListWithYearUrl(bunchId, year) : new ListUrl(bunchId);
-	        var factsUrl = hasYear ? (SiteUrl)new FactsWithYearUrl(bunchId, year) : new FactsUrl(bunchId);
+	        var matrixUrl = hasYear ? (SiteUrl)new MatrixUrl(bunchId, year) : new MatrixUrl(bunchId);
+	        var toplistUrl = hasYear ? (SiteUrl)new TopListUrl(bunchId, year) : new TopListUrl(bunchId);
+	        var chartUrl = hasYear ? (SiteUrl)new ChartUrl(bunchId, year) : new ChartUrl(bunchId);
+	        var listUrl = hasYear ? (SiteUrl)new ListUrl(bunchId, year) : new ListUrl(bunchId);
+	        var factsUrl = hasYear ? (SiteUrl)new FactsUrl(bunchId, year) : new FactsUrl(bunchId);
 
             SelectedName = GetPageName(selectedPage);
             OverviewUrl = new CashgameIndexUrl(cashgameContextResult.BunchId).Relative;

@@ -11,7 +11,7 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(TopListUrl.Route)]
-        [Route(TopListWithYearUrl.Route)]
+        [Route(TopListUrl.RouteWithYear)]
         public ActionResult Toplist(string slug, int? year = null)
         {
             var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Toplist, year);

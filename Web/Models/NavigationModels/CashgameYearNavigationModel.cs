@@ -29,7 +29,7 @@ namespace Web.Models.NavigationModels
 
         private NavigationYearModel GetYearModel(string slug, int? selectedYear, CashgameContext.CashgamePage selectedPage, int? year = null)
         {
-            var label = year.HasValue ? year.Value.ToString(CultureInfo.InvariantCulture) : AllText;
+            var label = year?.ToString(CultureInfo.InvariantCulture) ?? AllText;
             var url = GetYearUrl(slug, selectedPage, year);
             var isSelected = selectedYear == year;
             return new NavigationYearModel(label, url, isSelected);
@@ -40,15 +40,15 @@ namespace Web.Models.NavigationModels
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Overview))
                 return new CashgameIndexUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Matrix))
-                return year.HasValue ? (SiteUrl)new MatrixWithYearUrl(slug, year) : new MatrixUrl(slug);
+                return year.HasValue ? new MatrixUrl(slug, year) : new MatrixUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Toplist))
-                return year.HasValue ? (SiteUrl)new TopListWithYearUrl(slug, year) : new TopListUrl(slug);
+                return year.HasValue ? new TopListUrl(slug, year) : new TopListUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Chart))
-                return year.HasValue ? (SiteUrl)new ChartWithYearUrl(slug, year) : new ChartUrl(slug);
+                return year.HasValue ? new ChartUrl(slug, year) : new ChartUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.List))
-                return year.HasValue ? (SiteUrl)new ListWithYearUrl(slug, year) : new ListUrl(slug);
+                return year.HasValue ? new ListUrl(slug, year) : new ListUrl(slug);
             if (cashgamePage.Equals(CashgameContext.CashgamePage.Facts))
-                return year.HasValue ? (SiteUrl)new FactsWithYearUrl(slug, year) : new FactsUrl(slug);
+                return year.HasValue ? new FactsUrl(slug, year) : new FactsUrl(slug);
             return null;
         }
 
