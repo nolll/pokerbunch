@@ -3,6 +3,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using JetBrains.Annotations;
+using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
@@ -17,20 +18,20 @@ namespace Infrastructure.Storage.Services
 
         public Location Get(string id)
         {
-            var apiLocation = _api.Get<ApiLocation>(Url.Location(id));
+            var apiLocation = _api.Get<ApiLocation>(new ApiLocationUrl(id));
             return CreateLocation(apiLocation);
         }
 
         public IList<Location> List(string bunchId)
         {
-            var apiLocations = _api.Get<IList<ApiLocation>>(Url.LocationByBunch(bunchId));
+            var apiLocations = _api.Get<IList<ApiLocation>>(new ApiBunchLocationsUrl(bunchId));
             return apiLocations.Select(CreateLocation).ToList();
         }
 
         public string Add(Location location)
         {
             var postLocation = new ApiLocation(location.Name, location.BunchId);
-            var apiLocation = _api.Post<ApiLocation>(Url.LocationAdd(location.BunchId), postLocation);
+            var apiLocation = _api.Post<ApiLocation>(new ApiBunchLocationsUrl(location.BunchId), postLocation);
             return CreateLocation(apiLocation).Id;
         }
 

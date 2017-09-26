@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using JetBrains.Annotations;
+using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
@@ -18,26 +19,26 @@ namespace Infrastructure.Storage.Services
 
         public Bunch Get(string id)
         {
-            var apiBunch = _api.Get<ApiBunch>(Url.Bunch(id));
+            var apiBunch = _api.Get<ApiBunch>(new ApiBunchUrl(id));
             return ToBunch(apiBunch);
         }
 
         public IList<SmallBunch> List()
         {
-            var apiBunches = _api.Get<IList<ApiSmallBunch>>(Url.Bunches);
+            var apiBunches = _api.Get<IList<ApiSmallBunch>>(new ApiBunchesUrl());
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public IList<SmallBunch> ListForUser()
         {
-            var apiBunches = _api.Get<IList<ApiSmallBunch>>(Url.BunchesByUser);
+            var apiBunches = _api.Get<IList<ApiSmallBunch>>(new ApiUserBunchesUrl());
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public Bunch Add(Bunch bunch)
         {
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _api.Post<ApiBunch>(Url.Bunches, postBunch);
+            var apiBunch = _api.Post<ApiBunch>(new ApiBunchesUrl(), postBunch);
             return ToBunch(apiBunch);
         }
 
@@ -45,14 +46,14 @@ namespace Infrastructure.Storage.Services
         {
             var id = bunch.Id;
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _api.Post<ApiBunch>(Url.Bunch(id), postBunch);
+            var apiBunch = _api.Post<ApiBunch>(new ApiBunchUrl(id), postBunch);
             return ToBunch(apiBunch);
         }
 
         public void Join(string id, string code)
         {
             var apiJoin = new ApiJoin(code);
-            _api.Post(Url.Join(id), apiJoin);
+            _api.Post(new ApiBunchJoinUrl(id), apiJoin);
         }
 
         private Bunch ToBunch(ApiBunch b)

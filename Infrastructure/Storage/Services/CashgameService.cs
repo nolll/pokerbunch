@@ -6,6 +6,7 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Services;
 using JetBrains.Annotations;
+using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
@@ -20,13 +21,13 @@ namespace Infrastructure.Storage.Services
 
         public DetailedCashgame GetDetailedById(string id)
         {
-            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>(Url.Cashgame(id));
+            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>(new ApiCashgameUrl(id));
             return CreateDetailedCashgame(apiDetailedCashgame);
         }
 
         public DetailedCashgame GetCurrent(string bunchId)
         {
-            var apiCashgames = _api.Get<IList<ApiListCashgame>>(Url.CashgamesCurrent(bunchId));
+            var apiCashgames = _api.Get<IList<ApiListCashgame>>(new ApiBunchCashgamesCurrentUrl(bunchId));
             if(apiCashgames.Any())
                 return GetDetailedById(apiCashgames.First().Id);
             return null;
@@ -34,67 +35,67 @@ namespace Infrastructure.Storage.Services
 
         public IList<ListCashgame> List(string bunchId, int? year = null)
         {
-            var apiCashgames = _api.Get<IList<ApiListCashgame>>(Url.CashgamesByBunch(bunchId, year));
+            var apiCashgames = _api.Get<IList<ApiListCashgame>>(new ApiBunchCashgamesUrl(bunchId, year));
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
         public IList<ListCashgame> EventList(string eventId)
         {
-            var apiCashgames = _api.Get<IList<ApiListCashgame>>(Url.CashgamesByEvent(eventId));
+            var apiCashgames = _api.Get<IList<ApiListCashgame>>(new ApiEventCashgamesUrl(eventId));
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
         public IList<ListCashgame> PlayerList(string playerId)
         {
-            var apiCashgames = _api.Get<IList<ApiListCashgame>>(Url.CashgamesByPlayer(playerId));
+            var apiCashgames = _api.Get<IList<ApiListCashgame>>(new ApiPlayerCashgamesUrl(playerId));
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
         public IList<int> GetYears(string bunchId)
         {
-            var apiYears = _api.Get<IList<ApiYear>>(Url.CashgameYears(bunchId));
+            var apiYears = _api.Get<IList<ApiYear>>(new ApiBunchCashgameYearsUrl(bunchId));
             return apiYears.Select(o => o.Year).ToList();
         }
 
         public void Report(string cashgameId, string playerId, int stack)
         {
             var apiReport = new ApiReport(playerId, stack);
-            _api.Post(Url.Report(cashgameId), apiReport);
+            _api.Post(new ApiCashgameReportUrl(cashgameId), apiReport);
         }
 
         public void Buyin(string cashgameId, string playerId, int added, int stack)
         {
             var apiBuyin = new ApiBuyin(playerId, added, stack);
-            _api.Post(Url.Buyin(cashgameId), apiBuyin);
+            _api.Post(new ApiCashgameBuyinUrl(cashgameId), apiBuyin);
         }
 
         public void Cashout(string cashgameId, string playerId, int stack)
         {
             var apiCashout = new ApiCashout(playerId, stack);
-            _api.Post(Url.Cashout(cashgameId), apiCashout);
+            _api.Post(new ApiCashgameCashoutUrl(cashgameId), apiCashout);
         }
 
         public void End(string cashgameId)
         {
-            _api.Post(Url.End(cashgameId));
+            _api.Post(new ApiCashgameEndUrl(cashgameId));
         }
 
         public void DeleteGame(string id)
         {
-            _api.Delete(Url.Cashgame(id));
+            _api.Delete(new ApiCashgameUrl(id));
         }
 
         public string Add(string bunchId, string locationId)
         {
             var addObject = new ApiAddCashgame(locationId);
-            var apiCashgame = _api.Post<ApiDetailedCashgame>(Url.CashgamesByBunch(bunchId), addObject);
+            var apiCashgame = _api.Post<ApiDetailedCashgame>(new ApiBunchCashgamesUrl(bunchId), addObject);
             return CreateDetailedCashgame(apiCashgame).Id;
         }
 
         public DetailedCashgame Update(string id, string locationId, string eventId)
         {
             var updateObject = new ApiUpdateCashgame(locationId, eventId);
-            var apiCashgame = _api.Put<ApiDetailedCashgame>(Url.Cashgame(id), updateObject);
+            var apiCashgame = _api.Put<ApiDetailedCashgame>(new ApiCashgameUrl(id), updateObject);
             return CreateDetailedCashgame(apiCashgame);
         }
         

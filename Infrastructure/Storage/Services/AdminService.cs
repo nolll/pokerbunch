@@ -1,5 +1,6 @@
 ﻿using Core.Services;
 using JetBrains.Annotations;
+using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
@@ -14,13 +15,13 @@ namespace Infrastructure.Storage.Services
 
         public string ClearCache()
         {
-            var apiMessage = _api.Post<ApiMessage>(Url.AdminClearCache);
+            var apiMessage = _api.Post<ApiMessage>(new ApiAdminClearCacheUrl());
             return apiMessage.Message;
         }
 
         public string SendEmail()
         {
-            var apiMessage = _api.Post<ApiMessage>(Url.AdminSendEmail);
+            var apiMessage = _api.Post<ApiMessage>(new ApiAdminSendEmailUrl());
             return apiMessage.Message;
         }
 

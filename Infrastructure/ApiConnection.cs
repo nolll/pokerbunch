@@ -7,19 +7,22 @@ using Core.Exceptions;
 using Infrastructure.ApiUrls;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure
 {
     public class ApiConnection
     {
-        private readonly string _url;
+        private readonly string _apiHost;
+        private readonly string _apiProtocol;
         private readonly string _key;
         private readonly string _token;
         private readonly bool _enableDetailedErrors;
 
-        public ApiConnection(string url, string key, string token, bool enableDetailedErrors)
+        public ApiConnection(string apiHost, string apiProtocol, string key, string token, bool enableDetailedErrors)
         {
-            _url = url;
+            _apiHost = apiHost;
+            _apiProtocol = apiProtocol;
             _key = key;
             _token = token;
             _enableDetailedErrors = enableDetailedErrors;
@@ -27,88 +30,88 @@ namespace Infrastructure
 
         public T Get<T>(ApiUrl apiUrl)
         {
-            var json = ReadJson(apiUrl.Url);
+            var json = ReadJson(apiUrl);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
         public T Get<T>(string token, ApiUrl apiUrl)
         {
-            var json = ReadJson(token, apiUrl.Url);
+            var json = ReadJson(token, apiUrl);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
         public void Post(ApiUrl apiUrl, object data = null)
         {
-            PostJson(apiUrl.Url, data);
+            PostJson(apiUrl, data);
         }
 
         public T Post<T>(ApiUrl apiUrl, object data = null)
         {
-            var json = PostJson(apiUrl.Url, data);
+            var json = PostJson(apiUrl, data);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
         public T Put<T>(ApiUrl apiUrl, object data)
         {
-            var json = PutJson(apiUrl.Url, data);
+            var json = PutJson(apiUrl, data);
             return JsonConvert.DeserializeObject<T>(json);
         }
 
         public bool Delete(ApiUrl apiUrl)
         {
-            DeleteJson(apiUrl.Url);
+            DeleteJson(apiUrl);
             return true;
         }
 
-        private string ReadJson(string apiUrl)
+        private string ReadJson(ApiUrl apiUrl)
         {
             using (var client = GetClient())
             {
-                var response = client.GetAsync(apiUrl).Result;
+                var response = client.GetAsync(GetAbsolute(apiUrl)).Result;
                 return ReadResponse(response);
             }
         }
 
-        private string ReadJson(string token, string apiUrl)
+        private string ReadJson(string token, ApiUrl apiUrl)
         {
             using (var client = GetClient(token))
             {
-                var response = client.GetAsync(apiUrl).Result;
+                var response = client.GetAsync(GetAbsolute(apiUrl)).Result;
                 return ReadResponse(response);
             }
         }
 
-        private string PostJson(string apiUrl, object data)
+        private string PostJson(ApiUrl apiUrl, object data)
         {
             using (var client = GetClient())
             {
                 var content = GetJsonContent(data);
-                var response = client.PostAsync(apiUrl, content).Result;
+                var response = client.PostAsync(GetAbsolute(apiUrl), content).Result;
                 return ReadResponse(response);
             }
         }
 
-        private string PutJson(string apiUrl, object data)
+        private string PutJson(ApiUrl apiUrl, object data)
         {
             using (var client = GetClient())
             {
                 var content = GetJsonContent(data);
-                var response = client.PutAsync(apiUrl, content).Result;
+                var response = client.PutAsync(GetAbsolute(apiUrl), content).Result;
                 return ReadResponse(response);
             }
         }
 
-        private string DeleteJson(string apiUrl)
+        private string DeleteJson(ApiUrl apiUrl)
         {
             using (var client = GetClient())
             {
-                var response = client.DeleteAsync(apiUrl).Result;
+                var response = client.DeleteAsync(GetAbsolute(apiUrl)).Result;
                 return ReadResponse(response);
             }
         }
 
-        private BearerClient GetClient() => new BearerClient(_url, _token);
-        private BearerClient GetClient(string token) => new BearerClient(_url, token);
+        private BearerClient GetClient() => new BearerClient(_token);
+        private BearerClient GetClient(string token) => new BearerClient(token);
 
         private string ReadResponse(HttpResponseMessage response)
         {
@@ -149,7 +152,7 @@ namespace Infrastructure
         
         public string SignIn(string userName, string password)
         {
-            using (var client = new SignInClient(_url))
+            using (var client = new SignInClient())
             {
                 var content = GetFormContentForSignIn(userName, password);
                 var response = client.PostAsync("token", content).Result;
@@ -177,6 +180,11 @@ namespace Infrastructure
         private static KeyValuePair<string, string> GetFormParam(string key, string value)
         {
             return new KeyValuePair<string, string>(key, value);
+        }
+
+        private string GetAbsolute(ApiUrl url)
+        {
+            return url.Absolute(_apiHost, _apiProtocol);
         }
     }
 }

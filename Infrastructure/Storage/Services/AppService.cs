@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using JetBrains.Annotations;
+using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
@@ -18,26 +19,26 @@ namespace Infrastructure.Storage.Services
         
         public App GetById(string id)
         {
-            var apiApp = _api.Get<ApiApp>(Url.App(id));
+            var apiApp = _api.Get<ApiApp>(new ApiAppUrl(id));
             return CreateApp(apiApp);
         }
 
         public IList<App> ListAll()
         {
-            var apiApps = _api.Get<IList<ApiApp>>(Url.Apps);
+            var apiApps = _api.Get<IList<ApiApp>>(new ApiAppsUrl());
             return apiApps.Select(CreateApp).ToList();
         }
 
         public IList<App> List()
         {
-            var apiApps = _api.Get<IList<ApiApp>>(Url.AppsByUser);
+            var apiApps = _api.Get<IList<ApiApp>>(new ApiUserAppsUrl());
             return apiApps.Select(CreateApp).ToList();
         }
 
         public string Add(string appName)
         {
             var postApp = new ApiApp(null, null, appName, null);
-            var apiApp = _api.Post<ApiApp>(Url.Apps, postApp);
+            var apiApp = _api.Post<ApiApp>(new ApiAppsUrl(), postApp);
             return CreateApp(apiApp).Id;
         }
 

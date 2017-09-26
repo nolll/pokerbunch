@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using JetBrains.Annotations;
+using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
@@ -18,19 +19,19 @@ namespace Infrastructure.Storage.Services
 
         public User Current(string token)
         {
-            var apiUser = _api.Get<ApiUser>(token, Url.User());
+            var apiUser = _api.Get<ApiUser>(token, new ApiUserProfileUrl());
             return CreateUser(apiUser);
         }
 
         public IList<ListUser> List()
         {
-            var apiUsers = _api.Get<IList<ApiListUser>>(Url.Users);
+            var apiUsers = _api.Get<IList<ApiListUser>>(new ApiUsersUrl());
             return apiUsers.Select(CreateListUser).ToList();
         }
 
         public User GetByNameOrEmail(string nameOrEmail)
         {
-            var apiUser = _api.Get<ApiUser>(Url.UserByName(nameOrEmail));
+            var apiUser = _api.Get<ApiUser>(new ApiUserUrl(nameOrEmail));
             return CreateUser(apiUser);
         }
 
@@ -38,26 +39,26 @@ namespace Infrastructure.Storage.Services
         {
             var userName = user.UserName;
             var postUser = new ApiUser(user);
-            _api.Post<ApiUser>(Url.User(userName), postUser);
+            _api.Post<ApiUser>(new ApiUserUrl(userName), postUser);
         }
 
         public string Add(User user, string password)
         {
             var postUser = new ApiUser(user, password);
-            var apiUser = _api.Post<ApiUser>(Url.Users, postUser);
+            var apiUser = _api.Post<ApiUser>(new ApiUsersUrl(), postUser);
             return apiUser.Id;
         }
 
         public void ChangePassword(string oldPassword, string newPassword, string repeat)
         {
             var apiChangePassword = new ApiChangePassword(oldPassword, newPassword, repeat);
-            _api.Post(Url.ChangePassword, apiChangePassword);
+            _api.Post(new ApiUserChangePasswordUrl(), apiChangePassword);
         }
 
         public void ResetPassword(string email)
         {
             var apiResetPassword = new ApiResetPassword(email);
-            _api.Post(Url.ResetPassword, apiResetPassword);
+            _api.Post(new ApiUserResetPasswordUrl(), apiResetPassword);
         }
 
         private User CreateUser(ApiUser u)

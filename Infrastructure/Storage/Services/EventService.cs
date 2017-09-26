@@ -3,6 +3,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using JetBrains.Annotations;
+using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
@@ -17,27 +18,27 @@ namespace Infrastructure.Storage.Services
 
         public Event Get(string id)
         {
-            var apiEvent = _api.Get<ApiEvent>(Url.Event(id));
+            var apiEvent = _api.Get<ApiEvent>(new ApiEventUrl(id));
             return CreateEvent(apiEvent);
         }
 
         public IList<Event> ListByBunch(string bunchId)
         {
-            var apiEvents = _api.Get<IList<ApiEvent>>(Url.EventsByBunch(bunchId));
+            var apiEvents = _api.Get<IList<ApiEvent>>(new ApiBunchEventsUrl(bunchId));
             return apiEvents.Select(CreateEvent).ToList();
         }
         
         public string Add(Event e)
         {
             var postEvent = new ApiEvent(e.Name, e.BunchId);
-            var apiEvent = _api.Post<ApiEvent>(Url.EventAdd(e.BunchId), postEvent);
+            var apiEvent = _api.Post<ApiEvent>(new ApiBunchEventsUrl(e.BunchId), postEvent);
             return CreateEvent(apiEvent).Id;
         }
 
         public void AddCashgame(string eventId, string cashgameId)
         {
             var postCashame = new ApiEventCashgame(cashgameId);
-            _api.Post<ApiEventCashgame>(Url.CashgamesByEvent(eventId), postCashame);
+            _api.Post<ApiEventCashgame>(new ApiEventCashgamesUrl(eventId), postCashame);
         }
 
         private Event CreateEvent(ApiEvent e)

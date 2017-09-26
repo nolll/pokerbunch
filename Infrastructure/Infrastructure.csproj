@@ -40,6 +40,9 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PokerBunch.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PokerBunch.Common.1.0.37\lib\PokerBunch.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -58,9 +61,6 @@
     <Compile Include="ApiConnection.cs" />
     <Compile Include="ApiErrorMessage.cs" />
     <Compile Include="ApiException.cs" />
-    <Compile Include="ApiUrls\ApiUrl.cs" />
-    <Compile Include="ApiUrls\ApiUrlBuilder.cs" />
-    <Compile Include="ApiUrls\SimpleApiUrl.cs" />
     <Compile Include="BearerClient.cs" />
     <Compile Include="SignInClient.cs" />
     <Compile Include="Storage\Services\BunchService.cs" />
