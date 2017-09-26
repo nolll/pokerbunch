@@ -65,7 +65,6 @@
     <Compile Include="SignInClient.cs" />
     <Compile Include="Storage\Services\BunchService.cs" />
     <Compile Include="Storage\Services\LocationService.cs" />
-    <Compile Include="Storage\Services\BaseService.cs" />
     <Compile Include="Storage\Services\AuthService.cs" />
     <Compile Include="Storage\Services\AppService.cs" />
     <Compile Include="Storage\Services\CashgameService.cs" />

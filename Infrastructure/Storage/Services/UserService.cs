@@ -8,7 +8,7 @@ using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
-    public class UserService : BaseService, IUserService
+    public class UserService : IUserService
     {
         private readonly ApiConnection _api;
 

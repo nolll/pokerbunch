@@ -10,7 +10,7 @@ using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
-    public class CashgameService : BaseService, ICashgameService
+    public class CashgameService : ICashgameService
     {
         private readonly ApiConnection _api;
 

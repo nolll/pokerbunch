@@ -4,7 +4,7 @@ using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Storage.Services
 {
-    public class AdminService : BaseService, IAdminService
+    public class AdminService : IAdminService
     {
         private readonly ApiConnection _api;
 

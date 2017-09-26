@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using Core.Exceptions;
-using Infrastructure.ApiUrls;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using PokerBunch.Common.Urls.ApiUrls;
