@@ -10,9 +10,9 @@ namespace Web.Controllers
         [HttpPost]
         [Authorize]
         [Route(EndCashgameUrl.Route)]
-        public ActionResult Post(string slug)
+        public ActionResult Post(string bunchId)
         {
-            UseCase.EndCashgame.Execute(new EndCashgame.Request(slug));
+            UseCase.EndCashgame.Execute(new EndCashgame.Request(bunchId));
             return JsonView(new JsonViewModelOk());
         }
     }

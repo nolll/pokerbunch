@@ -9,9 +9,9 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(DeleteCheckpointUrl.Route)]
-        public ActionResult DeleteCheckpoint(string cashgameId, string id)
+        public ActionResult DeleteCheckpoint(string cashgameId, string actionId)
         {
-            var request = new DeleteCheckpoint.Request(cashgameId, id);
+            var request = new DeleteCheckpoint.Request(cashgameId, actionId);
             var result = UseCase.DeleteCheckpoint.Execute(request);
             return Redirect(GetReturnUrl(result).Relative);
         }

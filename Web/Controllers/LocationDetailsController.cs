@@ -10,9 +10,9 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(LocationDetailsUrl.Route)]
-        public ActionResult List(string id)
+        public ActionResult List(string locationId)
         {
-            var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(id));
+            var locationDetails = UseCase.LocationDetails.Execute(new LocationDetails.Request(locationId));
             var contextResult = GetBunchContext(locationDetails.Slug);
             var model = new LocationDetailsPageModel(contextResult, locationDetails);
             return View(model);

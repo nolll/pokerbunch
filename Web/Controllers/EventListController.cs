@@ -10,10 +10,10 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(EventListUrl.Route)]
-        public ActionResult List(string slug)
+        public ActionResult List(string bunchId)
         {
-            var contextResult = GetBunchContext(slug);
-            var eventListOutput = UseCase.EventList.Execute(new EventList.Request(slug));
+            var contextResult = GetBunchContext(bunchId);
+            var eventListOutput = UseCase.EventList.Execute(new EventList.Request(bunchId));
             var model = new EventListPageModel(contextResult, eventListOutput);
             return View(model);
         }

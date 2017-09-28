@@ -11,10 +11,10 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(MatrixUrl.RouteWithYear)]
-        public ActionResult Matrix(string slug, int? year = null)
+        public ActionResult Matrix(string bunchId, int? year = null)
         {
-            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Matrix, year);
-            var matrixResult = UseCase.BunchMatrix.Execute(new BunchMatrix.Request(slug, year));
+            var contextResult = GetCashgameContext(bunchId, DateTime.UtcNow, CashgameContext.CashgamePage.Matrix, year);
+            var matrixResult = UseCase.BunchMatrix.Execute(new BunchMatrix.Request(bunchId, year));
             var model = new CashgameMatrixPageModel(contextResult, matrixResult);
             return View(model);
         }

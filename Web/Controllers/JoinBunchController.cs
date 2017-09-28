@@ -12,34 +12,34 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(JoinBunchUrl.Route)]
-        public ActionResult Join(string slug)
+        public ActionResult Join(string bunchId)
         {
-            return ShowForm(slug, "");
+            return ShowForm(bunchId, "");
         }
 
         [Authorize]
         [Route(JoinBunchUrl.RouteWithCode)]
-        public ActionResult Join(string slug, string code)
+        public ActionResult Join(string bunchId, string code)
         {
-            return JoinBunch(slug, code);
+            return JoinBunch(bunchId, code);
         }
 
         [HttpPost]
         [Authorize]
         [Route(JoinBunchUrl.Route)]
-        public ActionResult Post(string slug, JoinBunchPostModel postModel)
+        public ActionResult Post(string bunchId, JoinBunchPostModel postModel)
         {
             var code = postModel != null ? postModel.Code : "";
-            return JoinBunch(slug, code);
+            return JoinBunch(bunchId, code);
         }
 
-        private ActionResult JoinBunch(string slug, string code)
+        private ActionResult JoinBunch(string bunchId, string code)
         {
             var errors = new List<string>();
 
             try
             {
-                var request = new JoinBunch.Request(slug, code);
+                var request = new JoinBunch.Request(bunchId, code);
                 var result = UseCase.JoinBunch.Execute(request);
                 return Redirect(new JoinBunchConfirmationUrl(result.BunchId).Relative);
             }
@@ -52,23 +52,23 @@ namespace Web.Controllers
                 errors.Add(ex.Message);
             }
 
-            return ShowForm(slug, code, errors);
+            return ShowForm(bunchId, code, errors);
         }
 
         [Authorize]
         [Route(JoinBunchConfirmationUrl.Route)]
-        public ActionResult Joined(string slug)
+        public ActionResult Joined(string bunchId)
         {
-            var contextResult = GetBunchContext(slug);
-            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(slug));
+            var contextResult = GetBunchContext(bunchId);
+            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(bunchId));
             var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
             return View(model);
         }
 
-        private ActionResult ShowForm(string slug, string code, IEnumerable<string> errors = null)
+        private ActionResult ShowForm(string bunchId, string code, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var joinBunchFormResult = UseCase.JoinBunchForm.Execute(new JoinBunchForm.Request(slug));
+            var joinBunchFormResult = UseCase.JoinBunchForm.Execute(new JoinBunchForm.Request(bunchId));
             var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, code, errors);
             return View(model);
         }

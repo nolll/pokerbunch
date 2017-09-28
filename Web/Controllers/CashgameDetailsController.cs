@@ -10,11 +10,11 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(CashgameDetailsUrl.Route)]
-        public ActionResult Details(string id)
+        public ActionResult Details(string cashgameId)
         {
-            var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(id));
+            var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(cashgameId));
             var contextResult = GetBunchContext(cashgameDetailsResult.Slug);
-            var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(id));
+            var cashgameDetailsChartResult = UseCase.CashgameDetailsChart.Execute(new CashgameDetailsChart.Request(cashgameId));
             var model = new CashgameDetailsPageModel(contextResult, cashgameDetailsResult, cashgameDetailsChartResult);
             return View(model);
         }

@@ -9,9 +9,9 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(DeletePlayerUrl.Route)]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string playerId)
         {
-            var request = new DeletePlayer.Request(id);
+            var request = new DeletePlayer.Request(playerId);
             var result = UseCase.DeletePlayer.Execute(request);
             var returnUrl = CreateReturnUrl(result);
             return Redirect(returnUrl.Relative);

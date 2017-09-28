@@ -9,10 +9,10 @@ namespace Web.Controllers
     public class AppDetailsController : BaseController
     {
         [Route(AppDetailsUrl.Route)]
-        public ActionResult Details(string id)
+        public ActionResult Details(string appId)
         {
             var context = GetAppContext();
-            var appDetailsResult = UseCase.AppDetails.Execute(new AppDetails.Request(id));
+            var appDetailsResult = UseCase.AppDetails.Execute(new AppDetails.Request(appId));
             var model = new AppDetailsPageModel(context, appDetailsResult);
             return View(model);
         }

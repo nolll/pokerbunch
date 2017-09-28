@@ -12,21 +12,21 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(AddPlayerUrl.Route)]
-        public ActionResult Add(string slug)
+        public ActionResult Add(string bunchId)
         {
-            return ShowForm(slug);
+            return ShowForm(bunchId);
         }
 
         [HttpPost]
         [Authorize]
         [Route(AddPlayerUrl.Route)]
-        public ActionResult Add_Post(string slug, AddPlayerPostModel postModel)
+        public ActionResult Add_Post(string bunchId, AddPlayerPostModel postModel)
         {
             var errors = new List<string>();
 
             try
             {
-                var request = new AddPlayer.Request(slug, postModel.Name);
+                var request = new AddPlayer.Request(bunchId, postModel.Name);
                 var result = UseCase.AddPlayer.Execute(request);
                 return Redirect(new AddPlayerConfirmationUrl(result.Slug).Relative);
             }
@@ -39,20 +39,20 @@ namespace Web.Controllers
                 errors.Add(ex.Message);
             }
 
-            return ShowForm(slug, postModel, errors);
+            return ShowForm(bunchId, postModel, errors);
         }
 
         [Route(AddPlayerConfirmationUrl.Route)]
-        public ActionResult Created(string slug)
+        public ActionResult Created(string bunchId)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContext(bunchId);
             var model = new AddPlayerConfirmationPageModel(contextResult);
             return View(model);
         }
 
-        private ActionResult ShowForm(string slug, AddPlayerPostModel postModel = null, IEnumerable<string> errors = null)
+        private ActionResult ShowForm(string bunchId, AddPlayerPostModel postModel = null, IEnumerable<string> errors = null)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContext(bunchId);
             var model = new AddPlayerPageModel(contextResult, postModel, errors);
             return View(model);
         }

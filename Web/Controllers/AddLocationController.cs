@@ -12,21 +12,21 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(AddLocationUrl.Route)]
-        public ActionResult Add(string slug)
+        public ActionResult Add(string bunchId)
         {
-            return ShowForm(slug);
+            return ShowForm(bunchId);
         }
 
         [HttpPost]
         [Authorize]
         [Route(AddLocationUrl.Route)]
-        public ActionResult Add_Post(string slug, AddLocationPostModel postModel)
+        public ActionResult Add_Post(string bunchId, AddLocationPostModel postModel)
         {
             var errors = new List<string>();
 
             try
             {
-                var request = new AddLocation.Request(slug, postModel.Name);
+                var request = new AddLocation.Request(bunchId, postModel.Name);
                 var result = UseCase.AddLocation.Execute(request);
                 return Redirect(new AddLocationConfirmationUrl(result.Slug).Relative);
             }
@@ -35,20 +35,20 @@ namespace Web.Controllers
                 errors.AddRange(ex.Messages);
             }
 
-            return ShowForm(slug, postModel, errors);
+            return ShowForm(bunchId, postModel, errors);
         }
 
         [Route(AddLocationConfirmationUrl.Route)]
-        public ActionResult Created(string slug)
+        public ActionResult Created(string bunchId)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContext(bunchId);
             var model = new AddLocationConfirmationPageModel(contextResult);
             return View(model);
         }
 
-        private ActionResult ShowForm(string slug, AddLocationPostModel postModel = null, IEnumerable<string> errors = null)
+        private ActionResult ShowForm(string bunchId, AddLocationPostModel postModel = null, IEnumerable<string> errors = null)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContext(bunchId);
             var model = new AddLocationPageModel(contextResult, postModel, errors);
             return View(model);
         }

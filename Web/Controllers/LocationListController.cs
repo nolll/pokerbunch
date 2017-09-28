@@ -11,10 +11,10 @@ namespace Web.Controllers
     {
         [CustomAuthorize]
         [Route(LocationListUrl.Route)]
-        public ActionResult List(string slug)
+        public ActionResult List(string bunchId)
         {
-            var contextResult = GetBunchContext(slug);
-            var locationList = UseCase.LocationList.Execute(new LocationList.Request(slug));
+            var contextResult = GetBunchContext(bunchId);
+            var locationList = UseCase.LocationList.Execute(new LocationList.Request(bunchId));
             var model = new LocationListPageModel(contextResult, locationList);
             return View(model);
         }

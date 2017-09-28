@@ -12,10 +12,10 @@ namespace Web.Controllers
         [Authorize]
         [Route(FactsUrl.Route)]
         [Route(FactsUrl.RouteWithYear)]
-        public ActionResult Facts(string slug, int? year = null)
+        public ActionResult Facts(string bunchId, int? year = null)
         {
-            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Facts, year);
-            var factsResult = UseCase.CashgameFacts.Execute(new CashgameFacts.Request(slug, year));
+            var contextResult = GetCashgameContext(bunchId, DateTime.UtcNow, CashgameContext.CashgamePage.Facts, year);
+            var factsResult = UseCase.CashgameFacts.Execute(new CashgameFacts.Request(bunchId, year));
 
             var model = new CashgameFactsPageModel(contextResult, factsResult);
             return View(model);

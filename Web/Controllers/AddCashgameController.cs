@@ -12,21 +12,21 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(AddCashgameUrl.Route)]
-        public ActionResult AddCashgame(string slug)
+        public ActionResult AddCashgame(string bunchId)
         {
-            return ShowForm(slug);
+            return ShowForm(bunchId);
         }
 
         [HttpPost]
         [Authorize]
         [Route(AddCashgameUrl.Route)]
-        public ActionResult Post(string slug, AddCashgamePostModel postModel)
+        public ActionResult Post(string bunchId, AddCashgamePostModel postModel)
         {
             var errors = new List<string>();
 
             try
             {
-                var request = new AddCashgame.Request(slug, postModel.LocationId, postModel.EventId);
+                var request = new AddCashgame.Request(bunchId, postModel.LocationId, postModel.EventId);
                 var result = UseCase.AddCashgame.Execute(request);
                 return Redirect(new RunningCashgameUrl(result.Slug).Relative);
             }
@@ -35,13 +35,13 @@ namespace Web.Controllers
                 errors.AddRange(ex.Messages);
             }
 
-            return ShowForm(slug, postModel, errors);
+            return ShowForm(bunchId, postModel, errors);
         }
 
-        private ActionResult ShowForm(string slug, AddCashgamePostModel postModel = null, IEnumerable<string> errors = null)
+        private ActionResult ShowForm(string bunchId, AddCashgamePostModel postModel = null, IEnumerable<string> errors = null)
         {
-            var contextResult = GetBunchContext(slug);
-            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(slug));
+            var contextResult = GetBunchContext(bunchId);
+            var optionsResult = UseCase.AddCashgameForm.Execute(new AddCashgameForm.Request(bunchId));
             var model = new AddCashgamePageModel(contextResult, optionsResult, postModel, errors);
             return View(model);
         }

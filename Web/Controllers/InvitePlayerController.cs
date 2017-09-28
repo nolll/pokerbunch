@@ -12,21 +12,21 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(InvitePlayerUrl.Route)]
-        public ActionResult Invite(string id)
+        public ActionResult Invite(string playerId)
         {
-            return ShowForm(id);
+            return ShowForm(playerId);
         }
 
         [HttpPost]
         [Authorize]
         [Route(InvitePlayerUrl.Route)]
-        public ActionResult Invite_Post(string id, InvitePlayerPostModel postModel)
+        public ActionResult Invite_Post(string playerId, InvitePlayerPostModel postModel)
         {
             var errors = new List<string>();
 
             try
             {
-                var request = new InvitePlayer.Request(id, postModel.Email);
+                var request = new InvitePlayer.Request(playerId, postModel.Email);
                 var result = UseCase.InvitePlayer.Execute(request);
                 return Redirect(new InvitePlayerConfirmationUrl(result.PlayerId).Relative);
             }
@@ -35,21 +35,21 @@ namespace Web.Controllers
                 errors.AddRange(ex.Messages);
             }
 
-            return ShowForm(id, postModel, errors);
+            return ShowForm(playerId, postModel, errors);
         }
 
         [Route(InvitePlayerConfirmationUrl.Route)]
-        public ActionResult Invited(string id)
+        public ActionResult Invited(string playerId)
         {
-            var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(id));
+            var invitePlayerConfirmation = UseCase.InvitePlayerConfirmation.Execute(new InvitePlayerConfirmation.Request(playerId));
             var contextResult = GetBunchContext(invitePlayerConfirmation.Slug);
             var model = new InvitePlayerConfirmationPageModel(contextResult);
             return View(model);
         }
 
-        private ActionResult ShowForm(string id, InvitePlayerPostModel postModel = null, IEnumerable<string> errors = null)
+        private ActionResult ShowForm(string playerId, InvitePlayerPostModel postModel = null, IEnumerable<string> errors = null)
         {
-            var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(id));
+            var invitePlayerForm = UseCase.InvitePlayerForm.Execute(new InvitePlayerForm.Request(playerId));
             var context = GetBunchContext(invitePlayerForm.Slug);
             var model = new InvitePlayerPageModel(context, postModel, errors);
             return View(model);

@@ -12,45 +12,45 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(RunningCashgameUrl.Route)]
-        public ActionResult Running(string slug)
+        public ActionResult Running(string bunchId)
         {
-            var contextResult = GetBunchContext(slug);
+            var contextResult = GetBunchContext(bunchId);
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, bunchId));
                 var model = new RunningCashgamePageModel(contextResult, runningCashgameResult);
                 return View(model);
             }
             catch (CashgameNotRunningException)
             {
-                return Redirect(new CashgameIndexUrl(slug).Relative);
+                return Redirect(new CashgameIndexUrl(bunchId).Relative);
             }
         }
 
         [Authorize]
         [Route(DashboardUrl.Route)]
-        public ActionResult Dashboard(string slug)
+        public ActionResult Dashboard(string bunchId)
         {
             var contextResult = GetBaseContext();
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, bunchId));
                 var model = new CashgameDashboardPageModel(contextResult, runningCashgameResult);
                 return View(model);
             }
             catch (CashgameNotRunningException)
             {
-                return Redirect(new CashgameIndexUrl(slug).Relative);
+                return Redirect(new CashgameIndexUrl(bunchId).Relative);
             }
         }
 
         [Authorize]
         [Route(RunningCashgameGameJsonUrl.Route)]
-        public ActionResult RunningGameJson(string slug)
+        public ActionResult RunningGameJson(string bunchId)
         {
             try
             {
-                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
+                var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, bunchId));
                 var model = new RunningCashgameJsonModel(runningCashgameResult);
                 return JsonView(model);
             }
@@ -62,9 +62,9 @@ namespace Web.Controllers
 
         [Authorize]
         [Route(RunningCashgamePlayersJsonUrl.Route)]
-        public ActionResult RunningPlayersJson(string slug)
+        public ActionResult RunningPlayersJson(string bunchId)
         {
-            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, slug));
+            var runningCashgameResult = UseCase.RunningCashgame.Execute(new RunningCashgame.Request(Identity.UserName, bunchId));
             var model = new RunningCashgameRefreshJsonModel(runningCashgameResult);
             return JsonView(model);
         }

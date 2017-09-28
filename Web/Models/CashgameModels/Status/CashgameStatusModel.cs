@@ -19,7 +19,7 @@ namespace Web.Models.CashgameModels.Status
             LinkText = statusResult.GameIsRunning ? "Go to game" : "Start a game";
             Description = statusResult.GameIsRunning ? "There is a game running" : "No game is running at the moment";
             Url = statusResult.GameIsRunning ? new RunningCashgameUrl(statusResult.Slug).Relative : new AddCashgameUrl(statusResult.Slug).Relative;
-            DashboardUrl = new DashboardCashgameUrl(statusResult.Slug).Relative;
+            DashboardUrl = new DashboardUrl(statusResult.Slug).Relative;
             GameIsRunning = statusResult.GameIsRunning;
         }
 

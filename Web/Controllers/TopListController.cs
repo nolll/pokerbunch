@@ -12,10 +12,10 @@ namespace Web.Controllers
         [Authorize]
         [Route(TopListUrl.Route)]
         [Route(TopListUrl.RouteWithYear)]
-        public ActionResult Toplist(string slug, int? year = null)
+        public ActionResult Toplist(string bunchId, int? year = null)
         {
-            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Toplist, year);
-            var topListResult = UseCase.TopList.Execute(new TopList.Request(slug, year));
+            var contextResult = GetCashgameContext(bunchId, DateTime.UtcNow, CashgameContext.CashgamePage.Toplist, year);
+            var topListResult = UseCase.TopList.Execute(new TopList.Request(bunchId, year));
             var model = new CashgameToplistPageModel(contextResult, topListResult);
             return View(model);
         }

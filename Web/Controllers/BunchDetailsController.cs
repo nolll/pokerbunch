@@ -10,10 +10,10 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(BunchDetailsUrl.Route)]
-        public ActionResult Details(string slug)
+        public ActionResult Details(string bunchId)
         {
-            var bunchContextResult = GetBunchContext(slug);
-            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request(slug));
+            var bunchContextResult = GetBunchContext(bunchId);
+            var bunchDetailsResult = UseCase.BunchDetails.Execute(new BunchDetails.Request(bunchId));
 
             var model = new BunchDetailsPageModel(bunchContextResult, bunchDetailsResult);
             return View(model);

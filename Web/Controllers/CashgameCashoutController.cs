@@ -11,9 +11,9 @@ namespace Web.Controllers
         [HttpPost]
         [Authorize]
         [Route(CashgameCashoutUrl.Route)]
-        public ActionResult Cashout_Post(string slug, CashoutPostModel postModel)
+        public ActionResult Cashout_Post(string bunchId, CashoutPostModel postModel)
         {
-            var request = new Cashout.Request(slug, postModel.PlayerId, postModel.Stack);
+            var request = new Cashout.Request(bunchId, postModel.PlayerId, postModel.Stack);
             var result = UseCase.Cashout.Execute(request);
             return JsonView(new JsonViewModelOk());
         }

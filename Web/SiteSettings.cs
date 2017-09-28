@@ -12,7 +12,7 @@
         public static string ApiKey => Get("ApiKey");
         public static string EnvironmentName => Get("Environment");
         public static bool DetailedErrorsForApi => GetBool("DetailedErrorsForApi");
-        private static string ApiProtocol => HttpsForApi ? "https" : "http";
+        public static string ApiProtocol => HttpsForApi ? "https" : "http";
         private static bool HttpsForApi => GetBool("HttpsForApi");
     }
 }

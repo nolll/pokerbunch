@@ -11,9 +11,9 @@ namespace Web.Controllers
         [HttpPost]
         [Authorize]
         [Route(CashgameBuyinUrl.Route)]
-        public ActionResult Buyin_Post(string slug, BuyinPostModel postModel)
+        public ActionResult Buyin_Post(string bunchId, BuyinPostModel postModel)
         {
-            var request = new Buyin.Request(slug, postModel.PlayerId, postModel.AddedMoney, postModel.Stack);
+            var request = new Buyin.Request(bunchId, postModel.PlayerId, postModel.AddedMoney, postModel.Stack);
             UseCase.Buyin.Execute(request);
             return JsonView(new JsonViewModelOk());
         }

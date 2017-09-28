@@ -17,7 +17,7 @@ namespace Web.Controllers.Base
     {
         private Identity _identity;
 
-        private Bootstrapper Bootstrapper => new Bootstrapper(SiteSettings.ApiHost, SiteSettings.ApiHost, SiteSettings.ApiKey, Identity.ApiToken, SiteSettings.DetailedErrorsForApi);
+        private Bootstrapper Bootstrapper => new Bootstrapper(SiteSettings.ApiHost, SiteSettings.ApiProtocol, SiteSettings.ApiKey, Identity.ApiToken, SiteSettings.DetailedErrorsForApi);
         protected UseCaseContainer UseCase => Bootstrapper.UseCases;
 
         protected BaseContext.Result GetBaseContext()
@@ -30,14 +30,14 @@ namespace Web.Controllers.Base
             return UseCase.CoreContext.Execute(GetBaseContext(), new CoreContext.Request(Identity.UserName));
         }
 
-        protected BunchContext.Result GetBunchContext(string slug = null)
+        protected BunchContext.Result GetBunchContext(string bunchId = null)
         {
-            return UseCase.BunchContext.Execute(GetAppContext(), new BunchContext.Request(slug));
+            return UseCase.BunchContext.Execute(GetAppContext(), new BunchContext.Request(bunchId));
         }
 
-        protected CashgameContext.Result GetCashgameContext(string slug, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
+        protected CashgameContext.Result GetCashgameContext(string bunchId, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
         {
-            return UseCase.CashgameContext.Execute(GetBunchContext(slug), new CashgameContext.Request(slug, currentTime, selectedPage, year));
+            return UseCase.CashgameContext.Execute(GetBunchContext(bunchId), new CashgameContext.Request(bunchId, currentTime, selectedPage, year));
         }
 
         protected Identity Identity => _identity ?? (_identity = new Identity(User));

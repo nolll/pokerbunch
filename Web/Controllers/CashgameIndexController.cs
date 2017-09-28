@@ -11,11 +11,11 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(CashgameIndexUrl.Route)]
-        public ActionResult Index(string slug)
+        public ActionResult Index(string bunchId)
         {
-            var contextResult = GetCashgameContext(slug, DateTime.UtcNow, CashgameContext.CashgamePage.Overview);
-            var statusResult = UseCase.CashgameStatus.Execute(new CashgameStatus.Request(slug));
-            var currentRankingsResult = UseCase.CurrentRankings.Execute(new CurrentRankings.Request(slug));
+            var contextResult = GetCashgameContext(bunchId, DateTime.UtcNow, CashgameContext.CashgamePage.Overview);
+            var statusResult = UseCase.CashgameStatus.Execute(new CashgameStatus.Request(bunchId));
+            var currentRankingsResult = UseCase.CurrentRankings.Execute(new CurrentRankings.Request(bunchId));
             var model = new CashgameIndexPageModel(contextResult, statusResult, currentRankingsResult);
             return View(model);
         }

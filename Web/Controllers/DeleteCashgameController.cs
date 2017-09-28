@@ -9,9 +9,9 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(DeleteCashgameUrl.Route)]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string cashgameId)
         {
-            var request = new DeleteCashgame.Request(id);
+            var request = new DeleteCashgame.Request(cashgameId);
             var result = UseCase.DeleteCashgame.Execute(request);
             return Redirect(new CashgameIndexUrl(result.Slug).Relative);
 		}

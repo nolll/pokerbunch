@@ -12,21 +12,21 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(EditBunchUrl.Route)]
-        public ActionResult Edit(string slug)
+        public ActionResult Edit(string bunchId)
         {
-            return ShowForm(slug);
+            return ShowForm(bunchId);
         }
 
         [HttpPost]
         [Authorize]
         [Route(EditBunchUrl.Route)]
-        public ActionResult Edit_Post(string slug, EditBunchPostModel postModel)
+        public ActionResult Edit_Post(string bunchId, EditBunchPostModel postModel)
         {
             var errors = new List<string>();
 
             try
             {
-                var request = new EditBunch.Request(slug, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
+                var request = new EditBunch.Request(bunchId, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone, postModel.HouseRules, postModel.DefaultBuyin);
                 var result = UseCase.EditBunch.Execute(request);
                 return Redirect(new BunchDetailsUrl(result.BunchId).Relative);
             }
@@ -35,13 +35,13 @@ namespace Web.Controllers
                 errors.AddRange(ex.Messages);
             }
             
-            return ShowForm(slug, postModel, errors);
+            return ShowForm(bunchId, postModel, errors);
         }
 
-        private ActionResult ShowForm(string slug, EditBunchPostModel postModel = null, IEnumerable<string> errors = null)
+        private ActionResult ShowForm(string bunchId, EditBunchPostModel postModel = null, IEnumerable<string> errors = null)
         {
-            var contextResult = GetBunchContext(slug);
-            var editBunchFormRequest = new EditBunchForm.Request(slug);
+            var contextResult = GetBunchContext(bunchId);
+            var editBunchFormRequest = new EditBunchForm.Request(bunchId);
             var editBunchFormResult = UseCase.EditBunchForm.Execute(editBunchFormRequest);
             var model = new EditBunchPageModel(contextResult, editBunchFormResult, postModel, errors);
             return View(model);

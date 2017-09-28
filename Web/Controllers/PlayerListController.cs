@@ -10,10 +10,10 @@ namespace Web.Controllers
     {
         [Authorize]
         [Route(PlayerIndexUrl.Route)]
-        public ActionResult List(string slug)
+        public ActionResult List(string bunchId)
         {
-            var contextResult = GetBunchContext(slug);
-            var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request(slug));
+            var contextResult = GetBunchContext(bunchId);
+            var playerListResult = UseCase.PlayerList.Execute(new PlayerList.Request(bunchId));
             var model = new PlayerListPageModel(contextResult, playerListResult);
             return View(model);
         }
