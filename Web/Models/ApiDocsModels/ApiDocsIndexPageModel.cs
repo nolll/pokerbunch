@@ -8,7 +8,7 @@ namespace Web.Models.ApiDocsModels
     public class ApiDocsIndexPageModel : ApiDocsPageModel
     {
         public override string BrowserTitle => "Api Documentation";
-        private static string AppListUrl => new UserAppsUrl().Relative;
+        private const string AppListUrl = UserAppsUrl.Route;
 
         public ApiDocsIndexPageModel(CoreContext.Result contextResult)
             : base(contextResult)

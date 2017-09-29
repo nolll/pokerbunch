@@ -8,8 +8,8 @@ namespace Web.Models.ApiDocsModels
     public class ApiDocsBunchesPageModel : ApiDocsPageModel
     {
         public override string BrowserTitle => "Api Documentation - Bunches";
-        private static string BunchListUrl => ApiBunchesUrl.Route;
-        private static string BunchDetailsUrl => ApiBunchUrl.Route;
+        private const string BunchListUrl = ApiBunchesUrl.Route;
+        private const string BunchDetailsUrl = ApiBunchUrl.Route;
 
         public ApiDocsBunchesPageModel(CoreContext.Result contextResult)
             : base(contextResult)

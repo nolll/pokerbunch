@@ -8,7 +8,7 @@ namespace Web.Models.ApiDocsModels
     public class ApiDocsAuthPageModel : ApiDocsPageModel
     {
         public override string BrowserTitle => "Api Documentation - Authentication";
-        private static string TokenUrl => new ApiTokenUrl().Relative;
+        private const string TokenUrl = ApiTokenUrl.Route;
 
         public ApiDocsAuthPageModel(CoreContext.Result contextResult)
             : base(contextResult)
