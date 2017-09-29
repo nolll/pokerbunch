@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using Core.UseCases;
 using PokerBunch.Common.Urls.ApiUrls;
 using Web.Components.ApiDocsModels;
+using Web.Components.ApiDocsModels.CodeBlock;
+using Web.Components.ApiDocsModels.ContentBlock;
+using Web.Components.ApiDocsModels.PageHeadingBlock;
+using Web.Components.ApiDocsModels.Section;
 
 namespace Web.Models.ApiDocsModels
 {
@@ -15,22 +19,22 @@ namespace Web.Models.ApiDocsModels
         {
         }
 
-        public override IList<DocsSectionModel> Sections => new List<DocsSectionModel>
+        public override IList<SectionModel> Sections => new List<SectionModel>
         {
-            new DocsSectionModel(
-                new DocsPageHeadingBlockModel("Authentication"),
-                new DocsContentBlockModel("To authenticate, your application needs to post a request to"),
-                new DocsCodeBlockModel($"POST {TokenUrl}"),
-                new DocsContentBlockModel("Send the following parameters in the body:"),
-                new DocsCodeBlockModel(
+            new SectionModel(
+                new PageHeadingBlockModel("Authentication"),
+                new ContentBlockModel("To authenticate, your application needs to post a request to"),
+                new CodeBlockModel($"POST {TokenUrl}"),
+                new ContentBlockModel("Send the following parameters in the body:"),
+                new CodeBlockModel(
                     "grant_type = password",
                     "client_id = { your API key}",
                     "username = {your user's username}",
                     "password = {your user's password}"),
-                new DocsContentBlockModel("If your credentials are valid, the response will include a token, for example"),
-                new DocsCodeBlockModel("ABCDE"),
-                new DocsContentBlockModel("For subsequent requests, include an Authorization header with the content"),
-                new DocsCodeBlockModel("bearer ABCDE"))
+                new ContentBlockModel("If your credentials are valid, the response will include a token, for example"),
+                new CodeBlockModel("ABCDE"),
+                new ContentBlockModel("For subsequent requests, include an Authorization header with the content"),
+                new CodeBlockModel("bearer ABCDE"))
         };
 
 }

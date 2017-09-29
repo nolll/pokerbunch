@@ -1,12 +1,13 @@
 using Newtonsoft.Json;
+using Web.Components.ApiDocsModels.Block;
 
-namespace Web.Components.ApiDocsModels
+namespace Web.Components.ApiDocsModels.JsonBlock
 {
-    public class DocsJsonBlockModel : DocsBlockModel
+    public class JsonBlockModel : DocsBlockModel
     {
         public string Content { get; }
 
-        public DocsJsonBlockModel(object obj)
+        public JsonBlockModel(object obj)
         {
             Content = JsonConvert.SerializeObject(obj, Formatting.Indented);
         }

@@ -184,15 +184,18 @@
     <Compile Include="App_Start\LessTransform.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CommonSettings.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsCodeBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsContentBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsJsonBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsNavigationBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsNavigationItemModel.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsPageHeadingBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsSectionHeadingBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\DocsSectionModel.cs" />
+    <Compile Include="Components\ApiDocsModels\Block\DocsBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\CodeBlock\CodeBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\NavigationBlock\NavigationBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\NavigationBlock\NavigationItemModel.cs" />
+    <Compile Include="Components\ApiDocsModels\PageHeadingBlock\PageHeadingBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\ParameterBlock\ParameterModel.cs" />
+    <Compile Include="Components\ApiDocsModels\ParameterBlock\ParametersBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\ParameterBlock\ParameterTypeModel.cs" />
+    <Compile Include="Components\ApiDocsModels\SectionHeadingBlock\SectionHeadingBlockModel.cs" />
+    <Compile Include="Components\ApiDocsModels\Section\SectionModel.cs" />
+    <Compile Include="Components\ApiDocsModels\JsonBlock\JsonBlockModel.cs" />
     <Compile Include="Components\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
@@ -387,9 +390,17 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\ApiDocsModels\DocsJsonBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\DocsNavigationBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\DocsNavigationItemModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\JsonBlock\JsonBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\NavigationBlock\NavigationBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\NavigationBlock\NavigationItemModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\ParameterBlock\ParametersBlockModel.cshtml" />
+    <Content Include="FrontEnd\Css\standings - Copy.css">
+      <DependentUpon>docs.less</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="FrontEnd\Css\docs.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="FrontEnd\Css\styles.less" />
     <Content Include="FrontEnd\Css\value-list.css">
       <DependentUpon>value-list.less</DependentUpon>
@@ -566,11 +577,11 @@
     <Content Include="package.json" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <None Include="Local.config" />
-    <Content Include="Components\ApiDocsModels\DocsContentBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\DocsSectionModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\DocsPageHeadingBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\DocsSectionHeadingBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\DocsCodeBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\PageHeadingBlock\PageHeadingBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\SectionHeadingBlock\SectionHeadingBlockModel.cshtml" />
+    <Content Include="Components\ApiDocsModels\CodeBlock\CodeBlockModel.cshtml" />
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>

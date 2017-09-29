@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using Core.UseCases;
 using PokerBunch.Common.Urls.ApiUrls;
 using Web.Components.ApiDocsModels;
+using Web.Components.ApiDocsModels.CodeBlock;
+using Web.Components.ApiDocsModels.ContentBlock;
+using Web.Components.ApiDocsModels.JsonBlock;
+using Web.Components.ApiDocsModels.Section;
+using Web.Components.ApiDocsModels.SectionHeadingBlock;
 
 namespace Web.Models.ApiDocsModels
 {
@@ -16,14 +21,14 @@ namespace Web.Models.ApiDocsModels
         {
         }
 
-        public override IList<DocsSectionModel> Sections => new List<DocsSectionModel>
+        public override IList<SectionModel> Sections => new List<SectionModel>
         {
-            new DocsSectionModel(
-                new DocsSectionHeadingBlockModel("Bunch List"),
-                new DocsContentBlockModel("To see the bunches you can access, call"),
-                new DocsCodeBlockModel($"GET {BunchListUrl}"),
-                new DocsContentBlockModel("The response will look something like this"),
-                new DocsJsonBlockModel(
+            new SectionModel(
+                new SectionHeadingBlockModel("Bunch List"),
+                new ContentBlockModel("To see the bunches you can access, call"),
+                new CodeBlockModel($"GET {BunchListUrl}"),
+                new ContentBlockModel("The response will look something like this"),
+                new JsonBlockModel(
                     new []
                     {
                         new
@@ -35,12 +40,12 @@ namespace Web.Models.ApiDocsModels
                         }
                     })),
 
-            new DocsSectionModel(
-                new DocsSectionHeadingBlockModel("Bunch Details"),
-                new DocsContentBlockModel("To see a specific bunch, call"),
-                new DocsCodeBlockModel($"GET {BunchDetailsUrl}"),
-                new DocsContentBlockModel("The response will look like this"),
-                new DocsJsonBlockModel(
+            new SectionModel(
+                new SectionHeadingBlockModel("Bunch Details"),
+                new ContentBlockModel("To see a specific bunch, call"),
+                new CodeBlockModel($"GET {BunchDetailsUrl}"),
+                new ContentBlockModel("The response will look like this"),
+                new JsonBlockModel(
                     new {
                         id = "mypokergame",
                         name = "My Poker Game",

@@ -1,13 +1,13 @@
 using Web.Extensions;
 
-namespace Web.Components.ApiDocsModels
+namespace Web.Components.ApiDocsModels.NavigationBlock
 {
-    public class DocsNavigationItemModel : Component
+    public class NavigationItemModel : Component
     {
         public string Name { get; }
         public string Url { get; }
 
-        public DocsNavigationItemModel(string name, string url)
+        public NavigationItemModel(string name, string url)
         {
             Name = name;
             Url = url;
