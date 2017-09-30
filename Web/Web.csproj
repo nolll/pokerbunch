@@ -256,6 +256,7 @@
     <Compile Include="Models\ApiDocsModels\ApiDocsCashgamesPageModel.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsIndexPageModel.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsPageModel.cs" />
+    <Compile Include="Models\ApiDocsModels\ApiDocsPlayersPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointListModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableJsonModel.cs" />
