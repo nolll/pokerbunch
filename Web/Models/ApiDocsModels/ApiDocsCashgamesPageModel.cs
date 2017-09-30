@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.UseCases;
 using PokerBunch.Common.Urls.ApiUrls;
@@ -12,12 +13,14 @@ namespace Web.Models.ApiDocsModels
 {
     public class ApiDocsCashgamesPageModel : ApiDocsPageModel
     {
-        public override string BrowserTitle => "Api Documentation - Cashgames";
+        public override string BrowserTitle => "Api Documentation - Current Cashgames";
         private const string CurrentCashgamesUrl = ApiBunchCashgamesCurrentUrl.Route;
         private const string BuyinUrl = ApiCashgameBuyinUrl.Route;
         private const string ReportUrl = ApiCashgameReportUrl.Route;
         private const string CashoutUrl = ApiCashgameCashoutUrl.Route;
         private const string EndUrl = ApiCashgameEndUrl.Route;
+        private const string CashgamesUrl = ApiBunchCashgamesUrl.Route;
+        private const string CashgamesWithYearUrl = ApiBunchCashgamesUrl.RouteWithYear;
 
         public ApiDocsCashgamesPageModel(CoreContext.Result contextResult)
             : base(contextResult)
@@ -107,7 +110,41 @@ namespace Web.Models.ApiDocsModels
             new SectionModel(
                 new SectionHeadingBlockModel("End cashgame"),
                 new ContentBlockModel("When all players have cashed out, the game can be ended"),
-                new CodeBlockModel($"POST {EndUrl}"))
+                new CodeBlockModel($"POST {EndUrl}")),
+            new SectionModel(
+                new SectionHeadingBlockModel("Finished cashgames"),
+                new ContentBlockModel("List all finished cashgames. They can also be filtered by year"),
+                new CodeBlockModel(
+                    $"GET {CashgamesUrl}",
+                    $"GET {CashgamesWithYearUrl}"),
+                new ContentBlockModel("This will return a list of finished cashgames"),
+                new JsonBlockModel(
+                    new[]
+                    {
+                        new
+                        {
+                            id = "1234",
+                            startTime = DateTime.Parse("2017-09-20T23:37:44.217Z"),
+                            updatedTime = DateTime.Parse("2017-09-20T23:37:59.467Z"),
+                            location = new
+                            {
+                                id = 6,
+                                name = "Enskede"
+                            },
+                            players = new[]
+                            {
+                                new
+                                {
+                                    id = "1",
+                                    startTime = DateTime.Parse("2017-09-20T23:37:44.217Z"),
+                                    updatedTime = DateTime.Parse("2017-09-20T23:37:59.467Z"),
+                                    buyin = 200,
+                                    stack = 125
+                                }
+                            }
+                        }
+                    }),
+                new ContentBlockModel("If there are no games, the list will be empty"))
         };
     }
 }

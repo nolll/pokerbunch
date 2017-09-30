@@ -32,7 +32,7 @@ namespace Web.Controllers
         }
 
         [Route(ApiDocsCashgamesUrl.Route)]
-        public ActionResult Cashgames()
+        public ActionResult CashgamesCurrent()
         {
             var context = GetAppContext();
             var model = new ApiDocsCashgamesPageModel(context);

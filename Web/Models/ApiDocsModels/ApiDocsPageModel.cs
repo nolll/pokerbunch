@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Core.UseCases;
-using Web.Components.ApiDocsModels;
 using Web.Components.ApiDocsModels.Section;
 using Web.Extensions;
 using Web.Models.PageBaseModels;

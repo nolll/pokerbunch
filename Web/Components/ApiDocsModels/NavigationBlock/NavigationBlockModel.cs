@@ -14,7 +14,12 @@ namespace Web.Components.ApiDocsModels.NavigationBlock
             {
                 new NavigationItemModel("Authentication", new ApiDocsAuthUrl().Relative),
                 new NavigationItemModel("Bunches", new ApiDocsBunchesUrl().Relative),
-                new NavigationItemModel("Cashgames", new ApiDocsCashgamesUrl().Relative)
+                new NavigationItemModel("Cashgames", new ApiDocsCashgamesUrl().Relative),
+                new NavigationItemModel("Players", new ApiDocsPlayersUrl().Relative),
+                new NavigationItemModel("Users", new ApiDocsUsersUrl().Relative),
+                new NavigationItemModel("Apps", new ApiDocsAppsUrl().Relative),
+                new NavigationItemModel("Locations", new ApiDocsLocationsUrl().Relative),
+                new NavigationItemModel("Events", new ApiDocsEventsUrl().Relative)
             };
         }
     }
