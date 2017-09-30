@@ -12,8 +12,8 @@
     @foreach (var p in Model.Parameters)
     {
         <tr>
-            <td class="docs-table__field">@p.Name</td>
-            <td class="docs-table__field">@p.Type</td>
+            <td class="docs-table__field docs-table__field--code">@p.Name</td>
+            <td class="docs-table__field docs-table__field--code">@p.Type</td>
             <td class="docs-table__field">@p.Description</td>
         </tr>
     }
