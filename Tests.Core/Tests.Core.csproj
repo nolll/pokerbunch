@@ -80,7 +80,6 @@
     <Compile Include="UseCases\AddCashgameFormTests\WithoutCurrentGame.cs" />
     <Compile Include="UseCases\AddCashgameTests\Arrange.cs" />
     <Compile Include="UseCases\AddCashgameTests\WhenExecute.cs" />
-    <Compile Include="UseCases\AddCashgameTests\WithEvent.cs" />
     <Compile Include="UseCases\AddEventTests\Arrange.cs" />
     <Compile Include="UseCases\AddEventTests\WhenExecute.cs" />
     <Compile Include="UseCases\AddLocationTests\Arrange.cs" />

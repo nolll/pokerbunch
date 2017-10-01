@@ -10,14 +10,12 @@ namespace Core.UseCases
         private readonly IBunchService _bunchService;
         private readonly ICashgameService _cashgameService;
         private readonly ILocationService _locationService;
-        private readonly IEventService _eventService;
 
-        public AddCashgameForm(IBunchService bunchService, ICashgameService cashgameService, ILocationService locationService, IEventService eventService)
+        public AddCashgameForm(IBunchService bunchService, ICashgameService cashgameService, ILocationService locationService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
             _locationService = locationService;
-            _eventService = eventService;
         }
 
         public Result Execute(Request request)
@@ -30,9 +28,7 @@ namespace Core.UseCases
             }
             var locations = _locationService.List(bunch.Id);
             var locationItems = locations.Select(o => new LocationItem(o.Id, o.Name)).ToList();
-            var events = _eventService.ListByBunch(bunch.Id);
-            var eventItems = events.Select(o => new EventItem(o.Id, o.Name)).ToList();
-            return new Result(locationItems, eventItems);
+            return new Result(locationItems);
         }
 
         public class Request
@@ -48,12 +44,10 @@ namespace Core.UseCases
         public class Result
         {
             public IList<LocationItem> Locations { get; }
-            public IList<EventItem> Events { get; }
 
-            public Result(IList<LocationItem> locations, IList<EventItem> events)
+            public Result(IList<LocationItem> locations)
             {
                 Locations = locations;
-                Events = events;
             }
         }
 

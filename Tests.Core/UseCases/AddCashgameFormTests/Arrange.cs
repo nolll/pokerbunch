@@ -23,7 +23,6 @@ namespace Tests.Core.UseCases.AddCashgameFormTests
             Mock<IBunchService>().Setup(o => o.Get(BunchId)).Returns(bunch);
             Mock<ICashgameService>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
             Mock<ILocationService>().Setup(o => o.List(BunchId)).Returns(locations);
-            Mock<IEventService>().Setup(o => o.ListByBunch(BunchId)).Returns(events);
         }
 
         protected override void Execute()

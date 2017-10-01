@@ -63,8 +63,8 @@ namespace Plumbing
         public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.CashgameService);
         public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
         public CashgameList CashgameList => new CashgameList(_deps.BunchService, _deps.CashgameService);
-        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.LocationService, _deps.EventService);
-        public AddCashgame AddCashgame => new AddCashgame(_deps.CashgameService, _deps.EventService);
+        public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.LocationService);
+        public AddCashgame AddCashgame => new AddCashgame(_deps.CashgameService);
         public Actions Actions => new Actions(_deps.CashgameService);
         public ActionsChart ActionsChart => new ActionsChart(_deps.CashgameService);
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.CashgameService);

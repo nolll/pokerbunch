@@ -19,10 +19,6 @@
                 @Html.LabelFor(model => model.LocationId, "Location", new { @class = "label" })
                 @Html.DropDownListFor(x => x.LocationId, Model.Locations)
             </p>
-            <p>
-                @Html.LabelFor(model => model.EventId, "Event", new { @class = "label" })
-                @Html.DropDownListFor(x => x.EventId, Model.Events)
-            </p>
         </fieldset>
         <div class="buttons">
             <button type="submit" class="button button--action">Create</button>
