@@ -7,6 +7,7 @@ namespace Tests.Core.UseCases.DeleteCheckpointTests
         [Test]
         public void DeletesCheckpointAndReturnsCorrectValues()
         {
+            Assert.AreEqual(CashgameId, PostedCashgameId);
             Assert.AreEqual(ActionId, PostedActionId);
             Assert.IsFalse(Result.GameIsRunning);
         }

@@ -24,6 +24,6 @@ namespace Core.Services
         void Cashout(string cashgameId, string playerId, int stack);
         void End(string cashgameId);
         void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added);
-        void DeleteAction(string actionId);
+        void DeleteAction(string cashgameId, string actionId);
     }
 }

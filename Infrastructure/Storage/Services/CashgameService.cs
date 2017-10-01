@@ -170,9 +170,9 @@ namespace Infrastructure.Storage.Services
             _api.Put<ApiDetailedCashgame>(new ApiCashgameActionUrl(cashgameId, actionId), updateObject);
         }
 
-        public void DeleteAction(string actionId)
+        public void DeleteAction(string cashgameId, string actionId)
         {
-            throw new NotImplementedException();
+            _api.Delete(new ApiCashgameActionUrl(cashgameId, actionId));
         }
 
         private class ApiUpdateCashgame
