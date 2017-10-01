@@ -8,13 +8,25 @@ using Web.Components.ApiDocsModels.JsonBlock;
 using Web.Components.ApiDocsModels.ParameterBlock;
 using Web.Components.ApiDocsModels.Section;
 using Web.Components.ApiDocsModels.SectionHeadingBlock;
+using Web.Extensions;
 
 namespace Web.Models.ApiDocsModels
 {
     public class ApiDocsCashgamesPageModel : ApiDocsPageModel
     {
+        private const string BunchId = "cashgame-id";
+        private const string CashgameId = "cashgame-id";
+        private const string PlayerId = "player-id";
+        private const string LocationId = "location-id";
+        private const string EventId = "event-id";
+
+        private const string PlayerName = "player-name";
+        private const string LocationName = "location-name";
+
         public override string BrowserTitle => "Api Documentation - Current Cashgames";
         private const string CurrentCashgamesUrl = ApiBunchCashgamesCurrentUrl.Route;
+        private const string AddCashgameUrl = ApiBunchCashgamesUrl.Route;
+        private const string CashgameDetailsUrl = ApiCashgameUrl.Route;
         private const string BuyinUrl = ApiCashgameBuyinUrl.Route;
         private const string ReportUrl = ApiCashgameReportUrl.Route;
         private const string CashoutUrl = ApiCashgameCashoutUrl.Route;
@@ -39,12 +51,101 @@ namespace Web.Models.ApiDocsModels
                     {
                         new
                         {
-                            id = "1234",
-                            url = "https://api.pokerbunch.lan/cashgames/1234"
+                            id = CashgameId,
+                            url = new ApiCashgameUrl(CashgameId).Absolute()
                         }
                     }),
                 new ContentBlockModel("If there are no games, the list will be empty")),
 
+            new SectionModel(
+                new SectionHeadingBlockModel("Start a cashgame"),
+                new ContentBlockModel("You can start a new game like this"),
+                new CodeBlockModel($"POST {AddCashgameUrl}"),
+                new ContentBlockModel("Parameters"),
+                new ParametersBlockModel(
+                    new ParameterModel("locationId", ParameterTypeModel.String, "A location id"),
+                    new ParameterModel("eventId", ParameterTypeModel.String, "An event id (optional)")),
+                new ContentBlockModel("Example"),
+                new JsonBlockModel(
+                    new
+                    {
+                        locationId = LocationId,
+                        eventId = EventId
+                    })),
+            new SectionModel(
+                new SectionHeadingBlockModel("Cashgame details"),
+                new ContentBlockModel("View cashgame details"),
+                new CodeBlockModel($"GET {CashgameDetailsUrl}"),
+                new ContentBlockModel("Parameters"),
+                new ParametersBlockModel(
+                    new ParameterModel("locationId", ParameterTypeModel.String, "A location id"),
+                    new ParameterModel("eventId", ParameterTypeModel.String, "An event id (optional)")),
+                new ContentBlockModel("This will return something like this"),
+                new JsonBlockModel(
+                    new
+                    {
+                        id = CashgameId,
+                        isRunning =  false,
+                        startTime = DateTime.Parse("2017-09-20T23:37:44.217Z"),
+                        updatedTime = DateTime.Parse("2017-09-20T23:37:59.467Z"),
+                        bunch = new
+                        {
+                            id = BunchId,
+                            timezone = "W. Europe Standard Time",
+                            currencyFormat = "{0} kr",
+                            currencySymbol = "kr",
+                            currencyLayout = "{AMOUNT} {SYMBOL}",
+                            thousandSeparator = " ",
+                            culture = "sv-SE",
+                            role = "manager"
+                        },
+                        location = new
+                        {
+                            id = LocationId,
+                            name = LocationName
+                        },
+                        players = new[]
+                        {
+                            new
+                            {
+                                id = PlayerId,
+                                name = PlayerName,
+                                color = "#f44336",
+                                startTime = DateTime.Parse("2017-09-20T23:37:44.217Z"),
+                                updatedTime = DateTime.Parse("2017-09-20T23:37:59.467Z"),
+                                buyin = 200,
+                                stack = 125,
+                                actions = new[]
+                                {
+                                    new
+                                    {
+                                        id = "21463",
+                                        type = "buyin",
+                                        time = "2017-09-20T23:37:44.217Z",
+                                        stack = 200,
+                                        added = (int?)200
+                                    },
+                                    new
+                                    {
+                                        id = "21464",
+                                        type = "report",
+                                        time = "2017-09-20T23:37:50.413Z",
+                                        stack = 130,
+                                        added = (int?)null
+                                    },
+                                    new
+                                    {
+                                        id = "21465",
+                                        type = "cashout",
+                                        time = "2017-09-20T23:37:59.467Z",
+                                        stack = 125,
+                                        added = (int?)null
+                                    }
+                                }
+                            }
+                        }
+                    }
+                )),
             new SectionModel(
                 new SectionHeadingBlockModel("Join a cashgame"),
                 new ContentBlockModel("To join a game, just buy in, like this"),
@@ -57,7 +158,7 @@ namespace Web.Models.ApiDocsModels
                 new JsonBlockModel(
                     new
                     {
-                        playerId = "1234",
+                        playerId = CashgameId,
                         added = 200
                     })),
             new SectionModel(
@@ -73,7 +174,7 @@ namespace Web.Models.ApiDocsModels
                 new JsonBlockModel(
                     new
                     {
-                        playerId = "1234",
+                        playerId = CashgameId,
                         added = 200,
                         stack = 0
                     })),
@@ -89,7 +190,7 @@ namespace Web.Models.ApiDocsModels
                 new JsonBlockModel(
                     new
                     {
-                        playerId = "1234",
+                        playerId = CashgameId,
                         stack = 123
                     })),
             new SectionModel(
@@ -104,7 +205,7 @@ namespace Web.Models.ApiDocsModels
                 new JsonBlockModel(
                     new
                     {
-                        playerId = "1234",
+                        playerId = CashgameId,
                         stack = 123
                     })),
             new SectionModel(
@@ -123,13 +224,13 @@ namespace Web.Models.ApiDocsModels
                     {
                         new
                         {
-                            id = "1234",
+                            id = CashgameId,
                             startTime = DateTime.Parse("2017-09-20T23:37:44.217Z"),
                             updatedTime = DateTime.Parse("2017-09-20T23:37:59.467Z"),
                             location = new
                             {
-                                id = 6,
-                                name = "Enskede"
+                                id = LocationId,
+                                name = LocationName
                             },
                             players = new[]
                             {
