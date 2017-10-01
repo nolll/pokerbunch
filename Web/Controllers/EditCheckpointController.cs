@@ -26,7 +26,7 @@ namespace Web.Controllers
 
             try
             {
-                var request = new EditCheckpoint.Request(Identity.UserName, actionId, postModel.Timestamp, postModel.Stack, postModel.Amount);
+                var request = new EditCheckpoint.Request(cashgameId, actionId, postModel.Timestamp, postModel.Stack, postModel.Amount);
                 var result = UseCase.EditCheckpoint.Execute(request);
                 return Redirect(new CashgameActionUrl(result.CashgameId, result.PlayerId).Relative);
             }

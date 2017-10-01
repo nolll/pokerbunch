@@ -18,6 +18,7 @@ namespace Tests.Core.UseCases.EditCheckpointTests
         protected const int Stack = 1111;
         protected const int Amount = 2222;
 
+        protected string PostedCashgameId;
         protected string PostedActionId;
         protected DateTime PostedTimestamp;
         protected int PostedStack;
@@ -33,9 +34,10 @@ namespace Tests.Core.UseCases.EditCheckpointTests
             Mock<ICashgameService>().Setup(o => o.GetDetailedById(CashgameId)).Returns(CashgameData.GameWithTwoPlayers(Role.Admin));
 
             Mock<ICashgameService>()
-                .Setup(o => o.UpdateAction("1", It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Callback((string actionId, DateTime timestamp, int stack, int added) =>
+                .Setup(o => o.UpdateAction(CashgameId, ActionId, It.IsAny<DateTime>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Callback((string cashgameId, string actionId, DateTime timestamp, int stack, int added) =>
                 {
+                    PostedCashgameId = cashgameId;
                     PostedActionId = actionId;
                     PostedTimestamp = timestamp;
                     PostedStack = stack;

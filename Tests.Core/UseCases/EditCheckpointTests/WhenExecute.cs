@@ -19,6 +19,7 @@ namespace Tests.Core.UseCases.EditCheckpointTests
         [Test]
         public void EditCheckpoint_ValidInput_CheckpointIsSaved()
         {
+            Assert.AreEqual(CashgameId, PostedCashgameId);
             Assert.AreEqual(ActionId, PostedActionId);
             Assert.AreEqual(Timestamp, PostedTimestamp);
             Assert.AreEqual(Stack, PostedStack);

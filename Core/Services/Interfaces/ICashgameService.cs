@@ -23,7 +23,7 @@ namespace Core.Services
         void Buyin(string cashgameId, string playerId, int added, int stack);
         void Cashout(string cashgameId, string playerId, int stack);
         void End(string cashgameId);
-        void UpdateAction(string actionId, DateTime timestamp, int stack, int added);
+        void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added);
         void DeleteAction(string actionId);
     }
 }

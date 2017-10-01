@@ -17,7 +17,7 @@ namespace Core.UseCases
             var cashgame = _cashgameService.GetDetailedById(request.CashgameId);
             var existingCheckpoint = cashgame.GetAction(request.ActionId);
             
-            _cashgameService.UpdateAction(existingCheckpoint.Id, request.Timestamp, request.Stack, request.Amount);
+            _cashgameService.UpdateAction(request.CashgameId, existingCheckpoint.Id, request.Timestamp, request.Stack, request.Amount);
 
             return new Result(cashgame.Id, existingCheckpoint.PlayerId);
         }

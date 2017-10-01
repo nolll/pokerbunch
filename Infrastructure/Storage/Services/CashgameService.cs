@@ -98,7 +98,7 @@ namespace Infrastructure.Storage.Services
             var apiCashgame = _api.Put<ApiDetailedCashgame>(new ApiCashgameUrl(id), updateObject);
             return CreateDetailedCashgame(apiCashgame);
         }
-        
+
         private ListCashgame CreateListCashgame(ApiListCashgame c)
         {
             var location = new SmallLocation(c.Location.Id, c.Location.Name);
@@ -164,9 +164,10 @@ namespace Infrastructure.Storage.Services
             return CheckpointType.Report;
         }
 
-        public void UpdateAction(string actionId, DateTime timestamp, int stack, int added)
+        public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
         {
-            throw new NotImplementedException();
+            var updateObject = new ApiUpdateCashgameAction(timestamp, stack, added);
+            _api.Put<ApiDetailedCashgame>(new ApiCashgameActionUrl(cashgameId, actionId), updateObject);
         }
 
         public void DeleteAction(string actionId)
@@ -183,6 +184,20 @@ namespace Infrastructure.Storage.Services
             {
                 LocationId = locationId;
                 EventId = eventId;
+            }
+        }
+
+        private class ApiUpdateCashgameAction
+        {
+            public DateTime Timestamp { get; }
+            public int Stack { get; }
+            public int Added { get; }
+
+            public ApiUpdateCashgameAction(DateTime timestamp, int stack, int added)
+            {
+                Timestamp = timestamp;
+                Stack = stack;
+                Added = added;
             }
         }
 
