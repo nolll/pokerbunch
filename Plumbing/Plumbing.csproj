@@ -44,9 +44,9 @@
       <Project>{4d5d8057-afd8-40af-a756-558e1038f193}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+    <ProjectReference Include="..\Infrastructure\Infrastructure.Api.csproj">
       <Project>{6f33f0bd-4cbb-4b6e-bdf0-eea841267c87}</Project>
-      <Name>Infrastructure</Name>
+      <Name>Infrastructure.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

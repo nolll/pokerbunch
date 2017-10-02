@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using JetBrains.Annotations;
+using Infrastructure.Api.Connection;
+using Infrastructure.Api.Models;
 using PokerBunch.Common.Urls.ApiUrls;
 
-namespace Infrastructure.Storage.Services
+namespace Infrastructure.Api.Services
 {
     public class BunchService : IBunchService
     {
@@ -81,80 +82,6 @@ namespace Infrastructure.Storage.Services
             if (role == "guest")
                 return Role.Guest;
             return Role.None;
-        }
-
-        private class ApiBunch : ApiSmallBunch
-        {
-            [UsedImplicitly]
-            public string HouseRules { get; set; }
-            [UsedImplicitly]
-            public string Timezone { get; set; }
-            [UsedImplicitly]
-            public string CurrencySymbol { get; set; }
-            [UsedImplicitly]
-            public string CurrencyLayout { get; set; }
-            [UsedImplicitly]
-            public int DefaultBuyin { get; set; }
-            [UsedImplicitly]
-            public ApiBunchPlayer Player { get; set; }
-            [UsedImplicitly]
-            public string Role { get; set; }
-
-            public ApiBunch(Bunch b)
-                : base(b)
-            {
-                HouseRules = b.HouseRules;
-                Timezone = b.Timezone.Id;
-                CurrencySymbol = b.Currency.Symbol;
-                CurrencyLayout = b.Currency.Layout;
-                DefaultBuyin = b.DefaultBuyin;
-                Player = new ApiBunchPlayer();
-                Role = b.Role.ToString().ToLower();
-            }
-
-            public ApiBunch()
-            {
-            }
-        }
-
-        private class ApiBunchPlayer
-        {
-            [UsedImplicitly]
-            public string Id { get; set; }
-            [UsedImplicitly]
-            public string Name { get; set; }
-        }
-
-        private class ApiSmallBunch
-        {
-            [UsedImplicitly]
-            public string Id { get; set; }
-            [UsedImplicitly]
-            public string Name { get; set; }
-            [UsedImplicitly]
-            public string Description { get; set; }
-
-            public ApiSmallBunch(Bunch b)
-            {
-                Id = b.Id;
-                Name = b.DisplayName;
-                Description = b.Description;
-            }
-
-            public ApiSmallBunch()
-            {
-            }
-        }
-
-        private class ApiJoin
-        {
-            [UsedImplicitly]
-            public string Code { get; set; }
-
-            public ApiJoin(string code)
-            {
-                Code = code;
-            }
         }
     }
 }

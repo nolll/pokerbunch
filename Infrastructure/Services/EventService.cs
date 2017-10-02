@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using JetBrains.Annotations;
+using Infrastructure.Api.Connection;
+using Infrastructure.Api.Models;
 using PokerBunch.Common.Urls.ApiUrls;
 
-namespace Infrastructure.Storage.Services
+namespace Infrastructure.Api.Services
 {
     public class EventService : IEventService
     {
@@ -50,49 +51,6 @@ namespace Infrastructure.Storage.Services
                 return new Event(e.Id, e.BunchId, e.Name, location, startDate);
             }
             return new Event(e.Id, e.BunchId, e.Name);
-        }
-
-        private class ApiEventCashgame
-        {
-            [UsedImplicitly]
-            public string CashgameId { get; set; }
-
-            public ApiEventCashgame(string cashgameId)
-            {
-                CashgameId = cashgameId;
-            }
-        }
-
-        private class ApiEvent
-        {
-            [UsedImplicitly]
-            public string Id { get; set; }
-            [UsedImplicitly]
-            public string BunchId { get; set; }
-            [UsedImplicitly]
-            public string Name { get; set; }
-            [UsedImplicitly]
-            public string StartDate { get; set; }
-            [UsedImplicitly]
-            public ApiEventLocation Location { get; set; }
-
-            public ApiEvent(string name, string bunchId)
-            {
-                Name = name;
-                BunchId = bunchId;
-            }
-
-            public ApiEvent()
-            {
-            }
-        }
-
-        public class ApiEventLocation
-        {
-            [UsedImplicitly]
-            public string Id { get; set; }
-            [UsedImplicitly]
-            public string Name { get; set; }
         }
     }
 }

@@ -1,7 +1,9 @@
 using Core.Services;
 using Infrastructure;
-using Infrastructure.Storage.Services;
-using CashgameService = Infrastructure.Storage.Services.CashgameService;
+using Infrastructure.Api;
+using Infrastructure.Api.Connection;
+using Infrastructure.Api.Services;
+using CashgameService = Infrastructure.Api.Services.CashgameService;
 
 namespace Plumbing
 {

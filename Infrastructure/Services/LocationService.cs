@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using JetBrains.Annotations;
+using Infrastructure.Api.Connection;
+using Infrastructure.Api.Models;
 using PokerBunch.Common.Urls.ApiUrls;
 
-namespace Infrastructure.Storage.Services
+namespace Infrastructure.Api.Services
 {
     public class LocationService : ILocationService
     {
@@ -38,26 +39,6 @@ namespace Infrastructure.Storage.Services
         private Location CreateLocation(ApiLocation l)
         {
             return new Location(l.Id, l.Name, l.Bunch);
-        }
-
-        private class ApiLocation
-        {
-            [UsedImplicitly]
-            public string Id { get; set; }
-            [UsedImplicitly]
-            public string Name { get; set; }
-            [UsedImplicitly]
-            public string Bunch { get; set; }
-
-            public ApiLocation(string name, string bunch)
-            {
-                Name = name;
-                Bunch = bunch;
-            }
-
-            public ApiLocation()
-            {
-            }
         }
     }
 }

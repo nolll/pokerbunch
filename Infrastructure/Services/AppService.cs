@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using JetBrains.Annotations;
+using Infrastructure.Api.Connection;
+using Infrastructure.Api.Models;
 using PokerBunch.Common.Urls.ApiUrls;
 
-namespace Infrastructure.Storage.Services
+namespace Infrastructure.Api.Services
 {
     public class AppService : IAppService
     {
@@ -55,30 +56,6 @@ namespace Infrastructure.Storage.Services
         private App CreateApp(ApiApp a)
         {
             return new App(a.Id, a.Key, a.Name, a.UserId);
-        }
-
-        public class ApiApp
-        {
-            [UsedImplicitly]
-            public string Id { get; set; }
-            [UsedImplicitly]
-            public string Key { get; set; }
-            [UsedImplicitly]
-            public string Name { get; set; }
-            [UsedImplicitly]
-            public string UserId { get; set; }
-
-            public ApiApp(string id, string key, string name, string userId)
-            {
-                Id = id;
-                Key = key;
-                Name = name;
-                UserId = userId;
-            }
-
-            public ApiApp()
-            {
-            }
         }
     }
 }

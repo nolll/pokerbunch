@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using JetBrains.Annotations;
+using Infrastructure.Api.Connection;
 using PokerBunch.Common.Urls.ApiUrls;
 
-namespace Infrastructure.Storage.Services
+namespace Infrastructure.Api.Services
 {
     public class PlayerService : IPlayerService
     {
@@ -49,49 +49,6 @@ namespace Infrastructure.Storage.Services
         private Player CreatePlayer(ApiPlayer p)
         {
             return new Player(p.BunchId, p.Id, p.UserId, p.UserName, p.Name, (Role)p.RoleId, p.Color);
-        }
-
-        private class ApiPlayer
-        {
-            [UsedImplicitly]
-            public string BunchId { get; set; }
-            [UsedImplicitly]
-            public string Id { get; set; }
-            [UsedImplicitly]
-            public string UserId { get; set; }
-            [UsedImplicitly]
-            public string UserName { get; set; }
-            [UsedImplicitly]
-            public string Name { get; set; }
-            [UsedImplicitly]
-            public int RoleId { get; set; }
-            [UsedImplicitly]
-            public string Color { get; set; }
-
-            public ApiPlayer(string bunchId, string userId, string userName, string name, int roleId, string color)
-            {
-                BunchId = bunchId;
-                UserId = userId;
-                UserName = userName;
-                Name = name;
-                RoleId = roleId;
-                Color = color;
-            }
-
-            public ApiPlayer()
-            {
-            }
-        }
-
-        private class ApiInvite
-        {
-            [UsedImplicitly]
-            public string Email { get; set; }
-
-            public ApiInvite(string email)
-            {
-                Email = email;
-            }
         }
     }
 }

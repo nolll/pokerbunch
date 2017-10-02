@@ -1,7 +1,7 @@
 using System;
 using System.Net.Http;
 
-namespace Infrastructure
+namespace Infrastructure.Api.Connection
 {
     public class ApiException : Exception
     {

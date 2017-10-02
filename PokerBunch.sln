@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{4D5D8057-AFD8-40AF-A756-558E1038F193}"
 EndProject
@@ -24,7 +24,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Web", "Tests.Web\Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plumbing", "Plumbing\Plumbing.csproj", "{EA0817FD-9B9E-4C97-96B4-E62239619923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{6F33F0BD-4CBB-4B6E-BDF0-EEA841267C87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Api", "Infrastructure\Infrastructure.Api.csproj", "{6F33F0BD-4CBB-4B6E-BDF0-EEA841267C87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{7B2D7886-873F-489F-AE9F-8CF0ACB46554}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -68,5 +70,10 @@ Global
 		{D30140A0-6006-4D0E-AD74-067EE44F4FC9} = {E4AA2C88-FB07-4EA2-B5CF-7D37839C29F5}
 		{C688D9F1-7DCE-4C2C-BAE7-B08147E09876} = {E4AA2C88-FB07-4EA2-B5CF-7D37839C29F5}
 		{DFBE20DA-67D5-428A-93E3-8CC12803D875} = {E4AA2C88-FB07-4EA2-B5CF-7D37839C29F5}
+		{EA0817FD-9B9E-4C97-96B4-E62239619923} = {7B2D7886-873F-489F-AE9F-8CF0ACB46554}
+		{6F33F0BD-4CBB-4B6E-BDF0-EEA841267C87} = {7B2D7886-873F-489F-AE9F-8CF0ACB46554}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1AF9BCFB-0F7B-4B33-AB73-EDD0DF9C9B48}
 	EndGlobalSection
 EndGlobal

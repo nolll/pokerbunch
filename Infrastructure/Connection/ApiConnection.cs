@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 using Newtonsoft.Json;
 using PokerBunch.Common.Urls.ApiUrls;
 
-namespace Infrastructure
+namespace Infrastructure.Api.Connection
 {
     public class ApiConnection
     {

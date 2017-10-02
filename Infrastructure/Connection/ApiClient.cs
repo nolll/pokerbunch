@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace Infrastructure
+namespace Infrastructure.Api.Connection
 {
     public class ApiClient : HttpClient
     {

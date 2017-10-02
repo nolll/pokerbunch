@@ -1,8 +1,9 @@
 ﻿using Core.Services;
-using JetBrains.Annotations;
+using Infrastructure.Api.Connection;
+using Infrastructure.Api.Models;
 using PokerBunch.Common.Urls.ApiUrls;
 
-namespace Infrastructure.Storage.Services
+namespace Infrastructure.Api.Services
 {
     public class AdminService : IAdminService
     {
@@ -23,21 +24,6 @@ namespace Infrastructure.Storage.Services
         {
             var apiMessage = _api.Post<ApiMessage>(new ApiAdminSendEmailUrl());
             return apiMessage.Message;
-        }
-
-        public class ApiMessage
-        {
-            [UsedImplicitly]
-            public string Message { get; set; }
-
-            public ApiMessage(string message)
-            {
-                Message = message;
-            }
-
-            public ApiMessage()
-            {
-            }
         }
     }
 }

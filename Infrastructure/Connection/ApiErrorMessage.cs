@@ -2,7 +2,7 @@
 using System.Net.Http;
 using Newtonsoft.Json;
 
-namespace Infrastructure
+namespace Infrastructure.Api.Connection
 {
     public static class ApiErrorMessage
     {
