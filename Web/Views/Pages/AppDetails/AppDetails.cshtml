@@ -15,10 +15,7 @@
         <dt class="value-list__key">Api Key</dt>
         <dd class="value-list__value">@Model.AppKey</dd>
     </dl>
-    @if (Model.ShowEditLink)
-    {
-        <div>
-            <a href="@Model.EditUrl" class="button button--action">Edit App</a>
-        </div>
-    }
+    <div>
+        <a href="@Model.DeleteUrl" class="button button--warning" data-require="delete-confirmation" data-message="Delete App?">Delete App</a>
+    </div>
 </div>

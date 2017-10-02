@@ -42,14 +42,14 @@ namespace Infrastructure.Storage.Services
             return CreateApp(apiApp).Id;
         }
 
-        public string Add(App app)
-        {
-            throw new NotImplementedException("Add not implemented yet");
-        }
-
         public void Update(App app)
         {
             throw new NotImplementedException("Update not implemented yet");
+        }
+
+        public void Delete(string appId)
+        {
+            _api.Delete(new ApiAppUrl(appId));
         }
 
         private App CreateApp(ApiApp a)

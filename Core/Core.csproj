@@ -118,6 +118,7 @@
     <Compile Include="UseCases\CashgameFacts.cs" />
     <Compile Include="UseCases\CashgameList.cs" />
     <Compile Include="UseCases\CashgameStatus.cs" />
+    <Compile Include="UseCases\DeleteApp.cs" />
     <Compile Include="UseCases\EventMatrix.cs" />
     <Compile Include="UseCases\InvitePlayerConfirmation.cs" />
     <Compile Include="UseCases\InvitePlayerForm.cs" />

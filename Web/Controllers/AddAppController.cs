@@ -12,7 +12,7 @@ namespace Web.Controllers
     {
         [Route(AddAppUrl.Route)]
         [Authorize]
-        public ActionResult AddUser()
+        public ActionResult AddApp()
         {
             return ShowForm();
         }

@@ -107,7 +107,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="PokerBunch.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokerBunch.Common.1.0.44\lib\PokerBunch.Common.dll</HintPath>
+      <HintPath>..\packages\PokerBunch.Common.1.0.45\lib\PokerBunch.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -226,6 +226,7 @@
     <Compile Include="Controllers\CashgameListController.cs" />
     <Compile Include="Controllers\CashgameReportController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
+    <Compile Include="Controllers\DeleteAppController.cs" />
     <Compile Include="Controllers\DeleteCheckpointController.cs" />
     <Compile Include="Controllers\DeletePlayerController.cs" />
     <Compile Include="Controllers\EditBunchController.cs" />

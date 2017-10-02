@@ -98,5 +98,6 @@ namespace Plumbing
         public AppListUser AppListUser => new AppListUser(_deps.AppService);
         public AppListAll AllAppsList => new AppListAll(_deps.AppService);
         public AddApp AddApp => new AddApp(_deps.AppService);
+        public DeleteApp DeleteApp => new DeleteApp(_deps.AppService);
     }
 }
