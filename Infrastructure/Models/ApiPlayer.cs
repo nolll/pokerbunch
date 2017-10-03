@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
 
-namespace Infrastructure.Api.Services
+namespace Infrastructure.Api.Models
 {
-    internal class ApiPlayer
+    public class ApiPlayer
     {
         [UsedImplicitly]
         public string BunchId { get; set; }

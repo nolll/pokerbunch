@@ -2,44 +2,40 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using Infrastructure.Api.Connection;
+using Infrastructure.Api.Clients;
 using Infrastructure.Api.Models;
-using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Api.Services
 {
-    public class EventService : IEventService
+    public class EventService : BaseService, IEventService
     {
-        private readonly ApiConnection _api;
-
-        public EventService(ApiConnection api)
+        public EventService(PokerBunchClient apiClient) : base(apiClient)
         {
-            _api = api;
         }
 
         public Event Get(string id)
         {
-            var apiEvent = _api.Get<ApiEvent>(new ApiEventUrl(id));
+            var apiEvent = ApiClient.Events.Get(id);
             return CreateEvent(apiEvent);
         }
 
         public IList<Event> ListByBunch(string bunchId)
         {
-            var apiEvents = _api.Get<IList<ApiEvent>>(new ApiBunchEventsUrl(bunchId));
+            var apiEvents = ApiClient.Events.ListByBunch(bunchId);
             return apiEvents.Select(CreateEvent).ToList();
         }
         
         public string Add(Event e)
         {
             var postEvent = new ApiEvent(e.Name, e.BunchId);
-            var apiEvent = _api.Post<ApiEvent>(new ApiBunchEventsUrl(e.BunchId), postEvent);
+            var apiEvent = ApiClient.Events.Add(postEvent);
             return CreateEvent(apiEvent).Id;
         }
 
         public void AddCashgame(string eventId, string cashgameId)
         {
-            var postCashame = new ApiEventCashgame(cashgameId);
-            _api.Post<ApiEventCashgame>(new ApiEventCashgamesUrl(eventId), postCashame);
+            var postCashame = new ApiEventCashgame(eventId, cashgameId);
+            ApiClient.Events.AddCashgame(postCashame);
         }
 
         private Event CreateEvent(ApiEvent e)

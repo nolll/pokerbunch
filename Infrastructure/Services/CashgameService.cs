@@ -12,13 +12,10 @@ using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Api.Services
 {
-    public class CashgameService : ICashgameService
+    public class CashgameService : BaseService, ICashgameService
     {
-        private readonly ApiConnection _api;
-
-        public CashgameService(ApiConnection api)
+        public CashgameService(ApiConnection apiClient) : base(apiClient)
         {
-            _api = api;
         }
 
         public DetailedCashgame GetDetailedById(string id)

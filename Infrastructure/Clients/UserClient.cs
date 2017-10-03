@@ -5,11 +5,11 @@ using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Api.Clients
 {
-    public class UsersClient : ApiClient
+    public class UserClient : ApiClient
     {
         public PasswordClient Passwords { get; }
 
-        public UsersClient(ApiConnection apiConnection) : base(apiConnection)
+        public UserClient(ApiConnection apiConnection) : base(apiConnection)
         {
             Passwords = new PasswordClient(apiConnection);
         }

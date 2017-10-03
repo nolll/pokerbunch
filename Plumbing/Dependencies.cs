@@ -40,12 +40,12 @@ namespace Plumbing
         private ApiConnection Api => _api ?? (_api = new ApiConnection(_apiHost, _apiProtocol, _apiKey, _apiToken, _isDetailedErrorMessagesEnabled));
         private PokerBunchClient ApiClient => _apiClient ?? (_apiClient = new PokerBunchClient(Api));
 
-        public ILocationService LocationService => _locationService ?? (_locationService = new LocationService(Api));
+        public ILocationService LocationService => _locationService ?? (_locationService = new LocationService(ApiClient));
         public IBunchService BunchService => _bunchService ?? (_bunchService = new BunchService(Api));
         public IAppService AppService => _appService ?? (_appService = new AppService(Api));
         public ICashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(Api));
         public IEventService EventService => _eventService ?? (_eventService = new EventService(Api));
-        public IPlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(Api));
+        public IPlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(ApiClient));
         public IUserService UserService => _userService ?? (_userService = new UserService(ApiClient));
         public IAuthService AuthService => _authService ?? (_authService = new AuthService(ApiClient));
         public IAdminService AdminService => _adminService ?? (_adminService = new AdminService(ApiClient));

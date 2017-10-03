@@ -9,13 +9,10 @@ using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Api.Services
 {
-    public class AppService : IAppService
+    public class AppService : BaseService, IAppService
     {
-        private readonly ApiConnection _api;
-        
-        public AppService(ApiConnection api)
+        public AppService(ApiConnection apiClient) : base(apiClient)
         {
-            _api = api;
         }
         
         public App GetById(string id)

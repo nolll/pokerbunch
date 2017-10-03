@@ -2,48 +2,45 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using Infrastructure.Api.Connection;
-using PokerBunch.Common.Urls.ApiUrls;
+using Infrastructure.Api.Clients;
+using Infrastructure.Api.Models;
 
 namespace Infrastructure.Api.Services
 {
-    public class PlayerService : IPlayerService
+    public class PlayerService : BaseService, IPlayerService
     {
-        private readonly ApiConnection _api;
-
-        public PlayerService(ApiConnection api)
+        public PlayerService(PokerBunchClient apiClient) : base(apiClient)
         {
-            _api = api;
         }
 
         public Player Get(string id)
         {
-            var apiPlayer = _api.Get<ApiPlayer>(new ApiPlayerUrl(id));
+            var apiPlayer = ApiClient.Players.Get(id);
             return CreatePlayer(apiPlayer);
         }
 
         public IList<Player> List(string bunchId)
         {
-            var apiPlayers = _api.Get<IList<ApiPlayer>>(new ApiBunchPlayersUrl(bunchId));
+            var apiPlayers = ApiClient.Players.List(bunchId);
             return apiPlayers.Select(CreatePlayer).ToList();
         }
         
         public string Add(Player player)
         {
             var postPlayer = new ApiPlayer(player.BunchId, player.UserId, player.UserName, player.DisplayName, (int)player.Role, player.Color);
-            var apiLocation = _api.Post<ApiPlayer>(new ApiBunchPlayersUrl(player.BunchId), postPlayer);
-            return CreatePlayer(apiLocation).Id;
+            var returnedPlayer = ApiClient.Players.Add(postPlayer);
+            return CreatePlayer(returnedPlayer).Id;
         }
 
         public void Delete(string playerId)
         {
-            _api.Delete(new ApiPlayerUrl(playerId));
+            ApiClient.Players.Delete(playerId);
         }
 
         public void Invite(string playerId, string email)
         {
-            var apiInvite = new ApiInvite(email);
-            _api.Post(new ApiPlayerInviteUrl(playerId), apiInvite);
+            var apiInvite = new ApiInvite(playerId, email);
+            ApiClient.Players.Invite(apiInvite);
         }
 
         private Player CreatePlayer(ApiPlayer p)

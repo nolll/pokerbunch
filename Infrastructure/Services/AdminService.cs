@@ -3,24 +3,21 @@ using Infrastructure.Api.Clients;
 
 namespace Infrastructure.Api.Services
 {
-    public class AdminService : IAdminService
+    public class AdminService : BaseService, IAdminService
     {
-        private readonly PokerBunchClient _apiClient;
-
-        public AdminService(PokerBunchClient apiClient)
+        public AdminService(PokerBunchClient apiClient) : base(apiClient)
         {
-            _apiClient = apiClient;
         }
 
         public string ClearCache()
         {
-            var apiMessage = _apiClient.Admin.ClearCache();
+            var apiMessage = ApiClient.Admin.ClearCache();
             return apiMessage.Message;
         }
 
         public string SendEmail()
         {
-            var apiMessage = _apiClient.Admin.SendEmail();
+            var apiMessage = ApiClient.Admin.SendEmail();
             return apiMessage.Message;
         }
     }

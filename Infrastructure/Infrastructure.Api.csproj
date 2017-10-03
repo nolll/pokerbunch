@@ -60,9 +60,12 @@
     <Compile Include="Clients\AdminClient.cs" />
     <Compile Include="Clients\ApiClient.cs" />
     <Compile Include="Clients\AuthClient.cs" />
+    <Compile Include="Clients\EventClient.cs" />
+    <Compile Include="Clients\LocationClient.cs" />
     <Compile Include="Clients\PasswordClient.cs" />
+    <Compile Include="Clients\PlayerClient.cs" />
     <Compile Include="Clients\PokerBunchClient.cs" />
-    <Compile Include="Clients\UsersClient.cs" />
+    <Compile Include="Clients\UserClient.cs" />
     <Compile Include="Connection\ApiHttpClient.cs" />
     <Compile Include="Connection\ApiConnection.cs" />
     <Compile Include="Connection\ApiErrorMessage.cs" />
@@ -76,10 +79,12 @@
     <Compile Include="Models\ApiEvent.cs" />
     <Compile Include="Models\ApiEventCashgame.cs" />
     <Compile Include="Models\ApiEventLocation.cs" />
+    <Compile Include="Models\ApiInvite.cs" />
     <Compile Include="Models\ApiJoin.cs" />
     <Compile Include="Models\ApiListUser.cs" />
     <Compile Include="Models\ApiLocation.cs" />
     <Compile Include="Models\ApiMessage.cs" />
+    <Compile Include="Models\ApiPlayer.cs" />
     <Compile Include="Models\ApiSmallBunch.cs" />
     <Compile Include="Models\ApiUser.cs" />
     <Compile Include="Models\Request\ApiResetPassword.cs" />
@@ -96,8 +101,7 @@
     <Compile Include="Models\ApiReport.cs" />
     <Compile Include="Models\ApiUpdateCashgameAction.cs" />
     <Compile Include="Models\ApiYear.cs" />
-    <Compile Include="Services\ApiInvite.cs" />
-    <Compile Include="Services\ApiPlayer.cs" />
+    <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\BunchService.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\AuthService.cs" />
