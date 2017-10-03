@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Api.Connection
 {
-    public class SignInClient : ApiClient
+    public class SignInHttpClient : ApiHttpClient
     {
     }
 }

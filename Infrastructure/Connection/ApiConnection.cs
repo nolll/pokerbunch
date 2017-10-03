@@ -109,8 +109,8 @@ namespace Infrastructure.Api.Connection
             }
         }
 
-        private BearerClient GetClient() => new BearerClient(_token);
-        private BearerClient GetClient(string token) => new BearerClient(token);
+        private BearerHttpClient GetClient() => new BearerHttpClient(_token);
+        private BearerHttpClient GetClient(string token) => new BearerHttpClient(token);
 
         private string ReadResponse(HttpResponseMessage response)
         {
@@ -151,7 +151,7 @@ namespace Infrastructure.Api.Connection
         
         public string SignIn(string userName, string password)
         {
-            using (var client = new SignInClient())
+            using (var client = new SignInHttpClient())
             {
                 var content = GetFormContentForSignIn(userName, password);
                 var response = client.PostAsync("token", content).Result;

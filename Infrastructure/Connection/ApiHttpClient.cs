@@ -3,9 +3,9 @@ using System.Net.Http.Headers;
 
 namespace Infrastructure.Api.Connection
 {
-    public class ApiClient : HttpClient
+    public class ApiHttpClient : HttpClient
     {
-        protected ApiClient()
+        protected ApiHttpClient()
         {
             DefaultRequestHeaders.Accept.Clear();
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

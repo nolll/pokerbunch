@@ -1,23 +1,20 @@
 using Core.Services;
-using Infrastructure.Api.Connection;
-using Infrastructure.Api.Models;
-using Newtonsoft.Json;
+using Infrastructure.Api.Clients;
 
 namespace Infrastructure.Api.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly ApiConnection _api;
+        private readonly PokerBunchClient _apiClient;
 
-        public AuthService(ApiConnection api)
+        public AuthService(PokerBunchClient apiClient)
         {
-            _api = api;
+            _apiClient = apiClient;
         }
 
-        public string SignIn(string userNameOrPassword, string password)
+        public string SignIn(string userNameOrEmail, string password)
         {
-            var responseString = _api.SignIn(userNameOrPassword, password);
-            var response = JsonConvert.DeserializeObject<SignInResponse>(responseString);
+            var response = _apiClient.Auth.SignIn(userNameOrEmail, password);
             return response.access_token;
         }
     }

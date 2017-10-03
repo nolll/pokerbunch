@@ -57,12 +57,18 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Connection\ApiClient.cs" />
+    <Compile Include="Clients\AdminClient.cs" />
+    <Compile Include="Clients\ApiClient.cs" />
+    <Compile Include="Clients\AuthClient.cs" />
+    <Compile Include="Clients\PasswordClient.cs" />
+    <Compile Include="Clients\PokerBunchClient.cs" />
+    <Compile Include="Clients\UsersClient.cs" />
+    <Compile Include="Connection\ApiHttpClient.cs" />
     <Compile Include="Connection\ApiConnection.cs" />
     <Compile Include="Connection\ApiErrorMessage.cs" />
     <Compile Include="Connection\ApiException.cs" />
-    <Compile Include="Connection\BearerClient.cs" />
-    <Compile Include="Connection\SignInClient.cs" />
+    <Compile Include="Connection\BearerHttpClient.cs" />
+    <Compile Include="Connection\SignInHttpClient.cs" />
     <Compile Include="Models\ApiApp.cs" />
     <Compile Include="Models\ApiBunch.cs" />
     <Compile Include="Models\ApiBunchPlayer.cs" />
@@ -78,7 +84,7 @@
     <Compile Include="Models\ApiUser.cs" />
     <Compile Include="Models\Request\ApiResetPassword.cs" />
     <Compile Include="Models\Request\ApiUpdateCashgame.cs" />
-    <Compile Include="Models\SignInResponse.cs" />
+    <Compile Include="Models\Response\SignInResponse.cs" />
     <Compile Include="Models\ApiAddCashgame.cs" />
     <Compile Include="Models\ApiBuyin.cs" />
     <Compile Include="Models\ApiCashgameBunch.cs" />
@@ -111,9 +117,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Response\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,8 +1,8 @@
 using JetBrains.Annotations;
 
-namespace Infrastructure.Api.Models
+namespace Infrastructure.Api.Models.Response
 {
-    internal class SignInResponse
+    public class SignInResponse
     {
         [UsedImplicitly]
         // ReSharper disable once InconsistentNaming

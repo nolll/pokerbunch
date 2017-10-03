@@ -2,9 +2,9 @@
 
 namespace Infrastructure.Api.Connection
 {
-    public class BearerClient : ApiClient
+    public class BearerHttpClient : ApiHttpClient
     {
-        public BearerClient(string token)
+        public BearerHttpClient(string token)
         {
             DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
