@@ -10,6 +10,6 @@ namespace Core.Services
         IList<SmallBunch> ListForUser();
         Bunch Add(Bunch bunch);
         Bunch Update(Bunch bunch);
-        void Join(string id, string code);
+        void Join(string bunchId, string code);
     }
 }

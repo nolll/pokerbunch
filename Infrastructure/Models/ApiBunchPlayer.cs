@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Api.Models
 {
-    internal class ApiBunchPlayer
+    public class ApiBunchPlayer
     {
         [UsedImplicitly]
         public string Id { get; set; }

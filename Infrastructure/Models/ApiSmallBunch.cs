@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Api.Models
 {
-    internal class ApiSmallBunch
+    public class ApiSmallBunch
     {
         [UsedImplicitly]
         public string Id { get; set; }

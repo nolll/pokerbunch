@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using Infrastructure.Api.Connection;
+using Infrastructure.Api.Clients;
 using Infrastructure.Api.Models;
 using PokerBunch.Common.Urls.ApiUrls;
 
@@ -11,47 +11,46 @@ namespace Infrastructure.Api.Services
 {
     public class BunchService : BaseService, IBunchService
     {
-        public BunchService(ApiConnection apiClient) : base(apiClient)
+        public BunchService(PokerBunchClient apiClient) : base(apiClient)
         {
         }
 
         public Bunch Get(string id)
         {
-            var apiBunch = _api.Get<ApiBunch>(new ApiBunchUrl(id));
+            var apiBunch = ApiClient.Bunches.Get(id);
             return ToBunch(apiBunch);
         }
 
         public IList<SmallBunch> List()
         {
-            var apiBunches = _api.Get<IList<ApiSmallBunch>>(new ApiBunchesUrl());
+            var apiBunches = ApiClient.Bunches.List();
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public IList<SmallBunch> ListForUser()
         {
-            var apiBunches = _api.Get<IList<ApiSmallBunch>>(new ApiUserBunchesUrl());
+            var apiBunches = ApiClient.Bunches.ListForUser();
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
         public Bunch Add(Bunch bunch)
         {
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _api.Post<ApiBunch>(new ApiBunchesUrl(), postBunch);
+            var apiBunch = ApiClient.Bunches.Add(postBunch);
             return ToBunch(apiBunch);
         }
 
         public Bunch Update(Bunch bunch)
         {
-            var id = bunch.Id;
             var postBunch = new ApiBunch(bunch);
-            var apiBunch = _api.Post<ApiBunch>(new ApiBunchUrl(id), postBunch);
+            var apiBunch = ApiClient.Bunches.Update(postBunch);
             return ToBunch(apiBunch);
         }
 
-        public void Join(string id, string code)
+        public void Join(string bunchId, string code)
         {
-            var apiJoin = new ApiJoin(code);
-            _api.Post(new ApiBunchJoinUrl(id), apiJoin);
+            var apiJoin = new ApiJoin(bunchId, code);
+            ApiClient.Bunches.Join(apiJoin);
         }
 
         private Bunch ToBunch(ApiBunch b)

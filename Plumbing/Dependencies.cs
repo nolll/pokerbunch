@@ -41,10 +41,10 @@ namespace Plumbing
         private PokerBunchClient ApiClient => _apiClient ?? (_apiClient = new PokerBunchClient(Api));
 
         public ILocationService LocationService => _locationService ?? (_locationService = new LocationService(ApiClient));
-        public IBunchService BunchService => _bunchService ?? (_bunchService = new BunchService(Api));
-        public IAppService AppService => _appService ?? (_appService = new AppService(Api));
-        public ICashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(Api));
-        public IEventService EventService => _eventService ?? (_eventService = new EventService(Api));
+        public IBunchService BunchService => _bunchService ?? (_bunchService = new BunchService(ApiClient));
+        public IAppService AppService => _appService ?? (_appService = new AppService(ApiClient));
+        public ICashgameService CashgameService => _cashgameService ?? (_cashgameService = new CashgameService(ApiClient));
+        public IEventService EventService => _eventService ?? (_eventService = new EventService(ApiClient));
         public IPlayerService PlayerService => _playerService ?? (_playerService = new PlayerService(ApiClient));
         public IUserService UserService => _userService ?? (_userService = new UserService(ApiClient));
         public IAuthService AuthService => _authService ?? (_authService = new AuthService(ApiClient));

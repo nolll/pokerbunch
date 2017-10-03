@@ -59,6 +59,7 @@
     </Compile>
     <Compile Include="Clients\AdminClient.cs" />
     <Compile Include="Clients\ApiClient.cs" />
+    <Compile Include="Clients\AppClient.cs" />
     <Compile Include="Clients\AuthClient.cs" />
     <Compile Include="Clients\EventClient.cs" />
     <Compile Include="Clients\LocationClient.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Models\ApiPlayer.cs" />
     <Compile Include="Models\ApiSmallBunch.cs" />
     <Compile Include="Models\ApiUser.cs" />
+    <Compile Include="Models\BunchClient.cs" />
     <Compile Include="Models\Request\ApiResetPassword.cs" />
     <Compile Include="Models\Request\ApiUpdateCashgame.cs" />
     <Compile Include="Models\Response\SignInResponse.cs" />

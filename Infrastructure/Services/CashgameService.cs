@@ -5,6 +5,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Services;
+using Infrastructure.Api.Clients;
 using Infrastructure.Api.Connection;
 using Infrastructure.Api.Models;
 using Infrastructure.Api.Models.Request;
@@ -12,21 +13,65 @@ using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Api.Services
 {
+    public class CashgameClient : ApiClient
+    {
+        public CashgameActionClient Actions { get; }
+
+        public CashgameClient(ApiConnection apiConnection) : base(apiConnection)
+        {
+            Actions = new CashgameActionClient(apiConnection);
+        }
+
+        public ApiDetailedCashgame GetDetailedById(string id)
+        {
+            return ApiConnection.Get<ApiDetailedCashgame>(new ApiCashgameUrl(id));
+        }
+
+        public IList<ApiListCashgame> GetCurrent(string bunchId)
+        {
+            return ApiConnection.Get<IList<ApiListCashgame>>(new ApiBunchCashgamesCurrentUrl(bunchId));
+        }
+
+        public IList<ApiListCashgame> List(string bunchId, int? year = null)
+        {
+            return ApiConnection.Get<IList<ApiListCashgame>>(new ApiBunchCashgamesUrl(bunchId, year));
+        }
+
+        public IList<ApiListCashgame> EventList(string eventId)
+        {
+            return ApiConnection.Get<IList<ApiListCashgame>>(new ApiEventCashgamesUrl(eventId));
+        }
+
+        public IList<ApiListCashgame> PlayerList(string playerId)
+        {
+            return ApiConnection.Get<IList<ApiListCashgame>>(new ApiPlayerCashgamesUrl(playerId));
+        }
+    }
+
+    public class CashgameActionClient : ApiClient
+    {
+        public CashgameActionClient(ApiConnection apiConnection) : base(apiConnection)
+        {
+        }
+
+        
+    }
+
     public class CashgameService : BaseService, ICashgameService
     {
-        public CashgameService(ApiConnection apiClient) : base(apiClient)
+        public CashgameService(PokerBunchClient apiClient) : base(apiClient)
         {
         }
 
         public DetailedCashgame GetDetailedById(string id)
         {
-            var apiDetailedCashgame = _api.Get<ApiDetailedCashgame>(new ApiCashgameUrl(id));
+            var apiDetailedCashgame = ApiClient.Cashgames.GetDetailedById(id);
             return CreateDetailedCashgame(apiDetailedCashgame);
         }
 
         public DetailedCashgame GetCurrent(string bunchId)
         {
-            var apiCashgames = _api.Get<IList<ApiListCashgame>>(new ApiBunchCashgamesCurrentUrl(bunchId));
+            var apiCashgames = ApiClient.Cashgames.GetCurrent(bunchId);
             if(apiCashgames.Any())
                 return GetDetailedById(apiCashgames.First().Id);
             return null;
@@ -34,7 +79,7 @@ namespace Infrastructure.Api.Services
 
         public IList<ListCashgame> List(string bunchId, int? year = null)
         {
-            var apiCashgames = _api.Get<IList<ApiListCashgame>>(new ApiBunchCashgamesUrl(bunchId, year));
+            var apiCashgames = ApiClient.Cashgames.
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
@@ -96,6 +141,17 @@ namespace Infrastructure.Api.Services
             var updateObject = new ApiUpdateCashgame(locationId, eventId);
             var apiCashgame = _api.Put<ApiDetailedCashgame>(new ApiCashgameUrl(id), updateObject);
             return CreateDetailedCashgame(apiCashgame);
+        }
+
+        public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
+        {
+            var updateObject = new ApiUpdateCashgameAction(timestamp, stack, added);
+            _api.Put<ApiDetailedCashgame>(new ApiCashgameActionUrl(cashgameId, actionId), updateObject);
+        }
+
+        public void DeleteAction(string cashgameId, string actionId)
+        {
+            _api.Delete(new ApiCashgameActionUrl(cashgameId, actionId));
         }
 
         private ListCashgame CreateListCashgame(ApiListCashgame c)
@@ -161,17 +217,6 @@ namespace Infrastructure.Api.Services
             if (t == "cashout")
                 return CheckpointType.Cashout;
             return CheckpointType.Report;
-        }
-
-        public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
-        {
-            var updateObject = new ApiUpdateCashgameAction(timestamp, stack, added);
-            _api.Put<ApiDetailedCashgame>(new ApiCashgameActionUrl(cashgameId, actionId), updateObject);
-        }
-
-        public void DeleteAction(string cashgameId, string actionId)
-        {
-            _api.Delete(new ApiCashgameActionUrl(cashgameId, actionId));
         }
     }
 }

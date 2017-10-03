@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Api.Models
 {
-    internal class ApiDetailedCashgame
+    public class ApiDetailedCashgame
     {
         [UsedImplicitly]
         public string Id { get; set; }

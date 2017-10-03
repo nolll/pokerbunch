@@ -2,7 +2,7 @@ using JetBrains.Annotations;
 
 namespace Infrastructure.Api.Models
 {
-    internal class ApiApp
+    public class ApiApp
     {
         [UsedImplicitly]
         public string Id { get; set; }
