@@ -1,6 +1,5 @@
 using Infrastructure.Api.Connection;
 using Infrastructure.Api.Models;
-using Infrastructure.Api.Services;
 
 namespace Infrastructure.Api.Clients
 {

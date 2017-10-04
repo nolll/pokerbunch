@@ -61,6 +61,8 @@
     <Compile Include="Clients\ApiClient.cs" />
     <Compile Include="Clients\AppClient.cs" />
     <Compile Include="Clients\AuthClient.cs" />
+    <Compile Include="Clients\CashgameActionClient.cs" />
+    <Compile Include="Clients\CashgameClient.cs" />
     <Compile Include="Clients\EventClient.cs" />
     <Compile Include="Clients\LocationClient.cs" />
     <Compile Include="Clients\PasswordClient.cs" />

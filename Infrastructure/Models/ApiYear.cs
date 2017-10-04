@@ -1,6 +1,6 @@
 namespace Infrastructure.Api.Models
 {
-    internal class ApiYear
+    public class ApiYear
     {
         public int Year { get; }
 

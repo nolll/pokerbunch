@@ -6,57 +6,11 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Services;
 using Infrastructure.Api.Clients;
-using Infrastructure.Api.Connection;
 using Infrastructure.Api.Models;
 using Infrastructure.Api.Models.Request;
-using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Api.Services
 {
-    public class CashgameClient : ApiClient
-    {
-        public CashgameActionClient Actions { get; }
-
-        public CashgameClient(ApiConnection apiConnection) : base(apiConnection)
-        {
-            Actions = new CashgameActionClient(apiConnection);
-        }
-
-        public ApiDetailedCashgame GetDetailedById(string id)
-        {
-            return ApiConnection.Get<ApiDetailedCashgame>(new ApiCashgameUrl(id));
-        }
-
-        public IList<ApiListCashgame> GetCurrent(string bunchId)
-        {
-            return ApiConnection.Get<IList<ApiListCashgame>>(new ApiBunchCashgamesCurrentUrl(bunchId));
-        }
-
-        public IList<ApiListCashgame> List(string bunchId, int? year = null)
-        {
-            return ApiConnection.Get<IList<ApiListCashgame>>(new ApiBunchCashgamesUrl(bunchId, year));
-        }
-
-        public IList<ApiListCashgame> EventList(string eventId)
-        {
-            return ApiConnection.Get<IList<ApiListCashgame>>(new ApiEventCashgamesUrl(eventId));
-        }
-
-        public IList<ApiListCashgame> PlayerList(string playerId)
-        {
-            return ApiConnection.Get<IList<ApiListCashgame>>(new ApiPlayerCashgamesUrl(playerId));
-        }
-    }
-
-    public class CashgameActionClient : ApiClient
-    {
-        public CashgameActionClient(ApiConnection apiConnection) : base(apiConnection)
-        {
-        }
-
-        
-    }
-
     public class CashgameService : BaseService, ICashgameService
     {
         public CashgameService(PokerBunchClient apiClient) : base(apiClient)
@@ -79,79 +33,79 @@ namespace Infrastructure.Api.Services
 
         public IList<ListCashgame> List(string bunchId, int? year = null)
         {
-            var apiCashgames = ApiClient.Cashgames.
+            var apiCashgames = ApiClient.Cashgames.List(bunchId, year);
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
         public IList<ListCashgame> EventList(string eventId)
         {
-            var apiCashgames = _api.Get<IList<ApiListCashgame>>(new ApiEventCashgamesUrl(eventId));
+            var apiCashgames = ApiClient.Cashgames.EventList(eventId);
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
         public IList<ListCashgame> PlayerList(string playerId)
         {
-            var apiCashgames = _api.Get<IList<ApiListCashgame>>(new ApiPlayerCashgamesUrl(playerId));
+            var apiCashgames = ApiClient.Cashgames.PlayerList(playerId);
             return apiCashgames.Select(CreateListCashgame).ToList();
         }
 
         public IList<int> GetYears(string bunchId)
         {
-            var apiYears = _api.Get<IList<ApiYear>>(new ApiBunchCashgameYearsUrl(bunchId));
+            var apiYears = ApiClient.Cashgames.GetYears(bunchId);
             return apiYears.Select(o => o.Year).ToList();
-        }
-
-        public void Report(string cashgameId, string playerId, int stack)
-        {
-            var apiReport = new ApiReport(playerId, stack);
-            _api.Post(new ApiCashgameReportUrl(cashgameId), apiReport);
-        }
-
-        public void Buyin(string cashgameId, string playerId, int added, int stack)
-        {
-            var apiBuyin = new ApiBuyin(playerId, added, stack);
-            _api.Post(new ApiCashgameBuyinUrl(cashgameId), apiBuyin);
-        }
-
-        public void Cashout(string cashgameId, string playerId, int stack)
-        {
-            var apiCashout = new ApiCashout(playerId, stack);
-            _api.Post(new ApiCashgameCashoutUrl(cashgameId), apiCashout);
-        }
-
-        public void End(string cashgameId)
-        {
-            _api.Post(new ApiCashgameEndUrl(cashgameId));
         }
 
         public void DeleteGame(string id)
         {
-            _api.Delete(new ApiCashgameUrl(id));
+            ApiClient.Cashgames.Delete(id);
         }
 
         public string Add(string bunchId, string locationId)
         {
-            var addObject = new ApiAddCashgame(locationId);
-            var apiCashgame = _api.Post<ApiDetailedCashgame>(new ApiBunchCashgamesUrl(bunchId), addObject);
+            var addObject = new ApiAddCashgame(bunchId, locationId);
+            var apiCashgame = ApiClient.Cashgames.Add(addObject);
             return CreateDetailedCashgame(apiCashgame).Id;
         }
 
         public DetailedCashgame Update(string id, string locationId, string eventId)
         {
-            var updateObject = new ApiUpdateCashgame(locationId, eventId);
-            var apiCashgame = _api.Put<ApiDetailedCashgame>(new ApiCashgameUrl(id), updateObject);
+            var updateObject = new ApiUpdateCashgame(id, locationId, eventId);
+            var apiCashgame = ApiClient.Cashgames.Update(updateObject);
             return CreateDetailedCashgame(apiCashgame);
+        }
+
+        public void Report(string cashgameId, string playerId, int stack)
+        {
+            var apiReport = new ApiReport(cashgameId, playerId, stack);
+            ApiClient.Cashgames.Actions.Report(apiReport);
+        }
+
+        public void Buyin(string cashgameId, string playerId, int added, int stack)
+        {
+            var apiBuyin = new ApiBuyin(cashgameId, playerId, added, stack);
+            ApiClient.Cashgames.Actions.Buyin(apiBuyin);
+        }
+
+        public void Cashout(string cashgameId, string playerId, int stack)
+        {
+            var apiCashout = new ApiCashout(cashgameId, playerId, stack);
+            ApiClient.Cashgames.Actions.Cashout(apiCashout);
+        }
+
+        public void End(string cashgameId)
+        {
+            ApiClient.Cashgames.Actions.End(cashgameId);
         }
 
         public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
         {
-            var updateObject = new ApiUpdateCashgameAction(timestamp, stack, added);
-            _api.Put<ApiDetailedCashgame>(new ApiCashgameActionUrl(cashgameId, actionId), updateObject);
+            var updateObject = new ApiUpdateCashgameAction(cashgameId, actionId, timestamp, stack, added);
+            ApiClient.Cashgames.Actions.Update(updateObject);
         }
 
         public void DeleteAction(string cashgameId, string actionId)
         {
-            _api.Delete(new ApiCashgameActionUrl(cashgameId, actionId));
+            ApiClient.Cashgames.Actions.Delete(cashgameId, actionId);
         }
 
         private ListCashgame CreateListCashgame(ApiListCashgame c)
