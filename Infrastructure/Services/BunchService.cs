@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using Infrastructure.Api.Clients;
-using Infrastructure.Api.Models;
+using PokerBunch.Client.Clients;
+using PokerBunch.Client.Models;
+using PokerBunch.Client.Models.Request;
 using PokerBunch.Common.Urls.ApiUrls;
 
 namespace Infrastructure.Api.Services
@@ -35,14 +36,14 @@ namespace Infrastructure.Api.Services
 
         public Bunch Add(Bunch bunch)
         {
-            var postBunch = new ApiBunch(bunch);
+            var postBunch = new ApiBunchAdd(bunch.DisplayName, bunch.Description, bunch.Timezone.Id, bunch.Currency.Symbol, bunch.Currency.Layout);
             var apiBunch = ApiClient.Bunches.Add(postBunch);
             return ToBunch(apiBunch);
         }
 
         public Bunch Update(Bunch bunch)
         {
-            var postBunch = new ApiBunch(bunch);
+            var postBunch = new ApiBunchUpdate(bunch.Id, bunch.Description, bunch.HouseRules, bunch.Timezone.Id, bunch.Currency.Symbol, bunch.Currency.Layout, bunch.DefaultBuyin);
             var apiBunch = ApiClient.Bunches.Update(postBunch);
             return ToBunch(apiBunch);
         }

@@ -5,9 +5,9 @@ using System.Linq;
 using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Services;
-using Infrastructure.Api.Clients;
-using Infrastructure.Api.Models;
-using Infrastructure.Api.Models.Request;
+using PokerBunch.Client.Clients;
+using PokerBunch.Client.Models;
+using PokerBunch.Client.Models.Request;
 
 namespace Infrastructure.Api.Services
 {

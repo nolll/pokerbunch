@@ -33,16 +33,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="JetBrains.Annotations, Version=11.0.0.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokerBunch.Client.1.0.3\lib\JetBrains.Annotations.dll</HintPath>
+      <HintPath>..\packages\PokerBunch.Client.1.0.8\lib\JetBrains.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokerBunch.Client.1.0.3\lib\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\PokerBunch.Client.1.0.8\lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PokerBunch.Client, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokerBunch.Client.1.0.3\lib\PokerBunch.Client.dll</HintPath>
+      <HintPath>..\packages\PokerBunch.Client.1.0.8\lib\PokerBunch.Client.dll</HintPath>
     </Reference>
     <Reference Include="PokerBunch.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokerBunch.Client.1.0.3\lib\PokerBunch.Common.dll</HintPath>
+      <HintPath>..\packages\PokerBunch.Client.1.0.8\lib\PokerBunch.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -58,54 +58,6 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Clients\AdminClient.cs" />
-    <Compile Include="Clients\ApiClient.cs" />
-    <Compile Include="Clients\AppClient.cs" />
-    <Compile Include="Clients\AuthClient.cs" />
-    <Compile Include="Clients\CashgameActionClient.cs" />
-    <Compile Include="Clients\CashgameClient.cs" />
-    <Compile Include="Clients\EventClient.cs" />
-    <Compile Include="Clients\LocationClient.cs" />
-    <Compile Include="Clients\PasswordClient.cs" />
-    <Compile Include="Clients\PlayerClient.cs" />
-    <Compile Include="Clients\PokerBunchClient.cs" />
-    <Compile Include="Clients\UserClient.cs" />
-    <Compile Include="Connection\ApiHttpClient.cs" />
-    <Compile Include="Connection\ApiConnection.cs" />
-    <Compile Include="Connection\ApiErrorMessage.cs" />
-    <Compile Include="Connection\ApiException.cs" />
-    <Compile Include="Connection\BearerHttpClient.cs" />
-    <Compile Include="Connection\SignInHttpClient.cs" />
-    <Compile Include="Models\ApiApp.cs" />
-    <Compile Include="Models\ApiBunch.cs" />
-    <Compile Include="Models\ApiBunchPlayer.cs" />
-    <Compile Include="Models\ApiChangePassword.cs" />
-    <Compile Include="Models\ApiEvent.cs" />
-    <Compile Include="Models\ApiEventCashgame.cs" />
-    <Compile Include="Models\ApiEventLocation.cs" />
-    <Compile Include="Models\ApiInvite.cs" />
-    <Compile Include="Models\ApiJoin.cs" />
-    <Compile Include="Models\ApiListUser.cs" />
-    <Compile Include="Models\ApiLocation.cs" />
-    <Compile Include="Models\ApiMessage.cs" />
-    <Compile Include="Models\ApiPlayer.cs" />
-    <Compile Include="Models\ApiSmallBunch.cs" />
-    <Compile Include="Models\ApiUser.cs" />
-    <Compile Include="Models\BunchClient.cs" />
-    <Compile Include="Models\Request\ApiResetPassword.cs" />
-    <Compile Include="Models\Request\ApiUpdateCashgame.cs" />
-    <Compile Include="Models\Response\SignInResponse.cs" />
-    <Compile Include="Models\ApiAddCashgame.cs" />
-    <Compile Include="Models\ApiBuyin.cs" />
-    <Compile Include="Models\ApiCashgameBunch.cs" />
-    <Compile Include="Models\ApiCashgameEvent.cs" />
-    <Compile Include="Models\ApiCashgameLocation.cs" />
-    <Compile Include="Models\ApiCashout.cs" />
-    <Compile Include="Models\ApiDetailedCashgame.cs" />
-    <Compile Include="Models\ApiListCashgame.cs" />
-    <Compile Include="Models\ApiReport.cs" />
-    <Compile Include="Models\ApiUpdateCashgameAction.cs" />
-    <Compile Include="Models\ApiYear.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\BunchService.cs" />
     <Compile Include="Services\LocationService.cs" />

@@ -1,5 +1,5 @@
 ﻿using Core.Services;
-using Infrastructure.Api.Clients;
+using PokerBunch.Client.Clients;
 
 namespace Infrastructure.Api.Services
 {

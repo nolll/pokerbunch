@@ -1,12 +1,12 @@
-﻿using Infrastructure.Api.Clients;
+﻿using PokerBunch.Client.Clients;
 
 namespace Infrastructure.Api.Services
 {
-    public class BaseService
+    public abstract class BaseService
     {
         protected PokerBunchClient ApiClient { get; }
 
-        public BaseService(PokerBunchClient apiClient)
+        protected BaseService(PokerBunchClient apiClient)
         {
             ApiClient = apiClient;
         }

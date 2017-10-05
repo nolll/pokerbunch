@@ -1,9 +1,7 @@
 using Core.Services;
-using Infrastructure;
-using Infrastructure.Api;
-using Infrastructure.Api.Clients;
-using Infrastructure.Api.Connection;
 using Infrastructure.Api.Services;
+using PokerBunch.Client.Clients;
+using PokerBunch.Client.Connection;
 using CashgameService = Infrastructure.Api.Services.CashgameService;
 
 namespace Plumbing

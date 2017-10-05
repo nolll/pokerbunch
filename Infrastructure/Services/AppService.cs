@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using Infrastructure.Api.Clients;
-using Infrastructure.Api.Models;
-using PokerBunch.Common.Urls.ApiUrls;
+using PokerBunch.Client.Clients;
+using PokerBunch.Client.Models;
 
 namespace Infrastructure.Api.Services
 {
