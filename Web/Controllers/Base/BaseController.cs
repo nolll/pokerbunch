@@ -54,7 +54,7 @@ namespace Web.Controllers.Base
             else if(filterContext.Exception is AccessDeniedException)
                 HandleError(filterContext, 403, Error403);
             else if(filterContext.Exception is NotLoggedInException)
-                HandleAuthCookieError(filterContext);
+                HandleAuthCookieError(filterContext, 200, ErrorAuthCookie);
             else if (SiteSettings.HandleErrors)
                 TrackAndHandleError(filterContext, 500, Error500);
         }
@@ -74,20 +74,18 @@ namespace Web.Controllers.Base
             }
         }
 
-        private void HandleError(ExceptionContext filterContext, int errorCode, Antlr.Runtime.Misc.Func<ActionResult> errorHandler)
+        private void HandleError(ExceptionContext filterContext, int responseCode, Antlr.Runtime.Misc.Func<ActionResult> errorHandler)
         {
-            filterContext.HttpContext.Response.StatusCode = errorCode;
+            filterContext.HttpContext.Response.StatusCode = responseCode;
             filterContext.Result = errorHandler();
             filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
             filterContext.ExceptionHandled = true;
         }
 
-        private void HandleAuthCookieError(ExceptionContext filterContext)
+        private void HandleAuthCookieError(ExceptionContext filterContext, int responseCode, Antlr.Runtime.Misc.Func<ActionResult> errorHandler)
         {
             ClearAllCookies(filterContext);
-            filterContext.HttpContext.Response.StatusCode = 302;
-            filterContext.HttpContext.Response.RedirectLocation = new HomeUrl().Relative;
-            filterContext.ExceptionHandled = true;
+            HandleError(filterContext, responseCode, errorHandler);
         }
 
         private void ClearAllCookies(ExceptionContext filterContext)
@@ -124,6 +122,12 @@ namespace Web.Controllers.Base
         {
             var contextResult = GetBaseContext();
             return ShowError(new Error500PageModel(contextResult));
+        }
+
+        protected ActionResult ErrorAuthCookie()
+        {
+            var contextResult = GetBaseContext();
+            return ShowError(new ErrorAuthCookiePageModel(contextResult));
         }
 
         private ActionResult ShowError(ErrorPageModel model)
