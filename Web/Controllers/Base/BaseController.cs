@@ -6,6 +6,7 @@ using Core.Exceptions;
 using Core.UseCases;
 using Microsoft.ApplicationInsights;
 using Plumbing;
+using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Models;
 using Web.Models.ErrorModels;
@@ -53,7 +54,7 @@ namespace Web.Controllers.Base
             else if(filterContext.Exception is AccessDeniedException)
                 HandleError(filterContext, 403, Error403);
             else if(filterContext.Exception is NotLoggedInException)
-                SignOut();
+                HandleAuthCookieError(filterContext);
             else if (SiteSettings.HandleErrors)
                 TrackAndHandleError(filterContext, 500, Error500);
         }
@@ -81,11 +82,12 @@ namespace Web.Controllers.Base
             filterContext.ExceptionHandled = true;
         }
 
-        private void SignOut()
+        private void HandleAuthCookieError(ExceptionContext filterContext)
         {
             FormsAuthentication.SignOut();
             ClearAllCookies();
-            Response.Redirect("/");
+            filterContext.ExceptionHandled = true;
+            filterContext.HttpContext.Response.Redirect(new HomeUrl().Relative);
         }
 
         private void ClearAllCookies()
