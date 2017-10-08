@@ -11,8 +11,7 @@ namespace Infrastructure.Api.Services
 
         public string SignIn(string userNameOrEmail, string password)
         {
-            var response = ApiClient.Auth.SignIn(userNameOrEmail, password);
-            return response.access_token;
+            return ApiClient.Auth.GetToken(userNameOrEmail, password);
         }
     }
 }

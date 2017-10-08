@@ -1,3 +1,4 @@
+using Core.Exceptions;
 using Core.Services;
 
 namespace Core.UseCases
@@ -16,6 +17,9 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var token = _authService.SignIn(request.LoginName, request.Password);
+            if(token == null)
+                throw new LoginException();
+            
             var user = _userService.Current(token);
 
             return new Result(user.UserName, token);
