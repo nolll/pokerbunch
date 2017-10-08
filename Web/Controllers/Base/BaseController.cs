@@ -84,21 +84,22 @@ namespace Web.Controllers.Base
 
         private void HandleAuthCookieError(ExceptionContext filterContext)
         {
-            FormsAuthentication.SignOut();
-            ClearAllCookies();
             filterContext.ExceptionHandled = true;
-            filterContext.HttpContext.Response.Redirect(new HomeUrl().Relative);
+            filterContext.HttpContext.Response.StatusCode = 302;
+            filterContext.HttpContext.Response.RedirectLocation = new HomeUrl().Relative;
+            ClearAllCookies(filterContext);
+            base.OnException(filterContext);
         }
 
-        private void ClearAllCookies()
+        private void ClearAllCookies(ExceptionContext filterContext)
         {
-            for (var i = 0; i < Request.Cookies.Count; i++)
+            for (var i = 0; i < filterContext.HttpContext.Request.Cookies.Count; i++)
             {
-                var cookie = Request.Cookies[i];
+                var cookie = filterContext.HttpContext.Request.Cookies[i];
                 if (cookie == null) continue;
                 var cookieName = cookie.Name;
                 var clearedCookie = new HttpCookie(cookieName) {Expires = DateTime.Now.AddDays(-1)};
-                Response.Cookies.Add(clearedCookie);
+                filterContext.HttpContext.Response.Cookies.Add(clearedCookie);
             }
         }
 
