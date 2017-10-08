@@ -1,4 +1,5 @@
 using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
@@ -83,7 +84,20 @@ namespace Web.Controllers.Base
         private void SignOut()
         {
             FormsAuthentication.SignOut();
+            ClearAllCookies();
             Response.Redirect("/");
+        }
+
+        private void ClearAllCookies()
+        {
+            for (var i = 0; i < Request.Cookies.Count; i++)
+            {
+                var cookie = Request.Cookies[i];
+                if (cookie == null) continue;
+                var cookieName = cookie.Name;
+                var clearedCookie = new HttpCookie(cookieName) {Expires = DateTime.Now.AddDays(-1)};
+                Response.Cookies.Add(clearedCookie);
+            }
         }
 
         protected ActionResult Error404()
