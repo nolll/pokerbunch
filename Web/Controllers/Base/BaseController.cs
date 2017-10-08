@@ -84,11 +84,10 @@ namespace Web.Controllers.Base
 
         private void HandleAuthCookieError(ExceptionContext filterContext)
         {
-            filterContext.ExceptionHandled = true;
+            ClearAllCookies(filterContext);
             filterContext.HttpContext.Response.StatusCode = 302;
             filterContext.HttpContext.Response.RedirectLocation = new HomeUrl().Relative;
-            ClearAllCookies(filterContext);
-            base.OnException(filterContext);
+            filterContext.ExceptionHandled = true;
         }
 
         private void ClearAllCookies(ExceptionContext filterContext)
