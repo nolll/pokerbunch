@@ -3,7 +3,8 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models;
+using PokerBunch.Client.Models.Request;
+using ApiLocation = PokerBunch.Client.Models.Response.Location;
 
 namespace Infrastructure.Api.Services
 {
@@ -27,8 +28,8 @@ namespace Infrastructure.Api.Services
 
         public string Add(Location location)
         {
-            var postLocation = new ApiLocation(location.Name, location.BunchId);
-            var apiLocation = ApiClient.Locations.Add(postLocation);
+            var postLocation = new LocationAdd(location.Name);
+            var apiLocation = ApiClient.Locations.Add(location.BunchId, postLocation);
             return CreateLocation(apiLocation).Id;
         }
 

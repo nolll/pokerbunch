@@ -4,7 +4,8 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models;
+using PokerBunch.Client.Models.Request;
+using ApiApp = PokerBunch.Client.Models.Response.App;
 
 namespace Infrastructure.Api.Services
 {
@@ -34,7 +35,7 @@ namespace Infrastructure.Api.Services
 
         public string Add(string appName)
         {
-            var postApp = new ApiApp(null, null, appName, null);
+            var postApp = new AppAdd(appName);
             var apiApp = ApiClient.Apps.Add(postApp);
             return CreateApp(apiApp).Id;
         }

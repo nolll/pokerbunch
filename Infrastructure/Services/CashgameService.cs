@@ -6,8 +6,14 @@ using Core.Entities;
 using Core.Entities.Checkpoints;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models;
 using PokerBunch.Client.Models.Request;
+using PokerBunch.Client.Models.Response;
+using ApiCashgame = PokerBunch.Client.Models.Response.Cashgame;
+using ApiCashgamePlayer = PokerBunch.Client.Models.Response.CashgamePlayer;
+using ApiCashgameAction = PokerBunch.Client.Models.Response.CashgameAction;
+using CashgameBunch = Core.Entities.CashgameBunch;
+using CashgameEvent = Core.Entities.CashgameEvent;
+using CashgameLocation = Core.Entities.CashgameLocation;
 
 namespace Infrastructure.Api.Services
 {
@@ -51,8 +57,7 @@ namespace Infrastructure.Api.Services
 
         public IList<int> GetYears(string bunchId)
         {
-            var apiYears = ApiClient.Cashgames.GetYears(bunchId);
-            return apiYears.Select(o => o.Year).ToList();
+            return ApiClient.Cashgames.GetYears(bunchId);
         }
 
         public void DeleteGame(string id)
@@ -108,7 +113,7 @@ namespace Infrastructure.Api.Services
             ApiClient.Cashgames.Actions.Delete(cashgameId, actionId);
         }
 
-        private ListCashgame CreateListCashgame(ApiListCashgame c)
+        private ListCashgame CreateListCashgame(CashgameSmall c)
         {
             var location = new SmallLocation(c.Location.Id, c.Location.Name);
             var players = c.Players.Select(CreatePlayer).ToList();
@@ -117,14 +122,14 @@ namespace Infrastructure.Api.Services
             return new ListCashgame(c.Id, startTime, updatedTime, c.IsRunning, location, players);
         }
 
-        private ListCashgame.CashgamePlayer CreatePlayer(ApiListCashgame.ApiListCashgamePlayer p)
+        private ListCashgame.CashgamePlayer CreatePlayer(CashgameSmallPlayer p)
         {
             var startTime = DateTime.SpecifyKind(p.StartTime, DateTimeKind.Utc);
             var updatedTime = DateTime.SpecifyKind(p.UpdatedTime, DateTimeKind.Utc);
             return new ListCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, startTime, updatedTime);
         }
 
-        private DetailedCashgame CreateDetailedCashgame(ApiDetailedCashgame c)
+        private DetailedCashgame CreateDetailedCashgame(ApiCashgame c)
         {
             var culture = CultureInfo.CreateSpecificCulture(c.Bunch.Culture);
             var currency = new Currency(c.Bunch.CurrencySymbol, c.Bunch.CurrencyLayout, culture, c.Bunch.ThousandSeparator);
@@ -139,7 +144,7 @@ namespace Infrastructure.Api.Services
             return new DetailedCashgame(c.Id, startTime, updatedTime, c.IsRunning, bunch, role, location, @event, players);
         }
 
-        private DetailedCashgame.CashgamePlayer CreatePlayer(ApiDetailedCashgame.ApiDetailedCashgamePlayer p)
+        private DetailedCashgame.CashgamePlayer CreatePlayer(ApiCashgamePlayer p)
         {
             var startTime = DateTime.SpecifyKind(p.StartTime, DateTimeKind.Utc);
             var updatedTime = DateTime.SpecifyKind(p.UpdatedTime, DateTimeKind.Utc);
@@ -147,7 +152,7 @@ namespace Infrastructure.Api.Services
             return new DetailedCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, startTime, updatedTime, actions);
         }
 
-        private DetailedCashgame.CashgameAction CreateAction(string playerId, ApiDetailedCashgame.ApiDetailedCashgameAction a)
+        private DetailedCashgame.CashgameAction CreateAction(string playerId, ApiCashgameAction a)
         {
             var time = DateTime.SpecifyKind(a.Time, DateTimeKind.Utc);
             return new DetailedCashgame.CashgameAction(a.Id, playerId, GetActionType(a.Type), time, a.Stack, a.Added);

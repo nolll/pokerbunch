@@ -4,9 +4,10 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models;
 using PokerBunch.Client.Models.Request;
-using PokerBunch.Common.Urls.ApiUrls;
+using PokerBunch.Client.Models.Response;
+using ApiBunch = PokerBunch.Client.Models.Response.Bunch;
+using Bunch = Core.Entities.Bunch;
 
 namespace Infrastructure.Api.Services
 {
@@ -63,7 +64,7 @@ namespace Infrastructure.Api.Services
             return new Bunch(b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role, id);
         }
 
-        private SmallBunch ToSmallBunch(ApiSmallBunch b)
+        private SmallBunch ToSmallBunch(BunchSmall b)
         {
             return new SmallBunch(b.Id, b.Name, b.Description);
         }

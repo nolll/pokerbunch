@@ -3,8 +3,8 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models;
 using PokerBunch.Client.Models.Request;
+using ApiPlayer = PokerBunch.Client.Models.Response.Player;
 
 namespace Infrastructure.Api.Services
 {
@@ -28,8 +28,8 @@ namespace Infrastructure.Api.Services
         
         public string Add(Player player)
         {
-            var postPlayer = new ApiPlayer(player.BunchId, player.UserId, player.UserName, player.DisplayName, (int)player.Role, player.Color);
-            var returnedPlayer = ApiClient.Players.Add(postPlayer);
+            var postPlayer = new PlayerAdd(player.DisplayName);
+            var returnedPlayer = ApiClient.Players.Add(player.BunchId, postPlayer);
             return CreatePlayer(returnedPlayer).Id;
         }
 

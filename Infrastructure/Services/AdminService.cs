@@ -11,14 +11,12 @@ namespace Infrastructure.Api.Services
 
         public string ClearCache()
         {
-            var apiMessage = ApiClient.Admin.ClearCache();
-            return apiMessage.Message;
+            return ApiClient.Admin.ClearCache();
         }
 
         public string SendEmail()
         {
-            var apiMessage = ApiClient.Admin.SendEmail();
-            return apiMessage.Message;
+            return ApiClient.Admin.SendEmail();
         }
     }
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models;
 using PokerBunch.Client.Models.Request;
+using PokerBunch.Client.Models.Response;
+using User = Core.Entities.User;
+using ApiUser = PokerBunch.Client.Models.Response.User;
 
 namespace Infrastructure.Api.Services
 {
@@ -64,7 +66,7 @@ namespace Infrastructure.Api.Services
             return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, role);
         }
 
-        private ListUser CreateListUser(ApiListUser u)
+        private ListUser CreateListUser(UserSmall u)
         {
             return new ListUser(u.UserName, u.DisplayName);
         }

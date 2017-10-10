@@ -3,7 +3,8 @@ using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models;
+using PokerBunch.Client.Models.Request;
+using ApiEvent = PokerBunch.Client.Models.Response.Event;
 
 namespace Infrastructure.Api.Services
 {
@@ -27,15 +28,15 @@ namespace Infrastructure.Api.Services
         
         public string Add(Event e)
         {
-            var postEvent = new ApiEvent(e.Name, e.BunchId);
-            var apiEvent = ApiClient.Events.Add(postEvent);
+            var postEvent = new EventAdd(e.Name);
+            var apiEvent = ApiClient.Events.Add(e.BunchId, postEvent);
             return CreateEvent(apiEvent).Id;
         }
 
         public void AddCashgame(string eventId, string cashgameId)
         {
-            var postCashame = new ApiEventCashgame(eventId, cashgameId);
-            ApiClient.Events.AddCashgame(postCashame);
+            var postCashame = new EventCashgameAdd(cashgameId);
+            ApiClient.Events.AddCashgame(eventId, postCashame);
         }
 
         private Event CreateEvent(ApiEvent e)
