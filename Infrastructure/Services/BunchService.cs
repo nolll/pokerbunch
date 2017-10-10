@@ -36,21 +36,21 @@ namespace Infrastructure.Api.Services
 
         public Bunch Add(Bunch bunch)
         {
-            var postBunch = new ApiBunchAdd(bunch.DisplayName, bunch.Description, bunch.Timezone.Id, bunch.Currency.Symbol, bunch.Currency.Layout);
+            var postBunch = new BunchAdd(bunch.DisplayName, bunch.Description, bunch.Timezone.Id, bunch.Currency.Symbol, bunch.Currency.Layout);
             var apiBunch = ApiClient.Bunches.Add(postBunch);
             return ToBunch(apiBunch);
         }
 
         public Bunch Update(Bunch bunch)
         {
-            var postBunch = new ApiBunchUpdate(bunch.Id, bunch.Description, bunch.HouseRules, bunch.Timezone.Id, bunch.Currency.Symbol, bunch.Currency.Layout, bunch.DefaultBuyin);
+            var postBunch = new BunchUpdate(bunch.Id, bunch.Description, bunch.HouseRules, bunch.Timezone.Id, bunch.Currency.Symbol, bunch.Currency.Layout, bunch.DefaultBuyin);
             var apiBunch = ApiClient.Bunches.Update(postBunch);
             return ToBunch(apiBunch);
         }
 
         public void Join(string bunchId, string code)
         {
-            var apiJoin = new ApiJoin(bunchId, code);
+            var apiJoin = new BunchJoin(bunchId, code);
             ApiClient.Bunches.Join(apiJoin);
         }
 

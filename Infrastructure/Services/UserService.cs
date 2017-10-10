@@ -35,26 +35,26 @@ namespace Infrastructure.Api.Services
 
         public void Update(User user)
         {
-            var apiUser = new ApiUserUpdate(user.UserName, user.DisplayName, user.RealName, user.Email);
+            var apiUser = new UserUpdate(user.UserName, user.DisplayName, user.RealName, user.Email);
             ApiClient.Users.Update(apiUser);
         }
 
         public string Add(User user, string password)
         {
-            var postUser = new ApiUserAdd(user.UserName, user.DisplayName, user.Email, password);
+            var postUser = new UserAdd(user.UserName, user.DisplayName, user.Email, password);
             var apiUser = ApiClient.Users.Add(postUser);
             return apiUser.Id;
         }
 
         public void ChangePassword(string oldPassword, string newPassword, string repeat)
         {
-            var apiChangePassword = new ApiChangePassword(oldPassword, newPassword, repeat);
+            var apiChangePassword = new PasswordChange(oldPassword, newPassword, repeat);
             ApiClient.Users.Passwords.ChangePassword(apiChangePassword);
         }
 
         public void ResetPassword(string email)
         {
-            var apiResetPassword = new ApiResetPassword(email);
+            var apiResetPassword = new PasswordReset(email);
             ApiClient.Users.Passwords.ResetPassword(apiResetPassword);
         }
 

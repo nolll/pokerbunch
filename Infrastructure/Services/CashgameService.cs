@@ -62,33 +62,33 @@ namespace Infrastructure.Api.Services
 
         public string Add(string bunchId, string locationId)
         {
-            var addObject = new ApiAddCashgame(bunchId, locationId);
+            var addObject = new CashgameAdd(bunchId, locationId);
             var apiCashgame = ApiClient.Cashgames.Add(addObject);
             return CreateDetailedCashgame(apiCashgame).Id;
         }
 
         public DetailedCashgame Update(string id, string locationId, string eventId)
         {
-            var updateObject = new ApiUpdateCashgame(id, locationId, eventId);
+            var updateObject = new CashgameUpdate(id, locationId, eventId);
             var apiCashgame = ApiClient.Cashgames.Update(updateObject);
             return CreateDetailedCashgame(apiCashgame);
         }
 
         public void Report(string cashgameId, string playerId, int stack)
         {
-            var apiReport = new ApiReport(cashgameId, playerId, stack);
+            var apiReport = new CashgameActionReport(cashgameId, playerId, stack);
             ApiClient.Cashgames.Actions.Report(apiReport);
         }
 
         public void Buyin(string cashgameId, string playerId, int added, int stack)
         {
-            var apiBuyin = new ApiBuyin(cashgameId, playerId, added, stack);
+            var apiBuyin = new CashgameActionBuyin(cashgameId, playerId, added, stack);
             ApiClient.Cashgames.Actions.Buyin(apiBuyin);
         }
 
         public void Cashout(string cashgameId, string playerId, int stack)
         {
-            var apiCashout = new ApiCashout(cashgameId, playerId, stack);
+            var apiCashout = new CashgameActionCashout(cashgameId, playerId, stack);
             ApiClient.Cashgames.Actions.Cashout(apiCashout);
         }
 
@@ -99,7 +99,7 @@ namespace Infrastructure.Api.Services
 
         public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
         {
-            var updateObject = new ApiUpdateCashgameAction(cashgameId, actionId, timestamp, stack, added);
+            var updateObject = new CashgameActionUpdate(cashgameId, actionId, timestamp, stack, added);
             ApiClient.Cashgames.Actions.Update(updateObject);
         }
 

@@ -4,6 +4,7 @@ using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
 using PokerBunch.Client.Models;
+using PokerBunch.Client.Models.Request;
 
 namespace Infrastructure.Api.Services
 {
@@ -39,7 +40,7 @@ namespace Infrastructure.Api.Services
 
         public void Invite(string playerId, string email)
         {
-            var apiInvite = new ApiInvite(playerId, email);
+            var apiInvite = new PlayerInvite(playerId, email);
             ApiClient.Players.Invite(apiInvite);
         }
 
