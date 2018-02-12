@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.UseCases;
+using PokerBunch.Common.Routes;
 using PokerBunch.Common.Urls.ApiUrls;
 using Web.Components.ApiDocsModels.CodeBlock;
 using Web.Components.ApiDocsModels.ContentBlock;
@@ -24,15 +25,15 @@ namespace Web.Models.ApiDocsModels
         private const string LocationName = "location-name";
 
         public override string BrowserTitle => "Api Documentation - Current Cashgames";
-        private const string CurrentCashgamesUrl = ApiBunchCashgamesCurrentUrl.Route;
-        private const string AddCashgameUrl = ApiBunchCashgamesUrl.Route;
-        private const string CashgameDetailsUrl = ApiCashgameUrl.Route;
-        private const string BuyinUrl = ApiCashgameBuyinUrl.Route;
-        private const string ReportUrl = ApiCashgameReportUrl.Route;
-        private const string CashoutUrl = ApiCashgameCashoutUrl.Route;
-        private const string EndUrl = ApiCashgameEndUrl.Route;
-        private const string CashgamesUrl = ApiBunchCashgamesUrl.Route;
-        private const string CashgamesWithYearUrl = ApiBunchCashgamesUrl.RouteWithYear;
+        private const string CurrentCashgamesUrl = ApiRoutes.Cashgame.ListCurrentByBunch;
+        private const string AddCashgameUrl = ApiRoutes.Cashgame.ListByBunch;
+        private const string CashgameDetailsUrl = ApiRoutes.Cashgame.Get;
+        private const string BuyinUrl = ApiRoutes.Action.Buyin;
+        private const string ReportUrl = ApiRoutes.Action.Report;
+        private const string CashoutUrl = ApiRoutes.Action.Cashout;
+        private const string EndUrl = ApiRoutes.Action.End;
+        private const string CashgamesUrl = ApiRoutes.Cashgame.ListByBunch;
+        private const string CashgamesWithYearUrl = ApiRoutes.Cashgame.ListByBunchAndYear;
 
         public ApiDocsCashgamesPageModel(CoreContext.Result contextResult)
             : base(contextResult)

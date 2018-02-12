@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.UseCases;
-using PokerBunch.Common.Urls.ApiUrls;
+using PokerBunch.Common.Routes;
 using Web.Components.ApiDocsModels.CodeBlock;
 using Web.Components.ApiDocsModels.ContentBlock;
 using Web.Components.ApiDocsModels.JsonBlock;
@@ -12,7 +12,7 @@ namespace Web.Models.ApiDocsModels
     public class ApiDocsPlayersPageModel : ApiDocsPageModel
     {
         public override string BrowserTitle => "Api Documentation - Players";
-        private const string PlayersUrl = ApiBunchPlayersUrl.Route;
+        private const string PlayersUrl = ApiRoutes.Player.ListByBunch;
 
         public ApiDocsPlayersPageModel(CoreContext.Result contextResult)
             : base(contextResult)

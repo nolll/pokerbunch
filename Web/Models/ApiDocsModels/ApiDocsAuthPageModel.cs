@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Core.UseCases;
-using PokerBunch.Common.Urls.ApiUrls;
-using Web.Components.ApiDocsModels;
+using PokerBunch.Common.Routes;
 using Web.Components.ApiDocsModels.CodeBlock;
 using Web.Components.ApiDocsModels.ContentBlock;
 using Web.Components.ApiDocsModels.PageHeadingBlock;
@@ -12,7 +11,7 @@ namespace Web.Models.ApiDocsModels
     public class ApiDocsAuthPageModel : ApiDocsPageModel
     {
         public override string BrowserTitle => "Api Documentation - Authentication";
-        private const string TokenUrl = ApiTokenUrl.Route;
+        private const string TokenUrl = ApiRoutes.Token.Get;
 
         public ApiDocsAuthPageModel(CoreContext.Result contextResult)
             : base(contextResult)
