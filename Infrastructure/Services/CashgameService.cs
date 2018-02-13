@@ -82,19 +82,19 @@ namespace Infrastructure.Api.Services
         public void Report(string cashgameId, string playerId, int stack)
         {
             var apiReport = new CashgameActionReport(cashgameId, playerId, stack);
-            ApiClient.Cashgames.Actions.Report(apiReport);
+            ApiClient.Cashgames.Actions.Add(apiReport);
         }
 
         public void Buyin(string cashgameId, string playerId, int added, int stack)
         {
             var apiBuyin = new CashgameActionBuyin(cashgameId, playerId, added, stack);
-            ApiClient.Cashgames.Actions.Buyin(apiBuyin);
+            ApiClient.Cashgames.Actions.Add(apiBuyin);
         }
 
         public void Cashout(string cashgameId, string playerId, int stack)
         {
             var apiCashout = new CashgameActionCashout(cashgameId, playerId, stack);
-            ApiClient.Cashgames.Actions.Cashout(apiCashout);
+            ApiClient.Cashgames.Actions.Add(apiCashout);
         }
 
         public void End(string cashgameId)
