@@ -28,9 +28,7 @@ namespace Web.Models.ApiDocsModels
         private const string CurrentCashgamesUrl = ApiRoutes.Cashgame.ListCurrentByBunch;
         private const string AddCashgameUrl = ApiRoutes.Cashgame.ListByBunch;
         private const string CashgameDetailsUrl = ApiRoutes.Cashgame.Get;
-        private const string BuyinUrl = ApiRoutes.Action.Buyin;
-        private const string ReportUrl = ApiRoutes.Action.Report;
-        private const string CashoutUrl = ApiRoutes.Action.Cashout;
+        private const string AddActionUrl = ApiRoutes.Action.List;
         private const string EndUrl = ApiRoutes.Action.End;
         private const string CashgamesUrl = ApiRoutes.Cashgame.ListByBunch;
         private const string CashgamesWithYearUrl = ApiRoutes.Cashgame.ListByBunchAndYear;
@@ -150,24 +148,27 @@ namespace Web.Models.ApiDocsModels
             new SectionModel(
                 new SectionHeadingBlockModel("Join a cashgame"),
                 new ContentBlockModel("To join a game, just buy in, like this"),
-                new CodeBlockModel($"POST {BuyinUrl}"),
+                new CodeBlockModel($"POST {AddActionUrl}"),
                 new ContentBlockModel("Parameters"),
                 new ParametersBlockModel(
+                    new ParameterModel("type", ParameterTypeModel.String, "Action type"),
                     new ParameterModel("playerId", ParameterTypeModel.String, "Player Id"),
                     new ParameterModel("added", ParameterTypeModel.Integer, "Amount to bring to table")),
                 new ContentBlockModel("Example"),
                 new JsonBlockModel(
                     new
                     {
+                        type = "buyin",
                         playerId = CashgameId,
                         added = 200
                     })),
             new SectionModel(
                 new SectionHeadingBlockModel("Add money"),
                 new ContentBlockModel("The buyin endpoint can also be used to add money"),
-                new CodeBlockModel($"POST {BuyinUrl}"),
+                new CodeBlockModel($"POST {AddActionUrl}"),
                 new ContentBlockModel("Parameters"),
                 new ParametersBlockModel(
+                    new ParameterModel("type", ParameterTypeModel.String, "Action type"),
                     new ParameterModel("playerId", ParameterTypeModel.String, "Player Id"),
                     new ParameterModel("added", ParameterTypeModel.Integer, "Amount to add"),
                     new ParameterModel("stack", ParameterTypeModel.Integer, "Stack size before adding money")),
@@ -175,6 +176,7 @@ namespace Web.Models.ApiDocsModels
                 new JsonBlockModel(
                     new
                     {
+                        type = "buyin",
                         playerId = CashgameId,
                         added = 200,
                         stack = 0
@@ -182,30 +184,34 @@ namespace Web.Models.ApiDocsModels
             new SectionModel(
                 new SectionHeadingBlockModel("Report stack size"),
                 new ContentBlockModel("You can report your stack size like this"),
-                new CodeBlockModel($"POST {ReportUrl}"),
+                new CodeBlockModel($"POST {AddActionUrl}"),
                 new ContentBlockModel("Parameters"),
                 new ParametersBlockModel(
+                    new ParameterModel("type", ParameterTypeModel.String, "Action type"),
                     new ParameterModel("playerId", ParameterTypeModel.String, "Player Id"),
                     new ParameterModel("stack", ParameterTypeModel.Integer, "Your current stack size")),
                 new ContentBlockModel("Example"),
                 new JsonBlockModel(
                     new
                     {
+                        type = "report",
                         playerId = CashgameId,
                         stack = 123
                     })),
             new SectionModel(
                 new SectionHeadingBlockModel("Leave a cashgame"),
                 new ContentBlockModel("To leave a cashgame, you call cashout"),
-                new CodeBlockModel($"POST {CashoutUrl}"),
+                new CodeBlockModel($"POST {AddActionUrl}"),
                 new ContentBlockModel("Parameters"),
                 new ParametersBlockModel(
+                    new ParameterModel("type", ParameterTypeModel.String, "Action type"),
                     new ParameterModel("playerId", ParameterTypeModel.String, "Player Id"),
                     new ParameterModel("stack", ParameterTypeModel.Integer, "Your current stack size")),
                 new ContentBlockModel("Example"),
                 new JsonBlockModel(
                     new
                     {
+                        type = "cashout",
                         playerId = CashgameId,
                         stack = 123
                     })),

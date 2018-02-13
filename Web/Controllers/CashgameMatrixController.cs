@@ -7,9 +7,10 @@ using Web.Models.CashgameModels.Matrix;
 
 namespace Web.Controllers
 {
-    public class MatrixController : BaseController
+    public class CashgameMatrixController : BaseController
     {
         [Authorize]
+        [Route(MatrixUrl.Route)]
         [Route(MatrixUrl.RouteWithYear)]
         public ActionResult Matrix(string bunchId, int? year = null)
         {

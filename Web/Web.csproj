@@ -240,7 +240,7 @@
     <Compile Include="Controllers\LocationListController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
-    <Compile Include="Controllers\MatrixController.cs" />
+    <Compile Include="Controllers\CashgameMatrixController.cs" />
     <Compile Include="Controllers\PlayerDetailsController.cs" />
     <Compile Include="Controllers\PlayerListController.cs" />
     <Compile Include="Controllers\RunningCashgameController.cs" />
