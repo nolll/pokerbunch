@@ -96,12 +96,7 @@ namespace Infrastructure.Api.Services
             var apiCashout = new CashgameActionCashout(cashgameId, playerId, stack);
             ApiClient.Cashgames.Actions.Add(apiCashout);
         }
-
-        public void End(string cashgameId)
-        {
-            ApiClient.Cashgames.Actions.End(cashgameId);
-        }
-
+        
         public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
         {
             var updateObject = new CashgameActionUpdate(cashgameId, actionId, timestamp, stack, added);

@@ -9,7 +9,6 @@ define([
     "components/report-form/report-form",
     "components/buyin-form/buyin-form",
     "components/cashout-form/cashout-form",
-    "components/endgame-form/endgame-form",
     "components/spinner/spinner",
     "components/game-chart/game-chart",
     "components/top-list-table/top-list-table",
@@ -19,7 +18,7 @@ define([
     "components/game-list-column/game-list-column",
     "components/game-list-row/game-list-row"
 ],
-function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, playerRow, reportForm, buyinForm, cashoutForm, endgameForm, spinner, gameChart, topListTable, topListColumn, topListRow, gameListTable, gameListColumn, gameListRow) {
+function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, playerRow, reportForm, buyinForm, cashoutForm, spinner, gameChart, topListTable, topListColumn, topListRow, gameListTable, gameListColumn, gameListRow) {
 
         "use strict";
 
@@ -34,7 +33,6 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
             vue.component('player-row', playerRow);
             vue.component('report-form', reportForm);
             vue.component('cashout-form', cashoutForm);
-            vue.component('endgame-form', endgameForm);
             vue.component('buyin-form', buyinForm);
             vue.component('spinner', spinner);
             vue.component('game-chart', gameChart);

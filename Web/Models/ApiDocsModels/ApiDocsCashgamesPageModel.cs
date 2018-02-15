@@ -29,7 +29,6 @@ namespace Web.Models.ApiDocsModels
         private const string AddCashgameUrl = ApiRoutes.Cashgame.ListByBunch;
         private const string CashgameDetailsUrl = ApiRoutes.Cashgame.Get;
         private const string AddActionUrl = ApiRoutes.Action.List;
-        private const string EndUrl = ApiRoutes.Action.End;
         private const string CashgamesUrl = ApiRoutes.Cashgame.ListByBunch;
         private const string CashgamesWithYearUrl = ApiRoutes.Cashgame.ListByBunchAndYear;
 
@@ -215,10 +214,6 @@ namespace Web.Models.ApiDocsModels
                         playerId = CashgameId,
                         stack = 123
                     })),
-            new SectionModel(
-                new SectionHeadingBlockModel("End cashgame"),
-                new ContentBlockModel("When all players have cashed out, the game can be ended"),
-                new CodeBlockModel($"POST {EndUrl}")),
             new SectionModel(
                 new SectionHeadingBlockModel("Finished cashgames"),
                 new ContentBlockModel("List all finished cashgames. They can also be filtered by year"),

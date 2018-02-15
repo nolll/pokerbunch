@@ -61,7 +61,6 @@ namespace Web.Models.CashgameModels.Running
             ReportUrl = new CashgameReportUrl(result.Slug).Relative;
             BuyinUrl = new CashgameBuyinUrl(result.Slug).Relative;
             CashoutUrl = new CashgameCashoutUrl(result.Slug).Relative;
-            EndGameUrl = new EndCashgameUrl(result.Slug).Relative;
             CashgameIndexUrl = new CashgameIndexUrl(result.Slug).Relative;
             LocationUrl = new LocationDetailsUrl(result.LocationId).Relative;
             DefaultBuyin = result.DefaultBuyin;

@@ -106,7 +106,7 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PokerBunch.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokerBunch.Common.1.0.49\lib\PokerBunch.Common.dll</HintPath>
+      <HintPath>..\packages\PokerBunch.Common.1.0.50\lib\PokerBunch.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -232,7 +232,6 @@
     <Compile Include="Controllers\EditCashgameController.cs" />
     <Compile Include="Controllers\EditCheckpointController.cs" />
     <Compile Include="Controllers\EditUserController.cs" />
-    <Compile Include="Controllers\EndCashgameController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventDetailsController.cs" />
     <Compile Include="Controllers\ForgotPasswordController.cs" />
@@ -443,8 +442,6 @@
     <Content Include="FrontEnd\js\components\game-chart\game-chart.js" />
     <Content Include="FrontEnd\js\components\spinner\spinner.html" />
     <Content Include="FrontEnd\js\components\spinner\spinner.js" />
-    <Content Include="FrontEnd\js\components\endgame-form\endgame-form.html" />
-    <Content Include="FrontEnd\js\components\endgame-form\endgame-form.js" />
     <Content Include="FrontEnd\js\components\cashout-form\cashout-form.html" />
     <Content Include="FrontEnd\js\components\cashout-form\cashout-form.js" />
     <Content Include="FrontEnd\js\components\buyin-form\buyin-form.html" />

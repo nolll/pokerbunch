@@ -8,14 +8,12 @@
             <game-button text="Report" icon="reorder" v-show="canReport" v-on:click="showReportForm"></game-button>
             <game-button text="Buy In" icon="money" v-show="canBuyin" v-on:click="showBuyinForm"></game-button>
             <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click="showCashoutForm"></game-button>
-            <game-button text="End Game" icon="signout" v-show="canEndGame" v-on:click="showEndGameForm"></game-button>
         </div>
 
         <div class="block gutter">
             <report-form v-show="reportFormVisible" v-bind:stack="currentStack" v-bind:is-active="reportFormVisible"></report-form>
             <buyin-form v-show="buyinFormVisible" v-bind:stack="beforeBuyinStack" v-bind:amount="buyinAmount" v-bind:is-active="buyinFormVisible" v-bind:is-in-game="isInGame"></buyin-form>
             <cashout-form v-show="cashoutFormVisible" v-bind:stack="currentStack" v-bind:is-active="cashoutFormVisible"></cashout-form>
-            <endgame-form v-show="endGameFormVisible"></endgame-form>
         </div>
 
         <div class="standings block gutter" v-show="hasPlayers">

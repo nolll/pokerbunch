@@ -55,11 +55,6 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     this.cashoutFormVisible = true;
                     this.hideButtons();
                 },
-                showEndGameForm: function () {
-                    this.refresh();
-                    this.endGameFormVisible = true;
-                    this.hideButtons();
-                },
                 hideButtons: function() {
                     this.areButtonsVisible = false;
                 },
@@ -67,7 +62,6 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     this.reportFormVisible = false;
                     this.buyinFormVisible = false;
                     this.cashoutFormVisible = false;
-                    this.endGameFormVisible = false;
                     this.areButtonsVisible = true;
                 },
                 hasCashedOut: function() {
@@ -83,7 +77,6 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     this.reportUrl = data.reportUrl;
                     this.buyinUrl = data.buyinUrl;
                     this.cashoutUrl = data.cashoutUrl;
-                    this.endGameUrl = data.endGameUrl;
                     this.cashgameIndexUrl = data.cashgameIndexUrl;
                     this.locationUrl = data.locationUrl;
                     this.defaultBuyin = data.defaultBuyin;
@@ -171,16 +164,12 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     this.addCheckpoint(player, cashoutData.stack, 0);
                     player.hasCashedOut = true;
                     this.hideForms();
-                    ajax.post(this.cashoutUrl, cashoutData);
+                    var callback = this.redirectIfGameHasEnded;
+                    ajax.post(this.cashoutUrl, cashoutData, callback);
                     this.resetPlayerId();
                 },
-                endgame: function () {
-                    var redirectUrl = this.cashgameIndexUrl;
-                    ajax.post(this.endGameUrl, null, function () {
-                        location.href = redirectUrl;
-                    });
-                },
-                refresh: function() {
+                refresh: function () {
+                    this.redirectIfGameHasEnded();
                     var callback = this.setPlayers;
                     ajax.load(this.refreshUrl, function (playerData) {
                         callback(playerData);
@@ -189,6 +178,11 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 setPlayers: function (data) {
                     this.players = data.players;
                     this.setupRefresh(longRefresh);
+                },
+                redirectIfGameHasEnded: function() {
+                    if (this.canEndGame) {
+                        location.href = this.cashgameIndexUrl;
+                    }
                 }
             },
             events: {
@@ -204,9 +198,6 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 'cashout': function (stack) {
                     this.cashout(stack);
                 },
-                'endgame': function() {
-                    this.endgame();
-                },
                 'hide-forms': function() {
                     this.hideForms();
                 }
@@ -221,7 +212,6 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 reportUrl: "",
                 buyinUrl: "",
                 cashoutUrl: "",
-                endGameUrl: "",
                 cashgameIndexUrl: "",
                 locationUrl: "",
                 defaultBuyin: 0,
@@ -233,7 +223,6 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 reportFormVisible: false,
                 buyinFormVisible: false,
                 cashoutFormVisible: false,
-                endGameFormVisible: false,
                 currentStack: 0,
                 beforeBuyinStack: 0,
                 buyinAmount: 0,
