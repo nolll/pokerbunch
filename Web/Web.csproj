@@ -458,7 +458,6 @@
     <Content Include="FrontEnd\js\lib\moment.min.js" />
     <Content Include="FrontEnd\js\lib\propertyParser.js" />
     <Content Include="FrontEnd\js\lib\require.js" />
-    <Content Include="FrontEnd\js\lib\respond.min.js" />
     <Content Include="FrontEnd\js\components.js" />
     <Content Include="FrontEnd\js\components\game-button\game-button.js" />
     <Content Include="FrontEnd\js\components\player-dropdown\player-dropdown.js" />

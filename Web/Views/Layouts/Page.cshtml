@@ -19,11 +19,6 @@
 
     <body class="@Model.BodyCssClass">
         @RenderBody()
-
-        <!--[if lt IE 9]>
-            <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-            <script src="/FrontEnd/js/lib/respond.min.js"></script>
-        <![endif]-->
         <script src="@Model.JsPath" data-main="@Model.JsLoaderPath"></script>
 
         @Html.RenderModel(Model.GoogleAnalyticsModel)
