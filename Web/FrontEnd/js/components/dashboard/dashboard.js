@@ -9,7 +9,7 @@ define(["vue", "moment", "text!components/dashboard/dashboard.html", "ajax", "ga
             template: html,
             data: defaultData,
             props: ["url"],
-            ready: function() {
+            mounted: function() {
                 this.initData(this.url);
             },
             computed: {

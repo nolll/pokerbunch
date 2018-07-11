@@ -4,14 +4,19 @@ define(["vue", "text!components/player-dropdown/player-dropdown.html"],
 
         return vue.component("player-dropdown", {
             template: html,
-            props: ['selectedPlayerId', 'players'],
+            props: ['playerId', 'players'],
             methods: {
                 changePlayer: function () {
-                    this.$dispatch('change-player', this.selectedPlayerId);
+                    this.eventHub.$emit('change-player', this.selectedPlayerId);
                 }
             },
-            ready: function() {
-                var x = 0;
+            mounted: function() {
+                this.selectedPlayerId = this.playerId;
+            },
+            data: function () {
+                return {
+                    selectedPlayerId: null
+                }
             }
         });
     }

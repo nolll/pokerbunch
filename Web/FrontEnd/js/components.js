@@ -24,6 +24,7 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
 
         function init() {
             vue.config.debug = true;
+            vue.prototype.eventHub = new vue();
 
             vue.component('game-control', gameControl);
             vue.component('dashboard', dashboard);
@@ -43,7 +44,7 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
             vue.component('game-list-column', gameListColumn);
             vue.component('game-list-row', gameListRow);
 
-            vue.filter('currency', function (value, format, separator) {
+            vue.filter('customCurrency', function (value, format, separator) {
                 return formatCurrency(value, format, separator);
             });
 
@@ -80,7 +81,7 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
             }
 
             new vue({
-                el: "body"
+                el: "#app"
             });
         }
 

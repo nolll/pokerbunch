@@ -26,6 +26,15 @@ define(["vue", "text!components/game-list-row/game-list-row.html", "moment"],
                 },
                 averageBuyinSortCssClass: function () {
                     return getSortCssClass(this.orderBy, "averagebuyin");
+                },
+                duration: function() {
+                    return this.$options.filters.time(this.game.duration);
+                },
+                formattedAverageBuyin: function () {
+                    return formatCurrency(this.game.averageBuyin);
+                },
+                formattedTurnover: function () {
+                    return formatCurrency(this.game.turnover);
                 }
             }
         });
@@ -34,6 +43,10 @@ define(["vue", "text!components/game-list-row/game-list-row.html", "moment"],
             if (orderBy === query)
                 return "table-list--sortable__sort-item";
             return "";
+        }
+
+        function formatCurrency(amount) {
+            return this.$options.filters.customCurrency(amount);
         }
     }
 );

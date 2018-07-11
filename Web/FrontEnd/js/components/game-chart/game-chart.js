@@ -15,12 +15,12 @@ define(["vue", "linechart", "moment"],
             methods: {
                 update: function () {
                     if (chart === null)
-                        this.init();
+                        this.initChart();
                     var data = this.getGameChartData();
                     var options = { colors: this.getColors() };
                     chart.draw(data, options);
                 },
-                init: function() {
+                initChart: function() {
                     var config = {
                         pointSize: 0,
                         vAxis: { minValue: 0 },

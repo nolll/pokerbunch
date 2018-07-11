@@ -437,7 +437,8 @@
     <Content Include="FrontEnd\js\components\dashboard\dashboard.js" />
     <Content Include="FrontEnd\js\game-service.js" />
     <Content Include="FrontEnd\js\forms.js" />
-    <Content Include="FrontEnd\js\lib\vue.js" />
+    <Content Include="FrontEnd\js\lib\vue.debug.js" />
+    <Content Include="FrontEnd\js\lib\vue.min.js" />
     <Content Include="FrontEnd\js\validate.js" />
     <Content Include="FrontEnd\js\components\game-chart\game-chart.js" />
     <Content Include="FrontEnd\js\components\spinner\spinner.html" />

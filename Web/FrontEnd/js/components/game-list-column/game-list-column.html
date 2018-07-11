@@ -1,1 +1,1 @@
-<th class="table-list__column-header table-list__column-header--sortable {{defaultColumnCssClass}} {{sortColumnCssClass}}"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>
+<th v-bind:class="'table-list__column-header table-list__column-header--sortable ' + defaultColumnCssClass + ' ' + sortColumnCssClass"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>

@@ -18,7 +18,7 @@ define(["vue", "text!components/top-list-column/top-list-column.html"],
             },
             methods: {
                 sort: function() {
-                    this.$dispatch('sort-by', this.name);
+                    this.eventHub.$emit('sort-by', this.name);
                 }
             }
         });

@@ -6,7 +6,7 @@ requirejs.config({
         goog: "lib/goog",
         moment: "lib/moment.min",
         propertyParser: "lib/propertyParser",
-        vue: "lib/vue",
+        vue: "lib/vue.min",
         text: "lib/text"
     },
     shim: {

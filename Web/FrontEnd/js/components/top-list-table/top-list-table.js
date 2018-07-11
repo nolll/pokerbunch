@@ -6,7 +6,6 @@ define(["vue", "text!components/top-list-table/top-list-table.html"],
             template: html,
             props: ["jsonContainer"],
             created: function () {
-                var x = 0;
             },
             data: function () {
                 var jsonElement = document.getElementById(this.jsonContainer);

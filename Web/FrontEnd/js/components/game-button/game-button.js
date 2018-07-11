@@ -4,7 +4,12 @@ define(["vue", "text!components/game-button/game-button.html"],
 
         return vue.component("game-button", {
             template: html,
-            props: ['text', 'icon']
+            props: ['text', 'icon'],
+            computed: {
+                iconCssClass: function() {
+                    return 'icon-' + this.icon;
+                }
+            }
         });
     }
 );

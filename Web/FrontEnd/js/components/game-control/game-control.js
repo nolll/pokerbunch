@@ -9,7 +9,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
             template: html,
             data: defaultData,
             props: ["url"],
-            ready: function() {
+            mounted: function() {
                 this.initData(this.url);
             },
             computed: {
@@ -183,24 +183,24 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     if (this.canEndGame) {
                         location.href = this.cashgameIndexUrl;
                     }
+                },
+                setPlayerId: function (playerId) {
+                    this.playerId = playerId;
                 }
             },
-            events: {
-                'change-player': function (playerId) {
-                    this.playerId = playerId;
-                },
-                'report': function (stack) {
-                    this.report(stack);
-                },
-                'buyin': function (amount, stack) {
-                    this.buyin(amount, stack);
-                },
-                'cashout': function (stack) {
-                    this.cashout(stack);
-                },
-                'hide-forms': function() {
-                    this.hideForms();
-                }
+            created: function() {
+                this.eventHub.$on('change-player', this.setPlayerId);
+                this.eventHub.$on('report', this.report);
+                this.eventHub.$on('buyin', this.buyin);
+                this.eventHub.$on('cashout', this.cashout);
+                this.eventHub.$on('hide-forms', this.hideForms);
+            },
+            beforeDestroy: function () {
+                this.eventHub.$on('change-player');
+                this.eventHub.$on('report');
+                this.eventHub.$on('buyin');
+                this.eventHub.$on('cashout');
+                this.eventHub.$on('hide-forms');
             }
         });
 

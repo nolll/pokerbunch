@@ -6,7 +6,6 @@ define(["vue", "text!components/player-table/player-table.html", "game-service"]
             template: html,
             props: ['players', 'currencyFormat'],
             created: function() {
-                var x = 0;
             },
             computed: {
                 totalBuyin: function () {
@@ -14,6 +13,17 @@ define(["vue", "text!components/player-table/player-table.html", "game-service"]
                 },
                 totalStacks: function () {
                     return gameService.getTotalStacks(this.players);
+                },
+                formattedTotalBuyin: function() {
+                    return this.formatCurrency(this.totalBuyin);
+                },
+                formattedTotalStacks: function () {
+                    return this.formatCurrency(this.totalStacks);
+                }
+            },
+            methods: {
+                formatCurrency: function(amount) {
+                    return this.$options.filters.customCurrency(amount);
                 }
             }
         });

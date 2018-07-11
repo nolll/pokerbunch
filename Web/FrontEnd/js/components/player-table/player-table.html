@@ -1,10 +1,12 @@
-<div v-for="player in players">
-    <player-row v-bind:player="player" v-bind:currency-format="currencyFormat"></player-row>
-</div>
-<div class="totals">
-    <div class="title">Totals: </div>
-    <div class="amounts">
-        <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span v-text="totalBuyin | currency currencyFormat"></span></div>
-        <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span v-text="totalStacks | currency currencyFormat"></span></div>
+<div>
+    <div v-for="player in players">
+        <player-row v-bind:player="player" v-bind:currency-format="currencyFormat"></player-row>
+    </div>
+    <div class="totals">
+        <div class="title">Totals: </div>
+        <div class="amounts">
+            <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span v-text="formattedTotalBuyin"></span></div>
+            <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span v-text="formattedTotalStacks"></span></div>
+        </div>
     </div>
 </div>

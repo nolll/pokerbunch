@@ -1,10 +1,10 @@
 <tr class="table-list__row">
-    <td class="table-list__cell table-list--sortable__base-column {{dateSortCssClass}}">
-        <a href="{{game.url}}">{{displayDate}}</a>
+    <td v-bind:class="'table-list__cell table-list--sortable__base-column ' + dateSortCssClass">
+        <a v-bind:href="game.url">{{displayDate}}</a>
     </td>
-    <td class="table-list__cell table-list__cell--numeric {{playerCountSortCssClass}}">{{game.playerCount}}</td>
+    <td v-bind:class="'table-list__cell table-list__cell--numeric ' + playerCountSortCssClass">{{game.playerCount}}</td>
     <td class="table-list__cell">{{game.location}}</td>
-    <td class="table-list__cell {{durationSortCssClass}}" v-text="game.duration | time"></td>
-    <td class="table-list__cell table-list__cell--numeric {{turnoverSortCssClass}}" v-text="game.turnover | currency currencyFormat thousandSeparator"></td>
-    <td class="table-list__cell table-list__cell--numeric {{averageBuyinSortCssClass}}" v-text="game.averageBuyin | currency currencyFormat thousandSeparator"></td>
+    <td v-bind:class="'table-list__cell ' + durationSortCssClass" v-text="duration"></td>
+    <td v-bind:class="'table-list__cell table-list__cell--numeric ' + turnoverSortCssClass" v-text="formattedTurnover"></td>
+    <td v-bind:class="'table-list__cell table-list__cell--numeric ' + averageBuyinSortCssClass" v-text="formattedAverageBuyin"></td>
 </tr>

@@ -21,7 +21,7 @@ define(["vue", "text!components/game-list-column/game-list-column.html"],
             },
             methods: {
                 sort: function() {
-                    this.$dispatch("sort-by", this.name);
+                    this.eventHub.$emit("sort-by", this.name);
                 }
             }
         });

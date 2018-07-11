@@ -13,7 +13,7 @@ define(["vue", "text!components/buyin-form/buyin-form.html", "validate", "forms"
             watch: {
                 'isActive': function (val) {
                     if (val) {
-                        this.$els.buyin.focus();
+                        this.$refs.buyin.focus();
                     }
                 }
             },
@@ -21,10 +21,10 @@ define(["vue", "text!components/buyin-form/buyin-form.html", "validate", "forms"
                 buyin: function () {
                     this.validateForm();
                     if(!this.hasErrors)
-                        this.$dispatch('buyin', this.amount, this.stack);
+                        this.eventHub.$emit('buyin', this.amount, this.stack);
                 },
                 cancel: function () {
-                    this.$dispatch('hide-forms');
+                    this.eventHub.$emit('hide-forms');
                 },
                 focus: function (event) {
                     forms.selectAll(event.target);

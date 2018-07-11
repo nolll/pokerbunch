@@ -32,6 +32,35 @@ define(["vue", "text!components/top-list-row/top-list-row.html"],
                 },
                 winRateSortCssClass: function () {
                     return getSortCssClass(this.orderBy, "winrate");
+                },
+                formattedWinnings: function () {
+                    return this.formatResult(this.player.winnings);
+                },
+                formattedBuyin: function () {
+                    return this.formatCurrency(this.player.buyin);
+                },
+                formattedCashout: function () {
+                    return this.formatCurrency(this.player.cashout);
+                },
+                formattedWinRate: function () {
+                    return this.formatWinRate(this.player.winRate);
+                },
+                formattedTime: function() {
+                    return this.formatTime(this.player.time);
+                }
+            },
+            methods: {
+                formatResult: function (result) {
+                    return this.$options.filters.result(result, this.currencyFormat, this.thousandSeparator);
+                },
+                formatCurrency: function(amount) {
+                    return this.$options.filters.customCurrency(amount, this.currencyFormat, this.thousandSeparator);
+                },
+                formatWinRate: function(winRate) {
+                    return this.$options.filters.winrate(winRate, this.currencyFormat, this.thousandSeparator);
+                },
+                formatTime: function(time) {
+                    return this.$options.filters.time(time);
                 }
             }
         });

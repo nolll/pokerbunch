@@ -13,7 +13,7 @@ define(["vue", "text!components/report-form/report-form.html", "validate", "form
             watch: {
                 'isActive': function (val) {
                     if (val) {
-                        this.$els.stack.focus();
+                        this.$refs.stack.focus();
                     }
                 }
             },
@@ -21,10 +21,10 @@ define(["vue", "text!components/report-form/report-form.html", "validate", "form
                 report: function () {
                     this.validateForm();
                     if (!this.hasErrors)
-                        this.$dispatch('report', this.stack);
+                        this.eventHub.$emit('report', this.stack);
                 },
                 cancel: function () {
-                    this.$dispatch('hide-forms');
+                    this.eventHub.$emit('hide-forms');
                 },
                 focus: function (event) {
                     forms.selectAll(event.target);
