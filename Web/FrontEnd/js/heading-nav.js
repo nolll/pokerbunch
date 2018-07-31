@@ -8,15 +8,15 @@ define(
             me.isExpanded = false;
 
             el.addEventListener('click', function (e) {
+                e.stopPropagation();
                 if (!me.isExpanded) {
                     e.preventDefault();
                     me.isExpanded = true;
                     me.el.classList.add("is-expanded");
                 }
-                event.stopPropagation();
             });
 
-            document.addEventListener('click', function () {
+            document.addEventListener('click', function (e) {
                 if (me.isExpanded) {
                     me.isExpanded = false;
                     me.el.classList.remove("is-expanded");

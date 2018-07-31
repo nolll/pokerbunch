@@ -196,11 +196,11 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 this.eventHub.$on('hide-forms', this.hideForms);
             },
             beforeDestroy: function () {
-                this.eventHub.$on('change-player');
-                this.eventHub.$on('report');
-                this.eventHub.$on('buyin');
-                this.eventHub.$on('cashout');
-                this.eventHub.$on('hide-forms');
+                this.eventHub.$off('change-player');
+                this.eventHub.$off('report');
+                this.eventHub.$off('buyin');
+                this.eventHub.$off('cashout');
+                this.eventHub.$off('hide-forms');
             }
         });
 

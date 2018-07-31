@@ -8,7 +8,7 @@
         <input class="numberfield" v-model.number="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*">
     </div>
     <div class="buttons">
-        <button v-on:click.native="buyin" class="button button--action">Buy In</button>
-        <button v-on:click.native="cancel" class="button">Cancel</button>
+        <button v-on:click="buyin" class="button button--action">Buy In</button>
+        <button v-on:click="cancel" class="button">Cancel</button>
     </div>
 </div>
