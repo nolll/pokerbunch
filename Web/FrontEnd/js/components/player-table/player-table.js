@@ -22,8 +22,8 @@ define(["vue", "text!components/player-table/player-table.html", "game-service"]
                 }
             },
             methods: {
-                formatCurrency: function(amount) {
-                    return this.$options.filters.customCurrency(amount);
+                formatCurrency: function (amount) {
+                    return this.$options.filters.customCurrency(amount, this.currencyFormat);
                 }
             }
         });
