@@ -80,9 +80,24 @@ function (vue, gameControl, dashboard, playerDropdown, gameButton, playerTable, 
                 return f.replace('{0}', v);
             }
 
-            new vue({
-                el: "#app"
-            });
+            function initComponent(elementId) {
+                var element = document.getElementById(elementId);
+
+                if (element) {
+                    new vue({
+                        el: element
+                    });
+                }
+            }
+
+            function initComponents() {
+                initComponent('vue-game-control');
+                initComponent('vue-game-list-table');
+                initComponent('vue-dashboard');
+                initComponent('vue-top-list-table');
+            }
+
+            initComponents();
         }
 
         return {

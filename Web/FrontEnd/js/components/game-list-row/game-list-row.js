@@ -31,10 +31,15 @@ define(["vue", "text!components/game-list-row/game-list-row.html", "moment"],
                     return this.$options.filters.time(this.game.duration);
                 },
                 formattedAverageBuyin: function () {
-                    return formatCurrency(this.game.averageBuyin);
+                    return this.formatCurrency(this.game.averageBuyin);
                 },
                 formattedTurnover: function () {
-                    return formatCurrency(this.game.turnover);
+                    return this.formatCurrency(this.game.turnover);
+                }
+            },
+            methods: {
+                formatCurrency: function(amount) {
+                    return this.$options.filters.customCurrency(amount);
                 }
             }
         });
@@ -43,10 +48,6 @@ define(["vue", "text!components/game-list-row/game-list-row.html", "moment"],
             if (orderBy === query)
                 return "table-list--sortable__sort-item";
             return "";
-        }
-
-        function formatCurrency(amount) {
-            return this.$options.filters.customCurrency(amount);
         }
     }
 );

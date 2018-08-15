@@ -6,6 +6,6 @@
     Layout = PageLayout.OneColumn;
 }
 
-<game-control url="@Model.GameDataUrl">
+<game-control id="vue-game-control" url="@Model.GameDataUrl">
     @Html.RenderModel(Model.SpinnerModel)
 </game-control>
