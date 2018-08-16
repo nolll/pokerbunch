@@ -25,7 +25,7 @@
 			</p>
 			<p>
                 @Html.LabelFor(model => model.CurrencySymbol, "Currency Symbol", new { @class = "label" })
-                @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "textfield", data_require = "currency-form" })
+                @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "textfield", data_hookup = "currency-form" })
 			</p>
 			<p>
 			    <label>@Html.LabelFor(model => model.CurrencyLayout, "Currency Layout", new { @class = "label" })</label>

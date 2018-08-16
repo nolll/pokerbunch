@@ -40,7 +40,7 @@
 <div class="block gutter">
     @Html.RenderModel(Model.CashgameDetailsTableModel)
 
-    <div data-require="cashgame-game-chart">
+    <div data-hookup="cashgame-game-chart">
         @Html.RenderModel(Model.SpinnerModel)
         <script type="application/json">
             @Html.Raw(Model.ChartJson)

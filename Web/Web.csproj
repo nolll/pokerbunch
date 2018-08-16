@@ -419,6 +419,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FrontEnd\js\browser.js" />
+    <Content Include="FrontEnd\js\dom-modules.js" />
     <Content Include="FrontEnd\js\components\game-list-column\game-list-column.html" />
     <Content Include="FrontEnd\js\components\game-list-column\game-list-column.js" />
     <Content Include="FrontEnd\js\components\game-list-row\game-list-row.html" />
@@ -702,7 +703,7 @@
     <Content Include="FrontEnd\js\focus-text-selector.js" />
     <Content Include="FrontEnd\js\heading-nav.js" />
     <Content Include="FrontEnd\js\linechart.js" />
-    <Content Include="FrontEnd\js\require.init.js" />
+    <Content Include="FrontEnd\js\dom-hookup.js" />
     <Content Include="FrontEnd\js\require.startpoint.js" />
     <Content Include="Global.asax" />
     <Content Include="googlecd2b6bdc316289ae.html" />

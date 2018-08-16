@@ -21,19 +21,19 @@
 			</p>
             <p>
                 @Html.LabelFor(model => model.Stack, @Model.StackLabel, new { @class = "label" })
-                @Html.TextBoxFor(model => model.Stack, new { @class = "numberfield", pattern = "[0-9]*", required = true, min = "0", data_require = "focus-text-selector" })
+                @Html.TextBoxFor(model => model.Stack, new { @class = "numberfield", pattern = "[0-9]*", required = true, min = "0", data_hookup = "focus-text-selector" })
             </p>
             @if (Model.EnableAmountField)
             {
                 <p>
 				    @Html.LabelFor(model => model.Amount, "Buyin Amount", new { @class = "label" })
-                    @Html.TextBoxFor(model => model.Amount, new { @class = "numberfield", pattern = "[0-9]*", required = true, min = "0", data_require = "focus-text-selector" })
+                    @Html.TextBoxFor(model => model.Amount, new { @class = "numberfield", pattern = "[0-9]*", required = true, min = "0", data_hookup = "focus-text-selector" })
 			    </p>
             }
         </fieldset>
         <div class="buttons">
             <button type="submit" class="button button--action">Save Changes</button>
-            <a href="@Model.DeleteUrl" class="button button--warning" data-require="delete-confirmation" data-message="Delete Checkpoint?">Delete</a>
+            <a href="@Model.DeleteUrl" class="button button--warning" data-hookup="delete-confirmation" data-message="Delete Checkpoint?">Delete</a>
 			<a href="@Model.CancelUrl" class="button">Cancel</a>
         </div>
     </form>

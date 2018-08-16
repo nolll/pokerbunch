@@ -21,7 +21,7 @@
 			</p>
 			<p>
                 @Html.LabelFor(model => model.CurrencySymbol, "Currency Symbol", new { @class = "label" })
-                @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "textfield", data_require = "currency-form" })
+                @Html.TextBoxFor(model => model.CurrencySymbol, new { @class = "textfield", data_hookup = "currency-form" })
 			</p>
 			<p>
 			    @Html.LabelFor(model => model.CurrencyLayout, "Currency Layout", new { @class = "label" })
@@ -57,7 +57,7 @@
 		</fieldset>
 		<div class="buttons">
             <button class="button button--action" type="submit">Save</button>
-            <button class="button" data-require="cancel-button" data-cancel-url="@Model.CancelUrl">Cancel</button>
+            <button class="button" data-hookup="cancel-button" data-cancel-url="@Model.CancelUrl">Cancel</button>
 		</div>
 	</form>
 </div>

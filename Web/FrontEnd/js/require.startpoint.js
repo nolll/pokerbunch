@@ -1,5 +1,5 @@
-define(["require.init", "components"],
-    function (requireInit, components) {
+define(["dom-hookup", "components"],
+    function (domHookup, components) {
 
         function domReady(callback) {
             document.readyState === "interactive" || document.readyState === "complete" ? callback() : document.addEventListener("DOMContentLoaded", callback);
@@ -7,7 +7,7 @@ define(["require.init", "components"],
 
         function init() {
             domReady(function () {
-                requireInit.init();
+                domHookup.init();
                 components.init();
             });
         }
