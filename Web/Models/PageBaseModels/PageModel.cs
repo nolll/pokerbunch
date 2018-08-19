@@ -17,12 +17,10 @@ namespace Web.Models.PageBaseModels
 
         protected PageModel(BaseContext.Result contextResult)
         {
-            //CssUrl = $"/assets/{contextResult.Version}/styles.css";
-            CssUrl = $"/dist/styles.main.css";
+            CssUrl = $"/dist/{contextResult.Version}/1.main.css";
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel();
-            //JsPath = SiteSettings.UseAssets ? $"/assets/{contextResult.Version}/scripts.js" : "/Frontend/js/lib/require.js";
-            JsPath = "/dist/main.js";
+            JsPath = $"/dist/{contextResult.Version}/main.js";
         }
 
         public abstract View GetView();

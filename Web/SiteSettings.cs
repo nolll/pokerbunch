@@ -4,7 +4,6 @@
     {
         public static string SiteHost => Get("SiteHost") ?? "pokerbunch.com";
         public static bool HandleErrors => GetBool("HandleErrors");
-        public static bool UseAssets => GetBool("UseAssets");
         public static bool EnableAnalytics => GetBool("EnableAnalytics");
         public static bool EnableApplicationInsights => GetBool("EnableApplicationInsights");
         public static string ApplicationInsightsKey => Get("ApplicationInsightsKey");
