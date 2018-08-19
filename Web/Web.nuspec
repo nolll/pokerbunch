@@ -5,9 +5,9 @@
     <title>PokerBunch.com</title>
     <version>$version$</version>
     <authors>Henrik Severinson</authors>
-    <description>Web interface for the home game poker statistics</description>
+    <description>Web interface for Poker Bunch</description>
   </metadata>
   <files>
-    <file src="assets\*.*" target="assets" />
+    <file src="dist\*.*" target="dist" />
   </files>
 </package>
