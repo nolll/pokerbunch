@@ -1,8 +1,8 @@
-define(["vue", "text!components/player-row/player-row.html", "game-service"],
+define(["vue", "./player-row.html", "../../game-service"],
     function(vue, html, gameService) {
         "use strict";
 
-        return vue.component("player-row", {
+        return {
             template: html,
             props: ['player', 'currencyFormat'],
             computed: {
@@ -45,6 +45,6 @@ define(["vue", "text!components/player-row/player-row.html", "game-service"],
                     return this.$options.filters.result(result, this.currencyFormat);
                 }
             }
-        });
+        };
     }
 );

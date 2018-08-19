@@ -1,11 +1,11 @@
-define(["vue", "moment", "text!components/dashboard/dashboard.html", "ajax", "game-service"],
+define(["vue", "moment", "./dashboard.html", "../../ajax", "../../game-service"],
     function(vue, moment, html, ajax, gameService) {
         "use strict";
 
         var longRefresh = 30000,
             shortRefresh = 10000;
 
-        return vue.component("dashboard", {
+        return {
             template: html,
             data: defaultData,
             props: ["url"],
@@ -49,7 +49,7 @@ define(["vue", "moment", "text!components/dashboard/dashboard.html", "ajax", "ga
                     this.setupRefresh(shortRefresh);
                 },
                 initData: function(url) {
-                    ajax.load(url, this.loadComplete, this.loadError);
+                    ajax.get(url, this.loadComplete, this.loadError);
                 },
                 setupRefresh: function(refreshTimeout) {
                     window.setTimeout(this.refresh, refreshTimeout);
@@ -66,7 +66,7 @@ define(["vue", "moment", "text!components/dashboard/dashboard.html", "ajax", "ga
                 },
                 refresh: function() {
                     var callback = this.setPlayers;
-                    ajax.load(this.refreshUrl, function (playerData) {
+                    ajax.get(this.refreshUrl, function (playerData) {
                         callback(playerData);
                     });
                 },
@@ -75,7 +75,7 @@ define(["vue", "moment", "text!components/dashboard/dashboard.html", "ajax", "ga
                     this.setupRefresh(longRefresh);
                 }
             }
-        });
+        };
 
         function defaultData() {
             return {

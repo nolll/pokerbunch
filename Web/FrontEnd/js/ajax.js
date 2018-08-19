@@ -1,46 +1,41 @@
-define(["fetch"],
-    function(fetch) {
+define(["axios"],
+    function(axios) {
         "use strict";
 
-        function load(url, success, error) {
-            fetch(url, {
-                     credentials: 'same-origin'
+        function get(url, successHandler, errorHandler) {
+            axios(url,
+                    {
+                        credentials: 'same-origin'
+                    })
+                .then(function(response) {
+                    successHandler(response.data);
                 })
-                .then(checkStatus)
-                .then(parseJson)
-                .then(success)
-                .catch(error);
+                .catch(function(error) {
+                    errorHandler(error);
+                });
         }
 
-        function post(url, data, success, error) {
-            fetch(url, {
-                credentials: 'same-origin',
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            })
-            .then(success)
-            .catch(error);
-        }
-
-        function checkStatus(response) {
-            var t = 0;
-            if (response.status >= 200 && response.status < 300) {
-                return response;
-            } else {
-                return new Error(response.statusText);
-            }
-        }
-
-        function parseJson(response) {
-            return response.json();
+        function post(url, data, successHandler, errorHandler) {
+            axios(url,
+                    {
+                        credentials: 'same-origin',
+                        method: 'post',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    })
+                .then(function() {
+                    successHandler();
+                })
+                .catch(function(error) {
+                    errorHandler(error);
+                });
         }
 
         return {
-            load: load,
+            get: get,
             post: post
         }
     }

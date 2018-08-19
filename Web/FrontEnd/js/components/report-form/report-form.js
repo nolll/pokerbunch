@@ -1,8 +1,8 @@
-define(["vue", "text!components/report-form/report-form.html", "validate", "forms"],
+define(["vue", "./report-form.html", "../../validate", "../../forms"],
     function(vue, html, validate, forms) {
         "use strict";
 
-        return vue.component("report-form", {
+        return {
             template: html,
             props: ['stack', 'isActive'],
             computed: {
@@ -43,6 +43,6 @@ define(["vue", "text!components/report-form/report-form.html", "validate", "form
                     stackError: null
                 }
             }
-        });
+        };
     }
 );

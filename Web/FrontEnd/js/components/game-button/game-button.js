@@ -1,8 +1,8 @@
-define(["vue", "text!components/game-button/game-button.html"],
+define(["vue", "./game-button.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.component("game-button", {
+        return {
             template: html,
             props: ['text', 'icon'],
             computed: {
@@ -10,6 +10,6 @@ define(["vue", "text!components/game-button/game-button.html"],
                     return 'icon-' + this.icon;
                 }
             }
-        });
+        };
     }
 );

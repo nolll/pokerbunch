@@ -1,8 +1,8 @@
-define(["vue", "text!components/game-list-column/game-list-column.html"],
+define(["vue", "./game-list-column.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.component("game-list-column", {
+        return {
             template: html,
             props: ["name", "title", "orderBy", "isDefault"],
             computed: {
@@ -24,6 +24,6 @@ define(["vue", "text!components/game-list-column/game-list-column.html"],
                     this.eventHub.$emit("sort-by", this.name);
                 }
             }
-        });
+        };
     }
 );

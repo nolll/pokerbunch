@@ -1,9 +1,9 @@
-define(["vue", "text!components/spinner/spinner.html"],
+define(["vue", "./spinner.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.component("spinner", {
+        return {
             template: html
-        });
+        };
     }
 );

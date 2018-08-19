@@ -419,6 +419,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FrontEnd\js\browser.js" />
+    <Content Include="FrontEnd\js\styles.js" />
     <Content Include="FrontEnd\js\dom-modules.js" />
     <Content Include="FrontEnd\js\components\game-list-column\game-list-column.html" />
     <Content Include="FrontEnd\js\components\game-list-column\game-list-column.js" />
@@ -438,8 +439,7 @@
     <Content Include="FrontEnd\js\components\dashboard\dashboard.js" />
     <Content Include="FrontEnd\js\game-service.js" />
     <Content Include="FrontEnd\js\forms.js" />
-    <Content Include="FrontEnd\js\lib\vue.debug.js" />
-    <Content Include="FrontEnd\js\lib\vue.min.js" />
+    <Content Include="FrontEnd\js\index.js" />
     <Content Include="FrontEnd\js\validate.js" />
     <Content Include="FrontEnd\js\components\game-chart\game-chart.js" />
     <Content Include="FrontEnd\js\components\spinner\spinner.html" />
@@ -454,12 +454,6 @@
     <Content Include="FrontEnd\js\components\player-row\player-row.js" />
     <Content Include="FrontEnd\js\components\player-table\player-table.js" />
     <Content Include="FrontEnd\js\components\player-table\player-table.html" />
-    <Content Include="FrontEnd\js\lib\async.js" />
-    <Content Include="FrontEnd\js\lib\fetch.min.js" />
-    <Content Include="FrontEnd\js\lib\goog.js" />
-    <Content Include="FrontEnd\js\lib\moment.min.js" />
-    <Content Include="FrontEnd\js\lib\propertyParser.js" />
-    <Content Include="FrontEnd\js\lib\require.js" />
     <Content Include="FrontEnd\js\components.js" />
     <Content Include="FrontEnd\js\components\game-button\game-button.js" />
     <Content Include="FrontEnd\js\components\player-dropdown\player-dropdown.js" />
@@ -468,7 +462,7 @@
     <Content Include="FrontEnd\js\ajax.js" />
     <Content Include="FrontEnd\js\components\game-control\game-control.html" />
     <Content Include="FrontEnd\js\components\game-control\game-control.js" />
-    <Content Include="gulpfile.js" />
+    <Content Include="webpack.config.js" />
     <Content Include="FrontEnd\Css\table-list.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -696,18 +690,14 @@
     <Content Include="FrontEnd\js\cashgame-chart.js" />
     <Content Include="FrontEnd\js\cashgame-game-chart.js" />
     <Content Include="FrontEnd\js\cancel-button.js" />
-    <Content Include="FrontEnd\js\require.config.js" />
-    <Content Include="FrontEnd\js\require.loader.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
     <Content Include="FrontEnd\js\delete-confirmation.js" />
     <Content Include="FrontEnd\js\focus-text-selector.js" />
     <Content Include="FrontEnd\js\heading-nav.js" />
     <Content Include="FrontEnd\js\linechart.js" />
     <Content Include="FrontEnd\js\dom-hookup.js" />
-    <Content Include="FrontEnd\js\require.startpoint.js" />
     <Content Include="Global.asax" />
     <Content Include="googlecd2b6bdc316289ae.html" />
-    <Content Include="FrontEnd\js\lib\text.js" />
     <Content Include="Views\Error\404.html" />
     <Content Include="Views\Error\500.html" />
     <Content Include="Web.config">
@@ -897,9 +887,9 @@
     <Error Condition="Exists('..\packages\OctoPack.3.0.60\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <Target Name="AfterBuild">
-    <Message Text="Running gulp taskts..." Importance="high">
+    <Message Text="Running webpack..." Importance="high">
     </Message>
     <Exec Command="npm install" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release'" />
-    <Exec Command="npm run gulp" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release'" />
+    <Exec Command="npm run build" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release'" />
   </Target>
 </Project>

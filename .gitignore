@@ -14,6 +14,7 @@ Web/_build/main.js
 **/Properties/PublishProfiles/*.*
 Web/node_modules
 Web/Assets
+Web/dist
 **/*.Debug.config
 **/Local.config
 *.user

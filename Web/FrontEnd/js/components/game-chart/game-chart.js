@@ -1,10 +1,10 @@
-define(["vue", "linechart", "moment"],
+define(["vue", "../../linechart", "moment"],
     function (vue, lineChart, moment) {
         "use strict";
 
         var chart = null;
 
-        return vue.component("game-chart", {
+        return {
             template: '<div></div>',
             props: ['players'],
             watch: {
@@ -102,6 +102,6 @@ define(["vue", "linechart", "moment"],
                     return { c: values };
                 }
             }
-        });
+        };
     }
 );

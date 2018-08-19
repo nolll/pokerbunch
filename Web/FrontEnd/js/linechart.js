@@ -1,5 +1,5 @@
-define(["ajax", "debouncer", "extender", "goog!visualization,1,packages:[corechart]"],
-    function (ajax, debouncer, extender) {
+define(["./ajax", "./debouncer", "./extender", "google-charts"],
+    function (ajax, debouncer, extender, googleCharts) {
         "use strict";
 
         function LineChart(el, config){
@@ -52,7 +52,7 @@ define(["ajax", "debouncer", "extender", "goog!visualization,1,packages:[corecha
                 url = this.el.getAttribute("data-url");
 
             if (url !== null) {
-                ajax.load(url, me.loadSuccess, me.loadError);
+                ajax.get(url, me.loadSuccess, me.loadError);
             } else {
                 me.data = JSON.parse(me.el.querySelector("[type='application/json']").innerHTML);
                 me.draw();
@@ -69,6 +69,8 @@ define(["ajax", "debouncer", "extender", "goog!visualization,1,packages:[corecha
         }
 
         function init(el, config) {
+            googleCharts.load();
+
             return new LineChart(el, config);
         }
 

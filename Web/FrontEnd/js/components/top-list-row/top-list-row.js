@@ -1,8 +1,8 @@
-define(["vue", "text!components/top-list-row/top-list-row.html"],
+define(["vue", "./top-list-row.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.component("top-list-row", {
+        return {
             template: html,
             props: ["player", "orderBy", "currencyFormat", "thousandSeparator"],
             created: function () {
@@ -63,7 +63,7 @@ define(["vue", "text!components/top-list-row/top-list-row.html"],
                     return this.$options.filters.time(time);
                 }
             }
-        });
+        };
 
         function getSortCssClass(orderBy, query) {
             if (orderBy === query)

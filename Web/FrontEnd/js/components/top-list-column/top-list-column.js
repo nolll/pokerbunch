@@ -1,8 +1,8 @@
-define(["vue", "text!components/top-list-column/top-list-column.html"],
+define(["vue", "./top-list-column.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.component("top-list-column", {
+        return {
             template: html,
             props: ["name", "title", "orderBy"],
             computed: {
@@ -21,6 +21,6 @@ define(["vue", "text!components/top-list-column/top-list-column.html"],
                     this.eventHub.$emit('sort-by', this.name);
                 }
             }
-        });
+        };
     }
 );

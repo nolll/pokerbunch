@@ -1,8 +1,8 @@
-define(["vue", "text!components/cashout-form/cashout-form.html", "validate", "forms"],
+define(["vue", "./cashout-form.html", "../../validate", "../../forms"],
     function(vue, html, validate, forms) {
         "use strict";
 
-        return vue.component("cashout-form", {
+        return {
             template: html,
             props: ['stack', "isActive"],
             computed: {
@@ -43,6 +43,6 @@ define(["vue", "text!components/cashout-form/cashout-form.html", "validate", "fo
                     stackError: null
                 }
             }
-        });
+        };
     }
 );

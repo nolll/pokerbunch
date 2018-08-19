@@ -1,8 +1,8 @@
-define(["vue", "text!components/buyin-form/buyin-form.html", "validate", "forms"],
+define(["vue", "./buyin-form.html", "../../validate", "../../forms"],
     function(vue, html, validate, forms) {
         "use strict";
 
-        return vue.component("buyin-form", {
+        return {
             template: html,
             props: ['stack', 'amount', "isActive", "isInGame"],
             computed: {
@@ -47,6 +47,6 @@ define(["vue", "text!components/buyin-form/buyin-form.html", "validate", "forms"
                     stackError: null
                 }
             }
-        });
+        };
     }
 );

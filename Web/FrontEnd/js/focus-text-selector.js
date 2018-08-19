@@ -1,4 +1,4 @@
-define(["forms"],
+define(["./forms"],
     function (forms) {
         "use strict";
 

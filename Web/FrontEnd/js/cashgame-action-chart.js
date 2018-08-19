@@ -1,4 +1,4 @@
-define(['linechart'],
+define(['./linechart'],
     function (lineChart) {
         "use strict";
 

@@ -1,8 +1,8 @@
-define(["vue", "text!components/game-list-table/game-list-table.html"],
+define(["vue", "./game-list-table.html"],
     function(vue, html) {
         "use strict";
 
-        return vue.component("game-list-table", {
+        return {
             template: html,
             props: ["jsonContainer"],
             created: function () {
@@ -22,7 +22,7 @@ define(["vue", "text!components/game-list-table/game-list-table.html"],
                     this.orderBy = orderBy;
                 }
             }
-        });
+        };
 
         function sortGames(games, orderBy) {
             return games.sort(getCompareFunc(orderBy)).reverse();

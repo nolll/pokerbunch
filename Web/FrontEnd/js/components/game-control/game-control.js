@@ -1,56 +1,59 @@
-define(["vue", "moment", "text!components/game-control/game-control.html", "ajax", "game-service"],
+define(["vue", "moment", "./game-control.html", "../../ajax", "../../game-service"],
     function(vue, moment, html, ajax, gameService) {
         "use strict";
 
         var longRefresh = 30000,
             shortRefresh = 10000;
 
-        return vue.component("game-control", {
+        return {
             template: html,
             data: defaultData,
             props: ["url"],
-            mounted: function() {
-                this.initData(this.url);
+            mounted: function () {
+                var self = this;
+                self.$nextTick(function() {
+                    self.initData(self.url);
+                });
             },
             computed: {
-                hasPlayers: function () {
+                hasPlayers: function() {
                     return this.players.length > 0;
                 },
-                startTime: function () {
+                startTime: function() {
                     var t = gameService.getStartTime(this.players);
                     return t.format("HH:mm");
                 },
                 sortedPlayers: function() {
                     return gameService.sortPlayers(this.players);
                 },
-                isInGame: function () {
+                isInGame: function() {
                     return gameService.getPlayer(this.players, this.playerId) !== null;
                 },
-                canCashout: function () {
+                canCashout: function() {
                     return this.isInGame;
                 },
-                canEndGame: function () {
+                canEndGame: function() {
                     return gameService.canBeEnded(this.players);
                 },
-                canReport: function () {
+                canReport: function() {
                     return this.isInGame && !this.hasCashedOut();
                 },
-                canBuyin: function () {
+                canBuyin: function() {
                     return !this.hasCashedOut();
                 }
             },
             methods: {
-                showReportForm: function () {
+                showReportForm: function() {
                     this.refresh();
                     this.reportFormVisible = true;
                     this.hideButtons();
                 },
-                showBuyinForm: function () {
+                showBuyinForm: function() {
                     this.refresh();
                     this.buyinFormVisible = true;
                     this.hideButtons();
                 },
-                showCashoutForm: function () {
+                showCashoutForm: function() {
                     this.refresh();
                     this.cashoutFormVisible = true;
                     this.hideButtons();
@@ -58,7 +61,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 hideButtons: function() {
                     this.areButtonsVisible = false;
                 },
-                hideForms: function () {
+                hideForms: function() {
                     this.reportFormVisible = false;
                     this.buyinFormVisible = false;
                     this.cashoutFormVisible = false;
@@ -70,7 +73,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                         return false;
                     return player.hasCashedOut;
                 },
-                loadComplete: function (data) {
+                loadComplete: function(data) {
                     this.slug = data.slug;
                     this.playerId = data.playerId;
                     this.refreshUrl = data.refreshUrl;
@@ -95,16 +98,16 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     this.setupRefresh(shortRefresh);
                 },
                 initData: function(url) {
-                    ajax.load(url, this.loadComplete, this.loadError);
+                    ajax.get(url, this.loadComplete, this.loadError);
                 },
                 setupRefresh: function(refreshTimeout) {
                     window.setTimeout(this.refresh, refreshTimeout);
                 },
-                addCheckpoint: function (player, stack, addedMoney) {
+                addCheckpoint: function(player, stack, addedMoney) {
                     var checkpoint = { time: moment().utc().format(), stack: stack, addedMoney: addedMoney };
                     player.checkpoints.push(checkpoint);
                 },
-                getBunchPlayer: function () {
+                getBunchPlayer: function() {
                     var i,
                         bp = this.bunchPlayers;
                     for (i = 0; i < bp.length; i++) {
@@ -117,7 +120,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 resetPlayerId: function() {
                     this.playerId = this.loadedPlayerId;
                 },
-                report: function (stack) {
+                report: function(stack) {
                     this.currentStack = stack;
                     var reportData = { playerId: this.playerId, stack: stack };
                     var player = gameService.getPlayer(this.players, this.playerId);
@@ -126,7 +129,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     ajax.post(this.reportUrl, reportData);
                     this.resetPlayerId();
                 },
-                buyin: function (amount, stack) {
+                buyin: function(amount, stack) {
                     this.buyinAmount = amount;
                     this.beforeBuyinStack = stack;
                     var afterStack = stack + amount;
@@ -157,7 +160,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                         checkpoints: []
                     };
                 },
-                cashout: function (stack) {
+                cashout: function(stack) {
                     this.currentStack = stack;
                     var cashoutData = { playerId: this.playerId, stack: stack };
                     var player = gameService.getPlayer(this.players, this.playerId);
@@ -168,14 +171,15 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                     ajax.post(this.cashoutUrl, cashoutData, callback);
                     this.resetPlayerId();
                 },
-                refresh: function () {
+                refresh: function() {
                     this.redirectIfGameHasEnded();
                     var callback = this.setPlayers;
-                    ajax.load(this.refreshUrl, function (playerData) {
-                        callback(playerData);
-                    });
+                    ajax.get(this.refreshUrl,
+                        function(playerData) {
+                            callback(playerData);
+                        });
                 },
-                setPlayers: function (data) {
+                setPlayers: function(data) {
                     this.players = data.players;
                     this.setupRefresh(longRefresh);
                 },
@@ -184,7 +188,7 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                         location.href = this.cashgameIndexUrl;
                     }
                 },
-                setPlayerId: function (playerId) {
+                setPlayerId: function(playerId) {
                     this.playerId = playerId;
                 }
             },
@@ -195,14 +199,14 @@ define(["vue", "moment", "text!components/game-control/game-control.html", "ajax
                 this.eventHub.$on('cashout', this.cashout);
                 this.eventHub.$on('hide-forms', this.hideForms);
             },
-            beforeDestroy: function () {
+            beforeDestroy: function() {
                 this.eventHub.$off('change-player');
                 this.eventHub.$off('report');
                 this.eventHub.$off('buyin');
                 this.eventHub.$off('cashout');
                 this.eventHub.$off('hide-forms');
             }
-        });
+        };
 
         function defaultData() {
             return {

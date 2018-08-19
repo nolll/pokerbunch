@@ -1,8 +1,8 @@
-define(["vue", "text!components/game-list-row/game-list-row.html", "moment"],
+define(["vue", "./game-list-row.html", "moment"],
     function(vue, html, moment) {
         "use strict";
 
-        return vue.component("game-list-row", {
+        return {
             template: html,
             props: ["game", "orderBy", "currencyFormat", "thousandSeparator"],
             created: function () {
@@ -42,7 +42,7 @@ define(["vue", "text!components/game-list-row/game-list-row.html", "moment"],
                     return this.$options.filters.customCurrency(amount);
                 }
             }
-        });
+        };
 
         function getSortCssClass(orderBy, query) {
             if (orderBy === query)

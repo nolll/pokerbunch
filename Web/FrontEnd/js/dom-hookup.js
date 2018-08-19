@@ -1,4 +1,4 @@
-define(["browser", "dom-modules"],
+define(["./browser", "./dom-modules"],
     function (browser, domModules) {
         "use strict";
 
