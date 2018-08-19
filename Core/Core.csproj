@@ -43,17 +43,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\App.cs" />
-    <Compile Include="Entities\AuthToken.cs" />
+    <Compile Include="Entities\CashgameBunch.cs" />
+    <Compile Include="Entities\CashgameLocation.cs" />
     <Compile Include="Entities\Checkpoints\BuyinCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
     <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
     <Compile Include="Entities\Date.cs" />
+    <Compile Include="Entities\DetailedCashgame.cs" />
     <Compile Include="Entities\Event.cs" />
+    <Compile Include="Entities\ListCashgame.cs" />
     <Compile Include="Entities\ListUser.cs" />
     <Compile Include="Entities\Location.cs" />
     <Compile Include="Entities\Money.cs" />
+    <Compile Include="Entities\SmallBunch.cs" />
+    <Compile Include="Entities\SmallLocation.cs" />
     <Compile Include="Entities\Time.cs" />
-    <Compile Include="Entities\IEntity.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs" />
     <Compile Include="Exceptions\AccessDeniedException.cs" />
     <Compile Include="Exceptions\AppNotFoundException.cs" />
@@ -168,17 +172,11 @@
     <Compile Include="Services\Interfaces\ICashgameService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Cashgame.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Entities\GameStatus.cs" />
+    <Compile Include="Entities\CashgameEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Checkpoints\Checkpoint.cs" />
     <Compile Include="Entities\Checkpoints\CheckpointType.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Entities\CashgameResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\User.cs" />

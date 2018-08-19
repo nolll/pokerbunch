@@ -40,22 +40,4 @@ namespace Core.Entities
             VideosEnabled = false;
         }
     }
-
-    public class SmallBunch : IEntity
-    {
-	    public string Id { get; }
-        public string DisplayName { get; }
-        public string Description { get; }
-        public string CacheId => Id;
-
-        public SmallBunch(
-            string id, 
-            string displayName = null,
-            string description = null)
-	    {
-	        Id = id;
-	        DisplayName = displayName ?? string.Empty;
-            Description = description ?? string.Empty;
-        }
-	}
 }

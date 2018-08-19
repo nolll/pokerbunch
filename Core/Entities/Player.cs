@@ -1,6 +1,6 @@
 namespace Core.Entities
 {
-    public class Player : IEntity
+    public class Player
     {
         private const string DefaultColor = "#9e9e9e";
 
@@ -12,7 +12,6 @@ namespace Core.Entities
         public Role Role { get; }
         public string Color { get; }
         public bool IsUser => !string.IsNullOrEmpty(UserId);
-        public string CacheId => Id;
 
         public Player(
             string bunchId,

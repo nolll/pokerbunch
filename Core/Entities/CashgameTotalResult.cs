@@ -36,24 +36,6 @@ namespace Core.Entities
             }
         }
 
-	    protected CashgameTotalResult(
-            int winnings,
-            int gameCount,
-            int timePlayed,
-            int winRate,
-            Player player,
-            int buyin,
-            int cashout)
-        {
-            Winnings = winnings;
-            GameCount = gameCount;
-            TimePlayed = timePlayed;
-            WinRate = winRate;
-	        Player = player;
-            Buyin = buyin;
-            Cashout = cashout;
-        }
-
         private int GetWinRate(int timePlayed, int winnings)
         {
             return timePlayed > 0 ? (int)Math.Round((double)winnings / timePlayed * 60) : 0;

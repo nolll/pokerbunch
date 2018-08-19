@@ -1,6 +1,6 @@
 namespace Core.Entities
 {
-    public class User : IEntity
+    public class User
     {
 	    public string Id { get; }
         public string UserName { get; }
@@ -8,7 +8,6 @@ namespace Core.Entities
         public string RealName { get; }
         public string Email { get; }
         public Role Role { get; }
-        public string CacheId => Id;
 
         public User(
             string id, 

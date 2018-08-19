@@ -1,16 +1,14 @@
 namespace Core.Entities
 {
-    public class Location
+    public class CashgameLocation
     {
         public string Id { get; }
         public string Name { get; }
-        public string BunchId { get; }
 
-        public Location(string id, string name, string bunchId)
+        public CashgameLocation(string id, string name)
         {
             Id = id;
             Name = name;
-            BunchId = bunchId;
         }
     }
 }

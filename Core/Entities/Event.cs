@@ -1,13 +1,12 @@
 namespace Core.Entities
 {
-    public class Event : IEntity
+    public class Event
     {
         public string Id { get; }
         public string BunchId { get; }
         public string Name { get; }
         public SmallLocation Location { get; }
         public Date StartDate { get; }
-        public string CacheId => Id;
 
         public Event(string id, string bunchId, string name)
         {
