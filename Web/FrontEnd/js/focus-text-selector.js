@@ -1,15 +1,11 @@
-define(["./forms"],
-    function (forms) {
-        "use strict";
+import forms from './forms';
 
-        function init() {
-            this.addEventListener('focus', function (e) {
-                forms.selectAll(e.target);
-            });
-        }
+function init() {
+    this.addEventListener('focus', function (e) {
+        forms.selectAll(e.target);
+    });
+}
 
-        return {
-            init: init
-        };
-    }
-);
+export default {
+    init: init
+};

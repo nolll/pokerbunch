@@ -1,21 +1,17 @@
-define(['./linechart'],
-    function (lineChart) {
-        "use strict";
+import lineChart from './linechart';
 
-        function init() {
-            var config = {
-                colors: ['#000', '#ABA493'],
-                series: {1: {type: "area"}},
-                vAxis: {minValue: 0},
-                hAxis: { format: 'HH:mm' },
-                pointSize: 0
-            };
-            var chart = lineChart.init(this, config);
-            chart.loadDataAndDraw();
-        }
+function init() {
+    var config = {
+        colors: ['#000', '#ABA493'],
+        series: { 1: { type: 'area' } },
+        vAxis: { minValue: 0 },
+        hAxis: { format: 'HH:mm' },
+        pointSize: 0
+    };
+    var data = JSON.parse(this.querySelector('[type="application/json"]').innerHTML);
+    lineChart.init(this, config, data);
+}
 
-        return {
-            init: init
-        };
-    }
-);
+export default {
+    init: init
+};

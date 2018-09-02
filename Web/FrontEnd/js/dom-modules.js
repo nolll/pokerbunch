@@ -1,35 +1,28 @@
-define([
-    './cancel-button',
-    './cashgame-action-chart',
-    './cashgame-chart',
-    './cashgame-game-chart',
-    './delete-confirmation',
-    './heading-nav',
-    './currency-form',
-    './focus-text-selector'
-],
-    function (cancelButton, cashgameActionChart, cashgameChart, cashgameGameChart, deleteConfirmation, headingNav, currencyForm, focusTextSelector) {
+import cancelButton from './cancel-button';
+import cashgameActionChart from './cashgame-action-chart';
+import cashgameChart from './cashgame-chart';
+import cashgameGameChart from './cashgame-game-chart';
+import deleteConfirmation from './delete-confirmation';
+import headingNav from './heading-nav';
+import currencyForm from './currency-form';
+import focusTextSelector from './focus-text-selector';
 
-        'use strict';
+var modules = {
+    'cancel-button': cancelButton,
+    'cashgame-action-chart': cashgameActionChart,
+    'cashgame-chart': cashgameChart,
+    'cashgame-game-chart': cashgameGameChart,
+    'delete-confirmation': deleteConfirmation,
+    'heading-nav': headingNav,
+    'currency-form': currencyForm,
+    'focus-text-selector': focusTextSelector
+};
 
-        var modules = {
-            'cancel-button': cancelButton,
-            'cashgame-action-chart': cashgameActionChart,
-            'cashgame-chart': cashgameChart,
-            'cashgame-game-chart': cashgameGameChart,
-            'delete-confirmation': deleteConfirmation,
-            'heading-nav': headingNav,
-            'currency-form': currencyForm,
-            'focus-text-selector': focusTextSelector
-        };
+function get(name)
+{
+    return modules[name];
+}
 
-        function get(name)
-        {
-            return modules[name];
-        }
-
-        return {
-            get: get
-        };
-    }
-);
+export default {
+    get: get
+};

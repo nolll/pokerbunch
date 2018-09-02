@@ -6,10 +6,10 @@ namespace Web.Models.PageBaseModels
 {
     public abstract class PageModel : IViewModel
     {
-        public string CssUrl { get; }
+        public string CssUrl => $"/dist/{Version}/main.css";
         public string Version { get; }
         public GoogleAnalyticsModel GoogleAnalyticsModel { get; }
-        public string JsPath { get; }
+        public string JsUrl => $"/dist/{Version}/main.js";
         public virtual string Layout => ContextLayout.Base;
         public virtual string HtmlCssClass => null;
         public virtual string BodyCssClass => "body-wide";
@@ -17,10 +17,8 @@ namespace Web.Models.PageBaseModels
 
         protected PageModel(BaseContext.Result contextResult)
         {
-            CssUrl = $"/dist/{contextResult.Version}/1.main.css";
             Version = contextResult.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel();
-            JsPath = $"/dist/{contextResult.Version}/main.js";
         }
 
         public abstract View GetView();

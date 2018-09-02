@@ -1,20 +1,16 @@
-define(["./linechart"],
-    function (lineChart) {
-        "use strict";
+import lineChart from './linechart';
 
-        function init() {
-            var config = {
-                pointSize: 0,
-                legend: {
-                    position: "none"
-                }
-            };
-            var chart = lineChart.init(this, config);
-            chart.loadDataAndDraw();
+function init() {
+    var config = {
+        pointSize: 0,
+        legend: {
+            position: 'none'
         }
+    };
+    var data = JSON.parse(this.querySelector('[type="application/json"]').innerHTML);
+    lineChart.init(this, config, data);
+}
 
-        return {
-            init: init
-        };
-    }
-);
+export default {
+    init: init
+};

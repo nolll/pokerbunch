@@ -17,25 +17,12 @@ module.exports = {
             {
                 test: /\.less$/,
                 use: [
-                    { loader: 'style-loader' },
                     { loader: MiniCssExtractPlugin.loader },
                     { loader: 'css-loader' },
                     { loader: 'less-loader' }
                 ]
             }
         ]
-    },
-    optimization: {
-        splitChunks: {
-            cacheGroups: {
-                styles: {
-                    name: 'styles',
-                    test: /\.less$/,
-                    chunks: 'all',
-                    enforce: true
-                }
-            }
-        }
     },
     plugins: [
         new MiniCssExtractPlugin({
