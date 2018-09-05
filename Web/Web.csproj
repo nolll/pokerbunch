@@ -99,7 +99,7 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PokerBunch.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PokerBunch.Common.1.0.81\lib\PokerBunch.Common.dll</HintPath>
+      <HintPath>..\packages\PokerBunch.Common.1.0.83\lib\PokerBunch.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
