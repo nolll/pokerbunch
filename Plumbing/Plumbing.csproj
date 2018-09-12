@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Dependencies.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Compile Include="ServiceFactory.cs" />
     <Compile Include="UseCaseContainer.cs" />
   </ItemGroup>
   <ItemGroup>

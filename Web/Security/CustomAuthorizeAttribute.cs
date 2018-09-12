@@ -9,7 +9,7 @@ namespace Web.Security
             var isAuthorized = base.AuthorizeCore(httpContext);
             if (!isAuthorized)
                 return false;
-            var identity = new Identity(httpContext.User);
+            var identity = new UserIdentity(httpContext.User);
             if (!identity.IsAuthenticated)
                 return false;
             return true;

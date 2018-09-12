@@ -8,19 +8,19 @@ namespace Web.Models.CashgameModels.Running
 {
     public interface IRunningCashgamePageModel
     {
-        string GameDataUrl { get; }
+        string Slug { get; }
         SpinnerModel SpinnerModel { get; }
     }
 
     public class RunningCashgamePageModel : BunchPageModel, IRunningCashgamePageModel
     {
-        public string GameDataUrl { get; }
+        public string Slug { get; }
         public SpinnerModel SpinnerModel => new SpinnerModel();
 
         public RunningCashgamePageModel(BunchContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
             : base(contextResult)
         {
-            GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
+            Slug = runningCashgameResult.Slug;
         }
 
         public override string BrowserTitle => "Running Cashgame";

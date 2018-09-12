@@ -59,8 +59,18 @@
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="FakeServices\FakeAdminService.cs" />
+    <Compile Include="FakeServices\FakeAuthService.cs" />
+    <Compile Include="FakeServices\FakeBunchService.cs" />
+    <Compile Include="FakeServices\FakeCashgameService.cs" />
+    <Compile Include="FakeServices\FakeEventService.cs" />
+    <Compile Include="FakeServices\FakeLocationService.cs" />
+    <Compile Include="FakeServices\FakePlayerService.cs" />
+    <Compile Include="FakeServices\FakeUserService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Services\BunchService.cs" />
+    <Compile Include="FakeServices\FakeAppService.cs" />
+    <Compile Include="FakeServices\FakeData.cs" />
     <Compile Include="Services\LocationService.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\AppService.cs" />

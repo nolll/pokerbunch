@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 function get(url, successHandler, errorHandler) {
-    axios(url, getOptionsForGet())
+    axios(getOptionsForGet(url))
         .then(function(response) {
             successHandler(response.data);
         })
@@ -11,7 +11,7 @@ function get(url, successHandler, errorHandler) {
 }
 
 function post(url, data, successHandler, errorHandler) {
-    axios(url, getOptionsForPost(data))
+    axios(getOptionsForPost(url, data))
         .then(function() {
             successHandler();
         })
@@ -20,21 +20,18 @@ function post(url, data, successHandler, errorHandler) {
         });
 }
 
-function getOptionsForGet() {
+function getOptionsForGet(url) {
     return {
-        credentials: 'same-origin'
+        method: 'get',
+        url: url
     }
 }
 
-function getOptionsForPost(data) {
+function getOptionsForPost(url, data) {
     return {
-        credentials: 'same-origin',
         method: 'post',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
+        url: url,
+        data: data
     }
 }
 

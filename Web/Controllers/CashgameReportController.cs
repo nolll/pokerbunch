@@ -1,3 +1,4 @@
+using System.Web.Http;
 using System.Web.Mvc;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
@@ -8,9 +9,9 @@ namespace Web.Controllers
 {
     public class CashgameReportController : BaseController
     {
-        [HttpPost]
-        [Authorize]
-        [Route(CashgameReportUrl.Route)]
+        [System.Web.Mvc.HttpPost]
+        [System.Web.Mvc.Authorize]
+        [System.Web.Mvc.Route(CashgameReportUrl.Route)]
         public ActionResult Report_Post(string bunchId, ReportPostModel postModel)
         {
             var request = new Report.Request(bunchId, postModel.PlayerId, postModel.Stack);

@@ -1,12 +1,10 @@
 using System;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using Core.Exceptions;
 using Core.UseCases;
 using Microsoft.ApplicationInsights;
 using Plumbing;
-using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Models;
 using Web.Models.ErrorModels;
@@ -17,9 +15,9 @@ namespace Web.Controllers.Base
     [EnsureHttps]
     public class BaseController : Controller
     {
-        private Identity _identity;
+        private IUserIdentity _identity;
 
-        private Bootstrapper Bootstrapper => new Bootstrapper(SiteSettings.ApiHost, SiteSettings.ApiProtocol, SiteSettings.ApiKey, Identity.ApiToken, SiteSettings.DetailedErrorsForApi);
+        private Bootstrapper Bootstrapper => new Bootstrapper(SiteSettings.ApiHost, SiteSettings.ApiProtocol, SiteSettings.ApiKey, Identity.ApiToken, SiteSettings.DetailedErrorsForApi, SiteSettings.UseFakeData);
         protected UseCaseContainer UseCase => Bootstrapper.UseCases;
 
         protected BaseContext.Result GetBaseContext()
@@ -42,7 +40,7 @@ namespace Web.Controllers.Base
             return UseCase.CashgameContext.Execute(GetBunchContext(bunchId), new CashgameContext.Request(bunchId, currentTime, selectedPage, year));
         }
 
-        protected Identity Identity => _identity ?? (_identity = new Identity(User));
+        protected IUserIdentity Identity => _identity ?? (_identity = SiteSettings.UseFakeData ? (IUserIdentity)new FakeUserIdentity() : new UserIdentity(User));
 
         protected override void OnException(ExceptionContext filterContext)
         {

@@ -1,6 +1,6 @@
 import browser from './browser';
 import domHookup from './dom-hookup';
-import vueComponents from './vue-components/vue-components.js';
+import app from './app';
 import styles from './styles';
 
 function domReady(callback) {
@@ -13,5 +13,5 @@ if (!browser.isCapable()) {
 
 domReady(function () {
     domHookup.init();
-    vueComponents.init();
+    app.init();
 });

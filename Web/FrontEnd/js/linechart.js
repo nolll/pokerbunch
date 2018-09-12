@@ -31,7 +31,7 @@ LineChart.prototype.draw = function (data, options) {
     if (options && options.colors) {
         this.config.colors = options.colors;
     }
-    if (!this.config.colors && this.data.colors) {
+    if (!this.config.colors && this.data && this.data.colors) {
         this.config.colors = this.data.colors;
     }
     var chartData = new GoogleCharts.api.visualization.DataTable(this.data);

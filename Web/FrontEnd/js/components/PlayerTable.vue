@@ -1,0 +1,51 @@
+﻿<template>
+    <div>
+        <div v-for="player in players">
+            <player-row v-bind:player="player" v-bind:currency-format="currencyFormat"></player-row>
+        </div>
+        <div class="totals">
+            <div class="title">Totals: </div>
+            <div class="amounts">
+                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span v-text="formattedTotalBuyin"></span></div>
+                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span v-text="formattedTotalStacks"></span></div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import gameService from '../game-service';
+    import { PlayerRow } from ".";
+
+    export default {
+        components: {
+            PlayerRow
+        },
+        props: ['players', 'currencyFormat'],
+        created: function () {
+        },
+        computed: {
+            totalBuyin: function () {
+                return gameService.getTotalBuyin(this.players);
+            },
+            totalStacks: function () {
+                return gameService.getTotalStacks(this.players);
+            },
+            formattedTotalBuyin: function () {
+                return this.formatCurrency(this.totalBuyin);
+            },
+            formattedTotalStacks: function () {
+                return this.formatCurrency(this.totalStacks);
+            }
+        },
+        methods: {
+            formatCurrency: function (amount) {
+                return this.$options.filters.customCurrency(amount, this.currencyFormat);
+            }
+        }
+    };
+</script>
+
+<style scoped>
+
+</style>

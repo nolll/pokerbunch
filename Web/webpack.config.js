@@ -1,5 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     entry: './FrontEnd/js/index.js',
@@ -11,23 +12,24 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.html$/,
-                use: 'html-loader'
-            },
-            {
                 test: /\.less$/,
                 use: [
                     { loader: MiniCssExtractPlugin.loader },
                     { loader: 'css-loader' },
                     { loader: 'less-loader' }
                 ]
+            },
+            {
+                test: /\.vue$/,
+                loader: 'vue-loader'
             }
         ]
     },
     plugins: [
         new MiniCssExtractPlugin({
             filename: 'main.css'
-        })
+        }),
+        new VueLoaderPlugin()
     ],
     resolve: {
         alias: {

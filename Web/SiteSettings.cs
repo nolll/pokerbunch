@@ -12,6 +12,7 @@
         public static string EnvironmentName => Get("Environment");
         public static bool DetailedErrorsForApi => GetBool("DetailedErrorsForApi");
         public static string ApiProtocol => HttpsForApi ? "https" : "http";
+        public static bool UseFakeData => GetBool("UseFakeData");
         private static bool HttpsForApi => GetBool("HttpsForApi");
     }
 }
