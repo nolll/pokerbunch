@@ -16,7 +16,7 @@
     import forms from '../forms';
 
     export default {
-        props: ['stack', 'isActive'],
+        props: ['isActive'],
         computed: {
             hasErrors: function () {
                 return this.stackError === null;
@@ -52,6 +52,7 @@
         },
         data: function () {
             return {
+                stack: 0,
                 stackError: null
             }
         }

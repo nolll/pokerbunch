@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import validate from '../validate';
-import forms from '../forms';
+    import validate from '../validate';
+    import forms from '../forms';
 
     export default {
         props: ['isActive'],
