@@ -7,9 +7,11 @@ function sortPlayers(players) {
 }
 
 function getStartTime(players) {
-    var i, first,
+    var i,
+        first,
         t = moment().utc(),
         p = players;
+
     if (p.length === 0)
         return '';
     for (i = 0; i < p.length; i++) {

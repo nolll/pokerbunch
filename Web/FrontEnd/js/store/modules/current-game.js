@@ -64,7 +64,7 @@ export default {
             return gameService.canBeEnded(state.players);
         },
         hasCashedOut: (state, getters) => {
-            if (!getters.player)
+            if (!getters.isInGame)
                 return false;
             return getters.player.hasCashedOut;
         },
@@ -111,7 +111,8 @@ export default {
             let player = context.getters.player;
             if (!player) {
                 player = createPlayer(context.state);
-                context.commit('addPlayer', player);
+
+                context.commit('addPlayer', { player });
             }
             ajax.post(context.state.buyinUrl, buyinData, function () { refresh(context) });
             context.commit('buyin', { player, buyinData });
