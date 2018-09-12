@@ -14,7 +14,6 @@
 </template>
 
 <script>
-    import gameService from '../game-service';
     import { PlayerRow } from ".";
 
     export default {
@@ -26,10 +25,10 @@
         },
         computed: {
             totalBuyin: function () {
-                return gameService.getTotalBuyin(this.players);
+                return this.$store.getters['currentGame/totalBuyin'];
             },
             totalStacks: function () {
-                return gameService.getTotalStacks(this.players);
+                return this.$store.getters['currentGame/totalStacks'];
             },
             formattedTotalBuyin: function () {
                 return this.formatCurrency(this.totalBuyin);

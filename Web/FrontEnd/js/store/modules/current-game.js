@@ -3,7 +3,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import ajax from '../../ajax';
-import gameService from '../../game-service';
 import moment from 'moment';
 
 Vue.use(Vuex);
@@ -42,11 +41,42 @@ export default {
         hasPlayers: state => {
             return state.players.length > 0;
         },
-        startTime: state => {
-            return gameService.getStartTime(state.players);
+        sortedPlayers: (state, getters) => {
+            return state.players.sort(function (left, right) {
+                return getters.getWinnings(right) - getters.getWinnings(left);
+            });
         },
-        sortedPlayers: state => {
-            return gameService.sortPlayers(state.players);
+        getPlayer: (state) => (id) => {
+            var i;
+            for (i = 0; i < state.players.length; i++) {
+                if (state.players[i].id === id) {
+                    return state.players[i];
+                }
+            }
+            return null;
+        },
+        getLastReportTime: () => (player) => {
+            if (player.checkpoints.length === 0)
+                return moment().fromNow();
+            return moment(player.checkpoints[player.checkpoints.length - 1].time).fromNow();
+        },
+        getBuyin: () => (player) => {
+            if (player.checkpoints.length === 0)
+                return 0;
+            var sum = 0;
+            for (var i = 0; i < player.checkpoints.length; i++) {
+                sum += player.checkpoints[i].addedMoney;
+            }
+            return sum;
+        },
+        getStack: () => (player) => {
+            var c = player.checkpoints;
+            if (c.length === 0)
+                return 0;
+            return c[c.length - 1].stack;
+        },
+        getWinnings: (state, getters) => (player) => {
+            return getters.getStack(player) - getters.getBuyin(player);
         },
         isInGame: (state, getters) => {
             return getters.player !== null;
@@ -61,15 +91,23 @@ export default {
             return getters.isInGame;
         },
         canEndGame: state => {
-            return gameService.canBeEnded(state.players);
+            var i;
+            if (state.players.length === 0)
+                return false;
+            for (i = 0; i < state.players.length; i++) {
+                if (!state.players[i].hasCashedOut) {
+                    return false;
+                }
+            }
+            return true;
         },
         hasCashedOut: (state, getters) => {
             if (!getters.isInGame)
                 return false;
             return getters.player.hasCashedOut;
         },
-        player: state => {
-            return gameService.getPlayer(state.players, state.playerId);
+        player: (state, getters) => {
+            return getters.getPlayer(state.players, state.playerId);
         },
         bunchPlayer: state => {
             var i,
@@ -80,6 +118,48 @@ export default {
                 }
             }
             return null;
+        },
+        totalStacks: state => {
+            var sum = 0;
+            for (var i = 0; i < state.players.length; i++) {
+                var c = state.players[i].checkpoints;
+                sum += c.length > 0 ? c[c.length - 1].stack : 0;
+            }
+            return sum;
+        },
+        totalBuyin: state => {
+            var sum = 0;
+            for (var i = 0; i < state.players.length; i++) {
+                var buyin = 0;
+                var player = state.players[i];
+                if (player.checkpoints.length === 0)
+                    continue;
+
+                for (var j = 0; j < player.checkpoints.length; j++) {
+                    buyin += player.checkpoints[j].addedMoney;
+                }
+                sum += buyin;
+            }
+            return sum;
+        },
+        startTime: state => {
+            var i,
+                first,
+                t = moment().utc(),
+                p = state.players;
+
+            if (p.length === 0)
+                return '';
+            for (i = 0; i < p.length; i++) {
+                first = p[i].checkpoints[0];
+                if (first) {
+                    var firstTime = moment(first.time);
+                    if (firstTime.isBefore(t)) {
+                        t = firstTime;
+                    }
+                }
+            }
+            return t;
         }
     },
     actions: {

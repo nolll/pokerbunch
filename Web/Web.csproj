@@ -411,7 +411,6 @@
     <Content Include="FrontEnd\js\dom-modules.js" />
     <Content Include="FrontEnd\js\extender.js" />
     <Content Include="FrontEnd\js\debouncer.js" />
-    <Content Include="FrontEnd\js\game-service.js" />
     <Content Include="FrontEnd\js\forms.js" />
     <Content Include="FrontEnd\js\index.js" />
     <Content Include="FrontEnd\js\validate.js" />

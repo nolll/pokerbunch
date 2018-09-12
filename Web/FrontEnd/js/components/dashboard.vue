@@ -37,7 +37,6 @@
 
 <script>
     import ajax from '../ajax';
-    import gameService from '../game-service';
     import { PlayerTable, GameChart, Spinner } from ".";
 
     var longRefresh = 30000,
@@ -59,11 +58,11 @@
                 return this.players.length > 0;
             },
             startTime: function () {
-                var t = gameService.getStartTime(this.players);
+                var t = this.$store.getters['currentGame/startTime'];
                 return t.format('HH:mm');
             },
             sortedPlayers: function () {
-                return gameService.sortPlayers(this.players);
+                return this.$store.getters['currentGame/sortedPlayers'];
             }
         },
         methods: {

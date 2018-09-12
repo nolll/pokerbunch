@@ -15,8 +15,6 @@
 </template>
 
 <script>
-    import gameService from '../game-service';
-
     export default {
         props: ['player', 'currencyFormat'],
         computed: {
@@ -24,16 +22,16 @@
                 return this.player.hasCashedOut;
             },
             lastReportTime: function () {
-                return gameService.getLastReportTime(this.player);
+                return this.$store.getters['currentGame/getLastReportTime'](this.player);
             },
             buyin: function () {
-                return gameService.getBuyin(this.player);
+                return this.$store.getters['currentGame/getBuyin'](this.player);
             },
             stack: function () {
-                return gameService.getStack(this.player);
+                return this.$store.getters['currentGame/getStack'](this.player);
             },
             winnings: function () {
-                return gameService.getWinnings(this.player);
+                return this.$store.getters['currentGame/getWinnings'](this.player);
             },
             winningsCssClass: function () {
                 var winnings = this.winnings;
