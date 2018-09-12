@@ -104,7 +104,7 @@ export default {
             ajax.post(context.state.reportUrl, reportData, function () { refresh(context) });
             context.commit('report', { player, reportData });
             context.commit('hideForms');
-            resetPlayerId(context.state);
+            context.commit('resetPlayerId');
         },
         buyin(context, { amount, stack }) {
             const buyinData = { playerId: context.state.playerId, stack: stack, addedMoney: amount };
@@ -116,15 +116,15 @@ export default {
             ajax.post(context.state.buyinUrl, buyinData, function () { refresh(context) });
             context.commit('buyin', { player, buyinData });
             context.commit('hideForms');
-            resetPlayerId(context.state);
+            context.commit('resetPlayerId');
         },
         cashout(context, { stack }) {
             const player = context.getters.player;
-            const cashoutData = { playerId: context.state.playerId, stack: stack };
+            const cashoutData = { playerId: player.id, stack: stack };
             ajax.post(context.state.cashoutUrl, cashoutData, function () { refresh(context) });
             context.commit('cashout', { player, cashoutData });
             context.commit('hideForms');
-            resetPlayerId(context.state);
+            context.commit('resetPlayerId');
         },
         showReportForm(context) {
             refresh(context);
@@ -145,6 +145,9 @@ export default {
     mutations: {
         setPlayerId(state, playerId) {
             state.playerId = playerId;
+        },
+        resetPlayerId(state) {
+            state.playerId = state.loadedPlayerId;
         },
         setPlayers(state, players) {
             state.players = players;
@@ -229,10 +232,6 @@ function setPlayers(context, data) {
 function addCheckpoint(player, stack, addedMoney) {
     const checkpoint = { time: moment().utc().format(), stack: stack, addedMoney: addedMoney };
     player.checkpoints.push(checkpoint);
-}
-
-function resetPlayerId(state) {
-    state.playerId = state.loadedPlayerId;
 }
 
 function createPlayer(state) {

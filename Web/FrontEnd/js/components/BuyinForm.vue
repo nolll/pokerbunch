@@ -20,7 +20,7 @@
     import forms from '../forms';
 
     export default {
-        props: ['stack', 'amount', 'isActive', 'isInGame'],
+        props: ['isActive', 'isInGame'],
         computed: {
             hasErrors: function () {
                 return this.buyinError === null && this.stackError === null;
@@ -59,6 +59,8 @@
         },
         data: function () {
             return {
+                stack: 0,
+                amount: 0,
                 buyinError: null,
                 stackError: null
             }

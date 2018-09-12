@@ -13,8 +13,8 @@
 
             <div class="block gutter">
                 <report-form v-if="reportFormVisible" v-bind:is-active="reportFormVisible"></report-form>
-                <buyin-form v-if="buyinFormVisible" v-bind:stack="beforeBuyinStack" v-bind:amount="buyinAmount" v-bind:is-active="buyinFormVisible" v-bind:is-in-game="isInGame"></buyin-form>
-                <cashout-form v-if="cashoutFormVisible" v-bind:stack="currentStack" v-bind:is-active="cashoutFormVisible"></cashout-form>
+                <buyin-form v-if="buyinFormVisible" v-bind:is-active="buyinFormVisible" v-bind:is-in-game="isInGame"></buyin-form>
+                <cashout-form v-if="cashoutFormVisible" v-bind:is-active="cashoutFormVisible"></cashout-form>
             </div>
 
             <div class="standings block gutter" v-if="hasPlayers">
@@ -150,22 +150,6 @@
             },
             showCashoutForm: function () {
                 this.$store.dispatch('currentGame/showCashoutForm');
-            },
-            hideForms: function () {
-                this.reportFormVisible = false;
-                this.buyinFormVisible = false;
-                this.cashoutFormVisible = false;
-            },
-            addCheckpoint: function (player, stack, addedMoney) {
-                var checkpoint = { time: moment().utc().format(), stack: stack, addedMoney: addedMoney };
-                player.checkpoints.push(checkpoint);
-            },
-            refresh: function () {
-                if (this.canEndGame) {
-                    this.redirect();
-                } else {
-                    this.$store.dispatch("currentGame/refresh");
-                }
             },
             redirectIfGameHasEnded: function () {
                 if (this.canEndGame) {
