@@ -3,9 +3,12 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
-        props: ['name', 'title', 'orderBy'],
+        props: ['name', 'title'],
         computed: {
+            ...mapState('topList', ['orderBy']),
             sortingEnabled: function () {
                 return true;
             },
@@ -18,7 +21,7 @@
         },
         methods: {
             sort: function () {
-                this.eventHub.$emit('sort-by', this.name);
+                this.$store.dispatch('topList/sortBy', this.name);
             }
         }
     };

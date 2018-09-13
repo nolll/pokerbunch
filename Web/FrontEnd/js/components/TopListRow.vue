@@ -14,12 +14,15 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
-        props: ['player', 'orderBy', 'currencyFormat', 'thousandSeparator'],
+        props: ['player'],
         created: function () {
             var x = 0;
         },
         computed: {
+            ...mapState('topList', ['orderBy', 'currencyFormat', 'thousandSeparator']),
             winningsCssClass: function () {
                 var winnings = this.player.winnings;
                 if (winnings === 0)

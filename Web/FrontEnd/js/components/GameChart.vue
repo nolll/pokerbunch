@@ -5,11 +5,11 @@
 <script>
     import lineChart from '../linechart';
     import moment from 'moment';
+    import { mapState } from 'vuex'
 
     var chart = null;
 
     export default {
-        props: ['players'],
         watch: {
             'players': function () {
                 this.update();
@@ -27,6 +27,9 @@
                     self.initChart();
                 }
             });
+        },
+        computed: {
+            ...mapState('currentGame', ['players'])
         },
         methods: {
             initialized: function () {

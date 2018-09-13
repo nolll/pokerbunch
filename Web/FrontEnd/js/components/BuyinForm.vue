@@ -20,11 +20,14 @@
     import forms from '../forms';
 
     export default {
-        props: ['isActive', 'isInGame'],
+        props: ['isActive'],
         computed: {
             hasErrors: function () {
                 return this.buyinError === null && this.stackError === null;
             }
+        },
+        isInGame: function () {
+            return this.$store.getters['currentGame/isInGame'];
         },
         watch: {
             'isActive': function (val) {
