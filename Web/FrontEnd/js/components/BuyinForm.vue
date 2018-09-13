@@ -16,18 +16,17 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import validate from '../validate';
     import forms from '../forms';
 
     export default {
         props: ['isActive'],
         computed: {
+            ...mapGetters('currentGame', ['isInGame']),
             hasErrors: function () {
                 return this.buyinError === null && this.stackError === null;
             }
-        },
-        isInGame: function () {
-            return this.$store.getters['currentGame/isInGame'];
         },
         watch: {
             'isActive': function (val) {

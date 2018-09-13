@@ -1,19 +1,31 @@
 ﻿<template>
-    <select v-model="selectedPlayerId" v-on:change="changePlayer">
-        <option v-for="player in players" v-bind:value="player.id">{{player.name}}</option>
+    <select v-model.number="selectedPlayerId" v-on:change="changePlayer">
+        <option v-for="player in bunchPlayers" v-bind:value="player.id">{{player.name}}</option>
     </select>
 </template>
 
 <script>
+    import { mapState, mapGetters } from 'vuex';
+
     export default {
-        props: ['playerId', 'players'],
+        computed: {
+            ...mapState('currentGame', ['playerId', 'bunchPlayers'])
+        },
         methods: {
-            changePlayer: function () {
+            changePlayer: function (event) {
                 this.$store.dispatch('currentGame/selectPlayer', { playerId: this.selectedPlayerId });
+            },
+            setSelectedPlayerId: function (playerId) {
+                this.selectedPlayerId = playerId;
+            }
+        },
+        watch: {
+            'playerId': function (val) {
+                this.setSelectedPlayerId(val);
             }
         },
         mounted: function () {
-            this.selectedPlayerId = this.playerId;
+            this.setSelectedPlayerId(this.playerId);
         },
         data: function () {
             return {

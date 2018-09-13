@@ -29,12 +29,9 @@
             });
         },
         computed: {
-            ...mapState('currentGame', ['players'])
+            ...mapState('currentGame', ['players', 'initialized'])
         },
         methods: {
-            initialized: function () {
-                return this.$store.state.currentGame.initialized;
-            },
             update: function () {
                 this.drawChart();
             },

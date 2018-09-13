@@ -34,7 +34,7 @@
             <div class="block gutter">
                 <dl class="value-list">
                     <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
-                    <dd class="value-list__value" v-if="hasPlayers">{{startTime}}</dd>
+                    <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
                     <dt class="value-list__key">Location</dt>
                     <dd class="value-list__value"><a v-bind:href="locationUrl">{{locationName}}</a></dd>
                     <dt class="value-list__key" v-if="isManager">Player</dt>
@@ -48,6 +48,7 @@
 </template>
 
 <script>
+    import { mapState, mapGetters } from 'vuex';
     import moment from 'moment';
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart, Spinner } from ".";
 
@@ -70,69 +71,31 @@
             });
         },
         computed: {
-            players: function () {
-                return this.$store.state.currentGame.players;
-            },
-            bunchPlayers: function () {
-                return this.$store.state.currentGame.bunchPlayers;
-            },
-            hasPlayers: function () {
-                return this.$store.getters['currentGame/hasPlayers'];
-            },
-            startTime: function () {
-                const t = this.$store.getters['currentGame/startTime'];
-                return t.format('HH:mm');
-            },
-            sortedPlayers: function () {
-                return this.$store.getters['currentGame/sortedPlayers'];
-            },
-            isInGame: function () {
-                return this.$store.getters['currentGame/isInGame'];
-            },
-            hasCashedOut: function () {
-                return this.$store.getters['currentGame/hasCashedOut'];
-            },
-            canCashout: function () {
-                return this.$store.getters['currentGame/canCashout'];
-            },
-            canEndGame: function () {
-                return this.$store.getters['currentGame/canEndGame'];
-            },
-            canReport: function () {
-                return this.$store.getters['currentGame/canReport'];
-            },
-            canBuyin: function () {
-                return this.$store.getters['currentGame/canBuyin'];
-            },
-            initialized: function () {
-                return this.$store.state.currentGame.initialized;
-            },
-            locationUrl: function () {
-                return this.$store.state.currentGame.locationUrl;
-            },
-            locationName: function () {
-                return this.$store.state.currentGame.locationName;
-            },
-            isManager: function () {
-                return this.$store.state.currentGame.isManager;
-            },
-            currencyFormat: function () {
-                return this.$store.state.currentGame.currencyFormat;
-            },
-            playerId: function () {
-                return this.$store.state.currentGame.playerId;
-            },
-            currentStack: function () {
-                return this.$store.state.currentGame.currentStack;
-            },
-            reportFormVisible: function () {
-                return this.$store.state.currentGame.reportFormVisible;
-            },
-            buyinFormVisible: function () {
-                return this.$store.state.currentGame.buyinFormVisible;
-            },
-            cashoutFormVisible: function () {
-                return this.$store.state.currentGame.cashoutFormVisible;
+            ...mapState('currentGame', [
+                'players',
+                'bunchPlayers',
+                'initialized',
+                'locationUrl',
+                'locationName',
+                'isManager',
+                'currencyFormat',
+                'playerId',
+                'currentStack',
+                'reportFormVisible',
+                'buyinFormVisible',
+                'cashoutFormVisible']),
+            ...mapGetters('currentGame', [
+                'hasPlayers',
+                'startTime',
+                'sortedPlayers',
+                'isInGame',
+                'hasCashedOut',
+                'canCashout',
+                'canEndGame',
+                'canReport',
+                'canBuyin']),
+            formattedStartTime: function () {
+                return this.startTime.format('HH:mm');
             },
             areButtonsVisible: function () {
                 return !this.isAnyFormVisible;

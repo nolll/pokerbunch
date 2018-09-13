@@ -18,7 +18,7 @@
                 <div class="block gutter">
                     <dl class="value-list">
                         <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
-                        <dd class="value-list__value" v-if="hasPlayers">{{startTime}}</dd>
+                        <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
                         <dt class="value-list__key">Location</dt>
                         <dd class="value-list__value"><a v-bind:href="locationUrl">{{locationName}}</a></dd>
                     </dl>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import ajax from '../ajax';
     import { PlayerTable, GameChart, Spinner } from ".";
 
@@ -54,15 +55,12 @@
             this.initData(this.url);
         },
         computed: {
+            ...mapGetters('currentGame', ['startTime', 'sortedPlayers']),
             hasPlayers: function () {
                 return this.players.length > 0;
             },
-            startTime: function () {
-                var t = this.$store.getters['currentGame/startTime'];
-                return t.format('HH:mm');
-            },
-            sortedPlayers: function () {
-                return this.$store.getters['currentGame/sortedPlayers'];
+            formattedStartTime: function () {
+                return this.startTime.format('HH:mm');
             }
         },
         methods: {

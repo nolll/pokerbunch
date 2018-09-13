@@ -34,7 +34,7 @@ export default {
 };
 
 function sortPlayers(players, orderBy) {
-    return players.sort(getCompareFunc(orderBy)).reverse();
+    return players.slice().sort(getCompareFunc(orderBy)).reverse();
 }
 
 function getCompareFunc(orderBy) {

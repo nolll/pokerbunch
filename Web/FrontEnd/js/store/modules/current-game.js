@@ -42,7 +42,7 @@ export default {
             return state.players.length > 0;
         },
         sortedPlayers: (state, getters) => {
-            return state.players.sort(function (left, right) {
+            return state.players.slice().sort(function (left, right) {
                 return getters.getWinnings(right) - getters.getWinnings(left);
             });
         },
@@ -107,7 +107,7 @@ export default {
             return getters.player.hasCashedOut;
         },
         player: (state, getters) => {
-            return getters.getPlayer(state.players, state.playerId);
+            return getters.getPlayer(state.playerId);
         },
         bunchPlayer: state => {
             var i,

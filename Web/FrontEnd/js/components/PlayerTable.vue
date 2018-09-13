@@ -14,6 +14,7 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
     import { PlayerRow } from ".";
 
     export default {
@@ -24,12 +25,7 @@
         created: function () {
         },
         computed: {
-            totalBuyin: function () {
-                return this.$store.getters['currentGame/totalBuyin'];
-            },
-            totalStacks: function () {
-                return this.$store.getters['currentGame/totalStacks'];
-            },
+            ...mapGetters('currentGame', ['totalBuyin', 'totalStacks']),
             formattedTotalBuyin: function () {
                 return this.formatCurrency(this.totalBuyin);
             },

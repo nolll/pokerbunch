@@ -15,23 +15,30 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex';
+
     export default {
         props: ['player', 'currencyFormat'],
         computed: {
+            ...mapGetters('currentGame', [
+                'getLastReportTime',
+                'getBuyin',
+                'getStack',
+                'getWinnings']),
             hasCashedOut: function () {
                 return this.player.hasCashedOut;
             },
             lastReportTime: function () {
-                return this.$store.getters['currentGame/getLastReportTime'](this.player);
+                return this.getLastReportTime(this.player);
             },
             buyin: function () {
-                return this.$store.getters['currentGame/getBuyin'](this.player);
+                return this.getBuyin(this.player);
             },
             stack: function () {
-                return this.$store.getters['currentGame/getStack'](this.player);
+                return this.getStack(this.player);
             },
             winnings: function () {
-                return this.$store.getters['currentGame/getWinnings'](this.player);
+                return this.getWinnings(this.player);
             },
             winningsCssClass: function () {
                 var winnings = this.winnings;
