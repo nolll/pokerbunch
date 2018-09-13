@@ -11,4 +11,8 @@
             @Html.Raw(Model.ToplistJson)
         </script>
     </top-list-table>
+    
+    @*Google Analytics injects a script before the last script tag. 
+    This empty tag is needed to prevent the ga-script to be injected in the component above*@
+    <script type="application/json"></script>
 </div>
