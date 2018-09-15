@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import lineChart from '../linechart';
+    import lineChart from '../../linechart';
     import moment from 'moment';
     import { mapState } from 'vuex'
 

@@ -37,7 +37,7 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import ajax from '../ajax';
+    import ajax from '../../ajax';
     import { PlayerTable, GameChart, Spinner } from ".";
 
     var longRefresh = 30000,
