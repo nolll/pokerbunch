@@ -6,8 +6,9 @@
 }
 
 <div class="block gutter">
-    <game-list-table id="vue-game-list-table" json-container="game-list-data"></game-list-table>
-    <script type="application/json" id="game-list-data">
-        @Html.Raw(Model.ListJson)
-    </script>
+    <game-list-table id="vue-game-list-table">
+        <script type="application/json">
+            @Html.Raw(Model.ListJson)
+        </script>
+    </game-list-table>
 </div>

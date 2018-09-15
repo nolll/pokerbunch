@@ -12,14 +12,16 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     import moment from 'moment';
 
     export default {
-        props: ['game', 'orderBy', 'currencyFormat', 'thousandSeparator'],
+        props: ['game'],
         created: function () {
             var x = 0;
         },
         computed: {
+            ...mapState('gameList', ['orderBy', 'currencyFormat', 'thousandSeparator']),
             displayDate: function () {
                 return moment(this.game.date).format('MMM D');
             },
@@ -50,7 +52,7 @@
         },
         methods: {
             formatCurrency: function (amount) {
-                return this.$options.filters.customCurrency(amount);
+                return this.$options.filters.customCurrency(amount, this.currencyFormat, this.thousandSeparator);
             }
         }
     };

@@ -9,9 +9,6 @@
         props: ['name', 'title'],
         computed: {
             ...mapState('topList', ['orderBy']),
-            sortingEnabled: function () {
-                return true;
-            },
             isSelected: function () {
                 return this.name === this.orderBy;
             },

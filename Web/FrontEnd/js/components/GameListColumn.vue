@@ -1,27 +1,24 @@
 ﻿<template>
-    <th v-bind:class="'table-list__column-header table-list__column-header--sortable ' + defaultColumnCssClass + ' ' + sortColumnCssClass"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>
+    <th v-bind:class="'table-list__column-header table-list__column-header--sortable ' + sortColumnCssClass"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>
 </template>
 
 <script>
+    import { mapState } from 'vuex';
+
     export default {
-        props: ['name', 'title', 'orderBy', 'isDefault'],
+        props: ['name', 'title'],
         computed: {
-            sortingEnabled: function () {
-                return true;
-            },
+            ...mapState('gameList', ['orderBy']),
             isSelected: function () {
                 return this.name === this.orderBy;
             },
             sortColumnCssClass: function () {
                 return this.isSelected ? 'table-list--sortable__sort-column' : '';
-            },
-            defaultColumnCssClass: function () {
-                return this.isDefault ? 'table-list--sortable__base-column' : '';
             }
         },
         methods: {
             sort: function () {
-                this.eventHub.$emit('sort-by', this.name);
+                this.$store.dispatch('gameList/sortBy', this.name);
             }
         }
     };

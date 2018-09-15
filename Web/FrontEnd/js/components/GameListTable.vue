@@ -13,22 +13,26 @@
         <table class="table-list table-list--sortable">
             <thead>
                 <tr>
-                    <th is="game-list-column" name="date" title="Date" v-bind:order-by="orderBy" v-bind:is-default="true"></th>
-                    <th is="game-list-column" name="playercount" title="Players" v-bind:order-by="orderBy"></th>
+                    <th is="game-list-column" name="date" title="Date"></th>
+                    <th is="game-list-column" name="playercount" title="Players"></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Location</span></th>
-                    <th is="game-list-column" name="duration" title="Duration" v-bind:order-by="orderBy"></th>
-                    <th is="game-list-column" name="turnover" title="Turnover" v-bind:order-by="orderBy"></th>
-                    <th is="game-list-column" name="averagebuyin" title="Average Buyin" v-bind:order-by="orderBy"></th>
+                    <th is="game-list-column" name="duration" title="Duration"></th>
+                    <th is="game-list-column" name="turnover" title="Turnover"></th>
+                    <th is="game-list-column" name="averagebuyin" title="Average Buyin"></th>
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="game-list-row" v-for="game in sortedGames" v-bind:game="game" v-bind:order-by="orderBy" v-bind:currency-format="currencyFormat" v-bind:thousand-separator="thousandSeparator"></tr>
+                <tr is="game-list-row" v-for="game in sortedGames" v-bind:game="game"></tr>
             </tbody>
         </table>
+        <div ref="datawrapper">
+            <slot></slot>
+        </div>
     </div>
 </template>
 
 <script>
+    import { mapState, mapGetters } from 'vuex';
     import { GameListColumn, GameListRow } from ".";
 
     export default {
@@ -36,70 +40,18 @@
             GameListColumn,
             GameListRow
         },
-        props: ['jsonContainer'],
-        created: function () {
-            var x = 0;
-        },
-        data: function () {
-            var jsonElement = document.getElementById(this.jsonContainer);
-            return JSON.parse(jsonElement.innerHTML);
+        mounted: function () {
+            var self = this;
+            self.$nextTick(function () {
+                var d = JSON.parse(self.$refs.datawrapper.firstChild.innerHTML);
+                this.$store.dispatch('gameList/setData', d);
+            });
         },
         computed: {
-            sortedGames: function () {
-                return sortGames(this.games, this.orderBy);
-            }
-        },
-        events: {
-            'sort-by': function (orderBy) {
-                this.orderBy = orderBy;
-            }
+            ...mapState('gameList', ['orderBy']),
+            ...mapGetters('gameList', ['sortedGames'])
         }
     };
-
-    function sortGames(games, orderBy) {
-        return games.sort(getCompareFunc(orderBy)).reverse();
-    }
-
-    function getCompareFunc(orderBy) {
-        if (orderBy === 'playercount')
-            return comparePlayerCount;
-        if (orderBy === 'duration')
-            return compareDuration;
-        if (orderBy === 'turnover')
-            return compareTurnover;
-        if (orderBy === 'averagebuyin')
-            return compareAverageBuyin;
-        return compareDate;
-    }
-
-    function compareDate(a, b) {
-        return compareValues(a.date, b.date);
-    }
-
-    function comparePlayerCount(a, b) {
-        return compareValues(a.playerCount, b.playerCount);
-    }
-
-    function compareDuration(a, b) {
-        return compareValues(a.duration, b.duration);
-    }
-
-    function compareTurnover(a, b) {
-        return compareValues(a.turnover, b.turnover);
-    }
-
-    function compareAverageBuyin(a, b) {
-        return compareValues(a.averageBuyin, b.averageBuyin);
-    }
-
-    function compareValues(a, b) {
-        if (a < b)
-            return -1;
-        else if (a > b)
-            return 1;
-        else
-            return 0;
-    }
 </script>
 
 <style scoped>

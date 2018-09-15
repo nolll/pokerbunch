@@ -16,12 +16,12 @@
                 <tr>
                     <th class="table-list__column-header table-list--sortable__base-column"></th>
                     <th class="table-list__column-header table-list--sortable__base-column"><span class="table-list__column-header__content">Player</span></th>
-                    <th is="top-list-column" name="winnings" title="Winnings" :order-by="orderBy"></th>
-                    <th is="top-list-column" name="buyin" title="Buyin" :order-by="orderBy"></th>
-                    <th is="top-list-column" name="cashout" title="Cashout" :order-by="orderBy"></th>
-                    <th is="top-list-column" name="time" title="Time" :order-by="orderBy"></th>
-                    <th is="top-list-column" name="gamecount" title="Games" :order-by="orderBy"></th>
-                    <th is="top-list-column" name="winrate" title="Win rate" :order-by="orderBy"></th>
+                    <th is="top-list-column" name="winnings" title="Winnings"></th>
+                    <th is="top-list-column" name="buyin" title="Buyin"></th>
+                    <th is="top-list-column" name="cashout" title="Cashout"></th>
+                    <th is="top-list-column" name="time" title="Time"></th>
+                    <th is="top-list-column" name="gamecount" title="Games"></th>
+                    <th is="top-list-column" name="winrate" title="Win rate"></th>
                 </tr>
             </thead>
             <tbody class="list">
