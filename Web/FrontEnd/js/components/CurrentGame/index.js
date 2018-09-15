@@ -1,5 +1,4 @@
 ﻿'use strict';
-export { default as Spinner } from './Spinner.vue';
 
 export { default as ReportForm } from './ReportForm.vue';
 export { default as BuyinForm } from './BuyinForm.vue';

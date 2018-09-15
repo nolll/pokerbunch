@@ -11,12 +11,11 @@
 </div>
 <div class="block gutter">
 	<div>
-	    <div data-hookup="cashgame-action-chart">
-	        @Html.RenderModel(Model.SpinnerModel)
+	    <cashgame-action-chart id="vue-cashgame-action-chart">
 	        <script type="application/json">
-                @Html.Raw(Model.ChartJson)
-            </script>
-	    </div>
+            @Html.Raw(Model.ChartJson)
+        </script>
+	    </cashgame-action-chart>
 	</div>
 </div>
 

@@ -384,6 +384,9 @@
     <Content Include="FrontEnd\Css\docs.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrontEnd\Css\spinner.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="FrontEnd\Css\styles.less" />
     <Content Include="FrontEnd\Css\value-list.css">
       <DependentUpon>value-list.less</DependentUpon>
@@ -394,6 +397,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FrontEnd\js\browser.js" />
+    <Content Include="FrontEnd\js\components\Common\index.js" />
     <Content Include="FrontEnd\js\components\CurrentGame\index.js" />
     <Content Include="FrontEnd\js\components\GameList\index.js" />
     <Content Include="FrontEnd\js\components\index.js" />
@@ -406,7 +410,6 @@
     <Content Include="FrontEnd\js\styles.js" />
     <Content Include="FrontEnd\js\dom-modules.js" />
     <Content Include="FrontEnd\js\extender.js" />
-    <Content Include="FrontEnd\js\debouncer.js" />
     <Content Include="FrontEnd\js\forms.js" />
     <Content Include="FrontEnd\js\index.js" />
     <Content Include="FrontEnd\js\validate.js" />
@@ -529,7 +532,7 @@
     <Content Include="FrontEnd\js\components\CurrentGame\PlayerDropdown.vue" />
     <Content Include="FrontEnd\js\components\CurrentGame\PlayerRow.vue" />
     <Content Include="FrontEnd\js\components\CurrentGame\PlayerTable.vue" />
-    <Content Include="FrontEnd\js\components\CurrentGame\Spinner.vue" />
+    <Content Include="FrontEnd\js\components\Common\Spinner.vue" />
     <Content Include="FrontEnd\js\components\TopList\TopListColumn.vue" />
     <Content Include="FrontEnd\js\components\CurrentGame\BuyinForm.vue" />
     <Content Include="FrontEnd\js\components\CurrentGame\CashoutForm.vue" />
@@ -537,6 +540,10 @@
     <Content Include="FrontEnd\js\components\CurrentGame\GameButton.vue" />
     <Content Include="FrontEnd\js\components\CurrentGame\GameChart.vue" />
     <Content Include="FrontEnd\js\components\CurrentGame\GameControl.vue" />
+    <Content Include="FrontEnd\js\components\LineChart.vue" />
+    <Content Include="FrontEnd\js\components\CashgameChart.vue" />
+    <Content Include="FrontEnd\js\components\CashgameActionChart.vue" />
+    <Content Include="FrontEnd\js\components\CashgameDetailsChart.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />
@@ -640,15 +647,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FrontEnd\Font\fontawesome-webfont.svg" />
-    <Content Include="FrontEnd\js\cashgame-action-chart.js" />
-    <Content Include="FrontEnd\js\cashgame-chart.js" />
-    <Content Include="FrontEnd\js\cashgame-game-chart.js" />
     <Content Include="FrontEnd\js\cancel-button.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
     <Content Include="FrontEnd\js\delete-confirmation.js" />
     <Content Include="FrontEnd\js\focus-text-selector.js" />
     <Content Include="FrontEnd\js\heading-nav.js" />
-    <Content Include="FrontEnd\js\linechart.js" />
     <Content Include="FrontEnd\js\dom-hookup.js" />
     <Content Include="Global.asax" />
     <Content Include="googlecd2b6bdc316289ae.html" />

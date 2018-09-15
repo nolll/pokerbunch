@@ -39,12 +39,11 @@
 
 <div class="block gutter">
     @Html.RenderModel(Model.CashgameDetailsTableModel)
-
-    <div data-hookup="cashgame-game-chart">
-        @Html.RenderModel(Model.SpinnerModel)
+    
+    <cashgame-details-chart id="vue-cashgame-action-chart">
         <script type="application/json">
             @Html.Raw(Model.ChartJson)
         </script>
-    </div>
+    </cashgame-details-chart>
 
 </div>

@@ -1,6 +1,5 @@
 using Core.UseCases;
 using Web.Extensions;
-using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Services;
 
@@ -9,7 +8,6 @@ namespace Web.Models.CashgameModels.Chart
     public class CashgameChartPageModel : CashgamePageModel
     {
         public string ChartJson { get; }
-        public SpinnerModel SpinnerModel => new SpinnerModel();
 
         public CashgameChartPageModel(CashgameContext.Result cashgameContextResult, CashgameChart.Result cashgameChartResult)
             : base(cashgameContextResult)

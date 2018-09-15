@@ -1,22 +1,27 @@
 ﻿<template>
-    <div></div>
+    <div>
+        <line-chart :chart-data="chartData" :chart-options="chartOptions"></line-chart>
+    </div>
 </template>
 
 <script>
-    import lineChart from '../../linechart';
     import moment from 'moment';
     import { mapState } from 'vuex'
+    import { LineChart } from '../'
 
     var chart = null;
 
     export default {
+        components: {
+            LineChart
+        },
         watch: {
             'players': function () {
-                this.update();
+                this.drawChart();
             },
             'initialized': function (isInitialized) {
                 if (isInitialized) {
-                    this.initChart();
+                    this.drawChart();
                 }
             }
         },
@@ -24,7 +29,7 @@
             var self = this;
             self.$nextTick(function () {
                 if (self.initialized) {
-                    self.initChart();
+                    self.drawChart();
                 }
             });
         },
@@ -32,26 +37,9 @@
             ...mapState('currentGame', ['players', 'initialized'])
         },
         methods: {
-            update: function () {
-                this.drawChart();
-            },
-            initChart: function () {
-                var config = {
-                    pointSize: 0,
-                    vAxis: { minValue: 0 },
-                    hAxis: { format: 'HH:mm' },
-                    legend: {
-                        position: 'none'
-                    }
-                };
-                var data = this.getGameChartData();
-                var options = { colors: this.getColors() };
-                chart = lineChart.init(this.$el, config, data, options);
-            },
             drawChart: function () {
-                var data = this.getGameChartData();
-                var options = { colors: this.getColors() };
-                chart.draw(data, options);
+                this.chartData = this.getGameChartData();
+                this.chartOptions = { colors: this.getColors() };
             },
             getGameChartData: function () {
                 return {
@@ -125,7 +113,20 @@
                 }
                 return { c: values };
             }
-        }
+        },
+        data: function () {
+            return {
+                chartData: null,
+                chartOptions: {
+                    pointSize: 0,
+                    vAxis: { minValue: 0 },
+                    hAxis: { format: 'HH:mm' },
+                    legend: {
+                        position: 'none'
+                    }
+                }
+            }
+        },
     };
 </script>
 

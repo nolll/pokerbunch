@@ -50,7 +50,8 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import moment from 'moment';
-    import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart, Spinner } from ".";
+    import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from ".";
+    import { Spinner } from "../Common";
 
     export default {
         components: {

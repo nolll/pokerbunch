@@ -1,4 +1,3 @@
-@using Web.Extensions
 @using Web.Models.PageBaseModels
 @model Web.Models.CashgameModels.Chart.CashgameChartPageModel
 
@@ -7,10 +6,9 @@
 }
 
 <div class="block gutter">
-    <div data-hookup="cashgame-chart">
-        @Html.RenderModel(Model.SpinnerModel)
+    <cashgame-chart id="vue-cashgame-chart">
         <script type="application/json">
             @Html.Raw(Model.ChartJson)
         </script>
-    </div>
+    </cashgame-chart>
 </div>
