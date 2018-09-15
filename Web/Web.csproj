@@ -393,13 +393,6 @@
       <DependentUpon>table-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="FrontEnd\Css\spinner.css">
-      <DependentUpon>spinner.less</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\spinner.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="FrontEnd\js\browser.js" />
     <Content Include="FrontEnd\js\components\CurrentGame\index.js" />
     <Content Include="FrontEnd\js\components\GameList\index.js" />
