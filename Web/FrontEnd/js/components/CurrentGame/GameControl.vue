@@ -84,7 +84,8 @@
                 'currentStack',
                 'reportFormVisible',
                 'buyinFormVisible',
-                'cashoutFormVisible']),
+                'cashoutFormVisible'
+            ]),
             ...mapGetters('currentGame', [
                 'hasPlayers',
                 'startTime',
@@ -94,7 +95,8 @@
                 'canCashout',
                 'canEndGame',
                 'canReport',
-                'canBuyin']),
+                'canBuyin'
+            ]),
             formattedStartTime: function () {
                 return this.startTime.format('HH:mm');
             },

@@ -20,7 +20,7 @@
                         <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
                         <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
                         <dt class="value-list__key">Location</dt>
-                        <dd class="value-list__value"><a v-bind:href="locationUrl">{{locationName}}</a></dd>
+                        <dd class="value-list__value">{{locationName}}</dd>
                     </dl>
                 </div>
             </div>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapGetters, mapState } from 'vuex';
     import ajax from '../../ajax';
     import { PlayerTable, GameChart } from ".";
     import { Spinner } from "../Common";
@@ -50,13 +50,25 @@
             GameChart,
             Spinner
         },
-        data: defaultData,
-        props: ['url'],
+        props: ['slug'],
         mounted: function () {
-            this.initData(this.url);
+            var self = this;
+            self.$nextTick(function () {
+                self.loadCurrentGame(self.slug);
+            });
         },
         computed: {
-            ...mapGetters('currentGame', ['startTime', 'sortedPlayers']),
+            ...mapState('currentGame', [
+                'initialized',
+                'players',
+                'locationName',
+                'currencyFormat',
+            ]),
+            ...mapGetters('currentGame', [
+                'startTime',
+                'sortedPlayers',
+                'hasPlayers'
+            ]),
             hasPlayers: function () {
                 return this.players.length > 0;
             },
@@ -65,85 +77,13 @@
             }
         },
         methods: {
-            loadComplete: function (data) {
-                this.slug = data.slug;
-                this.playerId = data.playerId;
-                this.refreshUrl = data.refreshUrl;
-                this.reportUrl = data.reportUrl;
-                this.buyinUrl = data.buyinUrl;
-                this.cashoutUrl = data.cashoutUrl;
-                this.endGameUrl = data.endGameUrl;
-                this.cashgameIndexUrl = data.cashgameIndexUrl;
-                this.locationUrl = data.locationUrl;
-                this.defaultBuyin = data.defaultBuyin;
-                this.locationName = data.locationName;
-                this.isManager = data.isManager;
-                this.bunchPlayers = data.bunchPlayers;
-                this.players = data.players;
-                this.buyinAmount = data.defaultBuyin;
-                this.loadedPlayerId = data.playerId;
-                this.initialized = true;
-                this.setupRefresh(longRefresh);
-            },
-            loadError: function () {
-                this.setupRefresh(shortRefresh);
-            },
-            initData: function (url) {
-                ajax.get(url, this.loadComplete, this.loadError);
-            },
-            setupRefresh: function (refreshTimeout) {
-                window.setTimeout(this.refresh, refreshTimeout);
-            },
-            getBunchPlayer: function () {
-                var i,
-                    bp = this.bunchPlayers;
-                for (i = 0; i < bp.length; i++) {
-                    if (bp[i].id === this.playerId) {
-                        return bp[i];
-                    }
-                }
-                return null;
-            },
-            refresh: function () {
-                var callback = this.setPlayers;
-                ajax.get(this.refreshUrl,
-                    function (playerData) {
-                        callback(playerData);
-                    });
-            },
-            setPlayers: function (data) {
-                this.players = data.players;
-                this.setupRefresh(longRefresh);
+            loadCurrentGame: function () {
+                const slug = this.slug;
+                this.$store.dispatch('currentGame/loadCurrentGame', { slug });
             }
         }
     };
-
-    function defaultData() {
-        return {
-            slug: '',
-            playerId: 0,
-            refreshUrl: '',
-            reportUrl: '',
-            buyinUrl: '',
-            cashoutUrl: '',
-            endGameUrl: '',
-            cashgameIndexUrl: '',
-            locationUrl: '',
-            defaultBuyin: 0,
-            locationName: '',
-            isManager: false,
-            bunchPlayers: [],
-            players: [],
-            currentStack: 0,
-            beforeBuyinStack: 0,
-            buyinAmount: 0,
-            loadedPlayerId: 0,
-            currencyFormat: '{0} kr',
-            initialized: false
-        }
-    }
 </script>
 
 <style>
-
 </style>
