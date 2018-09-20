@@ -2,11 +2,11 @@
     <div class="form">
         <div class="field">
             <label class="label" for="buyin-amount">Amount</label>
-            <input class="numberfield" v-model.number="amount" v-on:focus="focus" ref="buyin" id="buyin-amount" type="text" pattern="[0-9]*">
+            <input class="numberfield" v-model:number="amount" v-on:focus="focus" ref="buyin" id="buyin-amount" type="text" pattern="[0-9]*">
         </div>
         <div class="field" v-if="isInGame">
             <label class="label" for="buyin-stack">Stack Size</label>
-            <input class="numberfield" v-model.number="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*">
+            <input class="numberfield" v-model:number="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*">
         </div>
         <div class="buttons">
             <button v-on:click="buyin" class="button button--action">Buy In</button>
@@ -16,23 +16,30 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapState, mapGetters } from 'vuex';
     import validate from '../../validate';
     import forms from '../../forms';
 
     export default {
         props: ['isActive'],
         computed: {
+            ...mapState('currentGame', ['defaultBuyin']),
             ...mapGetters('currentGame', ['isInGame']),
             hasErrors: function () {
                 return this.buyinError === null && this.stackError === null;
             }
+        },
+        mounted: function () {
+            this.amount = this.defaultBuyin;
         },
         watch: {
             'isActive': function (val) {
                 if (val) {
                     this.$refs.buyin.focus();
                 }
+            },
+            'defaultBuyin': function (val) {
+                this.amount = val;
             }
         },
         methods: {
@@ -61,8 +68,8 @@
         },
         data: function () {
             return {
-                stack: 0,
                 amount: 0,
+                stack: 0,
                 buyinError: null,
                 stackError: null
             }

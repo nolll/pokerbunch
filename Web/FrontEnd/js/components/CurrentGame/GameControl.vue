@@ -6,15 +6,15 @@
             </div>
 
             <div class="button-list" v-if="areButtonsVisible">
-                <game-button text="Report" icon="reorder" v-if="canReport" v-on:click.native="showReportForm"></game-button>
-                <game-button text="Buy In" icon="money" v-if="canBuyin" v-on:click.native="showBuyinForm"></game-button>
-                <game-button text="Cash Out" icon="signout" v-if="canCashout" v-on:click.native="showCashoutForm"></game-button>
+                <game-button text="Report" icon="reorder" v-show="canReport" v-on:click.native="showReportForm"></game-button>
+                <game-button text="Buy In" icon="money" v-show="canBuyin" v-on:click.native="showBuyinForm"></game-button>
+                <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click.native="showCashoutForm"></game-button>
             </div>
 
             <div class="block gutter">
-                <report-form v-if="reportFormVisible" v-bind:is-active="reportFormVisible"></report-form>
-                <buyin-form v-if="buyinFormVisible" v-bind:is-active="buyinFormVisible"></buyin-form>
-                <cashout-form v-if="cashoutFormVisible" v-bind:is-active="cashoutFormVisible"></cashout-form>
+                <report-form v-show="reportFormVisible" v-bind:is-active="reportFormVisible"></report-form>
+                <buyin-form v-show="buyinFormVisible" v-bind:is-active="buyinFormVisible"></buyin-form>
+                <cashout-form v-show="cashoutFormVisible" v-bind:is-active="cashoutFormVisible"></cashout-form>
             </div>
 
             <div class="standings block gutter" v-if="hasPlayers">

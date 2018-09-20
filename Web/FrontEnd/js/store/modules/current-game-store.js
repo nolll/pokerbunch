@@ -35,6 +35,8 @@ export default {
         reportFormVisible: false,
         buyinFormVisible: false,
         cashoutFormVisible: false,
+        lastReport: 0,
+        lastBuyin: 0,
         initialized: false
     },
     getters: {
@@ -296,6 +298,8 @@ export default {
             state.players = data.players;
             state.buyinAmount = data.defaultBuyin;
             state.loadedPlayerId = data.playerId;
+            state.lastReport = data.defaultBuyin;
+            state.lastBuyin = data.defaultBuyin;
             state.initialized = true;
         }
     }

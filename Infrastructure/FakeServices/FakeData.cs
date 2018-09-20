@@ -21,7 +21,7 @@ namespace Infrastructure.Api.FakeServices
 
         public static readonly List<Bunch> Bunches = new List<Bunch>
         {
-            new Bunch("bunch1", "Bunch 1", "This is Bunch 1")
+            new Bunch("bunch1", "Bunch 1", "This is Bunch 1", "Bunch 1 House Rules", null, 200)
         };
 
         public static readonly List<Player> Players = new List<Player>

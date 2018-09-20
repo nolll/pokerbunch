@@ -12,21 +12,29 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex';
     import validate from '../../validate';
     import forms from '../../forms';
 
     export default {
         props: ['isActive'],
         computed: {
+            ...mapState('currentGame', ['defaultBuyin']),
             hasErrors: function () {
                 return this.stackError === null;
             }
+        },
+        mounted: function () {
+            this.stack = this.defaultBuyin;
         },
         watch: {
             'isActive': function (val) {
                 if (val) {
                     this.$refs.stack.focus();
                 }
+            },
+            'defaultBuyin': function (val) {
+                this.stack = val;
             }
         },
         methods: {
