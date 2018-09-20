@@ -2,7 +2,7 @@
 
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { CurrentGame, GameList, TopList } from './modules';
+import { CurrentGameStore, GameListStore, TopListStore } from './modules';
 
 Vue.use(Vuex);
 
@@ -21,8 +21,8 @@ export default new Vuex.Store({
         
     },
     modules: {
-        currentGame: CurrentGame,
-        gameList: GameList,
-        topList: TopList
+        currentGame: CurrentGameStore,
+        gameList: GameListStore,
+        topList: TopListStore
     }
 });

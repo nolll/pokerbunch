@@ -2,7 +2,7 @@
 
 import Vue from 'vue';
 import Vuex from 'vuex';
-import ajax from '../../ajax';
+import api from '../../api';
 import moment from 'moment';
 
 Vue.use(Vuex);
@@ -47,6 +47,8 @@ export default {
             });
         },
         getPlayer: (state) => (id) => {
+            if (!state.players)
+                return null;
             var i;
             for (i = 0; i < state.players.length; i++) {
                 if (state.players[i].id === id) {
@@ -164,13 +166,14 @@ export default {
     },
     actions: {
         loadCurrentGame(context, { slug }) {
-            const url = '/cashgame/runninggamejson/' + slug;
-            ajax.get(url, function (data) {
-                context.commit('currentGameLoaded', data);
-                setupRefresh(context, longRefresh);
-            }, function () {
-                setupRefresh(context, shortRefresh);
-            });
+            api.getCurrentGame(slug)
+                .then(function (response) {
+                    context.commit('currentGameLoaded', response.data);
+                    setupRefresh(context, longRefresh);
+                })
+                .catch(function () {
+                    setupRefresh(context, shortRefresh);
+                });
         },
         selectPlayer(context, { playerId }) {
             context.commit('setPlayerId', playerId);
@@ -181,7 +184,10 @@ export default {
         report(context, { stack }) {
             const player = context.getters.player;
             const reportData = { playerId: player.id, stack: stack };
-            ajax.post(context.state.reportUrl, reportData, function () { refresh(context) });
+            api.report(context.state.slug, reportData)
+                .then(function() {
+                    refresh(context);
+                });
             context.commit('report', { player, reportData });
             context.commit('hideForms');
             context.commit('resetPlayerId');
@@ -194,7 +200,10 @@ export default {
 
                 context.commit('addPlayer', { player });
             }
-            ajax.post(context.state.buyinUrl, buyinData, function () { refresh(context) });
+            api.buyin(context.state.slug, buyinData)
+                .then(function () {
+                    refresh(context);
+                });
             context.commit('buyin', { player, buyinData });
             context.commit('hideForms');
             context.commit('resetPlayerId');
@@ -202,7 +211,10 @@ export default {
         cashout(context, { stack }) {
             const player = context.getters.player;
             const cashoutData = { playerId: player.id, stack: stack };
-            ajax.post(context.state.cashoutUrl, cashoutData, function () { refresh(context) });
+            api.cashout(context.state.slug, cashoutData)
+                .then(function () {
+                    refresh(context);
+                });
             context.commit('cashout', { player, cashoutData });
             context.commit('hideForms');
             context.commit('resetPlayerId');
@@ -296,11 +308,11 @@ function setupRefresh(context, refreshTimeout) {
 }
 
 function refresh(context) {
-    ajax.get(context.state.refreshUrl,
-        function (playerData) {
-            setPlayers(context, playerData);
-        },
-        function () {
+    api.refreshCurrentGame(context.state.slug)
+        .then(function(response) {
+            setPlayers(context, response.data);
+        })
+        .catch(function() {
             console.log('refresh error');
         });
 }

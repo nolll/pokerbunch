@@ -1,5 +1,4 @@
 using Core.UseCases;
-using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
@@ -8,14 +7,14 @@ namespace Web.Models.CashgameModels.Running
 {
     public class CashgameDashboardPageModel : PageModel, IRunningCashgamePageModel
     {
-        public string GameDataUrl { get; }
         public string Slug { get; }
+        public string ApiHost => SiteSettings.ApiHost;
+
         public SpinnerModel SpinnerModel => new SpinnerModel();
 
         public CashgameDashboardPageModel(BaseContext.Result contextResult, RunningCashgame.Result runningCashgameResult)
             : base(contextResult)
         {
-            GameDataUrl = new RunningCashgameGameJsonUrl(runningCashgameResult.Slug).Relative;
             Slug = runningCashgameResult.Slug;
         }
 

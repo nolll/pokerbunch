@@ -64,7 +64,7 @@
             GameChart,
             Spinner
         },
-        props: ['slug'],
+        props: ['apiHost', 'slug'],
         mounted: function () {
             var self = this;
             self.$nextTick(function () {

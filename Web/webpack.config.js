@@ -1,6 +1,7 @@
+const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 module.exports = {
     entry: './FrontEnd/js/index.js',
@@ -9,6 +10,7 @@ module.exports = {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist')
     },
+    devtool: 'source-map',
     module: {
         rules: [
             {
@@ -22,6 +24,11 @@ module.exports = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/
             }
         ]
     },
@@ -29,11 +36,13 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'main.css'
         }),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
     ],
     resolve: {
         alias: {
-            vue: 'vue/dist/vue.js'
+            vue: 'vue/dist/vue.esm.js',
+            moment: 'moment/src/moment.js'
         }
     }
 };

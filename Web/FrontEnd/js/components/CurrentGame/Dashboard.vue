@@ -37,7 +37,6 @@
 
 <script>
     import { mapGetters, mapState } from 'vuex';
-    import ajax from '../../ajax';
     import { PlayerTable, GameChart } from ".";
     import { Spinner } from "../Common";
 

@@ -1,4 +1,4 @@
 ﻿'use strict';
-export { default as CurrentGame } from './current-game';
-export { default as GameList } from './game-list';
-export { default as TopList } from './top-list';
+export { default as CurrentGameStore } from './current-game-store';
+export { default as GameListStore } from './game-list-store';
+export { default as TopListStore } from './top-list-store';

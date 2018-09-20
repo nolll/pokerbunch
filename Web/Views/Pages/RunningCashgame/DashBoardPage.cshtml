@@ -6,6 +6,6 @@
     Layout = PageLayout.OneColumn;
 }
 
-<dashboard id="vue-dashboard" slug="@Model.Slug">
+<dashboard id="vue-dashboard" slug="@Model.Slug" api-host="@Model.ApiHost">
     @Html.RenderModel(Model.SpinnerModel)
 </dashboard>

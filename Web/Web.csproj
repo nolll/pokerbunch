@@ -240,12 +240,14 @@
     <Compile Include="Models\CashgameModels\Action\CheckpointListModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\List\CashgameListTableJsonModel.cs" />
+    <Compile Include="Models\CashgameModels\Running\IRunningCashgamePageModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\CashgameToplistTableItemJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Toplist\ToplistTableJsonModel.cs" />
     <Compile Include="Models\ErrorModels\ErrorAuthCookiePageModel.cs" />
     <Compile Include="Models\ErrorModels\ErrorListModel.cs" />
     <Compile Include="Models\IViewModel.cs" />
     <Compile Include="Models\MiscModels\SpinnerModel.cs" />
+    <Compile Include="Models\MiscModels\VueConfigModel.cs" />
     <Compile Include="Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Security\FakeUserIdentity.cs" />
     <Compile Include="Security\UserIdentity.cs" />
@@ -358,6 +360,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="babel.config.js" />
     <Content Include="FrontEnd\Css\button--action.css">
       <DependentUpon>button--action.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -396,6 +399,7 @@
       <DependentUpon>table-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrontEnd\js\api.js" />
     <Content Include="FrontEnd\js\browser.js" />
     <Content Include="FrontEnd\js\components\Common\index.js" />
     <Content Include="FrontEnd\js\components\CurrentGame\index.js" />
@@ -403,9 +407,9 @@
     <Content Include="FrontEnd\js\components\index.js" />
     <Content Include="FrontEnd\js\components\TopList\index.js" />
     <Content Include="FrontEnd\js\store\index.js" />
-    <Content Include="FrontEnd\js\store\modules\current-game.js" />
-    <Content Include="FrontEnd\js\store\modules\top-list.js" />
-    <Content Include="FrontEnd\js\store\modules\game-list.js" />
+    <Content Include="FrontEnd\js\store\modules\current-game-store.js" />
+    <Content Include="FrontEnd\js\store\modules\top-list-store.js" />
+    <Content Include="FrontEnd\js\store\modules\game-list-store.js" />
     <Content Include="FrontEnd\js\store\modules\index.js" />
     <Content Include="FrontEnd\js\styles.js" />
     <Content Include="FrontEnd\js\dom-modules.js" />
@@ -414,7 +418,6 @@
     <Content Include="FrontEnd\js\index.js" />
     <Content Include="FrontEnd\js\validate.js" />
     <Content Include="FrontEnd\js\app.js" />
-    <Content Include="FrontEnd\js\ajax.js" />
     <Content Include="webpack.config.js" />
     <Content Include="FrontEnd\Css\table-list.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -550,6 +553,7 @@
     <Content Include="Components\ApiDocsModels\PageHeadingBlock\PageHeadingBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\SectionHeadingBlock\SectionHeadingBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\CodeBlock\CodeBlockModel.cshtml" />
+    <Content Include="Views\Misc\VueConfig.cshtml" />
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
