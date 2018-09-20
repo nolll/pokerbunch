@@ -846,7 +846,7 @@
     <Message Text="Running webpack..." Importance="high">
     </Message>
     <Exec Command="npm install" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release'" />
-    <Exec Command="npm run build" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release'" />
+    <Exec Command="npm run prod" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release'" />
   </Target>
   <Import Project="..\packages\OctoPack.3.6.3\build\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.6.3\build\OctoPack.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
