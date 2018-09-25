@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -18,28 +17,26 @@ namespace Web.Controllers
         [Route(LoginUrl.Route)]
         public ActionResult Login(string returnUrl = null)
         {
-            return ShowForm(returnUrl);
+            var contextResult = GetAppContext();
+            var model = new LoginPageModel(contextResult);
+            return View(model);
         }
 
         [HttpPost]
         [Route(LoginUrl.Route)]
-        public ActionResult Post(LoginPostModel postModel)
+        public ActionResult Login(LoginPostModel postModel)
         {
-            var errors = new List<string>();
-
             try
             {
-                var request = new Login.Request(postModel.LoginName, postModel.Password);
+                var request = new Login.Request(postModel.Username, postModel.Password);
                 var result = UseCase.Login.Execute(request);
                 SignIn(result.UserName, result.Token, postModel.RememberMe);
-                return Redirect(postModel.ReturnUrl);
+                return JsonView(new JsonViewModelOk());
             }
             catch (LoginException ex)
             {
-                errors.Add(ex.Message);
+                return JsonView(new JsonViewModelError(ex.Message));
             }
-
-            return ShowForm(postModel, errors);
         }
 
         private void SignIn(string userName, string token, bool createPersistentCookie)
@@ -66,19 +63,6 @@ namespace Web.Controllers
             {
                 System.Web.HttpContext.Current.Response.Cookies.Add(cookie);
             }
-        }
-
-        private ActionResult ShowForm(string returnUrl, LoginPostModel postModel = null, IEnumerable<string> errors = null)
-        {
-            var contextResult = GetAppContext();
-            var loginFormResult = UseCase.LoginForm.Execute(new LoginForm.Request(new HomeUrl().Relative, returnUrl));
-            var model = new LoginPageModel(contextResult, loginFormResult, postModel, errors);
-            return View(model);
-        }
-
-        private ActionResult ShowForm(LoginPostModel postModel, IEnumerable<string> errors = null)
-        {
-            return ShowForm(postModel.ReturnUrl, postModel, errors);
         }
     }
 }

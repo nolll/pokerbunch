@@ -399,6 +399,7 @@
       <DependentUpon>table-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrontEnd\js\querystring.js" />
     <Content Include="FrontEnd\js\api.js" />
     <Content Include="FrontEnd\js\browser.js" />
     <Content Include="FrontEnd\js\components\Common\index.js" />
@@ -547,6 +548,7 @@
     <Content Include="FrontEnd\js\components\CashgameChart.vue" />
     <Content Include="FrontEnd\js\components\CashgameActionChart.vue" />
     <Content Include="FrontEnd\js\components\CashgameDetailsChart.vue" />
+    <Content Include="FrontEnd\js\components\LoginForm.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />

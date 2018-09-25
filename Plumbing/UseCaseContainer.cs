@@ -18,7 +18,6 @@ namespace Plumbing
         public CashgameContext CashgameContext => new CashgameContext(_deps.CashgameService);
 
         // Auth and Home
-        public LoginForm LoginForm => new LoginForm();
         public Login Login => new Login(_deps.AuthService, _deps.UserService);
 
         // Admin

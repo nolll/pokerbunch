@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
-using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
 
 namespace Web.Models.AuthModels
@@ -11,22 +9,12 @@ namespace Web.Models.AuthModels
     {
         public string AddUserUrl { get; }
         public string ForgotPasswordUrl { get; }
-        public string LoginName { get; }
-        public bool RememberMe { get; }
-        public string ReturnUrl { get; }
-        public ErrorListModel Errors { get; }
 
-        public LoginPageModel(CoreContext.Result contextResult, LoginForm.Result loginFormResult, LoginPostModel postModel, IEnumerable<string> errors)
+        public LoginPageModel(CoreContext.Result contextResult)
             : base(contextResult)
         {
-            ReturnUrl = loginFormResult.ReturnUrl;
             AddUserUrl = new AddUserUrl().Relative;
             ForgotPasswordUrl = new ForgotPasswordUrl().Relative;
-            if (postModel == null) return;
-            LoginName = postModel.LoginName;
-            RememberMe = postModel.RememberMe;
-            ReturnUrl = postModel.ReturnUrl;
-            Errors = new ErrorListModel(errors);
         }
 
         public override string BrowserTitle => "Login";

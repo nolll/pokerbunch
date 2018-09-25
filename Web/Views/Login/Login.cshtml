@@ -18,26 +18,5 @@
 		If you are a new user, please <a href="@Model.AddUserUrl">register</a>!
 	</p>
 
-	@Html.RenderModel(Model.Errors)
-    
-    <form method="post">
-        @Html.HiddenFor(model => model.ReturnUrl)
-        <fieldset>
-            <p>
-                @Html.LabelFor(model => model.LoginName, "Email or User Name", new { @class = "label" })
-                @Html.TextBoxFor(model => model.LoginName, new { @class = "textfield", autocapitalize = "off" })
-            </p>
-            <p>
-                <label for="Password" class="label">Password</label>
-                <input class="textfield" id="Password" name="Password" type="password" />
-            </p>
-            <p class="checkbox-layout">
-                @Html.LabelFor(model => model.RememberMe, "Keep me signed in", new { @class = "checkbox-label" })
-                @Html.CheckBoxFor(model => model.RememberMe)
-            </p>
-        </fieldset>
-        <div class="buttons">
-            <button type="submit" class="button button--action">Sign in</button>
-        </div>
-    </form>
+	<login-form id="vue-login-form"></login-form>
 </div>

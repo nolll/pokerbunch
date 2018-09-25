@@ -148,7 +148,6 @@
     <Compile Include="UseCases\JoinBunchConfirmation.cs" />
     <Compile Include="UseCases\JoinBunchForm.cs" />
     <Compile Include="UseCases\JoinBunch.cs" />
-    <Compile Include="UseCases\LoginForm.cs" />
     <Compile Include="UseCases\Login.cs" />
     <Compile Include="UseCases\Matrix.cs" />
     <Compile Include="UseCases\PlayerBadges.cs" />

@@ -2,7 +2,7 @@ import vue from 'vue';
 import vuex from 'vuex';
 import store from './store';
 
-import { Dashboard, GameControl, GameListTable, TopListTable, CashgameChart } from './components';
+import { Dashboard, GameControl, GameListTable, TopListTable, CashgameChart, LoginForm } from './components';
 
 function init() {
     vue.config.debug = true;
@@ -21,6 +21,7 @@ function initComponents() {
     vue.component('cashgame-chart', CashgameChart);
     vue.component('cashgame-details-chart', CashgameChart);
     vue.component('cashgame-action-chart', CashgameChart);
+    vue.component('login-form', LoginForm);
 }
 
 function initFilters() {
@@ -69,6 +70,7 @@ function initStartpoints() {
     initStartpoint('vue-cashgame-chart');
     initStartpoint('vue-cashgame-details-chart');
     initStartpoint('vue-cashgame-action-chart');
+    initStartpoint('vue-login-form');
 }
 
 function initStartpoint(elementId) {
