@@ -43,6 +43,7 @@ namespace Web
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             EnsureLowercaseUrl(Context);
+            RemoveWww(Context);
         }
 
         protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
@@ -59,7 +60,21 @@ namespace Web
             routes.MapMvcAttributeRoutes();
             RouteConfig.RegisterRoutes(routes);
         }
-        
+
+        private static void RemoveWww(HttpContext httpContext)
+        {
+            const string subdomainToRemove = "www";
+            var stringToReplace = $"{subdomainToRemove}.";
+            var uri = httpContext.Request.Url;
+            var host = uri.Host;
+            if (host.StartsWith(stringToReplace))
+            {
+                var hostWithoutWww = host.Replace(stringToReplace, string.Empty);
+                var builder = new UriBuilder(uri) {Host = hostWithoutWww};
+                RedirectPermanent(httpContext, builder.Uri.AbsoluteUri);
+            }
+        }
+
         private static void EnsureLowercaseUrl(HttpContext httpContext)
         {
             // Don't rewrite requests for content (.png, .css) or scripts (.js)
@@ -68,14 +83,24 @@ namespace Web
 
             // If uppercase chars exist, redirect to a lowercase version
             var url = httpContext.Request.Url.ToString();
-            if (Regex.IsMatch(url, @"[A-Z]"))
+            if (ContainsUpperCaseChars(url))
             {
-                httpContext.Response.Clear();
-                httpContext.Response.Status = "301 Moved Permanently";
-                httpContext.Response.StatusCode = (int)HttpStatusCode.MovedPermanently;
-                httpContext.Response.AddHeader("Location", url.ToLower());
-                httpContext.Response.End();
+                RedirectPermanent(httpContext, url.ToLower());
             }
+        }
+
+        private static bool ContainsUpperCaseChars(string url)
+        {
+            return Regex.IsMatch(url, @"[A-Z]");
+        }
+
+        private static void RedirectPermanent(HttpContext httpContext, string url)
+        {
+            httpContext.Response.Clear();
+            httpContext.Response.Status = "301 Moved Permanently";
+            httpContext.Response.StatusCode = (int)HttpStatusCode.MovedPermanently;
+            httpContext.Response.AddHeader("Location", url);
+            httpContext.Response.End();
         }
 
         private static bool IsExcluded(string url)
