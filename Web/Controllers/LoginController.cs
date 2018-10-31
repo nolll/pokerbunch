@@ -31,7 +31,7 @@ namespace Web.Controllers
                 var request = new Login.Request(postModel.Username, postModel.Password);
                 var result = UseCase.Login.Execute(request);
                 SignIn(result.UserName, result.Token, postModel.RememberMe);
-                return JsonView(new JsonViewModelOk());
+                return JsonView(new JsonTokenViewModel(result.Token));
             }
             catch (LoginException ex)
             {

@@ -1,27 +1,31 @@
 ﻿<template>
     <div>
         <div v-for="player in players">
-            <player-row v-bind:player="player" v-bind:currency-format="currencyFormat"></player-row>
+            <player-row :player="player"></player-row>
         </div>
         <div class="totals">
             <div class="title">Totals: </div>
             <div class="amounts">
-                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span v-text="formattedTotalBuyin"></span></div>
-                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span v-text="formattedTotalStacks"></span></div>
+                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span>{{formattedTotalBuyin}}</span></div>
+                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span>{{formattedTotalStacks}}</span></div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapState, mapGetters } from 'vuex';
     import { PlayerRow } from ".";
+    import { FormatMixin } from '../../mixins'
 
     export default {
+        mixins: [
+            FormatMixin
+        ],
         components: {
             PlayerRow
         },
-        props: ['players', 'currencyFormat'],
+        props: ['players'],
         created: function () {
         },
         computed: {
@@ -31,11 +35,6 @@
             },
             formattedTotalStacks: function () {
                 return this.formatCurrency(this.totalStacks);
-            }
-        },
-        methods: {
-            formatCurrency: function (amount) {
-                return this.$options.filters.customCurrency(amount, this.currencyFormat);
             }
         }
     };

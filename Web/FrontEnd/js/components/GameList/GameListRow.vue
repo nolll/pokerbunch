@@ -1,27 +1,34 @@
 ﻿<template>
     <tr class="table-list__row">
-        <td v-bind:class="'table-list__cell table-list--sortable__base-column ' + dateSortCssClass">
-            <a v-bind:href="game.url">{{displayDate}}</a>
+        <td :class="'table-list__cell table-list--sortable__base-column ' + dateSortCssClass">
+            <a :href="url">{{displayDate}}</a>
         </td>
-        <td v-bind:class="'table-list__cell table-list__cell--numeric ' + playerCountSortCssClass">{{game.playerCount}}</td>
-        <td class="table-list__cell">{{game.location}}</td>
-        <td v-bind:class="'table-list__cell ' + durationSortCssClass" v-text="duration"></td>
-        <td v-bind:class="'table-list__cell table-list__cell--numeric ' + turnoverSortCssClass" v-text="formattedTurnover"></td>
-        <td v-bind:class="'table-list__cell table-list__cell--numeric ' + averageBuyinSortCssClass" v-text="formattedAverageBuyin"></td>
+        <td :class="'table-list__cell table-list__cell--numeric ' + playerCountSortCssClass">{{game.playerCount}}</td>
+        <td class="table-list__cell">{{game.location.name}}</td>
+        <td :class="'table-list__cell ' + durationSortCssClass">{{duration}}</td>
+        <td :class="'table-list__cell table-list__cell--numeric ' + turnoverSortCssClass">{{formattedTurnover}}</td>
+        <td :class="'table-list__cell table-list__cell--numeric ' + averageBuyinSortCssClass">{{formattedAverageBuyin}}</td>
     </tr>
 </template>
 
 <script>
     import { mapState } from 'vuex';
     import moment from 'moment';
+    import { FormatMixin } from '../../mixins'
 
     export default {
+        mixins: [
+            FormatMixin
+        ],
         props: ['game'],
         created: function () {
             var x = 0;
         },
         computed: {
-            ...mapState('gameList', ['orderBy', 'currencyFormat', 'thousandSeparator']),
+            ...mapState('gameArchive', ['gameSortOrder']),
+            url: function () {
+                return `/cashgame/details/${this.game.id}`;
+            },
             displayDate: function () {
                 return moment(this.game.date).format('MMM D');
             },
@@ -41,18 +48,13 @@
                 return getSortCssClass(this.orderBy, 'averagebuyin');
             },
             duration: function () {
-                return this.$options.filters.time(this.game.duration);
+                return this.formatTime(this.game.duration);
             },
             formattedAverageBuyin: function () {
                 return this.formatCurrency(this.game.averageBuyin);
             },
             formattedTurnover: function () {
                 return this.formatCurrency(this.game.turnover);
-            }
-        },
-        methods: {
-            formatCurrency: function (amount) {
-                return this.$options.filters.customCurrency(amount, this.currencyFormat, this.thousandSeparator);
             }
         }
     };

@@ -35,23 +35,27 @@
         },
         watch: {
             'chartsLoaded': function (val) {
-                this.createChart();
+                if (this.ready) {
+                    this.draw();
+                }
+            },
+            'chartData': function (val) {
+                if (this.ready) {
+                    this.draw();
+                }
             }
         },
         methods: {
             loadCharts: function () {
                 var self = this;
                 GoogleCharts.load(function () {
-                    self.chartsLoaded = true;
                     self.createChart();
                 });
             },
             createChart: function () {
-                if (this.ready) {
-                    this.chart = new GoogleCharts.api.visualization.LineChart(this.$refs.container);
-                    this.draw();
-                    this.initResizeHandler();
-                }
+                this.chart = new GoogleCharts.api.visualization.LineChart(this.$refs.container);
+                this.initResizeHandler();
+                this.chartsLoaded = true;
             },
             draw: function () {
                 var dataTable = new GoogleCharts.api.visualization.DataTable(this.chartData);

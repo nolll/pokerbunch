@@ -2,7 +2,7 @@
     <div>
         <div class="table-list--sortable__sort-order-selector">
             <label for="gamelist-sortorder">Select Data:</label>
-            <select id="gamelist-sortorder" v-model="orderBy">
+            <select id="gamelist-sortorder" v-model="gameSortOrder">
                 <option value="date">Date</option>
                 <option value="playercount">Players</option>
                 <option value="duration">Duration</option>
@@ -22,12 +22,9 @@
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="game-list-row" v-for="game in sortedGames" v-bind:game="game"></tr>
+                <tr is="game-list-row" v-for="game in sortedGames" :game="game"></tr>
             </tbody>
         </table>
-        <div ref="datawrapper">
-            <slot></slot>
-        </div>
     </div>
 </template>
 
@@ -40,16 +37,13 @@
             GameListColumn,
             GameListRow
         },
-        mounted: function () {
-            var self = this;
-            self.$nextTick(function () {
-                var d = JSON.parse(self.$refs.datawrapper.firstChild.innerHTML);
-                this.$store.dispatch('gameList/setData', d);
-            });
-        },
         computed: {
-            ...mapState('gameList', ['orderBy']),
-            ...mapGetters('gameList', ['sortedGames'])
+            ...mapState('gameArchive', ['gameSortOrder']),
+            ...mapState('bunch', ['bunchReady']),
+            ...mapGetters('gameArchive', ['sortedGames']),
+            ready() {
+                return this.bunchReady && this.sortedGames.length > 0;
+            }
         }
     };
 </script>

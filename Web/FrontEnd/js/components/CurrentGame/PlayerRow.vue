@@ -1,24 +1,28 @@
 ﻿<template>
     <div class="standings-item">
         <div class="name">
-            <div class="player-color-box" v-bind:style="{backgroundColor: player.color}"></div>
-            <a v-bind:href="player.url">{{player.name}}</a>
+            <div class="player-color-box" :style="{backgroundColor: player.color}"></div>
+            <a :href="player.url">{{player.name}}</a>
             <i title="Cashed out" class="icon-ok-sign" v-if="hasCashedOut"></i>
         </div>
         <div class="amounts">
-            <div><i title="Buy in" class="icon-signin"></i> <span v-text="formattedBuyin"></span></div>
-            <div><i title="Stack" class="icon-reorder"></i> <span v-text="formattedStack"></span></div>
-            <div v-bind:class="winningsCssClass" v-text="formattedWinnings"></div>
+            <div><i title="Buy in" class="icon-signin"></i> <span>{{formattedBuyin}}</span></div>
+            <div><i title="Stack" class="icon-reorder"></i> <span>{{formattedStack}}</span></div>
+            <div :class="winningsCssClass">{{formattedWinnings}}</div>
         </div>
         <div class="time"><i title="Last report" class="icon-time"></i> <span>{{lastReportTime}}</span></div>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapState, mapGetters } from 'vuex';
+    import { FormatMixin } from '../../mixins';
 
     export default {
-        props: ['player', 'currencyFormat'],
+        mixins: [
+            FormatMixin
+        ],
+        props: ['player'],
         computed: {
             ...mapGetters('currentGame', [
                 'getLastReportTime',
@@ -54,14 +58,6 @@
             },
             formattedWinnings: function () {
                 return this.formatResult(this.winnings);
-            }
-        },
-        methods: {
-            formatCurrency: function (amount) {
-                return this.$options.filters.customCurrency(amount, this.currencyFormat);
-            },
-            formatResult: function (result) {
-                return this.$options.filters.result(result, this.currencyFormat);
             }
         }
     };

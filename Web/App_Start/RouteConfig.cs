@@ -10,8 +10,8 @@ namespace Web
             routes.LowercaseUrls = true;
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("Error", "{*url}",
-                new { controller = "Error", action = "NotFound" }
+            routes.MapRoute("Vue", "{*url}",
+                new { controller = "Vue", action = "Root" }
             );
         }
     }

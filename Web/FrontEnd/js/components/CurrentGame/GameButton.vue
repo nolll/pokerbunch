@@ -1,6 +1,6 @@
 ﻿<template>
     <button class="button button--icon">
-        <i v-bind:class="iconCssClass"></i>
+        <i :class="iconCssClass"></i>
         {{text}}
     </button>
 </template>

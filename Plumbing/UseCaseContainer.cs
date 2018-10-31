@@ -55,21 +55,14 @@ namespace Plumbing
         public AddLocation AddLocation => new AddLocation(_deps.LocationService);
 
         // Cashgame
-        public CashgameStatus CashgameStatus => new CashgameStatus(_deps.CashgameService);
-        public TopList TopList => new TopList(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
-        public CurrentRankings CurrentRankings => new CurrentRankings(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
         public CashgameDetails CashgameDetails => new CashgameDetails(_deps.CashgameService);
         public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.CashgameService);
-        public CashgameFacts CashgameFacts => new CashgameFacts(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
-        public CashgameList CashgameList => new CashgameList(_deps.BunchService, _deps.CashgameService);
         public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.LocationService);
         public AddCashgame AddCashgame => new AddCashgame(_deps.CashgameService);
         public Actions Actions => new Actions(_deps.CashgameService);
         public ActionsChart ActionsChart => new ActionsChart(_deps.CashgameService);
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.CashgameService);
         public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.CashgameService);
-        public CashgameChart CashgameChart => new CashgameChart(_deps.CashgameService, _deps.PlayerService);
-        public BunchMatrix BunchMatrix => new BunchMatrix(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
         public EventMatrix EventMatrix => new EventMatrix(_deps.BunchService, _deps.EventService, _deps.CashgameService, _deps.PlayerService);
         public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
         public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.CashgameService, _deps.LocationService, _deps.EventService);

@@ -1,12 +1,12 @@
 ﻿'use strict';
 
-import Vue from 'vue';
-import Vuex from 'vuex';
-import { CurrentGameStore, GameListStore, TopListStore } from './modules';
+import vue from 'vue';
+import vuex from 'vuex';
+import { UserStore, BunchStore, CurrentGameStore, GameArchiveStore } from './modules';
 
-Vue.use(Vuex);
+vue.use(vuex);
 
-export default new Vuex.Store({
+export default new vuex.Store({
     strict: true,
     state: {
         
@@ -21,8 +21,9 @@ export default new Vuex.Store({
         
     },
     modules: {
+        user: UserStore,
+        bunch: BunchStore,
         currentGame: CurrentGameStore,
-        gameList: GameListStore,
-        topList: TopListStore
+        gameArchive: GameArchiveStore
     }
 });

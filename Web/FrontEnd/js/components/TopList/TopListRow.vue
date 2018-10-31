@@ -2,27 +2,34 @@
     <tr class="table-list__row">
         <td class="table-list__cell table-list__cell--numeric table-list--sortable__base-column">{{player.rank}}.</td>
         <td class="table-list__cell table-list--sortable__base-column">
-            <a v-bind:href="player.url">{{player.name}}</a>
+            <a :href="url">{{player.name}}</a>
         </td>
-        <td v-bind:class="'table-list__cell table-list__cell--numeric ' + winningsCssClass + ' ' + winningsSortCssClass" v-text="formattedWinnings"></td>
-        <td v-bind:class="'table-list__cell table-list__cell--numeric ' + buyinSortCssClass" v-text="formattedBuyin"></td>
-        <td v-bind:class="'table-list__cell table-list__cell--numeric ' + cashoutSortCssClass" v-text="formattedCashout"></td>
-        <td v-bind:class="'table-list__cell ' + timeSortCssClass" v-text="formattedTime"></td>
-        <td v-bind:class="'table-list__cell table-list__cell--numeric ' + gameCountSortCssClass">{{player.gameCount}}</td>
-        <td v-bind:class="'table-list__cell table-list__cell--numeric ' + winRateSortCssClass" v-text="formattedWinRate"></td>
+        <td :class="'table-list__cell table-list__cell--numeric ' + winningsCssClass + ' ' + winningsSortCssClass">{{formattedWinnings}}</td>
+        <td :class="'table-list__cell table-list__cell--numeric ' + buyinSortCssClass">{{formattedBuyin}}</td>
+        <td :class="'table-list__cell table-list__cell--numeric ' + cashoutSortCssClass">{{formattedCashout}}</td>
+        <td :class="'table-list__cell ' + timeSortCssClass">{{formattedTime}}</td>
+        <td :class="'table-list__cell table-list__cell--numeric ' + gameCountSortCssClass">{{player.gameCount}}</td>
+        <td :class="'table-list__cell table-list__cell--numeric ' + winrateSortCssClass">{{formattedWinrate}}</td>
     </tr>
 </template>
 
 <script>
     import { mapState } from 'vuex';
+    import { FormatMixin } from '../../mixins'
 
     export default {
+        mixins: [
+            FormatMixin
+        ],
         props: ['player'],
         created: function () {
             var x = 0;
         },
         computed: {
-            ...mapState('topList', ['orderBy', 'currencyFormat', 'thousandSeparator']),
+            ...mapState('gameArchive', ['playerSortOrder']),
+            url: function () {
+                return `/player/details/${this.player.id}`;
+            },
             winningsCssClass: function () {
                 var winnings = this.player.winnings;
                 if (winnings === 0)
@@ -44,7 +51,7 @@
             gameCountSortCssClass: function () {
                 return getSortCssClass(this.orderBy, 'gamecount');
             },
-            winRateSortCssClass: function () {
+            winrateSortCssClass: function () {
                 return getSortCssClass(this.orderBy, 'winrate');
             },
             formattedWinnings: function () {
@@ -54,27 +61,13 @@
                 return this.formatCurrency(this.player.buyin);
             },
             formattedCashout: function () {
-                return this.formatCurrency(this.player.cashout);
+                return this.formatCurrency(this.player.stack);
             },
-            formattedWinRate: function () {
-                return this.formatWinRate(this.player.winRate);
+            formattedWinrate: function () {
+                return this.formatWinrate(this.player.winrate);
             },
             formattedTime: function () {
-                return this.formatTime(this.player.time);
-            }
-        },
-        methods: {
-            formatResult: function (result) {
-                return this.$options.filters.result(result, this.currencyFormat, this.thousandSeparator);
-            },
-            formatCurrency: function (amount) {
-                return this.$options.filters.customCurrency(amount, this.currencyFormat, this.thousandSeparator);
-            },
-            formatWinRate: function (winRate) {
-                return this.$options.filters.winrate(winRate, this.currencyFormat, this.thousandSeparator);
-            },
-            formatTime: function (time) {
-                return this.$options.filters.time(time);
+                return this.formatTime(this.player.playedTimeInMinutes);
             }
         }
     };

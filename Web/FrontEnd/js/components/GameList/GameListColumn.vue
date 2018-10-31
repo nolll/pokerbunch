@@ -1,5 +1,5 @@
 ﻿<template>
-    <th v-bind:class="'table-list__column-header table-list__column-header--sortable ' + sortColumnCssClass"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>
+    <th :class="'table-list__column-header table-list__column-header--sortable ' + sortColumnCssClass"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>
 </template>
 
 <script>
@@ -8,9 +8,9 @@
     export default {
         props: ['name', 'title'],
         computed: {
-            ...mapState('gameList', ['orderBy']),
+            ...mapState('gameArchive', ['gameSortOrder']),
             isSelected: function () {
-                return this.name === this.orderBy;
+                return this.name === this.gameSortOrder;
             },
             sortColumnCssClass: function () {
                 return this.isSelected ? 'table-list--sortable__sort-column' : '';
@@ -18,7 +18,7 @@
         },
         methods: {
             sort: function () {
-                this.$store.dispatch('gameList/sortBy', this.name);
+                this.$store.dispatch('gameArchive/sortGames', this.name);
             }
         }
     };

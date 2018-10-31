@@ -1,6 +1,6 @@
 ﻿<template>
     <select v-model="selectedPlayerId" v-on:change="changePlayer">
-        <option v-for="player in bunchPlayers" v-bind:value="player.id">{{player.name}}</option>
+        <option v-for="player in bunchPlayers" :value="player.id">{{player.name}}</option>
     </select>
 </template>
 

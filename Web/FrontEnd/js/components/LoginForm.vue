@@ -30,6 +30,7 @@
     import api from '../api';
     import validate from '../validate';
     import forms from '../forms';
+    import auth from '../auth'
 
     export default {
         computed: {
@@ -52,7 +53,7 @@
                     api.getToken(data)
                         .then(function (response) {
                             if (response.data.success) {
-                                self.setCookie();
+                                self.setCookie(response.data.token);
                                 self.redirect();
                             } else {
                                 self.showError(response.data.message);
@@ -77,8 +78,8 @@
             showError: function (message) {
                 this.errorMessage = message;
             },
-            setCookie: function () {
-                // set cookie here when form auth isn't needed anymore
+            setCookie: function (token) {
+                auth.setToken(token);
             },
             redirect: function () {
                 var returnUrl = querystring.get('returnurl');

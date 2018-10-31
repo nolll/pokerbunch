@@ -1,4 +1,5 @@
 import axios from 'axios';
+import auth from './auth'
 
 export default {
     getToken: function(data) {
@@ -13,6 +14,16 @@ export default {
         const url = `/cashgame/runningplayersjson/${slug}`;
         return localGet(url);
     },
+    getBunch: function (slug) {
+        const url = `/bunches/${slug}`;
+        return apiGet(url);
+    },
+    getGames: function (slug, year) {
+        const url = year
+            ? `/bunches/${slug}/cashgames/${year}`
+            : `/bunches/${slug}/cashgames`;
+        return apiGet(url);
+    },
     buyin: function (slug, data) {
         const url = `/cashgame/buyin/${slug}`;
         return localPost(url, data);
@@ -24,6 +35,10 @@ export default {
     cashout: function (slug, data) {
         const url = `/cashgame/cashout/${slug}`;
         return localPost(url, data);
+    },
+    getUser: function () {
+        const url = `/user`;
+        return apiGet(url);
     }
 };
 
@@ -46,7 +61,8 @@ function localPost(url, data) {
 function get(url) {
     return axios({
         method: 'get',
-        url: url
+        url: url,
+        headers: getApiHeaders()
     });
 }
 
@@ -54,8 +70,16 @@ function post(url, data) {
     return axios({
         method: 'post',
         url: url,
+        headers: getApiHeaders(),
         data: data
     });
+}
+
+function getApiHeaders() {
+    const token = auth.getToken();
+    return {
+        'Authorization': `bearer ${token}`
+    };
 }
 
 function getApiUrl(url) {

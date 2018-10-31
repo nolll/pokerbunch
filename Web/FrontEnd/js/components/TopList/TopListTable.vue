@@ -2,7 +2,7 @@
     <div>
         <div class="table-list--sortable__sort-order-selector">
             <label for="toplist-sortorder">Select Data:</label>
-            <select id="toplist-sortorder" v-model="orderBy">
+            <select id="toplist-sortorder" v-model="playerSortOrder">
                 <option value="winnings">Winnings</option>
                 <option value="buyin">Buyin</option>
                 <option value="cashout">Cashout</option>
@@ -18,7 +18,7 @@
                     <th class="table-list__column-header table-list--sortable__base-column"><span class="table-list__column-header__content">Player</span></th>
                     <th is="top-list-column" name="winnings" title="Winnings"></th>
                     <th is="top-list-column" name="buyin" title="Buyin"></th>
-                    <th is="top-list-column" name="cashout" title="Cashout"></th>
+                    <th is="top-list-column" name="stack" title="Cashout"></th>
                     <th is="top-list-column" name="time" title="Time"></th>
                     <th is="top-list-column" name="gamecount" title="Games"></th>
                     <th is="top-list-column" name="winrate" title="Win rate"></th>
@@ -28,9 +28,6 @@
                 <tr is="top-list-row" v-for="player in sortedPlayers" :player="player"></tr>
             </tbody>
         </table>
-        <div ref="datawrapper">
-            <slot></slot>
-        </div>
     </div>
 </template>
 
@@ -43,16 +40,13 @@
             TopListColumn,
             TopListRow
         },
-        mounted: function () {
-            var self = this;
-            self.$nextTick(function () {
-                var d = JSON.parse(self.$refs.datawrapper.firstChild.innerHTML);
-                this.$store.dispatch('topList/setData', d);
-            });
-        },
         computed: {
-            ...mapState('topList', ['orderBy']),
-            ...mapGetters('topList', ['sortedPlayers'])
+            ...mapState('gameArchive', ['playerSortOrder']),
+            ...mapState('bunch', ['bunchReady']),
+            ...mapGetters('gameArchive', ['sortedPlayers']),
+            ready() {
+                return this.bunchReady && this.sortedGames.length > 0;
+            }
         }
     };
 </script>

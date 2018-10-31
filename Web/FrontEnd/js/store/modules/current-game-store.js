@@ -1,11 +1,7 @@
 ﻿'use strict';
 
-import Vue from 'vue';
-import Vuex from 'vuex';
 import api from '../../api';
 import moment from 'moment';
-
-Vue.use(Vuex);
 
 var longRefresh = 30000,
     shortRefresh = 10000;
@@ -14,6 +10,7 @@ export default {
     namespaced: true,
     state: {
         slug: '',
+        isRunning: false,
         playerId: '0',
         refreshUrl: '',
         reportUrl: '',
@@ -281,6 +278,7 @@ export default {
             state.cashoutFormVisible = false;
         },
         currentGameLoaded(state, data) {
+            state.isRunning = true;
             state.slug = data.slug;
             state.playerId = data.playerId;
             state.refreshUrl = data.refreshUrl;

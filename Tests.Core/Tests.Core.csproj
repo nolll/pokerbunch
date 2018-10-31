@@ -114,8 +114,6 @@
     <Compile Include="UseCases\BunchListTests\WhenExecute.cs" />
     <Compile Include="UseCases\BuyinTests\Arrange.cs" />
     <Compile Include="UseCases\BuyinTests\WhenExecute.cs" />
-    <Compile Include="UseCases\CashgameChartTests\Arrange.cs" />
-    <Compile Include="UseCases\CashgameChartTests\WithTwoGames.cs" />
     <Compile Include="UseCases\CashgameContextTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameContextTests\WithRunningGame.cs" />
     <Compile Include="UseCases\CashgameContextTests\WithoutYearAndAnyPageButOverview.cs" />
@@ -131,16 +129,6 @@
     <Compile Include="UseCases\CashgameDetailsChartTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsChartTests\WithTwoPlayersWithTwoAndThreeActions.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithManager.cs" />
-    <Compile Include="UseCases\CashgameFactsTests\Arrange.cs" />
-    <Compile Include="UseCases\CashgameFactsTests\WithTwoGames.cs" />
-    <Compile Include="UseCases\CashgameListTests\Arrange.cs" />
-    <Compile Include="UseCases\CashgameListTests\WithoutGames.cs" />
-    <Compile Include="UseCases\CashgameListTests\WithSortOrderAverageBuyin.cs" />
-    <Compile Include="UseCases\CashgameListTests\WithDefaultParameters.cs" />
-    <Compile Include="UseCases\CashgameListTests\WithSortOrderDuration.cs" />
-    <Compile Include="UseCases\CashgameListTests\WithSortOrderPlayerCount.cs" />
-    <Compile Include="UseCases\CashgameListTests\WithSortOrderTurnover.cs" />
-    <Compile Include="UseCases\CashgameListTests\WithYear.cs" />
     <Compile Include="UseCases\ChangePasswordTests\Arrange.cs" />
     <Compile Include="UseCases\ChangePasswordTests\WhenExecute.cs" />
     <Compile Include="UseCases\ClearCacheTests\Arrange.cs" />
@@ -208,9 +196,6 @@
     <Compile Include="UseCases\LoginTests\WhenExecuteWithCorrectPassword.cs" />
     <Compile Include="UseCases\LoginTests\WhenExecuteWithWrongPassword.cs" />
     <Compile Include="UseCases\LoginTests\WhenExecuteWithUnknownUser.cs" />
-    <Compile Include="UseCases\MatrixTests\Arrange.cs" />
-    <Compile Include="UseCases\MatrixTests\WithTwoGames.cs" />
-    <Compile Include="UseCases\MatrixTests\WithTwoGamesOnDifferentYears.cs" />
     <Compile Include="UseCases\PlayerBadgesTests\Arrange.cs" />
     <Compile Include="UseCases\PlayerBadgesTests\With100Games.cs" />
     <Compile Include="UseCases\PlayerBadgesTests\With10Games.cs" />
@@ -236,8 +221,6 @@
     <Compile Include="UseCases\RunningCashgameTests\WithRunningGame.cs" />
     <Compile Include="UseCases\TestEmailTests\WhenExecute.cs" />
     <Compile Include="UseCases\TestEmailTests\Arrange.cs" />
-    <Compile Include="UseCases\TopListTests\Arrange.cs" />
-    <Compile Include="UseCases\TopListTests\WithTwoGames.cs" />
     <Compile Include="UseCases\UserDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsAdmin.cs" />
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsOtherUser.cs" />

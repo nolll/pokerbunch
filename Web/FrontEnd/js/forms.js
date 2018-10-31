@@ -1,6 +1,6 @@
 function select(field, start, end) {
     if (field.createTextRange) {
-        var selRange = field.createTextRange();
+        const selRange = field.createTextRange();
         selRange.collapse(true);
         selRange.moveStart('character', start);
         selRange.moveEnd('character', end);
