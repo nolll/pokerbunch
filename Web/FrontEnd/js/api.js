@@ -3,7 +3,7 @@ import auth from './auth'
 
 export default {
     getToken: function(data) {
-        const url = `/auth/login`;
+        const url = `/auth/token`;
         return localPost(url, data);
     },
     getCurrentGame: function(slug) {

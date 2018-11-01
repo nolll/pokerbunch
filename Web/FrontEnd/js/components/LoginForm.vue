@@ -19,7 +19,7 @@
                 <input type="checkbox" v-model="rememberMe" id="rememberme">
             </p>
             <div class="buttons">
-                <button v-on:click="login" class="button button--action">Sign in</button>
+                <button @click="login" class="button button--action">Sign in</button>
             </div>
         </fieldset>
     </div>

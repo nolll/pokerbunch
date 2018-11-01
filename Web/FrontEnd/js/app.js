@@ -4,7 +4,6 @@ import store from './store';
 import router from './router';
 
 import {
-    LoginForm,
     CashgameActionChart,
     CashgameDetailsChart
 } from './components';
@@ -20,38 +19,25 @@ function init() {
 function initComponents() {
     vue.component('cashgame-details-chart', CashgameActionChart);
     vue.component('cashgame-action-chart', CashgameDetailsChart);
-    vue.component('login-form', LoginForm);
 }
 
 function initStartpoints() {
-    initStartpoint('vue-cashgame-details-chart', false);
-    initStartpoint('vue-cashgame-action-chart', false);
-    initStartpoint('vue-login-form', false);
-    initStartpoint('app', true);
+    initStartpoint('vue-cashgame-details-chart');
+    initStartpoint('vue-cashgame-action-chart');
+    initStartpoint('app');
 }
 
-function initStartpoint(elementId, useRouter) {
+function initStartpoint(elementId) {
     var element = document.getElementById(elementId);
 
     if (element) {
-        var options = getOptions(element, useRouter);
-        new vue(options);
-    }
-}
-
-function getOptions(element, useRouter) {
-    if (useRouter) {
-        return {
+        var options = {
             el: element,
             router,
             store
         };
+        new vue(options);
     }
-
-    return {
-        el: element,
-        store
-    };
 }
 
 export default {

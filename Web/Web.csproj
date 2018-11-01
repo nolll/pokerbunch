@@ -233,6 +233,7 @@
     <Compile Include="Models\ApiDocsModels\ApiDocsIndexPageModel.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsPageModel.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsPlayersPageModel.cs" />
+    <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointListModel.cs" />
     <Compile Include="Models\CashgameModels\Running\IRunningCashgamePageModel.cs" />
     <Compile Include="Models\ErrorModels\ErrorAuthCookiePageModel.cs" />
@@ -262,7 +263,6 @@
     <Compile Include="Models\CashgameModels\Action\ActionChartModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
-    <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
     <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameRefreshJsonModel.cs" />
@@ -303,7 +303,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AuthModels\LoginPageModel.cs" />
     <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
     <Compile Include="Models\CashgameModels\Cashout\CashoutPostModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\EditCashgamePostModel.cs" />
@@ -450,7 +449,6 @@
     <Content Include="Views\Layouts\Page.cshtml" />
     <Content Include="Views\Layouts\TwoColumns.cshtml" />
     <Content Include="Views\Layouts\Wrapped.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Misc\Avatar.cshtml" />
     <Content Include="Views\Misc\GoogleAnalytics.cshtml" />
     <Content Include="Views\Misc\Spinner.cshtml" />
@@ -573,6 +571,7 @@
     <Content Include="FrontEnd\js\components\Navigation\CashgameNavigation.vue" />
     <Content Include="FrontEnd\js\components\Navigation\UserNavigation.vue" />
     <Content Include="FrontEnd\js\components\Pages\NotFoundPage.vue" />
+    <Content Include="FrontEnd\js\components\Pages\LoginPage.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />

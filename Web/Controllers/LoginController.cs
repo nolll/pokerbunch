@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Core.Exceptions;
 using Core.UseCases;
-using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.AuthModels;
 
@@ -14,17 +13,9 @@ namespace Web.Controllers
     {
         private const int AuthVersion = 2;
 
-        [Route(LoginUrl.Route)]
-        public ActionResult Login(string returnUrl = null)
-        {
-            var contextResult = GetAppContext();
-            var model = new LoginPageModel(contextResult);
-            return View(model);
-        }
-
         [HttpPost]
-        [Route(LoginUrl.Route)]
-        public ActionResult Login(LoginPostModel postModel)
+        [Route("auth/token")]
+        public ActionResult Token(LoginPostModel postModel)
         {
             try
             {

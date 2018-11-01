@@ -4,7 +4,9 @@ import app from './app';
 import styles from './styles';
 
 function domReady(callback) {
-    document.readyState === 'interactive' || document.readyState === 'complete' ? callback() : document.addEventListener("DOMContentLoaded", callback);
+    document.readyState === 'interactive' || document.readyState === 'complete'
+        ? callback()
+        : document.addEventListener('DOMContentLoaded', callback);
 }
 
 if (!browser.isCapable()) {

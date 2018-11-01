@@ -12,12 +12,14 @@ import {
     ChartPage,
     ListPage,
     FactsPage,
-    NotFoundPage
+    NotFoundPage,
+    LoginPage
 } from './components/Pages';
 
 Vue.use(VueRouter);
 
 const routes = [
+    { path: '/auth/login', component: LoginPage },
     { path: '/cashgame/running/:slug', component: CurrentGamePage },
     { path: '/cashgame/dashboard/:slug', component: DashboardPage },
     { path: '/cashgame/index/:slug/:year?', component: OverviewPage },
