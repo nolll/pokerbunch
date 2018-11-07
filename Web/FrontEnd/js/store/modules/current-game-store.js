@@ -167,7 +167,9 @@ export default {
         loadCurrentGame(context, { slug }) {
             api.getCurrentGame(slug)
                 .then(function (response) {
-                    context.commit('currentGameLoaded', response.data);
+                    if (response.status === 200) {
+                        context.commit('currentGameLoaded', response.data);
+                    }
                     setupRefresh(context, longRefresh);
                 })
                 .catch(function () {
