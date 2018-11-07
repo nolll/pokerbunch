@@ -21,6 +21,7 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import moment from 'moment';
+    import urls from '../../urls';
     import { OverviewRow } from ".";
 
     export default {
@@ -31,7 +32,7 @@
             ...mapGetters('gameArchive', ['currentYearGames', 'currentYearPlayers']),
             ...mapState('bunch', ['bunchReady']),
             url() {
-                return '/cashgames/details/' + this.lastGame.id;
+                return urls.cashgameDetails(this.lastGame.id);
             },
             lastGame() {
                 return this.currentYearGames[0];

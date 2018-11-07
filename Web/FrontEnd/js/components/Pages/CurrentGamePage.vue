@@ -57,6 +57,7 @@
     import { DataMixin } from '../../mixins';
     import { mapState, mapGetters } from 'vuex';
     import moment from 'moment';
+    import urls from '../../urls';
     import { TwoColumn } from "../Layouts";
     import { BunchNavigation } from "../Navigation";
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from "../CurrentGame";
@@ -84,6 +85,7 @@
         },
         computed: {
             ...mapState('currentGame', [
+                'slug',
                 'players',
                 'bunchPlayers',
                 'initialized',
@@ -134,7 +136,7 @@
                 }
             },
             redirect: function () {
-                location.href = this.cashgameIndexUrl;
+                location.href = urls.cashgameIndex(this.slug);
             },
             init: function () {
                 this.loadUser();

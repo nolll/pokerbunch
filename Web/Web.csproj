@@ -384,6 +384,7 @@
       <DependentUpon>table-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrontEnd\js\urls.js" />
     <Content Include="FrontEnd\js\comparer.js" />
     <Content Include="FrontEnd\js\components\DefinitionList\index.js" />
     <Content Include="FrontEnd\js\components\Facts\index.js" />
