@@ -1,7 +1,7 @@
 ﻿<template>
     <nav class="cashgame-nav heading-nav is-expanded">
-        <span v-on:click="togglePageNav">{{selectedPageName}}</span>
-        <span v-on:click="toggleYearNav">{{selectedYear}}</span>
+        <span v-on:click="togglePageNav" class="heading-nav__sub-nav">{{selectedPageName}}</span>
+        <span v-show="isYearNavEnabled">| <span v-on:click="toggleYearNav" class="heading-nav__sub-nav">{{presentationYear}}</span></span>
         <ul v-show="isPageNavExpanded">
             <cashgame-navigation-item :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="togglePageNav" />
             <cashgame-navigation-item :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="togglePageNav" />
@@ -12,7 +12,7 @@
         </ul>
         <ul v-show="isYearNavExpanded">
             <cashgame-navigation-item v-for="year in years" :key="year" :url="getUrl(year)" :text="year" :isSelected="isSelected(year)" v-on:selected="toggleYearNav" />
-            <cashgame-navigation-item :url="getUrl()" text="All" :isSelected="isSelected()" v-on:selected="toggleYearNav" />
+            <cashgame-navigation-item :url="getUrl()" :text="allYearsText" :isSelected="isSelected()" v-on:selected="toggleYearNav" />
         </ul>
     </nav>
 </template>
@@ -26,6 +26,11 @@
             CashgameNavigationItem
         },
         props: ['page', 'year'],
+        data: function () {
+            return {
+                allYearsText: 'All years'
+            };
+        },
         computed: {
             ...mapState('gameArchive', ['selectedYear', 'isPageNavExpanded', 'isYearNavExpanded']),
             ...mapState('bunch', ['slug']),
@@ -34,6 +39,9 @@
                 if (this.year)
                     return this.year;
                 return this.selectedYear;
+            },
+            presentationYear() {
+                return this.selectedYear || this.allYearsText;
             },
             selectedPageName() {
                 if (this.page === 'matrix')
@@ -48,23 +56,26 @@
                     return 'Facts';
                 return 'Overview'
             },
+            isYearNavEnabled() {
+                return this.page !== 'overview'
+            },
             overviewUrl() {
-                return '/cashgame/index/' + this.slug;
+                return buildUrl('index', this.slug);
             },
             matrixUrl() {
-                return '/cashgame/matrix/' + this.slug + '/' + this.computedYear;
+                return buildUrl('matrix', this.slug, this.computedYear);
             },
             toplistUrl() {
-                return '/cashgame/toplist/' + this.slug + '/' + this.computedYear;
+                return buildUrl('toplist', this.slug, this.computedYear);
             },
             chartUrl() {
-                return '/cashgame/chart/' + this.slug + '/' + this.computedYear;
+                return buildUrl('chart', this.slug, this.computedYear);
             },
             listUrl() {
-                return '/cashgame/list/' + this.slug + '/' + this.computedYear;
+                return buildUrl('list', this.slug, this.computedYear);
             },
             factsUrl() {
-                return '/cashgame/facts/' + this.slug + '/' + this.computedYear;
+                return buildUrl('facts', this.slug, this.computedYear);
             },
             isOverviewSelected() {
                 return this.page === 'overview';
@@ -87,9 +98,7 @@
         },
         methods: {
             getUrl(year) {
-                if (year)
-                    return '/cashgame/' + this.page + '/' + this.slug + '/' + year;
-                return '/cashgame/' + this.page + '/' + this.slug;
+                return buildUrl(this.page, this.slug, year)
             },
             isSelected(year) {
                 if (!year && !this.selectedYear)
@@ -104,6 +113,13 @@
             }
         }
     };
+
+    function buildUrl(page, slug, year) {
+        var url = '/cashgame/' + page + '/' + slug;
+        if (year)
+            url += '/' + year;
+        return url;
+    }
 </script>
 
 <style>
