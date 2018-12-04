@@ -20,6 +20,11 @@
                 <overview-table v-if="hasGames" />
                 <p v-else>The rankings will be displayed here when you have played your first game.</p>
             </div>
+
+            <div class="block gutter">
+                <h1 class="page-heading">Yearly Rankings</h1>
+                <year-matrix-table v-if="hasGames" />
+            </div>
         </template>
     </two-column>
 </template>
@@ -29,7 +34,7 @@
     import { mapGetters } from 'vuex';
     import { TwoColumn } from "../Layouts";
     import { BunchNavigation, CashgameNavigation } from "../Navigation";
-    import { OverviewTable, OverviewStatus } from "../";
+    import { OverviewTable, OverviewStatus, YearMatrixTable } from "../";
 
     export default {
         components: {
@@ -37,7 +42,8 @@
             BunchNavigation,
             CashgameNavigation,
             OverviewTable,
-            OverviewStatus
+            OverviewStatus,
+            YearMatrixTable
         },
         mixins: [
             DataMixin

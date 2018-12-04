@@ -384,6 +384,7 @@
       <DependentUpon>table-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrontEnd\js\components\YearMatrix\index.js" />
     <Content Include="FrontEnd\js\urls.js" />
     <Content Include="FrontEnd\js\comparer.js" />
     <Content Include="FrontEnd\js\components\DefinitionList\index.js" />
@@ -573,6 +574,10 @@
     <Content Include="FrontEnd\js\components\Navigation\UserNavigation.vue" />
     <Content Include="FrontEnd\js\components\Pages\NotFoundPage.vue" />
     <Content Include="FrontEnd\js\components\Pages\LoginPage.vue" />
+    <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixColumn.vue" />
+    <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixItem.vue" />
+    <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixRow.vue" />
+    <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixTable.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />

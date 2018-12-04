@@ -32,20 +32,23 @@ export default {
         currentYearPlayers: (state, getters) => {
             return playerSorter.sort(getPlayers(getters.currentYearGames), 'winnings');
         },
-        years: (state) => {
+        allYearsPlayers: state => {
+            return playerSorter.sort(getPlayers(state.games), 'winnings');
+        },
+        years: state => {
             return getYears(state.games);
         },
-        currentYear: (state) => {
+        currentYear: state => {
             if (state.games.length > 0) {
                 const latestGame = state.games[0];
-                return moment(latestGame.startTime).format('YYYY');
+                return moment(latestGame.startTime).year();
             }
             return null;
         },
-        gamesReady: (state) => {
+        gamesReady: state => {
             return state.gamesLoaded;
         },
-        hasGames: (state) => {
+        hasGames: state => {
             return state.games.length > 0;
         }
     },
@@ -125,7 +128,7 @@ function getSelectedGames(games, selectedYear) {
     const selectedGames = [];
     for (let gi = 0; gi < games.length; gi++) {
         const game = games[gi];
-        const year = moment(game.startTime).format('YYYY'); // could probably use .year() but need control over types first
+        const year = moment(game.startTime).year();
         if (year === selectedYear) {
             selectedGames.push(game);
         }
@@ -137,7 +140,7 @@ function getYears(games) {
     const years = [];
     for (let gi = 0; gi < games.length; gi++) {
         const game = games[gi];
-        const year = moment(game.startTime).format('YYYY');
+        const year = moment(game.startTime).year();
         if (!years.includes(year)) {
             years.push(year);
         }
