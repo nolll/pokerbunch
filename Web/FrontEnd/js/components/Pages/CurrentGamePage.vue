@@ -10,7 +10,7 @@
                     <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
                     <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
                     <dt class="value-list__key">Location</dt>
-                    <dd class="value-list__value"><a :href="locationUrl">{{locationName}} {{initialized}} </a></dd>
+                    <dd class="value-list__value"><a :href="locationUrl">{{locationName}}</a></dd>
                     <dt class="value-list__key" v-if="isManager">Player</dt>
                     <dd class="value-list__value" v-if="isManager">
                         <player-dropdown :player-id="playerId" :players="bunchPlayers"></player-dropdown>
@@ -56,7 +56,6 @@
 <script>
     import { DataMixin } from '../../mixins';
     import { mapState, mapGetters } from 'vuex';
-    import moment from 'moment';
     import urls from '../../urls';
     import { TwoColumn } from "../Layouts";
     import { BunchNavigation } from "../Navigation";
@@ -84,21 +83,21 @@
             this.init();
         },
         computed: {
-            ...mapState('currentGame', [
-                'slug',
-                'players',
-                'bunchPlayers',
-                'initialized',
-                'locationUrl',
-                'locationName',
-                'isManager',
-                'currencyFormat',
-                'playerId',
-                'currentStack',
-                'reportFormVisible',
-                'buyinFormVisible',
-                'cashoutFormVisible'
-            ]),
+            ...mapState('currentGame', {
+                slug: state => state.slug,
+                players: state => state.players,
+                bunchPlayers: state => state.bunchPlayers,
+                initialized: state => state.initialized,
+                locationUrl: state => state.locationUrl,
+                locationName: state => state.locationName,
+                isManager: state => state.isManager,
+                currencyFormat: state => state.currencyFormat,
+                playerId: state => state.playerId,
+                currentStack: state => state.currentStack,
+                reportFormVisible: state => state.reportFormVisible,
+                buyinFormVisible: state => state.buyinFormVisible,
+                cashoutFormVisible: state => state.cashoutFormVisible
+            }),
             ...mapGetters('currentGame', [
                 'hasPlayers',
                 'startTime',
