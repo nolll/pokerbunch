@@ -7,10 +7,17 @@
 
 <script>
     export default {
-        props: ['text', 'icon'],
+        props: {
+            text: {
+                type: String
+            },
+            icon: {
+                type: String
+            }
+        },
         computed: {
             iconCssClass: function () {
-                return 'icon-' + this.icon;
+                return `icon-${this.icon}`;
             }
         }
     };

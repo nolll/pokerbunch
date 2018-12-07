@@ -17,7 +17,7 @@
                 <div v-if="isAsideEnabled" class="region width1 aside1">
                     <slot name="aside"></slot>
                 </div>
-                <div :class="'region ' + mainWidthClass">
+                <div :class="mainCssClasses">
                     <slot name="main"></slot>
                 </div>
             </div>
@@ -46,11 +46,12 @@
             isAsideEnabled: function () {
                 return this.isSlotEnabled('aside');
             },
-            mainWidthClass: function () {
-                return 'width' + this.mainWidth;
-            },
-            mainWidth: function () {
-                return this.isAsideEnabled ? 2 : 3;
+            mainCssClasses() {
+                return {
+                    region: true,
+                    width2: this.isAsideEnabled,
+                    width3: !this.isAsideEnabled
+                };
             }
         },
         methods: {

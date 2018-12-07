@@ -8,7 +8,7 @@
         <div class="amounts">
             <div><i title="Buy in" class="icon-signin"></i> <span>{{formattedBuyin}}</span></div>
             <div><i title="Stack" class="icon-reorder"></i> <span>{{formattedStack}}</span></div>
-            <div :class="winningsCssClass">{{formattedWinnings}}</div>
+            <div :class="winningsCssClasses">{{formattedWinnings}}</div>
         </div>
         <div class="time"><i title="Last report" class="icon-time"></i> <span>{{lastReportTime}}</span></div>
     </div>
@@ -23,7 +23,11 @@
         mixins: [
             FormatMixin
         ],
-        props: ['player'],
+        props: {
+            player: {
+                type: Object
+            }
+        },
         computed: {
             ...mapGetters(CURRENT_GAME, {
                 getLastReportTime: getters => getters.getLastReportTime,
@@ -46,11 +50,11 @@
             winnings: function () {
                 return this.getWinnings(this.player);
             },
-            winningsCssClass: function () {
-                var winnings = this.winnings;
-                if (winnings === 0)
-                    return '';
-                return winnings > 0 ? 'pos-result' : 'neg-result';
+            winningsCssClasses: function () {
+                return {
+                    'pos-result': this.winnings > 0,
+                    'neg-result': this.winnings < 0
+                };
             },
             formattedBuyin: function () {
                 return this.formatCurrency(this.buyin);
