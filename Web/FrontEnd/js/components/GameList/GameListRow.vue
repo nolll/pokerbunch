@@ -14,22 +14,21 @@
 <script>
     import { mapState } from 'vuex';
     import moment from 'moment';
-    import { FormatMixin } from '../../mixins'
+    import { FormatMixin } from '../../mixins';
+    import urls from '../../urls';
+    import { GAME_ARCHIVE } from '../../store-names';
 
     export default {
         mixins: [
             FormatMixin
         ],
         props: ['game'],
-        created: function () {
-            var x = 0;
-        },
         computed: {
-            ...mapState('gameArchive', {
+            ...mapState(GAME_ARCHIVE, {
                 gameSortOrder: state => state.gameSortOrder
             }),
             url: function () {
-                return `/cashgame/details/${this.game.id}`;
+                urls.cashgameDetails(this.game.id);
             },
             displayDate: function () {
                 return moment(this.game.date).format('MMM D');

@@ -15,10 +15,11 @@
 
 <script>
     import { mapState } from 'vuex';
+    import { USER } from '../../store-names';
 
     export default {
         computed: {
-            ...mapState('user', {
+            ...mapState(USER, {
                 isSignedIn: state => state.isSignedIn,
                 userName: state => state.userName,
                 displayName: state => state.displayName,

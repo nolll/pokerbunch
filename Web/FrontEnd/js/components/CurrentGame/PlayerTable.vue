@@ -17,6 +17,7 @@
     import { mapGetters } from 'vuex';
     import { PlayerRow } from ".";
     import { FormatMixin } from '../../mixins'
+    import { CURRENT_GAME } from '../../store-names';
 
     export default {
         mixins: [
@@ -29,7 +30,7 @@
         created: function () {
         },
         computed: {
-            ...mapGetters('currentGame', {
+            ...mapGetters(CURRENT_GAME, {
                 totalBuyin: getters => getters.totalBuyin,
                 totalStacks: getters => getters.totalStacks}),
             formattedTotalBuyin: function () {

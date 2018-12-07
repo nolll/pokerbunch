@@ -20,6 +20,7 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import { CashgameNavigationItem } from '.';
+    import { BUNCH, GAME_ARCHIVE } from '../../store-names';
 
     export default {
         components: {
@@ -32,15 +33,15 @@
             };
         },
         computed: {
-            ...mapState('gameArchive', {
+            ...mapState(GAME_ARCHIVE, {
                 selectedYear: state => state.selectedYear,
                 isPageNavExpanded: state => state.isPageNavExpanded,
                 isYearNavExpanded: state => state.isYearNavExpanded
             }),
-            ...mapState('bunch', {
+            ...mapState(BUNCH, {
                 slug: state => state.slug
             }),
-            ...mapGetters('gameArchive', {
+            ...mapGetters(GAME_ARCHIVE, {
                 years: getters => getters.years
             }),
             computedYear() {

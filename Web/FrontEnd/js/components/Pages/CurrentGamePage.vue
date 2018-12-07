@@ -61,6 +61,7 @@
     import { BunchNavigation } from "../Navigation";
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from "../CurrentGame";
     import { Spinner } from "../Common";
+    import { CURRENT_GAME } from '../../store-names';
 
     export default {
         components: {
@@ -87,7 +88,7 @@
             this.init();
         },
         computed: {
-            ...mapState('currentGame', {
+            ...mapState(CURRENT_GAME, {
                 slug: state => state.slug,
                 players: state => state.players,
                 bunchPlayers: state => state.bunchPlayers,
@@ -102,7 +103,7 @@
                 buyinFormVisible: state => state.buyinFormVisible,
                 cashoutFormVisible: state => state.cashoutFormVisible
             }),
-            ...mapGetters('currentGame', {
+            ...mapGetters(CURRENT_GAME, {
                 hasPlayers: getters => getters.hasPlayers,
                 startTime: getters => getters.startTime,
                 sortedPlayers: getters => getters.sortedPlayers,

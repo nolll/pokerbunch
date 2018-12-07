@@ -17,17 +17,18 @@
 <script>
     import { mapState } from 'vuex';
     import { OverviewRow } from ".";
+    import { BUNCH, CURRENT_GAME } from '../../store-names';
 
     export default {
         components: {
             OverviewRow
         },
         computed: {
-            ...mapState('bunch', {
+            ...mapState(BUNCH, {
                 bunchReady: state => state.bunchReady,
                 slug: state => state.slug
             }),
-            ...mapState('currentGame', {
+            ...mapState(CURRENT_GAME, {
                 isRunning: state => state.isRunning
             }),
             url() {

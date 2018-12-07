@@ -6,10 +6,11 @@
 
 <script>
     import { mapState } from 'vuex';
+    import { CURRENT_GAME } from '../../store-names';
 
     export default {
         computed: {
-            ...mapState('currentGame', {
+            ...mapState(CURRENT_GAME, {
                 playerId: state => state.playerId,
                 bunchPlayers: state => state.bunchPlayers
             })

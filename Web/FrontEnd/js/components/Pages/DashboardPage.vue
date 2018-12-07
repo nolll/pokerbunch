@@ -40,6 +40,7 @@
     import { mapGetters, mapState } from 'vuex';
     import { PlayerTable, GameChart } from "../CurrentGame";
     import { Spinner } from "../Common";
+    import { CURRENT_GAME } from '../../store-names';
 
     export default {
         components: {
@@ -56,13 +57,13 @@
             this.init();
         },
         computed: {
-            ...mapState('currentGame', {
+            ...mapState(CURRENT_GAME, {
                 initialized: state => state.initialized,
                 players: state => state.players,
                 locationName: state => state.locationName,
                 currencyFormat: state => state.currencyFormat,
             }),
-            ...mapGetters('currentGame', {
+            ...mapGetters(CURRENT_GAME, {
                 startTime: getters => getters.startTime,
                 sortedPlayers: getters => getters.sortedPlayers,
                 hasPlayers: getters => getters.hasPlayers

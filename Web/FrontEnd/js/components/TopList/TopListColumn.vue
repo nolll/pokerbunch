@@ -4,11 +4,12 @@
 
 <script>
     import { mapState } from 'vuex';
+    import { GAME_ARCHIVE } from '../../store-names';
 
     export default {
         props: ['name', 'title'],
         computed: {
-            ...mapState('gameArchive', {
+            ...mapState(GAME_ARCHIVE, {
                 playerSortOrder: state => state.playerSortOrder
             }),
             isSelected: function () {

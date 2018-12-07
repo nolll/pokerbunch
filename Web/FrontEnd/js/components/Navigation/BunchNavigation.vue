@@ -12,10 +12,11 @@
 
 <script>
     import { mapState } from 'vuex';
+    import { BUNCH } from '../../store-names';
 
     export default {
         computed: {
-            ...mapState('bunch', {
+            ...mapState(BUNCH, {
                 slug: state => state.slug,
                 name: state => state.name
             }),

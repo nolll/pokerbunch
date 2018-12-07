@@ -19,6 +19,7 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import { YearMatrixColumn, YearMatrixRow } from ".";
+    import { BUNCH, GAME_ARCHIVE } from '../../store-names';
 
     export default {
         components: {
@@ -26,13 +27,13 @@
             YearMatrixRow
         },
         computed: {
-            ...mapState('gameArchive', {
+            ...mapState(GAME_ARCHIVE, {
                 games: state => state.games
             }),
-            ...mapState('bunch', {
+            ...mapState(BUNCH, {
                 bunchReady: state => state.bunchReady
             }),
-            ...mapGetters('gameArchive', {
+            ...mapGetters(GAME_ARCHIVE, {
                 currentYearPlayers: getters => getters.currentYearPlayers,
                 allYearsPlayers: getters => getters.allYearsPlayers,
                 years: getters => getters.years,

@@ -17,6 +17,7 @@
 <script>
     import { mapGetters } from 'vuex';
     import { FormatMixin } from '../../mixins';
+    import { CURRENT_GAME } from '../../store-names';
 
     export default {
         mixins: [
@@ -24,7 +25,7 @@
         ],
         props: ['player'],
         computed: {
-            ...mapGetters('currentGame', {
+            ...mapGetters(CURRENT_GAME, {
                 getLastReportTime: getters => getters.getLastReportTime,
                 getBuyin: getters => getters.getBuyin,
                 getStack: getters => getters.getStack,

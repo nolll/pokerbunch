@@ -1,4 +1,5 @@
 ﻿import { mapState } from 'vuex';
+import { USER } from '../store-names';
 
 export default {
     data: function () {
@@ -25,7 +26,7 @@ export default {
         }
     },
     computed: {
-        ...mapState('user', {
+        ...mapState(USER, {
                 userReady: state => state.userReady,
                 isSignedIn: state => state.isSignedIn
             }),

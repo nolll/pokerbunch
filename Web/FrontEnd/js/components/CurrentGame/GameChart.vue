@@ -7,7 +7,8 @@
 <script>
     import moment from 'moment';
     import { mapState } from 'vuex'
-    import { LineChart } from '../'
+    import { LineChart } from '../';
+    import { CURRENT_GAME } from '../../store-names';
 
     var chart = null;
 
@@ -34,7 +35,7 @@
             });
         },
         computed: {
-            ...mapState('currentGame', {
+            ...mapState(CURRENT_GAME, {
                 players: state => state.players,
                 initialized: state => state.initialized
             })

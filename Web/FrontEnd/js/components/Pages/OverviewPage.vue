@@ -35,6 +35,7 @@
     import { TwoColumn } from "../Layouts";
     import { BunchNavigation, CashgameNavigation } from "../Navigation";
     import { OverviewTable, OverviewStatus, YearMatrixTable } from "../";
+    import { GAME_ARCHIVE } from '../../store-names';
 
     export default {
         components: {
@@ -49,7 +50,7 @@
             DataMixin
         ],
         computed: {
-            ...mapGetters('gameArchive', {
+            ...mapGetters(GAME_ARCHIVE, {
                 currentYear: getters => getters.currentYear,
                 hasGames: getters => getters.hasGames
             })

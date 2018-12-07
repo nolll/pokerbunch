@@ -31,6 +31,7 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import { GameListColumn, GameListRow } from ".";
+    import { BUNCH, GAME_ARCHIVE } from '../../store-names';
 
     export default {
         components: {
@@ -38,13 +39,13 @@
             GameListRow
         },
         computed: {
-            ...mapState('gameArchive', {
+            ...mapState(GAME_ARCHIVE, {
                 gameSortOrder: state => state.gameSortOrder
             }),
-            ...mapState('bunch', {
+            ...mapState(BUNCH, {
                 bunchReady: state => state.bunchReady
             }),
-            ...mapGetters('gameArchive', {
+            ...mapGetters(GAME_ARCHIVE, {
                 sortedGames: getters => getters.sortedGames
             }),
             ready() {

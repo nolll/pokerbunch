@@ -15,11 +15,12 @@
     import { mapState } from 'vuex';
     import validate from '../../validate';
     import forms from '../../forms';
+    import { CURRENT_GAME } from '../../store-names';
 
     export default {
         props: ['isActive'],
         computed: {
-            ...mapState('currentGame', {
+            ...mapState(CURRENT_GAME, {
                 defaultBuyin: state => state.defaultBuyin
             }),
             hasErrors: function () {

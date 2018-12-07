@@ -1,9 +1,10 @@
 ﻿import { mapState } from 'vuex';
 import format from '../format';
+import { BUNCH } from '../store-names';
 
 export default {
     computed: {
-        ...mapState('bunch',
+        ...mapState(BUNCH,
             {
                 currencyFormat: state => state.currencyFormat,
                 thousandSeparator: state => state.thousandSeparator

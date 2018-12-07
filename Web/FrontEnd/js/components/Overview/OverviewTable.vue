@@ -22,16 +22,17 @@
     import { mapState, mapGetters } from 'vuex';
     import urls from '../../urls';
     import { OverviewRow } from ".";
+    import { BUNCH, GAME_ARCHIVE } from '../../store-names';
 
     export default {
         components: {
             OverviewRow
         },
         computed: {
-            ...mapState('bunch', {
+            ...mapState(BUNCH, {
                 bunchReady: state => state.bunchReady
             }),
-            ...mapGetters('gameArchive', {
+            ...mapGetters(GAME_ARCHIVE, {
                 currentYearGames: getters => getters.currentYearGames,
                 currentYearPlayers: getters => getters.currentYearPlayers
             }),

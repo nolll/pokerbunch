@@ -30,6 +30,7 @@
     import { FormatMixin } from '../../mixins';
     import { PlayerAmountFact, PlayerResultFact, PlayerTimeFact } from ".";
     import { DefinitionList, DefinitionTerm } from "../DefinitionList";
+    import { GAME_ARCHIVE } from '../../store-names';
 
     export default {
         mixins: [
@@ -43,7 +44,7 @@
             DefinitionTerm
         },
         computed: {
-            ...mapGetters('gameArchive', {
+            ...mapGetters(GAME_ARCHIVE, {
                 sortedGames: getters => getters.sortedGames,
                 sortedPlayers: getters => getters.sortedPlayers
             }),

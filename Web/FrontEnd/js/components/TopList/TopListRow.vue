@@ -15,18 +15,16 @@
 
 <script>
     import { mapState } from 'vuex';
-    import { FormatMixin } from '../../mixins'
+    import { FormatMixin } from '../../mixins';
+    import { GAME_ARCHIVE } from '../../store-names';
 
     export default {
         mixins: [
             FormatMixin
         ],
         props: ['player'],
-        created: function () {
-            var x = 0;
-        },
         computed: {
-            ...mapState('gameArchive', {
+            ...mapState(GAME_ARCHIVE, {
                 playerSortOrder: state => state.playerSortOrder
             }),
             url: function () {
