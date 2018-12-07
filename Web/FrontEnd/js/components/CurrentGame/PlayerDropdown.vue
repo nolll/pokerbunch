@@ -9,7 +9,10 @@
 
     export default {
         computed: {
-            ...mapState('currentGame', ['playerId', 'bunchPlayers'])
+            ...mapState('currentGame', {
+                playerId: state => state.playerId,
+                bunchPlayers: state => state.bunchPlayers
+            })
         },
         methods: {
             changePlayer: function (event) {
@@ -20,7 +23,7 @@
             }
         },
         watch: {
-            'playerId': function (val) {
+            playerId: function (val) {
                 this.setSelectedPlayerId(val);
             }
         },

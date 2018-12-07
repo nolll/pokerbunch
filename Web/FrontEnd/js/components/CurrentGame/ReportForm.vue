@@ -19,7 +19,9 @@
     export default {
         props: ['isActive'],
         computed: {
-            ...mapState('currentGame', ['defaultBuyin']),
+            ...mapState('currentGame', {
+                defaultBuyin: state => state.defaultBuyin
+            }),
             hasErrors: function () {
                 return this.stackError === null;
             }

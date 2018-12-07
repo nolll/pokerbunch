@@ -15,7 +15,10 @@
 
     export default {
         computed: {
-            ...mapState('bunch', ['slug', 'name']),
+            ...mapState('bunch', {
+                slug: state => state.slug,
+                name: state => state.name
+            }),
             bunchDetailsUrl() {
                 return '/bunch/details/' + this.slug;
             },

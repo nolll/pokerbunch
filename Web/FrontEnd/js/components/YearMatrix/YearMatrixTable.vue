@@ -26,8 +26,12 @@
             YearMatrixRow
         },
         computed: {
-            ...mapState('gameArchive', ['games']),
-            ...mapState('bunch', ['bunchReady']),
+            ...mapState('gameArchive', {
+                games: state => state.games
+            }),
+            ...mapState('bunch', {
+                bunchReady: state => state.bunchReady
+            }),
             ...mapGetters('gameArchive', {
                 currentYearPlayers: getters => getters.currentYearPlayers,
                 allYearsPlayers: getters => getters.allYearsPlayers,

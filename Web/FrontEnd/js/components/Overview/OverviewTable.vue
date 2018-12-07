@@ -28,7 +28,9 @@
             OverviewRow
         },
         computed: {
-            ...mapState('bunch', ['bunchReady']),
+            ...mapState('bunch', {
+                bunchReady: state => state.bunchReady
+            }),
             ...mapGetters('gameArchive', {
                 currentYearGames: getters => getters.currentYearGames,
                 currentYearPlayers: getters => getters.currentYearPlayers

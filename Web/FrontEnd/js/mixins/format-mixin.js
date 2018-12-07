@@ -3,7 +3,11 @@ import format from '../format';
 
 export default {
     computed: {
-        ...mapState('bunch', ['currencyFormat', 'thousandSeparator'])
+        ...mapState('bunch',
+            {
+                currencyFormat: state => state.currencyFormat,
+                thousandSeparator: state => state.thousandSeparator
+            })
     },
     methods: {
         formatCurrency(val) {

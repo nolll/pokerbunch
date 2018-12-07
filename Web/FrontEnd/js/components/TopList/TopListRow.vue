@@ -26,7 +26,9 @@
             var x = 0;
         },
         computed: {
-            ...mapState('gameArchive', ['playerSortOrder']),
+            ...mapState('gameArchive', {
+                playerSortOrder: state => state.playerSortOrder
+            }),
             url: function () {
                 return `/player/details/${this.player.id}`;
             },

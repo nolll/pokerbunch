@@ -7,21 +7,22 @@
 <script>
     import moment from 'moment';
     import { mapState, mapGetters } from 'vuex';
-    import { LineChart } from '.'
+    import { LineChart } from '.';
+    import { BUNCH, GAME_ARCHIVE } from '../store-names';
 
     export default {
         components: {
-            LineCharts
+            LineChart
         },
         computed: {
-            ...mapGetters('gameArchive', {
+            ...mapState(BUNCH, {
+                bunchReady: state => state.bunch
+            }),
+            ...mapGetters(GAME_ARCHIVE, {
                 startTime: getters => getters.startTime,
                 sortedGames: getters => getters.sortedGames,
                 sortedPlayers}
             ),
-            ...mapState('bunch', {
-                bunchReady: state => state.bunch
-            }),
             chartData() {
                 if (!this.ready) {
                     return null;

@@ -19,7 +19,9 @@
     export default {
         props: ['isActive'],
         computed: {
-            ...mapState('currentGame', ['defaultBuyin']),
+            ...mapState('currentGame', {
+                defaultBuyin: state => state.defaultBuyin
+            }),
             hasErrors: function () {
                 return this.stackError === null;
             }
@@ -28,33 +30,33 @@
             this.stack = this.defaultBuyin;
         },
         watch: {
-            'isActive': function (val) {
+            isActive: function (val) {
                 if (val) {
                     this.$refs.stack.focus();
                 }
             },
-            'defaultBuyin': function (val) {
+            defaultBuyin: function (val) {
                 this.stack = val;
             }
         },
         methods: {
-            cashout: function () {
+            cashout() {
                 this.validateForm();
                 if (!this.hasErrors)
                     this.$store.dispatch('currentGame/cashout', { stack: this.stack });
             },
-            cancel: function () {
+            cancel() {
                 this.$store.dispatch('currentGame/hideForms');
             },
-            focus: function (event) {
+            focus(event) {
                 forms.selectAll(event.target);
             },
-            validateForm: function () {
+            validateForm() {
                 this.clearErrors();
                 if (validate.intRange(this.stack, 0))
                     this.stackError = 'Stack can\'t be negative';
             },
-            clearErrors: function () {
+            clearErrors() {
                 this.stackError = null;
             }
         },

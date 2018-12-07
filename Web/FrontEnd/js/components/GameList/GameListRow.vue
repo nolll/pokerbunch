@@ -25,7 +25,9 @@
             var x = 0;
         },
         computed: {
-            ...mapState('gameArchive', ['gameSortOrder']),
+            ...mapState('gameArchive', {
+                gameSortOrder: state => state.gameSortOrder
+            }),
             url: function () {
                 return `/cashgame/details/${this.game.id}`;
             },

@@ -18,7 +18,12 @@
 
     export default {
         computed: {
-            ...mapState('user', ['isSignedIn', 'userName', 'displayName', 'userReady']),
+            ...mapState('user', {
+                isSignedIn: state => state.isSignedIn,
+                userName: state => state.userName,
+                displayName: state => state.displayName,
+                userReady: state => state.userReady
+            }),
             userDetailsUrl() {
                 return '/user/details/' + this.userName;
             }

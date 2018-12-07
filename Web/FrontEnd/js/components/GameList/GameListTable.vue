@@ -38,8 +38,12 @@
             GameListRow
         },
         computed: {
-            ...mapState('gameArchive', ['gameSortOrder']),
-            ...mapState('bunch', ['bunchReady']),
+            ...mapState('gameArchive', {
+                gameSortOrder: state => state.gameSortOrder
+            }),
+            ...mapState('bunch', {
+                bunchReady: state => state.bunchReady
+            }),
             ...mapGetters('gameArchive', {
                 sortedGames: getters => getters.sortedGames
             }),

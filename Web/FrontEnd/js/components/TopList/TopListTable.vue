@@ -41,8 +41,12 @@
             TopListRow
         },
         computed: {
-            ...mapState('gameArchive', ['playerSortOrder']),
-            ...mapState('bunch', ['bunchReady']),
+            ...mapState('gameArchive', {
+                playerSortOrder: state => state.playerSortOrder
+            }),
+            ...mapState('bunch', {
+                bunchReady: state => state.bunchReady
+            }),
             ...mapGetters('gameArchive', {
                 sortedPlayers: getters => getters.sortedPlayers
             }),

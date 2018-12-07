@@ -23,11 +23,13 @@
     export default {
         props: ['isActive'],
         computed: {
-            ...mapState('currentGame', ['defaultBuyin']),
+            ...mapState('currentGame', {
+                defaultBuyin: state => state.defaultBuyin
+            }),
             ...mapGetters('currentGame', {
                 isInGame: getters => getters.isInGame
             }),
-            hasErrors: function () {
+            hasErrors() {
                 return this.buyinError === null && this.stackError === null;
             }
         },
@@ -35,35 +37,35 @@
             this.amount = this.defaultBuyin;
         },
         watch: {
-            'isActive': function (val) {
+            isActive: function (val) {
                 if (val) {
                     this.$refs.buyin.focus();
                 }
             },
-            'defaultBuyin': function (val) {
+            defaultBuyin: function (val) {
                 this.amount = val;
             }
         },
         methods: {
-            buyin: function () {
+            buyin() {
                 this.validateForm();
                 if (!this.hasErrors)
                     this.$store.dispatch('currentGame/buyin', { amount: this.amount, stack: this.stack });
             },
-            cancel: function () {
+            cancel() {
                 this.$store.dispatch('currentGame/hideForms');
             },
-            focus: function (event) {
+            focus(event) {
                 forms.selectAll(event.target);
             },
-            validateForm: function () {
+            validateForm() {
                 this.clearErrors();
                 if (validate.intRange(this.amount, 1))
                     this.buyinError = 'Buyin must be greater than zero';
                 if (validate.intRange(this.stack, 0))
                     this.stackError = 'Stack can\'t be negative';
             },
-            clearErrors: function () {
+            clearErrors() {
                 this.buyinError = null;
                 this.stackError = null;
             }

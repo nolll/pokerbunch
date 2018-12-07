@@ -32,8 +32,14 @@
             };
         },
         computed: {
-            ...mapState('gameArchive', ['selectedYear', 'isPageNavExpanded', 'isYearNavExpanded']),
-            ...mapState('bunch', ['slug']),
+            ...mapState('gameArchive', {
+                selectedYear: state => state.selectedYear,
+                isPageNavExpanded: state => state.isPageNavExpanded,
+                isYearNavExpanded: state => state.isYearNavExpanded
+            }),
+            ...mapState('bunch', {
+                slug: state => state.slug
+            }),
             ...mapGetters('gameArchive', {
                 years: getters => getters.years
             }),

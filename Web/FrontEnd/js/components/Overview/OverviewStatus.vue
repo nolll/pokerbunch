@@ -16,7 +16,6 @@
 
 <script>
     import { mapState } from 'vuex';
-    import moment from 'moment';
     import { OverviewRow } from ".";
 
     export default {
@@ -24,8 +23,13 @@
             OverviewRow
         },
         computed: {
-            ...mapState('bunch', ['bunchReady', 'slug']),
-            ...mapState('currentGame', [ 'isRunning' ]),
+            ...mapState('bunch', {
+                bunchReady: state => state.bunchReady,
+                slug: state => state.slug
+            }),
+            ...mapState('currentGame', {
+                isRunning: state => state.isRunning
+            }),
             url() {
                 return this.isRunning ? '/cashgame/running/' + this.slug : '/cashgame/add/' + this.slug;
             },

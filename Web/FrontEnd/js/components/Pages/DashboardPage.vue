@@ -41,9 +41,6 @@
     import { PlayerTable, GameChart } from "../CurrentGame";
     import { Spinner } from "../Common";
 
-    var longRefresh = 30000,
-        shortRefresh = 10000;
-
     export default {
         components: {
             TwoColumn,
@@ -59,17 +56,17 @@
             this.init();
         },
         computed: {
-            ...mapState('currentGame', [
-                'initialized',
-                'players',
-                'locationName',
-                'currencyFormat',
-            ]),
-            ...mapGetters('currentGame', [
+            ...mapState('currentGame', {
+                initialized: state => state.initialized,
+                players: state => state.players,
+                locationName: state => state.locationName,
+                currencyFormat: state => state.currencyFormat,
+            }),
+            ...mapGetters('currentGame', {
                 startTime: getters => getters.startTime,
                 sortedPlayers: getters => getters.sortedPlayers,
                 hasPlayers: getters => getters.hasPlayers
-            ]),
+            }),
             hasPlayers: function () {
                 return this.players.length > 0;
             },

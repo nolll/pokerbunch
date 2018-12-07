@@ -26,7 +26,9 @@
             MatrixRow
         },
         computed: {
-            ...mapState('bunch', ['bunchReady']),
+            ...mapState('bunch', {
+                bunchReady: state => state.bunchReady
+            }),
             ...mapGetters('gameArchive', {
                 sortedGames: getters => getters.sortedGames,
                 sortedPlayers: getters => getters.sortedPlayers
