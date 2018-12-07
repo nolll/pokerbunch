@@ -43,7 +43,9 @@
         computed: {
             ...mapState('gameArchive', ['playerSortOrder']),
             ...mapState('bunch', ['bunchReady']),
-            ...mapGetters('gameArchive', ['sortedPlayers']),
+            ...mapGetters('gameArchive', {
+                sortedPlayers: getters => getters.sortedPlayers
+            }),
             ready() {
                 return this.bunchReady && this.sortedGames.length > 0;
             }

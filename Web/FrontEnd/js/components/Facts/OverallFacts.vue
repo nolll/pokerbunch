@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { FormatMixin } from '../../mixins'
     import { AmountFact, TimeFact } from ".";
     import { DefinitionData, DefinitionList, DefinitionTerm } from "../DefinitionList";
@@ -32,7 +32,9 @@
             DefinitionTerm
         },
         computed: {
-            ...mapGetters('gameArchive', ['sortedGames']),
+            ...mapGetters('gameArchive', {
+                sortedGames: getters => getters.sortedGames
+            }),
             facts() {
                 return getFacts(this.sortedGames);
             },

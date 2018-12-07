@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { PlayerRow } from ".";
     import { FormatMixin } from '../../mixins'
 
@@ -29,7 +29,9 @@
         created: function () {
         },
         computed: {
-            ...mapGetters('currentGame', ['totalBuyin', 'totalStacks']),
+            ...mapGetters('currentGame', {
+                totalBuyin: getters => getters.totalBuyin,
+                totalStacks: getters => getters.totalStacks}),
             formattedTotalBuyin: function () {
                 return this.formatCurrency(this.totalBuyin);
             },

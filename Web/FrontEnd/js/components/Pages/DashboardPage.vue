@@ -66,9 +66,9 @@
                 'currencyFormat',
             ]),
             ...mapGetters('currentGame', [
-                'startTime',
-                'sortedPlayers',
-                'hasPlayers'
+                startTime: getters => getters.startTime,
+                sortedPlayers: getters => getters.sortedPlayers,
+                hasPlayers: getters => getters.hasPlayers
             ]),
             hasPlayers: function () {
                 return this.players.length > 0;

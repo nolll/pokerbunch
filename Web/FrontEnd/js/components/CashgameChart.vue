@@ -11,11 +11,17 @@
 
     export default {
         components: {
-            LineChart
+            LineCharts
         },
         computed: {
-            ...mapGetters('gameArchive', ['sortedGames', 'sortedPlayers']),
-            ...mapState('bunch', ['bunchReady']),
+            ...mapGetters('gameArchive', {
+                startTime: getters => getters.startTime,
+                sortedGames: getters => getters.sortedGames,
+                sortedPlayers}
+            ),
+            ...mapState('bunch', {
+                bunchReady: state => state.bunch
+            }),
             chartData() {
                 if (!this.ready) {
                     return null;

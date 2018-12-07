@@ -78,7 +78,11 @@
         mixins: [
             DataMixin
         ],
-        props: ['apiHost'],
+        props: {
+            apiHost: {
+                type: String
+            }
+        },
         created: function () {
             this.init();
         },
@@ -98,17 +102,17 @@
                 buyinFormVisible: state => state.buyinFormVisible,
                 cashoutFormVisible: state => state.cashoutFormVisible
             }),
-            ...mapGetters('currentGame', [
-                'hasPlayers',
-                'startTime',
-                'sortedPlayers',
-                'isInGame',
-                'hasCashedOut',
-                'canCashout',
-                'canEndGame',
-                'canReport',
-                'canBuyin'
-            ]),
+            ...mapGetters('currentGame', {
+                hasPlayers: getters => getters.hasPlayers,
+                startTime: getters => getters.startTime,
+                sortedPlayers: getters => getters.sortedPlayers,
+                isInGame: getters => getters.isInGame,
+                hasCashedOut: getters => getters.hasCashedOut,
+                canCashout: getters => getters.canCashout,
+                canEndGame: getters => getters.canEndGame,
+                canReport: getters => getters.canReport,
+                canBuyin: getters => getters.canBuyin
+            }),
             formattedStartTime: function () {
                 return this.startTime.format('HH:mm');
             },

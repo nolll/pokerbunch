@@ -24,7 +24,9 @@
         props: ['isActive'],
         computed: {
             ...mapState('currentGame', ['defaultBuyin']),
-            ...mapGetters('currentGame', ['isInGame']),
+            ...mapGetters('currentGame', {
+                isInGame: getters => getters.isInGame
+            }),
             hasErrors: function () {
                 return this.buyinError === null && this.stackError === null;
             }

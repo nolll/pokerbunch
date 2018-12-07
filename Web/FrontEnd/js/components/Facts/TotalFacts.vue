@@ -26,7 +26,7 @@
     //MostGamesPlayed
     //HighestWinrate
 
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { FormatMixin } from '../../mixins';
     import { PlayerAmountFact, PlayerResultFact, PlayerTimeFact } from ".";
     import { DefinitionList, DefinitionTerm } from "../DefinitionList";
@@ -43,7 +43,10 @@
             DefinitionTerm
         },
         computed: {
-            ...mapGetters('gameArchive', ['sortedGames', 'sortedPlayers']),
+            ...mapGetters('gameArchive', {
+                sortedGames: getters => getters.sortedGames,
+                sortedPlayers: getters => getters.sortedPlayers
+            }),
             facts() {
                 return getFacts(this.sortedPlayers);
             }

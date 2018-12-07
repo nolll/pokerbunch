@@ -18,7 +18,7 @@
     //BiggestCashout
     //BiggestComeback
 
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { FormatMixin } from '../../mixins'
     import { PlayerResultFact } from ".";
     import { DefinitionList, DefinitionTerm } from "../DefinitionList";
@@ -33,7 +33,10 @@
             DefinitionTerm
         },
         computed: {
-            ...mapGetters('gameArchive', ['sortedGames', 'sortedPlayers']),
+            ...mapGetters('gameArchive', {
+                sortedGames: getters => getters.sortedGames,
+                sortedPlayers: getters => getters.sortedPlayers
+            }),
             facts() {
                 return getFacts(this.sortedPlayers);
             },

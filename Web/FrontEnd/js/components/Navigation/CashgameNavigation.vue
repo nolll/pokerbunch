@@ -34,7 +34,9 @@
         computed: {
             ...mapState('gameArchive', ['selectedYear', 'isPageNavExpanded', 'isYearNavExpanded']),
             ...mapState('bunch', ['slug']),
-            ...mapGetters('gameArchive', ['years']),
+            ...mapGetters('gameArchive', {
+                years: getters => getters.years
+            }),
             computedYear() {
                 if (this.year)
                     return this.year;

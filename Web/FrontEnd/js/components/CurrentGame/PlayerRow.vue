@@ -24,11 +24,12 @@
         ],
         props: ['player'],
         computed: {
-            ...mapGetters('currentGame', [
-                'getLastReportTime',
-                'getBuyin',
-                'getStack',
-                'getWinnings']),
+            ...mapGetters('currentGame', {
+                getLastReportTime: getters => getters.getLastReportTime,
+                getBuyin: getters => getters.getBuyin,
+                getStack: getters => getters.getStack,
+                getWinnings: getters => getters.getWinnings
+            }),
             hasCashedOut: function () {
                 return this.player.hasCashedOut;
             },

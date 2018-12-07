@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapState } from 'vuex';
     import moment from 'moment';
     import { OverviewRow } from ".";
 
