@@ -1,6 +1,4 @@
-﻿'use strict';
-
-import vue from 'vue';
+﻿import vue from 'vue';
 import vuex from 'vuex';
 import { UserStore, BunchStore, CurrentGameStore, GameArchiveStore } from './modules';
 

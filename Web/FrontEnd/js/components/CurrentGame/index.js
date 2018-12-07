@@ -1,6 +1,4 @@
-﻿'use strict';
-
-export { default as ReportForm } from './ReportForm.vue';
+﻿export { default as ReportForm } from './ReportForm.vue';
 export { default as BuyinForm } from './BuyinForm.vue';
 export { default as CashoutForm } from './CashoutForm.vue';
 

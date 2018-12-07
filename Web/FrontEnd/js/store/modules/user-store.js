@@ -1,6 +1,4 @@
-﻿'use strict';
-
-import api from '../../api';
+﻿import api from '../../api';
 
 export default {
     namespaced: true,

@@ -1,6 +1,4 @@
-﻿'use strict';
-
-import Vue from 'vue';
+﻿import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import {

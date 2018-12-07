@@ -1,6 +1,4 @@
-﻿'use strict';
-
-import api from '../../api';
+﻿import api from '../../api';
 import gameSorter from '../../game-sorter';
 import playerSorter from '../../player-sorter';
 import moment from 'moment';

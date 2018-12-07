@@ -1,6 +1,4 @@
-﻿'use strict';
-
-export { default as LoginPage } from './LoginPage.vue';
+﻿export { default as LoginPage } from './LoginPage.vue';
 export { default as OverviewPage } from './OverviewPage.vue';
 export { default as MatrixPage } from './MatrixPage.vue';
 export { default as ToplistPage } from './ToplistPage.vue';

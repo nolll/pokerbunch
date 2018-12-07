@@ -1,3 +1,1 @@
-﻿'use strict';
-
-export { default as TwoColumn } from './TwoColumn.vue';
+﻿export { default as TwoColumn } from './TwoColumn.vue';

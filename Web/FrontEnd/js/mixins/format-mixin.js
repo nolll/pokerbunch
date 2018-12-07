@@ -1,6 +1,4 @@
-﻿'use strict';
-
-import { mapState } from 'vuex';
+﻿import { mapState } from 'vuex';
 import format from '../format';
 
 export default {
