@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import { FormatMixin } from '../../mixins'
+    import { FormatMixin } from '@/mixins'
     import { YearMatrixItem } from ".";
 
     export default {

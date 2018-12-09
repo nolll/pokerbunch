@@ -15,8 +15,8 @@
 
 <script>
     import { mapState } from 'vuex';
-    import { FormatMixin } from '../../mixins';
-    import { GAME_ARCHIVE } from '../../store-names';
+    import { FormatMixin } from '@/mixins';
+    import { GAME_ARCHIVE } from '@/store-names';
 
     export default {
         mixins: [

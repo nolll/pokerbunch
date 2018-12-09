@@ -15,7 +15,7 @@
     import { mapState } from 'vuex';
     import validate from '../../validate';
     import forms from '../../forms';
-    import { CURRENT_GAME } from '../../store-names';
+    import { CURRENT_GAME } from '@/store-names';
 
     export default {
         props: ['isActive'],

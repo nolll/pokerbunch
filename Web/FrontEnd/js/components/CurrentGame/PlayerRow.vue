@@ -16,8 +16,8 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import { FormatMixin } from '../../mixins';
-    import { CURRENT_GAME } from '../../store-names';
+    import { FormatMixin } from '@/mixins';
+    import { CURRENT_GAME } from '@/store-names';
 
     export default {
         mixins: [

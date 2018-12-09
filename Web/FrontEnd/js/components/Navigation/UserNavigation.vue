@@ -15,7 +15,7 @@
 
 <script>
     import { mapState } from 'vuex';
-    import { USER } from '../../store-names';
+    import { USER } from '@/store-names';
 
     export default {
         computed: {

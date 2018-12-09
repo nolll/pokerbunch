@@ -16,10 +16,10 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import { FormatMixin } from '../../mixins'
+    import { FormatMixin } from '@/mixins'
     import { AmountFact, TimeFact } from ".";
     import { DefinitionData, DefinitionList, DefinitionTerm } from "../DefinitionList";
-    import { GAME_ARCHIVE } from '../../store-names';
+    import { GAME_ARCHIVE } from '@/store-names';
 
     export default {
         mixins: [

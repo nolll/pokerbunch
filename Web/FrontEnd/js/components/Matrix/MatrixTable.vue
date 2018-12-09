@@ -19,7 +19,7 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import { MatrixColumn, MatrixRow } from ".";
-    import { BUNCH, GAME_ARCHIVE } from '../../store-names';
+    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
     export default {
         components: {

@@ -1,6 +1,6 @@
 ﻿import { mapState } from 'vuex';
-import format from '../format';
-import { BUNCH } from '../store-names';
+import format from '@/format';
+import { BUNCH } from '@/store-names';
 
 export default {
     computed: {

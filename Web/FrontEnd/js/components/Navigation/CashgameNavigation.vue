@@ -20,7 +20,7 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import { CashgameNavigationItem } from '.';
-    import { BUNCH, GAME_ARCHIVE } from '../../store-names';
+    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
     export default {
         components: {

@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import { DataMixin } from '../../mixins';
+    import { DataMixin } from '@/mixins';
     import { TwoColumn } from "../Layouts";
     import { BunchNavigation, CashgameNavigation } from "../Navigation";
     import { SingleGameFacts, TotalFacts, OverallFacts } from "../";

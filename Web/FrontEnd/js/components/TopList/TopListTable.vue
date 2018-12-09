@@ -34,7 +34,7 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import { TopListColumn, TopListRow } from ".";
-    import { BUNCH, GAME_ARCHIVE } from '../../store-names';
+    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
     export default {
         components: {

@@ -54,14 +54,14 @@
 </template>
 
 <script>
-    import { DataMixin } from '../../mixins';
+    import { DataMixin } from '@/mixins';
     import { mapState, mapGetters } from 'vuex';
     import urls from '../../urls';
     import { TwoColumn } from "../Layouts";
     import { BunchNavigation } from "../Navigation";
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from "../CurrentGame";
     import { Spinner } from "../Common";
-    import { CURRENT_GAME } from '../../store-names';
+    import { CURRENT_GAME } from '@/store-names';
 
     export default {
         components: {

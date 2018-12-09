@@ -12,7 +12,7 @@
 
 <script>
     import { mapState } from 'vuex';
-    import { BUNCH } from '../../store-names';
+    import { BUNCH } from '@/store-names';
 
     export default {
         computed: {

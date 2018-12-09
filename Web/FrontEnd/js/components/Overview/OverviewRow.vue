@@ -12,7 +12,7 @@
 <script>
     import { mapState } from 'vuex';
     import moment from 'moment';
-    import { FormatMixin } from '../../mixins'
+    import { FormatMixin } from '@/mixins'
     import { OverviewItem } from ".";
 
     export default {

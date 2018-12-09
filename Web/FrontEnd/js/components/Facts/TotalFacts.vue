@@ -27,10 +27,10 @@
     //HighestWinrate
 
     import { mapGetters } from 'vuex';
-    import { FormatMixin } from '../../mixins';
+    import { FormatMixin } from '@/mixins';
     import { PlayerAmountFact, PlayerResultFact, PlayerTimeFact } from ".";
     import { DefinitionList, DefinitionTerm } from "../DefinitionList";
-    import { GAME_ARCHIVE } from '../../store-names';
+    import { GAME_ARCHIVE } from '@/store-names';
 
     export default {
         mixins: [

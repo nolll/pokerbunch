@@ -14,9 +14,9 @@
 <script>
     import { mapState } from 'vuex';
     import moment from 'moment';
-    import { FormatMixin } from '../../mixins';
+    import { FormatMixin } from '@/mixins';
     import urls from '../../urls';
-    import { GAME_ARCHIVE } from '../../store-names';
+    import { GAME_ARCHIVE } from '@/store-names';
 
     export default {
         mixins: [

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-    import { FormatMixin } from '../../mixins'
+    import { FormatMixin } from '@/mixins'
     import { DefinitionData } from "../DefinitionList";
 
     export default {

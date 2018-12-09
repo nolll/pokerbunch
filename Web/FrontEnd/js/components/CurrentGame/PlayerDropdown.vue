@@ -6,7 +6,7 @@
 
 <script>
     import { mapState } from 'vuex';
-    import { CURRENT_GAME } from '../../store-names';
+    import { CURRENT_GAME } from '@/store-names';
 
     export default {
         computed: {

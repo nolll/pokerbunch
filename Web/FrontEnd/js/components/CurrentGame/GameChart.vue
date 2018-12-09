@@ -8,7 +8,7 @@
     import moment from 'moment';
     import { mapState } from 'vuex'
     import { LineChart } from '../';
-    import { CURRENT_GAME } from '../../store-names';
+    import { CURRENT_GAME } from '@/store-names';
 
     var chart = null;
 

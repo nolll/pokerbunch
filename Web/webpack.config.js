@@ -42,7 +42,8 @@ module.exports = {
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm.js',
-            moment: 'moment/src/moment.js'
+            moment: 'moment/src/moment.js',
+            '@': path.resolve(__dirname, './FrontEnd/js')
         }
     }
 };
