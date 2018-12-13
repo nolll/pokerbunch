@@ -1,6 +1,6 @@
 ﻿<template>
-    <div>
-        <line-chart :chart-data="chartData" :chart-options="chartOptions"></line-chart>
+    <div v-if="ready">
+        <line-chart :chart-data="chartData" :chart-options="chartOptions" />
     </div>
 </template>
 
@@ -16,12 +16,20 @@
         },
         computed: {
             ...mapState(BUNCH, {
-                bunchReady: state => state.bunch
+                bunchReady: state => state.bunchReady
             }),
-            ...mapGetters(GAME_ARCHIVE, {
-                startTime: getters => getters.startTime,
-                sortedGames: getters => getters.sortedGames,
-                sortedPlayers}
+            //...mapGetters(GAME_ARCHIVE, {
+            //    gamesReady: getters => getters.gamesReady,
+            //    startTime: getters => getters.startTime,
+            //    sortedGames: getters => getters.sortedGames,
+            //    sortedPlayers: getters => getters.sortedPlayers}
+            //),
+            ...mapGetters(GAME_ARCHIVE, [
+                'gamesReady',
+                'startTime',
+                'sortedGames',
+                'sortedPlayers'
+            ]
             ),
             chartData() {
                 if (!this.ready) {
@@ -30,7 +38,9 @@
                 return getChartData(this.sortedGames, this.sortedPlayers);
             },
             ready() {
-                return this.bunchReady && this.sortedGames.length > 0;
+                console.log(BUNCH);
+                console.log(GAME_ARCHIVE);
+                return this.bunchReady && this.gamesReady;
             }
         },
         data: function () {
