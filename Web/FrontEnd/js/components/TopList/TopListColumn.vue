@@ -20,7 +20,7 @@
             }
         },
         methods: {
-            sort: function () {
+            sort() {
                 this.$store.dispatch('gameArchive/sortPlayers', this.name);
             }
         }

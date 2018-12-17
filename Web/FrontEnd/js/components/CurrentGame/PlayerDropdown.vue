@@ -16,10 +16,10 @@
             ])
         },
         methods: {
-            changePlayer: function (event) {
+            changePlayer(event) {
                 this.$store.dispatch('currentGame/selectPlayer', { playerId: this.selectedPlayerId });
             },
-            setSelectedPlayerId: function (playerId) {
+            setSelectedPlayerId(playerId) {
                 this.selectedPlayerId = playerId;
             }
         },

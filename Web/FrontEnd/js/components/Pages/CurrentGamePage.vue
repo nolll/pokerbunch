@@ -114,13 +114,13 @@
                 'canReport',
                 'canBuyin'
             ]),
-            formattedStartTime: function () {
+            formattedStartTime() {
                 return this.startTime.format('HH:mm');
             },
-            areButtonsVisible: function () {
+            areButtonsVisible() {
                 return !this.isAnyFormVisible;
             },
-            isAnyFormVisible: function () {
+            isAnyFormVisible() {
                 return this.reportFormVisible || this.buyinFormVisible || this.cashoutFormVisible;
             }
         },

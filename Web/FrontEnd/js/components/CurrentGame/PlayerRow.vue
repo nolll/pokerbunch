@@ -35,34 +35,34 @@
                 'getStack',
                 'getWinnings'
             ]),
-            hasCashedOut: function () {
+            hasCashedOut() {
                 return this.player.hasCashedOut;
             },
-            lastReportTime: function () {
+            lastReportTime() {
                 return this.getLastReportTime(this.player);
             },
-            buyin: function () {
+            buyin() {
                 return this.getBuyin(this.player);
             },
-            stack: function () {
+            stack() {
                 return this.getStack(this.player);
             },
-            winnings: function () {
+            winnings() {
                 return this.getWinnings(this.player);
             },
-            winningsCssClasses: function () {
+            winningsCssClasses() {
                 return {
                     'pos-result': this.winnings > 0,
                     'neg-result': this.winnings < 0
                 };
             },
-            formattedBuyin: function () {
+            formattedBuyin() {
                 return this.formatCurrency(this.buyin);
             },
-            formattedStack: function () {
+            formattedStack() {
                 return this.formatCurrency(this.stack);
             },
-            formattedWinnings: function () {
+            formattedWinnings() {
                 return this.formatResult(this.winnings);
             }
         }

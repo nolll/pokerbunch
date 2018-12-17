@@ -41,18 +41,18 @@
             ])
         },
         methods: {
-            drawChart: function () {
+            drawChart() {
                 this.chartData = this.getGameChartData();
                 this.chartOptions = { colors: this.getColors() };
             },
-            getGameChartData: function () {
+            getGameChartData() {
                 return {
                     cols: this.getColumns(),
                     rows: this.getRows(),
                     p: null
                 };
             },
-            getColors: function () {
+            getColors() {
                 var i,
                     p,
                     colors = [];
@@ -62,7 +62,7 @@
                 }
                 return colors;
             },
-            getColumns: function () {
+            getColumns() {
                 var i,
                     p,
                     cols = [{ type: 'datetime', label: 'Time', pattern: 'HH:mm' }];
@@ -72,7 +72,7 @@
                 }
                 return cols;
             },
-            getRows: function () {
+            getRows() {
                 var i, j, p, r;
                 var rows = [];
                 for (i = 0; i < this.players.length; i++) {
@@ -88,7 +88,7 @@
                 }
                 return rows;
             },
-            getPlayerResults: function (player) {
+            getPlayerResults(player) {
                 var i,
                     c,
                     winnings,
@@ -103,10 +103,10 @@
                 }
                 return results;
             },
-            createPlayerResult: function (time, winnings) {
+            createPlayerResult(time, winnings) {
                 return { time: time, winnings: winnings };
             },
-            getRow: function (result, playerId) {
+            getRow(result, playerId) {
                 var values = [{ v: moment(result.time).toDate(), f: null }];
                 for (var i = 0; i < this.players.length; i++) {
                     var val = null;

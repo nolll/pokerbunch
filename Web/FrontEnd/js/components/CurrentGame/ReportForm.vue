@@ -23,7 +23,7 @@
             ...mapState(CURRENT_GAME, [
                 'defaultBuyin'
             ]),
-            hasErrors: function () {
+            hasErrors() {
                 return this.stackError === null;
             }
         },
@@ -41,23 +41,23 @@
             }
         },
         methods: {
-            report: function () {
+            report() {
                 this.validateForm();
                 if (!this.hasErrors)
                     this.$store.dispatch('currentGame/report', { stack: this.stack });
             },
-            cancel: function () {
+            cancel() {
                 this.$store.dispatch('currentGame/hideForms');
             },
-            focus: function (event) {
+            focus(event) {
                 forms.selectAll(event.target);
             },
-            validateForm: function () {
+            validateForm() {
                 this.clearErrors();
                 if (validate.intRange(this.stack, 0))
                     this.stackError = 'Stack can\'t be negative';
             },
-            clearErrors: function () {
+            clearErrors() {
                 this.stackError = null;
             }
         },

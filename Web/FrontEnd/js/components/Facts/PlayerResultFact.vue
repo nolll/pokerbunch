@@ -18,7 +18,7 @@
             formattedAmount() {
                 return this.formatResult(this.amount);
             },
-            cssClass: function () {
+            cssClass() {
                 if (this.amount === 0)
                     return '';
                 return this.amount > 0 ? 'pos-result' : 'neg-result';

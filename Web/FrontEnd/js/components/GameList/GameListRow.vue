@@ -27,34 +27,34 @@
             ...mapState(GAME_ARCHIVE, [
                 'gameSortOrder'
             ]),
-            url: function () {
+            url() {
                 urls.cashgameDetails(this.game.id);
             },
-            displayDate: function () {
+            displayDate() {
                 return moment(this.game.date).format('MMM D');
             },
-            dateSortCssClass: function () {
+            dateSortCssClass() {
                 return getSortCssClass(this.orderBy, 'date');
             },
-            playerCountSortCssClass: function () {
+            playerCountSortCssClass() {
                 return getSortCssClass(this.orderBy, 'playercount');
             },
-            durationSortCssClass: function () {
+            durationSortCssClass() {
                 return getSortCssClass(this.orderBy, 'duration');
             },
-            turnoverSortCssClass: function () {
+            turnoverSortCssClass() {
                 return getSortCssClass(this.orderBy, 'turnover');
             },
-            averageBuyinSortCssClass: function () {
+            averageBuyinSortCssClass() {
                 return getSortCssClass(this.orderBy, 'averagebuyin');
             },
-            duration: function () {
+            duration() {
                 return this.formatTime(this.game.duration);
             },
-            formattedAverageBuyin: function () {
+            formattedAverageBuyin() {
                 return this.formatCurrency(this.game.averageBuyin);
             },
-            formattedTurnover: function () {
+            formattedTurnover() {
                 return this.formatCurrency(this.game.turnover);
             }
         }

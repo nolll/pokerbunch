@@ -16,7 +16,7 @@
             }
         },
         computed: {
-            iconCssClass: function () {
+            iconCssClass() {
                 return `icon-${this.icon}`;
             }
         }

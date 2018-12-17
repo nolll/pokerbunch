@@ -5,16 +5,15 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
     import moment from 'moment';
 
     export default {
         props: ['game'],
         computed: {
-            url: function () {
+            url() {
                 return '/cashgame/details/' + this.game.id;
             },
-            displayDate: function () {
+            displayDate() {
                 return moment(this.game.startTime).format('MMM D');
             },
         }

@@ -23,7 +23,7 @@
             ...mapState(CURRENT_GAME, [
                 'defaultBuyin'
             ]),
-            hasErrors: function () {
+            hasErrors() {
                 return this.stackError === null;
             }
         },

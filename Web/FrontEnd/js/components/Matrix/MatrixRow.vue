@@ -24,29 +24,29 @@
             MatrixItem
         },
         computed: {
-            url: function () {
+            url() {
                 return '/player/details/' + this.player.id;
             },
-            name: function () {
+            name() {
                 return this.player.name;
             },
-            rank: function () {
+            rank() {
                 return this.index + 1;
             },
-            winnings: function () {
+            winnings() {
                 return this.player.winnings;
             },
-            formattedWinnings: function (result) {
+            formattedWinnings() {
                 return this.formatResult(this.winnings);
             },
-            resultClass: function () {
+            resultClass() {
                 if (this.winnings > 0)
                     return ' pos-result';
                 if (this.winnings < 0)
                     return ' neg-result';
                 return '';
             },
-            game: function () {
+            game() {
                 return this.player.game;
             }
         }

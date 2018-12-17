@@ -15,30 +15,30 @@
     export default {
         props: ['game'],
         computed: {
-            buyin: function () {
+            buyin() {
                 return this.game.buyin;
             },
-            stack: function () {
+            stack() {
                 return this.game.stack;
             },
-            winnings: function () {
+            winnings() {
                 if (this.game.winnings > 0)
                     return '+' + this.game.winnings;
                 return this.game.winnings;
             },
-            winnerClass: function () {
+            winnerClass() {
                 if (this.game.isWinner)
                     return ' matrix__winner';
                 return '';
             },
-            resultClass: function () {
+            resultClass() {
                 if (this.winnings > 0)
                     return ' pos-result';
                 if (this.winnings < 0)
                     return ' neg-result';
                 return '';
             },
-            isInGame: function () {
+            isInGame() {
                 return !!this.game;
             }
         }

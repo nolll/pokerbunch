@@ -34,12 +34,12 @@
 
     export default {
         computed: {
-            isErrorVisible: function () {
+            isErrorVisible() {
                 return this.errorMessage !== null;
             }
         },
         methods: {
-            login: function () {
+            login() {
                 this.clearError();
                 var self = this;
 
@@ -66,22 +66,22 @@
                     this.showError('Please enter your username (or email) and password');
                 }
             },
-            validateForm: function () {
+            validateForm() {
                 this.clearError();
                 if (this.username === '' || this.password === '')
                     return false;
                 return true;
             },
-            clearError: function () {
+            clearError() {
                 this.errorMessage = null;
             },
-            showError: function (message) {
+            showError(message) {
                 this.errorMessage = message;
             },
-            setCookie: function (token) {
+            setCookie(token) {
                 auth.setToken(token);
             },
-            redirect: function () {
+            redirect() {
                 var returnUrl = querystring.get('returnurl');
                 var redirectUrl = returnUrl || '/';
                 window.location.href = redirectUrl;

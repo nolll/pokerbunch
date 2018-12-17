@@ -32,10 +32,10 @@
                 'totalBuyin',
                 'totalStacks'
             ]),
-            formattedTotalBuyin: function () {
+            formattedTotalBuyin() {
                 return this.formatCurrency(this.totalBuyin);
             },
-            formattedTotalStacks: function () {
+            formattedTotalStacks() {
                 return this.formatCurrency(this.totalStacks);
             }
         }

@@ -12,15 +12,15 @@
             ...mapState(GAME_ARCHIVE, [
                 'gameSortOrder'
             ]),
-            isSelected: function () {
+            isSelected() {
                 return this.name === this.gameSortOrder;
             },
-            sortColumnCssClass: function () {
+            sortColumnCssClass() {
                 return this.isSelected ? 'table-list--sortable__sort-column' : '';
             }
         },
         methods: {
-            sort: function () {
+            sort() {
                 this.$store.dispatch('gameArchive/sortGames', this.name);
             }
         }

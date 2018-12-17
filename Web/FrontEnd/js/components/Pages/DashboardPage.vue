@@ -68,19 +68,19 @@
                 'sortedPlayers',
                 'hasPlayers'
             ]),
-            hasPlayers: function () {
+            hasPlayers() {
                 return this.players.length > 0;
             },
-            formattedStartTime: function () {
+            formattedStartTime() {
                 return this.startTime.format('HH:mm');
             }
         },
         methods: {
-            loadCurrentGame: function () {
+            loadCurrentGame() {
                 const slug = this.slug;
                 this.$store.dispatch('currentGame/loadCurrentGame', { slug });
             },
-            init: function () {
+            init() {
                 this.loadUser();
                 this.loadBunch();
                 this.loadCurrentGame();

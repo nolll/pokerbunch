@@ -37,13 +37,13 @@
             UserNavigation
         },
         computed: {
-            isTopNavEnabled: function () {
+            isTopNavEnabled() {
                 return this.isSlotEnabled('top-nav');
             },
-            isContentNavEnabled: function () {
+            isContentNavEnabled() {
                 return this.isSlotEnabled('content-nav');
             },
-            isAsideEnabled: function () {
+            isAsideEnabled() {
                 return this.isSlotEnabled('aside');
             },
             mainCssClasses() {

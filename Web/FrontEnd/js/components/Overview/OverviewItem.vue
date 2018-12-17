@@ -7,8 +7,6 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    import moment from 'moment';
     import { FormatMixin } from '@/mixins';
 
     export default {
@@ -17,26 +15,26 @@
             FormatMixin
         ],
         computed: {
-            buyin: function () {
+            buyin() {
                 return this.game.buyin;
             },
-            stack: function () {
+            stack() {
                 return this.game.stack;
             },
-            winnings: function () {
+            winnings() {
                 return this.game.winnings;
             },
-            formattedWinnings: function () {
+            formattedWinnings() {
                 return this.formatResult(this.winnings);
             },
-            resultClass: function () {
+            resultClass() {
                 if (this.winnings > 0)
                     return ' pos-result';
                 if (this.winnings < 0)
                     return ' neg-result';
                 return '';
             },
-            isInGame: function () {
+            isInGame() {
                 return !!this.game;
             }
         }

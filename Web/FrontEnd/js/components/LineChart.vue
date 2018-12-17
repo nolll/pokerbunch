@@ -26,10 +26,10 @@
             });
         },
         computed: {
-            ready: function () {
+            ready() {
                 return this.dataLoaded && this.chartsLoaded;
             },
-            dataLoaded: function () {
+            dataLoaded() {
                 return !!this.chartData;
             }
         },
@@ -46,28 +46,28 @@
             }
         },
         methods: {
-            loadCharts: function () {
+            loadCharts() {
                 var self = this;
                 GoogleCharts.load(function () {
                     self.createChart();
                 });
             },
-            createChart: function () {
+            createChart() {
                 this.chart = new GoogleCharts.api.visualization.LineChart(this.$refs.container);
                 this.initResizeHandler();
                 this.chartsLoaded = true;
             },
-            draw: function () {
+            draw() {
                 var dataTable = new GoogleCharts.api.visualization.DataTable(this.chartData);
                 this.chart.draw(dataTable, this.getConfig());
             },
-            initResizeHandler: function () {
+            initResizeHandler() {
                 var self = this;
                 window.addEventListener('resize', debounce(function () {
                     self.draw();
                 }, 150));
             },
-            getConfig: function () {
+            getConfig() {
                 var width = parseInt(window.getComputedStyle(this.$refs.container).width);
                 var height = width / 2;
 
