@@ -27,18 +27,18 @@
             YearMatrixRow
         },
         computed: {
-            ...mapState(GAME_ARCHIVE, {
-                games: state => state.games
-            }),
-            ...mapState(BUNCH, {
-                bunchReady: state => state.bunchReady
-            }),
-            ...mapGetters(GAME_ARCHIVE, {
-                currentYearPlayers: getters => getters.currentYearPlayers,
-                allYearsPlayers: getters => getters.allYearsPlayers,
-                years: getters => getters.years,
-                currentYear: getters => getters.currentYear
-            }),
+            ...mapState(GAME_ARCHIVE, [
+                'games'
+            ]),
+            ...mapState(BUNCH, [
+                'bunchReady'
+            ]),
+            ...mapGetters(GAME_ARCHIVE, [
+                'currentYearPlayers',
+                'allYearsPlayers',
+                'years',
+                'currentYear'
+            ]),
             playersWithYearResults() {
                 var matrixArray = [];
                 for (let i = 0; i < this.allYearsPlayers.length; i++) {

@@ -42,17 +42,18 @@
             TopListRow
         },
         computed: {
-            ...mapState(GAME_ARCHIVE, {
-                playerSortOrder: state => state.playerSortOrder
-            }),
-            ...mapState(BUNCH, {
-                bunchReady: state => state.bunchReady
-            }),
-            ...mapGetters(GAME_ARCHIVE, {
-                sortedPlayers: getters => getters.sortedPlayers
-            }),
+            ...mapState(GAME_ARCHIVE, [
+                'playerSortOrder',
+                'gamesReady'
+            ]),
+            ...mapState(BUNCH, [
+                'bunchReady'
+            ]),
+            ...mapGetters(GAME_ARCHIVE, [
+                'sortedPlayers'
+            ]),
             ready() {
-                return this.bunchReady && this.sortedGames.length > 0;
+                return this.bunchReady && this.gamesReady;
             }
         }
     };

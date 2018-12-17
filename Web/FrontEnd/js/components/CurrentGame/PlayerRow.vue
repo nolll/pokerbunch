@@ -29,12 +29,12 @@
             }
         },
         computed: {
-            ...mapGetters(CURRENT_GAME, {
-                getLastReportTime: getters => getters.getLastReportTime,
-                getBuyin: getters => getters.getBuyin,
-                getStack: getters => getters.getStack,
-                getWinnings: getters => getters.getWinnings
-            }),
+            ...mapGetters(CURRENT_GAME, [
+                'getLastReportTime',
+                'getBuyin',
+                'getStack',
+                'getWinnings'
+            ]),
             hasCashedOut: function () {
                 return this.player.hasCashedOut;
             },

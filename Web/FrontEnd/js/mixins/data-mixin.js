@@ -26,10 +26,10 @@ export default {
         }
     },
     computed: {
-        ...mapState(USER, {
-                userReady: state => state.userReady,
-                isSignedIn: state => state.isSignedIn
-            }),
+        ...mapState(USER, [
+            'userReady',
+            'isSignedIn'
+        ]),
         loginUrl() {
             return '/auth/login';
         }

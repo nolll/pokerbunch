@@ -4,11 +4,10 @@ import { BUNCH } from '@/store-names';
 
 export default {
     computed: {
-        ...mapState(BUNCH,
-            {
-                currencyFormat: state => state.currencyFormat,
-                thousandSeparator: state => state.thousandSeparator
-            })
+        ...mapState(BUNCH, [
+            'currencyFormat',
+            'thousandSeparator'
+        ])
     },
     methods: {
         formatCurrency(val) {

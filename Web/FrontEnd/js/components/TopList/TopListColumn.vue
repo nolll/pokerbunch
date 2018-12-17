@@ -9,13 +9,13 @@
     export default {
         props: ['name', 'title'],
         computed: {
-            ...mapState(GAME_ARCHIVE, {
-                playerSortOrder: state => state.playerSortOrder
-            }),
-            isSelected: function () {
+            ...mapState(GAME_ARCHIVE, [
+                'playerSortOrder'
+            ]),
+            isSelected() {
                 return this.name === this.playerSortOrder;
             },
-            sortColumnCssClass: function () {
+            sortColumnCssClass() {
                 return this.isSelected ? 'table-list--sortable__sort-column' : '';
             }
         },

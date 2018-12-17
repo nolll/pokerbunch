@@ -27,12 +27,11 @@
             PlayerRow
         },
         props: ['players'],
-        created: function () {
-        },
         computed: {
-            ...mapGetters(CURRENT_GAME, {
-                totalBuyin: getters => getters.totalBuyin,
-                totalStacks: getters => getters.totalStacks}),
+            ...mapGetters(CURRENT_GAME, [
+                'totalBuyin',
+                'totalStacks'
+            ]),
             formattedTotalBuyin: function () {
                 return this.formatCurrency(this.totalBuyin);
             },

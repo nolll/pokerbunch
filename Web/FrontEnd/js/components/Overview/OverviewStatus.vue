@@ -24,13 +24,13 @@
             OverviewRow
         },
         computed: {
-            ...mapState(BUNCH, {
-                bunchReady: state => state.bunchReady,
-                slug: state => state.slug
-            }),
-            ...mapState(CURRENT_GAME, {
-                isRunning: state => state.isRunning
-            }),
+            ...mapState(BUNCH, [
+                'bunchReady',
+                'slug'
+            ]),
+            ...mapState(CURRENT_GAME, [
+                'isRunning'
+            ]),
             url() {
                 return this.isRunning ? '/cashgame/running/' + this.slug : '/cashgame/add/' + this.slug;
             },

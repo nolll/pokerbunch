@@ -24,9 +24,9 @@
         ],
         props: ['game'],
         computed: {
-            ...mapState(GAME_ARCHIVE, {
-                gameSortOrder: state => state.gameSortOrder
-            }),
+            ...mapState(GAME_ARCHIVE, [
+                'gameSortOrder'
+            ]),
             url: function () {
                 urls.cashgameDetails(this.game.id);
             },

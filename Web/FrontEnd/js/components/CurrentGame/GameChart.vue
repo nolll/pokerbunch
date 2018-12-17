@@ -35,10 +35,10 @@
             });
         },
         computed: {
-            ...mapState(CURRENT_GAME, {
-                players: state => state.players,
-                initialized: state => state.initialized
-            })
+            ...mapState(CURRENT_GAME, [
+                'players',
+                'initialized'
+            ])
         },
         methods: {
             drawChart: function () {

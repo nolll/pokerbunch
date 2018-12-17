@@ -39,15 +39,15 @@
             GameListRow
         },
         computed: {
-            ...mapState(GAME_ARCHIVE, {
-                gameSortOrder: state => state.gameSortOrder
-            }),
-            ...mapState(BUNCH, {
-                bunchReady: state => state.bunchReady
-            }),
-            ...mapGetters(GAME_ARCHIVE, {
-                sortedGames: getters => getters.sortedGames
-            }),
+            ...mapState(GAME_ARCHIVE, [
+                'gameSortOrder'
+            ]),
+            ...mapState(BUNCH, [
+                'bunchReady'
+            ]),
+            ...mapGetters(GAME_ARCHIVE, [
+                'sortedGames'
+            ]),
             ready() {
                 return this.bunchReady && this.sortedGames.length > 0;
             }

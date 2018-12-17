@@ -29,13 +29,13 @@
             OverviewRow
         },
         computed: {
-            ...mapState(BUNCH, {
-                bunchReady: state => state.bunchReady
-            }),
-            ...mapGetters(GAME_ARCHIVE, {
-                currentYearGames: getters => getters.currentYearGames,
-                currentYearPlayers: getters => getters.currentYearPlayers
-            }),
+            ...mapState(BUNCH, [
+                'bunchReady'
+            ]),
+            ...mapGetters(GAME_ARCHIVE, [
+                'currentYearGames',
+                'currentYearPlayers'
+            ]),
             url() {
                 return urls.cashgameDetails(this.lastGame.id);
             },

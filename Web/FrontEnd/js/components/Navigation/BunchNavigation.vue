@@ -16,10 +16,10 @@
 
     export default {
         computed: {
-            ...mapState(BUNCH, {
-                slug: state => state.slug,
-                name: state => state.name
-            }),
+            ...mapState(BUNCH, [
+                'slug',
+                'name'
+            ]),
             bunchDetailsUrl() {
                 return '/bunch/details/' + this.slug;
             },

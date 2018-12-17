@@ -33,17 +33,17 @@
             };
         },
         computed: {
-            ...mapState(GAME_ARCHIVE, {
-                selectedYear: state => state.selectedYear,
-                isPageNavExpanded: state => state.isPageNavExpanded,
-                isYearNavExpanded: state => state.isYearNavExpanded
-            }),
-            ...mapState(BUNCH, {
-                slug: state => state.slug
-            }),
-            ...mapGetters(GAME_ARCHIVE, {
-                years: getters => getters.years
-            }),
+            ...mapState(GAME_ARCHIVE, [
+                'selectedYear',
+                'isPageNavExpanded',
+                'isYearNavExpanded'
+            ]),
+            ...mapState(BUNCH, [
+                'slug'
+            ]),
+            ...mapGetters(GAME_ARCHIVE, [
+                'years'
+            ]),
             computedYear() {
                 if (this.year)
                     return this.year;

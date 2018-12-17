@@ -24,12 +24,12 @@
     export default {
         props: ['isActive'],
         computed: {
-            ...mapState(CURRENT_GAME, {
-                defaultBuyin: state => state.defaultBuyin
-            }),
-            ...mapGetters(CURRENT_GAME, {
-                isInGame: getters => getters.isInGame
-            }),
+            ...mapState(CURRENT_GAME, [
+                'defaultBuyin'
+            ]),
+            ...mapGetters(CURRENT_GAME, [
+                'isInGame'
+            ]),
             hasErrors() {
                 return this.buyinError === null && this.stackError === null;
             }

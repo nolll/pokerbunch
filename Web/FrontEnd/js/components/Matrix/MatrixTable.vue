@@ -27,13 +27,13 @@
             MatrixRow
         },
         computed: {
-            ...mapState(BUNCH, {
-                bunchReady: state => state.bunchReady
-            }),
-            ...mapGetters(GAME_ARCHIVE, {
-                sortedGames: getters => getters.sortedGames,
-                sortedPlayers: getters => getters.sortedPlayers
-            }),
+            ...mapState(BUNCH, [
+                'bunchReady'
+            ]),
+            ...mapGetters(GAME_ARCHIVE, [
+                'sortedGames',
+                'sortedPlayers'
+            ]),
             ready() {
                 return this.bunchReady && this.sortedGames.length > 0;
             }

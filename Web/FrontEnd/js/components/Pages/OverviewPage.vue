@@ -50,10 +50,10 @@
             DataMixin
         ],
         computed: {
-            ...mapGetters(GAME_ARCHIVE, {
-                currentYear: getters => getters.currentYear,
-                hasGames: getters => getters.hasGames
-            })
+            ...mapGetters(GAME_ARCHIVE, [
+                'currentYear',
+                'hasGames'
+            ])
         },
         methods: {
             init() {

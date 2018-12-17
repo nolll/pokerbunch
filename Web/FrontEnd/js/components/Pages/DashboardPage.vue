@@ -57,17 +57,17 @@
             this.init();
         },
         computed: {
-            ...mapState(CURRENT_GAME, {
-                initialized: state => state.initialized,
-                players: state => state.players,
-                locationName: state => state.locationName,
-                currencyFormat: state => state.currencyFormat,
-            }),
-            ...mapGetters(CURRENT_GAME, {
-                startTime: getters => getters.startTime,
-                sortedPlayers: getters => getters.sortedPlayers,
-                hasPlayers: getters => getters.hasPlayers
-            }),
+            ...mapState(CURRENT_GAME, [
+                'initialized',
+                'players',
+                'locationName',
+                'currencyFormat'
+            ]),
+            ...mapGetters(CURRENT_GAME, [
+                'startTime',
+                'sortedPlayers',
+                'hasPlayers'
+            ]),
             hasPlayers: function () {
                 return this.players.length > 0;
             },

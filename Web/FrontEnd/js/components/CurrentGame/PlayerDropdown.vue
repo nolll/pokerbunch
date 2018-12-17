@@ -10,10 +10,10 @@
 
     export default {
         computed: {
-            ...mapState(CURRENT_GAME, {
-                playerId: state => state.playerId,
-                bunchPlayers: state => state.bunchPlayers
-            })
+            ...mapState(CURRENT_GAME, [
+                'playerId',
+                'bunchPlayers'
+            ])
         },
         methods: {
             changePlayer: function (event) {

@@ -15,22 +15,15 @@
             LineChart
         },
         computed: {
-            ...mapState(BUNCH, {
-                bunchReady: state => state.bunchReady
-            }),
-            //...mapGetters(GAME_ARCHIVE, {
-            //    gamesReady: getters => getters.gamesReady,
-            //    startTime: getters => getters.startTime,
-            //    sortedGames: getters => getters.sortedGames,
-            //    sortedPlayers: getters => getters.sortedPlayers}
-            //),
+            ...mapState(BUNCH, [
+                'bunchReady'
+            ]),
             ...mapGetters(GAME_ARCHIVE, [
                 'gamesReady',
                 'startTime',
                 'sortedGames',
                 'sortedPlayers'
-            ]
-            ),
+            ]),
             chartData() {
                 if (!this.ready) {
                     return null;
@@ -38,8 +31,6 @@
                 return getChartData(this.sortedGames, this.sortedPlayers);
             },
             ready() {
-                console.log(BUNCH);
-                console.log(GAME_ARCHIVE);
                 return this.bunchReady && this.gamesReady;
             }
         },

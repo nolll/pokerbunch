@@ -9,9 +9,9 @@
     export default {
         props: ['name', 'title'],
         computed: {
-            ...mapState(GAME_ARCHIVE, {
-                gameSortOrder: state => state.gameSortOrder
-            }),
+            ...mapState(GAME_ARCHIVE, [
+                'gameSortOrder'
+            ]),
             isSelected: function () {
                 return this.name === this.gameSortOrder;
             },

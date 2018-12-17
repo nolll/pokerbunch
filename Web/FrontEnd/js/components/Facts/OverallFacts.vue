@@ -33,9 +33,9 @@
             DefinitionTerm
         },
         computed: {
-            ...mapGetters(GAME_ARCHIVE, {
-                sortedGames: getters => getters.sortedGames
-            }),
+            ...mapGetters(GAME_ARCHIVE, [
+                'sortedGames'
+            ]),
             facts() {
                 return getFacts(this.sortedGames);
             },

@@ -24,49 +24,49 @@
         ],
         props: ['player'],
         computed: {
-            ...mapState(GAME_ARCHIVE, {
-                playerSortOrder: state => state.playerSortOrder
-            }),
-            url: function () {
+            ...mapState(GAME_ARCHIVE, [
+                'playerSortOrder'
+            ]),
+            url() {
                 return `/player/details/${this.player.id}`;
             },
-            winningsCssClass: function () {
+            winningsCssClass() {
                 var winnings = this.player.winnings;
                 if (winnings === 0)
                     return '';
                 return winnings > 0 ? 'pos-result' : 'neg-result';
             },
-            winningsSortCssClass: function () {
+            winningsSortCssClass() {
                 return getSortCssClass(this.orderBy, 'winnings');
             },
-            buyinSortCssClass: function () {
+            buyinSortCssClass() {
                 return getSortCssClass(this.orderBy, 'buyin');
             },
-            cashoutSortCssClass: function () {
+            cashoutSortCssClass() {
                 return getSortCssClass(this.orderBy, 'cashout');
             },
-            timeSortCssClass: function () {
+            timeSortCssClass() {
                 return getSortCssClass(this.orderBy, 'time');
             },
-            gameCountSortCssClass: function () {
+            gameCountSortCssClass() {
                 return getSortCssClass(this.orderBy, 'gamecount');
             },
-            winrateSortCssClass: function () {
+            winrateSortCssClass() {
                 return getSortCssClass(this.orderBy, 'winrate');
             },
-            formattedWinnings: function () {
+            formattedWinnings() {
                 return this.formatResult(this.player.winnings);
             },
-            formattedBuyin: function () {
+            formattedBuyin() {
                 return this.formatCurrency(this.player.buyin);
             },
-            formattedCashout: function () {
+            formattedCashout() {
                 return this.formatCurrency(this.player.stack);
             },
-            formattedWinrate: function () {
+            formattedWinrate() {
                 return this.formatWinrate(this.player.winrate);
             },
-            formattedTime: function () {
+            formattedTime() {
                 return this.formatTime(this.player.playedTimeInMinutes);
             }
         }

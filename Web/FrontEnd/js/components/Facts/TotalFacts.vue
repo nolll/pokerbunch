@@ -44,10 +44,11 @@
             DefinitionTerm
         },
         computed: {
-            ...mapGetters(GAME_ARCHIVE, {
-                sortedGames: getters => getters.sortedGames,
-                sortedPlayers: getters => getters.sortedPlayers
-            }),
+            ...mapGetters(GAME_ARCHIVE, [
+                'sortedGames',
+                'sortedPlayers'
+
+            ]),
             facts() {
                 return getFacts(this.sortedPlayers);
             }
