@@ -1,5 +1,5 @@
 ﻿<template>
-    <two-column>
+    <two-column :ready="ready">
         <template slot="aside">
             <div class="gutter">
                 <game-chart :players="players"></game-chart>
@@ -7,7 +7,7 @@
         </template>
 
         <template slot="main">
-            <div v-if="initialized" class="region width2">
+            <div class="region width2">
                 <div class="block gutter">
                     <h1 class="page-heading">Running Cashgame</h1>
                 </div>
@@ -29,7 +29,6 @@
                     </dl>
                 </div>
             </div>
-            <spinner v-else></spinner>
         </template>
     </two-column>
 </template>
@@ -58,7 +57,6 @@
         },
         computed: {
             ...mapState(CURRENT_GAME, [
-                'initialized',
                 'players',
                 'locationName',
                 'currencyFormat'
@@ -73,6 +71,9 @@
             },
             formattedStartTime() {
                 return this.startTime.format('HH:mm');
+            },
+            ready() {
+                return this.bunchReady && this.currentGameReady;
             }
         },
         methods: {

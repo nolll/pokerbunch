@@ -1,5 +1,5 @@
 ﻿<template>
-    <two-column>
+    <two-column :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
@@ -20,7 +20,7 @@
         </template>
 
         <template slot="main">
-            <div v-if="initialized" class="region width2">
+            <div class="region width2">
                 <div class="block gutter">
                     <h1 class="page-heading">Running Cashgame</h1>
                 </div>
@@ -48,7 +48,6 @@
                     <game-chart :players="players"></game-chart>
                 </div>
             </div>
-            <spinner v-else></spinner>
         </template>
     </two-column>
 </template>
@@ -84,6 +83,11 @@
                 type: String
             }
         },
+        watch: {
+            '$route'(to, from) {
+                this.init();
+            }
+        },
         created: function () {
             this.init();
         },
@@ -92,7 +96,6 @@
                 'slug',
                 'players',
                 'bunchPlayers',
-                'initialized',
                 'locationUrl',
                 'locationName',
                 'isManager',
@@ -122,6 +125,9 @@
             },
             isAnyFormVisible() {
                 return this.reportFormVisible || this.buyinFormVisible || this.cashoutFormVisible;
+            },
+            ready() {
+                return this.bunchReady && this.currentGameReady;
             }
         },
         methods: {

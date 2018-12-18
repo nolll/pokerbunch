@@ -1,5 +1,5 @@
 ﻿<template>
-    <two-column>
+    <two-column :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
@@ -41,12 +41,16 @@
         mixins: [
             DataMixin
         ],
+        computed: {
+            ready() {
+                return this.bunchReady && this.gamesReady;
+            }
+        },
         methods: {
             init() {
                 this.loadUser();
                 this.loadBunch();
                 this.loadGames();
-                this.loadCurrentGame();
             }
         },
         watch: {

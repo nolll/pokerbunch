@@ -10,7 +10,6 @@ export default {
         slug: '',
         isRunning: false,
         playerId: '0',
-        refreshUrl: '',
         reportUrl: '',
         buyinUrl: '',
         cashoutUrl: '',
@@ -32,7 +31,7 @@ export default {
         cashoutFormVisible: false,
         lastReport: 0,
         lastBuyin: 0,
-        initialized: false
+        currentGameReady: false
     },
     getters: {
         hasPlayers: state => {
@@ -166,8 +165,9 @@ export default {
             api.getCurrentGame(slug)
                 .then(function (response) {
                     if (response.status === 200) {
-                        context.commit('currentGameLoaded', response.data);
+                        context.commit('dataLoaded', response.data);
                     }
+                    context.commit('loadingComplete', slug);
                     setupRefresh(context, longRefresh);
                 })
                 .catch(function () {
@@ -277,11 +277,13 @@ export default {
             state.buyinFormVisible = false;
             state.cashoutFormVisible = false;
         },
-        currentGameLoaded(state, data) {
+        loadingComplete(state, slug) {
+            state.currentGameReady = true;
+            state.slug = slug;
+        },
+        dataLoaded(state, data) {
             state.isRunning = true;
-            state.slug = data.slug;
             state.playerId = data.playerId;
-            state.refreshUrl = data.refreshUrl;
             state.reportUrl = data.reportUrl;
             state.buyinUrl = data.buyinUrl;
             state.cashoutUrl = data.cashoutUrl;
@@ -298,7 +300,6 @@ export default {
             state.loadedPlayerId = data.playerId;
             state.lastReport = data.defaultBuyin;
             state.lastBuyin = data.defaultBuyin;
-            state.initialized = true;
         }
     }
 };
@@ -311,10 +312,12 @@ function setupRefresh(context, refreshTimeout) {
 
 function refresh(context) {
     api.refreshCurrentGame(context.state.slug)
-        .then(function(response) {
-            setPlayers(context, response.data);
+        .then(function (response) {
+            if (response.status === 200) {
+                setPlayers(context, response.data);
+            }
         })
-        .catch(function() {
+        .catch(function(response) {
             console.log('refresh error');
         });
 }
@@ -331,8 +334,8 @@ function addCheckpoint(player, stack, addedMoney) {
 
 function createPlayer(state) {
     const bunchPlayer = state.bunchPlayer;
-    const playerName = bunchPlayer != null ? bunchPlayer.name : '';
-    const playerColor = bunchPlayer != null ? bunchPlayer.color : '#9e9e9e';
+    const playerName = bunchPlayer ? bunchPlayer.name : '';
+    const playerColor = bunchPlayer ? bunchPlayer.color : '#9e9e9e';
     return {
         id: state.playerId,
         name: playerName,

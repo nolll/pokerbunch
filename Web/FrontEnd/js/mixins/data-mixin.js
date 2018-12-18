@@ -1,5 +1,5 @@
-﻿import { mapState } from 'vuex';
-import { USER } from '@/store-names';
+﻿import { mapState, mapGetters } from 'vuex';
+import { USER, BUNCH, GAME_ARCHIVE, CURRENT_GAME } from '@/store-names';
 
 export default {
     data: function () {
@@ -29,6 +29,15 @@ export default {
         ...mapState(USER, [
             'userReady',
             'isSignedIn'
+        ]),
+        ...mapState(BUNCH, [
+            'bunchReady'
+        ]),
+        ...mapState(CURRENT_GAME, [
+            'currentGameReady'
+        ]),
+        ...mapGetters(GAME_ARCHIVE, [
+            'gamesReady'
         ]),
         loginUrl() {
             return '/auth/login';

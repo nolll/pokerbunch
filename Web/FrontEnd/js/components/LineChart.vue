@@ -9,7 +9,7 @@
     import { debounce } from "debounce";
     import extender from '@/extender';
     import { GoogleCharts } from 'google-charts';
-    import { Spinner } from '@/components/Common'
+    import { Spinner } from '@/components/Common';
 
     export default {
         props: ['chartData', 'chartOptions'],

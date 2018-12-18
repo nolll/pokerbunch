@@ -11,7 +11,7 @@ export default {
         return localGet(url);
     },
     refreshCurrentGame: function (slug) {
-        const url = `/cashgame/runningplayersjson/${slug}`;
+        const url = `/cashgame/runninggamejson/${slug}`;
         return localGet(url);
     },
     getBunch: function (slug) {

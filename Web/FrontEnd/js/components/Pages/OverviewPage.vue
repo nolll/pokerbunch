@@ -1,5 +1,5 @@
 ﻿<template>
-    <two-column>
+    <two-column :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
@@ -53,7 +53,10 @@
             ...mapGetters(GAME_ARCHIVE, [
                 'currentYear',
                 'hasGames'
-            ])
+            ]),
+            ready() {
+                return this.bunchReady && this.gamesReady && this.currentGameReady;
+            }
         },
         methods: {
             init() {

@@ -1,5 +1,5 @@
 ﻿<template>
-    <div>
+    <div v-if="ready">
         <header class="page-section">
             <div class="page-header">
                 <div class="logo"><a href="/" class="logo-link">Poker Bunch</a></div>
@@ -27,14 +27,26 @@
             <slot name="bottom-nav"><user-navigation /></slot>
         </div>
     </div>
+
+    <div v-else>
+        LOADING
+        <spinner />
+    </div>
 </template>
 
 <script>
     import { UserNavigation } from "@/components/Navigation";
+    import { Spinner } from '@/components/Common';
 
     export default {
         components: {
-            UserNavigation
+            UserNavigation,
+            Spinner
+        },
+        props: {
+            ready: {
+                type: Boolean
+            }
         },
         computed: {
             isTopNavEnabled() {

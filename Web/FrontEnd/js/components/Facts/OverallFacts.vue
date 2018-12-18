@@ -48,7 +48,7 @@
         },
         methods: {
             ready() {
-                return this.bunchReady && this.sortedGames.length > 0;
+                return this.bunchReady && this.gamesReady;
             }
         }
     };

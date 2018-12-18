@@ -10,7 +10,7 @@
                     Please sign in using your username and password. <a :href="forgotPasswordUrl">Forgot password?</a>
                 </p>
                 <p>
-                    If you are a new user, please <a :href="registerUrl">register</a:>!
+                    If you are a new user, please <a :href="registerUrl">register</a>!
                 </p>
 
                 <login-form />
