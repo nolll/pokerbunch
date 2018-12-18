@@ -20,8 +20,8 @@
 </template>
 
 <script>
-    import { TwoColumn } from "@/components/Layouts";
-    import { LoginForm } from "@/components";
+    import { TwoColumn } from '@/components/Layouts';
+    import { LoginForm } from '@/components';
 
     export default {
         components: {

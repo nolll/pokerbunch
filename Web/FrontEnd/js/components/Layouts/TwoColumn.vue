@@ -34,7 +34,7 @@
 </template>
 
 <script>
-    import { UserNavigation } from "@/components/Navigation";
+    import { UserNavigation } from '@/components/Navigation';
     import { Spinner } from '@/components/Common';
 
     export default {

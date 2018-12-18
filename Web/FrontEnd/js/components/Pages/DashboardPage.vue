@@ -35,10 +35,10 @@
 
 <script>
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from "@/components/Layouts";
+    import { TwoColumn } from '@/components/Layouts';
     import { mapGetters, mapState } from 'vuex';
-    import { PlayerTable, GameChart } from "@/components/CurrentGame";
-    import { Spinner } from "@/components/Common";
+    import { PlayerTable, GameChart } from '@/components/CurrentGame';
+    import { Spinner } from '@/components/Common';
     import { CURRENT_GAME } from '@/store-names';
 
     export default {

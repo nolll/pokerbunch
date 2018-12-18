@@ -15,7 +15,7 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import { PlayerRow } from ".";
+    import { PlayerRow } from '.';
     import { FormatMixin } from '@/mixins'
     import { CURRENT_GAME } from '@/store-names';
 

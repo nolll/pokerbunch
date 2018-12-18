@@ -30,7 +30,7 @@
 
 <script>
     import { mapState, mapGetters } from 'vuex';
-    import { GameListColumn, GameListRow } from ".";
+    import { GameListColumn, GameListRow } from '.';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
     export default {

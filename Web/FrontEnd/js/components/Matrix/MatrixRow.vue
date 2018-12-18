@@ -13,7 +13,7 @@
     import { mapState } from 'vuex';
     import moment from 'moment';
     import { FormatMixin } from '@/mixins'
-    import { MatrixItem } from ".";
+    import { MatrixItem } from '.';
 
     export default {
         mixins: [

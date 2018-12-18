@@ -20,8 +20,8 @@
 
     import { mapState, mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins'
-    import { PlayerResultFact } from ".";
-    import { DefinitionList, DefinitionTerm } from "@/components/DefinitionList";
+    import { PlayerResultFact } from '.';
+    import { DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
     export default {

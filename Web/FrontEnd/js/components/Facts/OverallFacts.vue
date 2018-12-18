@@ -17,8 +17,8 @@
 <script>
     import { mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins'
-    import { AmountFact, TimeFact } from ".";
-    import { DefinitionData, DefinitionList, DefinitionTerm } from "@/components/DefinitionList";
+    import { AmountFact, TimeFact } from '.';
+    import { DefinitionData, DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
     import { GAME_ARCHIVE } from '@/store-names';
 
     export default {

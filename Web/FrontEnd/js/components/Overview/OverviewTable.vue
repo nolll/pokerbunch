@@ -21,7 +21,7 @@
 <script>
     import { mapState, mapGetters } from 'vuex';
     import urls from '@/urls';
-    import { OverviewRow } from "@/components/Overview";
+    import { OverviewRow } from '@/components/Overview';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
     export default {

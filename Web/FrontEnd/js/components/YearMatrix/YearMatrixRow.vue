@@ -11,7 +11,7 @@
 
 <script>
     import { FormatMixin } from '@/mixins'
-    import { YearMatrixItem } from ".";
+    import { YearMatrixItem } from '.';
 
     export default {
         mixins: [

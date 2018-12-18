@@ -16,7 +16,7 @@
 
 <script>
     import { mapState } from 'vuex';
-    import { OverviewRow } from ".";
+    import { OverviewRow } from '.';
     import { BUNCH, CURRENT_GAME } from '@/store-names';
 
     export default {
