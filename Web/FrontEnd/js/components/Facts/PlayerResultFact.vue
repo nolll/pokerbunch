@@ -4,7 +4,7 @@
 
 <script>
     import { FormatMixin } from '@/mixins'
-    import { DefinitionData } from "../DefinitionList";
+    import { DefinitionData } from "@/components/DefinitionList";
 
     export default {
         mixins: [

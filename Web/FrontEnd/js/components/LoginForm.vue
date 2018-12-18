@@ -26,11 +26,9 @@
 </template>
 
 <script>
-    import querystring from '../querystring';
-    import api from '../api';
-    import validate from '../validate';
-    import forms from '../forms';
-    import auth from '../auth'
+    import querystring from '@/querystring';
+    import api from '@/api';
+    import auth from '@/auth'
 
     export default {
         computed: {

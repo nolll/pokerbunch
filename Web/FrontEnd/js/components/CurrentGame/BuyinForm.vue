@@ -17,8 +17,8 @@
 
 <script>
     import { mapState, mapGetters } from 'vuex';
-    import validate from '../../validate';
-    import forms from '../../forms';
+    import validate from '@/validate';
+    import forms from '@/forms';
     import { CURRENT_GAME } from '@/store-names';
 
     export default {

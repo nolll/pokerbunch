@@ -15,7 +15,7 @@
     import { mapState } from 'vuex';
     import moment from 'moment';
     import { FormatMixin } from '@/mixins';
-    import urls from '../../urls';
+    import urls from '@/urls';
     import { GAME_ARCHIVE } from '@/store-names';
 
     export default {

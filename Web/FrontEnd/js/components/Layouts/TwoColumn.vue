@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import { UserNavigation } from "../Navigation";
+    import { UserNavigation } from "@/components/Navigation";
 
     export default {
         components: {

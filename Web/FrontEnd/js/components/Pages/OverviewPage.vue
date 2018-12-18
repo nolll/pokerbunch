@@ -32,9 +32,9 @@
 <script>
     import { DataMixin } from '@/mixins';
     import { mapGetters } from 'vuex';
-    import { TwoColumn } from "../Layouts";
-    import { BunchNavigation, CashgameNavigation } from "../Navigation";
-    import { OverviewTable, OverviewStatus, YearMatrixTable } from "../";
+    import { TwoColumn } from "@/components/Layouts";
+    import { BunchNavigation, CashgameNavigation } from "@/components/Navigation";
+    import { OverviewTable, OverviewStatus, YearMatrixTable } from "@/components";
     import { GAME_ARCHIVE } from '@/store-names';
 
     export default {

@@ -19,7 +19,7 @@ export default {
         },
         loadGames() {
             this.$store.dispatch('gameArchive/loadGames', { slug: this.$route.params.slug });
-            this.$store.dispatch('gameArchive/selectYear', { year: this.$route.params.year });
+            this.$store.dispatch('gameArchive/selectYear', { year: this.routeYear });
         },
         loadCurrentGame() {
             this.$store.dispatch('currentGame/loadCurrentGame', { slug: this.$route.params.slug });
@@ -32,6 +32,11 @@ export default {
         ]),
         loginUrl() {
             return '/auth/login';
+        },
+        routeYear() {
+            if (this.$route.params.year)
+                return parseInt(this.$route.params.year);
+            return null;
         }
     },
     watch: {

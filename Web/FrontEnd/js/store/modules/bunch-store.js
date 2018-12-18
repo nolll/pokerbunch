@@ -1,4 +1,4 @@
-﻿import api from '../../api';
+﻿import api from '@/api';
 
 export default {
     namespaced: true,
@@ -9,9 +9,6 @@ export default {
         thousandSeparator: ',',
         bunchReady: false,
         bunchInitialized: false
-    },
-    getters: {
-        
     },
     actions: {
         loadBunch(context, data) {

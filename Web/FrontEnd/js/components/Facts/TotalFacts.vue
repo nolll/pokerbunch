@@ -29,7 +29,7 @@
     import { mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins';
     import { PlayerAmountFact, PlayerResultFact, PlayerTimeFact } from ".";
-    import { DefinitionList, DefinitionTerm } from "../DefinitionList";
+    import { DefinitionList, DefinitionTerm } from "@/components/DefinitionList";
     import { GAME_ARCHIVE } from '@/store-names';
 
     export default {

@@ -18,11 +18,11 @@
     //BiggestCashout
     //BiggestComeback
 
-    import { mapGetters } from 'vuex';
+    import { mapState, mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins'
     import { PlayerResultFact } from ".";
-    import { DefinitionList, DefinitionTerm } from "../DefinitionList";
-    import { GAME_ARCHIVE } from '@/store-names';
+    import { DefinitionList, DefinitionTerm } from "@/components/DefinitionList";
+    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
     export default {
         mixins: [
@@ -34,9 +34,12 @@
             DefinitionTerm
         },
         computed: {
+            ...mapState(BUNCH, [
+                'bunchReady',
+            ]),
             ...mapGetters(GAME_ARCHIVE, [
-                'sortedGames',
-                'sortedPlayers'
+                'sortedPlayers',
+                'gamesReady'
             ]),
             facts() {
                 return getFacts(this.sortedPlayers);
@@ -44,7 +47,7 @@
         },
         methods: {
             ready() {
-                return this.bunchReady && this.sortedGames.length > 0;
+                return this.bunchReady && this.gamesReady;
             }
         }
     };

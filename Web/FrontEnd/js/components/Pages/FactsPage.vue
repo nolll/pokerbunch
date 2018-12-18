@@ -25,9 +25,9 @@
 
 <script>
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from "../Layouts";
-    import { BunchNavigation, CashgameNavigation } from "../Navigation";
-    import { SingleGameFacts, TotalFacts, OverallFacts } from "../";
+    import { TwoColumn } from "@/components/Layouts";
+    import { BunchNavigation, CashgameNavigation } from "@/components/Navigation";
+    import { SingleGameFacts, TotalFacts, OverallFacts } from "@/components/Facts";
 
     export default {
         components: {

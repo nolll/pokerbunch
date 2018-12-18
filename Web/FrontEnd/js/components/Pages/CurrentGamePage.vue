@@ -56,11 +56,11 @@
 <script>
     import { DataMixin } from '@/mixins';
     import { mapState, mapGetters } from 'vuex';
-    import urls from '../../urls';
-    import { TwoColumn } from "../Layouts";
-    import { BunchNavigation } from "../Navigation";
-    import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from "../CurrentGame";
-    import { Spinner } from "../Common";
+    import urls from '@/urls';
+    import { TwoColumn } from "@/components/Layouts";
+    import { BunchNavigation } from "@/components/Navigation";
+    import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from "@/components/CurrentGame";
+    import { Spinner } from "@/components/Common";
     import { CURRENT_GAME } from '@/store-names';
 
     export default {

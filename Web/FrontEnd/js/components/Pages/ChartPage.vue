@@ -18,9 +18,9 @@
 
 <script>
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from "../Layouts";
-    import { BunchNavigation, CashgameNavigation } from "../Navigation";
-    import { CashgameChart } from "../";
+    import { TwoColumn } from "@/components/Layouts";
+    import { BunchNavigation, CashgameNavigation } from "@/components/Navigation";
+    import { CashgameChart } from "@/components";
 
     export default {
         components: {

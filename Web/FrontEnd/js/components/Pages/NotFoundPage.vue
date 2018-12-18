@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import { TwoColumn } from "../Layouts";
+    import { TwoColumn } from "@/components/Layouts";
 
     export default {
         components: {

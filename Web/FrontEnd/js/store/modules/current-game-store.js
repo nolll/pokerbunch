@@ -1,4 +1,4 @@
-﻿import api from '../../api';
+﻿import api from '@/api';
 import moment from 'moment';
 
 var longRefresh = 30000,
