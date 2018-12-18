@@ -29,7 +29,6 @@
     </div>
 
     <div v-else>
-        LOADING
         <spinner />
     </div>
 </template>

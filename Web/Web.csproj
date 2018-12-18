@@ -235,11 +235,9 @@
     <Compile Include="Models\ApiDocsModels\ApiDocsPlayersPageModel.cs" />
     <Compile Include="Models\AuthModels\LoginPostModel.cs" />
     <Compile Include="Models\CashgameModels\Action\CheckpointListModel.cs" />
-    <Compile Include="Models\CashgameModels\Running\IRunningCashgamePageModel.cs" />
     <Compile Include="Models\ErrorModels\ErrorAuthCookiePageModel.cs" />
     <Compile Include="Models\ErrorModels\ErrorListModel.cs" />
     <Compile Include="Models\IViewModel.cs" />
-    <Compile Include="Models\MiscModels\SpinnerModel.cs" />
     <Compile Include="Models\MiscModels\VueConfigModel.cs" />
     <Compile Include="Models\VueModels\VuePageModel.cs" />
     <Compile Include="Security\CustomAuthorizeAttribute.cs" />
@@ -370,9 +368,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FrontEnd\Css\docs.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\spinner.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="FrontEnd\Css\styles.less" />

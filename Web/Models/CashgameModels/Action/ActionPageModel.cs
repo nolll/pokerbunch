@@ -1,7 +1,6 @@
 using Core.Services;
 using Core.UseCases;
 using Web.Extensions;
-using Web.Models.MiscModels;
 using Web.Models.PageBaseModels;
 using Web.Services;
 
@@ -12,7 +11,6 @@ namespace Web.Models.CashgameModels.Action
         public CheckpointListModel Checkpoints { get; }
         public string ChartJson { get; }
         public string Heading { get; }
-        public SpinnerModel SpinnerModel => new SpinnerModel();
 
         public ActionPageModel(BunchContext.Result contextResult, Actions.Result actionsResult, ActionsChart.Result actionsChartResult)
             : base(contextResult)
