@@ -1,5 +1,5 @@
 ﻿<template>
-    <th :class="'table-list__column-header table-list__column-header--sortable ' + sortColumnCssClass"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>
+    <th :class="cssClasses"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>
 </template>
 
 <script>
@@ -15,8 +15,12 @@
             isSelected() {
                 return this.name === this.gameSortOrder;
             },
-            sortColumnCssClass() {
-                return this.isSelected ? 'table-list--sortable__sort-column' : '';
+            cssClasses() {
+                return {
+                    'table-list__column-header': true,
+                    'table-list__column-header--sortable': true,
+                    'table-list--sortable__sort-column': this.isSelected
+                }
             }
         },
         methods: {

@@ -1,5 +1,5 @@
 ﻿<template>
-    <definition-data>{{name}}: <span :class="cssClass">{{formattedAmount}}</span></definition-data>
+    <definition-data>{{name}}: <span :class="cssClasses">{{formattedAmount}}</span></definition-data>
 </template>
 
 <script>
@@ -18,10 +18,11 @@
             formattedAmount() {
                 return this.formatResult(this.amount);
             },
-            cssClass() {
-                if (this.amount === 0)
-                    return '';
-                return this.amount > 0 ? 'pos-result' : 'neg-result';
+            cssClasses() {
+                return {
+                    'pos-result': this.amount > 0,
+                    'neg-result': this.amount < 0
+                };
             }
         }
     };
