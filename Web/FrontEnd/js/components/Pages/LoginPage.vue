@@ -1,5 +1,5 @@
 ﻿<template>
-    <two-column>
+    <two-column :ready="true">
         <template slot="main">
             <div class="block gutter">
                 <h1 class="page-heading">Sign in</h1>
