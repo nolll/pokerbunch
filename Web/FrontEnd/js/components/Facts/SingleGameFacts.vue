@@ -18,7 +18,7 @@
     //BiggestCashout
     //BiggestComeback
 
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins'
     import { PlayerResultFact } from '.';
     import { DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
@@ -34,7 +34,7 @@
             DefinitionTerm
         },
         computed: {
-            ...mapState(BUNCH, [
+            ...mapGetters(BUNCH, [
                 'bunchReady',
             ]),
             ...mapGetters(GAME_ARCHIVE, [

@@ -26,11 +26,11 @@ export default {
         }
     },
     computed: {
-        ...mapState(BUNCH, [
-            'bunchReady'
-        ]),
         ...mapState(CURRENT_GAME, [
             'currentGameReady'
+        ]),
+        ...mapGetters(BUNCH, [
+            'bunchReady'
         ]),
         ...mapGetters(USER, [
             'userReady',

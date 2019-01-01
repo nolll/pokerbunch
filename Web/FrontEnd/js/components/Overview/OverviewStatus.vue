@@ -24,12 +24,12 @@
             OverviewRow
         },
         computed: {
-            ...mapState(BUNCH, [
-                'bunchReady',
-                'slug'
-            ]),
             ...mapState(CURRENT_GAME, [
                 'isRunning'
+            ]),
+            ...mapGetters(BUNCH, [
+                'slug',
+                'bunchReady'
             ]),
             url() {
                 return this.isRunning ? '/cashgame/running/' + this.slug : '/cashgame/add/' + this.slug;

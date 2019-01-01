@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import urls from '@/urls';
     import { OverviewRow } from '@/components/Overview';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
@@ -29,7 +29,7 @@
             OverviewRow
         },
         computed: {
-            ...mapState(BUNCH, [
+            ...mapGetters(BUNCH, [
                 'bunchReady'
             ]),
             ...mapGetters(GAME_ARCHIVE, [

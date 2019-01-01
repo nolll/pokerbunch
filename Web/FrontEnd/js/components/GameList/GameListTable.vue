@@ -42,7 +42,7 @@
             ...mapState(GAME_ARCHIVE, [
                 'gameSortOrder'
             ]),
-            ...mapState(BUNCH, [
+            ...mapGetters(BUNCH, [
                 'bunchReady'
             ]),
             ...mapGetters(GAME_ARCHIVE, [

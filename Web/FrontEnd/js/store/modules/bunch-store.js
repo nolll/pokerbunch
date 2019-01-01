@@ -3,17 +3,34 @@
 export default {
     namespaced: true,
     state: {
-        slug: '',
-        name: '',
-        currencyFormat: '${0}',
-        thousandSeparator: ',',
-        bunchReady: false,
-        bunchInitialized: false
+        _slug: '',
+        _name: '',
+        _currencyFormat: '${0}',
+        _thousandSeparator: ',',
+        _ready: false,
+        _initialized: false
+    },
+    getters: {
+        slug(state) {
+            return state._slug;
+        },
+        name(state) {
+            return state._name;
+        },
+        currencyFormat(state) {
+            return state._currencyFormat;
+        },
+        thousandSeparator(state) {
+            return state._thousandSeparator;
+        },
+        bunchReady(state) {
+            return state._ready;
+        }
     },
     actions: {
         loadBunch(context, data) {
-            if (!context.state.bunchInitialized) {
-                context.commit('setBunchInitialized');
+            if (!context.state._initialized) {
+                context.commit('setInitialized');
                 api.getBunch(data.slug)
                     .then(function (response) {
                         context.commit('setData', response.data);
@@ -23,14 +40,14 @@ export default {
     },
     mutations: {
         setData(state, bunch) {
-            state.slug = bunch.id;
-            state.name = bunch.name;
-            state.currencyFormat = bunch.currencyFormat;
-            state.thousandSeparator = bunch.thousandSeparator;
-            state.bunchReady = true;
+            state._slug = bunch.id;
+            state._name = bunch.name;
+            state._currencyFormat = bunch.currencyFormat;
+            state._thousandSeparator = bunch.thousandSeparator;
+            state._ready = true;
         },
-        setBunchInitialized(state) {
-            state.bunchInitialized = true;
+        setInitialized(state) {
+            state._initialized = true;
         }
     }
 };

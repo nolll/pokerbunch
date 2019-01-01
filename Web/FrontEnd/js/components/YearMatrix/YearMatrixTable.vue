@@ -30,7 +30,7 @@
             ...mapState(GAME_ARCHIVE, [
                 'games'
             ]),
-            ...mapState(BUNCH, [
+            ...mapGetters(BUNCH, [
                 'bunchReady'
             ]),
             ...mapGetters(GAME_ARCHIVE, [

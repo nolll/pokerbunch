@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { MatrixColumn, MatrixRow } from '.';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
@@ -27,7 +27,7 @@
             MatrixRow
         },
         computed: {
-            ...mapState(BUNCH, [
+            ...mapGetters(BUNCH, [
                 'bunchReady'
             ]),
             ...mapGetters(GAME_ARCHIVE, [

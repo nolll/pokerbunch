@@ -6,7 +6,7 @@
 
 <script>
     import moment from 'moment';
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { LineChart } from '.';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
@@ -15,7 +15,7 @@
             LineChart
         },
         computed: {
-            ...mapState(BUNCH, [
+            ...mapGetters(BUNCH, [
                 'bunchReady'
             ]),
             ...mapGetters(GAME_ARCHIVE, [

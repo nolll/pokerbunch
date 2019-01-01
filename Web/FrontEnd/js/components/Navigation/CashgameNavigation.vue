@@ -38,7 +38,7 @@
                 'isPageNavExpanded',
                 'isYearNavExpanded'
             ]),
-            ...mapState(BUNCH, [
+            ...mapGetters(BUNCH, [
                 'slug'
             ]),
             ...mapGetters(GAME_ARCHIVE, [

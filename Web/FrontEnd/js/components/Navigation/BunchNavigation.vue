@@ -11,14 +11,14 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { BUNCH } from '@/store-names';
 
     export default {
         computed: {
-            ...mapState(BUNCH, [
-                'slug',
-                'name'
+            ...mapGetters(BUNCH, [
+                'name',
+                'slug'
             ]),
             bunchDetailsUrl() {
                 return '/bunch/details/' + this.slug;

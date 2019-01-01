@@ -51,7 +51,6 @@
         mixins: [
             DataMixin
         ],
-        props: ['slug'],
         created: function () {
             this.init();
         },

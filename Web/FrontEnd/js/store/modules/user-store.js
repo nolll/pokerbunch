@@ -26,7 +26,7 @@ export default {
     actions: {
         loadUser(context) {
             if (!context.state._initialized) {
-                context.commit('setUserInitialized');
+                context.commit('setInitialized');
                 api.getUser()
                     .then(function (response) {
                         context.commit('setData', response.data);
@@ -50,7 +50,7 @@ export default {
             state._displayName = '';
             state._ready = true;
         },
-        setUserInitialized(state) {
+        setInitialized(state) {
             state._initialized = true;
         }
     }
