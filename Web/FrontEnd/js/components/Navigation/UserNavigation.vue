@@ -14,12 +14,12 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { USER } from '@/store-names';
 
     export default {
         computed: {
-            ...mapState(USER, [
+            ...mapGetters(USER, [
                 'isSignedIn',
                 'userName',
                 'displayName',

@@ -3,18 +3,29 @@
 export default {
     namespaced: true,
     state: {
-        isSignedIn: false,
-        userName: '',
-        displayName: '',
-        userReady: false,
-        userInitialized: false
+        _isSignedIn: false,
+        _userName: '',
+        _displayName: '',
+        _ready: false,
+        _initialized: false
     },
     getters: {
-        
+        isSignedIn(state) {
+            return state._isSignedIn;
+        },
+        userName(state) {
+            return state._userName;
+        },
+        displayName(state) {
+            return state._displayName;
+        },
+        userReady(state) {
+            return state._ready;
+        }
     },
     actions: {
         loadUser(context) {
-            if (!context.state.userInitialized) {
+            if (!context.state._initialized) {
                 context.commit('setUserInitialized');
                 api.getUser()
                     .then(function (response) {
@@ -28,19 +39,19 @@ export default {
     },
     mutations: {
         setData(state, user) {
-            state.isSignedIn = true;
-            state.userName = user.userName;
-            state.displayName = user.displayName;
-            state.userReady = true;
+            state._isSignedIn = true;
+            state._userName = user.userName;
+            state._displayName = user.displayName;
+            state._ready = true;
         },
         setErrorData(state) {
-            state.isSignedIn = false;
-            state.userName = '';
-            state.displayName = '';
-            state.userReady = true;
+            state._isSignedIn = false;
+            state._userName = '';
+            state._displayName = '';
+            state._ready = true;
         },
         setUserInitialized(state) {
-            state.userInitialized = true;
+            state._initialized = true;
         }
     }
 };
