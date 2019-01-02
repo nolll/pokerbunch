@@ -16,24 +16,12 @@ export default {
         _ready: false
     },
     getters: {
-        gameSortOrder(state) {
-            return state._gameSortOrder;
-        },
-        games(state) {
-            return state._games;
-        },
-        playerSortOrder(state) {
-            return state._playerSortOrder;
-        },
-        selectedYear(state) {
-            return state._selectedYear;
-        },
-        isPageNavExpanded(state) {
-            return state._isPageNavExpanded;
-        },
-        isYearNavExpanded(state) {
-            return state._isYearNavExpanded;
-        },
+        gameSortOrder: state => state._gameSortOrder,
+        games: state => state._games,
+        playerSortOrder: state => state._playerSortOrder,
+        selectedYear: state => state._selectedYear,
+        isPageNavExpanded: state => state._isPageNavExpanded,
+        isYearNavExpanded: state => state._isYearNavExpanded,
         sortedGames: state => {
             var selectedGames = getSelectedGames(state._games, state._selectedYear);
             return gameSorter.sort(selectedGames, state._gameSortOrder);
@@ -61,9 +49,7 @@ export default {
             }
             return null;
         },
-        gamesReady: state => {
-            return state._ready;
-        },
+        gamesReady: state => state._ready,
         hasGames: state => {
             return state._games.length > 0;
         }
