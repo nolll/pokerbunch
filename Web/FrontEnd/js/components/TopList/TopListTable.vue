@@ -43,13 +43,13 @@
         },
         computed: {
             ...mapState(GAME_ARCHIVE, [
-                'playerSortOrder',
                 'gamesReady'
             ]),
             ...mapGetters(BUNCH, [
                 'bunchReady'
             ]),
             ...mapGetters(GAME_ARCHIVE, [
+                'playerSortOrder',
                 'sortedPlayers'
             ]),
             ready() {

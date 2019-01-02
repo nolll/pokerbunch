@@ -3,13 +3,13 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { GAME_ARCHIVE } from '@/store-names';
 
     export default {
         props: ['name', 'title'],
         computed: {
-            ...mapState(GAME_ARCHIVE, [
+            ...mapGetters(GAME_ARCHIVE, [
                 'gameSortOrder'
             ]),
             isSelected() {

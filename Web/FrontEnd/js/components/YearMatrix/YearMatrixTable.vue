@@ -17,7 +17,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { YearMatrixColumn, YearMatrixRow } from '.';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
@@ -27,13 +27,11 @@
             YearMatrixRow
         },
         computed: {
-            ...mapState(GAME_ARCHIVE, [
-                'games'
-            ]),
             ...mapGetters(BUNCH, [
                 'bunchReady'
             ]),
             ...mapGetters(GAME_ARCHIVE, [
+                'games',
                 'currentYearPlayers',
                 'allYearsPlayers',
                 'years',

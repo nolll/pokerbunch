@@ -18,7 +18,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { CashgameNavigationItem } from '.';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
@@ -33,16 +33,14 @@
             };
         },
         computed: {
-            ...mapState(GAME_ARCHIVE, [
-                'selectedYear',
-                'isPageNavExpanded',
-                'isYearNavExpanded'
-            ]),
             ...mapGetters(BUNCH, [
                 'slug'
             ]),
             ...mapGetters(GAME_ARCHIVE, [
-                'years'
+                'selectedYear',
+                'years',
+                'isPageNavExpanded',
+                'isYearNavExpanded'
             ]),
             computedYear() {
                 if (this.year)

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins';
     import { GAME_ARCHIVE } from '@/store-names';
 
@@ -24,7 +24,7 @@
         ],
         props: ['player'],
         computed: {
-            ...mapState(GAME_ARCHIVE, [
+            ...mapGetters(GAME_ARCHIVE, [
                 'playerSortOrder'
             ]),
             url() {

@@ -6,54 +6,72 @@ import moment from 'moment';
 export default {
     namespaced: true,
     state: {
-        gameSortOrder: 'date',
-        games: [],
-        playerSortOrder: 'winnings',
-        gamesInitialized: false,
-        selectedYear: null,
-        isPageNavExpanded: false,
-        isYearNavExpanded: false,
-        gamesLoaded: false
+        _gameSortOrder: 'date',
+        _games: [],
+        _playerSortOrder: 'winnings',
+        _initialized: false,
+        _selectedYear: null,
+        _isPageNavExpanded: false,
+        _isYearNavExpanded: false,
+        _ready: false
     },
     getters: {
+        gameSortOrder(state) {
+            return state._gameSortOrder;
+        },
+        games(state) {
+            return state._games;
+        },
+        playerSortOrder(state) {
+            return state._playerSortOrder;
+        },
+        selectedYear(state) {
+            return state._selectedYear;
+        },
+        isPageNavExpanded(state) {
+            return state._isPageNavExpanded;
+        },
+        isYearNavExpanded(state) {
+            return state._isYearNavExpanded;
+        },
         sortedGames: state => {
-            var selectedGames = getSelectedGames(state.games, state.selectedYear);
-            return gameSorter.sort(selectedGames, state.gameSortOrder);
+            var selectedGames = getSelectedGames(state._games, state._selectedYear);
+            return gameSorter.sort(selectedGames, state._gameSortOrder);
         },
         sortedPlayers: (state, getters) => {
-            return playerSorter.sort(getPlayers(getters.sortedGames), state.playerSortOrder);
+            return playerSorter.sort(getPlayers(getters.sortedGames), state._playerSortOrder);
         },
         currentYearGames: (state, getters) => {
-            var selectedGames = getSelectedGames(state.games, getters.currentYear);
+            var selectedGames = getSelectedGames(state._games, getters.currentYear);
             return gameSorter.sort(selectedGames, 'date');
         },
         currentYearPlayers: (state, getters) => {
             return playerSorter.sort(getPlayers(getters.currentYearGames), 'winnings');
         },
         allYearsPlayers: state => {
-            return playerSorter.sort(getPlayers(state.games), 'winnings');
+            return playerSorter.sort(getPlayers(state._games), 'winnings');
         },
         years: state => {
-            return getYears(state.games);
+            return getYears(state._games);
         },
         currentYear: state => {
-            if (state.games.length > 0) {
-                const latestGame = state.games[0];
+            if (state._games.length > 0) {
+                const latestGame = state._games[0];
                 return moment(latestGame.startTime).year();
             }
             return null;
         },
         gamesReady: state => {
-            return state.gamesLoaded;
+            return state._ready;
         },
         hasGames: state => {
-            return state.games.length > 0;
+            return state._games.length > 0;
         }
     },
     actions: {
         loadGames(context, data) {
-            if (!context.state.gamesInitialized) {
-                context.commit('setGamesInitialized');
+            if (!context.state.initialized) {
+                context.commit('setInitialized');
                 api.getGames(data.slug)
                     .then(function (response) {
                         context.commit('setData', response.data);
@@ -70,36 +88,36 @@ export default {
             context.commit('setPlayerSortorder', sortOrder);
         },
         togglePageNav(context) {
-            context.commit('togglePageNav', !context.state.isPageNavExpanded);
+            context.commit('togglePageNav', !context.state._isPageNavExpanded);
             context.commit('toggleYearNav', false);
         },
         toggleYearNav(context) {
-            context.commit('toggleYearNav', !context.state.isYearNavExpanded);
+            context.commit('toggleYearNav', !context.state._isYearNavExpanded);
             context.commit('togglePageNav', false);
         }
     },
     mutations: {
         setData(state, games) {
-            state.games = getGames(games);
-            state.gamesLoaded = true;
+            state._games = getGames(games);
+            state._ready = true;
         },
         setGameSortorder(state, sortOrder) {
-            state.gameSortOrder = sortOrder;
+            state._gameSortOrder = sortOrder;
         },
         setPlayerSortorder(state, sortOrder) {
-            state.playerSortOrder = sortOrder;
+            state._playerSortOrder = sortOrder;
         },
-        setGamesInitialized(state) {
-            state.gamesInitialized = true;
+        setInitialized(state) {
+            state.initialized = true;
         },
         setSelectedYear(state, year) {
-            state.selectedYear = year ? year : null;
+            state._selectedYear = year ? year : null;
         },
         togglePageNav(state, isExpanded) {
-            state.isPageNavExpanded = isExpanded;
+            state._isPageNavExpanded = isExpanded;
         },
         toggleYearNav(state, isExpanded) {
-            state.isYearNavExpanded = isExpanded;
+            state._isYearNavExpanded = isExpanded;
         }
     }
 };

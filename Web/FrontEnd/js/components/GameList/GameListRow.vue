@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import moment from 'moment';
     import { FormatMixin } from '@/mixins';
     import urls from '@/urls';
@@ -24,7 +24,7 @@
         ],
         props: ['game'],
         computed: {
-            ...mapState(GAME_ARCHIVE, [
+            ...mapGetters(GAME_ARCHIVE, [
                 'gameSortOrder'
             ]),
             url() {

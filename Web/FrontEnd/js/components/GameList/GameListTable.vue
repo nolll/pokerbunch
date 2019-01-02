@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { GameListColumn, GameListRow } from '.';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
 
@@ -39,13 +39,11 @@
             GameListRow
         },
         computed: {
-            ...mapState(GAME_ARCHIVE, [
-                'gameSortOrder'
-            ]),
             ...mapGetters(BUNCH, [
                 'bunchReady'
             ]),
             ...mapGetters(GAME_ARCHIVE, [
+                'gameSortOrder',
                 'sortedGames'
             ]),
             ready() {
