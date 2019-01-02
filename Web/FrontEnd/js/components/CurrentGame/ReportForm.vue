@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import validate from '@/validate';
     import forms from '@/forms';
     import { CURRENT_GAME } from '@/store-names';
@@ -20,7 +20,7 @@
     export default {
         props: ['isActive'],
         computed: {
-            ...mapState(CURRENT_GAME, [
+            ...mapGetters(CURRENT_GAME, [
                 'defaultBuyin'
             ]),
             hasErrors() {

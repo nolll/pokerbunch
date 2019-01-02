@@ -1,4 +1,4 @@
-﻿import { mapState, mapGetters } from 'vuex';
+﻿import { mapGetters } from 'vuex';
 import { USER, BUNCH, GAME_ARCHIVE, CURRENT_GAME } from '@/store-names';
 
 export default {
@@ -26,7 +26,7 @@ export default {
         }
     },
     computed: {
-        ...mapState(CURRENT_GAME, [
+        ...mapGetters(CURRENT_GAME, [
             'currentGameReady'
         ]),
         ...mapGetters(BUNCH, [

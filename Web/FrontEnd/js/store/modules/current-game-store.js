@@ -7,48 +7,71 @@ var longRefresh = 30000,
 export default {
     namespaced: true,
     state: {
-        slug: '',
-        isRunning: false,
-        playerId: '0',
-        reportUrl: '',
-        buyinUrl: '',
-        cashoutUrl: '',
-        cashgameIndexUrl: '',
-        locationUrl: '',
-        defaultBuyin: 0,
-        locationName: '',
-        isManager: false,
-        bunchPlayers: [],
-        players: [],
-        currentStack: 0,
-        beforeBuyinStack: 0,
-        buyinAmount: 0,
-        loadedPlayerId: '0',
-        currencyFormat: '${0}',
-        thousandSeparator: ',',
-        reportFormVisible: false,
-        buyinFormVisible: false,
-        cashoutFormVisible: false,
-        lastReport: 0,
-        lastBuyin: 0,
-        currentGameReady: false
+        _slug: '',
+        _isRunning: false,
+        _playerId: '0',
+        _locationUrl: '',
+        _defaultBuyin: 0,
+        _locationName: '',
+        _isManager: false,
+        _bunchPlayers: [],
+        _players: [],
+        _currentStack: 0,
+        _loadedPlayerId: '0',
+        _reportFormVisible: false,
+        _buyinFormVisible: false,
+        _cashoutFormVisible: false,
+        _currentGameReady: false
     },
     getters: {
+        isRunning(state) {
+            return state._isRunning;
+        },
+        playerId(state) {
+            return state._playerId;
+        },
+        locationUrl(state) {
+            return state._locationUrl;
+        },
+        locationName(state) {
+            return state._locationName;
+        },
+        reportFormVisible(state) {
+            return state._reportFormVisible;
+        },
+        buyinFormVisible(state) {
+            return state._buyinFormVisible;
+        },
+        cashoutFormVisible(state) {
+            return state._cashoutFormVisible;
+        },
+        defaultBuyin(state) {
+            return state._defaultBuyin;
+        },
+        isManager(state) {
+            return state._isManager;
+        },
+        bunchPlayers(state) {
+            return state._bunchPlayers;
+        },
+        players(state) {
+            return state._players;
+        },
         hasPlayers: state => {
-            return state.players.length > 0;
+            return state._players.length > 0;
         },
         sortedPlayers: (state, getters) => {
-            return state.players.slice().sort(function (left, right) {
+            return state._players.slice().sort(function (left, right) {
                 return getters.getWinnings(right) - getters.getWinnings(left);
             });
         },
         getPlayer: (state) => (id) => {
-            if (!state.players)
+            if (!state._players)
                 return null;
             var i;
-            for (i = 0; i < state.players.length; i++) {
-                if (state.players[i].id === id) {
-                    return state.players[i];
+            for (i = 0; i < state._players.length; i++) {
+                if (state._players[i].id === id) {
+                    return state._players[i];
                 }
             }
             return null;
@@ -90,10 +113,10 @@ export default {
         },
         canEndGame: state => {
             var i;
-            if (state.players.length === 0)
+            if (state._players.length === 0)
                 return false;
-            for (i = 0; i < state.players.length; i++) {
-                if (!state.players[i].hasCashedOut) {
+            for (i = 0; i < state._players.length; i++) {
+                if (!state._players[i].hasCashedOut) {
                     return false;
                 }
             }
@@ -105,13 +128,13 @@ export default {
             return getters.player.hasCashedOut;
         },
         player: (state, getters) => {
-            return getters.getPlayer(state.playerId);
+            return getters.getPlayer(state._playerId);
         },
         bunchPlayer: state => {
             var i,
-                bp = state.bunchPlayers;
+                bp = state._bunchPlayers;
             for (i = 0; i < bp.length; i++) {
-                if (bp[i].id === state.playerId) {
+                if (bp[i].id === state._playerId) {
                     return bp[i];
                 }
             }
@@ -119,17 +142,17 @@ export default {
         },
         totalStacks: state => {
             var sum = 0;
-            for (var i = 0; i < state.players.length; i++) {
-                var c = state.players[i].checkpoints;
+            for (var i = 0; i < state._players.length; i++) {
+                var c = state._players[i].checkpoints;
                 sum += c.length > 0 ? c[c.length - 1].stack : 0;
             }
             return sum;
         },
         totalBuyin: state => {
             var sum = 0;
-            for (var i = 0; i < state.players.length; i++) {
+            for (var i = 0; i < state._players.length; i++) {
                 var buyin = 0;
-                var player = state.players[i];
+                var player = state._players[i];
                 if (player.checkpoints.length === 0)
                     continue;
 
@@ -144,7 +167,7 @@ export default {
             var i,
                 first,
                 t = moment().utc(),
-                p = state.players;
+                p = state._players;
 
             if (p.length === 0)
                 return '';
@@ -158,6 +181,9 @@ export default {
                 }
             }
             return t;
+        },
+        currentGameReady(state) {
+            return state._currentGameReady;
         }
     },
     actions: {
@@ -183,7 +209,7 @@ export default {
         report(context, { stack }) {
             const player = context.getters.player;
             const reportData = { playerId: player.id, stack: stack };
-            api.report(context.state.slug, reportData)
+            api.report(context.state._slug, reportData)
                 .then(function() {
                     refresh(context);
                 });
@@ -192,14 +218,14 @@ export default {
             context.commit('resetPlayerId');
         },
         buyin(context, { amount, stack }) {
-            const buyinData = { playerId: context.state.playerId, stack: stack, addedMoney: amount };
+            const buyinData = { playerId: context.state._playerId, stack: stack, addedMoney: amount };
             let player = context.getters.player;
             if (!player) {
                 player = createPlayer(context.state);
 
                 context.commit('addPlayer', { player });
             }
-            api.buyin(context.state.slug, buyinData)
+            api.buyin(context.state._slug, buyinData)
                 .then(function () {
                     refresh(context);
                 });
@@ -210,7 +236,7 @@ export default {
         cashout(context, { stack }) {
             const player = context.getters.player;
             const cashoutData = { playerId: player.id, stack: stack };
-            api.cashout(context.state.slug, cashoutData)
+            api.cashout(context.state._slug, cashoutData)
                 .then(function () {
                     refresh(context);
                 });
@@ -236,70 +262,59 @@ export default {
     },
     mutations: {
         setPlayerId(state, playerId) {
-            state.playerId = playerId;
+            state._playerId = playerId;
         },
         resetPlayerId(state) {
-            state.playerId = state.loadedPlayerId;
+            state._playerId = state._loadedPlayerId;
         },
         setPlayers(state, players) {
-            state.players = players;
+            state._players = players;
         },
         report(state, { player, reportData }) {
-            state.currentStack = reportData.stack;
+            state._currentStack = reportData.stack;
             addCheckpoint(player, reportData.stack, 0);
         },
         cashout(state, { player, cashoutData }) {
-            state.currentStack = cashoutData.stack;
+            state._currentStack = cashoutData.stack;
             addCheckpoint(player, cashoutData.stack, 0);
             player.hasCashedOut = true;
         },
         buyin(state, { player, buyinData }) {
-            state.buyinAmount = buyinData.addedMoney;
-            state.beforeBuyinStack = buyinData.stack;
-            state.currentStack = state.defaultBuyin;
             const afterStack = buyinData.stack + buyinData.addedMoney;
+            state._currentStack = afterStack;
             addCheckpoint(player, afterStack, buyinData.addedMoney);
         },
         addPlayer(state, { player }) {
-            state.players.push(player);
+            state._players.push(player);
         },
         showReportForm(state) {
-            state.reportFormVisible = true;
+            state._reportFormVisible = true;
         },
         showBuyinForm(state) {
-            state.buyinFormVisible = true;
+            state._buyinFormVisible = true;
         },
         showCashoutForm(state) {
-            state.cashoutFormVisible = true;
+            state._cashoutFormVisible = true;
         },
         hideForms(state) {
-            state.reportFormVisible = false;
-            state.buyinFormVisible = false;
-            state.cashoutFormVisible = false;
+            state._reportFormVisible = false;
+            state._buyinFormVisible = false;
+            state._cashoutFormVisible = false;
         },
         loadingComplete(state, slug) {
-            state.currentGameReady = true;
-            state.slug = slug;
+            state._currentGameReady = true;
+            state._slug = slug;
         },
         dataLoaded(state, data) {
-            state.isRunning = true;
-            state.playerId = data.playerId;
-            state.reportUrl = data.reportUrl;
-            state.buyinUrl = data.buyinUrl;
-            state.cashoutUrl = data.cashoutUrl;
-            state.cashgameIndexUrl = data.cashgameIndexUrl;
-            state.locationUrl = data.locationUrl;
-            state.defaultBuyin = data.defaultBuyin;
-            state.currencyFormat = data.currencyFormat;
-            state.thousandSeparator = data.thousandSeparator;
-            state.locationName = data.locationName;
-            state.isManager = data.isManager;
-            state.bunchPlayers = data.bunchPlayers;
-            state.players = data.players;
-            state.buyinAmount = data.defaultBuyin;
-            state.loadedPlayerId = data.playerId;
-            state.lastReport = data.defaultBuyin;
-            state.lastBuyin = data.defaultBuyin;
+            state._isRunning = true;
+            state._playerId = data.playerId;
+            state._locationUrl = data.locationUrl;
+            state._defaultBuyin = data.defaultBuyin;
+            state._locationName = data.locationName;
+            state._isManager = data.isManager;
+            state._bunchPlayers = data.bunchPlayers;
+            state._players = data.players;
+            state._loadedPlayerId = data.playerId;
         }
     }
 };
@@ -311,7 +326,7 @@ function setupRefresh(context, refreshTimeout) {
 }
 
 function refresh(context) {
-    api.refreshCurrentGame(context.state.slug)
+    api.refreshCurrentGame(context.state._slug)
         .then(function (response) {
             if (response.status === 200) {
                 setPlayers(context, response.data);
@@ -337,7 +352,7 @@ function createPlayer(state) {
     const playerName = bunchPlayer ? bunchPlayer.name : '';
     const playerColor = bunchPlayer ? bunchPlayer.color : '#9e9e9e';
     return {
-        id: state.playerId,
+        id: state._playerId,
         name: playerName,
         color: playerColor,
         url: null,

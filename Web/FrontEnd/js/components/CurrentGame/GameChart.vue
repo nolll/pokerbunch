@@ -6,7 +6,7 @@
 
 <script>
     import moment from 'moment';
-    import { mapState } from 'vuex'
+    import { mapGetters } from 'vuex'
     import { LineChart } from '@/components';
     import { CURRENT_GAME } from '@/store-names';
 
@@ -20,8 +20,8 @@
             'players': function () {
                 this.drawChart();
             },
-            'initialized': function (isInitialized) {
-                if (isInitialized) {
+            'currentGameReady': function (isReady) {
+                if (isReady) {
                     this.drawChart();
                 }
             }
@@ -35,9 +35,9 @@
             });
         },
         computed: {
-            ...mapState(CURRENT_GAME, [
+            ...mapGetters(CURRENT_GAME, [
                 'players',
-                'initialized'
+                'currentGameReady'
             ])
         },
         methods: {

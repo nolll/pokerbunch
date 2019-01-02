@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { OverviewRow } from '.';
     import { BUNCH, CURRENT_GAME } from '@/store-names';
 
@@ -24,7 +24,7 @@
             OverviewRow
         },
         computed: {
-            ...mapState(CURRENT_GAME, [
+            ...mapGetters(CURRENT_GAME, [
                 'isRunning'
             ]),
             ...mapGetters(BUNCH, [

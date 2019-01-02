@@ -18,21 +18,6 @@ namespace Web.Models.CashgameModels.Running
         public string RefreshUrl { get; private set; }
 
         [UsedImplicitly]
-        public string ReportUrl { get; private set; }
-
-        [UsedImplicitly]
-        public string BuyinUrl { get; private set; }
-
-        [UsedImplicitly]
-        public string CashoutUrl { get; private set; }
-
-        [UsedImplicitly]
-        public string EndGameUrl { get; private set; }
-
-        [UsedImplicitly]
-        public string CashgameIndexUrl { get; private set; }
-
-        [UsedImplicitly]
         public string LocationUrl { get; private set; }
 
         [UsedImplicitly]
@@ -58,10 +43,6 @@ namespace Web.Models.CashgameModels.Running
             Slug = result.Slug;
             PlayerId = result.PlayerId;
             RefreshUrl = new RunningCashgamePlayersJsonUrl(result.Slug).Relative;
-            ReportUrl = new CashgameReportUrl(result.Slug).Relative;
-            BuyinUrl = new CashgameBuyinUrl(result.Slug).Relative;
-            CashoutUrl = new CashgameCashoutUrl(result.Slug).Relative;
-            CashgameIndexUrl = new CashgameIndexUrl(result.Slug).Relative;
             LocationUrl = new LocationDetailsUrl(result.LocationId).Relative;
             DefaultBuyin = result.DefaultBuyin;
             CurrencyFormat = result.CurrencyFormat;

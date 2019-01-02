@@ -36,7 +36,7 @@
 <script>
     import { DataMixin } from '@/mixins';
     import { TwoColumn } from '@/components/Layouts';
-    import { mapGetters, mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { PlayerTable, GameChart } from '@/components/CurrentGame';
     import { Spinner } from '@/components/Common';
     import { CURRENT_GAME } from '@/store-names';
@@ -55,15 +55,12 @@
             this.init();
         },
         computed: {
-            ...mapState(CURRENT_GAME, [
-                'players',
-                'locationName',
-                'currencyFormat'
-            ]),
             ...mapGetters(CURRENT_GAME, [
+                'locationName',
                 'startTime',
                 'sortedPlayers',
-                'hasPlayers'
+                'hasPlayers',
+                'players'
             ]),
             hasPlayers() {
                 return this.players.length > 0;

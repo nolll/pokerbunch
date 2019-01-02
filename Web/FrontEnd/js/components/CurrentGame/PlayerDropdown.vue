@@ -5,12 +5,12 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
+    import { mapGetters } from 'vuex';
     import { CURRENT_GAME } from '@/store-names';
 
     export default {
         computed: {
-            ...mapState(CURRENT_GAME, [
+            ...mapGetters(CURRENT_GAME, [
                 'playerId',
                 'bunchPlayers'
             ])

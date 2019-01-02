@@ -54,13 +54,13 @@
 
 <script>
     import { DataMixin } from '@/mixins';
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import urls from '@/urls';
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from '@/components/CurrentGame';
     import { Spinner } from '@/components/Common';
-    import { CURRENT_GAME } from '@/store-names';
+    import { BUNCH, CURRENT_GAME } from '@/store-names';
 
     export default {
         components: {
@@ -92,21 +92,19 @@
             this.init();
         },
         computed: {
-            ...mapState(CURRENT_GAME, [
-                'slug',
-                'players',
-                'bunchPlayers',
-                'locationUrl',
-                'locationName',
-                'isManager',
-                'currencyFormat',
-                'playerId',
-                'currentStack',
-                'reportFormVisible',
-                'buyinFormVisible',
-                'cashoutFormVisible'
+            ...mapGetters(BUNCH, [
+                'slug'
             ]),
             ...mapGetters(CURRENT_GAME, [
+                'playerId',
+                'locationUrl',
+                'locationName',
+                'reportFormVisible',
+                'buyinFormVisible',
+                'cashoutFormVisible',
+                'isManager',
+                'bunchPlayers',
+                'players',
                 'hasPlayers',
                 'startTime',
                 'sortedPlayers',

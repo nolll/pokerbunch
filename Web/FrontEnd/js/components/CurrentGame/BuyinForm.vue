@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
+    import { mapGetters } from 'vuex';
     import validate from '@/validate';
     import forms from '@/forms';
     import { CURRENT_GAME } from '@/store-names';
@@ -24,11 +24,9 @@
     export default {
         props: ['isActive'],
         computed: {
-            ...mapState(CURRENT_GAME, [
-                'defaultBuyin'
-            ]),
             ...mapGetters(CURRENT_GAME, [
-                'isInGame'
+                'isInGame',
+                'defaultBuyin'
             ]),
             hasErrors() {
                 return this.buyinError === null && this.stackError === null;
