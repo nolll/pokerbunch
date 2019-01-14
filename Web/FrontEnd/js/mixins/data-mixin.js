@@ -1,5 +1,6 @@
 ﻿import { mapGetters } from 'vuex';
 import { USER, BUNCH, GAME_ARCHIVE, CURRENT_GAME } from '@/store-names';
+import urls from '@/urls';
 
 export default {
     data: function () {
@@ -39,9 +40,6 @@ export default {
         ...mapGetters(GAME_ARCHIVE, [
             'gamesReady'
         ]),
-        loginUrl() {
-            return '/auth/login';
-        },
         routeYear() {
             if (this.$route.params.year)
                 return parseInt(this.$route.params.year);
@@ -51,7 +49,7 @@ export default {
     watch: {
         userReady: function (isUserReady) {
             if (isUserReady && this.isUserRequired && !this.isSignedIn) {
-                this.$router.push(this.loginUrl);
+                this.$router.push(urls.login());
             }
         }
     }
