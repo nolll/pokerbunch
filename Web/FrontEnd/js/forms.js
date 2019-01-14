@@ -7,8 +7,10 @@ function select(field, start, end) {
         selRange.select();
         field.focus();
     } else if (field.setSelectionRange) {
-        field.focus();
-        field.setSelectionRange(start, end);
+        window.setTimeout(function () {
+            field.focus();
+            field.setSelectionRange(start, end);
+        }, 1);
     } else if (typeof field.selectionStart !== 'undefined') {
         field.selectionStart = start;
         field.selectionEnd = end;
@@ -22,4 +24,4 @@ function selectAll(field) {
 
 export default {
     selectAll: selectAll
-}
+};
