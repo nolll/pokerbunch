@@ -10,18 +10,10 @@ export default {
         _initialized: false
     },
     getters: {
-        isSignedIn(state) {
-            return state._isSignedIn;
-        },
-        userName(state) {
-            return state._userName;
-        },
-        displayName(state) {
-            return state._displayName;
-        },
-        userReady(state) {
-            return state._ready;
-        }
+        isSignedIn: state => state._isSignedIn,
+        userName: state => state._userName,
+        displayName: state => state._displayName,
+        userReady: state => state._ready
     },
     actions: {
         loadUser(context) {

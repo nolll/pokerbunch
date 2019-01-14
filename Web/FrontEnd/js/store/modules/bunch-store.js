@@ -11,21 +11,11 @@ export default {
         _initialized: false
     },
     getters: {
-        slug(state) {
-            return state._slug;
-        },
-        name(state) {
-            return state._name;
-        },
-        currencyFormat(state) {
-            return state._currencyFormat;
-        },
-        thousandSeparator(state) {
-            return state._thousandSeparator;
-        },
-        bunchReady(state) {
-            return state._ready;
-        }
+        slug: state => state._slug,
+        name: state => state._name,
+        currencyFormat: state => state._currencyFormat,
+        thousandSeparator: state => state._thousandSeparator,
+        bunchReady: state => state._ready
     },
     actions: {
         loadBunch(context, data) {

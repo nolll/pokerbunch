@@ -24,42 +24,18 @@ export default {
         _currentGameReady: false
     },
     getters: {
-        isRunning(state) {
-            return state._isRunning;
-        },
-        playerId(state) {
-            return state._playerId;
-        },
-        locationUrl(state) {
-            return state._locationUrl;
-        },
-        locationName(state) {
-            return state._locationName;
-        },
-        reportFormVisible(state) {
-            return state._reportFormVisible;
-        },
-        buyinFormVisible(state) {
-            return state._buyinFormVisible;
-        },
-        cashoutFormVisible(state) {
-            return state._cashoutFormVisible;
-        },
-        defaultBuyin(state) {
-            return state._defaultBuyin;
-        },
-        isManager(state) {
-            return state._isManager;
-        },
-        bunchPlayers(state) {
-            return state._bunchPlayers;
-        },
-        players(state) {
-            return state._players;
-        },
-        hasPlayers: state => {
-            return state._players.length > 0;
-        },
+        isRunning: state => state._isRunning,
+        playerId: state => state._playerId,
+        locationUrl: state => state._locationUrl,
+        locationName: state => state._locationName,
+        reportFormVisible: state => state._reportFormVisible,
+        buyinFormVisible: state => state._buyinFormVisible,
+        cashoutFormVisible: state => state._cashoutFormVisible,
+        defaultBuyin: state => state._defaultBuyin,
+        isManager: state => state._isManager,
+        bunchPlayers: state => state._bunchPlayers,
+        players: state => state._players,
+        hasPlayers: state => state._players.length > 0,
         sortedPlayers: (state, getters) => {
             return state._players.slice().sort(function (left, right) {
                 return getters.getWinnings(right) - getters.getWinnings(left);
