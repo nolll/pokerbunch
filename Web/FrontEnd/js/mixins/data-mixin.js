@@ -51,7 +51,7 @@ export default {
     watch: {
         userReady: function (isUserReady) {
             if (isUserReady && this.isUserRequired && !this.isSignedIn) {
-                window.location.href = this.loginUrl;
+                this.$router.push(this.loginUrl);
             }
         }
     }
