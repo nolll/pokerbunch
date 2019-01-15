@@ -19,15 +19,33 @@
     import { mapGetters } from 'vuex';
     import validate from '@/validate';
     import forms from '@/forms';
-    import { CURRENT_GAME } from '@/store-names';
+    import { BUNCH } from '@/store-names';
 
     export default {
         props: ['isActive'],
         computed: {
+            ...mapGetters(BUNCH, [
+                'players',
+                'getPlayer'
+            ]),
             ...mapGetters(CURRENT_GAME, [
                 'isInGame',
-                'defaultBuyin'
+                'defaultBuyin',
+                'playerId'
             ]),
+            currentPlayer() {
+                this.getPlayer(this.playerId);
+            },
+            playerName() {
+                if (!this.currentPlayer)
+                    return '';
+                return this.currentPlayer.name;
+            },
+            playerColor() {
+                if (!this.currentPlayer)
+                    return '';
+                return this.currentPlayer.color;
+            },
             hasErrors() {
                 return this.buyinError === null && this.stackError === null;
             }
@@ -48,8 +66,13 @@
         methods: {
             buyin() {
                 this.validateForm();
-                if (!this.hasErrors)
-                    this.$store.dispatch('currentGame/buyin', { amount: this.amount, stack: this.stack });
+                if (!this.hasErrors) {
+                    if (this.isInGame) {
+                        this.$store.dispatch('currentGame/buyin', { amount: this.amount, stack: this.stack });
+                    } else {
+                        this.$store.dispatch('currentGame/firstBuyin', { amount: this.amount, stack: this.stack, name: this.playerName, color: this.playerColor });
+                    }
+                }
             },
             cancel() {
                 this.$store.dispatch('currentGame/hideForms');

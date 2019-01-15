@@ -17,7 +17,18 @@ export default {
         name: state => state._name,
         currencyFormat: state => state._currencyFormat,
         thousandSeparator: state => state._thousandSeparator,
-        bunchReady: state => state._bunchReady && state._playersReady
+        bunchReady: state => state._bunchReady && state._playersReady,
+        getPlayer: (state) => (id) => {
+            if (!state._players)
+                return null;
+            var i;
+            for (i = 0; i < state._players.length; i++) {
+                if (state._players[i].id === id) {
+                    return state._players[i];
+                }
+            }
+            return null;
+        }
     },
     actions: {
         loadBunch(context, data) {

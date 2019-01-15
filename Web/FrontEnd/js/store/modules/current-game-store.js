@@ -14,7 +14,6 @@ export default {
         _defaultBuyin: 0,
         _locationName: '',
         _isManager: false,
-        _bunchPlayers: [],
         _players: [],
         _currentStack: 0,
         _loadedPlayerId: '0',
@@ -33,7 +32,6 @@ export default {
         cashoutFormVisible: state => state._cashoutFormVisible,
         defaultBuyin: state => state._defaultBuyin,
         isManager: state => state._isManager,
-        bunchPlayers: state => state._bunchPlayers,
         players: state => state._players,
         hasPlayers: state => state._players.length > 0,
         sortedPlayers: (state, getters) => {
@@ -195,12 +193,7 @@ export default {
         },
         buyin(context, { amount, stack }) {
             const buyinData = { playerId: context.state._playerId, stack: stack, addedMoney: amount };
-            let player = context.getters.player;
-            if (!player) {
-                player = createPlayer(context.state);
-
-                context.commit('addPlayer', { player });
-            }
+            const player = context.getters.player;
             api.buyin(context.state._slug, buyinData)
                 .then(function () {
                     refresh(context);
@@ -208,6 +201,11 @@ export default {
             context.commit('buyin', { player, buyinData });
             context.commit('hideForms');
             context.commit('resetPlayerId');
+        },
+        firstBuyin(context, { amount, stack, name, color }) {
+            const player = createPlayer(context.state._playerId, name, color);
+            context.commit('addPlayer', { player });
+            context.dispatch('buyin', { amount: amount, stack: stack });
         },
         cashout(context, { stack }) {
             const player = context.getters.player;
@@ -288,7 +286,6 @@ export default {
             state._defaultBuyin = data.defaultBuyin;
             state._locationName = data.locationName;
             state._isManager = data.isManager;
-            state._bunchPlayers = data.bunchPlayers;
             state._players = data.players;
             state._loadedPlayerId = data.playerId;
         }
@@ -323,14 +320,11 @@ function addCheckpoint(player, stack, addedMoney) {
     player.checkpoints.push(checkpoint);
 }
 
-function createPlayer(state) {
-    const bunchPlayer = state.bunchPlayer;
-    const playerName = bunchPlayer ? bunchPlayer.name : '';
-    const playerColor = bunchPlayer ? bunchPlayer.color : '#9e9e9e';
+function createPlayer(playerId, playerName, playerColor) {
     return {
-        id: state._playerId,
-        name: playerName,
-        color: playerColor,
+        id: playerId,
+        name: playerName || '',
+        color: playerColor || '#9e9e9e',
         url: null,
         hasCashedOut: false,
         checkpoints: []
