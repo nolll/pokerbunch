@@ -302,7 +302,7 @@ function setupRefresh(context, refreshTimeout) {
 }
 
 function refresh(context) {
-    api.refreshCurrentGame(context.state._slug)
+    api.getCurrentGame(context.state._slug)
         .then(function (response) {
             if (response.status === 200) {
                 setPlayers(context, response.data);

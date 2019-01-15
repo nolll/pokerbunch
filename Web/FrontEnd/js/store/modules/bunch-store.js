@@ -7,7 +7,9 @@ export default {
         _name: '',
         _currencyFormat: '${0}',
         _thousandSeparator: ',',
-        _ready: false,
+        _players: '',
+        _bunchReady: false,
+        _playersReady: false,
         _initialized: false
     },
     getters: {
@@ -15,7 +17,7 @@ export default {
         name: state => state._name,
         currencyFormat: state => state._currencyFormat,
         thousandSeparator: state => state._thousandSeparator,
-        bunchReady: state => state._ready
+        bunchReady: state => state._bunchReady && state._playersReady
     },
     actions: {
         loadBunch(context, data) {
@@ -23,18 +25,26 @@ export default {
                 context.commit('setInitialized');
                 api.getBunch(data.slug)
                     .then(function (response) {
-                        context.commit('setData', response.data);
+                        context.commit('setBunchData', response.data);
+                    });
+                api.getPlayers(data.slug)
+                    .then(function (response) {
+                        context.commit('setPlayersData', response.data);
                     });
             }
         }
     },
     mutations: {
-        setData(state, bunch) {
+        setBunchData(state, bunch) {
             state._slug = bunch.id;
             state._name = bunch.name;
             state._currencyFormat = bunch.currencyFormat;
             state._thousandSeparator = bunch.thousandSeparator;
-            state._ready = true;
+            state._bunchReady = true;
+        },
+        setPlayersData(state, players) {
+            state._players = players;
+            state._playersReady = true;
         },
         setInitialized(state) {
             state._initialized = true;

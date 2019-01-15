@@ -10,12 +10,12 @@ export default {
         const url = `/cashgame/runninggamejson/${slug}`;
         return localGet(url);
     },
-    refreshCurrentGame: function (slug) {
-        const url = `/cashgame/runninggamejson/${slug}`;
-        return localGet(url);
-    },
     getBunch: function (slug) {
         const url = `/bunches/${slug}`;
+        return apiGet(url);
+    },
+    getPlayers: function (slug) {
+        const url = `/bunches/${slug}/players`;
         return apiGet(url);
     },
     getGames: function (slug, year) {

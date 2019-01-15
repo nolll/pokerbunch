@@ -64,7 +64,7 @@ namespace Plumbing
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.CashgameService);
         public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.CashgameService);
         public EventMatrix EventMatrix => new EventMatrix(_deps.BunchService, _deps.EventService, _deps.CashgameService, _deps.PlayerService);
-        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
+        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchService, _deps.CashgameService);
         public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.CashgameService, _deps.LocationService, _deps.EventService);
         public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService);
         public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameService);

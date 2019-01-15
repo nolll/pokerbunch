@@ -265,7 +265,6 @@
     <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameRefreshJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgameCheckpointJsonModel.cs" />
-    <Compile Include="Models\CashgameModels\Running\BunchPlayerJsonModel.cs" />
     <Compile Include="Models\CashgameModels\Running\RunningCashgamePlayerJsonModel.cs" />
     <Compile Include="Models\ChartModels\ChartDateTimeValueModel.cs" />
     <Compile Include="Models\ChartModels\ChartIntValueModel.cs" />

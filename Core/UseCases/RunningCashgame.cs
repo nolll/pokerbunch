@@ -11,13 +11,11 @@ namespace Core.UseCases
     {
         private readonly IBunchService _bunchService;
         private readonly ICashgameService _cashgameService;
-        private readonly IPlayerService _playerService;
 
-        public RunningCashgame(IBunchService bunchService, ICashgameService cashgameService, IPlayerService playerService)
+        public RunningCashgame(IBunchService bunchService, ICashgameService cashgameService)
         {
             _bunchService = bunchService;
             _cashgameService = cashgameService;
-            _playerService = playerService;
         }
 
         public Result Execute(Request request)
@@ -28,12 +26,9 @@ namespace Core.UseCases
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
-            var bunchPlayers = _playerService.List(bunch.Id);
-
             var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
             
             var playerItems = GetPlayerItems(cashgame);
-            var bunchPlayerItems = bunchPlayers.Select(o => new BunchPlayerItem(o.Id, o.DisplayName, o.Color)).OrderBy(o => o.Name).ToList();
             
             var defaultBuyin = bunch.DefaultBuyin;
             var currencyFormat = bunch.Currency.Format;
@@ -45,7 +40,6 @@ namespace Core.UseCases
                 cashgame.Location.Name,
                 cashgame.Location.Id,
                 playerItems,
-                bunchPlayerItems,
                 defaultBuyin,
                 currencyFormat,
                 thousandSeparator,
@@ -97,7 +91,6 @@ namespace Core.UseCases
             public string LocationName { get; }
             public string LocationId { get; }
             public IList<RunningCashgamePlayerItem> PlayerItems { get; }
-            public IList<BunchPlayerItem> BunchPlayerItems { get; }
             public int DefaultBuyin { get; }
             public string CurrencyFormat { get; }
             public string ThousandSeparator { get; }
@@ -109,7 +102,6 @@ namespace Core.UseCases
                 string locationName,
                 string locationId,
                 IList<RunningCashgamePlayerItem> playerItems,
-                IList<BunchPlayerItem> bunchPlayerItems,
                 int defaultBuyin,
                 string currencyFormat,
                 string thousandSeparator,
@@ -120,25 +112,10 @@ namespace Core.UseCases
                 LocationName = locationName;
                 LocationId = locationId;
                 PlayerItems = playerItems;
-                BunchPlayerItems = bunchPlayerItems;
                 DefaultBuyin = defaultBuyin;
                 CurrencyFormat = currencyFormat;
                 ThousandSeparator = thousandSeparator;
                 IsManager = isManager;
-            }
-        }
-
-        public class BunchPlayerItem
-        {
-            public string PlayerId { get; }
-            public string Name { get; }
-            public string Color { get; }
-
-            public BunchPlayerItem(string playerId, string name, string color)
-            {
-                PlayerId = playerId;
-                Name = name;
-                Color = color;
             }
         }
 

@@ -35,9 +35,6 @@ namespace Web.Models.CashgameModels.Running
         [UsedImplicitly]
         public bool IsManager { get; private set; }
 
-        [UsedImplicitly]
-        public List<BunchPlayerJsonModel> BunchPlayers { get; private set; }
-
         public RunningCashgameJsonModel(RunningCashgame.Result result) : base(result)
         {
             Slug = result.Slug;
@@ -49,7 +46,6 @@ namespace Web.Models.CashgameModels.Running
             ThousandSeparator = result.ThousandSeparator;
             LocationName = result.LocationName;
             IsManager = result.IsManager;
-            BunchPlayers = result.BunchPlayerItems.Select(o => new BunchPlayerJsonModel(o)).ToList();
         }
     }
 

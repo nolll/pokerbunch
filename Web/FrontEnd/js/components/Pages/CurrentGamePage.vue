@@ -92,9 +92,10 @@
             this.init();
         },
         computed: {
-            ...mapGetters(BUNCH, [
-                'slug'
-            ]),
+            ...mapGetters(BUNCH, {
+                slug: 'slug',
+                bunchPlayers: 'players'
+            }),
             ...mapGetters(CURRENT_GAME, [
                 'playerId',
                 'locationUrl',
@@ -103,7 +104,6 @@
                 'buyinFormVisible',
                 'cashoutFormVisible',
                 'isManager',
-                'bunchPlayers',
                 'players',
                 'hasPlayers',
                 'startTime',

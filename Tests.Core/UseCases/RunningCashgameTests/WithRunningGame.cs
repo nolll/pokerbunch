@@ -36,15 +36,5 @@ namespace Tests.Core.UseCases.RunningCashgameTests
             Assert.AreEqual(PlayerData.Id2, Result.PlayerItems[1].PlayerId);
             Assert.AreEqual(CashgameData.Id1, Result.PlayerItems[1].CashgameId);
         }
-
-        [Test]
-        public void RunningCashgame_CashgameRunning_BunchPlayerItemsAreSet()
-        {
-            Assert.AreEqual(2, Result.BunchPlayerItems.Count);
-            Assert.AreEqual(PlayerData.Name1, Result.BunchPlayerItems[0].Name);
-            Assert.AreEqual(PlayerData.Id1, Result.BunchPlayerItems[0].PlayerId);
-            Assert.AreEqual(PlayerData.Name2, Result.BunchPlayerItems[1].Name);
-            Assert.AreEqual(PlayerData.Id2, Result.BunchPlayerItems[1].PlayerId);
-        }
     }
 }
