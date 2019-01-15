@@ -104,16 +104,6 @@ export default {
         player: (state, getters) => {
             return getters.getPlayer(state._playerId);
         },
-        bunchPlayer: state => {
-            var i,
-                bp = state._bunchPlayers;
-            for (i = 0; i < bp.length; i++) {
-                if (bp[i].id === state._playerId) {
-                    return bp[i];
-                }
-            }
-            return null;
-        },
         totalStacks: state => {
             var sum = 0;
             for (var i = 0; i < state._players.length; i++) {

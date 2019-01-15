@@ -1,18 +1,20 @@
 ﻿<template>
     <select v-model="selectedPlayerId" v-on:change="changePlayer">
-        <option v-for="player in bunchPlayers" :value="player.id">{{player.name}}</option>
+        <option v-for="player in players" :value="player.id">{{player.name}}</option>
     </select>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
-    import { CURRENT_GAME } from '@/store-names';
+    import { BUNCH, CURRENT_GAME } from '@/store-names';
 
     export default {
         computed: {
+            ...mapGetters(BUNCH, [
+                'players'
+            ]),
             ...mapGetters(CURRENT_GAME, [
-                'playerId',
-                'bunchPlayers'
+                'playerId'
             ])
         },
         methods: {

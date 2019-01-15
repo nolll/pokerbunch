@@ -19,7 +19,7 @@
     import { mapGetters } from 'vuex';
     import validate from '@/validate';
     import forms from '@/forms';
-    import { BUNCH } from '@/store-names';
+    import { BUNCH, CURRENT_GAME } from '@/store-names';
 
     export default {
         props: ['isActive'],

@@ -17,6 +17,7 @@ export default {
         name: state => state._name,
         currencyFormat: state => state._currencyFormat,
         thousandSeparator: state => state._thousandSeparator,
+        players: state => state._players,
         bunchReady: state => state._bunchReady && state._playersReady,
         getPlayer: (state) => (id) => {
             if (!state._players)
