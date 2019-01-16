@@ -176,7 +176,6 @@
     <Compile Include="Components\ApiDocsModels\SectionHeadingBlock\SectionHeadingBlockModel.cs" />
     <Compile Include="Components\ApiDocsModels\Section\SectionModel.cs" />
     <Compile Include="Components\ApiDocsModels\JsonBlock\JsonBlockModel.cs" />
-    <Compile Include="Components\NavigationModels\CashgamePageNavigationModel.cs" />
     <Compile Include="Controllers\RunningCashgameController.cs" />
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
@@ -288,7 +287,6 @@
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\PageBaseModels\AppPageModel.cs" />
     <Compile Include="Models\PageBaseModels\BunchPageModel.cs" />
-    <Compile Include="Models\PageBaseModels\CashgamePageModel.cs" />
     <Compile Include="Models\PageBaseModels\ContextLayout.cs" />
     <Compile Include="Models\PageBaseModels\PageLayout.cs" />
     <Compile Include="Models\PageBaseModels\WrappedPageModel.cs" />
@@ -441,7 +439,6 @@
     <Content Include="Views\Forms\Errors.cshtml" />
     <Content Include="Views\Layouts\AppPage.cshtml" />
     <Content Include="Views\Layouts\BunchPage.cshtml" />
-    <Content Include="Views\Layouts\CashgamePage.cshtml" />
     <Content Include="Views\Layouts\OneColumn.cshtml" />
     <Content Include="Views\Layouts\Page.cshtml" />
     <Content Include="Views\Layouts\TwoColumns.cshtml" />
@@ -451,7 +448,6 @@
     <Content Include="Views\Misc\Spinner.cshtml" />
     <Content Include="Views\Navigation\AdminNavigation.cshtml" />
     <Content Include="Views\Navigation\BunchNavigation.cshtml" />
-    <Content Include="Views\Navigation\CashgameYearNavigation.cshtml" />
     <Content Include="Views\Navigation\Navigation.cshtml" />
     <Content Include="Views\Pages\AddBunch\AddBunch.cshtml" />
     <Content Include="Views\Pages\AddBunch\AddBunchConfirmation.cshtml" />
@@ -797,8 +793,6 @@
     <Compile Include="Models\MiscModels\AvatarModel.cs" />
     <Compile Include="Models\PlayerModels\Facts\PlayerFactsModel.cs" />
     <Compile Include="Components\PlayerModels\Badges\BadgeListModel.cs" />
-    <Compile Include="Models\NavigationModels\CashgameYearNavigationModel.cs" />
-    <Compile Include="Models\NavigationModels\NavigationYearModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsPageModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableModel.cs" />
     <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableItemModel.cs" />
@@ -828,7 +822,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />
-    <Content Include="Components\NavigationModels\CashgamePageNavigationModel.cshtml" />
     <Compile Include="Models\HomegameModels\Details\BunchDetailsPageModel.cs" />
     <Content Include="Components\PlayerModels\Badges\BadgeListModel.cshtml" />
     <Content Include="Components\PlayerModels\Badges\BadgeModel.cshtml" />

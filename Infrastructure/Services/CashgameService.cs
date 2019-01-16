@@ -37,12 +37,6 @@ namespace Infrastructure.Api.Services
             return null;
         }
 
-        public IList<ListCashgame> List(string bunchId, int? year = null)
-        {
-            var apiCashgames = ApiClient.Cashgames.List(bunchId, year);
-            return apiCashgames.Select(CreateListCashgame).ToList();
-        }
-
         public IList<ListCashgame> EventList(string eventId)
         {
             var apiCashgames = ApiClient.Cashgames.EventList(eventId);
@@ -53,11 +47,6 @@ namespace Infrastructure.Api.Services
         {
             var apiCashgames = ApiClient.Cashgames.PlayerList(playerId);
             return apiCashgames.Select(CreateListCashgame).ToList();
-        }
-
-        public IList<int> GetYears(string bunchId)
-        {
-            return ApiClient.Cashgames.GetYears(bunchId);
         }
 
         public void DeleteGame(string id)

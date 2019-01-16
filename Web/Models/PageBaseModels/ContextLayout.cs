@@ -6,6 +6,5 @@ namespace Web.Models.PageBaseModels
         public const string Wrapped = "Wrapped.cshtml";
         public const string App = "AppPage.cshtml";
         public const string Bunch = "BunchPage.cshtml";
-        public const string Cashgame = "CashgamePage.cshtml";
     }
 }

@@ -1,9 +1,6 @@
-using System.Diagnostics.Eventing.Reader;
 using Core.Services;
-using Infrastructure.Api.Services;
 using PokerBunch.Client.Clients;
 using PokerBunch.Client.Connection;
-using CashgameService = Infrastructure.Api.Services.CashgameService;
 
 namespace Plumbing
 {

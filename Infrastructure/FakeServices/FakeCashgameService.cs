@@ -19,28 +19,6 @@ namespace Infrastructure.Api.FakeServices
             return FakeData.Cashgames.FirstOrDefault(o => o.IsRunning && o.Bunch.Id == bunchId);
         }
 
-        public IList<ListCashgame> List(string bunchId, int? year = null)
-        {
-            return FakeData.Cashgames
-                .Where(o => o.Bunch.Id == bunchId)
-                .Select(o => 
-                    new ListCashgame(
-                        o.Id,
-                        o.StartTime, 
-                        o.UpdatedTime, 
-                        o.IsRunning, 
-                        new SmallLocation(o.Location.Id, o.Location.Name),
-                        o.Players.Select(p => 
-                            new ListCashgame.CashgamePlayer(
-                                p.Id,
-                                p.Name,
-                                p.Color,
-                                p.Stack,
-                                p.Buyin,
-                                p.StartTime,
-                                p.UpdatedTime)).ToList())).ToList();
-        }
-
         public IList<ListCashgame> EventList(string eventId)
         {
             throw new NotImplementedException();
@@ -64,14 +42,6 @@ namespace Infrastructure.Api.FakeServices
         public DetailedCashgame Update(string id, string locationId, string eventId)
         {
             throw new NotImplementedException();
-        }
-
-        public IList<int> GetYears(string bunchId)
-        {
-            return new List<int>
-            {
-                2018
-            };
         }
 
         public void Report(string cashgameId, string playerId, int stack)

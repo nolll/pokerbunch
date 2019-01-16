@@ -35,11 +35,6 @@ namespace Web.Controllers.Base
             return UseCase.BunchContext.Execute(GetAppContext(), new BunchContext.Request(bunchId));
         }
 
-        protected CashgameContext.Result GetCashgameContext(string bunchId, DateTime currentTime, CashgameContext.CashgamePage selectedPage = CashgameContext.CashgamePage.Unknown, int? year = null)
-        {
-            return UseCase.CashgameContext.Execute(GetBunchContext(bunchId), new CashgameContext.Request(bunchId, currentTime, selectedPage, year));
-        }
-
         protected IUserIdentity Identity => _identity ?? (_identity = SiteSettings.UseFakeData ? (IUserIdentity)new FakeUserIdentity() : new UserIdentity(User));
 
         protected override void OnException(ExceptionContext filterContext)

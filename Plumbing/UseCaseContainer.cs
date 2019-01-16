@@ -15,7 +15,6 @@ namespace Plumbing
         public BaseContext BaseContext => new BaseContext();
         public CoreContext CoreContext => new CoreContext(_deps.UserService);
         public BunchContext BunchContext => new BunchContext(_deps.BunchService);
-        public CashgameContext CashgameContext => new CashgameContext(_deps.CashgameService);
 
         // Auth and Home
         public Login Login => new Login(_deps.AuthService, _deps.UserService);
