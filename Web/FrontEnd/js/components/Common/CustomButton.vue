@@ -1,5 +1,5 @@
 ﻿<template>
-    <router-link :to="url" :class="cssClasses" v-if="hasUrl">{{text}}</router-link>
+    <a :href="url" :class="cssClasses" v-if="hasUrl">{{text}}</a>
     <button v-on:click="click" :class="cssClasses" v-else>{{text}}</button>
 </template>
 
