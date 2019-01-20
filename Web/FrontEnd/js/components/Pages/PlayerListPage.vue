@@ -6,7 +6,7 @@
 
         <template slot="aside">
             <div class="block gutter">
-                <action-button :url="addPlayerUrl" text="Add player"/>
+                <custom-button :url="addPlayerUrl" type="action" text="Add player"/>
             </div>
         </template>
 
@@ -24,7 +24,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { PlayerList } from '@/components';
-    import ActionButton from '@/components/common/ActionButton.vue';
+    import CustomButton from '@/components/common/CustomButton.vue';
     import urls from '@/urls';
     import { BUNCH } from '@/store-names';
 
@@ -33,7 +33,7 @@
             TwoColumn,
             BunchNavigation,
             PlayerList,
-            ActionButton
+            CustomButton
         },
         mixins: [
             DataMixin

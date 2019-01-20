@@ -5,8 +5,8 @@
             <input class="numberfield" v-model.number="stack" v-on:focus="focus" ref="stack" id="report-stack" type="text" pattern="[0-9]*">
         </div>
         <div class="buttons">
-            <button v-on:click="report" class="button button--action">Report</button>
-            <button v-on:click="cancel" class="button">Cancel</button>
+            <custom-button v-on:click="report" type="action" text="Report" />
+            <custom-button v-on:click="cancel" text="Cancel" />
         </div>
     </div>
 </template>
@@ -15,10 +15,18 @@
     import { mapGetters } from 'vuex';
     import validate from '@/validate';
     import forms from '@/forms';
+    import CustomButton from '@/components/common/CustomButton.vue';
     import { CURRENT_GAME } from '@/store-names';
 
     export default {
-        props: ['isActive'],
+        props: {
+            isActive: {
+                type: Boolean
+            }
+        },
+        components: {
+            CustomButton
+        },
         computed: {
             ...mapGetters(CURRENT_GAME, [
                 'defaultBuyin'
