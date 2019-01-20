@@ -73,7 +73,6 @@ namespace Plumbing
         public Cashout Cashout => new Cashout(_deps.CashgameService);
 
         // Player
-        public PlayerList PlayerList => new PlayerList(_deps.BunchService, _deps.PlayerService);
         public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchService, _deps.PlayerService, _deps.CashgameService, _deps.UserService);
         public PlayerFacts PlayerFacts => new PlayerFacts(_deps.BunchService, _deps.CashgameService, _deps.PlayerService);
         public PlayerBadges PlayerBadges => new PlayerBadges(_deps.CashgameService);

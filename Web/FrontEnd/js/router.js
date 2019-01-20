@@ -2,6 +2,7 @@
 import VueRouter from 'vue-router';
 
 import {
+    LoginPage,
     CurrentGamePage,
     DashboardPage,
     OverviewPage,
@@ -10,8 +11,8 @@ import {
     ChartPage,
     ListPage,
     FactsPage,
-    NotFoundPage,
-    LoginPage
+    PlayerListPage,
+    NotFoundPage
 } from './components/Pages';
 
 Vue.use(VueRouter);
@@ -26,6 +27,7 @@ const routes = [
     { path: '/cashgame/chart/:slug/:year?', component: ChartPage },
     { path: '/cashgame/list/:slug/:year?', component: ListPage },
     { path: '/cashgame/facts/:slug/:year?', component: FactsPage },
+    { path: '/player/list/:slug', component: PlayerListPage },     
     { path: '*', component: NotFoundPage }
 ];
 

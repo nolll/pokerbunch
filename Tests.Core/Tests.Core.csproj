@@ -199,9 +199,6 @@
     <Compile Include="UseCases\PlayerDetailsTests\WithPlayerThatIsUser.cs" />
     <Compile Include="UseCases\PlayerFactsTests\Arrange.cs" />
     <Compile Include="UseCases\PlayerFactsTests\WithGames.cs" />
-    <Compile Include="UseCases\PlayerListTests\Arrange.cs" />
-    <Compile Include="UseCases\PlayerListTests\WithManagerRole.cs" />
-    <Compile Include="UseCases\PlayerListTests\WithPlayerRole.cs" />
     <Compile Include="UseCases\ReportTests\Arrange.cs" />
     <Compile Include="UseCases\ReportTests\WhenExecute.cs" />
     <Compile Include="UseCases\RunningCashgameTests\Arrange.cs" />

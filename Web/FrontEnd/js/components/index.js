@@ -13,3 +13,4 @@ export { OverviewStatus } from './Overview';
 export { OverallFacts } from './Facts';
 export { SingleGameFacts } from './Facts';
 export { TotalFacts } from './Facts';
+export { PlayerList } from './PlayerList';

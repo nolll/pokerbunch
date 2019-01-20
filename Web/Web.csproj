@@ -218,7 +218,6 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\LogoutController.cs" />
     <Compile Include="Controllers\PlayerDetailsController.cs" />
-    <Compile Include="Controllers\PlayerListController.cs" />
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\EventListController.cs" />
     <Compile Include="Controllers\UserListController.cs" />
@@ -376,6 +375,7 @@
       <DependentUpon>table-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrontEnd\js\components\PlayerList\index.js" />
     <Content Include="FrontEnd\js\store-names.js" />
     <Content Include="FrontEnd\js\components\YearMatrix\index.js" />
     <Content Include="FrontEnd\js\urls.js" />
@@ -488,8 +488,6 @@
     <Content Include="Views\Pages\Matrix\MatrixTableRow.cshtml" />
     <Content Include="Views\Pages\PlayerDetails\Details.cshtml" />
     <Content Include="Views\Pages\PlayerDetails\PlayerFacts.cshtml" />
-    <Content Include="Views\Pages\PlayerList\Item.cshtml" />
-    <Content Include="Views\Pages\PlayerList\List.cshtml" />
     <Content Include="Views\Pages\UserDetails\UserDetails.cshtml" />
     <Content Include="Views\Pages\UserList\Item.cshtml" />
     <Content Include="Views\Pages\UserList\UserList.cshtml" />
@@ -569,6 +567,12 @@
     <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixItem.vue" />
     <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixRow.vue" />
     <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixTable.vue" />
+    <Content Include="FrontEnd\js\components\Pages\PlayerListPage.vue" />
+    <Content Include="FrontEnd\js\components\PlayerList\PlayerList.vue" />
+    <Content Include="FrontEnd\js\components\Common\SimpleList\SimpleList.vue" />
+    <Content Include="FrontEnd\js\components\Common\SimpleList\SimpleListItem.vue" />
+    <Content Include="FrontEnd\js\components\PlayerList\PlayerListItem.vue" />
+    <Content Include="FrontEnd\js\components\Common\ActionButton.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />
@@ -787,8 +791,6 @@
     <Content Include="FrontEnd\Font\FontAwesome.otf" />
     <Compile Include="Controllers\JoinBunchController.cs" />
     <Compile Include="Controllers\InvitePlayerController.cs" />
-    <Compile Include="Models\PlayerModels\List\PlayerListPageModel.cs" />
-    <Compile Include="Models\PlayerModels\List\PlayerItemModel.cs" />
     <Compile Include="Models\PlayerModels\Details\PlayerDetailsPageModel.cs" />
     <Compile Include="Models\MiscModels\AvatarModel.cs" />
     <Compile Include="Models\PlayerModels\Facts\PlayerFactsModel.cs" />

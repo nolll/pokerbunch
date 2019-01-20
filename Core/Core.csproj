@@ -145,7 +145,6 @@
     <Compile Include="UseCases\PlayerBadges.cs" />
     <Compile Include="UseCases\PlayerDetails.cs" />
     <Compile Include="UseCases\PlayerFacts.cs" />
-    <Compile Include="UseCases\PlayerList.cs" />
     <Compile Include="UseCases\Report.cs" />
     <Compile Include="UseCases\RunningCashgame.cs" />
     <Compile Include="UseCases\TestEmail.cs" />
