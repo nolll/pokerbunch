@@ -15,7 +15,7 @@
     import { mapGetters } from 'vuex';
     import validate from '@/validate';
     import forms from '@/forms';
-    import CustomButton from '@/components/common/CustomButton.vue';
+    import { CustomButton } from '@/components/Common';
     import { CURRENT_GAME } from '@/store-names';
 
     export default {

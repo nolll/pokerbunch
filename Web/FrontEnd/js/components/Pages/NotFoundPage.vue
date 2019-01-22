@@ -2,7 +2,7 @@
     <two-column>
         <template slot="main">
             <div class="block gutter">
-                <h1 class="page-heading">Page not found</h1>
+                <page-heading text="Page not found" />
             </div>
 
             <div class="block gutter">
@@ -16,10 +16,12 @@
 
 <script>
     import { TwoColumn } from '@/components/Layouts';
+    import { PageHeading } from '@/components/Common';
 
     export default {
         components: {
-            TwoColumn
+            TwoColumn,
+            PageHeading
         }
     };
 </script>

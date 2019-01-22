@@ -2,7 +2,7 @@
     <two-column :ready="true">
         <template slot="main">
             <div class="block gutter">
-                <h1 class="page-heading">Sign in</h1>
+                <page-heading text="Sign in" />
             </div>
             <div class="block gutter">
 
@@ -22,11 +22,13 @@
 <script>
     import { TwoColumn } from '@/components/Layouts';
     import { LoginForm } from '@/components';
+    import { PageHeading } from '@/components/Common';
 
     export default {
         components: {
             TwoColumn,
-            LoginForm
+            LoginForm,
+            PageHeading
         },
         computed: {
             forgotPasswordUrl() {

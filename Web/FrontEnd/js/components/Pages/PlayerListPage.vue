@@ -12,7 +12,7 @@
 
         <template slot="main">
             <div class="block gutter">
-                <h1 class="page-heading">Players</h1>
+                <page-heading text="Players" />
             </div>
             <div class="block gutter">
                 <player-list />
@@ -27,7 +27,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { PlayerList } from '@/components';
-    import CustomButton from '@/components/common/CustomButton.vue';
+    import { CustomButton, PageHeading } from '@/components/Common';
     import urls from '@/urls';
     import { BUNCH } from '@/store-names';
 
@@ -36,7 +36,8 @@
             TwoColumn,
             BunchNavigation,
             PlayerList,
-            CustomButton
+            CustomButton,
+            PageHeading
         },
         mixins: [
             DataMixin

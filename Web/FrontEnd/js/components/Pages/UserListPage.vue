@@ -2,7 +2,7 @@
     <two-column :ready="ready">
         <template slot="main">
             <div class="block gutter">
-                <h1 class="page-heading">Users</h1>
+                <page-heading text="Users"/>
             </div>
             <div class="block gutter">
                 <user-list />
@@ -15,12 +15,14 @@
     import { mapGetters } from 'vuex';
     import { DataMixin } from '@/mixins';
     import { TwoColumn } from '@/components/Layouts';
+    import { PageHeading } from '@/components/Common';
     import UserList from '@/components/UserList/UserList.vue';
     import { USER } from '@/store-names';
 
     export default {
         components: {
             TwoColumn,
+            PageHeading,
             UserList
         },
         mixins: [

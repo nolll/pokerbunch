@@ -22,7 +22,7 @@
         <template slot="main">
             <div class="region width2">
                 <div class="block gutter">
-                    <h1 class="page-heading">Running Cashgame</h1>
+                    <page-heading text="Running Cashgame" />
                 </div>
 
                 <div class="button-list" v-if="areButtonsVisible">
@@ -59,7 +59,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from '@/components/CurrentGame';
-    import { Spinner } from '@/components/Common';
+    import { PageHeading, Spinner } from '@/components/Common';
     import { BUNCH, CURRENT_GAME } from '@/store-names';
 
     export default {
@@ -73,6 +73,7 @@
             PlayerDropdown,
             PlayerTable,
             GameChart,
+            PageHeading,
             Spinner
         },
         mixins: [

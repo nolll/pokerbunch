@@ -16,13 +16,17 @@
 
         <template slot="main">
             <div class="block gutter">
-                <h1 class="page-heading">Current Rankings</h1>
+                <page-heading text="Current Rankings" />
+            </div>
+            <div class="block gutter">
                 <overview-table v-if="hasGames" />
                 <p v-else>The rankings will be displayed here when you have played your first game.</p>
             </div>
 
             <div class="block gutter">
-                <h1 class="page-heading">Yearly Rankings</h1>
+                <page-heading text="Yearly Rankings" />
+            </div>
+            <div class="block gutter">
                 <year-matrix-table v-if="hasGames" />
             </div>
         </template>
@@ -35,6 +39,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { OverviewTable, OverviewStatus, YearMatrixTable } from '@/components';
+    import { PageHeading } from '@/components/Common';
     import { GAME_ARCHIVE } from '@/store-names';
 
     export default {
@@ -44,7 +49,8 @@
             CashgameNavigation,
             OverviewTable,
             OverviewStatus,
-            YearMatrixTable
+            YearMatrixTable,
+            PageHeading
         },
         mixins: [
             DataMixin
