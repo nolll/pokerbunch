@@ -13,5 +13,8 @@ export default {
     },
     addPlayer: function (slug) {
         return `/player/add/${slug}`;
+    },
+    userDetails: function (userName) {
+        return `/user/details/${userName}`;
     }
 };

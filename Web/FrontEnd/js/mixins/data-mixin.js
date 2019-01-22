@@ -12,6 +12,9 @@ export default {
         loadUser() {
             this.$store.dispatch('user/loadUser');
         },
+        loadUsers() {
+            this.$store.dispatch('user/loadUsers');
+        },
         requireUser() {
             this.$store.dispatch('user/requireUser');
         },
@@ -35,7 +38,8 @@ export default {
         ]),
         ...mapGetters(USER, [
             'userReady',
-            'isSignedIn'
+            'isSignedIn',
+            'usersReady'
         ]),
         ...mapGetters(GAME_ARCHIVE, [
             'gamesReady'

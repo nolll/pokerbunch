@@ -573,6 +573,9 @@
     <Content Include="FrontEnd\js\components\Common\SimpleList\SimpleListItem.vue" />
     <Content Include="FrontEnd\js\components\PlayerList\PlayerListItem.vue" />
     <Content Include="FrontEnd\js\components\Common\CustomButton.vue" />
+    <Content Include="FrontEnd\js\components\Pages\UserListPage.vue" />
+    <Content Include="FrontEnd\js\components\UserList\UserList.vue" />
+    <Content Include="FrontEnd\js\components\UserList\UserListItem.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />

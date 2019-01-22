@@ -7,7 +7,8 @@ namespace Web.Controllers
 {
     public class UserListController : BaseController
     {
-        [Route(UserListUrl.Route)]
+        //[Route(UserListUrl.Route)]
+        [Route("remove")]
         public ActionResult List()
         {
             var context = GetAppContext();

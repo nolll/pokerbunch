@@ -39,6 +39,10 @@ export default {
     getUser: function () {
         const url = `/user`;
         return apiGet(url);
+    },
+    getUsers: function () {
+        const url = `/users`;
+        return apiGet(url);
     }
 };
 

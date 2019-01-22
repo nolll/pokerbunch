@@ -12,6 +12,9 @@
 
         <template slot="main">
             <div class="block gutter">
+                <h1 class="page-heading">Players</h1>
+            </div>
+            <div class="block gutter">
                 <player-list />
             </div>
         </template>
