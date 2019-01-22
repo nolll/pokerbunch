@@ -9,16 +9,16 @@
         </template>
 
         <template slot="aside">
-            <div class="block gutter">
+            <page-section>
                 <overall-facts />
-            </div>
+            </page-section>
         </template>
 
         <template slot="main">
-            <div class="block gutter">
+            <page-section>
                 <single-game-facts />
                 <total-facts />
-            </div>
+            </page-section>
         </template>
     </two-column>
 </template>
@@ -28,6 +28,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { SingleGameFacts, TotalFacts, OverallFacts } from '@/components/Facts';
+    import { PageSection } from '@/components/Common';
 
     export default {
         components: {
@@ -36,7 +37,8 @@
             CashgameNavigation,
             SingleGameFacts,
             TotalFacts,
-            OverallFacts
+            OverallFacts,
+            PageSection
         },
         mixins: [
             DataMixin

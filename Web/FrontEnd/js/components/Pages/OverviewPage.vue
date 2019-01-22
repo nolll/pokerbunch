@@ -15,20 +15,20 @@
         </template>
 
         <template slot="main">
-            <div class="block gutter">
+            <page-section>
                 <page-heading text="Current Rankings" />
-            </div>
-            <div class="block gutter">
+            </page-section>
+            <page-section>
                 <overview-table v-if="hasGames" />
                 <p v-else>The rankings will be displayed here when you have played your first game.</p>
-            </div>
+            </page-section>
 
-            <div class="block gutter">
+            <page-section>
                 <page-heading text="Yearly Rankings" />
-            </div>
-            <div class="block gutter">
+            </page-section>
+            <page-section>
                 <year-matrix-table v-if="hasGames" />
-            </div>
+            </page-section>
         </template>
     </two-column>
 </template>
@@ -39,7 +39,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { OverviewTable, OverviewStatus, YearMatrixTable } from '@/components';
-    import { PageHeading } from '@/components/Common';
+    import { PageHeading, PageSection } from '@/components/Common';
     import { GAME_ARCHIVE } from '@/store-names';
 
     export default {
@@ -50,7 +50,8 @@
             OverviewTable,
             OverviewStatus,
             YearMatrixTable,
-            PageHeading
+            PageHeading,
+            PageSection
         },
         mixins: [
             DataMixin

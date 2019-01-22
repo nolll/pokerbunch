@@ -1,27 +1,28 @@
 ﻿<template>
     <two-column>
         <template slot="main">
-            <div class="block gutter">
+            <page-section>
                 <page-heading text="Page not found" />
-            </div>
+            </page-section>
 
-            <div class="block gutter">
+            <page-section>
                 <p>
                     Please check the url for errors
                 </p>
-            </div>
+            </page-section>
         </template>
     </two-column>
 </template>
 
 <script>
     import { TwoColumn } from '@/components/Layouts';
-    import { PageHeading } from '@/components/Common';
+    import { PageHeading, PageSection } from '@/components/Common';
 
     export default {
         components: {
             TwoColumn,
-            PageHeading
+            PageHeading,
+            PageSection
         }
     };
 </script>

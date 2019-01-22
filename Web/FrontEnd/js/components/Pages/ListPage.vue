@@ -9,9 +9,9 @@
         </template>
 
         <template slot="main">
-            <div class="block gutter">
+            <page-section>
                 <game-list-table />
-            </div>
+            </page-section>
         </template>
     </two-column>
 </template>
@@ -21,13 +21,15 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { GameListTable } from '@/components';
+    import { PageSection } from '@/components/Common';
 
     export default {
         components: {
             TwoColumn,
             BunchNavigation,
             CashgameNavigation,
-            GameListTable
+            GameListTable,
+            PageSection
         },
         mixins: [
             DataMixin

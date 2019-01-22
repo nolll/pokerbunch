@@ -5,7 +5,7 @@
         </template>
 
         <template slot="aside">
-            <div class="block gutter">
+            <page-section>
                 <dl class="value-list">
                     <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
                     <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
@@ -16,14 +16,14 @@
                         <player-dropdown :player-id="playerId" :players="bunchPlayers"></player-dropdown>
                     </dd>
                 </dl>
-            </div>
+            </page-section>
         </template>
 
         <template slot="main">
             <div class="region width2">
-                <div class="block gutter">
+                <page-section>
                     <page-heading text="Running Cashgame" />
-                </div>
+                </page-section>
 
                 <div class="button-list" v-if="areButtonsVisible">
                     <game-button text="Report" icon="reorder" v-show="canReport" v-on:click.native="showReportForm"></game-button>
@@ -31,22 +31,25 @@
                     <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click.native="showCashoutForm"></game-button>
                 </div>
 
-                <div class="block gutter">
+                <page-section>
                     <report-form v-show="reportFormVisible" :is-active="reportFormVisible"></report-form>
                     <buyin-form v-show="buyinFormVisible" :is-active="buyinFormVisible"></buyin-form>
                     <cashout-form v-show="cashoutFormVisible" :is-active="cashoutFormVisible"></cashout-form>
-                </div>
+                </page-section>
 
-                <div class="standings block gutter" v-if="hasPlayers">
-                    <player-table :players="sortedPlayers"></player-table>
-                </div>
-                <div class="block gutter" v-else>
+                <page-section v-if="hasPlayers">
+                    <div class="standings">
+                        <player-table :players="sortedPlayers"></player-table>
+                    </div>
+                </page-section>
+                
+                <page-section v-else>
                     No one has joined the game yet.
-                </div>
+                </page-section>
 
-                <div class="block gutter" v-if="hasPlayers">
+                <page-section v-if="hasPlayers">
                     <game-chart :players="players"></game-chart>
-                </div>
+                </page-section>
             </div>
         </template>
     </two-column>
@@ -59,7 +62,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from '@/components/CurrentGame';
-    import { PageHeading, Spinner } from '@/components/Common';
+    import { PageHeading, PageSection, Spinner } from '@/components/Common';
     import { BUNCH, CURRENT_GAME } from '@/store-names';
 
     export default {
@@ -74,6 +77,7 @@
             PlayerTable,
             GameChart,
             PageHeading,
+            PageSection,
             Spinner
         },
         mixins: [

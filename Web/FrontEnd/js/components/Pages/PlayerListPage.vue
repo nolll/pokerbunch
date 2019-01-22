@@ -5,18 +5,18 @@
         </template>
 
         <template slot="aside">
-            <div class="block gutter">
-                <custom-button :url="addPlayerUrl" type="action" text="Add player"/>
-            </div>
+            <page-section>
+                <custom-button :url="addPlayerUrl" type="action" text="Add player" />
+            </page-section>
         </template>
 
         <template slot="main">
-            <div class="block gutter">
+            <page-section>
                 <page-heading text="Players" />
-            </div>
-            <div class="block gutter">
+            </page-section>
+            <page-section>
                 <player-list />
-            </div>
+            </page-section>
         </template>
     </two-column>
 </template>
@@ -27,7 +27,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { PlayerList } from '@/components';
-    import { CustomButton, PageHeading } from '@/components/Common';
+    import { CustomButton, PageHeading, PageSection } from '@/components/Common';
     import urls from '@/urls';
     import { BUNCH } from '@/store-names';
 
@@ -37,7 +37,8 @@
             BunchNavigation,
             PlayerList,
             CustomButton,
-            PageHeading
+            PageHeading,
+            PageSection
         },
         mixins: [
             DataMixin
