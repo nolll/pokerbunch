@@ -10,13 +10,11 @@
     <h1 class="page-heading">@Model.Heading</h1>
 </div>
 <div class="block gutter">
-	<div>
-	    <cashgame-action-chart id="vue-cashgame-action-chart">
-	        <script type="application/json">
-            @Html.Raw(Model.ChartJson)
-        </script>
-	    </cashgame-action-chart>
-	</div>
+	<cashgame-action-chart id="vue-component">
+	    <script type="application/json">
+        @Html.Raw(Model.ChartJson)
+    </script>
+	</cashgame-action-chart>
 </div>
 
 @section Aside2{

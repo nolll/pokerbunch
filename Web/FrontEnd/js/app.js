@@ -16,8 +16,7 @@ function init() {
 }
 
 function initStandalone() {
-    initElement('vue-cashgame-details-chart');
-    initElement('vue-cashgame-action-chart');
+    initElement('vue-component');
 }
 
 function initApp(appElement) {
