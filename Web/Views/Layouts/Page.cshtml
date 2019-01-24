@@ -19,9 +19,7 @@
 </head>
 
 <body class="@Model.BodyCssClass">
-    <div id="app">
-        @RenderBody()
-    </div>
+    @RenderBody()
     <script src="@Model.JsUrl"></script>
 
     @Html.RenderModel(Model.GoogleAnalyticsModel)

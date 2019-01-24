@@ -2,37 +2,43 @@ import vue from 'vue';
 import vuex from 'vuex';
 import store from './store';
 import router from './router';
-
-import {
-    CashgameActionChart,
-    CashgameDetailsChart
-} from './components';
+import { CashgameActionChart, CashgameDetailsChart } from './components';
 
 function init() {
     vue.config.debug = true;
     vue.prototype.eventHub = new vue();
 
-    initComponents();
-    initStartpoints();
+    const appElement = document.getElementById('app');
+    if (appElement)
+        initApp(appElement);
+    else
+        initStandalone();
 }
 
-function initComponents() {
-    vue.component('cashgame-details-chart', CashgameActionChart);
-    vue.component('cashgame-action-chart', CashgameDetailsChart);
+function initStandalone() {
+    initElement('vue-cashgame-details-chart');
+    initElement('vue-cashgame-action-chart');
 }
 
-function initStartpoints() {
-    initStartpoint('vue-cashgame-details-chart');
-    initStartpoint('vue-cashgame-action-chart');
-    initStartpoint('app');
+function initApp(appElement) {
+    const options = {
+        el: appElement,
+        router,
+        store
+    };
+    new vue(options);
 }
 
-function initStartpoint(elementId) {
-    var element = document.getElementById(elementId);
+function initElement(elementId) {
+    const element = document.getElementById(elementId);
 
     if (element) {
-        var options = {
+        const options = {
             el: element,
+            components: {
+                CashgameActionChart,
+                CashgameDetailsChart
+            },
             router,
             store
         };
