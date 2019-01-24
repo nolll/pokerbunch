@@ -210,8 +210,6 @@
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsAdmin.cs" />
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsOtherUser.cs" />
     <Compile Include="UseCases\UserDetailsTests\WhenExecuteAsSpecifiedUser.cs" />
-    <Compile Include="UseCases\UserListTests\Arrange.cs" />
-    <Compile Include="UseCases\UserListTests\WhenExecute.cs" />
     <Compile Include="UseCaseTest.cs" />
   </ItemGroup>
   <ItemGroup>

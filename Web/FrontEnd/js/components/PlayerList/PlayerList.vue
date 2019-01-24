@@ -11,7 +11,7 @@
     import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
     import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
     import PlayerListItem from '@/components/PlayerList/PlayerListItem.vue';
-    import { BUNCH } from '@/store-names';
+    import { PLAYER } from '@/store-names';
 
     export default {
         components: {
@@ -20,12 +20,12 @@
             PlayerListItem
         },
         computed: {
-            ...mapGetters(BUNCH, [
-                'bunchReady',
+            ...mapGetters(PLAYER, [
+                'playersReady',
                 'players'
             ]),
             ready() {
-                return this.bunchReady;
+                return this.playersReady;
             }
         }
     };

@@ -24,7 +24,6 @@ namespace Plumbing
         public ClearCache ClearCache => new ClearCache(_deps.AdminService);
 
         // User
-        public UserList UserList => new UserList(_deps.UserService);
         public UserDetails UserDetails => new UserDetails(_deps.UserService);
         public AddUser AddUser => new AddUser(_deps.UserService);
         public EditUserForm EditUserForm => new EditUserForm(_deps.UserService);

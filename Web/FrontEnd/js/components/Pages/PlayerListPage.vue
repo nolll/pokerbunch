@@ -58,6 +58,7 @@
             init() {
                 this.loadUser();
                 this.loadBunch();
+                this.loadPlayers();
             }
         },
         watch: {

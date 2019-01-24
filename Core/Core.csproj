@@ -149,7 +149,6 @@
     <Compile Include="UseCases\RunningCashgame.cs" />
     <Compile Include="UseCases\TestEmail.cs" />
     <Compile Include="UseCases\UserDetails.cs" />
-    <Compile Include="UseCases\UserList.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Player.cs" />

@@ -10,8 +10,6 @@
     import { LineChart } from '@/components';
     import { CURRENT_GAME } from '@/store-names';
 
-    var chart = null;
-
     export default {
         components: {
             LineChart
@@ -29,7 +27,7 @@
         mounted: function () {
             var self = this;
             self.$nextTick(function () {
-                if (self.initialized) {
+                if (this.currentGameReady) {
                     self.drawChart();
                 }
             });

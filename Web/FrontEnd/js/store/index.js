@@ -1,6 +1,6 @@
 ﻿import vue from 'vue';
 import vuex from 'vuex';
-import { UserStore, BunchStore, CurrentGameStore, GameArchiveStore } from './modules';
+import { UserStore, BunchStore, CurrentGameStore, GameArchiveStore, PlayerStore } from './modules';
 
 vue.use(vuex);
 
@@ -22,6 +22,7 @@ export default new vuex.Store({
         user: UserStore,
         bunch: BunchStore,
         currentGame: CurrentGameStore,
-        gameArchive: GameArchiveStore
+        gameArchive: GameArchiveStore,
+        player: PlayerStore
     }
 });

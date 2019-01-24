@@ -63,7 +63,7 @@
     import { BunchNavigation } from '@/components/Navigation';
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from '@/components/CurrentGame';
     import { PageHeading, PageSection, Spinner } from '@/components/Common';
-    import { BUNCH, CURRENT_GAME } from '@/store-names';
+    import { BUNCH, CURRENT_GAME, PLAYER } from '@/store-names';
 
     export default {
         components: {
@@ -99,7 +99,6 @@
         computed: {
             ...mapGetters(BUNCH, {
                 slug: 'slug',
-                bunchPlayers: 'players'
             }),
             ...mapGetters(CURRENT_GAME, [
                 'playerId',
@@ -120,6 +119,9 @@
                 'canReport',
                 'canBuyin'
             ]),
+            ...mapGetters(PLAYER, {
+                bunchPlayers: 'players'
+            }),
             formattedStartTime() {
                 return this.startTime.format('HH:mm');
             },
@@ -155,6 +157,7 @@
                 this.loadUser();
                 this.loadBunch();
                 this.loadCurrentGame();
+                this.loadPlayers();
             }
         }
     };
