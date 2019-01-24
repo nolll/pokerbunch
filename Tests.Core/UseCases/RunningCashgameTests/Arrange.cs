@@ -17,11 +17,9 @@ namespace Tests.Core.UseCases.RunningCashgameTests
         {
             var bunch = new Bunch(BunchId, null, null, null, null, 100, null, Role.None, PlayerData.Id1);
             var cashgame = CashgameData.GameWithTwoPlayers(Role.Player, true);
-            var players = PlayerData.TwoPlayers;
 
             Mock<IBunchService>().Setup(o => o.Get(BunchId)).Returns(bunch);
             Mock<ICashgameService>().Setup(o => o.GetCurrent(BunchIdWithRunningGame)).Returns(cashgame);
-            Mock<IPlayerService>().Setup(o => o.List(BunchId)).Returns(players);
         }
 
         protected override void Execute()
