@@ -40,15 +40,8 @@ export default {
             });
         },
         getPlayer: (state) => (id) => {
-            if (!state._players)
-                return null;
-            var i;
-            for (i = 0; i < state._players.length; i++) {
-                if (state._players[i].id === id) {
-                    return state._players[i];
-                }
-            }
-            return null;
+            var matching = state._players.filter(p => p.id.toString() === id.toString());
+            return matching.length > 0 ? matching[0] : null;
         },
         getLastReportTime: () => (player) => {
             if (player.checkpoints.length === 0)
