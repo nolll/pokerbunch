@@ -1,20 +1,28 @@
 export default {
-    login: function() {
-        return '/auth/login';
+    auth: {
+        login: function () {
+            return '/auth/login';
+        }
     },
-    cashgameIndex: function (slug) {
-        return `/cashgame/index/${slug}`;
+    cashgame: {
+        index: function (slug) {
+            return `/cashgame/index/${slug}`;
+        },
+        details: function (id) {
+            return `/cashgame/details/${id}`;
+        }
     },
-    cashgameDetails: function (id) {
-        return `/cashgame/details/${id}`;
+    player: {
+        details: function (id) {
+            return `/player/details/${id}`;
+        },
+        add: function (slug) {
+            return `/player/add/${slug}`;
+        }
     },
-    playerDetails: function (id) {
-        return `/player/details/${id}`;
-    },
-    addPlayer: function (slug) {
-        return `/player/add/${slug}`;
-    },
-    userDetails: function (userName) {
-        return `/user/details/${userName}`;
+    user: {
+        details: function (userName) {
+            return `/user/details/${userName}`;
+        }
     }
 };

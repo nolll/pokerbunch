@@ -39,7 +39,7 @@
                 'currentYearPlayers'
             ]),
             url() {
-                return urls.cashgameDetails(this.lastGame.id);
+                return urls.cashgame.details(this.lastGame.id);
             },
             lastGame() {
                 return this.currentYearGames[0];

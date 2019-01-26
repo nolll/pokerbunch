@@ -26,7 +26,7 @@
         },
         computed: {
             url() {
-                return urls.playerDetails(this.id);
+                return urls.player.details(this.id);
             },
             colorBoxStyle() {
                 return `background-color: ${this.color}`;

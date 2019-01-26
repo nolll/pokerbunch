@@ -32,7 +32,7 @@
                 'gameSortOrder'
             ]),
             url() {
-                urls.cashgameDetails(this.game.id);
+                urls.cashgame.details(this.game.id);
             },
             displayDate() {
                 return moment(this.game.date).format('MMM D');

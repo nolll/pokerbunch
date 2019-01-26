@@ -9,6 +9,9 @@
     import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
+        components: {
+            CustomLink
+        },
         props: {
             userName: {
                 type: String
@@ -16,7 +19,7 @@
         },
         computed: {
             url() {
-                return urls.userDetails(this.userName);
+                return urls.user.details(this.userName);
             }
         }
     };

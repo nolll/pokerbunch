@@ -26,7 +26,7 @@
         },
         computed: {
             url() {
-                return urls.playerDetails(this.player.id);
+                return urls.player.details(this.player.id);
             },
             name() {
                 return this.player.name;

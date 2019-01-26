@@ -48,7 +48,7 @@
                 'slug'
             ]),
             addPlayerUrl() {
-                return urls.addPlayer(this.slug);
+                return urls.player.add(this.slug);
             },
             ready() {
                 return this.bunchReady;

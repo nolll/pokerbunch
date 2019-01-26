@@ -152,7 +152,7 @@
                 }
             },
             redirect: function () {
-                location.href = urls.cashgameIndex(this.slug);
+                location.href = urls.cashgame.index(this.slug);
             },
             init: function () {
                 this.loadUser();
