@@ -576,6 +576,7 @@
     <Content Include="FrontEnd\js\components\UserList\UserListItem.vue" />
     <Content Include="FrontEnd\js\components\Common\PageHeading.vue" />
     <Content Include="FrontEnd\js\components\Common\PageSection.vue" />
+    <Content Include="FrontEnd\js\components\Common\CustomLink.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />

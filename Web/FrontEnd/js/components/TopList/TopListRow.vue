@@ -2,7 +2,7 @@
     <tr class="table-list__row">
         <td class="table-list__cell table-list__cell--numeric table-list--sortable__base-column">{{player.rank}}.</td>
         <td class="table-list__cell table-list--sortable__base-column">
-            <a :href="url">{{player.name}}</a>
+            <custom-link :url="url">{{player.name}}</custom-link>
         </td>
         <td :class="'table-list__cell table-list__cell--numeric ' + winningsCssClass + ' ' + winningsSortCssClass">{{formattedWinnings}}</td>
         <td :class="'table-list__cell table-list__cell--numeric ' + buyinSortCssClass">{{formattedBuyin}}</td>
@@ -17,11 +17,15 @@
     import { mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins';
     import { GAME_ARCHIVE } from '@/store-names';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         mixins: [
             FormatMixin
         ],
+        components: {
+            CustomLink
+        },
         props: ['player'],
         computed: {
             ...mapGetters(GAME_ARCHIVE, [

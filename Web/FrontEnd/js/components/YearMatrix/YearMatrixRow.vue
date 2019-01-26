@@ -2,7 +2,7 @@
     <tr class="table-list__row">
         <td class="table-list__cell table-list__cell--numeric">{{rank}}.</td>
         <td class="table-list__cell">
-            <a :href="url">{{name}}</a>
+            <custom-link :url="url">{{name}}</custom-link>
         </td>
         <td :class="'table-list__cell table-list__cell--numeric' + resultClass">{{formattedWinnings}}</td>
         <td is="year-matrix-item" v-for="year in player.years" :year="year"></td>
@@ -12,6 +12,7 @@
 <script>
     import { FormatMixin } from '@/mixins'
     import { YearMatrixItem } from '.';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         mixins: [
@@ -19,7 +20,8 @@
         ],
         props: ['player', 'index'],
         components: {
-            YearMatrixItem
+            YearMatrixItem,
+            CustomLink
         },
         computed: {
             url() {

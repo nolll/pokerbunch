@@ -1,14 +1,18 @@
 ﻿<template>
     <div>
         <span class="player-color-box" :style="colorBoxStyle"></span>
-        <router-link :to="url">{{name}}</router-link>
+        <custom-link :url="url">{{name}}</custom-link>
     </div>
 </template>
 
 <script>
     import urls from '@/urls';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
+        components: {
+            CustomLink
+        },
         props: {
             id: {
                 type: Number

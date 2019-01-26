@@ -1,13 +1,17 @@
 ﻿<template>
     <th class="table-list__column-header">
-        <a :href="url" class="table-list__column-header__content">{{displayDate}}</a>
+        <custom-link :url="url" cssClasses="table-list__column-header__content">{{displayDate}}</custom-link>
     </th>
 </template>
 
 <script>
     import moment from 'moment';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
+        components: {
+            CustomLink
+        },
         props: ['game'],
         computed: {
             url() {

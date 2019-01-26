@@ -5,7 +5,7 @@
             <p>{{description}}</p>
         </div>
         <div class="block">
-            <a :href="url" class="button button--action">{{linkText}}</a>
+            <custom-link :url="url" cssClasses="button button--action">{{linkText}}</custom-link>
         </div>
         <!--Remove dashboard for now-->
         <!--<div class="block" v-if="isRunning">
@@ -18,10 +18,12 @@
     import { mapGetters } from 'vuex';
     import { OverviewRow } from '.';
     import { BUNCH, CURRENT_GAME } from '@/store-names';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         components: {
-            OverviewRow
+            OverviewRow,
+            CustomLink
         },
         computed: {
             ...mapGetters(CURRENT_GAME, [

@@ -2,7 +2,7 @@
     <div v-if="ready">
         <header class="page-section">
             <div class="page-header">
-                <div class="logo"><a href="/" class="logo-link">Poker Bunch</a></div>
+                <div class="logo"><custom-link url="/" cssClasses="logo-link">Poker Bunch</custom-link></div>
                 <div v-if="isTopNavEnabled">
                     <slot name="top-nav"></slot>
                 </div>
@@ -36,11 +36,13 @@
 <script>
     import { UserNavigation } from '@/components/Navigation';
     import { Spinner } from '@/components/Common';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         components: {
             UserNavigation,
-            Spinner
+            Spinner,
+            CustomLink
         },
         props: {
             ready: {

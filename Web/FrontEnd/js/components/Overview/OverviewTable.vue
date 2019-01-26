@@ -7,7 +7,7 @@
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Total</span></th>
                     <th class="table-list__column-header">
-                        <a :href="url" class="table-list__column-header__content">Last game</a>
+                        <custom-link :url="url" cssClasses="table-list__column-header__content">Last game</custom-link>
                     </th>
                 </tr>
             </thead>
@@ -23,10 +23,12 @@
     import urls from '@/urls';
     import { OverviewRow } from '@/components/Overview';
     import { BUNCH, GAME_ARCHIVE } from '@/store-names';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         components: {
-            OverviewRow
+            OverviewRow,
+            CustomLink
         },
         computed: {
             ...mapGetters(BUNCH, [

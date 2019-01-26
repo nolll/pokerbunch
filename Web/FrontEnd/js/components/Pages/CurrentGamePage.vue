@@ -10,7 +10,7 @@
                     <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
                     <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
                     <dt class="value-list__key">Location</dt>
-                    <dd class="value-list__value"><a :href="locationUrl">{{locationName}}</a></dd>
+                    <dd class="value-list__value"><custom-link :url="locationUrl">{{locationName}}</custom-link></dd>
                     <dt class="value-list__key" v-if="isManager">Player</dt>
                     <dd class="value-list__value" v-if="isManager">
                         <player-dropdown :player-id="playerId" :players="bunchPlayers"></player-dropdown>
@@ -62,9 +62,9 @@
     import { TwoColumn } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from '@/components/CurrentGame';
-    import { PageHeading, PageSection, Spinner } from '@/components/Common';
+    import { CustomLink, PageHeading, PageSection, Spinner } from '@/components/Common';
     import { BUNCH, CURRENT_GAME, PLAYER } from '@/store-names';
-
+    
     export default {
         components: {
             TwoColumn,
@@ -78,7 +78,8 @@
             GameChart,
             PageHeading,
             PageSection,
-            Spinner
+            Spinner,
+            CustomLink
         },
         mixins: [
             DataMixin

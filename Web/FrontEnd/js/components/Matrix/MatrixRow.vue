@@ -2,7 +2,7 @@
     <tr class="table-list__row">
         <td class="table-list__cell table-list__cell--numeric">{{rank}}.</td>
         <td class="table-list__cell">
-            <a :href="url">{{name}}</a>
+            <custom-link :url="url">{{name}}</custom-link>
         </td>
         <td :class="'table-list__cell table-list__cell--numeric' + resultClass">{{formattedWinnings}}</td>
         <td is="matrix-item" v-for="game in player.games" :game="game"></td>
@@ -10,10 +10,10 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    import moment from 'moment';
+    import urls from '@/urls';
     import { FormatMixin } from '@/mixins'
     import { MatrixItem } from '.';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         mixins: [
@@ -21,11 +21,12 @@
         ],
         props: ['player', 'index'],
         components: {
-            MatrixItem
+            MatrixItem,
+            CustomLink
         },
         computed: {
             url() {
-                return '/player/details/' + this.player.id;
+                return urls.playerDetails(this.player.id);
             },
             name() {
                 return this.player.name;

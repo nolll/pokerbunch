@@ -1,10 +1,15 @@
 ﻿<template>
-    <a :href="url" :class="cssClasses" v-if="hasUrl">{{text}}</a>
+    <custom-link :url="url" :cssClasses="cssClasses" v-if="hasUrl">{{text}}</custom-link>
     <button v-on:click="click" :class="cssClasses" v-else>{{text}}</button>
 </template>
 
 <script>
+    import CustomLink from '@/components/Common/CustomLink.vue';
+
     export default {
+        components: {
+            CustomLink
+        },
         props: {
             type: {
                 type: String

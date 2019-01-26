@@ -1,11 +1,11 @@
 ﻿<template>
     <nav class="game-nav">
-        <h2><a :href="bunchDetailsUrl">{{name}}</a></h2>
+        <h2><custom-link :url="bunchDetailsUrl">{{name}}</custom-link></h2>
         <ul>
-            <li><a :href="cashgamesUrl"><span>Cashgames</span></a></li>
-            <li><a :href="playersUrl"><span>Players</span></a></li>
-            <li><a :href="eventsUrl"><span>Events</span></a></li>
-            <li><a :href="locationsUrl"><span>Locations</span></a></li>
+            <li><custom-link :url="cashgamesUrl"><span>Cashgames</span></custom-link></li>
+            <li><custom-link :url="playersUrl"><span>Players</span></custom-link></li>
+            <li><custom-link :url="eventsUrl"><span>Events</span></custom-link></li>
+            <li><custom-link :url="locationsUrl"><span>Locations</span></custom-link></li>
         </ul>
     </nav>
 </template>
@@ -13,8 +13,12 @@
 <script>
     import { mapGetters } from 'vuex';
     import { BUNCH } from '@/store-names';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
+        components: {
+            CustomLink
+        },
         computed: {
             ...mapGetters(BUNCH, [
                 'name',

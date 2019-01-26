@@ -2,7 +2,7 @@
     <tr class="table-list__row">
         <td class="table-list__cell table-list__cell--numeric">{{rank}}.</td>
         <td class="table-list__cell">
-            <a :href="url">{{name}}</a>
+            <custom-link :url="url">{{name}}</custom-link>
         </td>
         <td :class="'table-list__cell table-list__cell--numeric' + resultClass">{{formattedWinnings}}</td>
         <td is="overview-item" :game="game"></td>
@@ -14,6 +14,7 @@
     import moment from 'moment';
     import { FormatMixin } from '@/mixins'
     import { OverviewItem } from '.';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         mixins: [
@@ -21,7 +22,8 @@
         ],
         props: ['player', 'index'],
         components: {
-            OverviewItem
+            OverviewItem,
+            CustomLink
         },
         computed: {
             url() {

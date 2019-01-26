@@ -2,7 +2,7 @@
     <div class="standings-item">
         <div class="name">
             <div class="player-color-box" :style="{backgroundColor: player.color}"></div>
-            <a :href="player.url">{{player.name}}</a>
+            <custom-link :url="player.url">{{player.name}}</custom-link>
             <i title="Cashed out" class="icon-ok-sign" v-if="hasCashedOut"></i>
         </div>
         <div class="amounts">
@@ -18,11 +18,15 @@
     import { mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins';
     import { CURRENT_GAME } from '@/store-names';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         mixins: [
             FormatMixin
         ],
+        components: {
+            CustomLink
+        },
         props: {
             player: {
                 type: Object

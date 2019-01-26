@@ -1,7 +1,7 @@
 ﻿<template>
     <tr class="table-list__row">
         <td :class="'table-list__cell table-list--sortable__base-column ' + dateSortCssClass">
-            <a :href="url">{{displayDate}}</a>
+            <custom-link :url="url">{{displayDate}}</custom-link>
         </td>
         <td :class="'table-list__cell table-list__cell--numeric ' + playerCountSortCssClass">{{game.playerCount}}</td>
         <td class="table-list__cell">{{game.location.name}}</td>
@@ -17,11 +17,15 @@
     import { FormatMixin } from '@/mixins';
     import urls from '@/urls';
     import { GAME_ARCHIVE } from '@/store-names';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         mixins: [
             FormatMixin
         ],
+        components: {
+            CustomLink
+        },
         props: ['game'],
         computed: {
             ...mapGetters(GAME_ARCHIVE, [

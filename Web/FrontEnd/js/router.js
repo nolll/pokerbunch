@@ -30,7 +30,7 @@ const routes = [
     { path: '/cashgame/list/:slug/:year?', component: ListPage },
     { path: '/cashgame/facts/:slug/:year?', component: FactsPage },
     { path: '/player/list/:slug', component: PlayerListPage },
-    { path: '*', component: NotFoundPage }
+    { path: '*', component: NotFoundPage, name: '404' }
 ];
 
 export default new VueRouter({

@@ -2,13 +2,13 @@
     <nav class="user-nav" v-if="userReady">
         <h2>Account</h2>
         <ul v-if="isSignedIn">
-            <li><a :href="userDetailsUrl"><span>Signed in as {{displayName}}</span></a></li>
-            <li><a href="/auth/logout"><span>Sign Out</span></a></li>
+            <li><custom-link :url="userDetailsUrl"><span>Signed in as {{displayName}}</span></custom-link></li>
+            <li><custom-link url="/auth/logout"><span>Sign Out</span></custom-link></li>
         </ul>
         <ul v-else>
-            <li><a href="/auth/login"><span>Sign in</span></a></li>
-            <li><a href="/user/add"><span>Register</span></a></li>
-            <li><a href="/user/forgotpassword"><span>Forgot password</span></a></li>
+            <li><custom-link url="/auth/login"><span>Sign in</span></custom-link></li>
+            <li><custom-link url="/user/add"><span>Register</span></custom-link></li>
+            <li><custom-link url="/user/forgotpassword"><span>Forgot password</span></custom-link></li>
         </ul>
     </nav>
 </template>
@@ -16,8 +16,12 @@
 <script>
     import { mapGetters } from 'vuex';
     import { USER } from '@/store-names';
+    import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
+        components: {
+            CustomLink
+        },
         computed: {
             ...mapGetters(USER, [
                 'isSignedIn',
