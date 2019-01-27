@@ -10,11 +10,10 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex';
-    import moment from 'moment';
     import { FormatMixin } from '@/mixins'
     import { OverviewItem } from '.';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import urls from '@/urls';
 
     export default {
         mixins: [
@@ -27,7 +26,7 @@
         },
         computed: {
             url() {
-                return '/player/details/' + this.player.id;
+                return urls.player.details(this.player.id);
             },
             name() {
                 return this.player.name;

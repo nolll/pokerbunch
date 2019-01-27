@@ -18,6 +18,7 @@
     import { FormatMixin } from '@/mixins';
     import { GAME_ARCHIVE } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import urls from '@/urls';
 
     export default {
         mixins: [
@@ -32,7 +33,7 @@
                 'playerSortOrder'
             ]),
             url() {
-                return `/player/details/${this.player.id}`;
+                return urls.player.details(this.player.id);
             },
             winningsCssClass() {
                 var winnings = this.player.winnings;

@@ -14,6 +14,7 @@
     import { mapGetters } from 'vuex';
     import { BUNCH } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import urls from '@/urls';
 
     export default {
         components: {
@@ -25,19 +26,19 @@
                 'slug'
             ]),
             bunchDetailsUrl() {
-                return '/bunch/details/' + this.slug;
+                return urls.bunch.details(this.slug);
             },
             cashgamesUrl() {
-                return '/cashgame/index/' + this.slug;
+                return urls.cashgame.index(this.slug);
             },
             playersUrl() {
-                return '/player/list/' + this.slug;
+                return urls.player.list(this.slug);
             },
             eventsUrl() {
-                return '/event/list/' + this.slug;
+                return urls.event.list(this.slug);
             },
             locationsUrl() {
-                return '/location/list/' + this.slug;
+                return urls.location.list(this.slug);
             }
         }
     };

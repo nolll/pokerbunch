@@ -1,28 +1,30 @@
 export default {
     auth: {
-        login: function () {
-            return '/auth/login';
-        }
+        login: '/auth/login',
+        logout: '/auth/logout'
+    },
+    bunch: {
+        details: (slug) => `/bunch/details/${slug}`
     },
     cashgame: {
-        index: function (slug) {
-            return `/cashgame/index/${slug}`;
-        },
-        details: function (id) {
-            return `/cashgame/details/${id}`;
-        }
+        index: (slug) => `/cashgame/index/${slug}`,
+        details: (id) => `/cashgame/details/${id}`
+    },
+    event: {
+        list: (slug) => `/event/list/${slug}`
+    },
+    home: '/',
+    location: {
+        list: (slug) => `/location/list/${slug}`
     },
     player: {
-        details: function (id) {
-            return `/player/details/${id}`;
-        },
-        add: function (slug) {
-            return `/player/add/${slug}`;
-        }
+        details: (id) => `/player/details/${id}`,
+        add: (slug) => `/player/add/${slug}`,
+        list: (slug) => `/player/list/${slug}`
     },
     user: {
-        details: function (userName) {
-            return `/user/details/${userName}`;
-        }
+        details: (userName) => `/user/details/${userName}`,
+        add: '/user/add',
+        forgotPassword: '/user/forgotpassword'
     }
 };

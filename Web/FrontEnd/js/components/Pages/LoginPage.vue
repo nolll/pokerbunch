@@ -21,6 +21,7 @@
     import { TwoColumn } from '@/components/Layouts';
     import { LoginForm } from '@/components';
     import { CustomLink, PageHeading, PageSection } from '@/components/Common';
+    import urls from '@/urls';
 
     export default {
         components: {
@@ -32,10 +33,10 @@
         },
         computed: {
             forgotPasswordUrl() {
-                return '/user/forgotpassword';
+                return urls.user.forgotPassword;
             },
             registerUrl() {
-                return '/user/add';
+                return urls.user.add;
             }
         }
     };

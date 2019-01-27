@@ -13,6 +13,7 @@
     import { FormatMixin } from '@/mixins'
     import { YearMatrixItem } from '.';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import urls from '@/urls';
 
     export default {
         mixins: [
@@ -25,7 +26,7 @@
         },
         computed: {
             url() {
-                return '/player/details/' + this.player.id;
+                return urls.player.details(this.player.id);
             },
             name() {
                 return this.player.name;

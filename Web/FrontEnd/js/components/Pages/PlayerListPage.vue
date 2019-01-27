@@ -51,7 +51,7 @@
                 return urls.player.add(this.slug);
             },
             ready() {
-                return this.bunchReady;
+                return this.bunchReady && this.playersReady;
             }
         },
         methods: {
