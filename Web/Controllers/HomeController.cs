@@ -8,7 +8,7 @@ namespace Web.Controllers
 {
     public class HomeController : BaseController
     {
-        [Route(HomeUrl.Route)]
+        [Route("remove")]
         public ActionResult Index()
         {
             var contextResult = GetBunchContext();

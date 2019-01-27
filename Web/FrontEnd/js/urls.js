@@ -3,7 +3,11 @@ export default {
         login: '/auth/login',
         logout: '/auth/logout'
     },
+    api: {
+        docs: 'apidocs'
+    },
     bunch: {
+        add: '/bunch/add',
         details: (slug) => `/bunch/details/${slug}`,
         edit: (slug) => `/bunch/edit/${slug}`
     },

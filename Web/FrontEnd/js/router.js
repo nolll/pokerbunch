@@ -2,6 +2,7 @@
 import VueRouter from 'vue-router';
 
 import {
+    HomePage,
     LoginPage,
     UserListPage,
     CurrentGamePage,
@@ -20,6 +21,7 @@ import {
 Vue.use(VueRouter);
 
 const routes = [
+    { path: '/', component: HomePage },
     { path: '/auth/login', component: LoginPage },
     { path: '/bunch/details/:slug', component: BunchDetailsPage },
     { path: '/cashgame/chart/:slug/:year?', component: ChartPage },

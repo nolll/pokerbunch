@@ -1,4 +1,5 @@
-﻿export { default as LoginPage } from './LoginPage.vue';
+﻿export { default as HomePage } from './HomePage.vue';
+export { default as LoginPage } from './LoginPage.vue';
 export { default as UserListPage } from './UserListPage.vue';
 export { default as OverviewPage } from './OverviewPage.vue';
 export { default as MatrixPage } from './MatrixPage.vue';
