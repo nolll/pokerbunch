@@ -9,4 +9,5 @@ export { default as FactsPage } from './FactsPage.vue';
 export { default as CurrentGamePage } from './CurrentGamePage.vue';
 export { default as DashboardPage } from './DashboardPage.vue';
 export { default as PlayerListPage } from './PlayerListPage.vue';
+export { default as BunchDetailsPage } from './BunchDetailsPage.vue';
 export { default as NotFoundPage } from './NotFoundPage.vue';

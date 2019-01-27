@@ -4,7 +4,7 @@ export default {
     namespaced: true,
     state: {
         _slug: '',
-        _players: '',
+        _players: [],
         _playersReady: false,
         _initialized: false
     },
@@ -37,7 +37,6 @@ export default {
     },
     mutations: {
         setPlayersData(state, players) {
-            //state._slug = bunch.id;
             state._players = players;
             state._playersReady = true;
         },

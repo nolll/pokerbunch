@@ -4,7 +4,8 @@ export default {
         logout: '/auth/logout'
     },
     bunch: {
-        details: (slug) => `/bunch/details/${slug}`
+        details: (slug) => `/bunch/details/${slug}`,
+        edit: (slug) => `/bunch/edit/${slug}`
     },
     cashgame: {
         details: (id) => `/cashgame/details/${id}`,

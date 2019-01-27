@@ -13,23 +13,25 @@ import {
     ListPage,
     FactsPage,
     PlayerListPage,
-    NotFoundPage
+    NotFoundPage,
+    BunchDetailsPage
 } from './components/Pages';
 
 Vue.use(VueRouter);
 
 const routes = [
     { path: '/auth/login', component: LoginPage },
-    { path: '/user/list', component: UserListPage },
-    { path: '/cashgame/running/:slug', component: CurrentGamePage },
-    { path: '/cashgame/dashboard/:slug', component: DashboardPage },
-    { path: '/cashgame/index/:slug/:year?', component: OverviewPage },
-    { path: '/cashgame/matrix/:slug/:year?', component: MatrixPage },
-    { path: '/cashgame/toplist/:slug/:year?', component: ToplistPage },
+    { path: '/bunch/details/:slug', component: BunchDetailsPage },
     { path: '/cashgame/chart/:slug/:year?', component: ChartPage },
-    { path: '/cashgame/list/:slug/:year?', component: ListPage },
+    { path: '/cashgame/dashboard/:slug', component: DashboardPage },
     { path: '/cashgame/facts/:slug/:year?', component: FactsPage },
+    { path: '/cashgame/index/:slug/:year?', component: OverviewPage },
+    { path: '/cashgame/list/:slug/:year?', component: ListPage },
+    { path: '/cashgame/matrix/:slug/:year?', component: MatrixPage },
+    { path: '/cashgame/running/:slug', component: CurrentGamePage },
+    { path: '/cashgame/toplist/:slug/:year?', component: ToplistPage },
     { path: '/player/list/:slug', component: PlayerListPage },
+    { path: '/user/list', component: UserListPage },
     { path: '*', component: NotFoundPage, name: '404' }
 ];
 

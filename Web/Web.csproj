@@ -378,6 +378,7 @@
     <Content Include="FrontEnd\js\store-names.js" />
     <Content Include="FrontEnd\js\components\YearMatrix\index.js" />
     <Content Include="FrontEnd\js\store\modules\player-store.js" />
+    <Content Include="FrontEnd\js\roles.js" />
     <Content Include="FrontEnd\js\urls.js" />
     <Content Include="FrontEnd\js\comparer.js" />
     <Content Include="FrontEnd\js\components\DefinitionList\index.js" />
@@ -577,6 +578,7 @@
     <Content Include="FrontEnd\js\components\Common\PageHeading.vue" />
     <Content Include="FrontEnd\js\components\Common\PageSection.vue" />
     <Content Include="FrontEnd\js\components\Common\CustomLink.vue" />
+    <Content Include="FrontEnd\js\components\Pages\BunchDetailsPage.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />

@@ -1,4 +1,5 @@
 ﻿import api from '@/api';
+import roles from '@/roles';
 
 export default {
     namespaced: true,
@@ -7,9 +8,10 @@ export default {
         _name: '',
         _currencyFormat: '${0}',
         _thousandSeparator: ',',
-        _players: '',
+        _description: '',
+        _houseRules: '',
+        _role: roles.none,
         _bunchReady: false,
-        _playersReady: false,
         _initialized: false
     },
     getters: {
@@ -17,19 +19,10 @@ export default {
         name: state => state._name,
         currencyFormat: state => state._currencyFormat,
         thousandSeparator: state => state._thousandSeparator,
-        players: state => state._players,
-        bunchReady: state => state._bunchReady && state._playersReady,
-        getPlayer: (state) => (id) => {
-            if (!state._players)
-                return null;
-            var i;
-            for (i = 0; i < state._players.length; i++) {
-                if (state._players[i].id === id) {
-                    return state._players[i];
-                }
-            }
-            return null;
-        }
+        description: state => state._description && state._description.length > 0 ? state._description : null,
+        houseRules: state => state._houseRules && state._houseRules.length > 0 ? state._houseRules : null,
+        isManager: state => state._role === roles.manager || state._role === roles.admin,
+        bunchReady: state => state._bunchReady
     },
     actions: {
         loadBunch(context, data) {
@@ -38,10 +31,6 @@ export default {
                 api.getBunch(data.slug)
                     .then(function (response) {
                         context.commit('setBunchData', response.data);
-                    });
-                api.getPlayers(data.slug)
-                    .then(function (response) {
-                        context.commit('setPlayersData', response.data);
                     });
             }
         }
@@ -52,11 +41,10 @@ export default {
             state._name = bunch.name;
             state._currencyFormat = bunch.currencyFormat;
             state._thousandSeparator = bunch.thousandSeparator;
+            state._description = bunch.description;
+            state._houseRules = bunch.houseRules;
+            state._role = bunch.role;
             state._bunchReady = true;
-        },
-        setPlayersData(state, players) {
-            state._players = players;
-            state._playersReady = true;
         },
         setInitialized(state) {
             state._initialized = true;

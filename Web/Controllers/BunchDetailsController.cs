@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class BunchDetailsController : BaseController
     {
         [Authorize]
-        [Route(BunchDetailsUrl.Route)]
+        [Route("remove")]
         public ActionResult Details(string bunchId)
         {
             var bunchContextResult = GetBunchContext(bunchId);
