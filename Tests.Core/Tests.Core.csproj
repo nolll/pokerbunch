@@ -143,9 +143,6 @@
     <Compile Include="UseCases\AppListAllTests\WhenExecute.cs" />
     <Compile Include="UseCases\AppListUserTests\Arrange.cs" />
     <Compile Include="UseCases\AppListUserTests\WhenExecute.cs" />
-    <Compile Include="UseCases\BunchDetailsTests\WhenExecuteAsManager.cs" />
-    <Compile Include="UseCases\BunchDetailsTests\WhenExecuteAsPlayer.cs" />
-    <Compile Include="UseCases\BunchDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\Arrange.cs" />
     <Compile Include="UseCases\CashgameDetailsTests\WithPlayer.cs" />
     <Compile Include="UseCases\CashoutTests\Arrange.cs" />

@@ -33,7 +33,6 @@ namespace Plumbing
 
         // Bunch
         public BunchList BunchList => new BunchList(_deps.BunchService, _deps.UserService);
-        public BunchDetails BunchDetails => new BunchDetails(_deps.BunchService);
         public AddBunchForm AddBunchForm => new AddBunchForm();
         public AddBunch AddBunch => new AddBunch(_deps.BunchService);
         public EditBunchForm EditBunchForm => new EditBunchForm(_deps.BunchService);

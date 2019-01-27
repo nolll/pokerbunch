@@ -195,7 +195,6 @@
     <Compile Include="Controllers\Base\JsonViewModelOk.cs" />
     <Compile Include="Controllers\Base\BaseController.cs" />
     <Compile Include="Controllers\Base\JsonNetResult.cs" />
-    <Compile Include="Controllers\BunchDetailsController.cs" />
     <Compile Include="Controllers\BunchListController.cs" />
     <Compile Include="Controllers\CashgameActionController.cs" />
     <Compile Include="Controllers\CashgameBuyinController.cs" />
@@ -457,7 +456,6 @@
     <Content Include="Views\Pages\AddPlayer\AddConfirmation.cshtml" />
     <Content Include="Views\Pages\AddUser\AddUser.cshtml" />
     <Content Include="Views\Pages\AddUser\AddUserDone.cshtml" />
-    <Content Include="Views\Pages\BunchDetails\BunchDetails.cshtml" />
     <Content Include="Views\Pages\BunchList\BunchList.cshtml" />
     <Content Include="Views\Pages\BunchList\BunchListItem.cshtml" />
     <Content Include="Views\Pages\BunchList\UserBunchList.cshtml" />
@@ -828,7 +826,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />
-    <Compile Include="Models\HomegameModels\Details\BunchDetailsPageModel.cs" />
     <Content Include="Components\PlayerModels\Badges\BadgeListModel.cshtml" />
     <Content Include="Components\PlayerModels\Badges\BadgeModel.cshtml" />
   </ItemGroup>

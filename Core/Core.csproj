@@ -109,7 +109,6 @@
     <Compile Include="UseCases\AppListUser.cs" />
     <Compile Include="UseCases\BaseContext.cs" />
     <Compile Include="UseCases\BunchContext.cs" />
-    <Compile Include="UseCases\BunchDetails.cs" />
     <Compile Include="UseCases\BunchList.cs" />
     <Compile Include="UseCases\Buyin.cs" />
     <Compile Include="UseCases\CashgameDetailsChart.cs" />
