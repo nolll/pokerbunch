@@ -7,8 +7,8 @@ export default {
         details: (slug) => `/bunch/details/${slug}`
     },
     cashgame: {
-        index: (slug) => `/cashgame/index/${slug}`,
-        details: (id) => `/cashgame/details/${id}`
+        details: (id) => `/cashgame/details/${id}`,
+        index: (slug) => `/cashgame/index/${slug}`
     },
     event: {
         list: (slug) => `/event/list/${slug}`
@@ -18,13 +18,13 @@ export default {
         list: (slug) => `/location/list/${slug}`
     },
     player: {
-        details: (id) => `/player/details/${id}`,
         add: (slug) => `/player/add/${slug}`,
+        details: (id) => `/player/details/${id}`,
         list: (slug) => `/player/list/${slug}`
     },
     user: {
-        details: (userName) => `/user/details/${userName}`,
         add: '/user/add',
+        details: (userName) => `/user/details/${userName}`,
         forgotPassword: '/user/forgotpassword'
     }
 };
