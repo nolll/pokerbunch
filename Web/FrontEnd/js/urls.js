@@ -1,15 +1,22 @@
 export default {
+    admin: {
+        tools: '/admin/tools'
+    },
     auth: {
         login: '/auth/login',
         logout: '/auth/logout'
     },
     api: {
-        docs: 'apidocs'
+        docs: '/apidocs'
+    },
+    app: {
+        list: '/apps/all'
     },
     bunch: {
         add: '/bunch/add',
         details: (slug) => `/bunch/details/${slug}`,
-        edit: (slug) => `/bunch/edit/${slug}`
+        edit: (slug) => `/bunch/edit/${slug}`,
+        list: '/bunch/all'
     },
     cashgame: {
         details: (id) => `/cashgame/details/${id}`,
@@ -30,6 +37,7 @@ export default {
     user: {
         add: '/user/add',
         details: (userName) => `/user/details/${userName}`,
-        forgotPassword: '/user/forgotpassword'
+        forgotPassword: '/user/forgotpassword',
+        list: '/user/list'
     }
 };

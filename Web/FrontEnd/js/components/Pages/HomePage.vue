@@ -1,12 +1,12 @@
 ﻿<template>
     <two-column :ready="ready">
         <template slot="top-nav">
-            <bunch-navigation />
+            <!--<bunch-navigation />-->
         </template>
 
         <template slot="aside">
             <page-section>
-                Bunch list and admin menu
+                <admin-navigation v-if="isAdmin" />
             </page-section>
         </template>
 
@@ -54,7 +54,7 @@
     import { mapGetters } from 'vuex';
     import { DataMixin } from '@/mixins';
     import { TwoColumn } from '@/components/Layouts';
-    //import { BunchNavigation } from '@/components/Navigation';
+    import { AdminNavigation } from '@/components/Navigation';
     import { PageHeading, PageSection } from '@/components/Common';
     import urls from '@/urls';
     import { BUNCH, USER } from '@/store-names';
@@ -63,7 +63,7 @@
     export default {
         components: {
             TwoColumn,
-            //BunchNavigation,
+            AdminNavigation,
             PageHeading,
             PageSection,
             CustomLink
@@ -76,7 +76,8 @@
                 'slug'
             ]),
             ...mapGetters(USER, [
-                'isSignedIn'
+                'isSignedIn',
+                'isAdmin'
             ]),
             loginUrl() {
                 return urls.auth.login;

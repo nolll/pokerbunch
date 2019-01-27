@@ -1,4 +1,5 @@
 ﻿import api from '@/api';
+import roles from '@/roles';
 
 export default {
     namespaced: true,
@@ -6,6 +7,7 @@ export default {
         _isSignedIn: false,
         _userName: '',
         _displayName: '',
+        _role: roles.none,
         _userReady: false,
         _initialized: false,
         _users: [],
@@ -13,6 +15,7 @@ export default {
     },
     getters: {
         isSignedIn: state => state._isSignedIn,
+        isAdmin: state => state._role === roles.admin,
         userName: state => state._userName,
         displayName: state => state._displayName,
         userReady: state => state._userReady,
@@ -47,12 +50,14 @@ export default {
             state._isSignedIn = true;
             state._userName = user.userName;
             state._displayName = user.displayName;
+            state._role = user.role;
             state._userReady = true;
         },
         setUserError(state) {
             state._isSignedIn = false;
             state._userName = '';
             state._displayName = '';
+            state._role = roles.none;
             state._userReady = true;
         },
         setInitialized(state) {
