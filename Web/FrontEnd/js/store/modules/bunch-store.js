@@ -45,6 +45,9 @@ export default {
                 api.getUserBunches()
                     .then(function (response) {
                         context.commit('setUserBunchesData', response.data);
+                    })
+                    .catch(function (error) {
+                        context.commit('setUserBunchesError');
                     });
             }
         }
@@ -65,6 +68,10 @@ export default {
         },
         setUserBunchesData(state, bunches) {
             state._userBunches = bunches;
+            state._userBunchesReady = true;
+        },
+        setUserBunchesError(state) {
+            state._userBunches = [];
             state._userBunchesReady = true;
         },
         setUserBunchesInitialized(state) {

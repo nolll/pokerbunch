@@ -63,7 +63,7 @@ export default {
     watch: {
         userReady: function (isUserReady) {
             if (isUserReady && this.isUserRequired && !this.isSignedIn) {
-                this.$router.push(urls.login());
+                this.$router.push(urls.auth.login);
             }
         }
     }
