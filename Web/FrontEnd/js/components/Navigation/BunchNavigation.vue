@@ -1,5 +1,5 @@
 ﻿<template>
-    <nav class="game-nav">
+    <nav class="game-nav" v-if="hasSlug">
         <h2><custom-link :url="bunchDetailsUrl">{{name}}</custom-link></h2>
         <ul>
             <li><custom-link :url="cashgamesUrl"><span>Cashgames</span></custom-link></li>
@@ -21,10 +21,28 @@
             CustomLink
         },
         computed: {
-            ...mapGetters(BUNCH, [
-                'name',
-                'slug'
-            ]),
+            ...mapGetters(BUNCH, {
+                selectedName: 'name',
+                selectedSlug: 'slug',
+                userBunches: 'userBunches'
+            }),
+            slug() {
+                if (this.selectedSlug && this.selectedSlug.length > 0)
+                    return this.selectedSlug;
+                if (this.userBunches.length > 0)
+                    return this.userBunches[0].id;
+                return null;
+            },
+            name() {
+                if (this.selectedName && this.selectedName.length > 0)
+                    return this.selectedName;
+                if (this.userBunches.length > 0)
+                    return this.userBunches[0].name;
+                return null;
+            },
+            hasSlug() {
+                return !!this.slug;
+            },
             bunchDetailsUrl() {
                 return urls.bunch.details(this.slug);
             },

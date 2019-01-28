@@ -1,7 +1,7 @@
 ﻿<template>
     <two-column :ready="ready">
         <template slot="top-nav">
-            <!--<bunch-navigation />-->
+            <bunch-navigation />
         </template>
 
         <template slot="aside">
@@ -57,7 +57,7 @@
     import { mapGetters } from 'vuex';
     import { DataMixin } from '@/mixins';
     import { TwoColumn } from '@/components/Layouts';
-    import { AdminNavigation } from '@/components/Navigation';
+    import { AdminNavigation, BunchNavigation } from '@/components/Navigation';
     import { PageHeading, PageSection } from '@/components/Common';
     import urls from '@/urls';
     import { BUNCH, USER } from '@/store-names';
@@ -69,6 +69,7 @@
             TwoColumn,
             UserBunchList,
             AdminNavigation,
+            BunchNavigation,
             PageHeading,
             PageSection,
             CustomLink
