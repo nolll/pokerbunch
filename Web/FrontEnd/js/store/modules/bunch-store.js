@@ -12,7 +12,10 @@ export default {
         _houseRules: '',
         _role: roles.none,
         _bunchReady: false,
-        _initialized: false
+        _bunchInitialized: false,
+        _userBunches: [],
+        _userBunchesReady: false,
+        _userBunchesInitialized: false
     },
     getters: {
         slug: state => state._slug,
@@ -22,15 +25,26 @@ export default {
         description: state => state._description && state._description.length > 0 ? state._description : null,
         houseRules: state => state._houseRules && state._houseRules.length > 0 ? state._houseRules : null,
         isManager: state => state._role === roles.manager || state._role === roles.admin,
-        bunchReady: state => state._bunchReady
+        bunchReady: state => state._bunchReady,
+        userBunches: state => state._userBunches,
+        userBunchesReady: state => state._userBunchesReady
     },
     actions: {
         loadBunch(context, data) {
-            if (!context.state._initialized) {
-                context.commit('setInitialized');
+            if (!context.state._bunchInitialized) {
+                context.commit('setBunchInitialized');
                 api.getBunch(data.slug)
                     .then(function (response) {
                         context.commit('setBunchData', response.data);
+                    });
+            }
+        },
+        loadUserBunches(context) {
+            if (!context.state._userBunchesInitialized) {
+                context.commit('setUserBunchesInitialized');
+                api.getUserBunches()
+                    .then(function (response) {
+                        context.commit('setUserBunchesData', response.data);
                     });
             }
         }
@@ -46,8 +60,15 @@ export default {
             state._role = bunch.role;
             state._bunchReady = true;
         },
-        setInitialized(state) {
-            state._initialized = true;
+        setBunchInitialized(state) {
+            state._bunchInitialized = true;
+        },
+        setUserBunchesData(state, bunches) {
+            state._userBunches = bunches;
+            state._userBunchesReady = true;
+        },
+        setUserBunchesInitialized(state) {
+            state._userBunchesInitialized = true;
         }
     }
 };

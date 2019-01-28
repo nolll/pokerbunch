@@ -21,6 +21,9 @@ export default {
         loadBunch() {
             this.$store.dispatch('bunch/loadBunch', { slug: this.$route.params.slug });
         },
+        loadUserBunches() {
+            this.$store.dispatch('bunch/loadUserBunches');
+        },
         loadPlayers() {
             this.$store.dispatch('player/loadPlayers', { slug: this.$route.params.slug });
         },
@@ -37,7 +40,8 @@ export default {
             'currentGameReady'
         ]),
         ...mapGetters(BUNCH, [
-            'bunchReady'
+            'bunchReady',
+            'userBunchesReady'
         ]),
         ...mapGetters(USER, [
             'userReady',

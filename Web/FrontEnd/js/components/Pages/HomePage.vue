@@ -6,7 +6,10 @@
 
         <template slot="aside">
             <page-section>
-                <admin-navigation v-if="isAdmin" />
+                <user-bunch-list />
+            </page-section>
+            <page-section v-if="isAdmin">
+                <admin-navigation />
             </page-section>
         </template>
 
@@ -59,10 +62,12 @@
     import urls from '@/urls';
     import { BUNCH, USER } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 
     export default {
         components: {
             TwoColumn,
+            UserBunchList,
             AdminNavigation,
             PageHeading,
             PageSection,
@@ -92,13 +97,13 @@
                 return urls.api.docs;
             },
             ready() {
-                return this.userReady;
+                return this.userReady && this.userBunchesReady;
             }
         },
         methods: {
             init() {
                 this.loadUser();
-                //this.loadBunch();
+                this.loadUserBunches();
             }
         },
         watch: {

@@ -14,6 +14,10 @@ export default {
         const url = `/bunches/${slug}`;
         return apiGet(url);
     },
+    getUserBunches: function () {
+        const url = '/user/bunches';
+        return apiGet(url);
+    },
     getPlayers: function (slug) {
         const url = `/bunches/${slug}/players`;
         return apiGet(url);
