@@ -2,7 +2,7 @@ using NUnit.Framework;
 
 namespace Tests.Core.UseCases.BunchContextTests
 {
-    public class WithoutBunchIdWithoutBunches : Arrange
+    public class WithoutBunchId : Arrange
     {
         protected override string BunchId => null;
 

@@ -107,8 +107,7 @@
     <Compile Include="UseCases\BaseContextTests\Arrange.cs" />
     <Compile Include="UseCases\BaseContextTests\WhenExecute.cs" />
     <Compile Include="UseCases\BunchContextTests\Arrange.cs" />
-    <Compile Include="UseCases\BunchContextTests\WithoutBunchIdWithOneBunch.cs" />
-    <Compile Include="UseCases\BunchContextTests\WithoutBunchIdWithoutBunches.cs" />
+    <Compile Include="UseCases\BunchContextTests\WithoutBunchId.cs" />
     <Compile Include="UseCases\BunchContextTests\WithBunchId.cs" />
     <Compile Include="UseCases\BunchListTests\Arrange.cs" />
     <Compile Include="UseCases\BunchListTests\WhenExecute.cs" />
