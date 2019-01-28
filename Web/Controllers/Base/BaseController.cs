@@ -30,7 +30,7 @@ namespace Web.Controllers.Base
             return UseCase.CoreContext.Execute(GetBaseContext(), new CoreContext.Request(Identity.UserName));
         }
 
-        protected BunchContext.Result GetBunchContext(string bunchId = null)
+        protected BunchContext.Result GetBunchContext(string bunchId)
         {
             return UseCase.BunchContext.Execute(GetAppContext(), new BunchContext.Request(bunchId));
         }

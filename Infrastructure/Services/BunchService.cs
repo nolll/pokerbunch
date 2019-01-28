@@ -29,12 +29,6 @@ namespace Infrastructure.Api.Services
             return apiBunches.Select(ToSmallBunch).ToList();
         }
 
-        public IList<SmallBunch> ListForUser()
-        {
-            var apiBunches = ApiClient.Bunches.ListForUser();
-            return apiBunches.Select(ToSmallBunch).ToList();
-        }
-
         public Bunch Add(Bunch bunch)
         {
             var postBunch = new BunchAdd(bunch.DisplayName, bunch.Description, bunch.Timezone.Id, bunch.Currency.Symbol, bunch.Currency.Layout);

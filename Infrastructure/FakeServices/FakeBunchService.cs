@@ -18,11 +18,6 @@ namespace Infrastructure.Api.FakeServices
             return FakeData.Bunches.Select(o => new SmallBunch(o.Id, o.DisplayName, o.Description)).ToList();
         }
 
-        public IList<SmallBunch> ListForUser()
-        {
-            return FakeData.Bunches.Select(o => new SmallBunch(o.Id, o.DisplayName, o.Description)).ToList();
-        }
-
         public Bunch Add(Bunch bunch)
         {
             FakeData.Bunches.Add(bunch);

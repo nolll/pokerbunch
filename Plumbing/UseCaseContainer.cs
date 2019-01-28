@@ -32,7 +32,7 @@ namespace Plumbing
         public ChangePassword ChangePassword => new ChangePassword(_deps.UserService);
 
         // Bunch
-        public BunchList BunchList => new BunchList(_deps.BunchService, _deps.UserService);
+        public BunchList BunchList => new BunchList(_deps.BunchService);
         public AddBunchForm AddBunchForm => new AddBunchForm();
         public AddBunch AddBunch => new AddBunch(_deps.BunchService);
         public EditBunchForm EditBunchForm => new EditBunchForm(_deps.BunchService);

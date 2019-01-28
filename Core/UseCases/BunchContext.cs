@@ -32,19 +32,17 @@ namespace Core.UseCases
             if (!appContext.IsLoggedIn)
                 return null;
 
-            if (!string.IsNullOrEmpty(request.BunchId))
+            if (string.IsNullOrEmpty(request.BunchId))
+                return null;
+
+            try
             {
-                try
-                {
-                    return _bunchService.Get(request.BunchId);
-                }
-                catch (BunchNotFoundException)
-                {
-                    return null;
-                }
+                return _bunchService.Get(request.BunchId);
             }
-            var bunches = _bunchService.ListForUser();
-            return bunches.Count == 1 ? bunches[0] : null;
+            catch (BunchNotFoundException)
+            {
+                return null;
+            }
         }
 
         public class Request

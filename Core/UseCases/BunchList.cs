@@ -8,41 +8,16 @@ namespace Core.UseCases
     public class BunchList
     {
         private readonly IBunchService _bunchService;
-        private readonly IUserService _userService;
 
-        public BunchList(IBunchService bunchService, IUserService userService)
+        public BunchList(IBunchService bunchService)
         {
             _bunchService = bunchService;
-            _userService = userService;
         }
 
         public Result Execute()
         {
             var bunches = _bunchService.List();
             return new Result(bunches);
-        }
-
-        public Result Execute(UserBunchesRequest request)
-        {
-            var bunchList = GetBunchList(request.UserName);
-            return new Result(bunchList);
-        }
-
-        private IList<SmallBunch> GetBunchList(string userName)
-        {
-            if (userName == null)
-                return new List<SmallBunch>();
-            return _bunchService.ListForUser();
-        }
-
-        public class UserBunchesRequest
-        {
-            public string UserName { get; }
-
-            public UserBunchesRequest(string userName)
-            {
-                UserName = userName;
-            }
         }
 
         public class Result
@@ -57,13 +32,11 @@ namespace Core.UseCases
 
         public class ResultItem
         {
-            public string Id { get; }
             public string Slug { get; }
             public string DisplayName { get; }
 
             public ResultItem(SmallBunch bunch)
             {
-                Id = bunch.Id;
                 Slug = bunch.Id;
                 DisplayName = bunch.DisplayName;
             }

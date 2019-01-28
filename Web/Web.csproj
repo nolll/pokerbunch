@@ -273,14 +273,12 @@
     <Compile Include="Models\EventModels\Details\EventDetailsPageModel.cs" />
     <Compile Include="Models\EventModels\List\EventListItemModel.cs" />
     <Compile Include="Models\EventModels\List\EventListPageModel.cs" />
-    <Compile Include="Models\HomegameModels\List\BunchListModel.cs" />
     <Compile Include="Models\LocationModels\Add\AddLocationConfirmationPageModel.cs" />
     <Compile Include="Models\LocationModels\Add\AddLocationPageModel.cs" />
     <Compile Include="Models\LocationModels\Add\AddLocationPostModel.cs" />
     <Compile Include="Models\LocationModels\Details\LocationDetailsPageModel.cs" />
     <Compile Include="Models\LocationModels\List\LocationListItemModel.cs" />
     <Compile Include="Models\LocationModels\List\LocationListPageModel.cs" />
-    <Compile Include="Models\NavigationModels\AdminNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
     <Compile Include="Models\PageBaseModels\AppPageModel.cs" />
     <Compile Include="Models\PageBaseModels\BunchPageModel.cs" />
@@ -310,7 +308,6 @@
     <Compile Include="Models\HomegameModels\Join\JoinBunchPostModel.cs" />
     <Compile Include="Models\HomegameModels\List\BunchListItemModel.cs" />
     <Compile Include="Models\HomegameModels\List\BunchListPageModel.cs" />
-    <Compile Include="Models\HomeModels\HomePageModel.cs" />
     <Compile Include="Models\MiscModels\GoogleAnalyticsModel.cs" />
     <Compile Include="Models\NavigationModels\BunchNavigationModel.cs" />
     <Compile Include="Models\NavigationModels\NavigationModel.cs" />
@@ -458,7 +455,6 @@
     <Content Include="Views\Pages\AddUser\AddUserDone.cshtml" />
     <Content Include="Views\Pages\BunchList\BunchList.cshtml" />
     <Content Include="Views\Pages\BunchList\BunchListItem.cshtml" />
-    <Content Include="Views\Pages\BunchList\UserBunchList.cshtml" />
     <Content Include="Views\Pages\CashgameAction\Action.cshtml" />
     <Content Include="Views\Pages\CashgameAction\CheckpointItem.cshtml" />
     <Content Include="Views\Pages\CashgameAction\CheckpointList.cshtml" />
@@ -476,7 +472,6 @@
     <Content Include="Views\Pages\EventList\Item.cshtml" />
     <Content Include="Views\Pages\ForgotPassword\ForgotPassword.cshtml" />
     <Content Include="Views\Pages\ForgotPassword\ForgotPasswordDone.cshtml" />
-    <Content Include="Views\Pages\Home\Index.cshtml" />
     <Content Include="Views\Pages\InvitePlayer\Invite.cshtml" />
     <Content Include="Views\Pages\InvitePlayer\InviteConfirmation.cshtml" />
     <Content Include="Views\Pages\JoinBunch\Confirmation.cshtml" />
@@ -714,9 +709,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Controllers\HomeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
