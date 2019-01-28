@@ -87,7 +87,7 @@
                 this.init();
             }
         },
-        created: function () {
+        mounted: function () {
             this.init();
         }
     };

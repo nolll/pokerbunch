@@ -55,7 +55,7 @@
         mixins: [
             DataMixin
         ],
-        created: function () {
+        mounted: function () {
             this.init();
         },
         computed: {
