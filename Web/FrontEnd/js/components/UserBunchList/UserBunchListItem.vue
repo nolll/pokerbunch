@@ -12,7 +12,7 @@
         },
         props: {
             id: {
-                type: Number
+                type: String
             },
             name: {
                 type: String
