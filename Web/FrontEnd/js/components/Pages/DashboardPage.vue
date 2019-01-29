@@ -7,30 +7,28 @@
         </template>
 
         <template slot="main">
-            <div class="region width2">
-                <page-section>
-                    <page-heading text="Running Cashgame" />
-                </page-section>
+            <page-section>
+                <page-heading text="Running Cashgame" />
+            </page-section>
 
-                <page-section v-if="!hasPlayers">
-                    No one has joined the game yet.
-                </page-section>
+            <page-section v-if="!hasPlayers">
+                No one has joined the game yet.
+            </page-section>
 
-                <page-section>
-                    <div class="standings" v-if="hasPlayers">
-                        <player-table :players="sortedPlayers" :currency-format="currencyFormat"></player-table>
-                    </div>
-                </page-section>
-                
-                <page-section>
-                    <dl class="value-list">
-                        <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
-                        <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
-                        <dt class="value-list__key">Location</dt>
-                        <dd class="value-list__value">{{locationName}}</dd>
-                    </dl>
-                </page-section>
-            </div>
+            <page-section>
+                <div class="standings" v-if="hasPlayers">
+                    <player-table :players="sortedPlayers" :currency-format="currencyFormat"></player-table>
+                </div>
+            </page-section>
+
+            <page-section>
+                <dl class="value-list">
+                    <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
+                    <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
+                    <dt class="value-list__key">Location</dt>
+                    <dd class="value-list__value">{{locationName}}</dd>
+                </dl>
+            </page-section>
         </template>
     </two-column>
 </template>

@@ -22,7 +22,9 @@
                 <overview-table v-if="hasGames" />
                 <p v-else>The rankings will be displayed here when you have played your first game.</p>
             </page-section>
+        </template>
 
+        <template slot="main-wide">
             <page-section>
                 <page-heading text="Yearly Rankings" />
             </page-section>

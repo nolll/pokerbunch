@@ -13,44 +13,44 @@
                     <dd class="value-list__value"><custom-link :url="locationUrl">{{locationName}}</custom-link></dd>
                     <dt class="value-list__key" v-if="isManager">Player</dt>
                     <dd class="value-list__value" v-if="isManager">
-                        <player-dropdown :player-id="playerId" :players="bunchPlayers"></player-dropdown>
+                        <player-dropdown />
                     </dd>
                 </dl>
             </page-section>
         </template>
 
         <template slot="main">
-            <div class="region width2">
-                <page-section>
-                    <page-heading text="Running Cashgame" />
-                </page-section>
+            <page-section>
+                <page-heading text="Running Cashgame" />
+            </page-section>
 
-                <div class="button-list" v-if="areButtonsVisible">
-                    <game-button text="Report" icon="reorder" v-show="canReport" v-on:click.native="showReportForm"></game-button>
-                    <game-button text="Buy In" icon="money" v-show="canBuyin" v-on:click.native="showBuyinForm"></game-button>
-                    <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click.native="showCashoutForm"></game-button>
-                </div>
-
-                <page-section>
-                    <report-form v-show="reportFormVisible" :is-active="reportFormVisible"></report-form>
-                    <buyin-form v-show="buyinFormVisible" :is-active="buyinFormVisible"></buyin-form>
-                    <cashout-form v-show="cashoutFormVisible" :is-active="cashoutFormVisible"></cashout-form>
-                </page-section>
-
-                <page-section v-if="hasPlayers">
-                    <div class="standings">
-                        <player-table :players="sortedPlayers"></player-table>
-                    </div>
-                </page-section>
-                
-                <page-section v-else>
-                    No one has joined the game yet.
-                </page-section>
-
-                <page-section v-if="hasPlayers">
-                    <game-chart :players="players"></game-chart>
-                </page-section>
+            <div class="button-list" v-if="areButtonsVisible">
+                <game-button text="Report" icon="reorder" v-show="canReport" v-on:click.native="showReportForm"></game-button>
+                <game-button text="Buy In" icon="money" v-show="canBuyin" v-on:click.native="showBuyinForm"></game-button>
+                <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click.native="showCashoutForm"></game-button>
             </div>
+
+            <page-section>
+                <report-form v-show="reportFormVisible" :is-active="reportFormVisible"></report-form>
+                <buyin-form v-show="buyinFormVisible" :is-active="buyinFormVisible"></buyin-form>
+                <cashout-form v-show="cashoutFormVisible" :is-active="cashoutFormVisible"></cashout-form>
+            </page-section>
+
+            <page-section v-if="hasPlayers">
+                <div class="standings">
+                    <player-table :players="sortedPlayers"></player-table>
+                </div>
+            </page-section>
+
+            <page-section v-else>
+                No one has joined the game yet.
+            </page-section>
+        </template>
+
+        <template slot="main-wide">
+            <page-section v-if="hasPlayers">
+                <game-chart :players="players" />
+            </page-section>
         </template>
     </two-column>
 </template>
@@ -64,7 +64,7 @@
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from '@/components/CurrentGame';
     import { CustomLink, PageHeading, PageSection, Spinner } from '@/components/Common';
     import { BUNCH, CURRENT_GAME, PLAYER } from '@/store-names';
-    
+
     export default {
         components: {
             TwoColumn,
@@ -165,5 +165,4 @@
 </script>
 
 <style>
-
 </style>

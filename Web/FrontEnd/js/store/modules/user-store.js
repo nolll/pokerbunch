@@ -9,9 +9,10 @@ export default {
         _displayName: '',
         _role: roles.none,
         _userReady: false,
-        _initialized: false,
+        _userInitialized: false,
         _users: [],
-        _usersReady: false
+        _usersReady: false,
+        _usersInitialized: false
     },
     getters: {
         isSignedIn: state => state._isSignedIn,
@@ -24,8 +25,8 @@ export default {
     },
     actions: {
         loadUser(context) {
-            if (!context.state._initialized) {
-                context.commit('setInitialized');
+            if (!context.state._userInitialized) {
+                context.commit('setUserInitialized');
                 api.getUser()
                     .then(function (response) {
                         context.commit('setUser', response.data);
@@ -36,6 +37,7 @@ export default {
             }
         },
         loadUsers(context) {
+            context.commit('setUserInitialized');
             api.getUsers()
                 .then(function (response) {
                     context.commit('setUsers', response.data);
@@ -60,8 +62,8 @@ export default {
             state._role = roles.none;
             state._userReady = true;
         },
-        setInitialized(state) {
-            state._initialized = true;
+        setUserInitialized(state) {
+            state._userInitialized = true;
         },
         setUsers(state, users) {
             state._users = users;
@@ -69,6 +71,9 @@ export default {
         },
         setUsersError(state) {
             state._usersReady = true;
+        },
+        setUsersInitialized(state) {
+            state._usersInitialized = true;
         }
     }
 };

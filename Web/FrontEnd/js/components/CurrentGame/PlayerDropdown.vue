@@ -6,11 +6,11 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import { BUNCH, CURRENT_GAME } from '@/store-names';
+    import { PLAYER, CURRENT_GAME } from '@/store-names';
 
     export default {
         computed: {
-            ...mapGetters(BUNCH, [
+            ...mapGetters(PLAYER, [
                 'players'
             ]),
             ...mapGetters(CURRENT_GAME, [
