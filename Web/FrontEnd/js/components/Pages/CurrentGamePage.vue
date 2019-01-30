@@ -92,6 +92,16 @@
         watch: {
             '$route'(to, from) {
                 this.init();
+            },
+            canEndGame(to) {
+                if (to) {
+                    this.redirect();
+                }
+            },
+            ready(to) {
+                if (to && !this.isRunning) {
+                    this.redirect();
+                }
             }
         },
         mounted: function () {
@@ -118,7 +128,8 @@
                 'canCashout',
                 'canEndGame',
                 'canReport',
-                'canBuyin'
+                'canBuyin',
+                'isRunning'
             ]),
             ...mapGetters(PLAYER, {
                 bunchPlayers: 'players'
@@ -146,13 +157,8 @@
             showCashoutForm: function () {
                 this.$store.dispatch('currentGame/showCashoutForm');
             },
-            redirectIfGameHasEnded: function () {
-                if (this.canEndGame) {
-                    this.redirect();
-                }
-            },
             redirect: function () {
-                location.href = urls.cashgame.index(this.slug);
+                this.$router.push(urls.cashgame.index(this.slug));
             },
             init: function () {
                 this.loadUser();
