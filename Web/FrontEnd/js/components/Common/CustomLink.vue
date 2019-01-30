@@ -19,8 +19,7 @@
         computed: {
             isInRouter() {
                 let resolved = this.$router.resolve(this.url);
-                var routeName = resolved.route.name;
-                return routeName != '404';
+                return resolved && resolved.routeName && resolved.routeName != '404';
             }
         }
     };
