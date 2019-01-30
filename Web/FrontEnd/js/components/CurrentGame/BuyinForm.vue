@@ -20,7 +20,7 @@
     import validate from '@/validate';
     import forms from '@/forms';
     import { CustomButton } from '@/components/Common';
-    import { BUNCH, CURRENT_GAME } from '@/store-names';
+    import { CURRENT_GAME, PLAYER } from '@/store-names';
 
     export default {
         props: {
@@ -32,14 +32,13 @@
             CustomButton
         },
         computed: {
-            ...mapGetters(BUNCH, [
-                'players',
-                'getPlayer'
-            ]),
             ...mapGetters(CURRENT_GAME, [
                 'isInGame',
                 'defaultBuyin',
                 'playerId'
+            ]),
+            ...mapGetters(PLAYER, [
+                'getPlayer'
             ]),
             currentPlayer() {
                 this.getPlayer(this.playerId);
