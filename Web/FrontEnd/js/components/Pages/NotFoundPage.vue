@@ -1,26 +1,24 @@
 ﻿<template>
-    <two-column>
-        <template slot="main">
-            <page-section>
+    <layout :ready="true">
+        <page-section>
+            <block>
                 <page-heading text="Page not found" />
-            </page-section>
-
-            <page-section>
-                <p>
-                    Please check the url for errors
-                </p>
-            </page-section>
-        </template>
-    </two-column>
+            </block>
+            <block>
+                Please check the url for errors
+            </block>
+        </page-section>
+    </layout>
 </template>
 
 <script>
-    import { TwoColumn } from '@/components/Layouts';
-    import { PageHeading, PageSection } from '@/components/Common';
+    import { Layout } from '@/components/Layouts';
+    import { Block, PageHeading, PageSection } from '@/components/Common';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
+            Block,
             PageHeading,
             PageSection
         }

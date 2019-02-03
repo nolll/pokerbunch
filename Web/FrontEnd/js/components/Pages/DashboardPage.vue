@@ -1,51 +1,52 @@
 ﻿<template>
-    <two-column :ready="ready">
-        <template slot="aside">
-            <div class="gutter">
-                <game-chart :players="players"></game-chart>
-            </div>
-        </template>
+    <layout :ready="ready">
+        <page-section>
+            <template slot="aside">
+                <block>
+                    <game-chart :players="players"></game-chart>
+                </block>
+            </template>
 
-        <template slot="main">
-            <page-section>
+            <block>
                 <page-heading text="Running Cashgame" />
-            </page-section>
+            </block>
 
-            <page-section v-if="!hasPlayers">
+            <block v-if="!hasPlayers">
                 No one has joined the game yet.
-            </page-section>
+            </block>
 
-            <page-section>
+            <block>
                 <div class="standings" v-if="hasPlayers">
                     <player-table :players="sortedPlayers" :currency-format="currencyFormat"></player-table>
                 </div>
-            </page-section>
+            </block>
 
-            <page-section>
+            <block>
                 <dl class="value-list">
                     <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
                     <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
                     <dt class="value-list__key">Location</dt>
                     <dd class="value-list__value">{{locationName}}</dd>
                 </dl>
-            </page-section>
-        </template>
-    </two-column>
+            </block>
+        </page-section>
+    </layout>
 </template>
 
 <script>
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from '@/components/Layouts';
+    import { Layout } from '@/components/Layouts';
     import { mapGetters } from 'vuex';
     import { PlayerTable, GameChart } from '@/components/CurrentGame';
-    import { PageHeading, PageSection, Spinner } from '@/components/Common';
+    import { Block, PageHeading, PageSection, Spinner } from '@/components/Common';
     import { CURRENT_GAME } from '@/store-names';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
             PlayerTable,
             GameChart,
+            Block,
             PageHeading,
             PageSection,
             Spinner

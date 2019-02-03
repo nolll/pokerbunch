@@ -1,25 +1,24 @@
 ﻿<template>
-    <two-column :ready="ready">
+    <layout :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
 
-        <template slot="aside">
-            <page-section>
-                <user-bunch-list />
-            </page-section>
-            <page-section v-if="isAdmin">
-                <admin-navigation />
-            </page-section>
-        </template>
-
-        <template slot="main">
-            <page-section>
+        <page-section>
+            <template slot="aside">
+                <block>
+                    <user-bunch-list />
+                </block>
+                <block v-if="isAdmin">
+                    <admin-navigation />
+                </block>
+            </template>
+            <block>
                 <page-heading text="This is Poker Bunch" />
-            </page-section>
+            </block>
 
             <div v-if="isSignedIn">
-                <page-section>
+                <block>
                     <p>
                         Poker Bunch helps you keep track of the results in your poker homegames.
                         Please select one of your bunches, or <custom-link :url="addBunchUrl">create a new bunch</custom-link>.
@@ -27,38 +26,39 @@
                     <p>
                         If you want to join an existing bunch, you will need an invitation from a bunch player.
                     </p>
-                </page-section>
-                <page-section>
+                </block>
+                <block>
                     <h2 class="module-heading">Api</h2>
                     <p>
                         The <custom-link :url="apiDocsUrl">api</custom-link> makes it possible to create your own apps that interact with Poker Bunch.
                     </p>
-                </page-section>
+                </block>
             </div>
 
             <div v-else>
-                <page-section>
+                <block>
                     <p>
                         Poker Bunch helps you keep track of the results in your poker homegames.
                     </p>
-                </page-section>
-                <page-section>
+                </block>
+                <block>
                     <p>
                         <custom-link :url="loginUrl">Sign in</custom-link> if you already have an account, or
                         <custom-link :url="registerUrl">register</custom-link> to create a bunch and begin inviting players.
                     </p>
-                </page-section>
+                </block>
             </div>
-        </template>
-    </two-column>
+
+        </page-section>
+    </layout>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from '@/components/Layouts';
+    import { Layout } from '@/components/Layouts';
     import { AdminNavigation, BunchNavigation } from '@/components/Navigation';
-    import { PageHeading, PageSection } from '@/components/Common';
+    import { Block, PageHeading, PageSection } from '@/components/Common';
     import urls from '@/urls';
     import { BUNCH, USER } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
@@ -66,10 +66,11 @@
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
             UserBunchList,
             AdminNavigation,
             BunchNavigation,
+            Block,
             PageHeading,
             PageSection,
             CustomLink

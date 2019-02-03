@@ -1,16 +1,16 @@
 ﻿<template>
     <div>
-        <div class="block">
+        <block>
             <h1 class="module-heading">Current Game</h1>
             <p>{{description}}</p>
-        </div>
-        <div class="block">
+        </block>
+        <block>
             <custom-link :url="url" cssClasses="button button--action">{{linkText}}</custom-link>
-        </div>
+        </block>
         <!--Remove dashboard for now-->
-        <!--<div class="block" v-if="isRunning">
+        <!--<block v-if="isRunning">
             There is also a <router-link :to="dashboardUrl">dashboard</router-link> for this game.
-        </div>-->
+        </block>-->
     </div>
 </template>
 
@@ -19,11 +19,13 @@
     import { OverviewRow } from '.';
     import { BUNCH, CURRENT_GAME } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import { Block } from '@/components/Common';
 
     export default {
         components: {
             OverviewRow,
-            CustomLink
+            CustomLink,
+            Block
         },
         computed: {
             ...mapGetters(CURRENT_GAME, [

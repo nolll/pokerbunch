@@ -1,13 +1,13 @@
 ﻿<template>
     <tr class="table-list__row">
-        <td :class="'table-list__cell table-list--sortable__base-column ' + dateSortCssClass">
+        <td class="table-list__cell table-list--sortable__base-column" :class="dateSortClasses">
             <custom-link :url="url">{{displayDate}}</custom-link>
         </td>
-        <td :class="'table-list__cell table-list__cell--numeric ' + playerCountSortCssClass">{{game.playerCount}}</td>
+        <td class="table-list__cell table-list__cell--numeric" :class="playerCountSortClasses">{{game.playerCount}}</td>
         <td class="table-list__cell">{{game.location.name}}</td>
-        <td :class="'table-list__cell ' + durationSortCssClass">{{duration}}</td>
-        <td :class="'table-list__cell table-list__cell--numeric ' + turnoverSortCssClass">{{formattedTurnover}}</td>
-        <td :class="'table-list__cell table-list__cell--numeric ' + averageBuyinSortCssClass">{{formattedAverageBuyin}}</td>
+        <td class="table-list__cell" :class="durationSortClasses">{{duration}}</td>
+        <td class="table-list__cell table-list__cell--numeric" :class="turnoverSortClasses">{{formattedTurnover}}</td>
+        <td class="table-list__cell table-list__cell--numeric" :class="averageBuyinSortClasses">{{formattedAverageBuyin}}</td>
     </tr>
 </template>
 
@@ -32,25 +32,25 @@
                 'gameSortOrder'
             ]),
             url() {
-                urls.cashgame.details(this.game.id);
+                return urls.cashgame.details(this.game.id);
             },
             displayDate() {
                 return moment(this.game.date).format('MMM D');
             },
-            dateSortCssClass() {
-                return getSortCssClass(this.orderBy, 'date');
+            dateSortClasses() {
+                return this.getSortCssClasses(this.orderBy, 'date');
             },
-            playerCountSortCssClass() {
-                return getSortCssClass(this.orderBy, 'playercount');
+            playerCountSortClasses() {
+                return this.getSortCssClasses('playercount');
             },
-            durationSortCssClass() {
-                return getSortCssClass(this.orderBy, 'duration');
+            durationSortClasses() {
+                return this.getSortCssClasses('duration');
             },
-            turnoverSortCssClass() {
-                return getSortCssClass(this.orderBy, 'turnover');
+            turnoverSortClasses() {
+                return this.getSortCssClasses(this.orderBy, 'turnover');
             },
-            averageBuyinSortCssClass() {
-                return getSortCssClass(this.orderBy, 'averagebuyin');
+            averageBuyinSortClasses() {
+                return this.getSortCssClasses(this.orderBy, 'averagebuyin');
             },
             duration() {
                 return this.formatTime(this.game.duration);
@@ -61,16 +61,19 @@
             formattedTurnover() {
                 return this.formatCurrency(this.game.turnover);
             }
+        },
+        methods: {
+            isSortedBy(col) {
+                return this.orderBy === col;
+            },
+            getSortCssClasses(col) {
+                return {
+                    'table-list--sortable__sort-item': this.isSortedBy(col)
+                }
+            }
         }
     };
-
-    function getSortCssClass(orderBy, query) {
-        if (orderBy === query)
-            return 'table-list--sortable__sort-item';
-        return '';
-    }
 </script>
 
 <style>
-
 </style>

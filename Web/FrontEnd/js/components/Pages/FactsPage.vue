@@ -1,43 +1,51 @@
 ﻿<template>
-    <two-column :ready="ready">
+    <layout :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
 
-        <template slot="content-nav">
-            <cashgame-navigation page="facts" />
-        </template>
+        <page-section>
+            <block>
+                <cashgame-navigation page="facts" />
+            </block>
+        </page-section>
 
-        <template slot="aside">
-            <page-section>
-                <overall-facts />
-            </page-section>
-        </template>
+        <page-section>
+            <template slot="aside">
+                <block>
+                    <overall-facts />
+                </block>
+            </template>
+            <block>
+                <single-game-facts />
+            </block><block>
+                <total-facts />
+            </block>
+        </page-section>
 
         <template slot="main">
             <page-section>
-                <single-game-facts />
-                <total-facts />
             </page-section>
         </template>
-    </two-column>
+    </layout>
 </template>
 
 <script>
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from '@/components/Layouts';
+    import { Layout } from '@/components/Layouts';
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { SingleGameFacts, TotalFacts, OverallFacts } from '@/components/Facts';
-    import { PageSection } from '@/components/Common';
+    import { Block, PageSection } from '@/components/Common';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
             BunchNavigation,
             CashgameNavigation,
             SingleGameFacts,
             TotalFacts,
             OverallFacts,
+            Block,
             PageSection
         },
         mixins: [
@@ -67,5 +75,4 @@
 </script>
 
 <style>
-
 </style>

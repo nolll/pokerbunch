@@ -1,73 +1,66 @@
 ﻿<template>
-    <two-column :ready="ready">
+    <layout :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
 
-        <template slot="aside">
-            <page-section>
-                <dl class="value-list">
-                    <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
-                    <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
-                    <dt class="value-list__key">Location</dt>
-                    <dd class="value-list__value"><custom-link :url="locationUrl">{{locationName}}</custom-link></dd>
-                    <dt class="value-list__key" v-if="isManager">Player</dt>
-                    <dd class="value-list__value" v-if="isManager">
-                        <player-dropdown />
-                    </dd>
-                </dl>
-            </page-section>
-        </template>
-
-        <template slot="main">
-            <page-section>
+        <page-section>
+            <template slot="aside">
+                <block>
+                    <dl class="value-list">
+                        <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
+                        <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
+                        <dt class="value-list__key">Location</dt>
+                        <dd class="value-list__value"><custom-link :url="locationUrl">{{locationName}}</custom-link></dd>
+                        <dt class="value-list__key" v-if="isManager">Player</dt>
+                        <dd class="value-list__value" v-if="isManager">
+                            <player-dropdown />
+                        </dd>
+                    </dl>
+                </block>
+            </template>
+            <block>
                 <page-heading text="Running Cashgame" />
-            </page-section>
-
-            <div class="button-list" v-if="areButtonsVisible">
+            </block>
+            <block class="button-list" v-if="areButtonsVisible">
                 <game-button text="Report" icon="reorder" v-show="canReport" v-on:click.native="showReportForm"></game-button>
                 <game-button text="Buy In" icon="money" v-show="canBuyin" v-on:click.native="showBuyinForm"></game-button>
                 <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click.native="showCashoutForm"></game-button>
-            </div>
-
-            <page-section>
+            </block>
+            <block>
                 <report-form v-show="reportFormVisible" :is-active="reportFormVisible"></report-form>
                 <buyin-form v-show="buyinFormVisible" :is-active="buyinFormVisible"></buyin-form>
                 <cashout-form v-show="cashoutFormVisible" :is-active="cashoutFormVisible"></cashout-form>
-            </page-section>
-
-            <page-section v-if="hasPlayers">
+            </block>
+            <block v-if="hasPlayers">
                 <div class="standings">
                     <player-table :players="sortedPlayers"></player-table>
                 </div>
-            </page-section>
-
-            <page-section v-else>
+            </block>
+            <block v-else>
                 No one has joined the game yet.
-            </page-section>
-        </template>
+            </block>
+        </page-section>
 
-        <template slot="main-wide">
-            <page-section v-if="hasPlayers">
-                <game-chart :players="players" />
-            </page-section>
-        </template>
-    </two-column>
+        <page-section v-if="hasPlayers">
+            <game-chart :players="players" />
+        </page-section>
+    </layout>
 </template>
 
 <script>
     import { DataMixin } from '@/mixins';
     import { mapGetters } from 'vuex';
     import urls from '@/urls';
-    import { TwoColumn } from '@/components/Layouts';
+    import { Layout } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from '@/components/CurrentGame';
-    import { CustomLink, PageHeading, PageSection, Spinner } from '@/components/Common';
+    import { Block, CustomLink, PageHeading, PageSection, Spinner } from '@/components/Common';
     import { BUNCH, CURRENT_GAME, PLAYER } from '@/store-names';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
             BunchNavigation,
             GameButton,
             ReportForm,
@@ -76,6 +69,7 @@
             PlayerDropdown,
             PlayerTable,
             GameChart,
+            Block,
             PageHeading,
             PageSection,
             Spinner,

@@ -1,34 +1,39 @@
 ﻿<template>
-    <two-column :ready="ready">
+    <layout :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
 
-        <template slot="content-nav">
-            <cashgame-navigation page="chart" />
-        </template>
+        <page-section>
+            <block>
+                <cashgame-navigation page="chart" />
+            </block>
+        </page-section>
 
         <template slot="main">
             <page-section>
-                <cashgame-chart />
+                <block>
+                    <cashgame-chart />
+                </block>
             </page-section>
         </template>
-    </two-column>
+    </layout>
 </template>
 
 <script>
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from '@/components/Layouts';
+    import { Layout } from '@/components/Layouts';
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { CashgameChart } from '@/components';
-    import { PageSection } from '@/components/Common';
+    import { Block, PageSection } from '@/components/Common';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
             BunchNavigation,
             CashgameNavigation,
             CashgameChart,
+            Block,
             PageSection
         },
         mixins: [

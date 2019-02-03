@@ -1,20 +1,22 @@
 ﻿<template>
-    <nav class="cashgame-nav heading-nav is-expanded">
-        <span v-on:click="togglePageNav" class="heading-nav__sub-nav">{{selectedPageName}}</span>
-        <span v-show="isYearNavEnabled">| <span v-on:click="toggleYearNav" class="heading-nav__sub-nav">{{presentationYear}}</span></span>
-        <ul v-show="isPageNavExpanded">
-            <cashgame-navigation-item :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="togglePageNav" />
-            <cashgame-navigation-item :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="togglePageNav" />
-            <cashgame-navigation-item :url="toplistUrl" text="Toplist" :isSelected="isToplistSelected" v-on:selected="togglePageNav" />
-            <cashgame-navigation-item :url="chartUrl" text="Chart" :isSelected="isChartSelected" v-on:selected="togglePageNav" />
-            <cashgame-navigation-item :url="listUrl" text="List" :isSelected="isListSelected" v-on:selected="togglePageNav" />
-            <cashgame-navigation-item :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="togglePageNav" />
-        </ul>
-        <ul v-show="isYearNavExpanded">
-            <cashgame-navigation-item v-for="year in years" :key="year" :url="getUrl(year)" :text="year" :isSelected="isSelected(year)" v-on:selected="toggleYearNav" />
-            <cashgame-navigation-item :url="getUrl()" :text="allYearsText" :isSelected="isSelected()" v-on:selected="toggleYearNav" />
-        </ul>
-    </nav>
+    <div class="heading-nav-container">
+        <nav class="cashgame-nav heading-nav is-expanded">
+            <span v-on:click="togglePageNav" class="heading-nav__sub-nav">{{selectedPageName}}</span>
+            <span v-show="isYearNavEnabled">| <span v-on:click="toggleYearNav" class="heading-nav__sub-nav">{{presentationYear}}</span></span>
+            <ul v-show="isPageNavExpanded">
+                <cashgame-navigation-item :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="togglePageNav" />
+                <cashgame-navigation-item :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="togglePageNav" />
+                <cashgame-navigation-item :url="toplistUrl" text="Toplist" :isSelected="isToplistSelected" v-on:selected="togglePageNav" />
+                <cashgame-navigation-item :url="chartUrl" text="Chart" :isSelected="isChartSelected" v-on:selected="togglePageNav" />
+                <cashgame-navigation-item :url="listUrl" text="List" :isSelected="isListSelected" v-on:selected="togglePageNav" />
+                <cashgame-navigation-item :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="togglePageNav" />
+            </ul>
+            <ul v-show="isYearNavExpanded">
+                <cashgame-navigation-item v-for="year in years" :key="year" :url="getUrl(year)" :text="year" :isSelected="isSelected(year)" v-on:selected="toggleYearNav" />
+                <cashgame-navigation-item :url="getUrl()" :text="allYearsText" :isSelected="isSelected()" v-on:selected="toggleYearNav" />
+            </ul>
+        </nav>
+    </div>
 </template>
 
 <script>

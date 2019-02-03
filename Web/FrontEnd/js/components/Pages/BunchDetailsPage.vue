@@ -1,50 +1,47 @@
 ﻿<template>
-    <two-column :ready="ready">
+    <layout :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
 
-        <template slot="main">
-            <page-section>
+        <page-section>
+            <block>
                 <page-heading :text="name" />
-            </page-section>
+            </block>
 
-            <page-section v-if="hasDescription">
-                <p>
-                    {{description}}
-                </p>
-            </page-section>
+            <block v-if="hasDescription">
+                {{description}}
+            </block>
 
-            <page-section v-if="hasHouseRules">
+            <block v-if="hasHouseRules">
                 <h2>House Rules</h2>
                 <p>
                     {{houseRules}}
                 </p>
-            </page-section>
+            </block>
 
-            <page-section v-if="isManager">
-                <p>
-                    <custom-link :url="editUrl">Edit Bunch</custom-link>
-                </p>
-            </page-section>
-        </template>
-    </two-column>
+            <block v-if="isManager">
+                <custom-link :url="editUrl">Edit Bunch</custom-link>
+            </block>
+        </page-section>
+    </layout>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
     import { DataMixin } from '@/mixins';
     import urls from '@/urls';
-    import { TwoColumn } from '@/components/Layouts';
+    import { Layout } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { BUNCH } from '@/store-names';
-    import { PageHeading, PageSection } from '@/components/Common';
+    import { Block, PageHeading, PageSection } from '@/components/Common';
     import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
             BunchNavigation,
+            Block,
             PageHeading,
             PageSection,
             CustomLink
@@ -94,5 +91,4 @@
 </script>
 
 <style>
-
 </style>

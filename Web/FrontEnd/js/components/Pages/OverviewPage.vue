@@ -1,57 +1,53 @@
 ﻿<template>
-    <two-column :ready="ready">
+    <layout :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
 
-        <template slot="content-nav">
-            <cashgame-navigation page="overview" :year="currentYear" />
-        </template>
+        <page-section>
+            <block>
+                <cashgame-navigation page="overview" :year="currentYear" />
+            </block>
+        </page-section>
 
-        <template slot="aside">
-            <div class="gutter">
+        <page-section>
+            <template slot="aside">
                 <overview-status />
-            </div>
-        </template>
-
-        <template slot="main">
-            <page-section>
+            </template>
+            <block>
                 <page-heading text="Current Rankings" />
-            </page-section>
-            <page-section>
                 <overview-table v-if="hasGames" />
                 <p v-else>The rankings will be displayed here when you have played your first game.</p>
-            </page-section>
-        </template>
+            </block>
+        </page-section>
 
-        <template slot="main-wide">
-            <page-section>
+        <page-section :is-wide="false">
+            <block>
                 <page-heading text="Yearly Rankings" />
-            </page-section>
-            <page-section>
                 <year-matrix-table v-if="hasGames" />
-            </page-section>
-        </template>
-    </two-column>
+            </block>
+        </page-section>
+    </layout>
 </template>
 
 <script>
     import { DataMixin } from '@/mixins';
     import { mapGetters } from 'vuex';
-    import { TwoColumn } from '@/components/Layouts';
+    import { Layout } from '@/components/Layouts';
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { OverviewTable, OverviewStatus, YearMatrixTable } from '@/components';
-    import { PageHeading, PageSection } from '@/components/Common';
+    import { Block, PageHeading, PageSection } from '@/components/Common';
     import { GAME_ARCHIVE } from '@/store-names';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
             BunchNavigation,
             CashgameNavigation,
             OverviewTable,
             OverviewStatus,
             YearMatrixTable,
+            Block,
             PageHeading,
             PageSection
         },

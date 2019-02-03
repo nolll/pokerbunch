@@ -1,11 +1,18 @@
 @import "mediaqueries.less";
 
+.page-section {
+    max-width: 981px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.page-section.wide {
+    max-width: none;
+    margin: 0 auto;
+}
+
 .block{
 	margin-top: 15px;
-}
-.gutter{
-	margin-left: 15px;
-	margin-right: 15px;
 }
 
 .region,
@@ -21,7 +28,7 @@
 }
 
 @media @widthSmall {
-	.region .gutter{
+ 	.region .gutter{
 		margin-right: 0;
 	}
 	.region.aside1 .gutter,

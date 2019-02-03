@@ -542,7 +542,6 @@
     <Content Include="FrontEnd\js\components\Overview\OverviewRow.vue" />
     <Content Include="FrontEnd\js\components\Overview\OverviewTable.vue" />
     <Content Include="FrontEnd\js\components\Overview\OverviewStatus.vue" />
-    <Content Include="FrontEnd\js\components\Layouts\TwoColumn.vue" />
     <Content Include="FrontEnd\js\components\Pages\OverviewPage.vue" />
     <Content Include="FrontEnd\js\components\Pages\MatrixPage.vue" />
     <Content Include="FrontEnd\js\components\Pages\ChartPage.vue" />
@@ -576,6 +575,8 @@
     <Content Include="FrontEnd\js\components\Navigation\AdminNavigation.vue" />
     <Content Include="FrontEnd\js\components\UserBunchList\UserBunchList.vue" />
     <Content Include="FrontEnd\js\components\UserBunchList\UserBunchListItem.vue" />
+    <Content Include="FrontEnd\js\components\Layouts\Layout.vue" />
+    <Content Include="FrontEnd\js\components\Common\Block.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />

@@ -1,1 +1,1 @@
-﻿export { default as TwoColumn } from './TwoColumn.vue';
+﻿export { default as Layout } from './Layout.vue';

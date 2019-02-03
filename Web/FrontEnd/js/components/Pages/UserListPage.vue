@@ -1,27 +1,28 @@
 ﻿<template>
-    <two-column :ready="ready">
-        <template slot="main">
-            <page-section>
-                <page-heading text="Users"/>
-            </page-section>
-            <page-section>
+    <layout :ready="ready">
+        <page-section>
+            <block>
+                <page-heading text="Users" />
+            </block>
+            <block>
                 <user-list />
-            </page-section>
-        </template>
-    </two-column>
+            </block>
+        </page-section>
+    </layout>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from '@/components/Layouts';
-    import { PageHeading, PageSection } from '@/components/Common';
+    import { Layout } from '@/components/Layouts';
+    import { Block, PageHeading, PageSection } from '@/components/Common';
     import UserList from '@/components/UserList/UserList.vue';
     import { USER } from '@/store-names';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
+            Block,
             PageHeading,
             PageSection,
             UserList
@@ -55,5 +56,4 @@
 </script>
 
 <style>
-
 </style>

@@ -1,42 +1,44 @@
 ﻿<template>
-    <two-column :ready="ready">
+    <layout :ready="ready">
         <template slot="top-nav">
             <bunch-navigation />
         </template>
 
-        <template slot="aside">
-            <page-section>
-                <custom-button :url="addPlayerUrl" type="action" text="Add player" />
-            </page-section>
-        </template>
+        <page-section>
+            <template slot="aside">
+                <block>
+                    <custom-button :url="addPlayerUrl" type="action" text="Add player" />
+                </block>
+            </template>
 
-        <template slot="main">
-            <page-section>
+            <block>
                 <page-heading text="Players" />
-            </page-section>
-            <page-section>
+            </block>
+
+            <block>
                 <player-list />
-            </page-section>
-        </template>
-    </two-column>
+            </block>
+        </page-section>
+    </layout>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
     import { DataMixin } from '@/mixins';
-    import { TwoColumn } from '@/components/Layouts';
+    import { Layout } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { PlayerList } from '@/components';
-    import { CustomButton, PageHeading, PageSection } from '@/components/Common';
+    import { Block, CustomButton, PageHeading, PageSection } from '@/components/Common';
     import urls from '@/urls';
     import { BUNCH } from '@/store-names';
 
     export default {
         components: {
-            TwoColumn,
+            Layout,
             BunchNavigation,
             PlayerList,
             CustomButton,
+            Block,
             PageHeading,
             PageSection
         },
