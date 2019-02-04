@@ -27,6 +27,7 @@ export default {
     },
     home: '/',
     location: {
+        details: (id) => `/location/details/${id}`,
         list: (slug) => `/location/list/${slug}`
     },
     player: {
