@@ -370,6 +370,9 @@
       <DependentUpon>table-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrontEnd\js\ajax-client.js" />
+    <Content Include="FrontEnd\js\http-client.js" />
+    <Content Include="FrontEnd\js\api-client.js" />
     <Content Include="FrontEnd\js\components\PlayerList\index.js" />
     <Content Include="FrontEnd\js\store-names.js" />
     <Content Include="FrontEnd\js\components\YearMatrix\index.js" />

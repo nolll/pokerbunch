@@ -1,116 +1,59 @@
-import axios from 'axios';
-import auth from './auth';
+import apiClient from './api-client';
+import ajaxClient from './ajax-client';
 
 export default {
     getToken: function(data) {
         const url = `/auth/token`;
-        return localPost(url, data);
+        return ajaxClient.post(url, data);
     },
     getCurrentGame: function(slug) {
         const url = `/cashgame/runninggamejson/${slug}`;
-        return localGet(url);
+        return ajaxClient.get(url);
     },
     getCurrentGames: function (slug) {
         const url = `/bunches/${slug}/cashgames/current`;
-        return apiGet(url);
+        return apiClient.get(url);
     },
     getGame: function (id) {
         const url = `/cashgames/${id}`;
-        return apiGet(url);
+        return apiClient.get(url);
     },
     getBunch: function (slug) {
         const url = `/bunches/${slug}`;
-        return apiGet(url);
+        return apiClient.get(url);
     },
     getUserBunches: function () {
         const url = '/user/bunches';
-        return apiGet(url);
+        return apiClient.get(url);
     },
     getPlayers: function (slug) {
         const url = `/bunches/${slug}/players`;
-        return apiGet(url);
+        return apiClient.get(url);
     },
     getGames: function (slug, year) {
         const url = year
             ? `/bunches/${slug}/cashgames/${year}`
             : `/bunches/${slug}/cashgames`;
-        return apiGet(url);
+        return apiClient.get(url);
     },
     buyin: function (slug, data) {
         const url = `/cashgame/buyin/${slug}`;
-        return localPost(url, data);
+        return ajaxClient.post(url, data);
     },
     report: function (slug, data) {
         const url = `/cashgame/report/${slug}`;
-        return localPost(url, data);
+        return ajaxClient.post(url, data);
     },
     cashout: function (slug, data) {
         const url = `/cashgame/cashout/${slug}`;
-        return localPost(url, data);
+        return ajaxClient.post(url, data);
     },
     getUser: function () {
         const url = `/user`;
-        return apiGet(url);
+        return apiClient.get(url);
     },
     getUsers: function () {
         const url = `/users`;
-        return apiGet(url);
+        return apiClient.get(url);
     }
 };
-
-function apiGet(url) {
-    return get(getApiUrl(url));
-}
-
-function apiPost(url, data) {
-    return post(getApiUrl(url), data);
-}
-
-function localGet(url) {
-    return get(url);
-}
-
-function localPost(url, data) {
-    return post(url, data);
-}
-
-function get(url) {
-    return axios({
-        method: 'get',
-        url: url,
-        headers: getApiHeaders()
-    });
-}
-
-function post(url, data) {
-    return axios({
-        method: 'post',
-        url: url,
-        headers: getApiHeaders(),
-        data: data
-    });
-}
-
-function getApiHeaders() {
-    const token = auth.getToken();
-    return {
-        'Authorization': `bearer ${token}`
-    };
-}
-
-function getApiUrl(url) {
-    const protocol = getProtocol();
-    const host = getHost();
-    return protocol + '//' + host + url;
-}
-
-function getHost() {
-    if (!window || !window.vueConfig || !window.vueConfig.apiHost)
-        throw exception('No api host configured');
-    return window.vueConfig.apiHost;
-}
-
-function getProtocol() {
-    const url = window.location.href;
-    return url.split('/')[0];
-}
