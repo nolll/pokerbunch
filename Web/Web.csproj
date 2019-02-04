@@ -371,6 +371,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FrontEnd\js\ajax-client.js" />
+    <Content Include="FrontEnd\js\api-urls.js" />
     <Content Include="FrontEnd\js\http-client.js" />
     <Content Include="FrontEnd\js\api-client.js" />
     <Content Include="FrontEnd\js\components\PlayerList\index.js" />
@@ -378,6 +379,7 @@
     <Content Include="FrontEnd\js\components\YearMatrix\index.js" />
     <Content Include="FrontEnd\js\store\modules\player-store.js" />
     <Content Include="FrontEnd\js\roles.js" />
+    <Content Include="FrontEnd\js\ajax-urls.js" />
     <Content Include="FrontEnd\js\urls.js" />
     <Content Include="FrontEnd\js\comparer.js" />
     <Content Include="FrontEnd\js\components\DefinitionList\index.js" />

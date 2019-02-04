@@ -1,59 +1,57 @@
 import apiClient from './api-client';
+import apiUrls from './api-urls';
 import ajaxClient from './ajax-client';
+import ajaxUrls from './ajax-urls';
 
 export default {
-    getToken: function(data) {
-        const url = `/auth/token`;
-        return ajaxClient.post(url, data);
+    getToken(data) {
+        return ajaxClient.post(ajaxUrls.auth.token, data);
     },
-    getCurrentGame: function(slug) {
-        const url = `/cashgame/runninggamejson/${slug}`;
-        return ajaxClient.get(url);
+    getCurrentGame(slug) {
+        return ajaxClient.get(ajaxUrls.cashgame.current(slug));
     },
-    getCurrentGames: function (slug) {
+    getCurrentGames(slug) {
         const url = `/bunches/${slug}/cashgames/current`;
         return apiClient.get(url);
     },
-    getGame: function (id) {
+    getGame(id) {
         const url = `/cashgames/${id}`;
         return apiClient.get(url);
     },
-    getBunch: function (slug) {
+    getBunch(slug) {
         const url = `/bunches/${slug}`;
         return apiClient.get(url);
     },
-    getUserBunches: function () {
+    getUserBunches() {
         const url = '/user/bunches';
         return apiClient.get(url);
     },
-    getPlayers: function (slug) {
+    getPlayers(slug) {
         const url = `/bunches/${slug}/players`;
         return apiClient.get(url);
     },
-    getGames: function (slug, year) {
+    getGames(slug, year) {
         const url = year
             ? `/bunches/${slug}/cashgames/${year}`
             : `/bunches/${slug}/cashgames`;
         return apiClient.get(url);
     },
-    buyin: function (slug, data) {
+    buyin(slug, data) {
         const url = `/cashgame/buyin/${slug}`;
         return ajaxClient.post(url, data);
     },
-    report: function (slug, data) {
+    report(slug, data) {
         const url = `/cashgame/report/${slug}`;
         return ajaxClient.post(url, data);
     },
-    cashout: function (slug, data) {
+    cashout(slug, data) {
         const url = `/cashgame/cashout/${slug}`;
         return ajaxClient.post(url, data);
     },
-    getUser: function () {
-        const url = `/user`;
-        return apiClient.get(url);
+    getUser() {
+        return apiClient.get(apiUrls.user.current);
     },
-    getUsers: function () {
-        const url = `/users`;
-        return apiClient.get(url);
+    getUsers() {
+        return apiClient.get(apiUrls.user.list);
     }
 };
