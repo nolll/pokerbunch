@@ -1,10 +1,6 @@
 import httpClient from './http-client';
 
 export default {
-    get(url) {
-        return httpClient.get(url);
-    },
-    post(url, data) {
-        return httpClient.post(url, data);
-    }
+    get: (url) => httpClient.get(url),
+    post: (url, data) => httpClient.post(url, data)
 };

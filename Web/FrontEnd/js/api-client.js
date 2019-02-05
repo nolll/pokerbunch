@@ -2,12 +2,8 @@ import auth from './auth';
 import httpClient from './http-client';
 
 export default {
-    get(url) {
-        return httpClient.get(getApiUrl(url), getApiHeaders());
-    },
-    post(url, data) {
-        return httpClient.post(getApiUrl(url), data, getApiHeaders());
-    }
+    get: (url) => httpClient.get(getApiUrl(url), getApiHeaders()),
+    post: (url, data) => httpClient.post(getApiUrl(url), data, getApiHeaders())
 };
 
 function getApiHeaders() {

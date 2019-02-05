@@ -3,6 +3,9 @@ export default {
         token: '/auth/token'
     },
     cashgame: {
-        current: (slug) => `/cashgame/runninggamejson/${slug}`
+        buyin: (slug) => `/cashgame/buyin/${slug}`,
+        cashout: (slug) => `/cashgame/cashout/${slug}`,
+        current: (slug) => `/cashgame/runninggamejson/${slug}`,
+        report: (slug) => `/cashgame/report/${slug}`
     }
 };

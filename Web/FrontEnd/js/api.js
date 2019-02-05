@@ -4,54 +4,17 @@ import ajaxClient from './ajax-client';
 import ajaxUrls from './ajax-urls';
 
 export default {
-    getToken(data) {
-        return ajaxClient.post(ajaxUrls.auth.token, data);
-    },
-    getCurrentGame(slug) {
-        return ajaxClient.get(ajaxUrls.cashgame.current(slug));
-    },
-    getCurrentGames(slug) {
-        const url = `/bunches/${slug}/cashgames/current`;
-        return apiClient.get(url);
-    },
-    getGame(id) {
-        const url = `/cashgames/${id}`;
-        return apiClient.get(url);
-    },
-    getBunch(slug) {
-        const url = `/bunches/${slug}`;
-        return apiClient.get(url);
-    },
-    getUserBunches() {
-        const url = '/user/bunches';
-        return apiClient.get(url);
-    },
-    getPlayers(slug) {
-        const url = `/bunches/${slug}/players`;
-        return apiClient.get(url);
-    },
-    getGames(slug, year) {
-        const url = year
-            ? `/bunches/${slug}/cashgames/${year}`
-            : `/bunches/${slug}/cashgames`;
-        return apiClient.get(url);
-    },
-    buyin(slug, data) {
-        const url = `/cashgame/buyin/${slug}`;
-        return ajaxClient.post(url, data);
-    },
-    report(slug, data) {
-        const url = `/cashgame/report/${slug}`;
-        return ajaxClient.post(url, data);
-    },
-    cashout(slug, data) {
-        const url = `/cashgame/cashout/${slug}`;
-        return ajaxClient.post(url, data);
-    },
-    getUser() {
-        return apiClient.get(apiUrls.user.current);
-    },
-    getUsers() {
-        return apiClient.get(apiUrls.user.list);
-    }
+    getToken: (data) => ajaxClient.post(ajaxUrls.auth.token, data),
+    getCurrentGame: (slug) => ajaxClient.get(ajaxUrls.cashgame.current(slug)),
+    getCurrentGames: (slug) => apiClient.get(apiUrls.cashgame.current(slug)),
+    getGame: (id) => apiClient.get(apiUrls.cashgame.get(id)),
+    getBunch: (slug) => apiClient.get(apiUrls.bunch.get(slug)),
+    getUserBunches: () => apiClient.get(apiUrls.bunch.user),
+    getPlayers: (slug) => apiClient.get(apiUrls.player.list(slug)),
+    getGames: (slug, year) => apiClient.get(apiUrls.cashgame.list(slug, year)),
+    buyin: (slug, data) => ajaxClient.post(ajaxUrls.cashgame.buyin(slug), data),
+    report: (slug, data) => ajaxClient.post(ajaxUrls.cashgame.report(slug), data),
+    cashout: (slug, data) => ajaxClient.post(ajaxUrls.cashgame.cashout(slug), data),
+    getUser: () => apiClient.get(apiUrls.user.current),
+    getUsers: () => apiClient.get(apiUrls.user.list)
 };
