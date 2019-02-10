@@ -15,10 +15,9 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins';
-    import { CURRENT_GAME } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import playerCalculator from '@/player-calculator';
 
     export default {
         mixins: [
@@ -33,26 +32,20 @@
             }
         },
         computed: {
-            ...mapGetters(CURRENT_GAME, [
-                'getLastReportTime',
-                'getBuyin',
-                'getStack',
-                'getWinnings'
-            ]),
             hasCashedOut() {
-                return this.player.hasCashedOut;
+                return playerCalculator.hasCashedOut(this.player);
             },
             lastReportTime() {
-                return this.getLastReportTime(this.player);
+                return playerCalculator.getLastReportTime(this.player);
             },
             buyin() {
-                return this.getBuyin(this.player);
+                return playerCalculator.getBuyin(this.player);
             },
             stack() {
-                return this.getStack(this.player);
+                return playerCalculator.getStack(this.player);
             },
             winnings() {
-                return this.getWinnings(this.player);
+                return playerCalculator.getWinnings(this.player);
             },
             winningsCssClasses() {
                 return {

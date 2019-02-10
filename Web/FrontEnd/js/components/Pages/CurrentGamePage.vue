@@ -118,7 +118,6 @@
                 'startTime',
                 'sortedPlayers',
                 'isInGame',
-                'hasCashedOut',
                 'canCashout',
                 'canEndGame',
                 'canReport',

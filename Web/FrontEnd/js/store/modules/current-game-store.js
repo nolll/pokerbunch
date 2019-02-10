@@ -1,5 +1,7 @@
-﻿import api from '@/api';
-import moment from 'moment';
+﻿import moment from 'moment';
+import api from '@/api';
+import playerCalculator from '@/player-calculator';
+import actionTypes from '@/action-types';
 
 var longRefresh = 30000,
     shortRefresh = 10000;
@@ -9,7 +11,7 @@ export default {
     state: {
         _slug: '',
         _isRunning: false,
-        _playerId: '0',
+        _playerId: null,
         _locationUrl: '',
         _defaultBuyin: 0,
         _locationName: '',
@@ -24,7 +26,6 @@ export default {
     },
     getters: {
         isRunning: state => state._isRunning,
-        playerId: state => state._playerId,
         locationUrl: state => state._locationUrl,
         locationName: state => state._locationName,
         reportFormVisible: state => state._reportFormVisible,
@@ -34,37 +35,18 @@ export default {
         isManager: state => state._isManager,
         players: state => state._players,
         hasPlayers: state => state._players.length > 0,
-        sortedPlayers: (state, getters) => {
+        playerId: (state, getters, rootState, rootGetters) => {
+            if(state._playerId)
+                return state._playerId;
+            return rootGetters['bunch/playerId'];
+        },
+        sortedPlayers: (state) => {
             return state._players.slice().sort(function (left, right) {
-                return getters.getWinnings(right) - getters.getWinnings(left);
+                return playerCalculator.getWinnings(right) - playerCalculator.getWinnings(left);
             });
         },
         getPlayer: (state) => (id) => {
-            var matching = state._players.filter(p => p.id.toString() === id.toString());
-            return matching.length > 0 ? matching[0] : null;
-        },
-        getLastReportTime: () => (player) => {
-            if (player.checkpoints.length === 0)
-                return moment().fromNow();
-            return moment(player.checkpoints[player.checkpoints.length - 1].time).fromNow();
-        },
-        getBuyin: () => (player) => {
-            if (player.checkpoints.length === 0)
-                return 0;
-            var sum = 0;
-            for (var i = 0; i < player.checkpoints.length; i++) {
-                sum += player.checkpoints[i].addedMoney;
-            }
-            return sum;
-        },
-        getStack: () => (player) => {
-            var c = player.checkpoints;
-            if (c.length === 0)
-                return 0;
-            return c[c.length - 1].stack;
-        },
-        getWinnings: (state, getters) => (player) => {
-            return getters.getStack(player) - getters.getBuyin(player);
+            return state._players.find(p => p.id.toString() === id.toString()) || null;
         },
         isInGame: (state, getters) => {
             return getters.player !== null;
@@ -83,7 +65,7 @@ export default {
             if (state._players.length === 0)
                 return false;
             for (i = 0; i < state._players.length; i++) {
-                if (!state._players[i].hasCashedOut) {
+                if (!playerCalculator.hasCashedOut(state._players[i])) {
                     return false;
                 }
             }
@@ -92,7 +74,7 @@ export default {
         hasCashedOut: (state, getters) => {
             if (!getters.isInGame)
                 return false;
-            return getters.player.hasCashedOut;
+            return playerCalculator.hasCashedOut(getters.player);
         },
         player: (state, getters) => {
             return getters.getPlayer(state._playerId);
@@ -229,17 +211,16 @@ export default {
         },
         report(state, { player, reportData }) {
             state._currentStack = reportData.stack;
-            addCheckpoint(player, reportData.stack, 0);
+            addCheckpoint(actionTypes.report, player, reportData.stack, 0);
         },
         cashout(state, { player, cashoutData }) {
             state._currentStack = cashoutData.stack;
-            addCheckpoint(player, cashoutData.stack, 0);
-            player.hasCashedOut = true;
+            addCheckpoint(actionTypes.cashout, player, cashoutData.stack, 0);
         },
         buyin(state, { player, buyinData }) {
             const afterStack = buyinData.stack + buyinData.addedMoney;
             state._currentStack = afterStack;
-            addCheckpoint(player, afterStack, buyinData.addedMoney);
+            addCheckpoint(actionTypes.buyin, player, afterStack, buyinData.addedMoney);
         },
         addPlayer(state, { player }) {
             state._players.push(player);
@@ -298,8 +279,8 @@ function setPlayers(context, data) {
     setupRefresh(context, longRefresh);
 }
 
-function addCheckpoint(player, stack, addedMoney) {
-    const checkpoint = { time: moment().utc().format(), stack: stack, addedMoney: addedMoney };
+function addCheckpoint(type, player, stack, addedMoney) {
+    const checkpoint = { type: type, time: moment().utc().format(), stack: stack, addedMoney: addedMoney };
     player.checkpoints.push(checkpoint);
 }
 
@@ -309,7 +290,6 @@ function createPlayer(playerId, playerName, playerColor) {
         name: playerName || '',
         color: playerColor || '#9e9e9e',
         url: null,
-        hasCashedOut: false,
         checkpoints: []
     };
 }

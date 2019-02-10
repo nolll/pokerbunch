@@ -375,6 +375,8 @@
     <Content Include="FrontEnd\js\http-client.js" />
     <Content Include="FrontEnd\js\api-client.js" />
     <Content Include="FrontEnd\js\components\PlayerList\index.js" />
+    <Content Include="FrontEnd\js\player-calculator.js" />
+    <Content Include="FrontEnd\js\action-types.js" />
     <Content Include="FrontEnd\js\store-names.js" />
     <Content Include="FrontEnd\js\components\YearMatrix\index.js" />
     <Content Include="FrontEnd\js\store\modules\player-store.js" />

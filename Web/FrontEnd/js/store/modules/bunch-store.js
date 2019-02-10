@@ -11,6 +11,7 @@ export default {
         _description: '',
         _houseRules: '',
         _role: roles.none,
+        _playerId: null,
         _bunchReady: false,
         _bunchInitialized: false,
         _userBunches: [],
@@ -24,6 +25,7 @@ export default {
         thousandSeparator: state => state._thousandSeparator,
         description: state => state._description && state._description.length > 0 ? state._description : null,
         houseRules: state => state._houseRules && state._houseRules.length > 0 ? state._houseRules : null,
+        playerId: state => state._playerId,
         isManager: state => state._role === roles.manager || state._role === roles.admin,
         bunchReady: state => state._bunchReady,
         userBunches: state => state._userBunches,
@@ -60,6 +62,7 @@ export default {
             state._thousandSeparator = bunch.thousandSeparator;
             state._description = bunch.description;
             state._houseRules = bunch.houseRules;
+            state._playerId = bunch.playerId;
             state._role = bunch.role;
             state._bunchReady = true;
         },

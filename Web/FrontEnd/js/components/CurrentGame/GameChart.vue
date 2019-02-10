@@ -9,6 +9,7 @@
     import { mapGetters } from 'vuex'
     import { LineChart } from '@/components';
     import { CURRENT_GAME } from '@/store-names';
+    import playerCalculator from '@/player-calculator';
 
     export default {
         components: {
@@ -79,7 +80,7 @@
                     for (j = 0; j < r.length; j++) {
                         rows.push(this.getRow(r[j], p.id));
                     }
-                    if (!p.hasCashedOut) {
+                    if (!playerCalculator.hasCashedOut(p)) {
                         var currentResult = this.createPlayerResult(moment().utc(), r[r.length - 1].winnings);
                         rows.push(this.getRow(currentResult, p.id));
                     }

@@ -1,14 +1,13 @@
 import comparer from './comparer';
 
-var sortBy =
-    {
-        winnings: 'winnings',
-        buyin: 'buyin',
-        stack: 'stack',
-        time: 'time',
-        gameCount: 'gamecount',
-        winrate: 'winrate',
-    }
+var sortBy = {
+    winnings: 'winnings',
+    buyin: 'buyin',
+    stack: 'stack',
+    time: 'time',
+    gameCount: 'gamecount',
+    winrate: 'winrate'
+};
 
 export default {
     sort: function (players, sortOrder) {
