@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Entities.Checkpoints;
 using Core.Exceptions;
 using Core.Services;
 
@@ -26,29 +27,13 @@ namespace Core.UseCases
             if(cashgame == null)
                 throw new CashgameNotRunningException();
 
-            var isManager = RoleHandler.IsInRole(bunch.Role, Role.Manager);
-            
             var playerItems = GetPlayerItems(cashgame);
-            
-            var defaultBuyin = bunch.DefaultBuyin;
-            var currencyFormat = bunch.Currency.Format;
-            var thousandSeparator = bunch.Currency.ThousandSeparator;
 
             return new Result(
                 bunch.Id,
-                bunch.PlayerId,
                 cashgame.Location.Name,
                 cashgame.Location.Id,
-                playerItems,
-                defaultBuyin,
-                currencyFormat,
-                thousandSeparator,
-                isManager);
-        }
-
-        private static IList<string> GetPlayerIds(DetailedCashgame cashgame)
-        {
-            return cashgame.Players.Select(o => o.Id).ToList();
+                playerItems);
         }
 
         private static IList<RunningCashgamePlayerItem> GetPlayerItems(DetailedCashgame cashgame)
@@ -58,8 +43,7 @@ namespace Core.UseCases
             foreach (var result in results)
             {
                 var playerId = result.Id;
-                var hasCheckedOut = result.CashoutAction != null;
-                var item = new RunningCashgamePlayerItem(playerId, result.Name, result.Color, cashgame.Id, hasCheckedOut, result.Actions);
+                var item = new RunningCashgamePlayerItem(playerId, result.Name, result.Color, cashgame.Id, result.Actions);
                 items.Add(item);
             }
 
@@ -87,46 +71,33 @@ namespace Core.UseCases
         public class Result
         {
             public string Slug { get; }
-            public string PlayerId { get; }
             public string LocationName { get; }
             public string LocationId { get; }
             public IList<RunningCashgamePlayerItem> PlayerItems { get; }
-            public int DefaultBuyin { get; }
-            public string CurrencyFormat { get; }
-            public string ThousandSeparator { get; }
-            public bool IsManager { get; }
 
             public Result(
                 string slug,
-                string playerId,
                 string locationName,
                 string locationId,
-                IList<RunningCashgamePlayerItem> playerItems,
-                int defaultBuyin,
-                string currencyFormat,
-                string thousandSeparator,
-                bool isManager)
+                IList<RunningCashgamePlayerItem> playerItems)
             {
                 Slug = slug;
-                PlayerId = playerId;
                 LocationName = locationName;
                 LocationId = locationId;
                 PlayerItems = playerItems;
-                DefaultBuyin = defaultBuyin;
-                CurrencyFormat = currencyFormat;
-                ThousandSeparator = thousandSeparator;
-                IsManager = isManager;
             }
         }
 
         public class RunningCashgameCheckpointItem
         {
+            public CheckpointType Type { get; }
             public DateTime Time { get; }
             public int Stack { get; }
             public int AddedMoney { get; }
 
             public RunningCashgameCheckpointItem(DetailedCashgame.CashgameAction action)
             {
+                Type = action.Type;
                 Time = action.Time;
                 Stack = action.Stack;
                 AddedMoney = action.Added;
@@ -139,27 +110,16 @@ namespace Core.UseCases
             public string Name { get; }
             public string Color { get; }
             public string CashgameId { get; }
-            public bool HasCashedOut { get; }
-            public int Buyin { get; }
-            public int Stack { get; }
-            public int Winnings { get; }
-            public DateTime LastReport { get; }
             public IList<RunningCashgameCheckpointItem> Checkpoints { get; }
 
-            public RunningCashgamePlayerItem(string playerId, string name, string color, string cashgameId, bool hasCashedOut, IList<DetailedCashgame.CashgameAction> actions)
+            public RunningCashgamePlayerItem(string playerId, string name, string color, string cashgameId, IList<DetailedCashgame.CashgameAction> actions)
             {
                 PlayerId = playerId;
                 Name = name;
                 Color = color;
                 CashgameId = cashgameId;
-                HasCashedOut = hasCashedOut;
                 var list = actions.ToList();
-                var lastCheckpoint = list.Last();
                 Checkpoints = list.Select(o => new RunningCashgameCheckpointItem(o)).ToList();
-                Buyin = list.Sum(o => o.Added);
-                Stack = lastCheckpoint.Stack;
-                Winnings = Stack - Buyin;
-                LastReport = lastCheckpoint.Time;
             }
         }
     }
