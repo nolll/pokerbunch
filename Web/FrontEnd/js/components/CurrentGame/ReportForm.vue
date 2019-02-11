@@ -16,7 +16,7 @@
     import validate from '@/validate';
     import forms from '@/forms';
     import { CustomButton } from '@/components/Common';
-    import { CURRENT_GAME } from '@/store-names';
+    import { BUNCH } from '@/store-names';
 
     export default {
         props: {
@@ -28,7 +28,7 @@
             CustomButton
         },
         computed: {
-            ...mapGetters(CURRENT_GAME, [
+            ...mapGetters(BUNCH, [
                 'defaultBuyin'
             ]),
             hasErrors() {

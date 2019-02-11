@@ -104,6 +104,7 @@
         computed: {
             ...mapGetters(BUNCH, {
                 slug: 'slug',
+                isManager: 'isManager'
             }),
             ...mapGetters(CURRENT_GAME, [
                 'playerId',
@@ -112,7 +113,6 @@
                 'reportFormVisible',
                 'buyinFormVisible',
                 'cashoutFormVisible',
-                'isManager',
                 'players',
                 'hasPlayers',
                 'startTime',

@@ -10,6 +10,7 @@ export default {
         _thousandSeparator: ',',
         _description: '',
         _houseRules: '',
+        _defaultBuyin: 0,
         _role: roles.none,
         _playerId: null,
         _bunchReady: false,
@@ -25,6 +26,7 @@ export default {
         thousandSeparator: state => state._thousandSeparator,
         description: state => state._description && state._description.length > 0 ? state._description : null,
         houseRules: state => state._houseRules && state._houseRules.length > 0 ? state._houseRules : null,
+        defaultBuyin: state => state._defaultBuyin,
         playerId: state => state._playerId,
         isManager: state => state._role === roles.manager || state._role === roles.admin,
         bunchReady: state => state._bunchReady,
@@ -62,7 +64,8 @@ export default {
             state._thousandSeparator = bunch.thousandSeparator;
             state._description = bunch.description;
             state._houseRules = bunch.houseRules;
-            state._playerId = bunch.playerId;
+            state._defaultBuyin = bunch.defaultBuyin;
+            state._playerId = bunch.player.id;
             state._role = bunch.role;
             state._bunchReady = true;
         },

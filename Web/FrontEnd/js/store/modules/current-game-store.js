@@ -13,12 +13,9 @@ export default {
         _isRunning: false,
         _playerId: null,
         _locationUrl: '',
-        _defaultBuyin: 0,
         _locationName: '',
-        _isManager: false,
         _players: [],
         _currentStack: 0,
-        _loadedPlayerId: '0',
         _reportFormVisible: false,
         _buyinFormVisible: false,
         _cashoutFormVisible: false,
@@ -31,8 +28,6 @@ export default {
         reportFormVisible: state => state._reportFormVisible,
         buyinFormVisible: state => state._buyinFormVisible,
         cashoutFormVisible: state => state._cashoutFormVisible,
-        defaultBuyin: state => state._defaultBuyin,
-        isManager: state => state._isManager,
         players: state => state._players,
         hasPlayers: state => state._players.length > 0,
         playerId: (state, getters, rootState, rootGetters) => {
@@ -77,7 +72,7 @@ export default {
             return playerCalculator.hasCashedOut(getters.player);
         },
         player: (state, getters) => {
-            return getters.getPlayer(state._playerId);
+            return getters.getPlayer(getters.playerId);
         },
         totalStacks: state => {
             var sum = 0;
@@ -157,7 +152,7 @@ export default {
             context.commit('resetPlayerId');
         },
         buyin(context, { amount, stack }) {
-            const buyinData = { playerId: context.state._playerId, stack: stack, addedMoney: amount };
+            const buyinData = { playerId: context.getters.playerId, stack: stack, addedMoney: amount };
             const player = context.getters.player;
             api.buyin(context.state._slug, buyinData)
                 .then(function () {
@@ -168,7 +163,7 @@ export default {
             context.commit('resetPlayerId');
         },
         firstBuyin(context, { amount, stack, name, color }) {
-            const player = createPlayer(context.state._playerId, name, color);
+            const player = createPlayer(context.getters.playerId, name, color);
             context.commit('addPlayer', { player });
             context.dispatch('buyin', { amount: amount, stack: stack });
         },
@@ -204,7 +199,7 @@ export default {
             state._playerId = playerId;
         },
         resetPlayerId(state) {
-            state._playerId = state._loadedPlayerId;
+            state._playerId = null;
         },
         setPlayers(state, players) {
             state._players = players;
@@ -245,13 +240,9 @@ export default {
         },
         dataLoaded(state, data) {
             state._isRunning = true;
-            state._playerId = data.playerId;
             state._locationUrl = data.locationUrl;
-            state._defaultBuyin = data.defaultBuyin;
             state._locationName = data.locationName;
-            state._isManager = data.isManager;
             state._players = data.players;
-            state._loadedPlayerId = data.playerId;
         }
     }
 };
