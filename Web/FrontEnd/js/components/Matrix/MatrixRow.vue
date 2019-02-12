@@ -5,7 +5,7 @@
             <custom-link :url="url">{{name}}</custom-link>
         </td>
         <td :class="'table-list__cell table-list__cell--numeric' + resultClass">{{formattedWinnings}}</td>
-        <td is="matrix-item" v-for="game in player.games" :game="game"></td>
+        <td is="matrix-item" v-for="game in player.games" :game="game" :key="game.gameId"></td>
     </tr>
 </template>
 

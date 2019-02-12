@@ -43,5 +43,6 @@ module.exports = {
             vue: 'vue/dist/vue.esm.js',
             '@': path.resolve(__dirname, './FrontEnd/js')
         }
-    }
+    },
+    stats: { children: false }
 };

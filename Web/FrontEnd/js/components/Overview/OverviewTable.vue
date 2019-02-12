@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr is="overview-row" v-for="(player, index) in currentYearPlayers" :player="player" :index="index"></tr>
+                <tr is="overview-row" v-for="(player, index) in currentYearPlayers" :player="player" :index="index" :key="player.id"></tr>
             </tbody>
         </table>
     </div>

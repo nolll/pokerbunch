@@ -6,11 +6,11 @@
                     <th class="table-list__column-header"></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
-                    <th is="year-matrix-column" v-for="year in years" :year="year"></th>
+                    <th is="year-matrix-column" v-for="year in years" :year="year" :key="year"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr is="year-matrix-row" v-for="(player, index) in playersWithYearResults" :player="player" :index="index"></tr>
+                <tr is="year-matrix-row" v-for="(player, index) in playersWithYearResults" :player="player" :index="index" :key="player.id"></tr>
             </tbody>
         </table>
     </div>
@@ -48,6 +48,7 @@
                         for (let k = 0; k < this.years.length; k++) {
                             var yearGames = getGamesForYear(player.games, this.years[k]);
                             var playerYear = {
+                                year: this.years[k],
                                 winnings: 0,
                                 playedThisYear: yearGames.length > 0
                             }

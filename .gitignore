@@ -11,7 +11,8 @@ _NCrunch_*/
 *.pubxml.user
 **/*.dbmdl
 Web/_build/main.js
-Web/*.lock
+Web/yarn.lock
+Web/package-lock.json
 **/Properties/PublishProfiles/*.*
 Web/node_modules
 Web/Assets

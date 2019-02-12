@@ -5,7 +5,6 @@ import router from './router';
 import { CashgameActionChart, CashgameDetailsChart } from './components';
 
 function init() {
-    vue.config.debug = true;
     vue.prototype.eventHub = new vue();
 
     const appElement = document.getElementById('app');

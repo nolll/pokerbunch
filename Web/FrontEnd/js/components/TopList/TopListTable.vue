@@ -25,7 +25,7 @@
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="top-list-row" v-for="player in sortedPlayers" :player="player"></tr>
+                <tr is="top-list-row" v-for="player in sortedPlayers" :player="player" :key="player.id"></tr>
             </tbody>
         </table>
     </div>
@@ -42,19 +42,10 @@
             TopListRow
         },
         computed: {
-            ...mapState(GAME_ARCHIVE, [
-                'gamesReady'
-            ]),
-            ...mapGetters(BUNCH, [
-                'bunchReady'
-            ]),
             ...mapGetters(GAME_ARCHIVE, [
                 'playerSortOrder',
                 'sortedPlayers'
-            ]),
-            ready() {
-                return this.bunchReady && this.gamesReady;
-            }
+            ])
         }
     };
 </script>

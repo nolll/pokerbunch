@@ -5,7 +5,7 @@
             <custom-link :url="url">{{name}}</custom-link>
         </td>
         <td :class="'table-list__cell table-list__cell--numeric' + resultClass">{{formattedWinnings}}</td>
-        <td is="year-matrix-item" v-for="year in player.years" :year="year"></td>
+        <td is="year-matrix-item" v-for="year in player.years" :year="year" :key="year.year"></td>
     </tr>
 </template>
 

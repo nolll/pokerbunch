@@ -6,11 +6,11 @@
                     <th class="table-list__column-header"></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
-                    <th is="matrix-column" v-for="game in sortedGames" :game="game"></th>
+                    <th is="matrix-column" v-for="game in sortedGames" :game="game" :key="game.id"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr is="matrix-row" v-for="(player, index) in sortedPlayers" :player="player" :index="index"></tr>
+                <tr is="matrix-row" v-for="(player, index) in sortedPlayers" :player="player" :index="index" :key="player.id"></tr>
             </tbody>
         </table>
     </div>

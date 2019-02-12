@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="game-list-row" v-for="game in sortedGames" :game="game"></tr>
+                <tr is="game-list-row" v-for="game in sortedGames" :game="game" :key="game.id"></tr>
             </tbody>
         </table>
     </div>
