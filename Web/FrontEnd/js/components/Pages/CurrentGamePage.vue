@@ -23,18 +23,18 @@
                 <page-heading text="Running Cashgame" />
             </block>
             <block class="button-list" v-if="areButtonsVisible">
-                <game-button text="Report" icon="reorder" v-show="canReport" v-on:click.native="showReportForm"></game-button>
-                <game-button text="Buy In" icon="money" v-show="canBuyin" v-on:click.native="showBuyinForm"></game-button>
-                <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click.native="showCashoutForm"></game-button>
+                <game-button text="Report" icon="reorder" v-show="canReport" v-on:click.native="showReportForm" />
+                <game-button text="Buy In" icon="money" v-show="canBuyin" v-on:click.native="showBuyinForm" />
+                <game-button text="Cash Out" icon="signout" v-show="canCashout" v-on:click.native="showCashoutForm" />
             </block>
             <block>
-                <report-form v-show="reportFormVisible" :is-active="reportFormVisible"></report-form>
-                <buyin-form v-show="buyinFormVisible" :is-active="buyinFormVisible"></buyin-form>
-                <cashout-form v-show="cashoutFormVisible" :is-active="cashoutFormVisible"></cashout-form>
+                <report-form v-show="reportFormVisible" :is-active="reportFormVisible" />
+                <buyin-form v-show="buyinFormVisible" :is-active="buyinFormVisible" />
+                <cashout-form v-show="cashoutFormVisible" :is-active="cashoutFormVisible" />
             </block>
             <block v-if="hasPlayers">
                 <div class="standings">
-                    <player-table :players="sortedPlayers"></player-table>
+                    <player-table :players="sortedPlayers" />
                 </div>
             </block>
             <block v-else>
