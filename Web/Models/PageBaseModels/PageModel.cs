@@ -9,6 +9,7 @@ namespace Web.Models.PageBaseModels
         public string CssUrl => $"/dist/{Version}/main.css";
         public string Version { get; }
         public GoogleAnalyticsModel GoogleAnalyticsModel { get; }
+        public string VendorJsUrl => $"/dist/{Version}/vendor.js";
         public string JsUrl => $"/dist/{Version}/main.js";
         public virtual string Layout => ContextLayout.Base;
         public virtual string HtmlCssClass => null;

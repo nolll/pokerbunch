@@ -20,8 +20,8 @@
 
 <body class="@Model.BodyCssClass">
     @RenderBody()
+    <script src="@Model.VendorJsUrl"></script>
     <script src="@Model.JsUrl"></script>
-
     @Html.RenderModel(Model.GoogleAnalyticsModel)
 </body>
 </html>

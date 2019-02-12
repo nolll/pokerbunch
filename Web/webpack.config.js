@@ -6,7 +6,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 module.exports = {
     entry: './FrontEnd/js/index.js',
     output: {
-        filename: 'main.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist')
     },
     devtool: 'source-map',
@@ -42,6 +42,12 @@ module.exports = {
         alias: {
             vue: 'vue/dist/vue.esm.js',
             '@': path.resolve(__dirname, './FrontEnd/js')
+        }
+    },
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+            name: 'vendor'
         }
     },
     stats: { children: false }
