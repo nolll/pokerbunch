@@ -584,6 +584,9 @@
     <Content Include="FrontEnd\js\components\UserBunchList\UserBunchListItem.vue" />
     <Content Include="FrontEnd\js\components\Layouts\Layout.vue" />
     <Content Include="FrontEnd\js\components\Common\Block.vue" />
+    <Content Include="FrontEnd\js\components\Common\ValueList\ValueList.vue" />
+    <Content Include="FrontEnd\js\components\Common\ValueList\ValueListKey.vue" />
+    <Content Include="FrontEnd\js\components\Common\ValueList\ValueListValue.vue" />
     <None Include="Local.config" />
     <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
     <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />

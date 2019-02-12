@@ -7,16 +7,14 @@
         <page-section>
             <template slot="aside">
                 <block>
-                    <dl class="value-list">
-                        <dt class="value-list__key" v-if="hasPlayers">Start Time</dt>
-                        <dd class="value-list__value" v-if="hasPlayers">{{formattedStartTime}}</dd>
-                        <dt class="value-list__key">Location</dt>
-                        <dd class="value-list__value"><custom-link :url="locationUrl">{{locationName}}</custom-link></dd>
-                        <dt class="value-list__key" v-if="isManager">Player</dt>
-                        <dd class="value-list__value" v-if="isManager">
-                            <player-dropdown />
-                        </dd>
-                    </dl>
+                    <value-list>
+                        <value-list-key v-if="hasPlayers">Start Time</value-list-key>
+                        <value-list-value v-if="hasPlayers">{{formattedStartTime}}</value-list-value>
+                        <value-list-key>Location</value-list-key>
+                        <value-list-value><custom-link :url="locationUrl">{{locationName}}</custom-link></value-list-value>
+                        <value-list-key v-if="isManager">Player</value-list-key>
+                        <value-list-value v-if="isManager"><player-dropdown /></value-list-value>
+                    </value-list>
                 </block>
             </template>
             <block>
@@ -56,6 +54,9 @@
     import { BunchNavigation } from '@/components/Navigation';
     import { GameButton, ReportForm, BuyinForm, CashoutForm, PlayerDropdown, PlayerTable, GameChart } from '@/components/CurrentGame';
     import { Block, CustomLink, PageHeading, PageSection, Spinner } from '@/components/Common';
+    import ValueList from '@/components/Common/ValueList/ValueList.vue';
+    import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
+    import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
     import { BUNCH, CURRENT_GAME, PLAYER } from '@/store-names';
 
     export default {
@@ -73,7 +74,10 @@
             PageHeading,
             PageSection,
             Spinner,
-            CustomLink
+            CustomLink,
+            ValueList,
+            ValueListKey,
+            ValueListValue
         },
         mixins: [
             DataMixin

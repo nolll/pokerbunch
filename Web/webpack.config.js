@@ -37,12 +37,11 @@ module.exports = {
             filename: 'main.css'
         }),
         new VueLoaderPlugin(),
-        new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
     resolve: {
         alias: {
             vue: 'vue/dist/vue.esm.js',
-            moment: 'moment/src/moment.js',
             '@': path.resolve(__dirname, './FrontEnd/js')
         }
     }
