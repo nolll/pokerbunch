@@ -421,6 +421,8 @@
     <Content Include="FrontEnd\js\index.js" />
     <Content Include="FrontEnd\js\validate.js" />
     <Content Include="FrontEnd\js\app.js" />
+    <Content Include="webpack.prod.js" />
+    <Content Include="webpack.dev.js" />
     <Content Include="webpack.config.js" />
     <Content Include="FrontEnd\Css\table-list.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
