@@ -421,6 +421,8 @@
     <Content Include="FrontEnd\js\index.js" />
     <Content Include="FrontEnd\js\validate.js" />
     <Content Include="FrontEnd\js\app.js" />
+    <Content Include="FrontEnd\templates\StyleTemplate.txt" />
+    <Content Include="FrontEnd\templates\ScriptTemplate.txt" />
     <Content Include="webpack.prod.js" />
     <Content Include="webpack.dev.js" />
     <Content Include="webpack.config.js" />
@@ -598,6 +600,7 @@
     <Content Include="Views\Misc\VueConfig.cshtml" />
     <Content Include="Views\Layouts\Basic.cshtml" />
     <Content Include="Views\Pages\Vue\Root.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.nuspec">
       <SubType>Designer</SubType>
     </None>
@@ -713,10 +716,10 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Components\Web.config" />
+    <None Include="Web.wpp.targets" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -870,12 +873,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Target Name="AfterBuild">
-    <Message Text="Running webpack..." Importance="high">
-    </Message>
-    <Exec Command="npm install" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release'" />
-    <Exec Command="npm run prod" ContinueOnError="false" WorkingDirectory="$(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Release'" />
-  </Target>
   <Import Project="..\packages\OctoPack.3.6.3\build\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.6.3\build\OctoPack.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

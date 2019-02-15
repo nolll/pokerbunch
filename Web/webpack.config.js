@@ -2,12 +2,14 @@ const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './FrontEnd/js/index.js',
     output: {
-        filename: '[name].js',
-        path: path.resolve(__dirname, 'dist')
+        filename: '[name]-[contenthash].js',
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/dist/'
     },
     devtool: 'source-map',
     module: {
@@ -33,10 +35,20 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'main.css'
+            filename: 'main-[contenthash].css'
         }),
         new VueLoaderPlugin(),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new HtmlWebpackPlugin({
+            filename: path.resolve(__dirname, './Views/Generated/Script.cshtml'),
+            template: path.resolve(__dirname, './Frontend/templates/ScriptTemplate.txt'),
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: path.resolve(__dirname, './Views/Generated/Style.cshtml'),
+            template: path.resolve(__dirname, './Frontend/templates/StyleTemplate.txt'),
+            inject: false
+        })
     ],
     resolve: {
         alias: {

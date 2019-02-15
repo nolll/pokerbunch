@@ -12,7 +12,7 @@
     <meta name="author" content="PokerBunch.com">
     <meta name="keywords" content="poker,homegame,cashgame,cash,home,game,stats,statistics,chart" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="@Model.CssUrl" rel="stylesheet" />
+    @Html.Partial(Model.StyleView)
     <link rel="shortcut icon" href="/favicon.ico" />
     @Html.RenderModel(Model.VueConfig)
     <title>@Model.BrowserTitle</title>
@@ -20,8 +20,7 @@
 
 <body class="@Model.BodyCssClass">
     @RenderBody()
-    <script src="@Model.VendorJsUrl"></script>
-    <script src="@Model.JsUrl"></script>
+    @Html.Partial(Model.ScriptView)
     @Html.RenderModel(Model.GoogleAnalyticsModel)
 </body>
 </html>
