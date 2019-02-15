@@ -17,6 +17,7 @@ Web/package-lock.json
 Web/node_modules
 Web/Assets
 Web/dist
+Web/Views/Generated
 **/*.Debug.config
 **/Local.config
 *.user
