@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Services;
-using PokerBunch.Client.Models.Response;
 
 namespace Infrastructure.Api.FakeServices
 {

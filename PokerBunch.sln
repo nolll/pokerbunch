@@ -28,6 +28,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Api", "Infra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{7B2D7886-873F-489F-AE9F-8CF0ACB46554}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{5533FA3E-E0BE-40BE-83E3-B7DA4C9A718D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{65EDAF0A-5F76-48DF-829D-EC8198759A30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +66,14 @@ Global
 		{6F33F0BD-4CBB-4B6E-BDF0-EEA841267C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F33F0BD-4CBB-4B6E-BDF0-EEA841267C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F33F0BD-4CBB-4B6E-BDF0-EEA841267C87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5533FA3E-E0BE-40BE-83E3-B7DA4C9A718D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5533FA3E-E0BE-40BE-83E3-B7DA4C9A718D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5533FA3E-E0BE-40BE-83E3-B7DA4C9A718D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5533FA3E-E0BE-40BE-83E3-B7DA4C9A718D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65EDAF0A-5F76-48DF-829D-EC8198759A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65EDAF0A-5F76-48DF-829D-EC8198759A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65EDAF0A-5F76-48DF-829D-EC8198759A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65EDAF0A-5F76-48DF-829D-EC8198759A30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
