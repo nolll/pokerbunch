@@ -420,9 +420,9 @@
     <Content Include="FrontEnd\js\app.js" />
     <Content Include="FrontEnd\templates\StyleTemplate.txt" />
     <Content Include="FrontEnd\templates\ScriptTemplate.txt" />
-    <Content Include="webpack.prod.js" />
-    <Content Include="webpack.dev.js" />
-    <Content Include="webpack.config.js" />
+    <None Include="webpack.prod.js" />
+    <None Include="webpack.dev.js" />
+    <None Include="webpack.config.js" />
     <Content Include="FrontEnd\Css\table-list.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
