@@ -12,7 +12,6 @@ namespace Plumbing
         }
 
         // Contexts
-        public BaseContext BaseContext => new BaseContext();
         public CoreContext CoreContext => new CoreContext(_deps.UserService);
         public BunchContext BunchContext => new BunchContext(_deps.BunchService);
 

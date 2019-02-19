@@ -13,12 +13,12 @@ namespace Web.Models.PageBaseModels
         public virtual string BodyCssClass => "body-wide";
         public VueConfigModel VueConfig { get; }
         public abstract string BrowserTitle { get; }
-        public string StyleView => "~/Views/Generated/Style.cshtml";
-        public string ScriptView => "~/Views/Generated/Script.cshtml";
+        public static string StyleView => "~/Views/Generated/Style.cshtml";
+        public static string ScriptView => "~/Views/Generated/Script.cshtml";
 
-        protected PageModel(BaseContext.Result contextResult)
+        protected PageModel()
         {
-            Version = contextResult.Version;
+            Version = SiteSettings.Version;
             GoogleAnalyticsModel = new GoogleAnalyticsModel();
             VueConfig = new VueConfigModel();
         }

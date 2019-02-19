@@ -8,8 +8,7 @@ namespace Web.Controllers
     {
         public ActionResult Root()
         {
-            var baseContext = GetBaseContext();
-            var model = new VuePageModel(baseContext);
+            var model = new VuePageModel();
             return View(model);
         }
     }

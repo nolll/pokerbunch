@@ -12,7 +12,7 @@ namespace Core.UseCases
             _userService = userService;
         }
 
-        public Result Execute(BaseContext.Result baseContext, Request request)
+        public Result Execute(Request request)
         {
             var isAuthenticated = !string.IsNullOrEmpty(request.UserName);
             var userName = isAuthenticated ? request.UserName : string.Empty;
@@ -23,7 +23,6 @@ namespace Core.UseCases
             var isAdmin = isAuthenticated && user.IsAdmin;
 
             return new Result(
-                baseContext,
                 isAuthenticated,
                 isAdmin,
                 userName,
@@ -45,17 +44,14 @@ namespace Core.UseCases
             public bool IsLoggedIn { get; }
             public bool IsAdmin { get; }
             public string UserDisplayName { get; }
-            public BaseContext.Result BaseContext { get; }
             public string UserName { get; }
 
             public Result(
-                BaseContext.Result baseContextResult,
                 bool isLoggedIn,
                 bool isAdmin,
                 string userName,
                 string userDisplayName)
             {
-                BaseContext = baseContextResult;
                 IsLoggedIn = isLoggedIn;
                 IsAdmin = isAdmin;
                 UserDisplayName = userDisplayName;

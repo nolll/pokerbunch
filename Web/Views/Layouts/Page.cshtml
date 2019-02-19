@@ -1,4 +1,5 @@
 ﻿@using Web.Extensions
+@using Web.Models.PageBaseModels
 @model Web.Models.PageBaseModels.PageModel
 <!DOCTYPE html>
 <html lang="en" class="@Model.HtmlCssClass">
@@ -12,7 +13,7 @@
     <meta name="author" content="PokerBunch.com">
     <meta name="keywords" content="poker,homegame,cashgame,cash,home,game,stats,statistics,chart" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @Html.Partial(Model.StyleView)
+    @Html.Partial(PageModel.StyleView)
     <link rel="shortcut icon" href="/favicon.ico" />
     @Html.RenderModel(Model.VueConfig)
     <title>@Model.BrowserTitle</title>
@@ -20,8 +21,8 @@
 
 <body class="@Model.BodyCssClass">
     @RenderBody()
-    @Html.Partial(Model.ScriptView)
-    @Html.RenderModel(Model.GoogleAnalyticsModel)
+@Html.Partial(PageModel.ScriptView)
+@Html.RenderModel(Model.GoogleAnalyticsModel)
 </body>
 </html>
 

@@ -14,5 +14,6 @@
         public static string ApiProtocol => HttpsForApi ? "https" : "http";
         public static bool UseFakeData => GetBool("UseFakeData");
         private static bool HttpsForApi => GetBool("HttpsForApi");
+        public static string Version => Get("Version");
     }
 }

@@ -20,8 +20,7 @@ namespace Tests.Core.UseCases.BunchContextTests
 
         protected override void Execute()
         {
-            var baseContext = new BaseContext.Result("1");
-            var coreContext = new CoreContext.Result(baseContext, true, false, UserData.UserName1, UserData.DisplayName1);
+            var coreContext = new CoreContext.Result(true, false, UserData.UserName1, UserData.DisplayName1);
             Result = Subject.Execute(coreContext, new BunchContext.Request(BunchId));
         }
     }

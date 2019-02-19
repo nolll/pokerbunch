@@ -20,8 +20,7 @@ namespace Tests.Core.UseCases.CoreContextTests
 
         protected override void Execute()
         {
-            var baseContext = new BaseContext.Result("1");
-            Result = Subject.Execute(baseContext, new CoreContext.Request(UserName));
+            Result = Subject.Execute(new CoreContext.Request(UserName));
         }
     }
 }

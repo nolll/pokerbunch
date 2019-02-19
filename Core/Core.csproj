@@ -81,7 +81,6 @@
     <Compile Include="Services\Interfaces\IEventService.cs" />
     <Compile Include="Services\Interfaces\ILocationService.cs" />
     <Compile Include="Services\Interfaces\IAuthService.cs" />
-    <Compile Include="Services\ApplicationVersion.cs" />
     <Compile Include="Services\CashgameService.cs" />
     <Compile Include="Services\EncryptionService.cs" />
     <Compile Include="Services\Globalization.cs" />
@@ -107,7 +106,6 @@
     <Compile Include="UseCases\CoreContext.cs" />
     <Compile Include="UseCases\AppDetails.cs" />
     <Compile Include="UseCases\AppListUser.cs" />
-    <Compile Include="UseCases\BaseContext.cs" />
     <Compile Include="UseCases\BunchContext.cs" />
     <Compile Include="UseCases\BunchList.cs" />
     <Compile Include="UseCases\Buyin.cs" />

@@ -20,14 +20,9 @@ namespace Web.Controllers.Base
         private Bootstrapper Bootstrapper => new Bootstrapper(SiteSettings.ApiHost, SiteSettings.ApiProtocol, SiteSettings.ApiKey, Identity.ApiToken, SiteSettings.DetailedErrorsForApi, SiteSettings.UseFakeData);
         protected UseCaseContainer UseCase => Bootstrapper.UseCases;
 
-        protected BaseContext.Result GetBaseContext()
-        {
-            return UseCase.BaseContext.Execute();
-        }
-        
         protected CoreContext.Result GetAppContext()
         {
-            return UseCase.CoreContext.Execute(GetBaseContext(), new CoreContext.Request(Identity.UserName));
+            return UseCase.CoreContext.Execute(new CoreContext.Request(Identity.UserName));
         }
 
         protected BunchContext.Result GetBunchContext(string bunchId)
@@ -95,32 +90,27 @@ namespace Web.Controllers.Base
 
         protected ActionResult Error404()
         {
-            var contextResult = GetBaseContext();
-            return ShowError(new Error404PageModel(contextResult));
+            return ShowError(new Error404PageModel());
         }
 
         protected ActionResult Error401()
         {
-            var contextResult = GetBaseContext();
-            return ShowError(new Error401PageModel(contextResult));
+            return ShowError(new Error401PageModel());
         }
 
         protected ActionResult Error403()
         {
-            var contextResult = GetBaseContext();
-            return ShowError(new Error403PageModel(contextResult));
+            return ShowError(new Error403PageModel());
         }
 
         protected ActionResult Error500()
         {
-            var contextResult = GetBaseContext();
-            return ShowError(new Error500PageModel(contextResult));
+            return ShowError(new Error500PageModel());
         }
 
         protected ActionResult ErrorAuthCookie()
         {
-            var contextResult = GetBaseContext();
-            return ShowError(new ErrorAuthCookiePageModel(contextResult));
+            return ShowError(new ErrorAuthCookiePageModel());
         }
 
         private ActionResult ShowError(ErrorPageModel model)

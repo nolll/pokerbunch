@@ -65,7 +65,6 @@
     <Compile Include="Urls\ApiUrls\ApiPlayerCashgamesUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiPlayerInviteUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiPlayerUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiRootUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiTokenUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiUserAppsUrl.cs" />
