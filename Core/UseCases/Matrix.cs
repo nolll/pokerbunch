@@ -20,7 +20,7 @@ namespace Core.UseCases
             var players = _playerService.List(bunch.Id);
             var suite = new CashgameSuite(cashgames, players);
 
-            var gameItems = CreateGameItems(cashgames);
+            var gameItems = CreateGameItems(bunch.Id, cashgames);
             var playerItems = CreatePlayerItems(bunch, suite);
             var spansMultipleYears = suite.SpansMultipleYears;
 
@@ -65,19 +65,19 @@ namespace Core.UseCases
             return items;
         }
 
-        private static List<GameItem> CreateGameItems(IEnumerable<ListCashgame> cashgames)
+        private static List<GameItem> CreateGameItems(string bunchId, IEnumerable<ListCashgame> cashgames)
         {
             return cashgames
                 .OrderByDescending(o => o.StartTime)
-                .Select(o => CreateGameItem(o.Id, o.StartTime))
+                .Select(o => CreateGameItem(bunchId, o.Id, o.StartTime))
                 .ToList();
         }
 
-        private static GameItem CreateGameItem(string cashgameId, DateTime startTime)
+        private static GameItem CreateGameItem(string bunchId, string cashgameId, DateTime startTime)
         {
             var date = new Date(startTime);
             
-            return new GameItem(cashgameId, date);
+            return new GameItem(bunchId, cashgameId, date);
         }
 
         public class Result
@@ -134,11 +134,13 @@ namespace Core.UseCases
 
         public class GameItem
         {
+            public string BunchId { get; }
             public string Id { get; }
             public Date Date { get; }
 
-            public GameItem(string id, Date date)
+            public GameItem(string bunchId, string id, Date date)
             {
+                BunchId = bunchId;
                 Id = id;
                 Date = date;
             }

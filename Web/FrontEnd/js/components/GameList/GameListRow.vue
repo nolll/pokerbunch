@@ -16,7 +16,7 @@
     import moment from 'moment';
     import { FormatMixin } from '@/mixins';
     import urls from '@/urls';
-    import { GAME_ARCHIVE } from '@/store-names';
+    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
 
     export default {
@@ -28,11 +28,14 @@
         },
         props: ['game'],
         computed: {
+            ...mapGetters(BUNCH, [
+                'slug'
+            ]),
             ...mapGetters(GAME_ARCHIVE, [
                 'gameSortOrder'
             ]),
             url() {
-                return urls.cashgame.details(this.game.id);
+                return urls.cashgame.details(this.slug, this.game.id);
             },
             displayDate() {
                 return moment(this.game.date).format('MMM D');

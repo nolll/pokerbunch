@@ -39,7 +39,7 @@
     import { mapGetters } from 'vuex';
     import { PlayerTable, GameChart } from '@/components/CurrentGame';
     import { Block, PageHeading, PageSection, Spinner } from '@/components/Common';
-    import { CURRENT_GAME } from '@/store-names';
+    import { CASHGAME } from '@/store-names';
 
     export default {
         components: {
@@ -58,7 +58,7 @@
             this.init();
         },
         computed: {
-            ...mapGetters(CURRENT_GAME, [
+            ...mapGetters(CASHGAME, [
                 'locationName',
                 'startTime',
                 'sortedPlayers',
@@ -78,7 +78,7 @@
         methods: {
             loadCurrentGame() {
                 const slug = this.slug;
-                this.$store.dispatch('currentGame/loadCurrentGame', { slug });
+                this.$store.dispatch('cashgame/loadCurrentGame', { slug });
             },
             init() {
                 this.loadUser();

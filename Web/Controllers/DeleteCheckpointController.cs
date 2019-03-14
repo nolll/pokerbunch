@@ -13,14 +13,8 @@ namespace Web.Controllers
         {
             var request = new DeleteCheckpoint.Request(cashgameId, actionId);
             var result = UseCase.DeleteCheckpoint.Execute(request);
-            return Redirect(GetReturnUrl(result).Relative);
-        }
-
-        private static SiteUrl GetReturnUrl(DeleteCheckpoint.Result result)
-        {
-            if (result.GameIsRunning)
-                return new RunningCashgameUrl(result.Slug);
-            return new CashgameDetailsUrl(result.CashgameId);
+            var returnUrl = new CashgameDetailsUrl(result.Slug, result.CashgameId);
+            return Redirect(returnUrl.Relative);
         }
     }
 }

@@ -7,15 +7,16 @@
 <script>
     import moment from 'moment';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import urls from '@/urls';
 
     export default {
         components: {
             CustomLink
         },
-        props: ['game'],
+        props: ['game', 'slug'],
         computed: {
             url() {
-                return '/cashgame/details/' + this.game.id;
+                return urls.cashgame.details(this.slug, this.game.id);
             },
             displayDate() {
                 return moment(this.game.startTime).format('MMM D');

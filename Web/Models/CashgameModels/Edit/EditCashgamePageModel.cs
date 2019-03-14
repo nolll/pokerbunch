@@ -27,7 +27,7 @@ namespace Web.Models.CashgameModels.Edit
             : base(contextResult)
         {
             IsoDate = editCashgameFormResult.Date;
-            CancelUrl = new CashgameDetailsUrl(editCashgameFormResult.CashgameId).Relative;
+            CancelUrl = new CashgameDetailsUrl(editCashgameFormResult.Slug, editCashgameFormResult.CashgameId).Relative;
             DeleteUrl = new DeleteCashgameUrl(editCashgameFormResult.CashgameId).Relative;
             AddLocationUrl = new AddLocationUrl(editCashgameFormResult.Slug).Relative;
             AddEventUrl = new AddEventUrl(editCashgameFormResult.Slug).Relative;

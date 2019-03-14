@@ -37,7 +37,7 @@
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { OverviewTable, OverviewStatus, YearMatrixTable } from '@/components';
     import { Block, PageHeading, PageSection } from '@/components/Common';
-    import { GAME_ARCHIVE } from '@/store-names';
+    import { GAME_ARCHIVE, CURRENT_GAME } from '@/store-names';
 
     export default {
         components: {
@@ -59,8 +59,11 @@
                 'currentYear',
                 'hasGames'
             ]),
+            ...mapGetters(CURRENT_GAME, [
+                'currentGames'
+            ]),
             ready() {
-                return this.bunchReady && this.gamesReady && this.currentGameReady;
+                return this.bunchReady && this.gamesReady && this.currentGamesReady;
             }
         },
         methods: {
@@ -68,7 +71,7 @@
                 this.loadUser();
                 this.loadBunch();
                 this.loadGames();
-                this.loadCurrentGame();
+                this.loadCurrentGames();
             }
         },
         watch: {

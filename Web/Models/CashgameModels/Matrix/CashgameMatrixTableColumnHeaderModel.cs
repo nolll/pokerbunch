@@ -12,7 +12,7 @@ namespace Web.Models.CashgameModels.Matrix
         public CashgameMatrixTableColumnHeaderModel(Core.UseCases.Matrix.GameItem gameItem, bool showYear = false)
         {
             Date = Globalization.FormatShortDate(gameItem.Date, showYear);
-            CashgameUrl = new CashgameDetailsUrl(gameItem.Id).Relative;
+            CashgameUrl = new CashgameDetailsUrl(gameItem.BunchId, gameItem.Id).Relative;
         }
 
         public View GetView()

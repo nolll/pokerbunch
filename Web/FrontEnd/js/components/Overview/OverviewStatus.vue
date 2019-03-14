@@ -17,6 +17,7 @@
 <script>
     import { mapGetters } from 'vuex';
     import { OverviewRow } from '.';
+    import urls from '@/urls';
     import { BUNCH, CURRENT_GAME } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import { Block } from '@/components/Common';
@@ -29,26 +30,33 @@
         },
         computed: {
             ...mapGetters(CURRENT_GAME, [
-                'isRunning'
+                'currentGames'
             ]),
             ...mapGetters(BUNCH, [
-                'slug',
-                'bunchReady'
+                'slug'
             ]),
             url() {
-                return this.isRunning ? '/cashgame/running/' + this.slug : '/cashgame/add/' + this.slug;
+                return this.gameIsRunning ? this.runningGameUrl : this.addGameUrl;
             },
-            dashboardUrl() {
-                return '/cashgame/dashboard/' + this.slug;
+            addGameUrl() {
+                return urls.cashgame.add(this.slug);
+            },
+            runningGameUrl() {
+                return urls.cashgame.details(this.slug, this.runningGameId);
+            },
+            runningGameId() {
+                if (this.currentGames.length === 0)
+                    return 0;
+                return this.currentGames[0].id;
+            },
+            gameIsRunning() {
+                return this.currentGames.length > 0;
             },
             linkText() {
-                return this.isRunning ? 'Go to game' : 'Start a game';
+                return this.gameIsRunning ? 'Go to game' : 'Start a game';
             },
             description() {
-                return this.isRunning ? 'There is a game running' : 'No game is running at the moment';
-            },
-            ready() {
-                return this.bunchReady;
+                return this.gameIsRunning ? 'There is a game running' : 'No game is running at the moment';
             }
         }
     };

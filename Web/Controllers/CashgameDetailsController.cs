@@ -9,7 +9,7 @@ namespace Web.Controllers
     public class CashgameDetailsController : BaseController
     {
         [Authorize]
-        [Route(CashgameDetailsUrl.Route)]
+        [Route("remove")]
         public ActionResult Details(string cashgameId)
         {
             var cashgameDetailsResult = UseCase.CashgameDetails.Execute(new CashgameDetails.Request(cashgameId));

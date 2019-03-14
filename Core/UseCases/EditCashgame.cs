@@ -14,7 +14,7 @@ namespace Core.UseCases
         public Result Execute(Request request)
         {
             var cashgame = _cashgameService.Update(request.Id, request.LocationId, request.EventId);
-            return new Result(cashgame.Id);
+            return new Result(cashgame.Bunch.Id, cashgame.Id);
         }
 
         public class Request
@@ -32,10 +32,12 @@ namespace Core.UseCases
         }
         public class Result
         {
+            public string BunchId { get; }
             public string CashgameId { get; }
 
-            public Result(string cashgameId)
+            public Result(string bunchId, string cashgameId)
             {
+                BunchId = bunchId;
                 CashgameId = cashgameId;
             }
         }

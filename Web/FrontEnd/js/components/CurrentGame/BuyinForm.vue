@@ -20,7 +20,7 @@
     import validate from '@/validate';
     import forms from '@/forms';
     import { CustomButton } from '@/components/Common';
-    import { BUNCH, CURRENT_GAME, PLAYER } from '@/store-names';
+    import { BUNCH, CASHGAME, PLAYER } from '@/store-names';
 
     export default {
         props: {
@@ -35,7 +35,7 @@
             ...mapGetters(BUNCH, [
                 'defaultBuyin'
             ]),
-            ...mapGetters(CURRENT_GAME, [
+            ...mapGetters(CASHGAME, [
                 'isInGame',
                 'playerId'
             ]),
@@ -77,14 +77,14 @@
                 this.validateForm();
                 if (!this.hasErrors) {
                     if (this.isInGame) {
-                        this.$store.dispatch('currentGame/buyin', { amount: this.amount, stack: this.stack });
+                        this.$store.dispatch('cashgame/buyin', { amount: this.amount, stack: this.stack });
                     } else {
-                        this.$store.dispatch('currentGame/firstBuyin', { amount: this.amount, stack: this.stack, name: this.playerName, color: this.playerColor });
+                        this.$store.dispatch('cashgame/firstBuyin', { amount: this.amount, stack: this.stack, name: this.playerName, color: this.playerColor });
                     }
                 }
             },
             cancel() {
-                this.$store.dispatch('currentGame/hideForms');
+                this.$store.dispatch('cashgame/hideForms');
             },
             focus(event) {
                 forms.selectAll(event.target);

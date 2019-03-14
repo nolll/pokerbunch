@@ -52,10 +52,10 @@
             report() {
                 this.validateForm();
                 if (!this.hasErrors)
-                    this.$store.dispatch('currentGame/report', { stack: this.stack });
+                    this.$store.dispatch('cashgame/report', { stack: this.stack });
             },
             cancel() {
-                this.$store.dispatch('currentGame/hideForms');
+                this.$store.dispatch('cashgame/hideForms');
             },
             focus(event) {
                 forms.selectAll(event.target);

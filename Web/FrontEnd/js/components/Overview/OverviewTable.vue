@@ -32,14 +32,15 @@
         },
         computed: {
             ...mapGetters(BUNCH, [
-                'bunchReady'
+                'bunchReady',
+                'slug'
             ]),
             ...mapGetters(GAME_ARCHIVE, [
                 'currentYearGames',
                 'currentYearPlayers'
             ]),
             url() {
-                return urls.cashgame.details(this.lastGame.id);
+                return urls.cashgame.details(this.slug, this.lastGame.id);
             },
             lastGame() {
                 return this.currentYearGames[0];

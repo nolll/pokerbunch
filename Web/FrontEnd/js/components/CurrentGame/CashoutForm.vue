@@ -52,10 +52,10 @@
             cashout() {
                 this.validateForm();
                 if (!this.hasErrors)
-                    this.$store.dispatch('currentGame/cashout', { stack: this.stack });
+                    this.$store.dispatch('cashgame/cashout', { stack: this.stack });
             },
             cancel() {
-                this.$store.dispatch('currentGame/hideForms');
+                this.$store.dispatch('cashgame/hideForms');
             },
             focus(event) {
                 forms.selectAll(event.target);

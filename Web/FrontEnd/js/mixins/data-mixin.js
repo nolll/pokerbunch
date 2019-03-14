@@ -1,5 +1,5 @@
 ﻿import { mapGetters } from 'vuex';
-import { USER, BUNCH, GAME_ARCHIVE, CURRENT_GAME, PLAYER } from '@/store-names';
+import { USER, BUNCH, CASHGAME, GAME_ARCHIVE, CURRENT_GAME, PLAYER } from '@/store-names';
 import urls from '@/urls';
 
 export default {
@@ -31,13 +31,19 @@ export default {
             this.$store.dispatch('gameArchive/loadGames', { slug: this.$route.params.slug });
             this.$store.dispatch('gameArchive/selectYear', { year: this.routeYear });
         },
-        loadCurrentGame() {
-            this.$store.dispatch('currentGame/loadCurrentGame', { slug: this.$route.params.slug });
+        loadCurrentGames() {
+            this.$store.dispatch('currentGame/loadCurrentGames', { slug: this.$route.params.slug });
+        },
+        loadCashgame() {
+            this.$store.dispatch('cashgame/loadCashgame', { id: this.$route.params.id });
         }
     },
     computed: {
         ...mapGetters(CURRENT_GAME, [
-            'currentGameReady'
+            'currentGamesReady'
+        ]),
+        ...mapGetters(CASHGAME, [
+            'cashgameReady'
         ]),
         ...mapGetters(BUNCH, [
             'bunchReady',

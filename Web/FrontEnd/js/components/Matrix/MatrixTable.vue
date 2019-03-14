@@ -6,7 +6,7 @@
                     <th class="table-list__column-header"></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
-                    <th is="matrix-column" v-for="game in sortedGames" :game="game" :key="game.id"></th>
+                    <th is="matrix-column" v-for="game in sortedGames" :game="game" :slug="slug" :key="game.id"></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,8 @@
         },
         computed: {
             ...mapGetters(BUNCH, [
-                'bunchReady'
+                'bunchReady',
+                'slug'
             ]),
             ...mapGetters(GAME_ARCHIVE, [
                 'sortedGames',

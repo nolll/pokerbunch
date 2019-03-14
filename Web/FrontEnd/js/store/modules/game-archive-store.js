@@ -1,6 +1,7 @@
 ﻿import api from '@/api';
 import gameSorter from '@/game-sorter';
 import playerSorter from '@/player-sorter';
+import timeFunctions from '@/time-functions';
 import moment from 'moment';
 
 export default {
@@ -119,7 +120,7 @@ function getGames(rawGames) {
         game.duration = 0;
         const startTime = moment(game.startTime);
         const updatedTime = moment(game.updatedTime);
-        game.duration =  getDurationInMinutes(startTime, updatedTime);
+        game.duration = timeFunctions.diffInMinutes(startTime, updatedTime);
     }
     return games;
 }
@@ -190,7 +191,7 @@ function getPlayers(games) {
             }
             const buyinTime = moment(singlePlayerResult.startTime);
             const updatedTime = moment(singlePlayerResult.updatedTime);
-            const timeDiffInMinutes = getDurationInMinutes(buyinTime, updatedTime);
+            const timeDiffInMinutes = timeFunctions.diffInMinutes(buyinTime, updatedTime);
             const playerGameResult = {
                 gameId: game.id,
                 buyin: singlePlayerResult.buyin,
@@ -216,11 +217,6 @@ function getPlayers(games) {
         p.winrate = getWinrate(p.winnings, p.playedTimeInMinutes);
     }
     return fillEmptyGames(sortedPlayers, games);
-}
-
-function getDurationInMinutes(startTime, endTime) {
-    const timeDiff = moment.duration(endTime.diff(startTime));
-    return Math.round(Math.abs(timeDiff.asMinutes()));
 }
 
 function getWinrate(winnings, timeInMinutes) {

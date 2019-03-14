@@ -8,7 +8,7 @@
     import moment from 'moment';
     import { mapGetters } from 'vuex'
     import { LineChart } from '@/components';
-    import { CURRENT_GAME } from '@/store-names';
+    import { CASHGAME } from '@/store-names';
     import playerCalculator from '@/player-calculator';
 
     export default {
@@ -19,7 +19,7 @@
             'players': function () {
                 this.drawChart();
             },
-            'currentGameReady': function (isReady) {
+            'cashgameReady': function (isReady) {
                 if (isReady) {
                     this.drawChart();
                 }
@@ -28,15 +28,15 @@
         mounted: function () {
             var self = this;
             self.$nextTick(function () {
-                if (this.currentGameReady) {
+                if (this.cashgameReady) {
                     self.drawChart();
                 }
             });
         },
         computed: {
-            ...mapGetters(CURRENT_GAME, [
+            ...mapGetters(CASHGAME, [
                 'players',
-                'currentGameReady'
+                'cashgameReady'
             ])
         },
         methods: {
@@ -89,16 +89,16 @@
             },
             getPlayerResults(player) {
                 var i,
-                    c,
+                    a,
                     winnings,
-                    addedMoney = 0,
+                    added = 0,
                     results = [],
-                    checkpoints = player.checkpoints;
-                for (i = 0; i < checkpoints.length; i++) {
-                    c = checkpoints[i];
-                    addedMoney += c.addedMoney;
-                    winnings = c.stack - addedMoney;
-                    results.push(this.createPlayerResult(c.time, winnings));
+                    actions = player.actions;
+                for (i = 0; i < actions.length; i++) {
+                    a = actions[i];
+                    added += a.added || 0;
+                    winnings = a.stack - added;
+                    results.push(this.createPlayerResult(a.time, winnings));
                 }
                 return results;
             },

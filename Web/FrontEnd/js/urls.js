@@ -19,7 +19,9 @@ export default {
         list: '/bunch/all'
     },
     cashgame: {
-        details: (id) => `/cashgame/details/${id}`,
+        add: (slug) => `/cashgame/add/${slug}`,
+        details: (slug, id) => `/cashgame/details/${slug}/${id}`,
+        edit: (id) => `/cashgame/edit/${id}`,
         index: (slug) => `/cashgame/index/${slug}`
     },
     event: {
