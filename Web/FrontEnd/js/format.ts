@@ -5,14 +5,14 @@ export default {
     time: formatTime
 };
 
-function formatCurrency(value, format, separator) {
+function formatCurrency(value: number, format: string, separator: string) {
     const f = format !== undefined ? format : '${0}';
     const s = separator !== undefined ? separator : ',';
     const v = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, s);
     return f.replace('{0}', v);
 }
 
-function formatResult(value, format, separator) {
+function formatResult(value: number, format: string, separator:string) {
     const absValue = Math.abs(value);
     const currencyValue = formatCurrency(absValue, format, separator);
     if (value > 0)
@@ -22,12 +22,12 @@ function formatResult(value, format, separator) {
     return currencyValue;
 }
 
-function formatWinrate(value, format, separator) {
+function formatWinrate(value: number, format: string, separator: string) {
     const currencyValue = formatCurrency(value, format, separator);
     return currencyValue + '/h';
 }
 
-function formatTime(minutes) {
+function formatTime(minutes: number) {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
     if (h > 0 && m > 0)

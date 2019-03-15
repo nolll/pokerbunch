@@ -28,8 +28,8 @@ module.exports = {
                 loader: 'vue-loader'
             },
             {
-                test: /\.js$/,
-                loader: 'babel-loader',
+                test: /\.ts$/,
+                loader: 'ts-loader',
                 exclude: /node_modules/
             }
         ]
@@ -56,7 +56,8 @@ module.exports = {
         alias: {
             vue: 'vue/dist/vue.esm.js',
             '@': path.resolve(__dirname, './FrontEnd/js')
-        }
+        },
+        extensions: ['.ts', '.js']
     },
     optimization: {
         splitChunks: {
