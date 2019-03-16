@@ -68,24 +68,6 @@ namespace Infrastructure.Api.Services
             return CreateDetailedCashgame(apiCashgame);
         }
 
-        public void Report(string cashgameId, string playerId, int stack)
-        {
-            var apiReport = new CashgameActionReport(cashgameId, playerId, stack);
-            ApiClient.Cashgames.Actions.Add(apiReport);
-        }
-
-        public void Buyin(string cashgameId, string playerId, int added, int stack)
-        {
-            var apiBuyin = new CashgameActionBuyin(cashgameId, playerId, added, stack);
-            ApiClient.Cashgames.Actions.Add(apiBuyin);
-        }
-
-        public void Cashout(string cashgameId, string playerId, int stack)
-        {
-            var apiCashout = new CashgameActionCashout(cashgameId, playerId, stack);
-            ApiClient.Cashgames.Actions.Add(apiCashout);
-        }
-        
         public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
         {
             var updateObject = new CashgameActionUpdate(cashgameId, actionId, timestamp, stack, added);

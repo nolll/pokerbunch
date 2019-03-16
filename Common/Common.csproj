@@ -49,14 +49,12 @@
     <Compile Include="Urls\ApiUrls\ApiAppUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchCashgamesCurrentUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchCashgamesUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiBunchCashgameYearsUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchesUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchEventsUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchJoinUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchLocationsUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchPlayersUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiBunchUrl.cs" />
-    <Compile Include="Urls\ApiUrls\ApiCashgameActionsUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiCashgameActionUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiCashgameUrl.cs" />
     <Compile Include="Urls\ApiUrls\ApiEventCashgamesUrl.cs" />
@@ -101,11 +99,8 @@
     <Compile Include="Urls\SiteUrls\BunchDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\BunchListAllUrl.cs" />
     <Compile Include="Urls\SiteUrls\CashgameActionUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameBuyinUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameCashoutUrl.cs" />
     <Compile Include="Urls\SiteUrls\CashgameDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\CashgameIndexUrl.cs" />
-    <Compile Include="Urls\SiteUrls\CashgameReportUrl.cs" />
     <Compile Include="Urls\SiteUrls\ChangePasswordConfirmationUrl.cs" />
     <Compile Include="Urls\SiteUrls\ChangePasswordUrl.cs" />
     <Compile Include="Urls\SiteUrls\ChartUrl.cs" />
@@ -145,8 +140,6 @@
     <Compile Include="Urls\SiteUrls\PlayerDetailsUrl.cs" />
     <Compile Include="Urls\SiteUrls\PlayerIndexUrl.cs" />
     <Compile Include="Urls\SiteUrls\RouteParams.cs" />
-    <Compile Include="Urls\SiteUrls\RunningCashgameGameJsonUrl.cs" />
-    <Compile Include="Urls\SiteUrls\RunningCashgamePlayersJsonUrl.cs" />
     <Compile Include="Urls\SiteUrls\SiteUrl.cs" />
     <Compile Include="Urls\SiteUrls\TestEmailUrl.cs" />
     <Compile Include="Urls\SiteUrls\TopListUrl.cs" />

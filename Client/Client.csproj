@@ -75,10 +75,6 @@
     <Compile Include="Models\Request\BunchAdd.cs" />
     <Compile Include="Models\Request\BunchJoin.cs" />
     <Compile Include="Models\Request\BunchUpdate.cs" />
-    <Compile Include="Models\Request\CashgameActionAdd.cs" />
-    <Compile Include="Models\Request\CashgameActionBuyin.cs" />
-    <Compile Include="Models\Request\CashgameActionCashout.cs" />
-    <Compile Include="Models\Request\CashgameActionReport.cs" />
     <Compile Include="Models\Request\CashgameActionUpdate.cs" />
     <Compile Include="Models\Request\CashgameAdd.cs" />
     <Compile Include="Models\Request\CashgameUpdate.cs" />

@@ -12,9 +12,9 @@ export default {
     getUserBunches: () => apiClient.get(apiUrls.bunch.user),
     getPlayers: (slug) => apiClient.get(apiUrls.player.list(slug)),
     getGames: (slug, year) => apiClient.get(apiUrls.cashgame.list(slug, year)),
-    buyin: (slug, data) => ajaxClient.post(ajaxUrls.cashgame.buyin(slug), data),
-    report: (slug, data) => ajaxClient.post(ajaxUrls.cashgame.report(slug), data),
-    cashout: (slug, data) => ajaxClient.post(ajaxUrls.cashgame.cashout(slug), data),
+    buyin: (id, data) => apiClient.post(apiUrls.cashgame.actions(id), data),
+    report: (id, data) => apiClient.post(apiUrls.cashgame.actions(id), data),
+    cashout: (id, data) => apiClient.post(apiUrls.cashgame.actions(id), data),
     getUser: () => apiClient.get(apiUrls.user.current),
     getUsers: () => apiClient.get(apiUrls.user.list)
 };

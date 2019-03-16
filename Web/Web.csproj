@@ -175,7 +175,6 @@
     <Compile Include="Components\ApiDocsModels\SectionHeadingBlock\SectionHeadingBlockModel.cs" />
     <Compile Include="Components\ApiDocsModels\Section\SectionModel.cs" />
     <Compile Include="Components\ApiDocsModels\JsonBlock\JsonBlockModel.cs" />
-    <Compile Include="Controllers\RunningCashgameController.cs" />
     <Compile Include="Controllers\AddBunchController.cs" />
     <Compile Include="Controllers\AddCashgameController.cs" />
     <Compile Include="Controllers\AddEventController.cs" />
@@ -196,10 +195,6 @@
     <Compile Include="Controllers\Base\JsonNetResult.cs" />
     <Compile Include="Controllers\BunchListController.cs" />
     <Compile Include="Controllers\CashgameActionController.cs" />
-    <Compile Include="Controllers\CashgameBuyinController.cs" />
-    <Compile Include="Controllers\CashgameCashoutController.cs" />
-    <Compile Include="Controllers\CashgameDetailsController.cs" />
-    <Compile Include="Controllers\CashgameReportController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\DeleteAppController.cs" />
     <Compile Include="Controllers\DeleteCheckpointController.cs" />
@@ -257,10 +252,6 @@
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
     <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
-    <Compile Include="Models\CashgameModels\Details\DetailsChartModel.cs" />
-    <Compile Include="Models\CashgameModels\Running\RunningCashgameRefreshJsonModel.cs" />
-    <Compile Include="Models\CashgameModels\Running\RunningCashgameCheckpointJsonModel.cs" />
-    <Compile Include="Models\CashgameModels\Running\RunningCashgamePlayerJsonModel.cs" />
     <Compile Include="Models\ChartModels\ChartDateTimeValueModel.cs" />
     <Compile Include="Models\ChartModels\ChartIntValueModel.cs" />
     <Compile Include="Models\ErrorModels\Error401PageModel.cs" />
@@ -292,14 +283,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CashgameModels\Buyin\BuyinPostModel.cs" />
-    <Compile Include="Models\CashgameModels\Cashout\CashoutPostModel.cs" />
     <Compile Include="Models\CashgameModels\Edit\EditCashgamePostModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableCellModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableModel.cs" />
     <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableRowModel.cs" />
-    <Compile Include="Models\CashgameModels\Report\ReportPostModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddBunchConfirmationPageModel.cs" />
     <Compile Include="Models\HomegameModels\Add\AddBunchPostModel.cs" />
     <Compile Include="Models\HomegameModels\Edit\EditBunchPostModel.cs" />
@@ -471,9 +459,6 @@
     <Content Include="Views\Pages\CashgameAction\Action.cshtml" />
     <Content Include="Views\Pages\CashgameAction\CheckpointItem.cshtml" />
     <Content Include="Views\Pages\CashgameAction\CheckpointList.cshtml" />
-    <Content Include="Views\Pages\CashgameDetails\DetailsPage.cshtml" />
-    <Content Include="Views\Pages\CashgameDetails\ResultTable.cshtml" />
-    <Content Include="Views\Pages\CashgameDetails\ResultTableItem.cshtml" />
     <Content Include="Views\Pages\ChangePassword\ChangePassword.cshtml" />
     <Content Include="Views\Pages\ChangePassword\ChangePasswordDone.cshtml" />
     <Content Include="Views\Pages\EditBunch\Edit.cshtml" />
@@ -817,9 +802,6 @@
     <Compile Include="Models\MiscModels\AvatarModel.cs" />
     <Compile Include="Models\PlayerModels\Facts\PlayerFactsModel.cs" />
     <Compile Include="Components\PlayerModels\Badges\BadgeListModel.cs" />
-    <Compile Include="Models\CashgameModels\Details\CashgameDetailsPageModel.cs" />
-    <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableModel.cs" />
-    <Compile Include="Models\CashgameModels\Details\CashgameDetailsTableItemModel.cs" />
     <Compile Include="Models\ChartModels\ChartModel.cs" />
     <Compile Include="Models\ChartModels\ChartColumnModel.cs" />
     <Compile Include="Models\ChartModels\ChartRowModel.cs" />

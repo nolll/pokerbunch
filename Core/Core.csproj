@@ -64,7 +64,6 @@
     <Compile Include="Exceptions\BunchNotFoundException.cs" />
     <Compile Include="Exceptions\CashgameHasResultsException.cs" />
     <Compile Include="Exceptions\CashgameNotFoundException.cs" />
-    <Compile Include="Exceptions\CashgameNotRunningException.cs" />
     <Compile Include="Exceptions\CashgameRunningException.cs" />
     <Compile Include="Exceptions\ApiException.cs" />
     <Compile Include="Exceptions\EmailExistsException.cs" />
@@ -108,16 +107,12 @@
     <Compile Include="UseCases\AppListUser.cs" />
     <Compile Include="UseCases\BunchContext.cs" />
     <Compile Include="UseCases\BunchList.cs" />
-    <Compile Include="UseCases\Buyin.cs" />
-    <Compile Include="UseCases\CashgameDetailsChart.cs" />
-    <Compile Include="UseCases\CashgameDetails.cs" />
     <Compile Include="UseCases\DeleteApp.cs" />
     <Compile Include="UseCases\EventMatrix.cs" />
     <Compile Include="UseCases\InvitePlayerConfirmation.cs" />
     <Compile Include="UseCases\InvitePlayerForm.cs" />
     <Compile Include="UseCases\LocationDetails.cs" />
     <Compile Include="UseCases\LocationList.cs" />
-    <Compile Include="UseCases\Cashout.cs" />
     <Compile Include="UseCases\ChangePassword.cs" />
     <Compile Include="UseCases\DeleteCashgame.cs" />
     <Compile Include="UseCases\DeleteCheckpoint.cs" />
@@ -142,8 +137,6 @@
     <Compile Include="UseCases\PlayerBadges.cs" />
     <Compile Include="UseCases\PlayerDetails.cs" />
     <Compile Include="UseCases\PlayerFacts.cs" />
-    <Compile Include="UseCases\Report.cs" />
-    <Compile Include="UseCases\RunningCashgame.cs" />
     <Compile Include="UseCases\TestEmail.cs" />
     <Compile Include="UseCases\UserDetails.cs" />
   </ItemGroup>

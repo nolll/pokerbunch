@@ -51,8 +51,6 @@ namespace Plumbing
         public AddLocation AddLocation => new AddLocation(_deps.LocationService);
 
         // Cashgame
-        public CashgameDetails CashgameDetails => new CashgameDetails(_deps.CashgameService);
-        public CashgameDetailsChart CashgameDetailsChart => new CashgameDetailsChart(_deps.CashgameService);
         public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.LocationService);
         public AddCashgame AddCashgame => new AddCashgame(_deps.CashgameService);
         public Actions Actions => new Actions(_deps.CashgameService);
@@ -60,14 +58,10 @@ namespace Plumbing
         public EditCheckpointForm EditCheckpointForm => new EditCheckpointForm(_deps.CashgameService);
         public EditCheckpoint EditCheckpoint => new EditCheckpoint(_deps.CashgameService);
         public EventMatrix EventMatrix => new EventMatrix(_deps.BunchService, _deps.EventService, _deps.CashgameService, _deps.PlayerService);
-        public RunningCashgame RunningCashgame => new RunningCashgame(_deps.BunchService, _deps.CashgameService);
         public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.CashgameService, _deps.LocationService, _deps.EventService);
         public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService);
         public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameService);
         public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.CashgameService);
-        public Buyin Buyin => new Buyin(_deps.CashgameService);
-        public Report Report => new Report(_deps.CashgameService);
-        public Cashout Cashout => new Cashout(_deps.CashgameService);
 
         // Player
         public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchService, _deps.PlayerService, _deps.CashgameService, _deps.UserService);

@@ -43,18 +43,6 @@ namespace Infrastructure.Api.FakeServices
             throw new NotImplementedException();
         }
 
-        public void Report(string cashgameId, string playerId, int stack)
-        {
-        }
-
-        public void Buyin(string cashgameId, string playerId, int added, int stack)
-        {
-        }
-
-        public void Cashout(string cashgameId, string playerId, int stack)
-        {
-        }
-
         public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
         {
             throw new NotImplementedException();

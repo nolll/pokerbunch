@@ -11,11 +11,6 @@ namespace PokerBunch.Client.Clients
         {
         }
 
-        public void Add(CashgameActionAdd cashgameActionAdd)
-        {
-            ApiConnection.Post(new ApiCashgameActionsUrl(cashgameActionAdd.CashgameId), cashgameActionAdd);
-        }
-
         public void Update(CashgameActionUpdate updateObject)
         {
             ApiConnection.Put<Cashgame>(new ApiCashgameActionUrl(updateObject.CashgameId, updateObject.ActionId), updateObject);

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using PokerBunch.Client.Connection;
-using PokerBunch.Client.Models;
 using PokerBunch.Client.Models.Request;
 using PokerBunch.Client.Models.Response;
 using PokerBunch.Common.Urls.ApiUrls;
@@ -27,11 +26,6 @@ namespace PokerBunch.Client.Clients
             return ApiConnection.Get<IList<CashgameSmall>>(new ApiBunchCashgamesCurrentUrl(bunchId));
         }
 
-        public IList<CashgameSmall> List(string bunchId, int? year = null)
-        {
-            return ApiConnection.Get<IList<CashgameSmall>>(new ApiBunchCashgamesUrl(bunchId, year));
-        }
-
         public IList<CashgameSmall> EventList(string eventId)
         {
             return ApiConnection.Get<IList<CashgameSmall>>(new ApiEventCashgamesUrl(eventId));
@@ -41,12 +35,7 @@ namespace PokerBunch.Client.Clients
         {
             return ApiConnection.Get<IList<CashgameSmall>>(new ApiPlayerCashgamesUrl(playerId));
         }
-
-        public IList<int> GetYears(string bunchId)
-        {
-            return ApiConnection.Get<IList<CashgameYear>>(new ApiBunchCashgameYearsUrl(bunchId)).Select(o => o.Year).ToList();
-        }
-
+        
         public void Delete(string id)
         {
             ApiConnection.Delete(new ApiCashgameUrl(id));

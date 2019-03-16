@@ -148,8 +148,8 @@ export default {
         },
         report(context, { stack }) {
             const player = context.getters.player;
-            const reportData = { playerId: player.id, stack: stack };
-            api.report(context.state._slug, reportData)
+            const reportData = { type: 'report', playerId: player.id, stack: stack };
+            api.report(context.state._id, reportData)
                 .then(function() {
                     refresh(context);
                 });
@@ -158,9 +158,9 @@ export default {
             context.commit('resetPlayerId');
         },
         buyin(context, { amount, stack }) {
-            const buyinData = { playerId: context.getters.playerId, stack: stack, added: amount };
+            const buyinData = { type: 'buyin', playerId: context.getters.playerId, stack: stack, added: amount };
             const player = context.getters.player;
-            api.buyin(context.state._slug, buyinData)
+            api.buyin(context.state._id, buyinData)
                 .then(function () {
                     refresh(context);
                 });
@@ -175,8 +175,8 @@ export default {
         },
         cashout(context, { stack }) {
             const player = context.getters.player;
-            const cashoutData = { playerId: player.id, stack: stack };
-            api.cashout(context.state._slug, cashoutData)
+            const cashoutData = { type: 'cashout', playerId: player.id, stack: stack };
+            api.cashout(context.state._id, cashoutData)
                 .then(function () {
                     refresh(context);
                 });
