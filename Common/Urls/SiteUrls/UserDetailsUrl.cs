@@ -10,6 +10,6 @@
         }
 
         protected override string Input => RouteParams.Replace(Route, RouteReplace.UserName(_userName));
-        public const string Route = "user/details/{userName}";
+        public const string Route = "users/{userName}";
     }
 }

@@ -19,10 +19,10 @@ export default {
         list: '/bunch/all'
     },
     cashgame: {
-        add: (slug) => `/cashgame/add/${slug}`,
-        details: (slug, id) => `/cashgame/details/${slug}/${id}`,
+        add: (slug) => `/bunches/${slug}/cashgames/add`,
+        details: (slug, id) => `/bunches/${slug}/cashgame/${id}`,
         edit: (id) => `/cashgame/edit/${id}`,
-        index: (slug) => `/cashgame/index/${slug}`
+        index: (slug) => `/bunches/${slug}/cashgames`
     },
     event: {
         list: (slug) => `/event/list/${slug}`
@@ -39,8 +39,8 @@ export default {
     },
     user: {
         add: '/user/add',
-        details: (userName) => `/user/details/${userName}`,
+        details: (userName) => `/users/${userName}`,
         forgotPassword: '/user/forgotpassword',
-        list: '/user/list'
+        list: '/users'
     }
 };
