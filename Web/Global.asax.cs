@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.ApplicationInsights.Extensibility;
 using Web.Plumbing;
+using Web.Services;
+using Web.Settings;
 
 namespace Web
 {

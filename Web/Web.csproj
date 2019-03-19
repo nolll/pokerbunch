@@ -162,7 +162,8 @@
     <Compile Include="App_Start\CustomServerHeaderModule.cs" />
     <Compile Include="App_Start\CustomViewEngine.cs" />
     <Compile Include="Bootstrapper.cs" />
-    <Compile Include="CommonSettings.cs" />
+    <Compile Include="Settings\Environment.cs" />
+    <Compile Include="Settings\SettingsReader.cs" />
     <Compile Include="Components\ApiDocsModels\Block\DocsBlockModel.cs" />
     <Compile Include="Components\ApiDocsModels\CodeBlock\CodeBlockModel.cs" />
     <Compile Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cs" />
@@ -214,7 +215,6 @@
     <Compile Include="Controllers\UserDetailsController.cs" />
     <Compile Include="Controllers\EventListController.cs" />
     <Compile Include="Controllers\VueController.cs" />
-    <Compile Include="Environment.cs" />
     <Compile Include="Extensions\UrlExtensions.cs" />
     <Compile Include="Extensions\View.cs" />
     <Compile Include="Models\ApiDocsModels\ApiDocsAuthPageModel.cs" />
@@ -236,7 +236,7 @@
     <Compile Include="Security\IUserIdentity.cs" />
     <Compile Include="Services\CssService.cs" />
     <Compile Include="Services\JsonHelper.cs" />
-    <Compile Include="SiteSettings.cs" />
+    <Compile Include="Settings\SiteSettings.cs" />
     <Compile Include="Extensions\ComponentViewFinder.cs" />
     <Compile Include="Extensions\HtmlExtensions.cs" />
     <Compile Include="Extensions\Component.cs" />
