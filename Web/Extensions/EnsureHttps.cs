@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Environment = Web.Settings.Environment;
 
 namespace Web.Extensions
 {

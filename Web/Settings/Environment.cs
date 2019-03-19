@@ -1,4 +1,4 @@
-namespace Web
+namespace Web.Settings
 {
     public static class Environment
     {

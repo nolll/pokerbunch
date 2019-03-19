@@ -9,6 +9,8 @@ using Web.Extensions;
 using Web.Models;
 using Web.Models.ErrorModels;
 using Web.Security;
+using Web.Services;
+using Web.Settings;
 
 namespace Web.Controllers.Base
 {

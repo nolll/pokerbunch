@@ -1,5 +1,7 @@
 ﻿using PokerBunch.Common.Urls.ApiUrls;
 using PokerBunch.Common.Urls.SiteUrls;
+using Web.Services;
+using Web.Settings;
 
 namespace Web.Extensions
 {
