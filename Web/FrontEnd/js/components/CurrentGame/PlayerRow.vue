@@ -18,6 +18,7 @@
     import { FormatMixin } from '@/mixins';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import playerCalculator from '@/player-calculator';
+    import urls from 'urls';
 
     export default {
         mixins: [
@@ -70,6 +71,9 @@
             },
             formattedWinnings() {
                 return this.formatResult(this.winnings);
+            },
+            url() {
+
             }
         }
     };

@@ -20,7 +20,7 @@ export default {
     },
     cashgame: {
         add: (slug) => `/bunches/${slug}/cashgames/add`,
-        details: (slug, id) => `/bunches/${slug}/cashgame/${id}`,
+        details: (slug, id) => `/bunches/${slug}/cashgames/${id}`,
         edit: (id) => `/cashgame/edit/${id}`,
         index: (slug) => `/bunches/${slug}/cashgames`
     },
