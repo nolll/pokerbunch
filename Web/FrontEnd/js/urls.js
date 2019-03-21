@@ -22,7 +22,8 @@ export default {
         add: (slug) => `/bunches/${slug}/cashgames/add`,
         details: (slug, id) => `/bunches/${slug}/cashgames/${id}`,
         edit: (id) => `/cashgame/edit/${id}`,
-        index: (slug) => `/bunches/${slug}/cashgames`
+        index: (slug) => `/bunches/${slug}/cashgames`,
+        actions: (cashgameId, playerId) => `/cashgame/action/${cashgameId}/${playerId}`
     },
     event: {
         list: (slug) => `/event/list/${slug}`

@@ -19,6 +19,8 @@
     import CustomLink from '@/components/Common/CustomLink.vue';
     import playerCalculator from '@/player-calculator';
     import urls from '@/urls';
+    import { mapGetters } from 'vuex';
+    import { CASHGAME } from '@/store-names';
 
     export default {
         mixins: [
@@ -39,6 +41,9 @@
             }
         },
         computed: {
+            ...mapGetters(CASHGAME, {
+                cashgameId: 'id',
+            }),
             hasCashedOut() {
                 return playerCalculator.hasCashedOut(this.player);
             },
@@ -73,7 +78,7 @@
                 return this.formatResult(this.winnings);
             },
             url() {
-                return urls.player.details(this.player.id);
+                return urls.cashgame.actions(this.cashgameId, this.player.id);
             }
         }
     };
