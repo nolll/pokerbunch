@@ -372,7 +372,7 @@
     <Content Include="FrontEnd\js\store\modules\player-store.js" />
     <Content Include="FrontEnd\js\roles.js" />
     <Content Include="FrontEnd\js\ajax-urls.js" />
-    <Content Include="FrontEnd\js\urls.js" />
+    <TypeScriptCompile Include="FrontEnd\js\urls.ts" />
     <Content Include="FrontEnd\js\comparer.js" />
     <Content Include="FrontEnd\js\components\DefinitionList\index.js" />
     <Content Include="FrontEnd\js\components\Facts\index.js" />
