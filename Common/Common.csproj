@@ -108,12 +108,12 @@
     <Compile Include="Urls\SiteUrls\DashboardUrl.cs" />
     <Compile Include="Urls\SiteUrls\DeleteAppUrl.cs" />
     <Compile Include="Urls\SiteUrls\DeleteCashgameUrl.cs" />
-    <Compile Include="Urls\SiteUrls\DeleteCheckpointUrl.cs" />
+    <Compile Include="Urls\SiteUrls\DeleteActionUrl.cs" />
     <Compile Include="Urls\SiteUrls\DeletePlayerUrl.cs" />
     <Compile Include="Urls\SiteUrls\EditAppUrl.cs" />
     <Compile Include="Urls\SiteUrls\EditBunchUrl.cs" />
     <Compile Include="Urls\SiteUrls\EditCashgameUrl.cs" />
-    <Compile Include="Urls\SiteUrls\EditCheckpointUrl.cs" />
+    <Compile Include="Urls\SiteUrls\EditActionUrl.cs" />
     <Compile Include="Urls\SiteUrls\EditLocationUrl.cs" />
     <Compile Include="Urls\SiteUrls\EditUserUrl.cs" />
     <Compile Include="Urls\SiteUrls\EndCashgameUrl.cs" />

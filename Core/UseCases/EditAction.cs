@@ -3,11 +3,11 @@ using Core.Services;
 
 namespace Core.UseCases
 {
-    public class EditCheckpoint
+    public class EditAction
     {
         private readonly ICashgameService _cashgameService;
 
-        public EditCheckpoint(ICashgameService cashgameService)
+        public EditAction(ICashgameService cashgameService)
         {
             _cashgameService = cashgameService;
         }

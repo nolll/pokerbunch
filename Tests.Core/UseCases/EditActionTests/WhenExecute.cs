@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.EditCheckpointTests
+namespace Tests.Core.UseCases.EditActionTests
 {
     public class WhenExecute : Arrange
     {
@@ -17,7 +17,7 @@ namespace Tests.Core.UseCases.EditCheckpointTests
         }
 
         [Test]
-        public void EditCheckpoint_ValidInput_CheckpointIsSaved()
+        public void EditAction_ValidInput_ActionIsSaved()
         {
             Assert.AreEqual(CashgameId, PostedCashgameId);
             Assert.AreEqual(ActionId, PostedActionId);

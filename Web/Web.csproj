@@ -202,7 +202,7 @@
     <Compile Include="Controllers\DeletePlayerController.cs" />
     <Compile Include="Controllers\EditBunchController.cs" />
     <Compile Include="Controllers\EditCashgameController.cs" />
-    <Compile Include="Controllers\EditCheckpointController.cs" />
+    <Compile Include="Controllers\EditActionController.cs" />
     <Compile Include="Controllers\EditUserController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventDetailsController.cs" />
@@ -249,9 +249,9 @@
     <Compile Include="Models\AppModels\List\AllAppsPageModel.cs" />
     <Compile Include="Models\AppModels\List\UserAppsPageModel.cs" />
     <Compile Include="Models\CashgameModels\Action\ActionChartModel.cs" />
-    <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPageModel.cs" />
+    <Compile Include="Models\CashgameModels\Checkpoints\EditActionPageModel.cs" />
     <Compile Include="Models\AdminModels\EmailModel.cs" />
-    <Compile Include="Models\CashgameModels\Checkpoints\EditCheckpointPostModel.cs" />
+    <Compile Include="Models\CashgameModels\Checkpoints\EditActionPostModel.cs" />
     <Compile Include="Models\ChartModels\ChartDateTimeValueModel.cs" />
     <Compile Include="Models\ChartModels\ChartIntValueModel.cs" />
     <Compile Include="Models\ErrorModels\Error401PageModel.cs" />
@@ -463,7 +463,7 @@
     <Content Include="Views\Pages\ChangePassword\ChangePasswordDone.cshtml" />
     <Content Include="Views\Pages\EditBunch\Edit.cshtml" />
     <Content Include="Views\Pages\EditCashgame\Edit.cshtml" />
-    <Content Include="Views\Pages\EditCheckpoint\Edit.cshtml" />
+    <Content Include="Views\Pages\EditAction\Edit.cshtml" />
     <Content Include="Views\Pages\EditUser\EditUser.cshtml" />
     <Content Include="Views\Pages\EventDetails\EventDetails.cshtml" />
     <Content Include="Views\Pages\EventList\EventList.cshtml" />

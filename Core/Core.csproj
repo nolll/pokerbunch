@@ -121,8 +121,8 @@
     <Compile Include="UseCases\EditBunch.cs" />
     <Compile Include="UseCases\EditCashgameForm.cs" />
     <Compile Include="UseCases\EditCashgame.cs" />
-    <Compile Include="UseCases\EditCheckpointForm.cs" />
-    <Compile Include="UseCases\EditCheckpoint.cs" />
+    <Compile Include="UseCases\EditActionForm.cs" />
+    <Compile Include="UseCases\EditAction.cs" />
     <Compile Include="UseCases\EditUserForm.cs" />
     <Compile Include="UseCases\EditUser.cs" />
     <Compile Include="UseCases\EventDetails.cs" />

@@ -19,7 +19,7 @@ namespace Web.Models.CashgameModels.Action
             Stack = checkpointItem.DisplayAmount.ToString();
             Timestamp = Globalization.FormatTime(checkpointItem.Time);
             ShowLink = checkpointItem.CanEdit;
-            EditUrl = new EditCheckpointUrl(checkpointItem.CashgameId, checkpointItem.CheckpointId).Relative;
+            EditUrl = new EditActionUrl(checkpointItem.CashgameId, checkpointItem.CheckpointId).Relative;
         }
 
         public View GetView()

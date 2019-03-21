@@ -8,7 +8,7 @@ namespace Web.Controllers
     public class DeleteCheckpointController : BaseController
     {
         [Authorize]
-        [Route(DeleteCheckpointUrl.Route)]
+        [Route(DeleteActionUrl.Route)]
         public ActionResult DeleteCheckpoint(string cashgameId, string actionId)
         {
             var request = new DeleteCheckpoint.Request(cashgameId, actionId);

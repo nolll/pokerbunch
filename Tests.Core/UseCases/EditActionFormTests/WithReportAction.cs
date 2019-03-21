@@ -1,6 +1,6 @@
 using NUnit.Framework;
 
-namespace Tests.Core.UseCases.EditCheckpointFormTests
+namespace Tests.Core.UseCases.EditActionFormTests
 {
     public class WithReportAction : Arrange
     {

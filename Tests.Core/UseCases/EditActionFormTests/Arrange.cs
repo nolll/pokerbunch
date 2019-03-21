@@ -6,11 +6,11 @@ using Core.Services;
 using Core.UseCases;
 using Tests.Core.Data;
 
-namespace Tests.Core.UseCases.EditCheckpointFormTests
+namespace Tests.Core.UseCases.EditActionFormTests
 {
-    public abstract class Arrange : UseCaseTest<EditCheckpointForm>
+    public abstract class Arrange : UseCaseTest<EditActionForm>
     {
-        protected EditCheckpointForm.Result Result;
+        protected EditActionForm.Result Result;
 
         protected const string CashgameId = CashgameData.Id1;
         protected const string PlayerId = PlayerData.Id1;
@@ -31,7 +31,7 @@ namespace Tests.Core.UseCases.EditCheckpointFormTests
 
         protected override void Execute()
         {
-            Result = Subject.Execute(new EditCheckpointForm.Request(CashgameId, ActionId));
+            Result = Subject.Execute(new EditActionForm.Request(CashgameId, ActionId));
         }
 
         private DetailedCashgame GameWithTwoPlayers => new DetailedCashgame(

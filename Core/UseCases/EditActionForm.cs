@@ -4,11 +4,11 @@ using Core.Services;
 
 namespace Core.UseCases
 {
-    public class EditCheckpointForm
+    public class EditActionForm
     {
         private readonly ICashgameService _cashgameService;
 
-        public EditCheckpointForm(ICashgameService cashgameService)
+        public EditActionForm(ICashgameService cashgameService)
         {
             _cashgameService = cashgameService;
         }

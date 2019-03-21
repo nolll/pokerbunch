@@ -5,11 +5,11 @@ using Core.UseCases;
 using Moq;
 using Tests.Core.Data;
 
-namespace Tests.Core.UseCases.EditCheckpointTests
+namespace Tests.Core.UseCases.EditActionTests
 {
-    public abstract class Arrange : UseCaseTest<EditCheckpoint>
+    public abstract class Arrange : UseCaseTest<EditAction>
     {
-        protected EditCheckpoint.Result Result;
+        protected EditAction.Result Result;
 
         protected const string CashgameId = CashgameData.Id1;
         protected const string PlayerId = PlayerData.Id1;
@@ -47,7 +47,7 @@ namespace Tests.Core.UseCases.EditCheckpointTests
 
         protected override void Execute()
         {
-            Result = Subject.Execute(new EditCheckpoint.Request(CashgameId, ActionId, Timestamp, Stack, Amount));
+            Result = Subject.Execute(new EditAction.Request(CashgameId, ActionId, Timestamp, Stack, Amount));
         }
     }
 }

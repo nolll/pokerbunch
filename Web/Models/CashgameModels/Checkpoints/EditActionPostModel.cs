@@ -3,7 +3,7 @@ using JetBrains.Annotations;
 
 namespace Web.Models.CashgameModels.Checkpoints
 {
-    public class EditCheckpointPostModel
+    public class EditActionPostModel
     {
         public DateTime Timestamp { get; [UsedImplicitly] set; }
         public int Stack { get; [UsedImplicitly] set; }
