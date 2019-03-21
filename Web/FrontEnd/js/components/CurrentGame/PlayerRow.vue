@@ -2,7 +2,7 @@
     <div class="standings-item">
         <div class="name">
             <div class="player-color-box" :style="{backgroundColor: player.color}"></div>
-            <custom-link :url="player.url">{{player.name}}</custom-link>
+            <custom-link :url="url">{{player.name}}</custom-link>
             <i title="Cashed out" class="icon-ok-sign" v-if="showCheckmark"></i>
         </div>
         <div class="amounts">
@@ -18,7 +18,7 @@
     import { FormatMixin } from '@/mixins';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import playerCalculator from '@/player-calculator';
-    import urls from 'urls';
+    import urls from '@/urls';
 
     export default {
         mixins: [
@@ -73,7 +73,7 @@
                 return this.formatResult(this.winnings);
             },
             url() {
-
+                return urls.player.details(this.player.id);
             }
         }
     };
