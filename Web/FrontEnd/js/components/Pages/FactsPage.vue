@@ -11,16 +11,16 @@
         </page-section>
 
         <page-section>
-            <template slot="aside">
-                <block>
-                    <overall-facts />
-                </block>
-            </template>
             <block>
                 <single-game-facts />
             </block><block>
                 <total-facts />
             </block>
+            <template slot="aside2">
+                <block>
+                    <overall-facts />
+                </block>
+            </template>
         </page-section>
 
         <template slot="main">

@@ -1,10 +1,13 @@
 ﻿<template>
     <div :class="cssClasses">
-        <div v-if="isAsideEnabled" :class="asideCssClasses">
-            <slot name="aside"></slot>
+        <div v-if="isAside1Enabled" :class="asideCssClasses">
+            <slot name="aside1"></slot>
         </div>
         <div :class="mainCssClasses">
             <slot></slot>
+        </div>
+        <div v-if="isAside2Enabled" :class="asideCssClasses">
+            <slot name="aside2"></slot>
         </div>
     </div>
 </template>
@@ -17,29 +20,31 @@
             }
         },
         computed: {
-            isAsideEnabled() {
-                return this.isSlotEnabled('aside');
+            isAside1Enabled() {
+                return this.isSlotEnabled('aside1');
+            },
+            isAside2Enabled() {
+                return this.isSlotEnabled('aside2');
+            },
+            hasAside() {
+                return this.isAside1Enabled || this.isAside2Enabled;
             },
             cssClasses() {
                 return {
                     'page-section': true,
-                    gutter2: true,
-                    clearfix: true,
-                    wide: this.isWide
+                    'page-section--wide': this.isWide
                 }
             },
             asideCssClasses() {
                 return {
                     region: true,
-                    width1: true,
-                    aside1: true
+                    aside: true
                 };
             },
             mainCssClasses() {
                 return {
                     region: true,
-                    width2: this.isAsideEnabled,
-                    width3: !this.isAsideEnabled
+                    width2: this.hasAside
                 };
             }
         },

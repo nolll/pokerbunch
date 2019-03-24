@@ -1,12 +1,6 @@
 ﻿<template>
     <layout :ready="ready">
         <page-section>
-            <template slot="aside">
-                <block>
-                    <game-chart :players="players"></game-chart>
-                </block>
-            </template>
-
             <block>
                 <page-heading text="Running Cashgame" />
             </block>
@@ -29,6 +23,12 @@
                     <dd class="value-list__value">{{locationName}}</dd>
                 </dl>
             </block>
+
+            <template slot="aside2">
+                <block>
+                    <game-chart :players="players"></game-chart>
+                </block>
+            </template>
         </page-section>
     </layout>
 </template>

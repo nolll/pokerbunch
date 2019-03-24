@@ -4,14 +4,8 @@
     Layout = Model.Layout;
 }
 
-@if (IsSectionDefined("ContentTop")){
-    <div class="region width3">
-        @RenderSection("ContentTop")
-    </div>
-}
-
 @if (IsSectionDefined("Aside1")){
-    <div class="region width1 aside1">
+    <div class="region aside">
         @RenderSection("Aside1")
     </div>
 }
@@ -21,7 +15,7 @@
 </div>
 
 @if (IsSectionDefined("Aside2")){
-    <div class="region width1 aside2">
+    <div class="region aside">
         @RenderSection("Aside2")
     </div>
 }

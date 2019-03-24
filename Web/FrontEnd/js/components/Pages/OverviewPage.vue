@@ -11,7 +11,7 @@
         </page-section>
 
         <page-section>
-            <template slot="aside">
+            <template slot="aside1">
                 <overview-status />
             </template>
             <block>
