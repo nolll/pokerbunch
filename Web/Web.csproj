@@ -399,7 +399,7 @@
     <Content Include="FrontEnd\js\game-sorter.js" />
     <Content Include="FrontEnd\js\mixins\data-mixin.js" />
     <Content Include="FrontEnd\js\mixins\format-mixin.js" />
-    <TypeScriptCompile Include="FrontEnd\js\mixins\index.ts" />
+    <Content Include="FrontEnd\js\mixins\index.js" />
     <Content Include="FrontEnd\js\player-sorter.js" />
     <TypeScriptCompile Include="FrontEnd\js\auth.ts" />
     <TypeScriptCompile Include="FrontEnd\js\cookies.ts" />
@@ -419,7 +419,7 @@
     <Content Include="FrontEnd\js\store\modules\bunch-store.js" />
     <Content Include="FrontEnd\js\store\modules\game-archive-store.js" />
     <Content Include="FrontEnd\js\store\modules\index.js" />
-    <TypeScriptCompile Include="FrontEnd\js\styles.ts" />
+    <Content Include="FrontEnd\js\styles.js" />
     <Content Include="FrontEnd\js\dom-modules.js" />
     <TypeScriptCompile Include="FrontEnd\js\forms.ts" />
     <Content Include="FrontEnd\js\index.js" />
@@ -699,10 +699,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FrontEnd\Font\fontawesome-webfont.svg" />
-    <TypeScriptCompile Include="FrontEnd\js\cancel-button.ts" />
+    <Content Include="FrontEnd\js\cancel-button.js" />
     <Content Include="FrontEnd\js\currency-form.js" />
-    <TypeScriptCompile Include="FrontEnd\js\delete-confirmation.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\focus-text-selector.ts" />
+    <Content Include="FrontEnd\js\delete-confirmation.js" />
+    <Content Include="FrontEnd\js\focus-text-selector.js" />
     <Content Include="FrontEnd\js\heading-nav.js" />
     <Content Include="FrontEnd\js\dom-hookup.js" />
     <Content Include="Global.asax" />
