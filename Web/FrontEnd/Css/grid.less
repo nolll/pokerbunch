@@ -6,7 +6,7 @@
     padding: 0 15px;
 }
 
-.page-section.wide {
+.page-section--wide {
     max-width: none;
     margin: 0 auto;
 }
@@ -15,38 +15,21 @@
 	margin-top: 15px;
 }
 
-.region,
-.region.width1,
-.region.width2,
-.region.width3{
-	width: 100%;
-}
-
-.region,
-.region.width3{
-	float:left;
-}
-
 @media @widthSmall {
- 	.region .gutter{
-		margin-right: 0;
-	}
-	.region.aside1 .gutter,
-	.region.aside2 .gutter,
-	.region.width3 .gutter{
-		margin-right: 15px;
-	}
-    .region.width1{
-        width: 33%;
+    .page-section{
+        display: flex;
+        justify-content: space-between;
+    }
+    .region{
+        flex: 1;
+        width: 32%;
     }
     .region.width2{
-    	float: left;
-	    width: 67%;
+        flex: 2;
+        order: 1;
     }
-    .region.width1.aside1{
-	    float: right;
-    }
-    .region.width1.aside2{
-		float: left;
+    .region.aside {
+        padding-left: 15px;
+        order: 2;
     }
 }

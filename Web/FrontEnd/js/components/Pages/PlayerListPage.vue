@@ -5,7 +5,7 @@
         </template>
 
         <page-section>
-            <template slot="aside">
+            <template slot="aside1">
                 <block>
                     <custom-button :url="addPlayerUrl" type="action" text="Add player" />
                 </block>

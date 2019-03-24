@@ -5,14 +5,6 @@
         </template>
 
         <page-section>
-            <template slot="aside">
-                <block>
-                    <user-bunch-list />
-                </block>
-                <block v-if="isAdmin">
-                    <admin-navigation />
-                </block>
-            </template>
             <block>
                 <page-heading text="This is Poker Bunch" />
             </block>
@@ -48,6 +40,15 @@
                     </p>
                 </block>
             </div>
+
+            <template slot="aside2">
+                <block>
+                    <user-bunch-list />
+                </block>
+                <block v-if="isAdmin">
+                    <admin-navigation />
+                </block>
+            </template>
 
         </page-section>
     </layout>

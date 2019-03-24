@@ -5,25 +5,6 @@
         </template>
 
         <page-section>
-            <template slot="aside">
-                <block>
-                    <value-list>
-                        <value-list-key v-if="showStartTime">Start Time</value-list-key>
-                        <value-list-value v-if="showStartTime">{{formattedStartTime}}</value-list-value>
-                        <value-list-key v-if="showEndTime">End Time</value-list-key>
-                        <value-list-value v-if="showEndTime">{{formattedEndTime}}</value-list-value>
-                        <value-list-key v-if="showDuration">Duration</value-list-key>
-                        <value-list-value v-if="showDuration">{{formattedDuration}}</value-list-value>
-                        <value-list-key>Location</value-list-key>
-                        <value-list-value><custom-link :url="locationUrl">{{locationName}}</custom-link></value-list-value>
-                        <value-list-key v-if="isPlayerSelectionVisible">Player</value-list-key>
-                        <value-list-value v-if="isPlayerSelectionVisible"><player-dropdown /></value-list-value>
-                    </value-list>
-                </block>
-                <block v-if="canEdit">
-                    <custom-link :url="editUrl" cssClasses="button button--action">Edit Cashgame</custom-link>
-                </block>
-            </template>
             <block>
                 <page-heading :text="title" />
             </block>
@@ -45,6 +26,25 @@
             <block v-else>
                 No one has joined the game yet.
             </block>
+            <template slot="aside2">
+                <block>
+                    <value-list>
+                        <value-list-key v-if="showStartTime">Start Time</value-list-key>
+                        <value-list-value v-if="showStartTime">{{formattedStartTime}}</value-list-value>
+                        <value-list-key v-if="showEndTime">End Time</value-list-key>
+                        <value-list-value v-if="showEndTime">{{formattedEndTime}}</value-list-value>
+                        <value-list-key v-if="showDuration">Duration</value-list-key>
+                        <value-list-value v-if="showDuration">{{formattedDuration}}</value-list-value>
+                        <value-list-key>Location</value-list-key>
+                        <value-list-value><custom-link :url="locationUrl">{{locationName}}</custom-link></value-list-value>
+                        <value-list-key v-if="isPlayerSelectionVisible">Player</value-list-key>
+                        <value-list-value v-if="isPlayerSelectionVisible"><player-dropdown /></value-list-value>
+                    </value-list>
+                </block>
+                <block v-if="canEdit">
+                    <custom-link :url="editUrl" cssClasses="button button--action">Edit Cashgame</custom-link>
+                </block>
+            </template>
         </page-section>
 
         <page-section v-if="hasPlayers">
