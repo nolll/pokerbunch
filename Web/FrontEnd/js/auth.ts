@@ -1,12 +1,12 @@
 import cookies from './cookies'
 
-var cookieName = 'token';
+const cookieName = 'token';
 
 export default {
-    getToken: function() {
+    getToken() {
         return cookies.get(cookieName);
     },
-    setToken: function(token) {
+    setToken(token: string) {
         cookies.set(cookieName, token, 365);
     },
     isLoggedIn: function() {

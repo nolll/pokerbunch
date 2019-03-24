@@ -1,5 +1,5 @@
 export default {
-    compare: function(a, b) {
+    compare(a: any, b: any) {
         if (a < b)
             return -1;
         if (a > b)

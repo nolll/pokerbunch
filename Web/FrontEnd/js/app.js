@@ -1,5 +1,4 @@
 import vue from 'vue';
-import vuex from 'vuex';
 import store from './store';
 import router from './router';
 import { CashgameActionChart, CashgameDetailsChart } from './components';

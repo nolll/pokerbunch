@@ -21,11 +21,13 @@ module.exports = {
                     { loader: MiniCssExtractPlugin.loader },
                     { loader: 'css-loader' },
                     { loader: 'less-loader' }
-                ]
+                ],
+                exclude: /node_modules/
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader'
+                loader: 'vue-loader',
+                exclude: /node_modules/
             },
             {
                 test: /\.js$/,

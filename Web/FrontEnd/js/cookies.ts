@@ -1,11 +1,11 @@
 export default {
-    get: function (name) {
+    get(name: string) {
         const re = new RegExp(name + '=([^;]+)');
         const value = re.exec(document.cookie);
-        return (value != null) ? unescape(value[1]) : null;
+        return (value) ? unescape(value[1]) : null;
     },
-    set: function(name, value, days) {
-        var expires = '';
+    set(name: string, value: string, days: number) {
+        let expires = '';
         if (days) {
             const date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
@@ -14,7 +14,7 @@ export default {
         }
         document.cookie = name + '=' + (value || '') + expires + '; path=/';
     },
-    delete: function(name) {
+    delete(name:string) {
         document.cookie = name + '=; Max-Age=-99999999;';
     }
 };

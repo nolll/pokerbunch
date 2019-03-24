@@ -1,12 +1,12 @@
 import axios from 'axios';
 
 export default {
-    get: (url, headers) => axios({
+    get: (url: string, headers?: object) => axios({
         method: 'get',
         url: url,
         headers: headers
     }),
-    post: (url, data, headers) => axios({
+    post: (url: string, data: object, headers?: object) => axios({
         method: 'post',
         url: url,
         headers: headers,

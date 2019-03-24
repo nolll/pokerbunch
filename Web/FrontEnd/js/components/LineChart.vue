@@ -7,7 +7,6 @@
 
 <script>
     import { debounce } from 'debounce';
-    import extender from '@/extender';
     import { GoogleCharts } from 'google-charts';
     import { Spinner } from '@/components/Common';
 
@@ -85,7 +84,7 @@
                 };
 
                 if (typeof this.chartOptions == 'object') {
-                    return extender.extend(conf, this.chartOptions);
+                    return Object.assign(conf, this.chartOptions);
                 }
 
                 return conf;

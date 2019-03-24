@@ -1,7 +1,3 @@
-function isCapable() {
-    return hasAddEventListener() && hasClassList() && hasArrayIndexOf();
-}
-
 function hasAddEventListener() {
     return document.addEventListener;
 }
@@ -15,5 +11,5 @@ function hasArrayIndexOf() {
 }
 
 export default {
-    isCapable: isCapable
+    isCapable: () => hasAddEventListener() && hasClassList() && hasArrayIndexOf(),
 };

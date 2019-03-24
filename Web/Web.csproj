@@ -38,6 +38,19 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptModuleKind />
+    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -358,22 +371,24 @@
       <DependentUpon>table-list.less</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="FrontEnd\js\ajax-client.js" />
-    <Content Include="FrontEnd\js\api-urls.js" />
-    <Content Include="FrontEnd\js\http-client.js" />
-    <Content Include="FrontEnd\js\api-client.js" />
+    <TypeScriptCompile Include="FrontEnd\js\ajax-client.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\api-urls.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\settings.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\types.d.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\http-client.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\api-client.ts" />
     <Content Include="FrontEnd\js\components\PlayerList\index.js" />
     <Content Include="FrontEnd\js\player-calculator.js" />
-    <Content Include="FrontEnd\js\action-types.js" />
-    <Content Include="FrontEnd\js\time-functions.js" />
-    <Content Include="FrontEnd\js\store-names.js" />
+    <TypeScriptCompile Include="FrontEnd\js\action-types.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\time-functions.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\store-names.ts" />
     <Content Include="FrontEnd\js\components\YearMatrix\index.js" />
     <Content Include="FrontEnd\js\store\modules\cashgame-store.js" />
     <Content Include="FrontEnd\js\store\modules\player-store.js" />
-    <Content Include="FrontEnd\js\roles.js" />
-    <Content Include="FrontEnd\js\ajax-urls.js" />
+    <TypeScriptCompile Include="FrontEnd\js\roles.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\ajax-urls.ts" />
     <TypeScriptCompile Include="FrontEnd\js\urls.ts" />
-    <Content Include="FrontEnd\js\comparer.js" />
+    <TypeScriptCompile Include="FrontEnd\js\comparer.ts" />
     <Content Include="FrontEnd\js\components\DefinitionList\index.js" />
     <Content Include="FrontEnd\js\components\Facts\index.js" />
     <Content Include="FrontEnd\js\components\Layouts\index.js" />
@@ -384,14 +399,14 @@
     <Content Include="FrontEnd\js\game-sorter.js" />
     <Content Include="FrontEnd\js\mixins\data-mixin.js" />
     <Content Include="FrontEnd\js\mixins\format-mixin.js" />
-    <Content Include="FrontEnd\js\mixins\index.js" />
+    <TypeScriptCompile Include="FrontEnd\js\mixins\index.ts" />
     <Content Include="FrontEnd\js\player-sorter.js" />
-    <Content Include="FrontEnd\js\auth.js" />
-    <Content Include="FrontEnd\js\cookies.js" />
+    <TypeScriptCompile Include="FrontEnd\js\auth.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\cookies.ts" />
     <Content Include="FrontEnd\js\components\Matrix\index.js" />
-    <Content Include="FrontEnd\js\querystring.js" />
-    <Content Include="FrontEnd\js\api.js" />
-    <Content Include="FrontEnd\js\browser.js" />
+    <TypeScriptCompile Include="FrontEnd\js\querystring.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\api.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\browser.ts" />
     <Content Include="FrontEnd\js\components\Common\index.js" />
     <Content Include="FrontEnd\js\components\CurrentGame\index.js" />
     <Content Include="FrontEnd\js\components\GameList\index.js" />
@@ -404,12 +419,11 @@
     <Content Include="FrontEnd\js\store\modules\bunch-store.js" />
     <Content Include="FrontEnd\js\store\modules\game-archive-store.js" />
     <Content Include="FrontEnd\js\store\modules\index.js" />
-    <Content Include="FrontEnd\js\styles.js" />
+    <TypeScriptCompile Include="FrontEnd\js\styles.ts" />
     <Content Include="FrontEnd\js\dom-modules.js" />
-    <Content Include="FrontEnd\js\extender.js" />
-    <Content Include="FrontEnd\js\forms.js" />
+    <TypeScriptCompile Include="FrontEnd\js\forms.ts" />
     <Content Include="FrontEnd\js\index.js" />
-    <Content Include="FrontEnd\js\validate.js" />
+    <TypeScriptCompile Include="FrontEnd\js\validate.ts" />
     <Content Include="FrontEnd\js\app.js" />
     <Content Include="FrontEnd\templates\StyleTemplate.txt" />
     <Content Include="FrontEnd\templates\ScriptTemplate.txt" />
@@ -685,10 +699,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="FrontEnd\Font\fontawesome-webfont.svg" />
-    <Content Include="FrontEnd\js\cancel-button.js" />
+    <TypeScriptCompile Include="FrontEnd\js\cancel-button.ts" />
     <Content Include="FrontEnd\js\currency-form.js" />
-    <Content Include="FrontEnd\js\delete-confirmation.js" />
-    <Content Include="FrontEnd\js\focus-text-selector.js" />
+    <TypeScriptCompile Include="FrontEnd\js\delete-confirmation.ts" />
+    <TypeScriptCompile Include="FrontEnd\js\focus-text-selector.ts" />
     <Content Include="FrontEnd\js\heading-nav.js" />
     <Content Include="FrontEnd\js\dom-hookup.js" />
     <Content Include="Global.asax" />

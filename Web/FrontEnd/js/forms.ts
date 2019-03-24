@@ -1,4 +1,4 @@
-function select(field, start, end) {
+function select(field:ITextInput, start:number, end:number) {
     if (field.createTextRange) {
         const selRange = field.createTextRange();
         selRange.collapse(true);
@@ -7,7 +7,7 @@ function select(field, start, end) {
         selRange.select();
         field.focus();
     } else if (field.setSelectionRange) {
-        window.setTimeout(function () {
+        window.setTimeout(() => {
             field.focus();
             field.setSelectionRange(start, end);
         }, 1);
@@ -18,10 +18,8 @@ function select(field, start, end) {
     }
 }
 
-function selectAll(field) {
-    return select(field, 0, field.value.length);
-}
-
 export default {
-    selectAll: selectAll
+    selectAll(field:ITextInput) {
+        return select(field, 0, field.value.length);
+    }
 };
