@@ -11,7 +11,14 @@
     import { Spinner } from '@/components/Common';
 
     export default {
-        props: ['chartData', 'chartOptions'],
+        props: {
+            chartData: {
+                type: Object
+            },
+            chartOptions: {
+                type: Object
+            }
+        },
         components: {
             Spinner
         },
@@ -67,9 +74,6 @@
                 }, 150));
             },
             getConfig() {
-                var width = parseInt(window.getComputedStyle(this.$refs.container).width);
-                var height = width / 2;
-
                 var conf = {
                     backgroundColor: '#fff',
                     fontSize: 16,
@@ -79,8 +83,8 @@
                     pointSize: 2,
                     theme: 'maximized',
                     seriesType: 'line',
-                    width: width,
-                    height: height
+                    width: this.getWidth(),
+                    height: this.getHeight()
                 };
 
                 if (typeof this.chartOptions == 'object') {
@@ -88,6 +92,14 @@
                 }
 
                 return conf;
+            },
+            getWidth() {
+                if (this.$refs.container)
+                    return parseInt(window.getComputedStyle(this.$refs.container).width);
+                return 0;
+            },
+            getHeight() {
+                return this.getWidth() / 2;
             }
         },
         data: function () {

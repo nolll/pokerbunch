@@ -9,9 +9,6 @@
             url: {
                 type: String
             },
-            text: {
-                type: String
-            },
             cssClasses: {
 
             }

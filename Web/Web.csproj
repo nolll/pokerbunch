@@ -345,6 +345,7 @@
     <Content Include="FrontEnd\Css\docs.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="FrontEnd\js\components\CurrentGame\PlayerAction.vue" />
     <None Include="tsconfig.json" />
     <None Include="FrontEnd\Css\styles.less" />
     <TypeScriptCompile Include="FrontEnd\js\ajax-client.ts" />

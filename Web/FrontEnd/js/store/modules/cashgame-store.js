@@ -198,6 +198,25 @@ export default {
         },
         hideForms(context) {
             context.commit('hideForms');
+        },
+        deleteAction(context, data) {
+            context.commit('removeAction', data);
+            api.deleteAction(context.state._id, data.id)
+                .then(function () {
+                    refresh(context);
+                });
+        },
+        saveAction(context, data) {
+            context.commit('updateAction', data);
+            const updateData = {
+                added: data.added,
+                stack: data.stack,
+                timestamp: data.time
+            };
+            api.updateAction(context.state._id, data.id, updateData)
+                .then(function () {
+                    refresh(context);
+                });
         }
     },
     mutations: {
@@ -245,6 +264,24 @@ export default {
         },
         loadingComplete(state) {
             state._cashgameReady = true;
+        },
+        removeAction(state, payload) {
+            state._players.forEach(function (player) {
+                const p = player.actions.map(item => item.id).indexOf(payload.id);
+                if (p !== -1) {
+                    player.actions.splice(p, 1);
+                }
+            });
+        },
+        updateAction(state, payload) {
+            state._players.forEach(function (player) {
+                player.actions = player.actions.map(action => {
+                    if (action.id === payload.id) {
+                        return Object.assign({}, action, payload.data);
+                    }
+                    return action;
+                });
+            });
         },
         dataLoaded(state, data) {
             state._isRunning = data.isRunning;

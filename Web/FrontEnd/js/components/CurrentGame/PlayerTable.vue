@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         <div v-for="player in players">
-            <player-row :player="player" :isCheckmarkEnabled="isRunning" :isReportTimeEnabled="isRunning"></player-row>
+            <player-row :player="player" :isCheckmarkEnabled="isRunning" :isReportTimeEnabled="isRunning" />
         </div>
         <div class="totals">
             <div class="title">Totals: </div>

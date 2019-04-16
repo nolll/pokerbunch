@@ -16,5 +16,7 @@ export default {
     report: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     cashout: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     getUser: () => apiClient.get(apiUrls.user.current),
-    getUsers: () => apiClient.get(apiUrls.user.list)
+    getUsers: () => apiClient.get(apiUrls.user.list),
+    deleteAction: (cashgameId: string, actionId: string) => apiClient.delete(apiUrls.cashgame.action(cashgameId, actionId)),
+    updateAction: (cashgameId: string, actionId: string, data: object) => apiClient.put(apiUrls.cashgame.action(cashgameId, actionId), data)
 };

@@ -4,7 +4,9 @@ import settings from './settings';
 
 export default {
     get: (url: string) => httpClient.get(getApiUrl(url), getApiHeaders()),
-    post: (url: string, data: object) => httpClient.post(getApiUrl(url), data, getApiHeaders())
+    post: (url: string, data: object) => httpClient.post(getApiUrl(url), data, getApiHeaders()),
+    put: (url: string, data: object) => httpClient.put(getApiUrl(url), data, getApiHeaders()),
+    delete: (url: string) => httpClient.delete(getApiUrl(url), getApiHeaders())
 };
 
 function getApiHeaders() {
