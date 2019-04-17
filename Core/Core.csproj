@@ -89,8 +89,6 @@
     <Compile Include="Services\RoleHandler.cs" />
     <Compile Include="Services\SlugGenerator.cs" />
     <Compile Include="Services\TimeZoneService.cs" />
-    <Compile Include="UseCases\ActionsChart.cs" />
-    <Compile Include="UseCases\Actions.cs" />
     <Compile Include="UseCases\AddApp.cs" />
     <Compile Include="UseCases\AddBunchForm.cs" />
     <Compile Include="UseCases\AddBunch.cs" />
@@ -115,14 +113,11 @@
     <Compile Include="UseCases\LocationList.cs" />
     <Compile Include="UseCases\ChangePassword.cs" />
     <Compile Include="UseCases\DeleteCashgame.cs" />
-    <Compile Include="UseCases\DeleteCheckpoint.cs" />
     <Compile Include="UseCases\DeletePlayer.cs" />
     <Compile Include="UseCases\EditBunchForm.cs" />
     <Compile Include="UseCases\EditBunch.cs" />
     <Compile Include="UseCases\EditCashgameForm.cs" />
     <Compile Include="UseCases\EditCashgame.cs" />
-    <Compile Include="UseCases\EditActionForm.cs" />
-    <Compile Include="UseCases\EditAction.cs" />
     <Compile Include="UseCases\EditUserForm.cs" />
     <Compile Include="UseCases\EditUser.cs" />
     <Compile Include="UseCases\EventDetails.cs" />

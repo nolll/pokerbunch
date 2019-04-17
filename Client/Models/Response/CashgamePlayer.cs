@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace PokerBunch.Client.Models.Response
 {
@@ -12,6 +11,5 @@ namespace PokerBunch.Client.Models.Response
         public int Buyin { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime UpdatedTime { get; set; }
-        public IList<CashgameAction> Actions { get; set; }
     }
 }

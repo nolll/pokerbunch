@@ -42,15 +42,5 @@ namespace Infrastructure.Api.FakeServices
         {
             throw new NotImplementedException();
         }
-
-        public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteAction(string cashgameId, string actionId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

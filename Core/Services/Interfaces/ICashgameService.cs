@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Core.Entities;
 
@@ -15,8 +14,5 @@ namespace Core.Services
         void DeleteGame(string id);
         string Add(string bunchId, string locationId);
         DetailedCashgame Update(string id, string locationId, string eventId);
-
-        void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added);
-        void DeleteAction(string cashgameId, string actionId);
     }
 }

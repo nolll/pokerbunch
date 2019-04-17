@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Entities.Checkpoints;
 
 namespace Core.Entities
@@ -32,11 +31,6 @@ namespace Core.Entities
 
         public bool BelongsToEvent => Event != null;
 
-        public CashgameAction GetAction(string id)
-        {
-            return Players.SelectMany(p => p.Actions).FirstOrDefault(a => a.Id == id);
-        }
-
         public class CashgamePlayer
         {
             public string Id { get; }
@@ -46,9 +40,8 @@ namespace Core.Entities
             public int Buyin { get; }
             private DateTime StartTime { get; }
             private DateTime UpdatedTime { get; }
-            public IList<CashgameAction> Actions { get; }
 
-            public CashgamePlayer(string id, string name, string color, int stack, int buyin, DateTime startTime, DateTime updatedTime, IList<CashgameAction> actions)
+            public CashgamePlayer(string id, string name, string color, int stack, int buyin, DateTime startTime, DateTime updatedTime)
             {
                 Id = id;
                 Name = name;
@@ -57,32 +50,6 @@ namespace Core.Entities
                 Buyin = buyin;
                 StartTime = startTime;
                 UpdatedTime = updatedTime;
-                Actions = actions;
-            }
-
-            public int Winnings => Stack - Buyin;
-            public int Winrate => PlayedMinutes == 0 ? 0 : (int)Math.Round((double)Winnings / PlayedMinutes * 60);
-            private int PlayedMinutes => (int)Math.Round(PlayedTime.TotalMinutes);
-            private TimeSpan PlayedTime => UpdatedTime - StartTime;
-        }
-
-        public class CashgameAction
-        {
-            public string Id { get; }
-            public string PlayerId { get; }
-            public CheckpointType Type { get; }
-            public DateTime Time { get; }
-            public int Stack { get; }
-            public int Added { get; }
-
-            public CashgameAction(string id, string playerId, CheckpointType type, DateTime time, int stack, int added)
-            {
-                Id = id;
-                PlayerId = playerId;
-                Type = type;
-                Time = time;
-                Stack = stack;
-                Added = added;
             }
         }
     }

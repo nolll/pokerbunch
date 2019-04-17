@@ -49,24 +49,7 @@ namespace Infrastructure.Api.FakeServices
                         55,
                         200,
                         DateTime.Parse("2018-02-02T18:00:00Z"),
-                        DateTime.Parse("2018-02-02T18:30:00Z"),
-                        new List<DetailedCashgame.CashgameAction>
-                        {
-                            new DetailedCashgame.CashgameAction(
-                                "action1",
-                                "player1",
-                                CheckpointType.Buyin,
-                                DateTime.Parse("2018-02-02T18:00:00Z"),
-                                200,
-                                200),
-                            new DetailedCashgame.CashgameAction(
-                                "action2",
-                                "player1",
-                                CheckpointType.Cashout,
-                                DateTime.Parse("2018-02-02T18:30:00Z"),
-                                55,
-                                0)
-                        })
+                        DateTime.Parse("2018-02-02T18:30:00Z"))
                 }),
             new DetailedCashgame(
                 "cashgame2",
@@ -86,24 +69,7 @@ namespace Infrastructure.Api.FakeServices
                         55,
                         200,
                         DateTime.Parse("2018-02-03T18:00:00Z"),
-                        DateTime.Parse("2018-02-03T18:30:00Z"),
-                        new List<DetailedCashgame.CashgameAction>
-                        {
-                            new DetailedCashgame.CashgameAction(
-                                "action1",
-                                "player1",
-                                CheckpointType.Buyin,
-                                DateTime.Parse("2018-02-03T18:30:00Z"),
-                                200,
-                                200),
-                            new DetailedCashgame.CashgameAction(
-                                "action2",
-                                "player1",
-                                CheckpointType.Report,
-                                DateTime.Parse("2018-02-03T18:30:00Z"),
-                                155,
-                                0)
-                        })
+                        DateTime.Parse("2018-02-03T18:30:00Z"))
                 })
         };
     }

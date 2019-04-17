@@ -53,15 +53,10 @@ namespace Plumbing
         // Cashgame
         public AddCashgameForm AddCashgameForm => new AddCashgameForm(_deps.BunchService, _deps.CashgameService, _deps.LocationService);
         public AddCashgame AddCashgame => new AddCashgame(_deps.CashgameService);
-        public Actions Actions => new Actions(_deps.CashgameService);
-        public ActionsChart ActionsChart => new ActionsChart(_deps.CashgameService);
-        public EditActionForm EditActionForm => new EditActionForm(_deps.CashgameService);
-        public EditAction EditAction => new EditAction(_deps.CashgameService);
         public EventMatrix EventMatrix => new EventMatrix(_deps.BunchService, _deps.EventService, _deps.CashgameService, _deps.PlayerService);
         public EditCashgameForm EditCashgameForm => new EditCashgameForm(_deps.CashgameService, _deps.LocationService, _deps.EventService);
         public EditCashgame EditCashgame => new EditCashgame(_deps.CashgameService);
         public DeleteCashgame DeleteCashgame => new DeleteCashgame(_deps.CashgameService);
-        public DeleteCheckpoint DeleteCheckpoint => new DeleteCheckpoint(_deps.CashgameService);
 
         // Player
         public PlayerDetails PlayerDetails => new PlayerDetails(_deps.BunchService, _deps.PlayerService, _deps.CashgameService, _deps.UserService);

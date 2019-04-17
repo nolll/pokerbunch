@@ -59,24 +59,7 @@ namespace Tests.Core.Data
                     350,
                     200,
                     StartTime1,
-                    EndTime1,
-                    new List<DetailedCashgame.CashgameAction>
-                    {
-                        new DetailedCashgame.CashgameAction(
-                            "1",
-                            PlayerData.Id1,
-                            CheckpointType.Buyin,
-                            TimeData.Utc("2001-01-01 12:00"),
-                            200,
-                            200),
-                        new DetailedCashgame.CashgameAction(
-                            "2",
-                            PlayerData.Id1,
-                            CheckpointType.Cashout,
-                            TimeData.Utc("2001-01-01 13:00"),
-                            50,
-                            0)
-                    }),
+                    EndTime1),
                 new DetailedCashgame.CashgamePlayer(
                     PlayerData.Id2,
                     PlayerData.Name2,
@@ -84,31 +67,7 @@ namespace Tests.Core.Data
                     50,
                     200,
                     StartTime1,
-                    EndTime1,
-                    new List<DetailedCashgame.CashgameAction>
-                    {
-                        new DetailedCashgame.CashgameAction(
-                            "3",
-                            PlayerData.Id2,
-                            CheckpointType.Buyin,
-                            TimeData.Utc("2001-01-01 12:05"),
-                            200,
-                            200),
-                        new DetailedCashgame.CashgameAction(
-                            "4",
-                            PlayerData.Id2,
-                            CheckpointType.Report,
-                            TimeData.Utc("2001-01-01 12:35"),
-                            250,
-                            0),
-                        new DetailedCashgame.CashgameAction(
-                            "5",
-                            PlayerData.Id2,
-                            CheckpointType.Cashout,
-                            TimeData.Utc("2001-01-01 13:00"),
-                            350,
-                            0)
-                    })
+                    EndTime1)
             });
 
         public static DetailedCashgame GameWithoutPlayers(Role role, bool isRunning = false) => new DetailedCashgame(

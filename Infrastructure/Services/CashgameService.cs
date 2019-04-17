@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Core.Entities;
-using Core.Entities.Checkpoints;
 using Core.Services;
 using PokerBunch.Client.Clients;
 using PokerBunch.Client.Models.Request;
 using PokerBunch.Client.Models.Response;
 using ApiCashgame = PokerBunch.Client.Models.Response.Cashgame;
 using ApiCashgamePlayer = PokerBunch.Client.Models.Response.CashgamePlayer;
-using ApiCashgameAction = PokerBunch.Client.Models.Response.CashgameAction;
 using CashgameBunch = Core.Entities.CashgameBunch;
 using CashgameEvent = Core.Entities.CashgameEvent;
 using CashgameLocation = Core.Entities.CashgameLocation;
@@ -67,18 +65,7 @@ namespace Infrastructure.Api.Services
             var apiCashgame = ApiClient.Cashgames.Update(updateObject);
             return CreateDetailedCashgame(apiCashgame);
         }
-
-        public void UpdateAction(string cashgameId, string actionId, DateTime timestamp, int stack, int added)
-        {
-            var updateObject = new CashgameActionUpdate(cashgameId, actionId, timestamp, stack, added);
-            ApiClient.Cashgames.Actions.Update(updateObject);
-        }
-
-        public void DeleteAction(string cashgameId, string actionId)
-        {
-            ApiClient.Cashgames.Actions.Delete(cashgameId, actionId);
-        }
-
+        
         private ListCashgame CreateListCashgame(CashgameSmall c)
         {
             var location = new SmallLocation(c.Location.Id, c.Location.Name);
@@ -114,14 +101,7 @@ namespace Infrastructure.Api.Services
         {
             var startTime = DateTime.SpecifyKind(p.StartTime, DateTimeKind.Utc);
             var updatedTime = DateTime.SpecifyKind(p.UpdatedTime, DateTimeKind.Utc);
-            var actions = p.Actions.Select(o => CreateAction(p.Id, o)).ToList();
-            return new DetailedCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, startTime, updatedTime, actions);
-        }
-
-        private DetailedCashgame.CashgameAction CreateAction(string playerId, ApiCashgameAction a)
-        {
-            var time = DateTime.SpecifyKind(a.Time, DateTimeKind.Utc);
-            return new DetailedCashgame.CashgameAction(a.Id, playerId, GetActionType(a.Type), time, a.Stack, a.Added);
+            return new DetailedCashgame.CashgamePlayer(p.Id, p.Name, p.Color, p.Stack, p.Buyin, startTime, updatedTime);
         }
 
         private Role GetRole(string r)
@@ -133,15 +113,6 @@ namespace Infrastructure.Api.Services
             if (r == "guest")
                 return Role.Guest;
             return Role.None;
-        }
-
-        private CheckpointType GetActionType(string t)
-        {
-            if (t == "buyin")
-                return CheckpointType.Buyin;
-            if (t == "cashout")
-                return CheckpointType.Cashout;
-            return CheckpointType.Report;
         }
     }
 }

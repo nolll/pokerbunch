@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using PokerBunch.Client.Connection;
 using PokerBunch.Client.Models.Request;
 using PokerBunch.Client.Models.Response;
@@ -9,11 +8,8 @@ namespace PokerBunch.Client.Clients
 {
     public class CashgameClient : ApiClient
     {
-        public CashgameActionClient Actions { get; }
-
         public CashgameClient(ApiConnection apiConnection) : base(apiConnection)
         {
-            Actions = new CashgameActionClient(apiConnection);
         }
 
         public Cashgame GetDetailedById(string id)

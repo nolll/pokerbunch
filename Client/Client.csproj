@@ -52,7 +52,6 @@
     <Compile Include="Clients\AppClient.cs" />
     <Compile Include="Clients\AuthClient.cs" />
     <Compile Include="Clients\BunchClient.cs" />
-    <Compile Include="Clients\CashgameActionClient.cs" />
     <Compile Include="Clients\CashgameClient.cs" />
     <Compile Include="Clients\EventClient.cs" />
     <Compile Include="Clients\LocationClient.cs" />
@@ -75,7 +74,6 @@
     <Compile Include="Models\Request\BunchAdd.cs" />
     <Compile Include="Models\Request\BunchJoin.cs" />
     <Compile Include="Models\Request\BunchUpdate.cs" />
-    <Compile Include="Models\Request\CashgameActionUpdate.cs" />
     <Compile Include="Models\Request\CashgameAdd.cs" />
     <Compile Include="Models\Request\CashgameUpdate.cs" />
     <Compile Include="Models\Request\EventAdd.cs" />
@@ -92,7 +90,6 @@
     <Compile Include="Models\Response\BunchPlayer.cs" />
     <Compile Include="Models\Response\BunchSmall.cs" />
     <Compile Include="Models\Response\Cashgame.cs" />
-    <Compile Include="Models\Response\CashgameAction.cs" />
     <Compile Include="Models\Response\CashgameBunch.cs" />
     <Compile Include="Models\Response\CashgameEvent.cs" />
     <Compile Include="Models\Response\CashgameLocation.cs" />
