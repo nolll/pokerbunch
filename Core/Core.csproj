@@ -44,9 +44,6 @@
     <Compile Include="Entities\App.cs" />
     <Compile Include="Entities\CashgameBunch.cs" />
     <Compile Include="Entities\CashgameLocation.cs" />
-    <Compile Include="Entities\Checkpoints\BuyinCheckpoint.cs" />
-    <Compile Include="Entities\Checkpoints\CashoutCheckpoint.cs" />
-    <Compile Include="Entities\Checkpoints\ReportCheckpoint.cs" />
     <Compile Include="Entities\Date.cs" />
     <Compile Include="Entities\DetailedCashgame.cs" />
     <Compile Include="Entities\Event.cs" />
@@ -146,10 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\CashgameEvent.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Entities\Checkpoints\Checkpoint.cs" />
-    <Compile Include="Entities\Checkpoints\CheckpointType.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\User.cs" />
