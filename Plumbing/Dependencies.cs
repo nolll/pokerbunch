@@ -7,6 +7,7 @@ namespace Plumbing
     public class Dependencies
     {
         private readonly string _apiHost;
+        private readonly int _apiPort;
         private readonly string _apiProtocol;
         private readonly string _apiKey;
         private readonly string _apiToken;
@@ -29,6 +30,7 @@ namespace Plumbing
                 
         public Dependencies(
             string apiHost, 
+            int apiPort,
             string apiProtocol, 
             string apiKey, 
             string apiToken, 
@@ -36,6 +38,7 @@ namespace Plumbing
             bool useFakeData)
         {
             _apiHost = apiHost;
+            _apiPort = apiPort;
             _apiProtocol = apiProtocol;
             _apiKey = apiKey;
             _apiToken = apiToken;
@@ -43,7 +46,7 @@ namespace Plumbing
             _useFakeData = useFakeData;
         }
 
-        private ApiConnection Api => _api ?? (_api = new ApiConnection(_apiHost, _apiProtocol, _apiKey, _apiToken, _isDetailedErrorMessagesEnabled));
+        private ApiConnection Api => _api ?? (_api = new ApiConnection(_apiHost, _apiPort, _apiProtocol, _apiKey, _apiToken, _isDetailedErrorMessagesEnabled));
         private PokerBunchClient ApiClient => _apiClient ?? (_apiClient = new PokerBunchClient(Api));
         private ServiceFactory Services => _serviceFactory ?? (_serviceFactory = new ServiceFactory(ApiClient, _useFakeData));
 

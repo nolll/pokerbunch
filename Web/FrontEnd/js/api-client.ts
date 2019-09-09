@@ -17,11 +17,5 @@ function getApiHeaders() {
 }
 
 function getApiUrl(url: string) {
-    const protocol = getProtocol();
-    return protocol + '//' + settings.apiHost + url;
-}
-
-function getProtocol() {
-    const url = window.location.href;
-    return url.split('/')[0];
+    return settings.apiUrl + url;
 }

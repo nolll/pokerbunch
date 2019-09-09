@@ -1,5 +1,5 @@
 interface IVueConfig {
-    apiHost: string;
+    apiUrl: string;
 }
 
 interface Window {

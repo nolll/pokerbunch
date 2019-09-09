@@ -1,4 +1,6 @@
-﻿namespace Web.Settings
+﻿using System;
+
+namespace Web.Settings
 {
     public static class SiteSettings
     {
@@ -7,7 +9,10 @@
         public static bool EnableAnalytics => SettingsReader.GetBool("EnableAnalytics");
         public static bool EnableApplicationInsights => SettingsReader.GetBool("EnableApplicationInsights");
         public static string ApplicationInsightsKey => SettingsReader.Get("ApplicationInsightsKey");
-        public static string ApiHost => SettingsReader.Get("ApiHost") ?? "api.pokerbunch.com";
+        private static Uri ApiUri => SettingsReader.GetUri("ApiHost") ?? new Uri("https://api.pokerbunch.com");
+        public static string ApiHost => ApiUri.Host;
+        public static int ApiPort => ApiUri.Port;
+        public static string ApiUrl => ApiUri.AbsoluteUri.TrimEnd('/');
         public static string ApiKey => SettingsReader.Get("ApiKey");
         public static string EnvironmentName => SettingsReader.Get("Environment");
         public static bool DetailedErrorsForApi => SettingsReader.GetBool("DetailedErrorsForApi");

@@ -19,7 +19,7 @@ namespace Web.Controllers.Base
     {
         private IUserIdentity _identity;
 
-        private Bootstrapper Bootstrapper => new Bootstrapper(SiteSettings.ApiHost, SiteSettings.ApiProtocol, SiteSettings.ApiKey, Identity.ApiToken, SiteSettings.DetailedErrorsForApi, SiteSettings.UseFakeData);
+        private Bootstrapper Bootstrapper => new Bootstrapper(SiteSettings.ApiHost, SiteSettings.ApiPort, SiteSettings.ApiProtocol, SiteSettings.ApiKey, Identity.ApiToken, SiteSettings.DetailedErrorsForApi, SiteSettings.UseFakeData);
         protected UseCaseContainer UseCase => Bootstrapper.UseCases;
 
         protected CoreContext.Result GetAppContext()

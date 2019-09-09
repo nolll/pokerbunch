@@ -13,14 +13,16 @@ namespace PokerBunch.Client.Connection
     public class ApiConnection
     {
         private readonly string _apiHost;
+        private readonly int _apiPort;
         private readonly string _apiProtocol;
         private readonly string _key;
         private readonly string _token;
         private readonly bool _enableDetailedErrors;
 
-        public ApiConnection(string apiHost, string apiProtocol, string key, string token, bool enableDetailedErrors)
+        public ApiConnection(string apiHost, int apiPort, string apiProtocol, string key, string token, bool enableDetailedErrors)
         {
             _apiHost = apiHost;
+            _apiPort = apiPort;
             _apiProtocol = apiProtocol;
             _key = key;
             _token = token;
@@ -184,7 +186,7 @@ namespace PokerBunch.Client.Connection
 
         private string GetAbsolute(ApiUrl url)
         {
-            return url.Absolute(_apiHost, _apiProtocol);
+            return url.Absolute(_apiHost, _apiPort, _apiProtocol);
         }
     }
 }

@@ -6,9 +6,9 @@ namespace Web
     {
         public UseCaseContainer UseCases { get; }
 
-        public Bootstrapper(string apiHost, string apiProtocol, string apiKey, string apiToken, bool isDetailedErrorMessagesEnabled, bool useFakeData)
+        public Bootstrapper(string apiHost, int apiPort, string apiProtocol, string apiKey, string apiToken, bool isDetailedErrorMessagesEnabled, bool useFakeData)
         {
-            var deps = new Dependencies(apiHost, apiProtocol, apiKey, apiToken, isDetailedErrorMessagesEnabled, useFakeData);
+            var deps = new Dependencies(apiHost, apiPort, apiProtocol, apiKey, apiToken, isDetailedErrorMessagesEnabled, useFakeData);
             UseCases = new UseCaseContainer(deps);
         }
     }

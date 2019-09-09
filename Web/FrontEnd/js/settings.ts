@@ -5,7 +5,7 @@ if (!config) {
 }
 
 export default {
-    get apiHost() {
-        return config.apiHost;
+    get apiUrl() {
+        return config.apiUrl;
     }
 };
