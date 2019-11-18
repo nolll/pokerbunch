@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Components.PlayerModels.Badges;
@@ -21,8 +22,8 @@ namespace Web.Models.PlayerModels.Details
         public BadgeListModel BadgeListModel { get; }
         public string Color { get; }
 
-        public PlayerDetailsPageModel(BunchContext.Result contextResult, PlayerDetails.Result detailsResult, PlayerFacts.Result factsResult, PlayerBadges.Result badgesResult)
-            : base(contextResult)
+        public PlayerDetailsPageModel(AppSettings appSettings, BunchContext.Result contextResult, PlayerDetails.Result detailsResult, PlayerFacts.Result factsResult, PlayerBadges.Result badgesResult)
+            : base(appSettings, contextResult)
         {
             DisplayName = detailsResult.DisplayName;
             DeleteUrl = new DeletePlayerUrl(detailsResult.PlayerId).Relative;

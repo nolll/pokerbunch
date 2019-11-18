@@ -1,15 +1,27 @@
 using System.Collections.Generic;
-using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Add;
 
 namespace Web.Controllers
 {
-    public class AddBunchController : BaseController
+    public class AddBunchController : CoreController
     {
+        private readonly AddBunch _addBunch;
+        private readonly AddBunchForm _addBunchForm;
+
+        public AddBunchController(AppSettings appSettings, CoreContext coreContext, AddBunch addBunch, AddBunchForm addBunchForm)
+            : base(appSettings, coreContext)
+        {
+            _addBunch = addBunch;
+            _addBunchForm = addBunchForm;
+        }
+
         [Authorize]
         [Route(AddBunchUrl.Route)]
         public ActionResult Add()
@@ -27,7 +39,7 @@ namespace Web.Controllers
             try
             {
                 var request = new AddBunch.Request(postModel.DisplayName, postModel.Description, postModel.CurrencySymbol, postModel.CurrencyLayout, postModel.TimeZone);
-                UseCase.AddBunch.Execute(request);
+                _addBunch.Execute(request);
                 return Redirect(new AddBunchConfirmationUrl().Relative);
             }
             catch (ValidationException ex)
@@ -46,15 +58,15 @@ namespace Web.Controllers
         public ActionResult Created()
         {
             var contextResult = GetAppContext();
-            var model = new AddBunchConfirmationPageModel(contextResult);
+            var model = new AddBunchConfirmationPageModel(AppSettings, contextResult);
             return View(model);
         }
 
         private ActionResult ShowForm(AddBunchPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var bunchFormResult = UseCase.AddBunchForm.Execute();
-            var model = new AddBunchPageModel(contextResult, bunchFormResult, postModel, errors);
+            var bunchFormResult = _addBunchForm.Execute();
+            var model = new AddBunchPageModel(AppSettings, contextResult, bunchFormResult, postModel, errors);
             return View(model);
         }
     }

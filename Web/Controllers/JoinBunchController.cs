@@ -1,15 +1,38 @@
 using System.Collections.Generic;
-using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.Join;
 
 namespace Web.Controllers
 {
-    public class JoinBunchController : BaseController
+    public class JoinBunchController : BunchController
     {
+        private readonly JoinBunch _joinBunch;
+        private readonly JoinBunchConfirmation _joinBunchConfirmation;
+        private readonly JoinBunchForm _joinBunchForm;
+
+        public JoinBunchController(
+            AppSettings appSettings, 
+            CoreContext coreContext, 
+            BunchContext bunchContext, 
+            JoinBunch joinBunch, 
+            JoinBunchConfirmation joinBunchConfirmation, 
+            JoinBunchForm joinBunchForm) 
+            : base(
+                appSettings, 
+                coreContext, 
+                bunchContext)
+        {
+            _joinBunch = joinBunch;
+            _joinBunchConfirmation = joinBunchConfirmation;
+            _joinBunchForm = joinBunchForm;
+        }
+
         [Authorize]
         [Route(JoinBunchUrl.Route)]
         public ActionResult Join(string bunchId)
@@ -40,7 +63,7 @@ namespace Web.Controllers
             try
             {
                 var request = new JoinBunch.Request(bunchId, code);
-                var result = UseCase.JoinBunch.Execute(request);
+                var result = _joinBunch.Execute(request);
                 return Redirect(new JoinBunchConfirmationUrl(result.BunchId).Relative);
             }
             catch (ValidationException ex)
@@ -60,16 +83,16 @@ namespace Web.Controllers
         public ActionResult Joined(string bunchId)
         {
             var contextResult = GetBunchContext(bunchId);
-            var joinBunchConfirmationResult = UseCase.JoinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(bunchId));
-            var model = new JoinBunchConfirmationPageModel(contextResult, joinBunchConfirmationResult);
+            var joinBunchConfirmationResult = _joinBunchConfirmation.Execute(new JoinBunchConfirmation.Request(bunchId));
+            var model = new JoinBunchConfirmationPageModel(AppSettings, contextResult, joinBunchConfirmationResult);
             return View(model);
         }
 
         private ActionResult ShowForm(string bunchId, string code, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var joinBunchFormResult = UseCase.JoinBunchForm.Execute(new JoinBunchForm.Request(bunchId));
-            var model = new JoinBunchPageModel(contextResult, joinBunchFormResult, code, errors);
+            var joinBunchFormResult = _joinBunchForm.Execute(new JoinBunchForm.Request(bunchId));
+            var model = new JoinBunchPageModel(AppSettings, contextResult, joinBunchFormResult, code, errors);
             return View(model);
         }
     }

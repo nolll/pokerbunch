@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
@@ -11,8 +12,8 @@ namespace Web.Models.AppModels.Details
         public string AppKey { get; }
         public string DeleteUrl { get; }
 
-        public AppDetailsPageModel(CoreContext.Result contextResult, AppDetails.Result appDetailsResult)
-            : base(contextResult)
+        public AppDetailsPageModel(AppSettings appSettings, CoreContext.Result contextResult, AppDetails.Result appDetailsResult)
+            : base(appSettings, contextResult)
         {
             AppName = appDetailsResult.AppName;
             AppKey = appDetailsResult.AppKey;

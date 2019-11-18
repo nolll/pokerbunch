@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Routes;
+using PokerBunch.Common.Urls;
 using PokerBunch.Common.Urls.ApiUrls;
 using Web.Components.ApiDocsModels.CodeBlock;
 using Web.Components.ApiDocsModels.ContentBlock;
@@ -9,12 +11,12 @@ using Web.Components.ApiDocsModels.JsonBlock;
 using Web.Components.ApiDocsModels.ParameterBlock;
 using Web.Components.ApiDocsModels.Section;
 using Web.Components.ApiDocsModels.SectionHeadingBlock;
-using Web.Extensions;
 
 namespace Web.Models.ApiDocsModels
 {
     public class ApiDocsCashgamesPageModel : ApiDocsPageModel
     {
+        private readonly IUrlFormatter _urlFormatter;
         private const string BunchId = "cashgame-id";
         private const string CashgameId = "cashgame-id";
         private const string PlayerId = "player-id";
@@ -32,9 +34,10 @@ namespace Web.Models.ApiDocsModels
         private const string CashgamesUrl = ApiRoutes.Cashgame.ListByBunch;
         private const string CashgamesWithYearUrl = ApiRoutes.Cashgame.ListByBunchAndYear;
 
-        public ApiDocsCashgamesPageModel(CoreContext.Result contextResult)
-            : base(contextResult)
+        public ApiDocsCashgamesPageModel(AppSettings appSettings, CoreContext.Result contextResult, IUrlFormatter urlFormatter)
+            : base(appSettings, contextResult)
         {
+            _urlFormatter = urlFormatter;
         }
 
         public override IList<SectionModel> Sections => new List<SectionModel>
@@ -50,7 +53,7 @@ namespace Web.Models.ApiDocsModels
                         new
                         {
                             id = CashgameId,
-                            url = new ApiCashgameUrl(CashgameId).Absolute()
+                            url = _urlFormatter.ToAbsolute(new ApiCashgameUrl(CashgameId))
                         }
                     }),
                 new ContentBlockModel("If there are no games, the list will be empty")),

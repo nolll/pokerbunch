@@ -1,6 +1,5 @@
+using Core.Settings;
 using Web.Extensions;
-using Web.Services;
-using Web.Settings;
 
 namespace Web.Models.MiscModels
 {
@@ -8,9 +7,9 @@ namespace Web.Models.MiscModels
     {
         public bool EnableAnalytics { get; }
 
-        public GoogleAnalyticsModel()
+        public GoogleAnalyticsModel(AppSettings appSettings)
         {
-            EnableAnalytics = SiteSettings.EnableAnalytics;
+            EnableAnalytics = appSettings.EnableAnalytics;
         }
 
         public View GetView()

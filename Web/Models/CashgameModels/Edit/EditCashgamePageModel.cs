@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Mvc;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -23,8 +24,8 @@ namespace Web.Models.CashgameModels.Edit
         public string EventId { get; }
         public ErrorListModel Errors { get; }
 
-        public EditCashgamePageModel(BunchContext.Result contextResult, EditCashgameForm.Result editCashgameFormResult, EditCashgamePostModel postModel, IEnumerable<string> errors)
-            : base(contextResult)
+        public EditCashgamePageModel(AppSettings appSettings, BunchContext.Result contextResult, EditCashgameForm.Result editCashgameFormResult, EditCashgamePostModel postModel, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             IsoDate = editCashgameFormResult.Date;
             CancelUrl = new CashgameDetailsUrl(editCashgameFormResult.Slug, editCashgameFormResult.CashgameId).Relative;

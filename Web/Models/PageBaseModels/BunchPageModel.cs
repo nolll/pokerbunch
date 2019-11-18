@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using Web.Models.NavigationModels;
 
@@ -7,8 +8,8 @@ namespace Web.Models.PageBaseModels
     {
         public BunchNavigationModel BunchNavModel { get; }
 
-        protected BunchPageModel(BunchContext.Result bunchContextResult)
-            : base(bunchContextResult.AppContext)
+        protected BunchPageModel(AppSettings appSettings, BunchContext.Result bunchContextResult)
+            : base(appSettings, bunchContextResult.AppContext)
         {
             BunchNavModel = GetBunchNavModel(bunchContextResult);
         }

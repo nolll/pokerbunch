@@ -57,7 +57,7 @@ namespace Web.Models.CashgameModels.Matrix
 
         public View GetView()
         {
-            return new View("Matrix/MatrixTableRow");
+            return new View("~/Views/Pages/Matrix/MatrixTableRow.cshtml");
         }
     }
 }

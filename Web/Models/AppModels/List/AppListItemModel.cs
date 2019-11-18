@@ -30,7 +30,7 @@ namespace Web.Models.AppModels.List
 
         public View GetView()
         {
-            return new View("AppList/Item");
+            return new View("~/Views/Pages/AppList/Item.cshtml");
         }
     }
 }

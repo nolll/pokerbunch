@@ -1,15 +1,25 @@
 using System.Collections.Generic;
-using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.UserModels.ChangePassword;
 
 namespace Web.Controllers
 {
-    public class ChangePasswordController : BaseController
+    public class ChangePasswordController : CoreController
     {
+        private readonly ChangePassword _changePassword;
+
+        public ChangePasswordController(AppSettings appSettings, CoreContext coreContext, ChangePassword changePassword) 
+            : base(appSettings, coreContext)
+        {
+            _changePassword = changePassword;
+        }
+
         [Authorize]
         [Route(ChangePasswordUrl.Route)]
         public ActionResult ChangePassword()
@@ -27,7 +37,7 @@ namespace Web.Controllers
             try
             {
                 var request = new ChangePassword.Request(Identity.UserName, postModel.Password, postModel.Repeat);
-                UseCase.ChangePassword.Execute(request);
+                _changePassword.Execute(request);
                 return Redirect(new ChangePasswordConfirmationUrl().Relative);
             }
             catch (ValidationException ex)
@@ -41,7 +51,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var model = new ChangePasswordPageModel(contextResult, errors);
+            var model = new ChangePasswordPageModel(AppSettings, contextResult, errors);
             return View(model);
         }
 
@@ -49,7 +59,7 @@ namespace Web.Controllers
         public ActionResult Done()
         {
             var contextResult = GetAppContext();
-            var model = new ChangePasswordConfirmationPageModel(contextResult);
+            var model = new ChangePasswordConfirmationPageModel(AppSettings, contextResult);
             return View(model);
         }
     }

@@ -1,20 +1,30 @@
-using System.Web.Mvc;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.EventModels.List;
 
 namespace Web.Controllers
 {
-    public class EventListController : BaseController
+    public class EventListController : BunchController
     {
+        private readonly EventList _eventList;
+
+        public EventListController(AppSettings appSettings, CoreContext coreContext, BunchContext bunchContext, EventList eventList) 
+            : base(appSettings, coreContext, bunchContext)
+        {
+            _eventList = eventList;
+        }
+
         [Authorize]
         [Route(EventListUrl.Route)]
         public ActionResult List(string bunchId)
         {
             var contextResult = GetBunchContext(bunchId);
-            var eventListOutput = UseCase.EventList.Execute(new EventList.Request(bunchId));
-            var model = new EventListPageModel(contextResult, eventListOutput);
+            var eventListOutput = _eventList.Execute(new EventList.Request(bunchId));
+            var model = new EventListPageModel(AppSettings, contextResult, eventListOutput);
             return View(model);
         }
     }

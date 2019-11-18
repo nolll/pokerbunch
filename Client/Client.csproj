@@ -1,121 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5533FA3E-E0BE-40BE-83E3-B7DA4C9A718D}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Client</RootNamespace>
-    <AssemblyName>Client</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Clients\AdminClient.cs" />
-    <Compile Include="Clients\ApiClient.cs" />
-    <Compile Include="Clients\AppClient.cs" />
-    <Compile Include="Clients\AuthClient.cs" />
-    <Compile Include="Clients\BunchClient.cs" />
-    <Compile Include="Clients\CashgameClient.cs" />
-    <Compile Include="Clients\EventClient.cs" />
-    <Compile Include="Clients\LocationClient.cs" />
-    <Compile Include="Clients\PasswordClient.cs" />
-    <Compile Include="Clients\PlayerClient.cs" />
-    <Compile Include="Clients\PokerBunchClient.cs" />
-    <Compile Include="Clients\UserClient.cs" />
-    <Compile Include="Connection\ApiConnection.cs" />
-    <Compile Include="Connection\ApiErrorMessage.cs" />
-    <Compile Include="Connection\ApiException.cs" />
-    <Compile Include="Connection\ApiHttpClient.cs" />
-    <Compile Include="Connection\BearerHttpClient.cs" />
-    <Compile Include="Connection\SignInHttpClient.cs" />
-    <Compile Include="Exceptions\AccessDeniedException.cs" />
-    <Compile Include="Exceptions\NotFoundException.cs" />
-    <Compile Include="Exceptions\NotLoggedInException.cs" />
-    <Compile Include="Exceptions\PokerBunchException.cs" />
-    <Compile Include="Exceptions\ValidationException.cs" />
-    <Compile Include="Models\Request\AppAdd.cs" />
-    <Compile Include="Models\Request\BunchAdd.cs" />
-    <Compile Include="Models\Request\BunchJoin.cs" />
-    <Compile Include="Models\Request\BunchUpdate.cs" />
-    <Compile Include="Models\Request\CashgameAdd.cs" />
-    <Compile Include="Models\Request\CashgameUpdate.cs" />
-    <Compile Include="Models\Request\EventAdd.cs" />
-    <Compile Include="Models\Request\EventCashgameAdd.cs" />
-    <Compile Include="Models\Request\LocationAdd.cs" />
-    <Compile Include="Models\Request\PasswordChange.cs" />
-    <Compile Include="Models\Request\PasswordReset.cs" />
-    <Compile Include="Models\Request\PlayerAdd.cs" />
-    <Compile Include="Models\Request\PlayerInvite.cs" />
-    <Compile Include="Models\Request\UserAdd.cs" />
-    <Compile Include="Models\Request\UserUpdate.cs" />
-    <Compile Include="Models\Response\App.cs" />
-    <Compile Include="Models\Response\Bunch.cs" />
-    <Compile Include="Models\Response\BunchPlayer.cs" />
-    <Compile Include="Models\Response\BunchSmall.cs" />
-    <Compile Include="Models\Response\Cashgame.cs" />
-    <Compile Include="Models\Response\CashgameBunch.cs" />
-    <Compile Include="Models\Response\CashgameEvent.cs" />
-    <Compile Include="Models\Response\CashgameLocation.cs" />
-    <Compile Include="Models\Response\CashgamePlayer.cs" />
-    <Compile Include="Models\Response\CashgameSmall.cs" />
-    <Compile Include="Models\Response\CashgameSmallPlayer.cs" />
-    <Compile Include="Models\Response\CashgameYear.cs" />
-    <Compile Include="Models\Response\Event.cs" />
-    <Compile Include="Models\Response\EventCashgame.cs" />
-    <Compile Include="Models\Response\EventLocation.cs" />
-    <Compile Include="Models\Response\Location.cs" />
-    <Compile Include="Models\Response\MessageWrapper.cs" />
-    <Compile Include="Models\Response\Player.cs" />
-    <Compile Include="Models\Response\SignInResponse.cs" />
-    <Compile Include="Models\Response\User.cs" />
-    <Compile Include="Models\Response\UserSmall.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{65EDAF0A-5F76-48DF-829D-EC8198759A30}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

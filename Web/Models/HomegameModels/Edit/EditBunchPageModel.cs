@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -23,8 +24,8 @@ namespace Web.Models.HomegameModels.Edit
         public int DefaultBuyin { get; }
         public ErrorListModel Errors { get; }
 
-        public EditBunchPageModel(BunchContext.Result contextResult, EditBunchForm.Result editBunchFormResult, EditBunchPostModel postModel, IEnumerable<string> errors)
-            : base(contextResult)
+        public EditBunchPageModel(AppSettings appSettings, BunchContext.Result contextResult, EditBunchForm.Result editBunchFormResult, EditBunchPostModel postModel, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             CancelUrl = new BunchDetailsUrl(editBunchFormResult.Slug).Relative;
             Heading = editBunchFormResult.Heading;

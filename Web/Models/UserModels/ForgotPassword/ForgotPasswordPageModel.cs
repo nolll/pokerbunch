@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -11,8 +12,8 @@ namespace Web.Models.UserModels.ForgotPassword
         public string Email { get; }
         public ErrorListModel Errors { get; }
 
-        public ForgotPasswordPageModel(CoreContext.Result contextResult, ForgotPasswordPostModel postModel, IEnumerable<string> errors)
-            : base(contextResult)
+        public ForgotPasswordPageModel(AppSettings appSettings, CoreContext.Result contextResult, ForgotPasswordPostModel postModel, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             if (postModel == null) return;
             Email = postModel.Email;

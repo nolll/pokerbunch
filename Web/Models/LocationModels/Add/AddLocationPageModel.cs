@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -11,8 +12,8 @@ namespace Web.Models.LocationModels.Add
         public string Name { get; }
         public ErrorListModel Errors { get; }
 
-        public AddLocationPageModel(BunchContext.Result contextResult, AddLocationPostModel postModel = null, IEnumerable<string> errors = null)
-            : base(contextResult)
+        public AddLocationPageModel(AppSettings appSettings, BunchContext.Result contextResult, AddLocationPostModel postModel = null, IEnumerable<string> errors = null)
+            : base(appSettings, contextResult)
         {
             if (postModel == null) return;
             Name = postModel.Name;

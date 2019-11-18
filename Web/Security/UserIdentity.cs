@@ -1,5 +1,4 @@
 ﻿using System.Security.Principal;
-using System.Web.Security;
 
 namespace Web.Security
 {
@@ -20,8 +19,9 @@ namespace Web.Security
 
         private string GetToken(IPrincipal p)
         {
-            var formsIdentity = (FormsIdentity)p.Identity;
-            return formsIdentity.Ticket.UserData;
+            return "";
+            //var formsIdentity = p.Identity;
+            //return formsIdentity.Ticket.UserData;
         }
     }
 }

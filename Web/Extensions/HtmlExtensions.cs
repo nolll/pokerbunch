@@ -1,20 +1,20 @@
-﻿using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Web.Models;
 
 namespace Web.Extensions
 {
     public static class CustomHtmlHelpers
     {
-        public static MvcHtmlString RenderModel(this HtmlHelper htmlHelper, [AspMvcView] string partialViewName, object model)
+        public static IHtmlContent RenderModel(this IHtmlHelper htmlHelper, [AspMvcView] string partialViewName, object model)
         {
             if (model == null)
-                return MvcHtmlString.Empty;
+                return HtmlString.Empty;
             return htmlHelper.Partial(partialViewName, model, null);
         }
 
-        public static MvcHtmlString RenderModel(this HtmlHelper helper, IViewModel model)
+        public static IHtmlContent RenderModel(this IHtmlHelper helper, IViewModel model)
         {
             var view = model?.GetView();
             return helper.RenderModel(view, model);

@@ -17,7 +17,7 @@ namespace Web.Models.CashgameModels.Matrix
 
         public View GetView()
         {
-            return new View("Matrix/MatrixTableColumnHeader");
+            return new View("~/Views/Pages/Matrix/MatrixTableColumnHeader.cshtml");
         }
     }
 }

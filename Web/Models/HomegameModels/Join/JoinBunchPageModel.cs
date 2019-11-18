@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -12,8 +13,8 @@ namespace Web.Models.HomegameModels.Join
         public string Code { get; }
         public ErrorListModel Errors { get; }
 
-        public JoinBunchPageModel(CoreContext.Result contextResult, JoinBunchForm.Result joinBunchFormResult, string code, IEnumerable<string> errors)
-            : base(contextResult)
+        public JoinBunchPageModel(AppSettings appSettings, CoreContext.Result contextResult, JoinBunchForm.Result joinBunchFormResult, string code, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             Name = joinBunchFormResult.BunchName;
             Code = code;

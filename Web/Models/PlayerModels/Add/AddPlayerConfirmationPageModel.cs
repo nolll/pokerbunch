@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.PageBaseModels;
@@ -8,8 +9,8 @@ namespace Web.Models.PlayerModels.Add
     {
         public string BunchName { get; }
 
-        public AddPlayerConfirmationPageModel(BunchContext.Result contextResult)
-            : base(contextResult)
+        public AddPlayerConfirmationPageModel(AppSettings appSettings, BunchContext.Result contextResult)
+            : base(appSettings, contextResult)
         {
             BunchName = contextResult.BunchName;
         }

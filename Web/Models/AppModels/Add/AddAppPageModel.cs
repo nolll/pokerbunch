@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -11,8 +12,8 @@ namespace Web.Models.AppModels.Add
         public string AppName { get; }
         public ErrorListModel Errors { get; }
 
-        public AddAppPageModel(CoreContext.Result contextResult, AddAppPostModel postModel, IEnumerable<string> errors)
-            : base(contextResult)
+        public AddAppPageModel(AppSettings appSettings, CoreContext.Result contextResult, AddAppPostModel postModel, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             if (postModel == null) return;
             AppName = postModel.AppName;

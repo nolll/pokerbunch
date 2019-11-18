@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -11,8 +12,8 @@ namespace Web.Models.PlayerModels.Add
         public string Name { get; }
         public ErrorListModel Errors { get; }
 
-        public AddPlayerPageModel(BunchContext.Result contextResult, AddPlayerPostModel postModel = null, IEnumerable<string> errors = null)
-            : base(contextResult)
+        public AddPlayerPageModel(AppSettings appSettings, BunchContext.Result contextResult, AddPlayerPostModel postModel = null, IEnumerable<string> errors = null)
+            : base(appSettings, contextResult)
         {
             if (postModel == null) return;
             Name = postModel.Name;

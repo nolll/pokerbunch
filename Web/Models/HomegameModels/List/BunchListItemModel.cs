@@ -17,7 +17,7 @@ namespace Web.Models.HomegameModels.List
 
         public View GetView()
         {
-            return new View("BunchList/BunchListItem");
+            return new View("~/Views/Pages/BunchList/BunchListItem.cshtml");
         }
     }
 }

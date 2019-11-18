@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.CashgameModels.Matrix;
@@ -11,8 +12,8 @@ namespace Web.Models.EventModels.Details
 	    public string Name { get; }
         public CashgameMatrixTableModel MatrixModel { get; }
 
-	    public EventDetailsPageModel(BunchContext.Result contextResult, EventDetails.Result eventDetails, Matrix.Result matrixResult)
-            : base(contextResult)
+	    public EventDetailsPageModel(AppSettings appSettings, BunchContext.Result contextResult, EventDetails.Result eventDetails, Matrix.Result matrixResult)
+            : base(appSettings, contextResult)
 	    {
 	        _eventDetails = eventDetails;
 	        Name = _eventDetails.Name;

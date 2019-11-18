@@ -19,7 +19,7 @@ namespace Web.Models.EventModels.List
 
         public View GetView()
         {
-            return new View("EventList/Item");
+            return new View("~/Views/Pages/EventList/Item.cshtml");
         }
     }
 }

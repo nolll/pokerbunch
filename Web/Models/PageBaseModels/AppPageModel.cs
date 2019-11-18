@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using Web.Models.NavigationModels;
 
@@ -7,7 +8,8 @@ namespace Web.Models.PageBaseModels
     {
         public NavigationModel UserNavModel { get; }
 
-        protected AppPageModel(CoreContext.Result appContextResult)
+        protected AppPageModel(AppSettings appSettings, CoreContext.Result appContextResult)
+            : base(appSettings)
         {
             UserNavModel = new UserNavigationModel(appContextResult);
         }

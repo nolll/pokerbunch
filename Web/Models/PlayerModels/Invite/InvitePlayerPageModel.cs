@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -11,8 +12,8 @@ namespace Web.Models.PlayerModels.Invite
         public string Email { get; }
         public ErrorListModel Errors { get; }
 
-        public InvitePlayerPageModel(BunchContext.Result contextResult, InvitePlayerPostModel postModel, IEnumerable<string> errors)
-            : base(contextResult)
+        public InvitePlayerPageModel(AppSettings appSettings, BunchContext.Result contextResult, InvitePlayerPostModel postModel, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             if (postModel == null) return;
             Email = postModel.Email;

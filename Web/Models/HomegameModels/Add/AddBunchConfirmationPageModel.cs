@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.PageBaseModels;
@@ -6,8 +7,8 @@ namespace Web.Models.HomegameModels.Add
 {
     public class AddBunchConfirmationPageModel : AppPageModel
     {
-        public AddBunchConfirmationPageModel(CoreContext.Result contextResult)
-            : base(contextResult)
+        public AddBunchConfirmationPageModel(AppSettings appSettings, CoreContext.Result contextResult)
+            : base(appSettings, contextResult)
         {
         }
 

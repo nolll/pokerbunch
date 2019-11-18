@@ -1,15 +1,25 @@
 using System.Collections.Generic;
-using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.AppModels.Add;
 
 namespace Web.Controllers
 {
-    public class AddAppController : BaseController
+    public class AddAppController : CoreController
     {
+        private readonly AddApp _addApp;
+
+        public AddAppController(AppSettings appSettings, CoreContext coreContext, AddApp addApp)
+            : base(appSettings, coreContext)
+        {
+            _addApp = addApp;
+        }
+
         [Route(AddAppUrl.Route)]
         [Authorize]
         public ActionResult AddApp()
@@ -27,7 +37,7 @@ namespace Web.Controllers
             try
             {
                 var request = new AddApp.Request(postModel.AppName);
-                UseCase.AddApp.Execute(request);
+                _addApp.Execute(request);
                 return Redirect(new UserAppsUrl().Relative);
             }
             catch (ValidationException ex)
@@ -41,7 +51,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(AddAppPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var model = new AddAppPageModel(contextResult, postModel, errors);
+            var model = new AddAppPageModel(AppSettings, contextResult, postModel, errors);
             return View(model);
         }
     }

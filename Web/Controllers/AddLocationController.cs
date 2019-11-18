@@ -1,15 +1,25 @@
 using System.Collections.Generic;
-using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.LocationModels.Add;
 
 namespace Web.Controllers
 {
-    public class AddLocationController : BaseController
+    public class AddLocationController : BunchController
     {
+        private readonly AddLocation _addLocation;
+
+        public AddLocationController(AppSettings appSettings, CoreContext coreContext, BunchContext bunchContext, AddLocation addLocation) 
+            : base(appSettings, coreContext, bunchContext)
+        {
+            _addLocation = addLocation;
+        }
+
         [Authorize]
         [Route(AddLocationUrl.Route)]
         public ActionResult Add(string bunchId)
@@ -27,7 +37,7 @@ namespace Web.Controllers
             try
             {
                 var request = new AddLocation.Request(bunchId, postModel.Name);
-                var result = UseCase.AddLocation.Execute(request);
+                var result = _addLocation.Execute(request);
                 return Redirect(new AddLocationConfirmationUrl(result.Slug).Relative);
             }
             catch (ValidationException ex)
@@ -42,14 +52,14 @@ namespace Web.Controllers
         public ActionResult Created(string bunchId)
         {
             var contextResult = GetBunchContext(bunchId);
-            var model = new AddLocationConfirmationPageModel(contextResult);
+            var model = new AddLocationConfirmationPageModel(AppSettings, contextResult);
             return View(model);
         }
 
         private ActionResult ShowForm(string bunchId, AddLocationPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetBunchContext(bunchId);
-            var model = new AddLocationPageModel(contextResult, postModel, errors);
+            var model = new AddLocationPageModel(AppSettings, contextResult, postModel, errors);
             return View(model);
         }
     }

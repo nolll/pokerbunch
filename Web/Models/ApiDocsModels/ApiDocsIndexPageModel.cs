@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
-using Web.Components.ApiDocsModels;
 using Web.Components.ApiDocsModels.ContentBlock;
 using Web.Components.ApiDocsModels.NavigationBlock;
 using Web.Components.ApiDocsModels.PageHeadingBlock;
@@ -15,8 +15,8 @@ namespace Web.Models.ApiDocsModels
         public override string BrowserTitle => "Api Documentation";
         private const string AppListUrl = UserAppsUrl.Route;
 
-        public ApiDocsIndexPageModel(CoreContext.Result contextResult)
-            : base(contextResult)
+        public ApiDocsIndexPageModel(AppSettings appSettings, CoreContext.Result contextResult)
+            : base(appSettings, contextResult)
         {
         }
 

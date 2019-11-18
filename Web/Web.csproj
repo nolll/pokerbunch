@@ -1,756 +1,484 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{5C3B6FBF-67D5-4AAF-AFDB-4B996B2C6D0B}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Web</RootNamespace>
-    <AssemblyName>Web</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
-    <UseGlobalApplicationHostFile />
-    <TargetFrameworkProfile />
-    <ApplicationInsightsResourceId>/subscriptions/06e18347-ac5a-4537-9442-9e811c086c54/resourcegroups/Default-Web-NorthEurope/providers/microsoft.insights/components/pokerbunch-com</ApplicationInsightsResourceId>
-    <Use64BitIISExpress />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <TypeScriptTarget>ES5</TypeScriptTarget>
-    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
-    <TypeScriptModuleKind />
-    <TypeScriptCompileOnSaveEnabled>False</TypeScriptCompileOnSaveEnabled>
-    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
-    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
-    <TypeScriptOutFile />
-    <TypeScriptOutDir />
-    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
-    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
-    <TypeScriptSourceMap>False</TypeScriptSourceMap>
-    <TypeScriptMapRoot />
-    <TypeScriptSourceRoot />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Core, Version=2.4.10.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.2.4.10\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Jint, Version=2.4.13.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.Jint.2.4.13\lib\net45\JavaScriptEngineSwitcher.Jint.dll</HintPath>
-    </Reference>
-    <Reference Include="JavaScriptEngineSwitcher.Msie, Version=2.4.19.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
-      <HintPath>..\packages\JavaScriptEngineSwitcher.Msie.2.4.19\lib\net45\JavaScriptEngineSwitcher.Msie.dll</HintPath>
-    </Reference>
-    <Reference Include="JetBrains.Annotations, Version=2018.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
-      <HintPath>..\packages\JetBrains.Annotations.2018.2.1\lib\net20\JetBrains.Annotations.dll</HintPath>
-    </Reference>
-    <Reference Include="Jint, Version=0.0.0.0, Culture=neutral, PublicKeyToken=2e92ba9c8d81157f, processorArchitecture=MSIL">
-      <HintPath>..\packages\Jint.2.11.58\lib\net451\Jint.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.7.2\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.7.2\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.7.2\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.Web, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.7.2\lib\net45\Microsoft.AI.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.WindowsServer, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.7.2\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.7.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.2.7.2\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.3\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="MsieJavaScriptEngine, Version=2.2.9.0, Culture=neutral, PublicKeyToken=a3a2846a37ac0d3e, processorArchitecture=MSIL">
-      <HintPath>..\packages\MsieJavaScriptEngine.2.2.9\lib\net45\MsieJavaScriptEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data.Services.Client" />
-    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.5.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.ApplicationServices" />
-    <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.Helpers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.6\lib\net45\System.Web.Http.WebHost.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.6\lib\net45\System.Web.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.6\lib\net45\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Routing" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.6\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease">
-      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Compile Remove="FrontEnd\**" />
+    <Content Remove="FrontEnd\**" />
+    <EmbeddedResource Remove="FrontEnd\**" />
+    <None Remove="FrontEnd\**" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="App_Start\CustomServerHeaderModule.cs" />
-    <Compile Include="App_Start\CustomViewEngine.cs" />
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="Settings\Environment.cs" />
-    <Compile Include="Settings\SettingsReader.cs" />
-    <Compile Include="Components\ApiDocsModels\Block\DocsBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\CodeBlock\CodeBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\NavigationBlock\NavigationBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\NavigationBlock\NavigationItemModel.cs" />
-    <Compile Include="Components\ApiDocsModels\PageHeadingBlock\PageHeadingBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\ParameterBlock\ParameterModel.cs" />
-    <Compile Include="Components\ApiDocsModels\ParameterBlock\ParametersBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\ParameterBlock\ParameterTypeModel.cs" />
-    <Compile Include="Components\ApiDocsModels\SectionHeadingBlock\SectionHeadingBlockModel.cs" />
-    <Compile Include="Components\ApiDocsModels\Section\SectionModel.cs" />
-    <Compile Include="Components\ApiDocsModels\JsonBlock\JsonBlockModel.cs" />
-    <Compile Include="Controllers\AddBunchController.cs" />
-    <Compile Include="Controllers\AddCashgameController.cs" />
-    <Compile Include="Controllers\AddEventController.cs" />
-    <Compile Include="Controllers\AddLocationController.cs" />
-    <Compile Include="Controllers\AddPlayerController.cs" />
-    <Compile Include="Controllers\AddAppController.cs" />
-    <Compile Include="Controllers\AddUserController.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\ApiDocsController.cs" />
-    <Compile Include="Controllers\AppDetailsController.cs" />
-    <Compile Include="Controllers\AppListController.cs" />
-    <Compile Include="Controllers\Base\JsonResult.cs" />
-    <Compile Include="Controllers\Base\JsonTokenViewModel.cs" />
-    <Compile Include="Controllers\Base\JsonViewModel.cs" />
-    <Compile Include="Controllers\Base\JsonViewModelError.cs" />
-    <Compile Include="Controllers\Base\JsonViewModelOk.cs" />
-    <Compile Include="Controllers\Base\BaseController.cs" />
-    <Compile Include="Controllers\Base\JsonNetResult.cs" />
-    <Compile Include="Controllers\BunchListController.cs" />
-    <Compile Include="Controllers\ChangePasswordController.cs" />
-    <Compile Include="Controllers\DeleteAppController.cs" />
-    <Compile Include="Controllers\DeletePlayerController.cs" />
-    <Compile Include="Controllers\EditBunchController.cs" />
-    <Compile Include="Controllers\EditCashgameController.cs" />
-    <Compile Include="Controllers\EditUserController.cs" />
-    <Compile Include="Controllers\ErrorController.cs" />
-    <Compile Include="Controllers\EventDetailsController.cs" />
-    <Compile Include="Controllers\ForgotPasswordController.cs" />
-    <Compile Include="Controllers\LocationDetailsController.cs" />
-    <Compile Include="Controllers\LocationListController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\LogoutController.cs" />
-    <Compile Include="Controllers\PlayerDetailsController.cs" />
-    <Compile Include="Controllers\UserDetailsController.cs" />
-    <Compile Include="Controllers\EventListController.cs" />
-    <Compile Include="Controllers\VueController.cs" />
-    <Compile Include="Extensions\UrlExtensions.cs" />
-    <Compile Include="Extensions\View.cs" />
-    <Compile Include="Models\ApiDocsModels\ApiDocsAuthPageModel.cs" />
-    <Compile Include="Models\ApiDocsModels\ApiDocsBunchesPageModel.cs" />
-    <Compile Include="Models\ApiDocsModels\ApiDocsCashgamesPageModel.cs" />
-    <Compile Include="Models\ApiDocsModels\ApiDocsIndexPageModel.cs" />
-    <Compile Include="Models\ApiDocsModels\ApiDocsPageModel.cs" />
-    <Compile Include="Models\ApiDocsModels\ApiDocsPlayersPageModel.cs" />
-    <Compile Include="Models\AuthModels\LoginPostModel.cs" />
-    <Compile Include="Models\ErrorModels\ErrorAuthCookiePageModel.cs" />
-    <Compile Include="Models\ErrorModels\ErrorListModel.cs" />
-    <Compile Include="Models\IViewModel.cs" />
-    <Compile Include="Models\MiscModels\VueConfigModel.cs" />
-    <Compile Include="Models\VueModels\VuePageModel.cs" />
-    <Compile Include="Security\CustomAuthorizeAttribute.cs" />
-    <Compile Include="Security\FakeUserIdentity.cs" />
-    <Compile Include="Security\UserIdentity.cs" />
-    <Compile Include="Security\IUserIdentity.cs" />
-    <Compile Include="Services\CssService.cs" />
-    <Compile Include="Services\JsonHelper.cs" />
-    <Compile Include="Settings\SiteSettings.cs" />
-    <Compile Include="Extensions\ComponentViewFinder.cs" />
-    <Compile Include="Extensions\HtmlExtensions.cs" />
-    <Compile Include="Extensions\Component.cs" />
-    <Compile Include="Extensions\EnsureHttps.cs" />
-    <Compile Include="Models\AdminModels\ClearCacheModel.cs" />
-    <Compile Include="Models\AppModels\Add\AddAppPageModel.cs" />
-    <Compile Include="Models\AppModels\Add\AddAppPostModel.cs" />
-    <Compile Include="Models\AppModels\Details\AppDetailsPageModel.cs" />
-    <Compile Include="Models\AppModels\List\AppListItemModel.cs" />
-    <Compile Include="Models\AppModels\List\AllAppsPageModel.cs" />
-    <Compile Include="Models\AppModels\List\UserAppsPageModel.cs" />
-    <Compile Include="Models\AdminModels\EmailModel.cs" />
-    <Compile Include="Models\ErrorModels\Error401PageModel.cs" />
-    <Compile Include="Models\ErrorModels\Error403PageModel.cs" />
-    <Compile Include="Models\ErrorModels\Error404PageModel.cs" />
-    <Compile Include="Models\ErrorModels\Error500PageModel.cs" />
-    <Compile Include="Models\ErrorModels\ErrorPageModel.cs" />
-    <Compile Include="Models\EventModels\Add\AddEventConfirmationPageModel.cs" />
-    <Compile Include="Models\EventModels\Details\EventDetailsPageModel.cs" />
-    <Compile Include="Models\EventModels\List\EventListItemModel.cs" />
-    <Compile Include="Models\EventModels\List\EventListPageModel.cs" />
-    <Compile Include="Models\LocationModels\Add\AddLocationConfirmationPageModel.cs" />
-    <Compile Include="Models\LocationModels\Add\AddLocationPageModel.cs" />
-    <Compile Include="Models\LocationModels\Add\AddLocationPostModel.cs" />
-    <Compile Include="Models\LocationModels\Details\LocationDetailsPageModel.cs" />
-    <Compile Include="Models\LocationModels\List\LocationListItemModel.cs" />
-    <Compile Include="Models\LocationModels\List\LocationListPageModel.cs" />
-    <Compile Include="Models\NavigationModels\UserNavigationModel.cs" />
-    <Compile Include="Models\PageBaseModels\AppPageModel.cs" />
-    <Compile Include="Models\PageBaseModels\BunchPageModel.cs" />
-    <Compile Include="Models\PageBaseModels\ContextLayout.cs" />
-    <Compile Include="Models\PageBaseModels\PageLayout.cs" />
-    <Compile Include="Models\PageBaseModels\WrappedPageModel.cs" />
-    <Compile Include="Components\PlayerModels\Badges\BadgeModel.cs" />
-    <Compile Include="Models\EventModels\Add\AddEventPostModel.cs" />
-    <Compile Include="Models\EventModels\Add\AddEventPageModel.cs" />
-    <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPageModel.cs" />
-    <Compile Include="Models\UserModels\ChangePassword\ChangePasswordPostModel.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CashgameModels\Edit\EditCashgamePostModel.cs" />
-    <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableCellModel.cs" />
-    <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableColumnHeaderModel.cs" />
-    <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableModel.cs" />
-    <Compile Include="Models\CashgameModels\Matrix\CashgameMatrixTableRowModel.cs" />
-    <Compile Include="Models\HomegameModels\Add\AddBunchConfirmationPageModel.cs" />
-    <Compile Include="Models\HomegameModels\Add\AddBunchPostModel.cs" />
-    <Compile Include="Models\HomegameModels\Edit\EditBunchPostModel.cs" />
-    <Compile Include="Models\HomegameModels\Join\JoinBunchConfirmationPageModel.cs" />
-    <Compile Include="Models\HomegameModels\Join\JoinBunchPostModel.cs" />
-    <Compile Include="Models\HomegameModels\List\BunchListItemModel.cs" />
-    <Compile Include="Models\HomegameModels\List\BunchListPageModel.cs" />
-    <Compile Include="Models\MiscModels\GoogleAnalyticsModel.cs" />
-    <Compile Include="Models\NavigationModels\BunchNavigationModel.cs" />
-    <Compile Include="Models\NavigationModels\NavigationModel.cs" />
-    <Compile Include="Models\NavigationModels\NavigationNode.cs" />
-    <Compile Include="Models\PageBaseModels\PageModel.cs" />
-    <Compile Include="Models\PlayerModels\Add\AddPlayerConfirmationPageModel.cs" />
-    <Compile Include="Models\PlayerModels\Add\AddPlayerPageModel.cs" />
-    <Compile Include="Models\PlayerModels\Add\AddPlayerPostModel.cs" />
-    <Compile Include="Models\PlayerModels\Invite\InvitePlayerConfirmationPageModel.cs" />
-    <Compile Include="Models\PlayerModels\Invite\InvitePlayerPageModel.cs" />
-    <Compile Include="Models\PlayerModels\Invite\InvitePlayerPostModel.cs" />
-    <Compile Include="Models\UserModels\Add\AddUserConfirmationPageModel.cs" />
-    <Compile Include="Models\UserModels\Add\AddUserPageModel.cs" />
-    <Compile Include="Models\UserModels\Add\AddUserPostModel.cs" />
-    <Compile Include="Models\UserModels\ChangePassword\ChangePasswordConfirmationPageModel.cs" />
-    <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordConfirmationPageModel.cs" />
-    <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordPageModel.cs" />
-    <Compile Include="Models\UserModels\ForgotPassword\ForgotPasswordPostModel.cs" />
-    <Compile Include="Models\UserModels\Edit\EditUserPageModel.cs" />
-    <Compile Include="Models\UserModels\Edit\EditUserPostModel.cs" />
-    <Compile Include="Plumbing\TrimModelBinder.cs" />
-    <Compile Include="..\GlobalAssemblyInfo.cs" />
+    <Content Remove="Local.config" />
+    <Content Remove="tsconfig.json" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="babel.config.js" />
-    <Content Include="ApplicationInsights.config">
+    <None Remove="babel.config.js" />
+    <None Remove="favicon.ico" />
+    <None Remove="app\css\achievement-list.less" />
+    <None Remove="app\css\button--action.less" />
+    <None Remove="app\css\button--icon.less" />
+    <None Remove="app\css\button.less" />
+    <None Remove="app\css\cashgame-results-form.less" />
+    <None Remove="app\css\cashgame.less" />
+    <None Remove="app\css\checkpoint-list.less" />
+    <None Remove="app\css\clearfix.less" />
+    <None Remove="app\css\constants.less" />
+    <None Remove="app\css\docs.less" />
+    <None Remove="app\css\font-awesome.less" />
+    <None Remove="app\css\form.less" />
+    <None Remove="app\css\grid.less" />
+    <None Remove="app\css\icon.less" />
+    <None Remove="app\css\label.less" />
+    <None Remove="app\css\matrix.less" />
+    <None Remove="app\css\mediaqueries.less" />
+    <None Remove="app\css\mixins.less" />
+    <None Remove="app\css\nav.less" />
+    <None Remove="app\css\normalize.less" />
+    <None Remove="app\css\player.less" />
+    <None Remove="app\css\print.less" />
+    <None Remove="app\css\running-game.less" />
+    <None Remove="app\css\simple-list.less" />
+    <None Remove="app\css\site.less" />
+    <None Remove="app\css\standings.less" />
+    <None Remove="app\css\table-list--sortable.less" />
+    <None Remove="app\css\table-list.less" />
+    <None Remove="app\css\value-list.less" />
+    <None Remove="app\font\fontawesome-webfont.eot" />
+    <None Remove="app\font\fontawesome-webfont.svg" />
+    <None Remove="app\font\fontawesome-webfont.ttf" />
+    <None Remove="app\font\fontawesome-webfont.woff" />
+    <None Remove="app\font\FontAwesome.otf" />
+    <None Remove="app\js\action-types.ts" />
+    <None Remove="app\js\ajax-client.ts" />
+    <None Remove="app\js\ajax-urls.ts" />
+    <None Remove="app\js\api-client.ts" />
+    <None Remove="app\js\api-urls.ts" />
+    <None Remove="app\js\api.ts" />
+    <None Remove="app\js\app.js" />
+    <None Remove="app\js\auth.ts" />
+    <None Remove="app\js\browser.ts" />
+    <None Remove="app\js\cancel-button.js" />
+    <None Remove="app\js\comparer.ts" />
+    <None Remove="app\js\components\CashgameActionChart.vue" />
+    <None Remove="app\js\components\CashgameChart.vue" />
+    <None Remove="app\js\components\CashgameDetailsChart.vue" />
+    <None Remove="app\js\components\Common\Block.vue" />
+    <None Remove="app\js\components\Common\CustomButton.vue" />
+    <None Remove="app\js\components\Common\CustomLink.vue" />
+    <None Remove="app\js\components\Common\index.js" />
+    <None Remove="app\js\components\Common\PageHeading.vue" />
+    <None Remove="app\js\components\Common\PageSection.vue" />
+    <None Remove="app\js\components\Common\SimpleList\SimpleList.vue" />
+    <None Remove="app\js\components\Common\SimpleList\SimpleListItem.vue" />
+    <None Remove="app\js\components\Common\Spinner.vue" />
+    <None Remove="app\js\components\Common\ValueList\ValueList.vue" />
+    <None Remove="app\js\components\Common\ValueList\ValueListKey.vue" />
+    <None Remove="app\js\components\Common\ValueList\ValueListValue.vue" />
+    <None Remove="app\js\components\CurrentGame\BuyinForm.vue" />
+    <None Remove="app\js\components\CurrentGame\CashoutForm.vue" />
+    <None Remove="app\js\components\CurrentGame\GameButton.vue" />
+    <None Remove="app\js\components\CurrentGame\GameChart.vue" />
+    <None Remove="app\js\components\CurrentGame\index.js" />
+    <None Remove="app\js\components\CurrentGame\PlayerAction.vue" />
+    <None Remove="app\js\components\CurrentGame\PlayerDropdown.vue" />
+    <None Remove="app\js\components\CurrentGame\PlayerRow.vue" />
+    <None Remove="app\js\components\CurrentGame\PlayerTable.vue" />
+    <None Remove="app\js\components\CurrentGame\ReportForm.vue" />
+    <None Remove="app\js\components\DefinitionList\DefinitionData.vue" />
+    <None Remove="app\js\components\DefinitionList\DefinitionList.vue" />
+    <None Remove="app\js\components\DefinitionList\DefinitionTerm.vue" />
+    <None Remove="app\js\components\DefinitionList\index.js" />
+    <None Remove="app\js\components\Facts\AmountFact.vue" />
+    <None Remove="app\js\components\Facts\index.js" />
+    <None Remove="app\js\components\Facts\OverallFacts.vue" />
+    <None Remove="app\js\components\Facts\PlayerAmountFact.vue" />
+    <None Remove="app\js\components\Facts\PlayerResultFact.vue" />
+    <None Remove="app\js\components\Facts\PlayerTimeFact.vue" />
+    <None Remove="app\js\components\Facts\SingleGameFacts.vue" />
+    <None Remove="app\js\components\Facts\TimeFact.vue" />
+    <None Remove="app\js\components\Facts\TotalFacts.vue" />
+    <None Remove="app\js\components\GameList\GameListColumn.vue" />
+    <None Remove="app\js\components\GameList\GameListRow.vue" />
+    <None Remove="app\js\components\GameList\GameListTable.vue" />
+    <None Remove="app\js\components\GameList\index.js" />
+    <None Remove="app\js\components\index.js" />
+    <None Remove="app\js\components\Layouts\index.js" />
+    <None Remove="app\js\components\Layouts\Layout.vue" />
+    <None Remove="app\js\components\LineChart.vue" />
+    <None Remove="app\js\components\LoginForm.vue" />
+    <None Remove="app\js\components\Matrix\index.js" />
+    <None Remove="app\js\components\Matrix\MatrixColumn.vue" />
+    <None Remove="app\js\components\Matrix\MatrixItem.vue" />
+    <None Remove="app\js\components\Matrix\MatrixRow.vue" />
+    <None Remove="app\js\components\Matrix\MatrixTable.vue" />
+    <None Remove="app\js\components\Navigation\AdminNavigation.vue" />
+    <None Remove="app\js\components\Navigation\BunchNavigation.vue" />
+    <None Remove="app\js\components\Navigation\CashgameNavigation.vue" />
+    <None Remove="app\js\components\Navigation\CashgameNavigationItem.vue" />
+    <None Remove="app\js\components\Navigation\index.js" />
+    <None Remove="app\js\components\Navigation\UserNavigation.vue" />
+    <None Remove="app\js\components\Overview\index.js" />
+    <None Remove="app\js\components\Overview\OverviewItem.vue" />
+    <None Remove="app\js\components\Overview\OverviewRow.vue" />
+    <None Remove="app\js\components\Overview\OverviewStatus.vue" />
+    <None Remove="app\js\components\Overview\OverviewTable.vue" />
+    <None Remove="app\js\components\Pages\BunchDetailsPage.vue" />
+    <None Remove="app\js\components\Pages\CashgameDetailsPage.vue" />
+    <None Remove="app\js\components\Pages\ChartPage.vue" />
+    <None Remove="app\js\components\Pages\DashboardPage.vue" />
+    <None Remove="app\js\components\Pages\FactsPage.vue" />
+    <None Remove="app\js\components\Pages\HomePage.vue" />
+    <None Remove="app\js\components\Pages\index.js" />
+    <None Remove="app\js\components\Pages\ListPage.vue" />
+    <None Remove="app\js\components\Pages\LoginPage.vue" />
+    <None Remove="app\js\components\Pages\MatrixPage.vue" />
+    <None Remove="app\js\components\Pages\NotFoundPage.vue" />
+    <None Remove="app\js\components\Pages\OverviewPage.vue" />
+    <None Remove="app\js\components\Pages\PlayerListPage.vue" />
+    <None Remove="app\js\components\Pages\ToplistPage.vue" />
+    <None Remove="app\js\components\Pages\UserListPage.vue" />
+    <None Remove="app\js\components\PlayerList\index.js" />
+    <None Remove="app\js\components\PlayerList\PlayerList.vue" />
+    <None Remove="app\js\components\PlayerList\PlayerListItem.vue" />
+    <None Remove="app\js\components\TopList\index.js" />
+    <None Remove="app\js\components\TopList\TopListColumn.vue" />
+    <None Remove="app\js\components\TopList\TopListRow.vue" />
+    <None Remove="app\js\components\TopList\TopListTable.vue" />
+    <None Remove="app\js\components\UserBunchList\UserBunchList.vue" />
+    <None Remove="app\js\components\UserBunchList\UserBunchListItem.vue" />
+    <None Remove="app\js\components\UserList\UserList.vue" />
+    <None Remove="app\js\components\UserList\UserListItem.vue" />
+    <None Remove="app\js\components\YearMatrix\index.js" />
+    <None Remove="app\js\components\YearMatrix\YearMatrixColumn.vue" />
+    <None Remove="app\js\components\YearMatrix\YearMatrixItem.vue" />
+    <None Remove="app\js\components\YearMatrix\YearMatrixRow.vue" />
+    <None Remove="app\js\components\YearMatrix\YearMatrixTable.vue" />
+    <None Remove="app\js\cookies.ts" />
+    <None Remove="app\js\currency-form.js" />
+    <None Remove="app\js\delete-confirmation.js" />
+    <None Remove="app\js\dom-hookup.js" />
+    <None Remove="app\js\dom-modules.js" />
+    <None Remove="app\js\focus-text-selector.js" />
+    <None Remove="app\js\format.ts" />
+    <None Remove="app\js\forms.ts" />
+    <None Remove="app\js\game-sorter.js" />
+    <None Remove="app\js\heading-nav.js" />
+    <None Remove="app\js\http-client.ts" />
+    <None Remove="app\js\index.js" />
+    <None Remove="app\js\mixins\data-mixin.js" />
+    <None Remove="app\js\mixins\format-mixin.js" />
+    <None Remove="app\js\mixins\index.js" />
+    <None Remove="app\js\player-calculator.js" />
+    <None Remove="app\js\player-sorter.js" />
+    <None Remove="app\js\querystring.ts" />
+    <None Remove="app\js\roles.ts" />
+    <None Remove="app\js\router.js" />
+    <None Remove="app\js\settings.ts" />
+    <None Remove="app\js\store-names.ts" />
+    <None Remove="app\js\store\index.js" />
+    <None Remove="app\js\store\modules\bunch-store.js" />
+    <None Remove="app\js\store\modules\cashgame-store.js" />
+    <None Remove="app\js\store\modules\current-game-store.js" />
+    <None Remove="app\js\store\modules\game-archive-store.js" />
+    <None Remove="app\js\store\modules\index.js" />
+    <None Remove="app\js\store\modules\player-store.js" />
+    <None Remove="app\js\store\modules\user-store.js" />
+    <None Remove="app\js\styles.js" />
+    <None Remove="app\js\time-functions.ts" />
+    <None Remove="app\js\types.d.ts" />
+    <None Remove="app\js\urls.ts" />
+    <None Remove="app\js\validate.ts" />
+    <None Remove="app\templates\ScriptTemplate.txt" />
+    <None Remove="app\templates\StyleTemplate.txt" />
+    <None Remove="googlecd2b6bdc316289ae.html" />
+    <None Remove="Views\Error\404.html" />
+    <None Remove="Views\Error\500.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\GlobalAssemblyInfo.cs" Link="GlobalAssemblyInfo.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="app\babel.config.js" />
+    <Content Include="app\favicon.ico" />
+    <Content Include="app\css\achievement-list.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Components\ApiDocsModels\JsonBlock\JsonBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\NavigationBlock\NavigationBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\NavigationBlock\NavigationItemModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\ParameterBlock\ParametersBlockModel.cshtml" />
-    <Content Include="FrontEnd\Css\docs.less">
+    <Content Include="app\css\button--action.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="FrontEnd\js\components\CurrentGame\PlayerAction.vue" />
-    <None Include="tsconfig.json" />
-    <None Include="FrontEnd\Css\styles.less" />
-    <TypeScriptCompile Include="FrontEnd\js\ajax-client.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\api-urls.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\settings.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\types.d.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\http-client.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\api-client.ts" />
-    <Content Include="FrontEnd\js\components\PlayerList\index.js" />
-    <Content Include="FrontEnd\js\player-calculator.js" />
-    <TypeScriptCompile Include="FrontEnd\js\action-types.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\time-functions.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\store-names.ts" />
-    <Content Include="FrontEnd\js\components\YearMatrix\index.js" />
-    <Content Include="FrontEnd\js\store\modules\cashgame-store.js" />
-    <Content Include="FrontEnd\js\store\modules\player-store.js" />
-    <TypeScriptCompile Include="FrontEnd\js\roles.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\ajax-urls.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\urls.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\comparer.ts" />
-    <Content Include="FrontEnd\js\components\DefinitionList\index.js" />
-    <Content Include="FrontEnd\js\components\Facts\index.js" />
-    <Content Include="FrontEnd\js\components\Layouts\index.js" />
-    <Content Include="FrontEnd\js\components\Navigation\index.js" />
-    <Content Include="FrontEnd\js\components\Overview\index.js" />
-    <Content Include="FrontEnd\js\components\Pages\index.js" />
-    <TypeScriptCompile Include="FrontEnd\js\format.ts" />
-    <Content Include="FrontEnd\js\game-sorter.js" />
-    <Content Include="FrontEnd\js\mixins\data-mixin.js" />
-    <Content Include="FrontEnd\js\mixins\format-mixin.js" />
-    <Content Include="FrontEnd\js\mixins\index.js" />
-    <Content Include="FrontEnd\js\player-sorter.js" />
-    <TypeScriptCompile Include="FrontEnd\js\auth.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\cookies.ts" />
-    <Content Include="FrontEnd\js\components\Matrix\index.js" />
-    <TypeScriptCompile Include="FrontEnd\js\querystring.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\api.ts" />
-    <TypeScriptCompile Include="FrontEnd\js\browser.ts" />
-    <Content Include="FrontEnd\js\components\Common\index.js" />
-    <Content Include="FrontEnd\js\components\CurrentGame\index.js" />
-    <Content Include="FrontEnd\js\components\GameList\index.js" />
-    <Content Include="FrontEnd\js\components\index.js" />
-    <Content Include="FrontEnd\js\components\TopList\index.js" />
-    <Content Include="FrontEnd\js\router.js" />
-    <Content Include="FrontEnd\js\store\index.js" />
-    <Content Include="FrontEnd\js\store\modules\user-store.js" />
-    <Content Include="FrontEnd\js\store\modules\current-game-store.js" />
-    <Content Include="FrontEnd\js\store\modules\bunch-store.js" />
-    <Content Include="FrontEnd\js\store\modules\game-archive-store.js" />
-    <Content Include="FrontEnd\js\store\modules\index.js" />
-    <Content Include="FrontEnd\js\styles.js" />
-    <Content Include="FrontEnd\js\dom-modules.js" />
-    <TypeScriptCompile Include="FrontEnd\js\forms.ts" />
-    <Content Include="FrontEnd\js\index.js" />
-    <TypeScriptCompile Include="FrontEnd\js\validate.ts" />
-    <Content Include="FrontEnd\js\app.js" />
-    <Content Include="FrontEnd\templates\StyleTemplate.txt" />
-    <Content Include="FrontEnd\templates\ScriptTemplate.txt" />
-    <None Include="webpack.prod.js" />
-    <None Include="webpack.dev.js" />
-    <None Include="webpack.config.js" />
-    <Content Include="FrontEnd\Css\table-list.less">
+    <Content Include="app\css\button--icon.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="FrontEnd\Css\value-list.less">
+    <Content Include="app\css\button.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="FrontEnd\Css\button.less">
+    <Content Include="app\css\cashgame-results-form.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="FrontEnd\Css\button--icon.less">
+    <Content Include="app\css\cashgame.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="FrontEnd\Css\button--action.less">
+    <Content Include="app\css\checkpoint-list.less">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Admin\ClearCache.cshtml" />
-    <Content Include="Views\Admin\Email.cshtml" />
-    <Content Include="Views\Error\Error.cshtml" />
-    <Content Include="Views\Forms\Errors.cshtml" />
-    <Content Include="Views\Layouts\AppPage.cshtml" />
-    <Content Include="Views\Layouts\BunchPage.cshtml" />
-    <Content Include="Views\Layouts\OneColumn.cshtml" />
-    <Content Include="Views\Layouts\Page.cshtml" />
-    <Content Include="Views\Layouts\TwoColumns.cshtml" />
-    <Content Include="Views\Layouts\Wrapped.cshtml" />
-    <Content Include="Views\Misc\Avatar.cshtml" />
-    <Content Include="Views\Misc\GoogleAnalytics.cshtml" />
-    <Content Include="Views\Misc\Spinner.cshtml" />
-    <Content Include="Views\Navigation\AdminNavigation.cshtml" />
-    <Content Include="Views\Navigation\BunchNavigation.cshtml" />
-    <Content Include="Views\Navigation\Navigation.cshtml" />
-    <Content Include="Views\Pages\AddBunch\AddBunch.cshtml" />
-    <Content Include="Views\Pages\AddBunch\AddBunchConfirmation.cshtml" />
-    <Content Include="Views\Pages\AddCashgame\Add.cshtml" />
-    <Content Include="Views\Pages\AddPlayer\Add.cshtml" />
-    <Content Include="Views\Pages\AddPlayer\AddConfirmation.cshtml" />
-    <Content Include="Views\Pages\AddUser\AddUser.cshtml" />
-    <Content Include="Views\Pages\AddUser\AddUserDone.cshtml" />
-    <Content Include="Views\Pages\BunchList\BunchList.cshtml" />
-    <Content Include="Views\Pages\BunchList\BunchListItem.cshtml" />
-    <Content Include="Views\Pages\ChangePassword\ChangePassword.cshtml" />
-    <Content Include="Views\Pages\ChangePassword\ChangePasswordDone.cshtml" />
-    <Content Include="Views\Pages\EditBunch\Edit.cshtml" />
-    <Content Include="Views\Pages\EditCashgame\Edit.cshtml" />
-    <Content Include="Views\Pages\EditUser\EditUser.cshtml" />
-    <Content Include="Views\Pages\EventDetails\EventDetails.cshtml" />
-    <Content Include="Views\Pages\EventList\EventList.cshtml" />
-    <Content Include="Views\Pages\EventList\Item.cshtml" />
-    <Content Include="Views\Pages\ForgotPassword\ForgotPassword.cshtml" />
-    <Content Include="Views\Pages\ForgotPassword\ForgotPasswordDone.cshtml" />
-    <Content Include="Views\Pages\InvitePlayer\Invite.cshtml" />
-    <Content Include="Views\Pages\InvitePlayer\InviteConfirmation.cshtml" />
-    <Content Include="Views\Pages\JoinBunch\Confirmation.cshtml" />
-    <Content Include="Views\Pages\JoinBunch\Join.cshtml" />
-    <Content Include="Views\Pages\Matrix\MatrixTable.cshtml" />
-    <Content Include="Views\Pages\Matrix\MatrixTableCell.cshtml" />
-    <Content Include="Views\Pages\Matrix\MatrixTableColumnHeader.cshtml" />
-    <Content Include="Views\Pages\Matrix\MatrixTableRow.cshtml" />
-    <Content Include="Views\Pages\PlayerDetails\Details.cshtml" />
-    <Content Include="Views\Pages\PlayerDetails\PlayerFacts.cshtml" />
-    <Content Include="Views\Pages\UserDetails\UserDetails.cshtml" />
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
+    <Content Include="app\css\clearfix.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\Pages\AppList\AllApps.cshtml" />
-    <Content Include="Views\Pages\AppList\Item.cshtml" />
-    <Content Include="Views\Pages\AppList\UserApps.cshtml" />
-    <Content Include="Views\Pages\AppDetails\AppDetails.cshtml" />
-    <Content Include="Views\Pages\AddApp\AddApp.cshtml" />
-    <Content Include="Views\Pages\ApiDocs\ApiDocs.cshtml" />
-    <Content Include="Views\Pages\AddEvent\Add.cshtml" />
-    <Content Include="Views\Pages\AddEvent\AddConfirmation.cshtml" />
-    <Content Include="Views\Pages\AddLocation\Add.cshtml" />
-    <Content Include="Views\Pages\AddLocation\AddConfirmation.cshtml" />
-    <Content Include="Views\Pages\LocationList\LocationList.cshtml" />
-    <Content Include="Views\Pages\LocationList\Item.cshtml" />
-    <Content Include="Views\Pages\LocationDetails\LocationDetails.cshtml" />
-    <Content Include="package.json" />
-    <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <Content Include="FrontEnd\js\components\CurrentGame\ReportForm.vue" />
-    <Content Include="FrontEnd\js\components\TopList\TopListTable.vue" />
-    <Content Include="FrontEnd\js\components\TopList\TopListRow.vue" />
-    <Content Include="FrontEnd\js\components\GameList\GameListColumn.vue" />
-    <Content Include="FrontEnd\js\components\GameList\GameListRow.vue" />
-    <Content Include="FrontEnd\js\components\GameList\GameListTable.vue" />
-    <Content Include="FrontEnd\js\components\CurrentGame\PlayerDropdown.vue" />
-    <Content Include="FrontEnd\js\components\CurrentGame\PlayerRow.vue" />
-    <Content Include="FrontEnd\js\components\CurrentGame\PlayerTable.vue" />
-    <Content Include="FrontEnd\js\components\Common\Spinner.vue" />
-    <Content Include="FrontEnd\js\components\TopList\TopListColumn.vue" />
-    <Content Include="FrontEnd\js\components\CurrentGame\BuyinForm.vue" />
-    <Content Include="FrontEnd\js\components\CurrentGame\CashoutForm.vue" />
-    <Content Include="FrontEnd\js\components\Pages\DashboardPage.vue" />
-    <Content Include="FrontEnd\js\components\CurrentGame\GameButton.vue" />
-    <Content Include="FrontEnd\js\components\CurrentGame\GameChart.vue" />
-    <Content Include="FrontEnd\js\components\Pages\CashgameDetailsPage.vue" />
-    <Content Include="FrontEnd\js\components\LineChart.vue" />
-    <Content Include="FrontEnd\js\components\CashgameChart.vue" />
-    <Content Include="FrontEnd\js\components\CashgameActionChart.vue" />
-    <Content Include="FrontEnd\js\components\CashgameDetailsChart.vue" />
-    <Content Include="FrontEnd\js\components\LoginForm.vue" />
-    <Content Include="FrontEnd\js\components\Matrix\MatrixTable.vue" />
-    <Content Include="FrontEnd\js\components\Matrix\MatrixColumn.vue" />
-    <Content Include="FrontEnd\js\components\Matrix\MatrixRow.vue" />
-    <Content Include="FrontEnd\js\components\Matrix\MatrixItem.vue" />
-    <Content Include="FrontEnd\js\components\Facts\SingleGameFacts.vue" />
-    <Content Include="FrontEnd\js\components\Facts\PlayerResultFact.vue" />
-    <Content Include="FrontEnd\js\components\DefinitionList\DefinitionList.vue" />
-    <Content Include="FrontEnd\js\components\DefinitionList\DefinitionTerm.vue" />
-    <Content Include="FrontEnd\js\components\DefinitionList\DefinitionData.vue" />
-    <Content Include="FrontEnd\js\components\Facts\OverallFacts.vue" />
-    <Content Include="FrontEnd\js\components\Facts\TimeFact.vue" />
-    <Content Include="FrontEnd\js\components\Facts\AmountFact.vue" />
-    <Content Include="FrontEnd\js\components\Facts\TotalFacts.vue" />
-    <Content Include="FrontEnd\js\components\Facts\PlayerAmountFact.vue" />
-    <Content Include="FrontEnd\js\components\Facts\PlayerTimeFact.vue" />
-    <Content Include="FrontEnd\js\components\Overview\OverviewItem.vue" />
-    <Content Include="FrontEnd\js\components\Overview\OverviewRow.vue" />
-    <Content Include="FrontEnd\js\components\Overview\OverviewTable.vue" />
-    <Content Include="FrontEnd\js\components\Overview\OverviewStatus.vue" />
-    <Content Include="FrontEnd\js\components\Pages\OverviewPage.vue" />
-    <Content Include="FrontEnd\js\components\Pages\MatrixPage.vue" />
-    <Content Include="FrontEnd\js\components\Pages\ChartPage.vue" />
-    <Content Include="FrontEnd\js\components\Pages\FactsPage.vue" />
-    <Content Include="FrontEnd\js\components\Pages\ListPage.vue" />
-    <Content Include="FrontEnd\js\components\Pages\ToplistPage.vue" />
-    <Content Include="FrontEnd\js\components\Navigation\BunchNavigation.vue" />
-    <Content Include="FrontEnd\js\components\Navigation\CashgameNavigationItem.vue" />
-    <Content Include="FrontEnd\js\components\Navigation\CashgameNavigation.vue" />
-    <Content Include="FrontEnd\js\components\Navigation\UserNavigation.vue" />
-    <Content Include="FrontEnd\js\components\Pages\NotFoundPage.vue" />
-    <Content Include="FrontEnd\js\components\Pages\LoginPage.vue" />
-    <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixColumn.vue" />
-    <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixItem.vue" />
-    <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixRow.vue" />
-    <Content Include="FrontEnd\js\components\YearMatrix\YearMatrixTable.vue" />
-    <Content Include="FrontEnd\js\components\Pages\PlayerListPage.vue" />
-    <Content Include="FrontEnd\js\components\PlayerList\PlayerList.vue" />
-    <Content Include="FrontEnd\js\components\Common\SimpleList\SimpleList.vue" />
-    <Content Include="FrontEnd\js\components\Common\SimpleList\SimpleListItem.vue" />
-    <Content Include="FrontEnd\js\components\PlayerList\PlayerListItem.vue" />
-    <Content Include="FrontEnd\js\components\Common\CustomButton.vue" />
-    <Content Include="FrontEnd\js\components\Pages\UserListPage.vue" />
-    <Content Include="FrontEnd\js\components\UserList\UserList.vue" />
-    <Content Include="FrontEnd\js\components\UserList\UserListItem.vue" />
-    <Content Include="FrontEnd\js\components\Common\PageHeading.vue" />
-    <Content Include="FrontEnd\js\components\Common\PageSection.vue" />
-    <Content Include="FrontEnd\js\components\Common\CustomLink.vue" />
-    <Content Include="FrontEnd\js\components\Pages\BunchDetailsPage.vue" />
-    <Content Include="FrontEnd\js\components\Pages\HomePage.vue" />
-    <Content Include="FrontEnd\js\components\Navigation\AdminNavigation.vue" />
-    <Content Include="FrontEnd\js\components\UserBunchList\UserBunchList.vue" />
-    <Content Include="FrontEnd\js\components\UserBunchList\UserBunchListItem.vue" />
-    <Content Include="FrontEnd\js\components\Layouts\Layout.vue" />
-    <Content Include="FrontEnd\js\components\Common\Block.vue" />
-    <Content Include="FrontEnd\js\components\Common\ValueList\ValueList.vue" />
-    <Content Include="FrontEnd\js\components\Common\ValueList\ValueListKey.vue" />
-    <Content Include="FrontEnd\js\components\Common\ValueList\ValueListValue.vue" />
-    <None Include="Local.config" />
-    <Content Include="Components\ApiDocsModels\ContentBlock\ContentBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\Section\SectionModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\PageHeadingBlock\PageHeadingBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\SectionHeadingBlock\SectionHeadingBlockModel.cshtml" />
-    <Content Include="Components\ApiDocsModels\CodeBlock\CodeBlockModel.cshtml" />
-    <Content Include="Views\Misc\VueConfig.cshtml" />
-    <Content Include="Views\Layouts\Basic.cshtml" />
-    <Content Include="Views\Pages\Vue\Root.cshtml" />
-    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="Web.nuspec">
-      <SubType>Designer</SubType>
-    </None>
-    <Content Include="favicon.ico" />
-    <Content Include="FrontEnd\Font\fontawesome-webfont.svg" />
-    <Content Include="FrontEnd\js\cancel-button.js" />
-    <Content Include="FrontEnd\js\currency-form.js" />
-    <Content Include="FrontEnd\js\delete-confirmation.js" />
-    <Content Include="FrontEnd\js\focus-text-selector.js" />
-    <Content Include="FrontEnd\js\heading-nav.js" />
-    <Content Include="FrontEnd\js\dom-hookup.js" />
-    <Content Include="Global.asax" />
-    <Content Include="googlecd2b6bdc316289ae.html" />
+    <Content Include="app\css\constants.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\docs.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\font-awesome.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\form.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\grid.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\icon.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\label.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\matrix.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\mediaqueries.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\mixins.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\nav.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\normalize.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\player.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\print.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\running-game.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\simple-list.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\site.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\standings.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\table-list--sortable.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\table-list.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\css\value-list.less">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="app\font\fontawesome-webfont.eot" />
+    <Content Include="app\font\fontawesome-webfont.svg" />
+    <Content Include="app\font\fontawesome-webfont.ttf" />
+    <Content Include="app\font\fontawesome-webfont.woff" />
+    <Content Include="app\font\FontAwesome.otf" />
+    <Content Include="app\js\app.js" />
+    <Content Include="app\js\cancel-button.js" />
+    <Content Include="app\js\components\CashgameActionChart.vue" />
+    <Content Include="app\js\components\CashgameChart.vue" />
+    <Content Include="app\js\components\CashgameDetailsChart.vue" />
+    <Content Include="app\js\components\Common\Block.vue" />
+    <Content Include="app\js\components\Common\CustomButton.vue" />
+    <Content Include="app\js\components\Common\CustomLink.vue" />
+    <Content Include="app\js\components\Common\index.js" />
+    <Content Include="app\js\components\Common\PageHeading.vue" />
+    <Content Include="app\js\components\Common\PageSection.vue" />
+    <Content Include="app\js\components\Common\SimpleList\SimpleList.vue" />
+    <Content Include="app\js\components\Common\SimpleList\SimpleListItem.vue" />
+    <Content Include="app\js\components\Common\Spinner.vue" />
+    <Content Include="app\js\components\Common\ValueList\ValueList.vue" />
+    <Content Include="app\js\components\Common\ValueList\ValueListKey.vue" />
+    <Content Include="app\js\components\Common\ValueList\ValueListValue.vue" />
+    <Content Include="app\js\components\CurrentGame\BuyinForm.vue" />
+    <Content Include="app\js\components\CurrentGame\CashoutForm.vue" />
+    <Content Include="app\js\components\CurrentGame\GameButton.vue" />
+    <Content Include="app\js\components\CurrentGame\GameChart.vue" />
+    <Content Include="app\js\components\CurrentGame\index.js" />
+    <Content Include="app\js\components\CurrentGame\PlayerAction.vue" />
+    <Content Include="app\js\components\CurrentGame\PlayerDropdown.vue" />
+    <Content Include="app\js\components\CurrentGame\PlayerRow.vue" />
+    <Content Include="app\js\components\CurrentGame\PlayerTable.vue" />
+    <Content Include="app\js\components\CurrentGame\ReportForm.vue" />
+    <Content Include="app\js\components\DefinitionList\DefinitionData.vue" />
+    <Content Include="app\js\components\DefinitionList\DefinitionList.vue" />
+    <Content Include="app\js\components\DefinitionList\DefinitionTerm.vue" />
+    <Content Include="app\js\components\DefinitionList\index.js" />
+    <Content Include="app\js\components\Facts\AmountFact.vue" />
+    <Content Include="app\js\components\Facts\index.js" />
+    <Content Include="app\js\components\Facts\OverallFacts.vue" />
+    <Content Include="app\js\components\Facts\PlayerAmountFact.vue" />
+    <Content Include="app\js\components\Facts\PlayerResultFact.vue" />
+    <Content Include="app\js\components\Facts\PlayerTimeFact.vue" />
+    <Content Include="app\js\components\Facts\SingleGameFacts.vue" />
+    <Content Include="app\js\components\Facts\TimeFact.vue" />
+    <Content Include="app\js\components\Facts\TotalFacts.vue" />
+    <Content Include="app\js\components\GameList\GameListColumn.vue" />
+    <Content Include="app\js\components\GameList\GameListRow.vue" />
+    <Content Include="app\js\components\GameList\GameListTable.vue" />
+    <Content Include="app\js\components\GameList\index.js" />
+    <Content Include="app\js\components\index.js" />
+    <Content Include="app\js\components\Layouts\index.js" />
+    <Content Include="app\js\components\Layouts\Layout.vue" />
+    <Content Include="app\js\components\LineChart.vue" />
+    <Content Include="app\js\components\LoginForm.vue" />
+    <Content Include="app\js\components\Matrix\index.js" />
+    <Content Include="app\js\components\Matrix\MatrixColumn.vue" />
+    <Content Include="app\js\components\Matrix\MatrixItem.vue" />
+    <Content Include="app\js\components\Matrix\MatrixRow.vue" />
+    <Content Include="app\js\components\Matrix\MatrixTable.vue" />
+    <Content Include="app\js\components\Navigation\AdminNavigation.vue" />
+    <Content Include="app\js\components\Navigation\BunchNavigation.vue" />
+    <Content Include="app\js\components\Navigation\CashgameNavigation.vue" />
+    <Content Include="app\js\components\Navigation\CashgameNavigationItem.vue" />
+    <Content Include="app\js\components\Navigation\index.js" />
+    <Content Include="app\js\components\Navigation\UserNavigation.vue" />
+    <Content Include="app\js\components\Overview\index.js" />
+    <Content Include="app\js\components\Overview\OverviewItem.vue" />
+    <Content Include="app\js\components\Overview\OverviewRow.vue" />
+    <Content Include="app\js\components\Overview\OverviewStatus.vue" />
+    <Content Include="app\js\components\Overview\OverviewTable.vue" />
+    <Content Include="app\js\components\Pages\BunchDetailsPage.vue" />
+    <Content Include="app\js\components\Pages\CashgameDetailsPage.vue" />
+    <Content Include="app\js\components\Pages\ChartPage.vue" />
+    <Content Include="app\js\components\Pages\DashboardPage.vue" />
+    <Content Include="app\js\components\Pages\FactsPage.vue" />
+    <Content Include="app\js\components\Pages\HomePage.vue" />
+    <Content Include="app\js\components\Pages\index.js" />
+    <Content Include="app\js\components\Pages\ListPage.vue" />
+    <Content Include="app\js\components\Pages\LoginPage.vue" />
+    <Content Include="app\js\components\Pages\MatrixPage.vue" />
+    <Content Include="app\js\components\Pages\NotFoundPage.vue" />
+    <Content Include="app\js\components\Pages\OverviewPage.vue" />
+    <Content Include="app\js\components\Pages\PlayerListPage.vue" />
+    <Content Include="app\js\components\Pages\ToplistPage.vue" />
+    <Content Include="app\js\components\Pages\UserListPage.vue" />
+    <Content Include="app\js\components\PlayerList\index.js" />
+    <Content Include="app\js\components\PlayerList\PlayerList.vue" />
+    <Content Include="app\js\components\PlayerList\PlayerListItem.vue" />
+    <Content Include="app\js\components\TopList\index.js" />
+    <Content Include="app\js\components\TopList\TopListColumn.vue" />
+    <Content Include="app\js\components\TopList\TopListRow.vue" />
+    <Content Include="app\js\components\TopList\TopListTable.vue" />
+    <Content Include="app\js\components\UserBunchList\UserBunchList.vue" />
+    <Content Include="app\js\components\UserBunchList\UserBunchListItem.vue" />
+    <Content Include="app\js\components\UserList\UserList.vue" />
+    <Content Include="app\js\components\UserList\UserListItem.vue" />
+    <Content Include="app\js\components\YearMatrix\index.js" />
+    <Content Include="app\js\components\YearMatrix\YearMatrixColumn.vue" />
+    <Content Include="app\js\components\YearMatrix\YearMatrixItem.vue" />
+    <Content Include="app\js\components\YearMatrix\YearMatrixRow.vue" />
+    <Content Include="app\js\components\YearMatrix\YearMatrixTable.vue" />
+    <Content Include="app\js\currency-form.js" />
+    <Content Include="app\js\delete-confirmation.js" />
+    <Content Include="app\js\dom-hookup.js" />
+    <Content Include="app\js\dom-modules.js" />
+    <Content Include="app\js\focus-text-selector.js" />
+    <Content Include="app\js\game-sorter.js" />
+    <Content Include="app\js\heading-nav.js" />
+    <Content Include="app\js\index.js" />
+    <Content Include="app\js\mixins\data-mixin.js" />
+    <Content Include="app\js\mixins\format-mixin.js" />
+    <Content Include="app\js\mixins\index.js" />
+    <Content Include="app\js\player-calculator.js" />
+    <Content Include="app\js\player-sorter.js" />
+    <Content Include="app\js\router.js" />
+    <Content Include="app\js\store\index.js" />
+    <Content Include="app\js\store\modules\bunch-store.js" />
+    <Content Include="app\js\store\modules\cashgame-store.js" />
+    <Content Include="app\js\store\modules\current-game-store.js" />
+    <Content Include="app\js\store\modules\game-archive-store.js" />
+    <Content Include="app\js\store\modules\index.js" />
+    <Content Include="app\js\store\modules\player-store.js" />
+    <Content Include="app\js\store\modules\user-store.js" />
+    <Content Include="app\js\styles.js" />
+    <Content Include="app\templates\ScriptTemplate.txt" />
+    <Content Include="app\templates\StyleTemplate.txt" />
+    <Content Include="app\googlecd2b6bdc316289ae.html" />
     <Content Include="Views\Error\404.html" />
     <Content Include="Views\Error\500.html" />
-    <Content Include="Web.config">
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Local.config" />
+    <None Include="app\tsconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="app\js\action-types.ts" />
+    <TypeScriptCompile Include="app\js\ajax-client.ts" />
+    <TypeScriptCompile Include="app\js\ajax-urls.ts" />
+    <TypeScriptCompile Include="app\js\api-client.ts" />
+    <TypeScriptCompile Include="app\js\api-urls.ts" />
+    <TypeScriptCompile Include="app\js\api.ts" />
+    <TypeScriptCompile Include="app\js\auth.ts" />
+    <TypeScriptCompile Include="app\js\browser.ts" />
+    <TypeScriptCompile Include="app\js\comparer.ts" />
+    <TypeScriptCompile Include="app\js\cookies.ts" />
+    <TypeScriptCompile Include="app\js\format.ts" />
+    <TypeScriptCompile Include="app\js\forms.ts" />
+    <TypeScriptCompile Include="app\js\http-client.ts" />
+    <TypeScriptCompile Include="app\js\querystring.ts" />
+    <TypeScriptCompile Include="app\js\roles.ts" />
+    <TypeScriptCompile Include="app\js\settings.ts" />
+    <TypeScriptCompile Include="app\js\store-names.ts" />
+    <TypeScriptCompile Include="app\js\time-functions.ts" />
+    <TypeScriptCompile Include="app\js\types.d.ts" />
+    <TypeScriptCompile Include="app\js\urls.ts" />
+    <TypeScriptCompile Include="app\js\validate.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Components\Web.config" />
-    <None Include="Web.wpp.targets" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Plumbing\Plumbing.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{65EDAF0A-5F76-48DF-829D-EC8198759A30}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{4D5D8057-AFD8-40AF-A756-558E1038F193}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Plumbing\Plumbing.csproj">
-      <Project>{ea0817fd-9b9e-4c97-96b4-e62239619923}</Project>
-      <Name>Plumbing</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Security\CustomPrincipal.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Controllers\DeleteCashgameController.cs" />
-    <Content Include="FrontEnd\Css\label.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\achievement-list.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\table-list--sortable.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\matrix.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\cashgame-results-form.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\cashgame.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\checkpoint-list.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\clearfix.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\font-awesome.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\form.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\grid.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\icon.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\simple-list.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\nav.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\normalize.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\player.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\print.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\running-game.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\site.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\standings.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Font\fontawesome-webfont.eot" />
-    <Content Include="FrontEnd\Font\fontawesome-webfont.ttf" />
-    <Content Include="FrontEnd\Font\fontawesome-webfont.woff" />
-    <Content Include="FrontEnd\Font\FontAwesome.otf" />
-    <Compile Include="Controllers\JoinBunchController.cs" />
-    <Compile Include="Controllers\InvitePlayerController.cs" />
-    <Compile Include="Models\PlayerModels\Details\PlayerDetailsPageModel.cs" />
-    <Compile Include="Models\MiscModels\AvatarModel.cs" />
-    <Compile Include="Models\PlayerModels\Facts\PlayerFactsModel.cs" />
-    <Compile Include="Components\PlayerModels\Badges\BadgeListModel.cs" />
-    <Compile Include="Models\CashgameModels\Add\AddCashgamePageModel.cs" />
-    <Compile Include="Models\CashgameModels\Add\AddCashgamePostModel.cs" />
-    <Compile Include="Models\HomegameModels\Add\AddBunchPageModel.cs" />
-    <Compile Include="Models\CashgameModels\Edit\EditCashgamePageModel.cs" />
-    <Compile Include="Models\HomegameModels\Edit\EditBunchPageModel.cs" />
-    <Compile Include="Models\HomegameModels\Join\JoinBunchPageModel.cs" />
-    <Content Include="FrontEnd\Css\mediaqueries.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\constants.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="FrontEnd\Css\mixins.less">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Compile Include="Models\UserModels\UserDetailsPageModel.cs" />
-    <Content Include="Components\PlayerModels\Badges\BadgeListModel.cshtml" />
-    <Content Include="Components\PlayerModels\Badges\BadgeModel.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
-  </ItemGroup>
-  <PropertyGroup>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
-  </PropertyGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
-  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
-    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
-  </Target>
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
-        <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>64604</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
-        </WebProjectProperties>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
-  <Import Project="..\packages\OctoPack.3.6.3\build\OctoPack.targets" Condition="Exists('..\packages\OctoPack.3.6.3\build\OctoPack.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\OctoPack.3.6.3\build\OctoPack.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OctoPack.3.6.3\build\OctoPack.targets'))" />
-  </Target>
+
 </Project>

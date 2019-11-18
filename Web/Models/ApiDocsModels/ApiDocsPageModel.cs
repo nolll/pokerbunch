@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Components.ApiDocsModels.Section;
 using Web.Extensions;
@@ -10,8 +11,8 @@ namespace Web.Models.ApiDocsModels
     {
         public abstract IList<SectionModel> Sections { get; }
 
-        protected ApiDocsPageModel(CoreContext.Result appContextResult)
-            : base(appContextResult)
+        protected ApiDocsPageModel(AppSettings appSettings, CoreContext.Result appContextResult)
+            : base(appSettings, appContextResult)
         {
         }
 

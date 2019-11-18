@@ -1,18 +1,28 @@
-using System.Web.Mvc;
+using Core.Settings;
+using Core.UseCases;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.HomegameModels.List;
 
 namespace Web.Controllers
 {
-    public class BunchListController : BaseController
+    public class BunchListController : CoreController
     {
+        private readonly BunchList _bunchList;
+
+        public BunchListController(AppSettings appSettings, CoreContext coreContext, BunchList bunchList) 
+            : base(appSettings, coreContext)
+        {
+            _bunchList = bunchList;
+        }
+
         [Route(BunchListAllUrl.Route)]
         public ActionResult All()
         {
             var context = GetAppContext();
-            var bunchListResult = UseCase.BunchList.Execute();
-            var model = new BunchListPageModel(context, bunchListResult);
+            var bunchListResult = _bunchList.Execute();
+            var model = new BunchListPageModel(AppSettings, context, bunchListResult);
             return View(model);
         }
     }

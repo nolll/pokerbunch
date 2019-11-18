@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
@@ -10,8 +11,8 @@ namespace Web.Models.HomegameModels.Join
         public string BunchName { get; }
         public string BunchUrl { get; }
 
-        public JoinBunchConfirmationPageModel(BunchContext.Result contextResult, JoinBunchConfirmation.Result joinBunchConfirmationResult)
-            : base(contextResult)
+        public JoinBunchConfirmationPageModel(AppSettings appSettings, BunchContext.Result contextResult, JoinBunchConfirmation.Result joinBunchConfirmationResult)
+            : base(appSettings, contextResult)
         {
             BunchName = joinBunchConfirmationResult.BunchName;
             BunchUrl = new BunchDetailsUrl(joinBunchConfirmationResult.BunchId).Relative;

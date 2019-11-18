@@ -26,6 +26,5 @@ namespace Plumbing
         public IUserService User => _useFakeData ? (IUserService)new FakeUserService() : new UserService(_apiClient);
         public IAuthService Auth => _useFakeData ? (IAuthService)new FakeAuthService() : new AuthService(_apiClient);
         public IAdminService Admin => _useFakeData ? (IAdminService)new FakeAdminService() : new AdminService(_apiClient);
-
     }
 }

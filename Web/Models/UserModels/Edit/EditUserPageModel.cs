@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -14,8 +15,8 @@ namespace Web.Models.UserModels.Edit
         public string Email { get; }
         public ErrorListModel Errors { get; }
 
-        public EditUserPageModel(CoreContext.Result contextResult, EditUserForm.Result editUserFormResult, EditUserPostModel postModel, IEnumerable<string> errors)
-            : base(contextResult)
+        public EditUserPageModel(AppSettings appSettings, CoreContext.Result contextResult, EditUserForm.Result editUserFormResult, EditUserPostModel postModel, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             UserName = editUserFormResult.UserName;
             RealName = editUserFormResult.RealName;

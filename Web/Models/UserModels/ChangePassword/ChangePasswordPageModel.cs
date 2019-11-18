@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -10,8 +11,8 @@ namespace Web.Models.UserModels.ChangePassword
     {
         public ErrorListModel Errors { get; }
 
-        public ChangePasswordPageModel(CoreContext.Result contextResult, IEnumerable<string> errors)
-            : base(contextResult)
+        public ChangePasswordPageModel(AppSettings appSettings, CoreContext.Result contextResult, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             Errors = new ErrorListModel(errors);
         }

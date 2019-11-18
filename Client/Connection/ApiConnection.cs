@@ -6,27 +6,24 @@ using System.Text;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using PokerBunch.Client.Exceptions;
+using PokerBunch.Common.Urls;
 using PokerBunch.Common.Urls.ApiUrls;
 
 namespace PokerBunch.Client.Connection
 {
     public class ApiConnection
     {
-        private readonly string _apiHost;
-        private readonly int _apiPort;
-        private readonly string _apiProtocol;
         private readonly string _key;
         private readonly string _token;
         private readonly bool _enableDetailedErrors;
+        private readonly IUrlFormatter _urlFormatter;
 
-        public ApiConnection(string apiHost, int apiPort, string apiProtocol, string key, string token, bool enableDetailedErrors)
+        public ApiConnection(string key, string token, bool enableDetailedErrors, IUrlFormatter urlFormatter)
         {
-            _apiHost = apiHost;
-            _apiPort = apiPort;
-            _apiProtocol = apiProtocol;
             _key = key;
             _token = token;
             _enableDetailedErrors = enableDetailedErrors;
+            _urlFormatter = urlFormatter;
         }
 
         public T Get<T>(ApiUrl apiUrl)
@@ -68,7 +65,7 @@ namespace PokerBunch.Client.Connection
         {
             using (var client = GetClient())
             {
-                var response = client.GetAsync(GetAbsolute(apiUrl)).Result;
+                var response = client.GetAsync(_urlFormatter.ToAbsolute(apiUrl)).Result;
                 return ReadResponse(response);
             }
         }
@@ -77,7 +74,7 @@ namespace PokerBunch.Client.Connection
         {
             using (var client = GetClient(token))
             {
-                var response = client.GetAsync(GetAbsolute(apiUrl)).Result;
+                var response = client.GetAsync(_urlFormatter.ToAbsolute(apiUrl)).Result;
                 return ReadResponse(response);
             }
         }
@@ -87,7 +84,7 @@ namespace PokerBunch.Client.Connection
             using (var client = GetClient())
             {
                 var content = GetJsonContent(data);
-                var response = client.PostAsync(GetAbsolute(apiUrl), content).Result;
+                var response = client.PostAsync(_urlFormatter.ToAbsolute(apiUrl), content).Result;
                 return ReadResponse(response);
             }
         }
@@ -97,7 +94,7 @@ namespace PokerBunch.Client.Connection
             using (var client = GetClient())
             {
                 var content = GetJsonContent(data);
-                var response = client.PutAsync(GetAbsolute(apiUrl), content).Result;
+                var response = client.PutAsync(_urlFormatter.ToAbsolute(apiUrl), content).Result;
                 return ReadResponse(response);
             }
         }
@@ -106,7 +103,7 @@ namespace PokerBunch.Client.Connection
         {
             using (var client = GetClient())
             {
-                var response = client.DeleteAsync(GetAbsolute(apiUrl)).Result;
+                var response = client.DeleteAsync(_urlFormatter.ToAbsolute(apiUrl)).Result;
                 return ReadResponse(response);
             }
         }
@@ -157,7 +154,7 @@ namespace PokerBunch.Client.Connection
             {
                 var content = GetFormContentForSignIn(userName, password);
                 var signInUrl = new ApiTokenUrl();
-                var response = client.PostAsync(GetAbsolute(signInUrl), content).Result;
+                var response = client.PostAsync(_urlFormatter.ToAbsolute(signInUrl), content).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     return response.Content.ReadAsStringAsync().Result;
@@ -182,11 +179,6 @@ namespace PokerBunch.Client.Connection
         private static KeyValuePair<string, string> GetFormParam(string key, string value)
         {
             return new KeyValuePair<string, string>(key, value);
-        }
-
-        private string GetAbsolute(ApiUrl url)
-        {
-            return url.Absolute(_apiHost, _apiPort, _apiProtocol);
         }
     }
 }

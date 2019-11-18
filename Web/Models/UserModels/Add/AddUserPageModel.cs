@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.ErrorModels;
@@ -13,8 +14,8 @@ namespace Web.Models.UserModels.Add
         public string Email { get; }
         public ErrorListModel Errors { get; }
 
-        public AddUserPageModel(CoreContext.Result contextResult, AddUserPostModel postModel, IEnumerable<string> errors)
-            : base(contextResult)
+        public AddUserPageModel(AppSettings appSettings, CoreContext.Result contextResult, AddUserPostModel postModel, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             if (postModel == null) return;
             UserName = postModel.UserName;

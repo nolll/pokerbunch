@@ -1,15 +1,24 @@
 using System.Collections.Generic;
-using System.Web.Mvc;
 using Core.Exceptions;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 using Web.Models.UserModels.Add;
 
 namespace Web.Controllers
 {
-    public class AddUserController : BaseController
+    public class AddUserController : CoreController
     {
+        private readonly AddUser _addUser;
+
+        public AddUserController(AppSettings appSettings, CoreContext coreContext, AddUser addUser) 
+            : base(appSettings, coreContext)
+        {
+            _addUser = addUser;
+        }
+
         [Route(AddUserUrl.Route)]
         public ActionResult AddUser()
         {
@@ -25,7 +34,7 @@ namespace Web.Controllers
             try
             {
                 var request = new AddUser.Request(postModel.UserName, postModel.DisplayName, postModel.Email, postModel.Password);
-                UseCase.AddUser.Execute(request);
+                _addUser.Execute(request);
                 return Redirect(new AddUserConfirmationUrl().Relative);
             }
             catch (ValidationException ex)
@@ -47,7 +56,7 @@ namespace Web.Controllers
         private ActionResult ShowForm(AddUserPostModel postModel = null, IEnumerable<string> errors = null)
         {
             var contextResult = GetAppContext();
-            var model = new AddUserPageModel(contextResult, postModel, errors);
+            var model = new AddUserPageModel(AppSettings, contextResult, postModel, errors);
             return View(model);
         }
 
@@ -55,7 +64,7 @@ namespace Web.Controllers
         public ActionResult Done()
         {
             var contextResult = GetAppContext();
-            var model = new AddUserConfirmationPageModel(contextResult);
+            var model = new AddUserConfirmationPageModel(AppSettings, contextResult);
             return View(model);
         }
     }

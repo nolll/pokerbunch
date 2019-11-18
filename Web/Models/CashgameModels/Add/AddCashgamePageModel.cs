@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Mvc;
+using Core.Settings;
 using Core.UseCases;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Web.Extensions;
 using Web.Models.ErrorModels;
 using Web.Models.PageBaseModels;
@@ -15,8 +16,8 @@ namespace Web.Models.CashgameModels.Add
         public string LocationId { get; }
         public ErrorListModel Errors { get; }
 
-        public AddCashgamePageModel(BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel, IEnumerable<string> errors)
-            : base(contextResult)
+        public AddCashgamePageModel(AppSettings appSettings, BunchContext.Result contextResult, AddCashgameForm.Result formResult, AddCashgamePostModel postModel, IEnumerable<string> errors)
+            : base(appSettings, contextResult)
         {
             Locations = GetLocationListItems(formResult.Locations);
             if (postModel == null) return;

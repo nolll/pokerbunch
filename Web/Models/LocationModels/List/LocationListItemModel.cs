@@ -17,7 +17,7 @@ namespace Web.Models.LocationModels.List
 
         public View GetView()
         {
-            return new View("LocationList/Item");
+            return new View("~/Views/Pages/LocationList/Item.cshtml");
         }
     }
 }

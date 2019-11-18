@@ -1,17 +1,21 @@
-﻿using System.Web.Mvc;
+﻿using Core.Settings;
+using Microsoft.AspNetCore.Mvc;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Controllers.Base;
 
 namespace Web.Controllers
 {
-    [HandleError]
     public class ErrorController : BaseController
     {
+        public ErrorController(AppSettings appSettings)
+            : base(appSettings)
+        {
+        }
+
         [Route(ErrorNotFoundUrl.Route)]
         public ActionResult NotFound()
         {
             Response.StatusCode = 404;
-            Response.TrySkipIisCustomErrors = true;
             return Error404();
         }
 
@@ -19,7 +23,6 @@ namespace Web.Controllers
         public ActionResult Unauthorized()
         {
             Response.StatusCode = 401;
-            Response.TrySkipIisCustomErrors = true;
             return Error401();
         }
 
@@ -27,7 +30,6 @@ namespace Web.Controllers
         public ActionResult Forbidden()
         {
             Response.StatusCode = 403;
-            Response.TrySkipIisCustomErrors = true;
             return Error403();
         }
 
@@ -35,7 +37,6 @@ namespace Web.Controllers
         public ActionResult ServerError()
         {
             Response.StatusCode = 500;
-            Response.TrySkipIisCustomErrors = true;
             return Error500();
         }
     }

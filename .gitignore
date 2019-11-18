@@ -13,10 +13,12 @@ _NCrunch_*/
 Web/_build/main.js
 Web/package-lock.json
 **/Properties/PublishProfiles/*.*
-Web/node_modules
+**/node_modules
 Web/Assets
 Web/dist
 Web/Views/Generated
 **/*.Debug.config
 **/Local.config
 *.user
+/Web/appsettings.Development.json
+/Web/wwwroot/dist

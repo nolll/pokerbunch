@@ -1,8 +1,6 @@
-using Core.UseCases;
+using Core.Settings;
 using Web.Extensions;
 using Web.Models.MiscModels;
-using Web.Services;
-using Web.Settings;
 
 namespace Web.Models.PageBaseModels
 {
@@ -18,11 +16,11 @@ namespace Web.Models.PageBaseModels
         public static string StyleView => "~/Views/Generated/Style.cshtml";
         public static string ScriptView => "~/Views/Generated/Script.cshtml";
 
-        protected PageModel()
+        protected PageModel(AppSettings appSettings)
         {
-            Version = SiteSettings.Version;
-            GoogleAnalyticsModel = new GoogleAnalyticsModel();
-            VueConfig = new VueConfigModel();
+            Version = appSettings.Version;
+            GoogleAnalyticsModel = new GoogleAnalyticsModel(appSettings);
+            VueConfig = new VueConfigModel(appSettings);
         }
 
         public abstract View GetView();

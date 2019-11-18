@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
@@ -9,8 +10,8 @@ namespace Web.Models.UserModels.Add
     {
         public string LoginUrl { get; }
 
-        public AddUserConfirmationPageModel(CoreContext.Result contextResult)
-            : base(contextResult)
+        public AddUserConfirmationPageModel(AppSettings appSettings, CoreContext.Result contextResult)
+            : base(appSettings, contextResult)
         {
             LoginUrl = new LoginUrl().Relative;
         }

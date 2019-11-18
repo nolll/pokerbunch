@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
@@ -11,8 +12,8 @@ namespace Web.Models.LocationModels.Details
 	    public string Name { get; }
 	    public string EditUrl { get; }
 
-        public LocationDetailsPageModel(BunchContext.Result contextResult, LocationDetails.Result locationDetails)
-            : base(contextResult)
+        public LocationDetailsPageModel(AppSettings appSettings, BunchContext.Result contextResult, LocationDetails.Result locationDetails)
+            : base(appSettings, contextResult)
 	    {
             _locationDetails = locationDetails;
             Name = locationDetails.Name;

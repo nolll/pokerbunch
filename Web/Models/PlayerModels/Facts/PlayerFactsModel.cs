@@ -55,7 +55,7 @@ namespace Web.Models.PlayerModels.Facts
 
 	    public View GetView()
 	    {
-	        return new View("PlayerDetails/PlayerFacts");
+	        return new View("~/Views/Pages/PlayerDetails/PlayerFacts.cshtml");
 	    }
     }
 }

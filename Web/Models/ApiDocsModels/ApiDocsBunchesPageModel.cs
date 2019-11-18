@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Routes;
 using Web.Components.ApiDocsModels.CodeBlock;
@@ -15,8 +16,8 @@ namespace Web.Models.ApiDocsModels
         private const string BunchListUrl =  ApiRoutes.Bunch.ListForCurrentUser;
         private const string BunchDetailsUrl = ApiRoutes.Bunch.Get;
 
-        public ApiDocsBunchesPageModel(CoreContext.Result contextResult)
-            : base(contextResult)
+        public ApiDocsBunchesPageModel(AppSettings appSettings, CoreContext.Result contextResult)
+            : base(appSettings, contextResult)
         {
         }
 

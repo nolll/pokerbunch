@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using PokerBunch.Common.Urls.SiteUrls;
 using Web.Extensions;
@@ -18,8 +19,8 @@ namespace Web.Models.UserModels
         public bool ShowPasswordLink { get; }
         public AvatarModel AvatarModel { get; }
 
-        public UserDetailsPageModel(CoreContext.Result contextResult, UserDetails.Result userDetails)
-            : base(contextResult)
+        public UserDetailsPageModel(AppSettings appSettings, CoreContext.Result contextResult, UserDetails.Result userDetails)
+            : base(appSettings, contextResult)
         {
             UserName = userDetails.UserName;
             DisplayName = userDetails.DisplayName;

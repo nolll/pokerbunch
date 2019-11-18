@@ -1,3 +1,4 @@
+using Core.Settings;
 using Core.UseCases;
 using Web.Extensions;
 using Web.Models.PageBaseModels;
@@ -6,8 +7,8 @@ namespace Web.Models.LocationModels.Add
 {
     public class AddLocationConfirmationPageModel : BunchPageModel
     {
-        public AddLocationConfirmationPageModel(BunchContext.Result contextResult)
-            : base(contextResult)
+        public AddLocationConfirmationPageModel(AppSettings appSettings, BunchContext.Result contextResult)
+            : base(appSettings, contextResult)
         {
         }
 
