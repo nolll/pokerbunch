@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: './js/index.js',
@@ -57,7 +58,10 @@ module.exports = {
             filename: path.resolve(__dirname, '../Views/Generated/Style.cshtml'),
             template: path.resolve(__dirname, './templates/StyleTemplate.txt'),
             inject: false
-        })
+        }),
+        new CopyPlugin([
+            { from: './fonts/*.*', to: '../wwwroot/fonts' }
+        ])
     ],
     resolve: {
         alias: {
