@@ -9,9 +9,9 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: './js/index.js',
     output: {
-        filename: '[name]-[contenthash].js',
-        path: path.resolve(__dirname, '../wwwroot/dist'),
-        publicPath: '/dist/'
+        filename: 'dist/[name]-[contenthash].js',
+        path: path.resolve(__dirname, '../wwwroot'),
+        publicPath: '/'
     },
     devtool: 'source-map',
     module: {
@@ -45,7 +45,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'main-[contenthash].css'
+            filename: 'dist/main-[contenthash].css'
         }),
         new VueLoaderPlugin(),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -60,7 +60,8 @@ module.exports = {
             inject: false
         }),
         new CopyPlugin([
-            { from: './fonts/*.*', to: '../wwwroot/fonts' }
+            { from: './fonts/*.*', to: './dist' },
+            { from: './favicon.ico', to: '.' }
         ])
     ],
     resolve: {

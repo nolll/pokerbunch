@@ -21,4 +21,4 @@ Web/Views/Generated
 **/Local.config
 *.user
 /Web/appsettings.Development.json
-/Web/wwwroot/dist
+/Web/wwwroot
