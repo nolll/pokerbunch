@@ -4,6 +4,7 @@ using Core.UseCases;
 using Infrastructure.Api.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ using Plumbing;
 using PokerBunch.Client.Clients;
 using PokerBunch.Client.Connection;
 using PokerBunch.Common.Urls;
+using Web.Services;
 using CashgameService = Infrastructure.Api.Services.CashgameService;
 
 namespace Web.Bootstrapping
@@ -61,16 +63,15 @@ namespace Web.Bootstrapping
 
         private void AddDependencies()
         {
-            var urlFormatter = new UrlFormatter(_settings.Urls.SiteUri, _settings.Urls.ApiUri);
-            var apiConnection = new ApiConnection(_settings.ApiKey, "", _settings.DetailedErrorsForApi, urlFormatter);
-            var apiClient = new PokerBunchClient(apiConnection);
+            _services.AddHttpContextAccessor();
 
+            _services.AddScoped<ITokenReader, TokenReader>();
             _services.AddScoped(o => _settings);
-            _services.AddScoped<IUrlFormatter>(o => urlFormatter);
-            _services.AddScoped(o => apiConnection);
-            _services.AddScoped(o => apiClient);
-            _services.AddScoped(o => new ServiceFactory(apiClient, _settings.UseFakeData));
-
+            _services.AddScoped<IUrlFormatter>(o => new UrlFormatter(_settings.Urls.SiteUri, _settings.Urls.ApiUri));
+            _services.AddScoped(o => new ApiConnection(_settings.ApiKey, _settings.DetailedErrorsForApi, o.GetService<IUrlFormatter>(), o.GetService<ITokenReader>()));
+            _services.AddScoped(o => new PokerBunchClient(o.GetService<ApiConnection>()));
+            _services.AddScoped(o => new ServiceFactory(o.GetService<PokerBunchClient>(), _settings.UseFakeData));
+            
             _services.AddScoped<ILocationService, LocationService>();
             _services.AddScoped<IBunchService, BunchService>();
             _services.AddScoped<IAppService, AppService>();

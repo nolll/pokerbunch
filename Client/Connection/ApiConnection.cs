@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using Core.Services;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using PokerBunch.Client.Exceptions;
@@ -14,16 +15,16 @@ namespace PokerBunch.Client.Connection
     public class ApiConnection
     {
         private readonly string _key;
-        private readonly string _token;
         private readonly bool _enableDetailedErrors;
         private readonly IUrlFormatter _urlFormatter;
+        private readonly ITokenReader _tokenReader;
 
-        public ApiConnection(string key, string token, bool enableDetailedErrors, IUrlFormatter urlFormatter)
+        public ApiConnection(string key, bool enableDetailedErrors, IUrlFormatter urlFormatter, ITokenReader tokenReader)
         {
             _key = key;
-            _token = token;
             _enableDetailedErrors = enableDetailedErrors;
             _urlFormatter = urlFormatter;
+            _tokenReader = tokenReader;
         }
 
         public T Get<T>(ApiUrl apiUrl)
@@ -108,7 +109,7 @@ namespace PokerBunch.Client.Connection
             }
         }
 
-        private BearerHttpClient GetClient() => new BearerHttpClient(_token);
+        private BearerHttpClient GetClient() => new BearerHttpClient(_tokenReader.Read());
         private BearerHttpClient GetClient(string token) => new BearerHttpClient(token);
 
         private string ReadResponse(HttpResponseMessage response)
