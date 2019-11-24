@@ -1,4 +1,4 @@
-name: Build Pokerbunch Web
+name: $(Date:yyyyMMdd)$(Rev:.r)
 
 pool:
   name: Default
