@@ -15,6 +15,12 @@ steps:
     command: restore
     projects: '**/*.csproj'
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '**/Tests*.csproj'
+    testRunTitle: 'Run Tests'
+
 - task: PowerShell@2
   displayName: Yarn
   inputs:
