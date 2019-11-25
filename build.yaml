@@ -16,10 +16,11 @@ steps:
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
+  displayName: Unit Tests
   inputs:
     command: 'test'
     projects: '**/Tests*.csproj'
-    testRunTitle: 'Run Tests'
+    testRunTitle: 'Unit Tests'
 
 - task: PowerShell@2
   displayName: Yarn
