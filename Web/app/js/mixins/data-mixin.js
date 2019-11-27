@@ -10,13 +10,15 @@ export default {
     },
     methods: {
         loadUser() {
+            this.isUserRequired = false;
             this.$store.dispatch('user/loadUser');
         },
         loadUsers() {
             this.$store.dispatch('user/loadUsers');
         },
         requireUser() {
-            this.$store.dispatch('user/requireUser');
+            this.isUserRequired = true;
+            this.$store.dispatch('user/loadUser');
         },
         loadBunch() {
             this.$store.dispatch('bunch/loadBunch', { slug: this.$route.params.slug });

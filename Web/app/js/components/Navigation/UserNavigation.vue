@@ -47,9 +47,9 @@
         },
         methods: {
             logOut() {
+                auth.clearToken();
                 api.signOut()
                     .then(() => {
-                        auth.clearToken();
                         this.redirectHome();
                     });
             },

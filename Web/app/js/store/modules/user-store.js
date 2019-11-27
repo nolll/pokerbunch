@@ -1,5 +1,6 @@
 ﻿import api from '@/api';
 import roles from '@/roles';
+import auth from '@/auth';
 
 export default {
     namespaced: true,
@@ -26,14 +27,20 @@ export default {
     actions: {
         loadUser(context) {
             if (!context.state._userInitialized) {
+                const isLoggedIn = auth.isLoggedIn();
                 context.commit('setUserInitialized');
-                api.getUser()
-                    .then(function (response) {
-                        context.commit('setUser', response.data);
-                    })
-                    .catch(function (error) {
-                        context.commit('setUserError');
-                    });
+                context.commit('setIsSignedIn', isLoggedIn);
+                if (isLoggedIn) {
+                    api.getUser()
+                        .then(function(response) {
+                            context.commit('setUser', response.data);
+                        })
+                        .catch(function() {
+                            context.commit('setUserError');
+                        });
+                } else {
+                    context.commit('setUserError');
+                }
             }
         },
         loadUsers(context) {
@@ -48,15 +55,16 @@ export default {
         }
     },
     mutations: {
+        setIsSignedIn(state, isSignedIn) {
+            state._isSignedIn = isSignedIn;
+        },
         setUser(state, user) {
-            state._isSignedIn = true;
             state._userName = user.userName;
             state._displayName = user.displayName;
             state._role = user.role;
             state._userReady = true;
         },
         setUserError(state) {
-            state._isSignedIn = false;
             state._userName = '';
             state._displayName = '';
             state._role = roles.none;
