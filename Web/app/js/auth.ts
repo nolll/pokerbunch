@@ -1,16 +1,16 @@
-import cookies from './cookies'
+import storage from './storage'
 
-const cookieName = 'token';
+const tokenKey = 'token';
 
 export default {
     getToken() {
-        return cookies.get(cookieName);
+        return storage.get(tokenKey);
     },
-    setToken(token: string) {
-        cookies.set(cookieName, token, 365);
+    setToken(token: string, persist: boolean) {
+        storage.set(tokenKey, token, persist);
     },
     clearToken() {
-        cookies.delete(cookieName);
+        storage.delete(tokenKey);
     },
     isLoggedIn: function() {
         return !!this.getToken();
