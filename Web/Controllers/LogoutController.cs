@@ -15,11 +15,11 @@ namespace Web.Controllers
         {
         }
 
+        [HttpPost]
         [Route(LogoutUrl.Route)]
         public async Task Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            // Temporarily delete token cookie here
         }
     }
 }

@@ -9,6 +9,9 @@ export default {
     setToken(token: string) {
         cookies.set(cookieName, token, 365);
     },
+    clearToken() {
+        cookies.delete(cookieName);
+    },
     isLoggedIn: function() {
         return !!this.getToken();
     }

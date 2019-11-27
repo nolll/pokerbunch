@@ -3,7 +3,7 @@
         <h2>Account</h2>
         <ul v-if="isSignedIn">
             <li><custom-link :url="userDetailsUrl"><span>Signed in as {{displayName}}</span></custom-link></li>
-            <li><custom-link :url="logoutUrl"><span>Sign Out</span></custom-link></li>
+            <li><a href="#" @click.prevent="logOut"><span>Sign Out</span></a></li>
         </ul>
         <ul v-else>
             <li><custom-link :url="loginUrl"><span>Sign in</span></custom-link></li>
@@ -18,6 +18,8 @@
     import { USER } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
+    import auth from '@/auth';
+    import api from '@/api';
 
     export default {
         components: {
@@ -41,9 +43,18 @@
             },
             loginUrl() {
                 return urls.auth.login;
+            }
+        },
+        methods: {
+            logOut() {
+                api.signOut()
+                    .then(() => {
+                        auth.clearToken();
+                        this.redirectHome();
+                    });
             },
-            logoutUrl() {
-                return urls.auth.logout;
+            redirectHome() {
+                window.location.href = urls.home;
             }
         }
     };

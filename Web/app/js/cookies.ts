@@ -14,7 +14,7 @@ export default {
         }
         document.cookie = name + '=' + (value || '') + expires + '; path=/';
     },
-    delete(name:string) {
-        document.cookie = name + '=; Max-Age=-99999999;';
+    delete(name: string) {
+        document.cookie = name + '=; expires=0;';
     }
 };
