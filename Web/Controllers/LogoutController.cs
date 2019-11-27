@@ -10,16 +10,16 @@ namespace Web.Controllers
 {
     public class LogoutController : BaseController
     {
-        public LogoutController(AppSettings appSettings) 
+        public LogoutController(AppSettings appSettings)
             : base(appSettings)
         {
         }
 
         [Route(LogoutUrl.Route)]
-        public async Task<ActionResult> Logout()
+        public async Task Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return Redirect(new HomeUrl().Relative);
+            // Temporarily delete token cookie here
         }
     }
 }
