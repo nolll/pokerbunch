@@ -34,10 +34,6 @@
     </Content>
   </ItemGroup>
 
-  <PropertyGroup>
-    <DefaultItemExcludes>app/node_modules/**;wwwroot/dist/**;$(DefaultItemExcludes)</DefaultItemExcludes>
-  </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Plumbing\Plumbing.csproj" />
