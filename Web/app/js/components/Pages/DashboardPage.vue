@@ -81,7 +81,7 @@
                 this.$store.dispatch('cashgame/loadCurrentGame', { slug });
             },
             init() {
-                this.loadUser();
+                this.requireUser();
                 this.loadBunch();
                 this.loadCurrentGame();
             }

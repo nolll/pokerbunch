@@ -40,7 +40,7 @@
         },
         methods: {
             init() {
-                this.loadUser();
+                this.requireUser();
                 this.loadUsers();
             }
         },

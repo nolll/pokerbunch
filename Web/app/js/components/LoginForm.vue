@@ -51,7 +51,7 @@
                     api.getToken(data)
                         .then(function (response) {
                             if (response.data.success) {
-                                self.setCookie(response.data.token);
+                                self.saveToken(response.data.token);
                                 self.redirect();
                             } else {
                                 self.showError(response.data.message);
@@ -76,7 +76,7 @@
             showError(message) {
                 this.errorMessage = message;
             },
-            setCookie(token) {
+            saveToken(token) {
                 auth.setToken(token);
             },
             redirect() {

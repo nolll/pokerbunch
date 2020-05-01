@@ -5,6 +5,7 @@ import ajaxUrls from './ajax-urls';
 
 export default {
     getToken: (data: object) => ajaxClient.post(ajaxUrls.auth.token, data),
+    signOut: () => ajaxClient.post(ajaxUrls.auth.signOut),
     getCashgame: (id: string) => apiClient.get(apiUrls.cashgame.get(id)),
     getCurrentGames: (slug: string) => apiClient.get(apiUrls.cashgame.current(slug)),
     getGame: (id: string) => apiClient.get(apiUrls.cashgame.get(id)),

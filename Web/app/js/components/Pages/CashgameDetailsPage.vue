@@ -200,7 +200,7 @@
                 this.$router.push(urls.cashgame.index(this.slug));
             },
             init: function () {
-                this.loadUser();
+                this.requireUser();
                 this.loadBunch();
                 this.loadPlayers();
                 this.loadCashgame();

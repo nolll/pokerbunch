@@ -1,6 +1,7 @@
 export default {
     auth: {
-        token: '/auth/token'
+        token: '/auth/token',
+        signOut: '/auth/logout'
     },
     cashgame: {
         buyin: (slug: string) => `/cashgame/buyin/${slug}`,

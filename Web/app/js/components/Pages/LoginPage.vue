@@ -52,7 +52,7 @@
                 }
             },
             init() {
-                this.loadUser();
+                this.requireUser();
             }
         },
         watch: {
