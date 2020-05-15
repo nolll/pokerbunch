@@ -10,13 +10,11 @@
             </block>
         </page-section>
 
-        <template slot="main">
-            <page-section>
-                <block>
-                    <cashgame-chart />
-                </block>
-            </page-section>
-        </template>
+        <page-section>
+            <block>
+                <cashgame-chart />
+            </block>
+        </page-section>
     </layout>
 </template>
 
