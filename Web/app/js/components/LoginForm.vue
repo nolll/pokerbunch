@@ -77,7 +77,7 @@
                 this.errorMessage = message;
             },
             saveToken(token) {
-                auth.setToken(token);
+                auth.setToken(token, this.rememberMe);
             },
             redirect() {
                 var returnUrl = querystring.get('returnurl');
