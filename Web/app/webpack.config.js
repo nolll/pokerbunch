@@ -3,7 +3,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
@@ -59,10 +59,14 @@ module.exports = {
             template: path.resolve(__dirname, './templates/StyleTemplate.txt'),
             inject: false
         }),
-        new CopyPlugin([
-            { from: './fonts/*.*', to: './dist' },
-            { from: './favicon.ico', to: '.' }
-        ])
+        new CopyPlugin({
+
+
+            patterns: [
+                { from: './fonts/*.*', to: './dist' },
+                { from: './favicon.ico', to: '.' }
+            ]
+        })
     ],
     resolve: {
         alias: {

@@ -1,7 +1,8 @@
 ﻿const presets = [
     ['@babel/env', {
         useBuiltIns: 'usage',
-        modules: false
+        modules: false,
+        corejs: 3
     }]
 ];
 
