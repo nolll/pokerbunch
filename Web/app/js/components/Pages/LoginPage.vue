@@ -16,7 +16,7 @@
 </template>
 
 <script>
-    import { DataMixin } from '@/mixins';
+    import { UserMixin } from '@/mixins';
     import { Layout } from '@/components/Layouts';
     import { LoginForm } from '@/components';
     import { CustomLink, Block, PageHeading, PageSection } from '@/components/Common';
@@ -32,7 +32,7 @@
             PageSection
         },
         mixins: [
-            DataMixin
+            UserMixin
         ],
         computed: {
             forgotPasswordUrl() {
@@ -42,21 +42,21 @@
                 return urls.user.add;
             },
             ready() {
-                return this.userReady;
+                return this.$_userReady;
             }
         },
         methods: {
             redirectIfSignedIn() {
-                if (this.userReady && this.isSignedIn) {
+                if (this.$_userReady && this.$_isSignedIn) {
                     this.$router.push(urls.home);
                 }
             },
             init() {
-                this.requireUser();
+                this.$_requireUser();
             }
         },
         watch: {
-            userReady() {
+            $_userReady() {
                 this.redirectIfSignedIn();
             }
         },

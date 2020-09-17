@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
-        <div v-for="player in players">
-            <player-row :player="player" :isCheckmarkEnabled="isRunning" :isReportTimeEnabled="isRunning" />
+        <div v-for="player in $_sortedPlayers">
+            <player-row :player="player" :isCheckmarkEnabled="$_isRunning" :isReportTimeEnabled="$_isRunning" />
         </div>
         <div class="totals">
             <div class="title">Totals: </div>
@@ -14,30 +14,23 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import { PlayerRow } from '.';
-    import { FormatMixin } from '@/mixins'
-    import { CASHGAME } from '@/store-names';
+    import { CashgameMixin, FormatMixin } from '@/mixins'
 
     export default {
         mixins: [
+            CashgameMixin,
             FormatMixin
         ],
         components: {
             PlayerRow
         },
-        props: ['players'],
         computed: {
-            ...mapGetters(CASHGAME, [
-                'totalBuyin',
-                'totalStacks',
-                'isRunning'
-            ]),
             formattedTotalBuyin() {
-                return this.formatCurrency(this.totalBuyin);
+                return this.$_formatCurrency(this.$_totalBuyin);
             },
             formattedTotalStacks() {
-                return this.formatCurrency(this.totalStacks);
+                return this.$_formatCurrency(this.$_totalStacks);
             }
         }
     };

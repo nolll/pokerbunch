@@ -19,12 +19,11 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { BUNCH } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
     import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
     import urls from '@/urls';
+    import { BunchMixin } from '@/mixins'
 
     export default {
         components: {
@@ -32,11 +31,10 @@
             SimpleListItem,
             CustomLink
         },
+        mixins: [
+            BunchMixin
+        ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'name',
-                'slug'
-            ]),
             bunchesUrl() {
                 return urls.bunch.list;
             },
@@ -50,7 +48,7 @@
                 return urls.admin.tools;
             },
             locationsUrl() {
-                return urls.location.list(this.slug);
+                return urls.location.list(this.$_slug);
             }
         }
     };

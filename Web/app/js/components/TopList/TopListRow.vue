@@ -14,24 +14,21 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import { FormatMixin } from '@/mixins';
-    import { GAME_ARCHIVE } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
+    import { GameArchiveMixin } from '@/mixins';
 
     export default {
         mixins: [
-            FormatMixin
+            FormatMixin,
+            GameArchiveMixin
         ],
         components: {
             CustomLink
         },
         props: ['player'],
         computed: {
-            ...mapGetters(GAME_ARCHIVE, [
-                'playerSortOrder'
-            ]),
             url() {
                 return urls.player.details(this.player.id);
             },
@@ -60,19 +57,19 @@
                 return getSortCssClass(this.orderBy, 'winrate');
             },
             formattedWinnings() {
-                return this.formatResult(this.player.winnings);
+                return this.$_formatResult(this.player.winnings);
             },
             formattedBuyin() {
-                return this.formatCurrency(this.player.buyin);
+                return this.$_formatCurrency(this.player.buyin);
             },
             formattedCashout() {
-                return this.formatCurrency(this.player.stack);
+                return this.$_formatCurrency(this.player.stack);
             },
             formattedWinrate() {
-                return this.formatWinrate(this.player.winrate);
+                return this.$_formatWinrate(this.player.winrate);
             },
             formattedTime() {
-                return this.formatTime(this.player.playedTimeInMinutes);
+                return this.$_formatTime(this.player.playedTimeInMinutes);
             }
         }
     };

@@ -4,7 +4,7 @@
             <label class="label" for="buyin-amount">Amount</label>
             <input class="numberfield" v-model:number="amount" v-on:focus="focus" ref="buyin" id="buyin-amount" type="text" pattern="[0-9]*">
         </div>
-        <div class="field" v-if="isInGame">
+        <div class="field" v-if="$_isInGame">
             <label class="label" for="buyin-stack">Stack Size</label>
             <input class="numberfield" v-model:number="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*">
         </div>
@@ -16,11 +16,10 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import validate from '@/validate';
     import forms from '@/forms';
     import { CustomButton } from '@/components/Common';
-    import { BUNCH, CASHGAME, PLAYER } from '@/store-names';
+    import { BunchMixin, CashgameMixin, PlayerMixin } from '@/mixins';
 
     export default {
         props: {
@@ -31,19 +30,14 @@
         components: {
             CustomButton
         },
+        mixins: [
+            BunchMixin,
+            CashgameMixin,
+            PlayerMixin
+        ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'defaultBuyin'
-            ]),
-            ...mapGetters(CASHGAME, [
-                'isInGame',
-                'playerId'
-            ]),
-            ...mapGetters(PLAYER, [
-                'getPlayer'
-            ]),
             currentPlayer() {
-                this.getPlayer(this.playerId);
+                this.$_getPlayer(this.$_playerId);
             },
             playerName() {
                 if (!this.currentPlayer)
@@ -60,7 +54,7 @@
             }
         },
         mounted: function () {
-            this.amount = this.defaultBuyin;
+            this.amount = this.$_defaultBuyin;
         },
         watch: {
             isActive: function (val) {
@@ -68,7 +62,7 @@
                     this.$refs.buyin.focus();
                 }
             },
-            defaultBuyin: function (val) {
+            $_defaultBuyin: function (val) {
                 this.amount = val;
             }
         },
@@ -76,15 +70,15 @@
             buyin() {
                 this.validateForm();
                 if (!this.hasErrors) {
-                    if (this.isInGame) {
-                        this.$store.dispatch('cashgame/buyin', { amount: this.amount, stack: this.stack });
+                    if (this.$_isInGame) {
+                        this.$_buyin(this.amount, this.stack);
                     } else {
-                        this.$store.dispatch('cashgame/firstBuyin', { amount: this.amount, stack: this.stack, name: this.playerName, color: this.playerColor });
+                        this.$_firstBuyin(this.amount, this.stack, this.playerName, this.playerColor);
                     }
                 }
             },
             cancel() {
-                this.$store.dispatch('cashgame/hideForms');
+                this.$_hideForms();
             },
             focus(event) {
                 forms.selectAll(event.target);

@@ -6,21 +6,21 @@
 
         <page-section>
             <block>
-                <page-heading :text="name" />
+                <page-heading :text="$_bunchName" />
             </block>
 
             <block v-if="hasDescription">
-                {{description}}
+                {{$_description}}
             </block>
 
             <block v-if="hasHouseRules">
                 <h2>House Rules</h2>
                 <p>
-                    {{houseRules}}
+                    {{$_houseRules}}
                 </p>
             </block>
 
-            <block v-if="isManager">
+            <block v-if="$_isManager">
                 <custom-link :url="editUrl">Edit Bunch</custom-link>
             </block>
         </page-section>
@@ -28,12 +28,10 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { DataMixin } from '@/mixins';
+    import { BunchMixin, UserMixin } from '@/mixins';
     import urls from '@/urls';
     import { Layout } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
-    import { BUNCH } from '@/store-names';
     import { Block, PageHeading, PageSection } from '@/components/Common';
     import CustomLink from '@/components/Common/CustomLink.vue';
 
@@ -47,36 +45,30 @@
             CustomLink
         },
         mixins: [
-            DataMixin
+            BunchMixin,
+            UserMixin
         ],
         computed: {
-            ...mapGetters(BUNCH, {
-                slug: 'slug',
-                name: 'name',
-                description: 'description',
-                houseRules: 'houseRules',
-                isManager: 'isManager'
-            }),
             hasDescription() {
-                return !!this.description;
+                return !!this.$_description;
             },
             hasHouseRules() {
-                return !!this.houseRules;
+                return !!this.$_houseRules;
             },
             canEdit() {
-                return this.isManager;
+                return this.$_isManager;
             },
             editUrl() {
-                return urls.bunch.edit(this.slug);
+                return urls.bunch.edit(this.$_slug);
             },
             ready() {
-                return this.bunchReady;
+                return this.$_bunchReady;
             }
         },
         methods: {
             init() {
-                this.requireUser();
-                this.loadBunch();
+                this.$_requireUser();
+                this.$_loadBunch();
             }
         },
         watch: {

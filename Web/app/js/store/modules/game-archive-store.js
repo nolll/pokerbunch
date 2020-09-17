@@ -3,9 +3,10 @@ import gameSorter from '@/game-sorter';
 import playerSorter from '@/player-sorter';
 import timeFunctions from '@/time-functions';
 import moment from 'moment';
+import { GameArchiveStoreGetters, GameArchiveStoreActions, GameArchiveStoreMutations } from '@/store/helpers/GameArchiveStoreHelpers';
 
 export default {
-    namespaced: true,
+    namespaced: false,
     state: {
         _gameSortOrder: 'date',
         _games: [],
@@ -17,93 +18,93 @@ export default {
         _ready: false
     },
     getters: {
-        gameSortOrder: state => state._gameSortOrder,
-        games: state => state._games,
-        playerSortOrder: state => state._playerSortOrder,
-        selectedYear: state => state._selectedYear,
-        isPageNavExpanded: state => state._isPageNavExpanded,
-        isYearNavExpanded: state => state._isYearNavExpanded,
-        sortedGames: state => {
+        [GameArchiveStoreGetters.GameSortOrder]: state => state._gameSortOrder,
+        [GameArchiveStoreGetters.Games]: state => state._games,
+        [GameArchiveStoreGetters.PlayerSortOrder]: state => state._playerSortOrder,
+        [GameArchiveStoreGetters.SelectedYear]: state => state._selectedYear,
+        [GameArchiveStoreGetters.IsPageNavExpanded]: state => state._isPageNavExpanded,
+        [GameArchiveStoreGetters.IsYearNavExpanded]: state => state._isYearNavExpanded,
+        [GameArchiveStoreGetters.SortedGames]: state => {
             var selectedGames = getSelectedGames(state._games, state._selectedYear);
             return gameSorter.sort(selectedGames, state._gameSortOrder);
         },
-        sortedPlayers: (state, getters) => {
-            return playerSorter.sort(getPlayers(getters.sortedGames), state._playerSortOrder);
+        [GameArchiveStoreGetters.SortedPlayers]: (state, getters) => {
+            return playerSorter.sort(getPlayers(getters[GameArchiveStoreGetters.SortedGames]), state._playerSortOrder);
         },
-        currentYearGames: (state, getters) => {
-            var selectedGames = getSelectedGames(state._games, getters.currentYear);
+        [GameArchiveStoreGetters.CurrentYearGames]: (state, getters) => {
+            var selectedGames = getSelectedGames(state._games, getters[GameArchiveStoreGetters.CurrentYear]);
             return gameSorter.sort(selectedGames, 'date');
         },
-        currentYearPlayers: (state, getters) => {
-            return playerSorter.sort(getPlayers(getters.currentYearGames), 'winnings');
+        [GameArchiveStoreGetters.CurrentYearPlayers]: (state, getters) => {
+            return playerSorter.sort(getPlayers(getters[GameArchiveStoreGetters.CurrentYearGames]), 'winnings');
         },
-        allYearsPlayers: state => {
+        [GameArchiveStoreGetters.AllYearsPlayers]: state => {
             return playerSorter.sort(getPlayers(state._games), 'winnings');
         },
-        years: state => {
+        [GameArchiveStoreGetters.Years]: state => {
             return getYears(state._games);
         },
-        currentYear: state => {
+        [GameArchiveStoreGetters.CurrentYear]: state => {
             if (state._games.length > 0) {
                 const latestGame = state._games[0];
                 return moment(latestGame.startTime).year();
             }
             return null;
         },
-        gamesReady: state => state._ready,
-        hasGames: state => {
+        [GameArchiveStoreGetters.GamesReady]: state => state._ready,
+        [GameArchiveStoreGetters.HasGames]: state => {
             return state._games.length > 0;
         }
     },
     actions: {
-        loadGames(context, data) {
+        [GameArchiveStoreActions.LoadGames](context, data) {
             if (!context.state.initialized) {
-                context.commit('setInitialized');
+                context.commit(GameArchiveStoreMutations.SetInitialized);
                 api.getGames(data.slug)
                     .then(function (response) {
-                        context.commit('setData', response.data);
+                        context.commit(GameArchiveStoreMutations.SetData, response.data);
                     });
             }
         },
-        selectYear(context, data) {
-            context.commit('setSelectedYear', data.year);
+        [GameArchiveStoreActions.SelectYear](context, data) {
+            context.commit(GameArchiveStoreMutations.SetSelectedYear, data.year);
         },
-        sortGames(context, sortOrder) {
-            context.commit('setGameSortorder', sortOrder);
+        [GameArchiveStoreActions.SortGames](context, sortOrder) {
+            context.commit(GameArchiveStoreMutations.SetGameSortorder, sortOrder);
         },
-        sortPlayers(context, sortOrder) {
-            context.commit('setPlayerSortorder', sortOrder);
+        [GameArchiveStoreActions.SortPlayers](context, sortOrder) {
+            context.commit(GameArchiveStoreMutations.SetPlayerSortorder, sortOrder);
         },
-        togglePageNav(context) {
-            context.commit('togglePageNav', !context.state._isPageNavExpanded);
-            context.commit('toggleYearNav', false);
+        [GameArchiveStoreActions.TogglePageNav](context) {
+            context.commit(GameArchiveStoreMutations.TogglePageNav, !context.state._isPageNavExpanded);
+            context.commit(GameArchiveStoreMutations.ToggleYearNav, false);
         },
-        toggleYearNav(context) {
-            context.commit('toggleYearNav', !context.state._isYearNavExpanded);
-            context.commit('togglePageNav', false);
+        [GameArchiveStoreActions.ToggleYearNav](context) {
+            context.commit(GameArchiveStoreMutations.ToggleYearNav, !context.state._isYearNavExpanded);
+            context.commit(GameArchiveStoreMutations.TogglePageNav, false);
         }
     },
     mutations: {
-        setData(state, games) {
+        [GameArchiveStoreMutations.SetData](state, games) {
             state._games = getGames(games);
             state._ready = true;
         },
-        setGameSortorder(state, sortOrder) {
+        [GameArchiveStoreMutations.SetGameSortorder](state, sortOrder) {
             state._gameSortOrder = sortOrder;
         },
-        setPlayerSortorder(state, sortOrder) {
+        [GameArchiveStoreMutations.SetPlayerSortorder](state, sortOrder) {
             state._playerSortOrder = sortOrder;
         },
-        setInitialized(state) {
+        [GameArchiveStoreMutations.SetInitialized](state) {
             state.initialized = true;
         },
-        setSelectedYear(state, year) {
+        [GameArchiveStoreMutations.SetSelectedYear](state, year) {
             state._selectedYear = year ? year : null;
         },
-        togglePageNav(state, isExpanded) {
+        [GameArchiveStoreMutations.TogglePageNav](state, isExpanded) {
             state._isPageNavExpanded = isExpanded;
         },
-        toggleYearNav(state, isExpanded) {
+        [GameArchiveStoreMutations.ToggleYearNav](state, isExpanded) {
             state._isYearNavExpanded = isExpanded;
         }
     }

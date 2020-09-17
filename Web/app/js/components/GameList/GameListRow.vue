@@ -12,30 +12,24 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import moment from 'moment';
-    import { FormatMixin } from '@/mixins';
     import urls from '@/urls';
-    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
         mixins: [
-            FormatMixin
+            BunchMixin,
+            FormatMixin,
+            GameArchiveMixin
         ],
         components: {
             CustomLink
         },
         props: ['game'],
         computed: {
-            ...mapGetters(BUNCH, [
-                'slug'
-            ]),
-            ...mapGetters(GAME_ARCHIVE, [
-                'gameSortOrder'
-            ]),
             url() {
-                return urls.cashgame.details(this.slug, this.game.id);
+                return urls.cashgame.details(this.$_slug, this.game.id);
             },
             displayDate() {
                 return moment(this.game.date).format('MMM D');
@@ -56,13 +50,13 @@
                 return this.getSortCssClasses(this.orderBy, 'averagebuyin');
             },
             duration() {
-                return this.formatTime(this.game.duration);
+                return this.$_formatTime(this.game.duration);
             },
             formattedAverageBuyin() {
-                return this.formatCurrency(this.game.averageBuyin);
+                return this.$_formatCurrency(this.game.averageBuyin);
             },
             formattedTurnover() {
-                return this.formatCurrency(this.game.turnover);
+                return this.$_formatCurrency(this.game.turnover);
             }
         },
         methods: {

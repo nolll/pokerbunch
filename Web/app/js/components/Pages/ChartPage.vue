@@ -19,7 +19,7 @@
 </template>
 
 <script>
-    import { DataMixin } from '@/mixins';
+    import { BunchMixin, UserMixin, GameArchiveMixin } from '@/mixins';
     import { Layout } from '@/components/Layouts';
     import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
     import { CashgameChart } from '@/components';
@@ -35,18 +35,20 @@
             PageSection
         },
         mixins: [
-            DataMixin
+            BunchMixin,
+            UserMixin,
+            GameArchiveMixin
         ],
         computed: {
             ready() {
-                return this.bunchReady && this.gamesReady;
+                return this.$_bunchReady && this.$_gamesReady;
             }
         },
         methods: {
             init() {
-                this.requireUser();
-                this.loadBunch();
-                this.loadGames();
+                this.$_requireUser();
+                this.$_loadBunch();
+                this.$_loadGames();
             }
         },
         watch: {

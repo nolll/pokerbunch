@@ -12,41 +12,36 @@
                 </tr>
             </thead>
             <tbody>
-                <tr is="overview-row" v-for="(player, index) in currentYearPlayers" :player="player" :index="index" :key="player.id"></tr>
+                <tr is="overview-row" v-for="(player, index) in $_currentYearPlayers" :player="player" :index="index" :key="player.id"></tr>
             </tbody>
         </table>
     </div>
-</template>
+</template>_
 
 <script>
-    import { mapGetters } from 'vuex';
     import urls from '@/urls';
     import { OverviewRow } from '@/components/Overview';
-    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import { BunchMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
         components: {
             OverviewRow,
             CustomLink
         },
+        mixins: [
+            BunchMixin,
+            GameArchiveMixin
+        ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'bunchReady',
-                'slug'
-            ]),
-            ...mapGetters(GAME_ARCHIVE, [
-                'currentYearGames',
-                'currentYearPlayers'
-            ]),
             url() {
-                return urls.cashgame.details(this.slug, this.lastGame.id);
+                return urls.cashgame.details(this.$_slug, this.lastGame.id);
             },
             lastGame() {
-                return this.currentYearGames[0];
+                return this.$_currentYearGames[0];
             },
             ready() {
-                return this.bunchReady && this.currentYearPlayers.length > 0;
+                return this.$_bunchReady && this.$_currentYearPlayers.length > 0;
             }
         }
     };

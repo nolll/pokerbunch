@@ -2,11 +2,13 @@
 import api from '@/api';
 import playerCalculator from '@/player-calculator';
 import actionTypes from '@/action-types';
+import { BunchStoreGetters } from '@/store/helpers/BunchStoreHelpers';
+import { CashgameStoreGetters, CashgameStoreActions, CashgameStoreMutations } from '@/store/helpers/CashgameStoreHelpers';
 
 const longRefresh = 30000;
 
 export default {
-    namespaced: true,
+    namespaced: false,
     state: {
         _slug: '',
         _id: '',
@@ -22,62 +24,51 @@ export default {
         _cashgameReady: false
     },
     getters: {
-        id: state => state._id,
-        isRunning: state => state._isRunning,
-        locationId: state => state._locationId,
-        locationName: state => state._locationName,
-        reportFormVisible: state => state._reportFormVisible,
-        buyinFormVisible: state => state._buyinFormVisible,
-        cashoutFormVisible: state => state._cashoutFormVisible,
-        players: state => state._players,
-        hasPlayers: state => state._players.length > 0,
-        playerId: (state, getters, rootState, rootGetters) => {
+        [CashgameStoreGetters.CashgameId]: state => state._id,
+        [CashgameStoreGetters.IsRunning]: state => state._isRunning,
+        [CashgameStoreGetters.LocationId]: state => state._locationId,
+        [CashgameStoreGetters.LocationName]: state => state._locationName,
+        [CashgameStoreGetters.ReportFormVisible]: state => state._reportFormVisible,
+        [CashgameStoreGetters.BuyinFormVisible]: state => state._buyinFormVisible,
+        [CashgameStoreGetters.CashoutFormVisible]: state => state._cashoutFormVisible,
+        [CashgameStoreGetters.Players]: state => state._players,
+        [CashgameStoreGetters.HasPlayers]: state => state._players.length > 0,
+        [CashgameStoreGetters.PlayerId]: (state, getters, rootState, rootGetters) => {
             if(state._playerId)
                 return state._playerId;
-            return rootGetters['bunch/playerId'];
+            return rootGetters[BunchStoreGetters.PlayerId];
         },
-        sortedPlayers: (state) => {
+        [CashgameStoreGetters.SortedPlayers]: (state) => {
             return state._players.slice().sort(function (left, right) {
                 return playerCalculator.getWinnings(right) - playerCalculator.getWinnings(left);
             });
         },
-        getPlayer: (state) => (id) => {
+        [CashgameStoreGetters.GetPlayer]: (state) => (id) => {
             if (!id)
                 return null;
             return state._players.find(p => p.id.toString() === id.toString()) || null;
         },
-        isInGame: (state, getters) => {
-            return getters.player !== null;
+        [CashgameStoreGetters.IsInGame]: (state, getters) => {
+            return getters[CashgameStoreGetters.Player] !== null;
         },
-        canReport: (state, getters) => {
-            return getters.isInGame && !getters.hasCashedOut;
+        [CashgameStoreGetters.CanReport]: (state, getters) => {
+            return getters[CashgameStoreGetters.IsInGame] && !getters[CashgameStoreGetters.HasCashedOut];
         },
-        canBuyin: (state, getters) => {
-            return !getters.hasCashedOut;
+        [CashgameStoreGetters.CanBuyin]: (state, getters) => {
+            return !getters[CashgameStoreGetters.HasCashedOut];
         },
-        canCashout: (state, getters) => {
-            return getters.isInGame;
+        [CashgameStoreGetters.CanCashout]: (state, getters) => {
+            return getters[CashgameStoreGetters.IsInGame];
         },
-        canEndGame: state => {
-            var i;
-            if (state._players.length === 0)
+        [CashgameStoreGetters.HasCashedOut]: (state, getters) => {
+            if (!getters[CashgameStoreGetters.IsInGame])
                 return false;
-            for (i = 0; i < state._players.length; i++) {
-                if (!playerCalculator.hasCashedOut(state._players[i])) {
-                    return false;
-                }
-            }
-            return true;
+            return playerCalculator.hasCashedOut(getters[CashgameStoreGetters.Player]);
         },
-        hasCashedOut: (state, getters) => {
-            if (!getters.isInGame)
-                return false;
-            return playerCalculator.hasCashedOut(getters.player);
+        [CashgameStoreGetters.Player]: (state, getters) => {
+            return getters[CashgameStoreGetters.GetPlayer](getters[CashgameStoreGetters.PlayerId]);
         },
-        player: (state, getters) => {
-            return getters.getPlayer(getters.playerId);
-        },
-        totalStacks: state => {
+        [CashgameStoreGetters.TotalStacks]: state => {
             var sum = 0;
             for (var i = 0; i < state._players.length; i++) {
                 var c = state._players[i].actions;
@@ -85,7 +76,7 @@ export default {
             }
             return sum;
         },
-        totalBuyin: state => {
+        [CashgameStoreGetters.TotalBuyin]: state => {
             var sum = 0;
             for (var i = 0; i < state._players.length; i++) {
                 var buyin = 0;
@@ -100,7 +91,7 @@ export default {
             }
             return sum;
         },
-        startTime: state => {
+        [CashgameStoreGetters.StartTime]: state => {
             var i,
                 first,
                 t = moment().utc(),
@@ -119,95 +110,95 @@ export default {
             }
             return t;
         },
-        updatedTime: state => {
+        [CashgameStoreGetters.UpdatedTime]: state => {
             return moment(state._updatedTime);
         },
-        cashgameReady(state) {
+        [CashgameStoreGetters.CashgameReady](state) {
             return state._cashgameReady;
         }
     },
     actions: {
-        loadCashgame(context, { id }) {
+        [CashgameStoreActions.LoadCashgame](context, { id }) {
             api.getCashgame(id)
                 .then(function (response) {
                     if (response.status === 200) {
-                        context.commit('dataLoaded', response.data);
+                        context.commit(CashgameStoreMutations.DataLoaded, response.data);
                     }
-                    context.commit('loadingComplete');
+                    context.commit(CashgameStoreMutations.LoadingComplete);
                     setupRefresh(context, longRefresh);
                 })
                 .catch(function () {
                     
                 });
         },
-        selectPlayer(context, { playerId }) {
-            context.commit('setPlayerId', playerId);
+        [CashgameStoreActions.SelectPlayer](context, { playerId }) {
+            context.commit(CashgameStoreMutations.SetPlayerId, playerId);
         },
-        refresh(context) {
+        [CashgameStoreActions.Refresh](context) {
             refresh(context);
         },
-        report(context, { stack }) {
-            const player = context.getters.player;
+        [CashgameStoreActions.Report](context, { stack }) {
+            const player = context.getters[CashgameStoreGetters.Player];
             const reportData = { type: 'report', playerId: player.id, stack: stack };
             api.report(context.state._id, reportData)
                 .then(function() {
                     refresh(context);
                 });
-            context.commit('report', { player, reportData });
-            context.commit('hideForms');
-            context.commit('resetPlayerId');
+            context.commit(CashgameStoreMutations.Report, { player, reportData });
+            context.commit(CashgameStoreMutations.HideForms);
+            context.commit(CashgameStoreMutations.ResetPlayerId);
         },
-        buyin(context, { amount, stack }) {
-            const buyinData = { type: 'buyin', playerId: context.getters.playerId, stack: stack, added: amount };
-            const player = context.getters.player;
+        [CashgameStoreActions.Buyin](context, { amount, stack }) {
+            const buyinData = { type: 'buyin', playerId: context.getters[CashgameStoreGetters.PlayerId], stack: stack, added: amount };
+            const player = context.getters[CashgameStoreGetters.Player];
             api.buyin(context.state._id, buyinData)
                 .then(function () {
                     refresh(context);
                 });
-            context.commit('buyin', { player, buyinData });
-            context.commit('hideForms');
-            context.commit('resetPlayerId');
+            context.commit(CashgameStoreMutations.Buyin, { player, buyinData });
+            context.commit(CashgameStoreMutations.HideForms);
+            context.commit(CashgameStoreMutations.ResetPlayerId);
         },
-        firstBuyin(context, { amount, stack, name, color }) {
-            const player = createPlayer(context.getters.playerId, name, color);
-            context.commit('addPlayer', { player });
-            context.dispatch('buyin', { amount: amount, stack: stack });
+        [CashgameStoreActions.FirstBuyin](context, { amount, stack, name, color }) {
+            const player = createPlayer(context.getters[CashgameStoreGetters.PlayerId], name, color);
+            context.commit(CashgameStoreMutations.AddPlayer, { player });
+            context.dispatch(CashgameStoreActions.Buyin, { amount: amount, stack: stack });
         },
-        cashout(context, { stack }) {
-            const player = context.getters.player;
+        [CashgameStoreActions.Cashout](context, { stack }) {
+            const player = context.getters[CashgameStoreGetters.Player];
             const cashoutData = { type: 'cashout', playerId: player.id, stack: stack };
             api.cashout(context.state._id, cashoutData)
                 .then(function () {
                     refresh(context);
                 });
-            context.commit('cashout', { player, cashoutData });
-            context.commit('hideForms');
-            context.commit('resetPlayerId');
+            context.commit(CashgameStoreMutations.Cashout, { player, cashoutData });
+            context.commit(CashgameStoreMutations.HideForms);
+            context.commit(CashgameStoreMutations.ResetPlayerId);
         },
-        showReportForm(context) {
+        [CashgameStoreActions.ShowReportForm](context) {
             refresh(context);
-            context.commit('showReportForm');
+            context.commit(CashgameStoreMutations.ShowReportForm);
         },
-        showBuyinForm(context) {
+        [CashgameStoreActions.ShowBuyinForm](context) {
             refresh(context);
-            context.commit('showBuyinForm');
+            context.commit(CashgameStoreMutations.ShowBuyinForm);
         },
-        showCashoutForm(context) {
+        [CashgameStoreActions.ShowCashoutForm](context) {
             refresh(context);
-            context.commit('showCashoutForm');
+            context.commit(CashgameStoreMutations.ShowCashoutForm);
         },
-        hideForms(context) {
-            context.commit('hideForms');
+        [CashgameStoreActions.HideForms](context) {
+            context.commit(CashgameStoreMutations.HideForms);
         },
-        deleteAction(context, data) {
-            context.commit('removeAction', data);
+        [CashgameStoreActions.DeleteAction](context, data) {
+            context.commit(CashgameStoreMutations.RemoveAction, data);
             api.deleteAction(context.state._id, data.id)
                 .then(function () {
                     refresh(context);
                 });
         },
-        saveAction(context, data) {
-            context.commit('updateAction', data);
+        [CashgameStoreActions.SaveAction](context, data) {
+            context.commit(CashgameStoreMutations.UpdateAction, data);
             const updateData = {
                 added: data.added,
                 stack: data.stack,
@@ -220,52 +211,52 @@ export default {
         }
     },
     mutations: {
-        setPlayerId(state, playerId) {
+        [CashgameStoreMutations.SetPlayerId](state, playerId) {
             state._playerId = playerId;
         },
-        resetPlayerId(state) {
+        [CashgameStoreMutations.ResetPlayerId](state) {
             state._playerId = null;
         },
-        setPlayers(state, players) {
+        [CashgameStoreMutations.SetPlayers](state, players) {
             state._players = players;
         },
-        setIsRunning(state, isRunning) {
+        [CashgameStoreMutations.SetIsRunning](state, isRunning) {
             state._isRunning = isRunning;
         },
-        report(state, { player, reportData }) {
+        [CashgameStoreMutations.Report](state, { player, reportData }) {
             state._currentStack = reportData.stack;
             addCheckpoint(actionTypes.report, player, reportData.stack, 0);
         },
-        cashout(state, { player, cashoutData }) {
+        [CashgameStoreMutations.Cashout](state, { player, cashoutData }) {
             state._currentStack = cashoutData.stack;
             addCheckpoint(actionTypes.cashout, player, cashoutData.stack, 0);
         },
-        buyin(state, { player, buyinData }) {
+        [CashgameStoreMutations.Buyin](state, { player, buyinData }) {
             const afterStack = buyinData.stack + buyinData.added;
             state._currentStack = afterStack;
             addCheckpoint(actionTypes.buyin, player, afterStack, buyinData.added);
         },
-        addPlayer(state, { player }) {
+        [CashgameStoreMutations.AddPlayer](state, { player }) {
             state._players.push(player);
         },
-        showReportForm(state) {
+        [CashgameStoreMutations.ShowReportForm](state) {
             state._reportFormVisible = true;
         },
-        showBuyinForm(state) {
+        [CashgameStoreMutations.ShowBuyinForm](state) {
             state._buyinFormVisible = true;
         },
-        showCashoutForm(state) {
+        [CashgameStoreMutations.ShowCashoutForm](state) {
             state._cashoutFormVisible = true;
         },
-        hideForms(state) {
+        [CashgameStoreMutations.HideForms](state) {
             state._reportFormVisible = false;
             state._buyinFormVisible = false;
             state._cashoutFormVisible = false;
         },
-        loadingComplete(state) {
+        [CashgameStoreMutations.LoadingComplete](state) {
             state._cashgameReady = true;
         },
-        removeAction(state, payload) {
+        [CashgameStoreMutations.RemoveAction](state, payload) {
             state._players.forEach(function (player) {
                 const p = player.actions.map(item => item.id).indexOf(payload.id);
                 if (p !== -1) {
@@ -273,7 +264,7 @@ export default {
                 }
             });
         },
-        updateAction(state, payload) {
+        [CashgameStoreMutations.UpdateAction](state, payload) {
             state._players.forEach(function (player) {
                 player.actions = player.actions.map(action => {
                     if (action.id === payload.id) {
@@ -283,7 +274,7 @@ export default {
                 });
             });
         },
-        dataLoaded(state, data) {
+        [CashgameStoreMutations.DataLoaded](state, data) {
             state._isRunning = data.isRunning;
             state._id = data.id;
             state._slug = data.bunch.id;
@@ -316,8 +307,8 @@ function refresh(context) {
 }
 
 function setPlayers(context, data) {
-    context.commit('setPlayers', data.players);
-    context.commit('setIsRunning', data.isRunning);
+    context.commit(CashgameStoreMutations.SetPlayers, data.players);
+    context.commit(CashgameStoreMutations.SetIsRunning, data.isRunning);
     setupRefresh(context, longRefresh);
 }
 

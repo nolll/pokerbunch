@@ -15,16 +15,11 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { FormatMixin } from '@/mixins'
     import { AmountFact, TimeFact } from '.';
     import { DefinitionData, DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
-    import { GAME_ARCHIVE } from '@/store-names';
+    import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
-        mixins: [
-            FormatMixin
-        ],
         components: {
             AmountFact,
             TimeFact,
@@ -32,23 +27,25 @@
             DefinitionList,
             DefinitionTerm
         },
+        mixins: [
+            BunchMixin,
+            FormatMixin,
+            GameArchiveMixin
+        ],
         computed: {
-            ...mapGetters(GAME_ARCHIVE, [
-                'sortedGames'
-            ]),
             facts() {
-                return getFacts(this.sortedGames);
+                return getFacts(this.$_sortedGames);
             },
             gameCount() {
-                return this.sortedGames.length;
+                return this.$_sortedGames.length;
             },
             turnover() {
-                return this.formatCurrency(this.facts.turnover)
+                return this.$_formatCurrency(this.facts.turnover)
             }
         },
         methods: {
             ready() {
-                return this.bunchReady && this.gamesReady;
+                return this.$_bunchReady && this.$_gamesReady;
             }
         }
     };

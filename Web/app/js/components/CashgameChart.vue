@@ -6,32 +6,26 @@
 
 <script>
     import moment from 'moment';
-    import { mapGetters } from 'vuex';
     import { LineChart } from '.';
-    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
+    import { BunchMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
         components: {
             LineChart
         },
+        mixins: [
+            GameArchiveMixin,
+            BunchMixin
+        ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'bunchReady'
-            ]),
-            ...mapGetters(GAME_ARCHIVE, [
-                'gamesReady',
-                'startTime',
-                'sortedGames',
-                'sortedPlayers'
-            ]),
             chartData() {
                 if (!this.ready) {
                     return null;
                 }
-                return getChartData(this.sortedGames, this.sortedPlayers);
+                return getChartData(this.$_sortedGames, this.$_sortedPlayers);
             },
             ready() {
-                return this.bunchReady && this.gamesReady;
+                return this.$_bunchReady && this.$_gamesReady;
             }
         },
         data: function () {

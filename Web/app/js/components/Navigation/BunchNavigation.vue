@@ -1,6 +1,6 @@
 ﻿<template>
     <nav class="game-nav" v-if="hasSlug">
-        <h2><custom-link :url="bunchDetailsUrl">{{name}}</custom-link></h2>
+        <h2><custom-link :url="bunchDetailsUrl">{{bunchName}}</custom-link></h2>
         <ul>
             <li><custom-link :url="cashgamesUrl"><span>Cashgames</span></custom-link></li>
             <li><custom-link :url="playersUrl"><span>Players</span></custom-link></li>
@@ -11,33 +11,30 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { BUNCH } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
+    import { BunchMixin } from '@/mixins';
 
     export default {
         components: {
             CustomLink
         },
+        mixins: [
+            BunchMixin
+        ],
         computed: {
-            ...mapGetters(BUNCH, {
-                selectedName: 'name',
-                selectedSlug: 'slug',
-                userBunches: 'userBunches'
-            }),
             slug() {
-                if (this.selectedSlug && this.selectedSlug.length > 0)
-                    return this.selectedSlug;
-                if (this.userBunches.length > 0)
-                    return this.userBunches[0].id;
+                if (this.$_slug && this.$_slug.length > 0)
+                    return this.$_slug;
+                if (this.$_userBunches.length > 0)
+                    return this.$_userBunches[0].id;
                 return null;
             },
-            name() {
-                if (this.selectedName && this.selectedName.length > 0)
-                    return this.selectedName;
-                if (this.userBunches.length > 0)
-                    return this.userBunches[0].name;
+            bunchName() {
+                if (this.$_bunchName && this.$_bunchName.length > 0)
+                    return this.$_bunchName;
+                if (this.$_userBunches.length > 0)
+                    return this.$_userBunches[0].name;
                 return null;
             },
             hasSlug() {

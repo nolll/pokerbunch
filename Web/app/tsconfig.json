@@ -1,9 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
+    "module": "esnext",
     "strict": true,
-    "module": "es2015",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "downlevelIteration": true,
+    "baseUrl": "./app/js/",
+    "paths": {
+      "@/*": [
+          "*"
+      ]
+    },
   },
   "files": [
     "./js/types.d.ts"

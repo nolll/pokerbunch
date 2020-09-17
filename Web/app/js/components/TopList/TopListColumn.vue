@@ -3,17 +3,16 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { GAME_ARCHIVE } from '@/store-names';
+    import { GameArchiveMixin } from '@/mixins';
 
     export default {
         props: ['name', 'title'],
+        mixins: [
+            GameArchiveMixin
+        ],
         computed: {
-            ...mapGetters(GAME_ARCHIVE, [
-                'playerSortOrder'
-            ]),
             isSelected() {
-                return this.name === this.playerSortOrder;
+                return this.name === this.$_playerSortOrder;
             },
             sortColumnCssClass() {
                 return this.isSelected ? 'table-list--sortable__sort-column' : '';
@@ -21,7 +20,7 @@
         },
         methods: {
             sort() {
-                this.$store.dispatch('gameArchive/sortPlayers', this.name);
+                this.$_sortPlayers(this.name);
             }
         }
     };

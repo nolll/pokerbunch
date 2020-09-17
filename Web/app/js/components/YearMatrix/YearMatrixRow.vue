@@ -38,7 +38,7 @@
                 return this.player.winnings;
             },
             formattedWinnings() {
-                return this.formatResult(this.winnings);
+                return this.$_formatResult(this.winnings);
             },
             resultClass() {
                 if (this.winnings > 0)

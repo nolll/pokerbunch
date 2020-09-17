@@ -26,15 +26,15 @@
     //MostGamesPlayed
     //HighestWinrate
 
-    import { mapGetters } from 'vuex';
-    import { FormatMixin } from '@/mixins';
     import { PlayerAmountFact, PlayerResultFact, PlayerTimeFact } from '.';
     import { DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
-    import { GAME_ARCHIVE } from '@/store-names';
+    import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
         mixins: [
-            FormatMixin
+            BunchMixin,
+            FormatMixin,
+            GameArchiveMixin
         ],
         components: {
             PlayerAmountFact,
@@ -44,18 +44,13 @@
             DefinitionTerm
         },
         computed: {
-            ...mapGetters(GAME_ARCHIVE, [
-                'sortedGames',
-                'sortedPlayers'
-
-            ]),
             facts() {
-                return getFacts(this.sortedPlayers);
+                return getFacts(this.$_sortedPlayers);
             }
         },
         methods: {
             ready() {
-                return this.bunchReady && this.sortedGames.length > 0;
+                return this.$_bunchReady && this.$_sortedGames.length > 0;
             }
         }
     };

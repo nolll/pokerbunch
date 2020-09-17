@@ -1,7 +1,8 @@
 ﻿import api from '@/api';
+import { PlayerStoreGetters, PlayerStoreActions, PlayerStoreMutations } from '@/store/helpers/PlayerStoreHelpers';
 
 export default {
-    namespaced: true,
+    namespaced: false,
     state: {
         _slug: '',
         _players: [],
@@ -9,10 +10,10 @@ export default {
         _initialized: false
     },
     getters: {
-        slug: state => state._slug,
-        players: state => state._players,
-        playersReady: state => state._playersReady,
-        getPlayer: (state) => (id) => {
+        [PlayerStoreGetters.Slug]: state => state._slug,
+        [PlayerStoreGetters.Players]: state => state._players,
+        [PlayerStoreGetters.PlayersReady]: state => state._playersReady,
+        [PlayerStoreGetters.GetPlayer]: (state) => (id) => {
             if (!state._players)
                 return null;
             var i;
@@ -25,22 +26,22 @@ export default {
         }
     },
     actions: {
-        loadPlayers(context, data) {
+        [PlayerStoreActions.LoadPlayers]: function loadPlayers(context, data) {
             if (!context.state._initialized) {
-                context.commit('setInitialized');
+                context.commit(PlayerStoreMutations.SetInitialized);
                 api.getPlayers(data.slug)
                     .then(function (response) {
-                        context.commit('setPlayersData', response.data);
+                        context.commit(PlayerStoreMutations.SetPlayersData, response.data);
                     });
             }
         }
     },
     mutations: {
-        setPlayersData(state, players) {
+        [PlayerStoreMutations.SetPlayersData]: function (state, players) {
             state._players = players;
             state._playersReady = true;
         },
-        setInitialized(state) {
+        [PlayerStoreMutations.SetInitialized]: function (state) {
             state._initialized = true;
         }
     }

@@ -1,38 +1,39 @@
 ﻿import api from '@/api';
+import { CurrentGameStoreGetters, CurrentGameStoreActions, CurrentGameStoreMutations } from '@/store/helpers/CurrentGameStoreHelpers';
 
 export default {
-    namespaced: true,
+    namespaced: false,
     state: {
         _currentGames: [],
         _currentGamesReady: false
     },
     getters: {
-        currentGamesReady(state) {
+        [CurrentGameStoreGetters.CurrentGamesReady](state) {
             return state._currentGamesReady;
         },
-        currentGames(state) {
+        [CurrentGameStoreGetters.CurrentGames](state) {
             return state._currentGames;
         }
     },
     actions: {
-        loadCurrentGames(context, { slug }) {
+        [CurrentGameStoreActions.LoadCurrentGames](context, { slug }) {
             api.getCurrentGames(slug)
                 .then(function (response) {
                     if (response.status === 200) {
-                        context.commit('dataLoaded', response.data);
+                        context.commit(CurrentGameStoreMutations.DataLoaded, response.data);
                     }
-                    context.commit('loadingComplete');
+                    context.commit(CurrentGameStoreMutations.LoadingComplete);
                 })
                 .catch(function () {
-                    context.commit('loadingComplete');
+                    context.commit(CurrentGameStoreMutations.LoadingComplete);
                 });
         }
     },
     mutations: {
-        loadingComplete(state) {
+        [CurrentGameStoreMutations.LoadingComplete](state) {
             state._currentGamesReady = true;
         },
-        dataLoaded(state, data) {
+        [CurrentGameStoreMutations.DataLoaded](state, data) {
             state._currentGames = data;
         }
     }

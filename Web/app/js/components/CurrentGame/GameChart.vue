@@ -6,20 +6,22 @@
 
 <script>
     import moment from 'moment';
-    import { mapGetters } from 'vuex'
     import { LineChart } from '@/components';
-    import { CASHGAME } from '@/store-names';
     import playerCalculator from '@/player-calculator';
+    import { CashgameMixin } from '@/mixins';
 
     export default {
         components: {
             LineChart
         },
+        mixins: [
+            CashgameMixin
+        ],
         watch: {
-            'players': function () {
+            $_cashgamePlayers: function () {
                 this.drawChart();
             },
-            'cashgameReady': function (isReady) {
+            $_cashgameReady: function (isReady) {
                 if (isReady) {
                     this.drawChart();
                 }
@@ -28,16 +30,10 @@
         mounted: function () {
             var self = this;
             self.$nextTick(function () {
-                if (this.cashgameReady) {
+                if (this.$_cashgameReady) {
                     self.drawChart();
                 }
             });
-        },
-        computed: {
-            ...mapGetters(CASHGAME, [
-                'players',
-                'cashgameReady'
-            ])
         },
         methods: {
             drawChart() {
@@ -55,8 +51,8 @@
                 var i,
                     p,
                     colors = [];
-                for (i = 0; i < this.players.length; i++) {
-                    p = this.players[i];
+                for (i = 0; i < this.$_cashgamePlayers.length; i++) {
+                    p = this.$_cashgamePlayers[i];
                     colors.push(p.color);
                 }
                 return colors;
@@ -65,8 +61,8 @@
                 var i,
                     p,
                     cols = [{ type: 'datetime', label: 'Time', pattern: 'HH:mm' }];
-                for (i = 0; i < this.players.length; i++) {
-                    p = this.players[i];
+                for (i = 0; i < this.$_cashgamePlayers.length; i++) {
+                    p = this.$_cashgamePlayers[i];
                     cols.push({ type: 'number', label: p.name, pattern: null });
                 }
                 return cols;
@@ -74,8 +70,8 @@
             getRows() {
                 var i, j, p, r;
                 var rows = [];
-                for (i = 0; i < this.players.length; i++) {
-                    p = this.players[i];
+                for (i = 0; i < this.$_cashgamePlayers.length; i++) {
+                    p = this.$_cashgamePlayers[i];
                     r = this.getPlayerResults(p);
                     for (j = 0; j < r.length; j++) {
                         rows.push(this.getRow(r[j], p.id));
@@ -107,9 +103,9 @@
             },
             getRow(result, playerId) {
                 var values = [{ v: moment(result.time).toDate(), f: null }];
-                for (var i = 0; i < this.players.length; i++) {
+                for (var i = 0; i < this.$_cashgamePlayers.length; i++) {
                     var val = null;
-                    if (this.players[i].id === playerId) {
+                    if (this.$_cashgamePlayers[i].id === playerId) {
                         val = result.winnings + '';
                     }
                     values.push({ v: val, f: null });

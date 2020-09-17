@@ -1,33 +1,36 @@
 ﻿<template>
     <div class="heading-nav-container">
         <nav class="cashgame-nav heading-nav is-expanded">
-            <span v-on:click="togglePageNav" class="heading-nav__sub-nav">{{selectedPageName}}</span>
-            <span v-show="isYearNavEnabled">| <span v-on:click="toggleYearNav" class="heading-nav__sub-nav">{{presentationYear}}</span></span>
-            <ul v-show="isPageNavExpanded">
-                <cashgame-navigation-item :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="togglePageNav" />
-                <cashgame-navigation-item :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="togglePageNav" />
-                <cashgame-navigation-item :url="toplistUrl" text="Toplist" :isSelected="isToplistSelected" v-on:selected="togglePageNav" />
-                <cashgame-navigation-item :url="chartUrl" text="Chart" :isSelected="isChartSelected" v-on:selected="togglePageNav" />
-                <cashgame-navigation-item :url="listUrl" text="List" :isSelected="isListSelected" v-on:selected="togglePageNav" />
-                <cashgame-navigation-item :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="togglePageNav" />
+            <span v-on:click="$_togglePageNav" class="heading-nav__sub-nav">{{selectedPageName}}</span>
+            <span v-show="isYearNavEnabled">| <span v-on:click="$_toggleYearNav" class="heading-nav__sub-nav">{{presentationYear}}</span></span>
+            <ul v-show="$_isPageNavExpanded">
+                <cashgame-navigation-item :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="$_togglePageNav" />
+                <cashgame-navigation-item :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="$_togglePageNav" />
+                <cashgame-navigation-item :url="toplistUrl" text="Toplist" :isSelected="isToplistSelected" v-on:selected="$_togglePageNav" />
+                <cashgame-navigation-item :url="chartUrl" text="Chart" :isSelected="isChartSelected" v-on:selected="$_togglePageNav" />
+                <cashgame-navigation-item :url="listUrl" text="List" :isSelected="isListSelected" v-on:selected="$_togglePageNav" />
+                <cashgame-navigation-item :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="$_togglePageNav" />
             </ul>
-            <ul v-show="isYearNavExpanded">
-                <cashgame-navigation-item v-for="year in years" :key="year" :url="getUrl(year)" :text="year" :isSelected="isSelected(year)" v-on:selected="toggleYearNav" />
-                <cashgame-navigation-item :url="getUrl()" :text="allYearsText" :isSelected="isSelected()" v-on:selected="toggleYearNav" />
+            <ul v-show="$_isYearNavExpanded">
+                <cashgame-navigation-item v-for="year in $_years" :key="year" :url="getUrl(year)" :text="year" :isSelected="isSelected(year)" v-on:selected="$_toggleYearNav" />
+                <cashgame-navigation-item :url="getUrl()" :text="allYearsText" :isSelected="isSelected()" v-on:selected="$_toggleYearNav" />
             </ul>
         </nav>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import { CashgameNavigationItem } from '.';
-    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
+    import { BunchMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
         components: {
             CashgameNavigationItem
         },
+        mixins: [
+            BunchMixin,
+            GameArchiveMixin
+        ],
         props: ['page', 'year'],
         data: function () {
             return {
@@ -35,22 +38,13 @@
             };
         },
         computed: {
-            ...mapGetters(BUNCH, [
-                'slug'
-            ]),
-            ...mapGetters(GAME_ARCHIVE, [
-                'selectedYear',
-                'years',
-                'isPageNavExpanded',
-                'isYearNavExpanded'
-            ]),
             computedYear() {
                 if (this.year)
                     return this.year;
-                return this.selectedYear;
+                return this.$_selectedYear;
             },
             presentationYear() {
-                return this.selectedYear || this.allYearsText;
+                return this.$_selectedYear || this.allYearsText;
             },
             selectedPageName() {
                 if (this.page === 'matrix')
@@ -69,22 +63,22 @@
                 return this.page !== 'overview'
             },
             overviewUrl() {
-                return buildUrl('index', this.slug);
+                return buildUrl('index', this.$_slug);
             },
             matrixUrl() {
-                return buildUrl('matrix', this.slug, this.computedYear);
+                return buildUrl('matrix', this.$_slug, this.computedYear);
             },
             toplistUrl() {
-                return buildUrl('toplist', this.slug, this.computedYear);
+                return buildUrl('toplist', this.$_slug, this.computedYear);
             },
             chartUrl() {
-                return buildUrl('chart', this.slug, this.computedYear);
+                return buildUrl('chart', this.$_slug, this.computedYear);
             },
             listUrl() {
-                return buildUrl('list', this.slug, this.computedYear);
+                return buildUrl('list', this.$_slug, this.computedYear);
             },
             factsUrl() {
-                return buildUrl('facts', this.slug, this.computedYear);
+                return buildUrl('facts', this.$_slug, this.computedYear);
             },
             isOverviewSelected() {
                 return this.page === 'overview';
@@ -107,18 +101,12 @@
         },
         methods: {
             getUrl(year) {
-                return buildUrl(this.page, this.slug, year)
+                return buildUrl(this.page, this.$_slug, year)
             },
             isSelected(year) {
-                if (!year && !this.selectedYear)
+                if (!year && !this.$_selectedYear)
                     return true;
-                return year === this.selectedYear;
-            },
-            toggleYearNav() {
-                this.$store.dispatch('gameArchive/toggleYearNav');
-            },
-            togglePageNav() {
-                this.$store.dispatch('gameArchive/togglePageNav');
+                return year === this.$_selectedYear;
             }
         }
     };

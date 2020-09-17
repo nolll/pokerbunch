@@ -1,15 +1,5 @@
 ﻿<template>
-    <div>
-        <div class="table-list--sortable__sort-order-selector">
-            <label for="gamelist-sortorder">Select Data:</label>
-            <select id="gamelist-sortorder" v-model="gameSortOrder">
-                <option value="date">Date</option>
-                <option value="playercount">Players</option>
-                <option value="duration">Duration</option>
-                <option value="turnover">Turnover</option>
-                <option value="averagebuyin">Average Buyin</option>
-            </select>
-        </div>
+    <div class="game-list">
         <table class="table-list table-list--sortable">
             <thead>
                 <tr>
@@ -22,37 +12,35 @@
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="game-list-row" v-for="game in sortedGames" :game="game" :key="game.id"></tr>
+                <tr is="game-list-row" v-for="game in $_sortedGames" :game="game" :key="game.id"></tr>
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import { GameListColumn, GameListRow } from '.';
-    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
+    import { BunchMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
         components: {
             GameListColumn,
             GameListRow
         },
+        mixins: [
+            BunchMixin,
+            GameArchiveMixin
+        ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'bunchReady'
-            ]),
-            ...mapGetters(GAME_ARCHIVE, [
-                'gameSortOrder',
-                'sortedGames'
-            ]),
             ready() {
-                return this.bunchReady && this.sortedGames.length > 0;
+                return this.$_bunchReady && this.$_sortedGames.length > 0;
             }
         }
     };
 </script>
 
-<style>
-
+<style lang="less" scoped>
+    .game-list{
+        overflow: auto;
+    }
 </style>

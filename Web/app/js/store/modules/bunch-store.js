@@ -1,8 +1,9 @@
 ﻿import api from '@/api';
 import roles from '@/roles';
+import { BunchStoreGetters, BunchStoreActions, BunchStoreMutations } from '@/store/helpers/BunchStoreHelpers';
 
 export default {
-    namespaced: true,
+    namespaced: false,
     state: {
         _slug: '',
         _name: '',
@@ -20,44 +21,44 @@ export default {
         _userBunchesInitialized: false
     },
     getters: {
-        slug: state => state._slug,
-        name: state => state._name,
-        currencyFormat: state => state._currencyFormat,
-        thousandSeparator: state => state._thousandSeparator,
-        description: state => state._description && state._description.length > 0 ? state._description : null,
-        houseRules: state => state._houseRules && state._houseRules.length > 0 ? state._houseRules : null,
-        defaultBuyin: state => state._defaultBuyin,
-        playerId: state => state._playerId,
-        isManager: state => state._role === roles.manager || state._role === roles.admin,
-        bunchReady: state => state._bunchReady,
-        userBunches: state => state._userBunches,
-        userBunchesReady: state => state._userBunchesReady
+        [BunchStoreGetters.Slug]: state => state._slug,
+        [BunchStoreGetters.Name]: state => state._name,
+        [BunchStoreGetters.CurrencyFormat]: state => state._currencyFormat,
+        [BunchStoreGetters.ThousandSeparator]: state => state._thousandSeparator,
+        [BunchStoreGetters.Description]: state => state._description && state._description.length > 0 ? state._description : null,
+        [BunchStoreGetters.HouseRules]: state => state._houseRules && state._houseRules.length > 0 ? state._houseRules : null,
+        [BunchStoreGetters.DefaultBuyin]: state => state._defaultBuyin,
+        [BunchStoreGetters.PlayerId]: state => state._playerId,
+        [BunchStoreGetters.IsManager]: state => state._role === roles.manager || state._role === roles.admin,
+        [BunchStoreGetters.BunchReady]: state => state._bunchReady,
+        [BunchStoreGetters.UserBunches]: state => state._userBunches,
+        [BunchStoreGetters.UserBunchesReady]: state => state._userBunchesReady
     },
     actions: {
-        loadBunch(context, data) {
+        [BunchStoreActions.LoadBunch](context, data) {
             if (!context.state._bunchInitialized) {
-                context.commit('setBunchInitialized');
+                context.commit(BunchStoreMutations.SetBunchInitialized);
                 api.getBunch(data.slug)
                     .then(function (response) {
-                        context.commit('setBunchData', response.data);
+                        context.commit(BunchStoreMutations.SetBunchData, response.data);
                     });
             }
         },
-        loadUserBunches(context) {
+        [BunchStoreActions.LoadUserBunches](context) {
             if (!context.state._userBunchesInitialized) {
-                context.commit('setUserBunchesInitialized');
+                context.commit(BunchStoreMutations.SetUserBunchesInitialized);
                 api.getUserBunches()
                     .then(function (response) {
-                        context.commit('setUserBunchesData', response.data);
+                        context.commit(BunchStoreMutations.SetUserBunchesData, response.data);
                     })
                     .catch(function (error) {
-                        context.commit('setUserBunchesError');
+                        context.commit(BunchStoreMutations.SetUserBunchesError);
                     });
             }
         }
     },
     mutations: {
-        setBunchData(state, bunch) {
+        [BunchStoreMutations.SetBunchData](state, bunch) {
             state._slug = bunch.id;
             state._name = bunch.name;
             state._currencyFormat = bunch.currencyFormat;
@@ -69,18 +70,18 @@ export default {
             state._role = bunch.role;
             state._bunchReady = true;
         },
-        setBunchInitialized(state) {
+        [BunchStoreMutations.SetBunchInitialized](state) {
             state._bunchInitialized = true;
         },
-        setUserBunchesData(state, bunches) {
+        [BunchStoreMutations.SetUserBunchesData](state, bunches) {
             state._userBunches = bunches;
             state._userBunchesReady = true;
         },
-        setUserBunchesError(state) {
+        [BunchStoreMutations.SetUserBunchesError](state) {
             state._userBunches = [];
             state._userBunchesReady = true;
         },
-        setUserBunchesInitialized(state) {
+        [BunchStoreMutations.SetUserBunchesInitialized](state) {
             state._userBunchesInitialized = true;
         }
     }

@@ -16,7 +16,7 @@
         props: ['minutes'],
         computed: {
             formattedTime() {
-                return this.formatTime(this.minutes);
+                return this.$_formatTime(this.minutes);
             }
         }
     };

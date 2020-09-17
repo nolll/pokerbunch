@@ -18,15 +18,15 @@
     //BiggestCashout
     //BiggestComeback
 
-    import { mapGetters } from 'vuex';
-    import { FormatMixin } from '@/mixins'
     import { PlayerResultFact } from '.';
     import { DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
-    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
+    import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
         mixins: [
-            FormatMixin
+            BunchMixin,
+            FormatMixin,
+            GameArchiveMixin
         ],
         components: {
             PlayerResultFact,
@@ -34,20 +34,13 @@
             DefinitionTerm
         },
         computed: {
-            ...mapGetters(BUNCH, [
-                'bunchReady',
-            ]),
-            ...mapGetters(GAME_ARCHIVE, [
-                'sortedPlayers',
-                'gamesReady'
-            ]),
             facts() {
-                return getFacts(this.sortedPlayers);
+                return getFacts(this.$_sortedPlayers);
             },
         },
         methods: {
             ready() {
-                return this.bunchReady && this.gamesReady;
+                return this.$_bunchReady && this.$_gamesReady;
             }
         }
     };

@@ -9,7 +9,7 @@
                 <page-heading text="This is Poker Bunch" />
             </block>
 
-            <div v-if="isSignedIn">
+            <div v-if="$_isSignedIn">
                 <block>
                     <p>
                         Poker Bunch helps you keep track of the results in your poker homegames.
@@ -45,7 +45,7 @@
                 <block>
                     <user-bunch-list />
                 </block>
-                <block v-if="isAdmin">
+                <block v-if="$_isAdmin">
                     <admin-navigation />
                 </block>
             </template>
@@ -55,13 +55,11 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { DataMixin } from '@/mixins';
+    import { BunchMixin, UserMixin } from '@/mixins';
     import { Layout } from '@/components/Layouts';
     import { AdminNavigation, BunchNavigation } from '@/components/Navigation';
     import { Block, PageHeading, PageSection } from '@/components/Common';
     import urls from '@/urls';
-    import { BUNCH, USER } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 
@@ -77,16 +75,10 @@
             CustomLink
         },
         mixins: [
-            DataMixin
+            BunchMixin,
+            UserMixin
         ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'slug'
-            ]),
-            ...mapGetters(USER, [
-                'isSignedIn',
-                'isAdmin'
-            ]),
             loginUrl() {
                 return urls.auth.login;
             },
@@ -100,13 +92,13 @@
                 return urls.api.docs;
             },
             ready() {
-                return this.userReady && this.userBunchesReady;
+                return this.$_userReady && this.$_userBunchesReady;
             }
         },
         methods: {
             init() {
-                this.loadUser();
-                this.loadUserBunches();
+                this.$_loadUser();
+                this.$_loadUserBunches();
             }
         },
         watch: {

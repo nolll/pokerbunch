@@ -1,16 +1,5 @@
 ﻿<template>
-    <div>
-        <div class="table-list--sortable__sort-order-selector">
-            <label for="toplist-sortorder">Select Data:</label>
-            <select id="toplist-sortorder" v-model="playerSortOrder">
-                <option value="winnings">Winnings</option>
-                <option value="buyin">Buyin</option>
-                <option value="cashout">Cashout</option>
-                <option value="time">Time</option>
-                <option value="gamecount">Games</option>
-                <option value="winrate">Win rate</option>
-            </select>
-        </div>
+    <div class="top-list">
         <table class="table-list table-list--sortable">
             <thead>
                 <tr>
@@ -25,31 +14,30 @@
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="top-list-row" v-for="player in sortedPlayers" :player="player" :key="player.id"></tr>
+                <tr is="top-list-row" v-for="player in $_sortedPlayers" :player="player" :key="player.id"></tr>
             </tbody>
         </table>
     </div>
 </template>
 
 <script>
-    import { mapState, mapGetters } from 'vuex';
     import { TopListColumn, TopListRow } from '.';
-    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
+    import { GameArchiveMixin } from '@/mixins';
 
     export default {
         components: {
             TopListColumn,
             TopListRow
         },
-        computed: {
-            ...mapGetters(GAME_ARCHIVE, [
-                'playerSortOrder',
-                'sortedPlayers'
-            ])
-        }
+        mixins: [
+            GameArchiveMixin
+        ]
     };
 </script>
 
-<style>
-
+<style lang="less" scoped>
+    .top-list {
+        overflow: auto;
+    }
 </style>
+

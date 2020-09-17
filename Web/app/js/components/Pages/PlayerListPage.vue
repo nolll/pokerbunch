@@ -23,14 +23,12 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { DataMixin } from '@/mixins';
+    import { BunchMixin, PlayerMixin, UserMixin } from '@/mixins';
     import { Layout } from '@/components/Layouts';
     import { BunchNavigation } from '@/components/Navigation';
     import { PlayerList } from '@/components';
     import { Block, CustomButton, PageHeading, PageSection } from '@/components/Common';
     import urls from '@/urls';
-    import { BUNCH } from '@/store-names';
 
     export default {
         components: {
@@ -43,24 +41,23 @@
             PageSection
         },
         mixins: [
-            DataMixin
+            BunchMixin,
+            PlayerMixin,
+            UserMixin
         ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'slug'
-            ]),
             addPlayerUrl() {
-                return urls.player.add(this.slug);
+                return urls.player.add(this.$_slug);
             },
             ready() {
-                return this.bunchReady && this.playersReady;
+                return this.$_bunchReady && this.$_playersReady;
             }
         },
         methods: {
             init() {
-                this.requireUser();
-                this.loadBunch();
-                this.loadPlayers();
+                this.$_requireUser();
+                this.$_loadBunch();
+                this.$_loadPlayers();
             }
         },
         watch: {

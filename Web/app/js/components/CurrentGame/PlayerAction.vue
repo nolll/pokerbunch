@@ -27,14 +27,13 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { FormatMixin } from '@/mixins';
+    import { BunchMixin, FormatMixin } from '@/mixins';
     import actionTypes from '@/action-types';
     import moment from 'moment';
-    import { BUNCH } from '@/store-names';
 
     export default {
         mixins: [
+            BunchMixin,
             FormatMixin
         ],
         props: {
@@ -43,9 +42,6 @@
             }
         },
         computed: {
-            ...mapGetters(BUNCH, [
-                'isManager'
-            ]),
             formTime() {
                 if (this.changedTime !== null)
                     return this.changedTime;
@@ -65,7 +61,7 @@
                 return moment(this.action.time).format('HH:mm');
             },
             formattedAmount() {
-                return this.formatCurrency(this.amount);
+                return this.$_formatCurrency(this.amount);
             },
             amount() {
                 if (this.action.type === actionTypes.buyin)
@@ -80,7 +76,7 @@
                 return 'Report';
             },
             canEdit() {
-                return this.isManager;
+                return this.$_isManager;
             },
             showAddedField() {
                 return this.action.type === actionTypes.buyin;
@@ -92,7 +88,7 @@
             },
             clickDelete() {
                 if (window.confirm('Do you want to delete this action?')) {
-                    this.$store.dispatch('cashgame/deleteAction', { id: this.action.id });
+                    this.$_deleteAction(this.action.id);
                 }
             },
             clickCancel() {
@@ -105,7 +101,7 @@
                     stack: this.formStack,
                     added: this.formAdded
                 };
-                this.$store.dispatch('cashgame/saveAction', data);
+                this.$_saveAction(data);
                 this.hideForm();
                 this.changedTime = null;
                 this.changedStack = null;

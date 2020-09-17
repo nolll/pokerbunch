@@ -6,7 +6,7 @@
                     <th class="table-list__column-header"></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
-                    <th is="year-matrix-column" v-for="year in years" :year="year" :key="year"></th>
+                    <th is="year-matrix-column" v-for="year in $_years" :year="year" :key="year"></th>
                 </tr>
             </thead>
             <tbody>
@@ -17,38 +17,31 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import { YearMatrixColumn, YearMatrixRow } from '.';
-    import { BUNCH, GAME_ARCHIVE } from '@/store-names';
+    import { BunchMixin, GameArchiveMixin } from '@/mixins';
 
     export default {
         components: {
             YearMatrixColumn,
             YearMatrixRow
         },
+        mixins: [
+            BunchMixin,
+            GameArchiveMixin
+        ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'bunchReady'
-            ]),
-            ...mapGetters(GAME_ARCHIVE, [
-                'games',
-                'currentYearPlayers',
-                'allYearsPlayers',
-                'years',
-                'currentYear'
-            ]),
             playersWithYearResults() {
                 var matrixArray = [];
-                for (let i = 0; i < this.allYearsPlayers.length; i++) {
-                    var player = this.allYearsPlayers[i];
+                for (let i = 0; i < this.$_allYearsPlayers.length; i++) {
+                    var player = this.$_allYearsPlayers[i];
                     var mostRecentGame = getMostRecentGame(player.games);
                     var yearOfMostRecentGame = mostRecentGame.buyinTime.year();
-                    if (yearOfMostRecentGame === this.currentYear) {
+                    if (yearOfMostRecentGame === this.$_currentYear) {
                         var playerYears = [];
-                        for (let k = 0; k < this.years.length; k++) {
-                            var yearGames = getGamesForYear(player.games, this.years[k]);
+                        for (let k = 0; k < this.$_years.length; k++) {
+                            var year = this.$_years[k]
+                            var yearGames = getGamesForYear(player.games, year);
                             var playerYear = {
-                                year: this.years[k],
                                 winnings: 0,
                                 playedThisYear: yearGames.length > 0
                             }
@@ -70,7 +63,7 @@
                 return matrixArray;
             },
             ready() {
-                return this.bunchReady && this.allYearsPlayers.length > 0;
+                return this.$_bunchReady && this.$_allYearsPlayers.length > 0;
             }
         }
     };

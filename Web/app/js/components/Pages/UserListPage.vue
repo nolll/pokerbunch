@@ -12,12 +12,10 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { DataMixin } from '@/mixins';
+    import { UserMixin } from '@/mixins';
     import { Layout } from '@/components/Layouts';
     import { Block, PageHeading, PageSection } from '@/components/Common';
     import UserList from '@/components/UserList/UserList.vue';
-    import { USER } from '@/store-names';
 
     export default {
         components: {
@@ -28,20 +26,17 @@
             UserList
         },
         mixins: [
-            DataMixin
+            UserMixin
         ],
         computed: {
-            ...mapGetters(USER, [
-                'users'
-            ]),
             ready() {
-                return this.userReady && this.usersReady;
+                return this.$_userReady && this.$_usersReady;
             }
         },
         methods: {
             init() {
-                this.requireUser();
-                this.loadUsers();
+                this.$_requireUser();
+                this.$_loadUsers();
             }
         },
         watch: {

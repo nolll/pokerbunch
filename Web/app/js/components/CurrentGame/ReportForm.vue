@@ -12,11 +12,11 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import validate from '@/validate';
     import forms from '@/forms';
+
     import { CustomButton } from '@/components/Common';
-    import { BUNCH } from '@/store-names';
+    import { BunchMixin, CashgameMixin } from '@/mixins';
 
     export default {
         props: {
@@ -27,24 +27,25 @@
         components: {
             CustomButton
         },
+        mixins: [
+            BunchMixin,
+            CashgameMixin
+        ],
         computed: {
-            ...mapGetters(BUNCH, [
-                'defaultBuyin'
-            ]),
             hasErrors() {
                 return this.stackError === null;
             }
         },
         mounted: function () {
-            this.stack = this.defaultBuyin;
+            this.stack = this.$_defaultBuyin;
         },
         watch: {
-            'isActive': function (val) {
+            isActive: function (val) {
                 if (val) {
                     this.$refs.stack.focus();
                 }
             },
-            'defaultBuyin': function (val) {
+            $_defaultBuyin: function (val) {
                 this.stack = val;
             }
         },
@@ -52,10 +53,10 @@
             report() {
                 this.validateForm();
                 if (!this.hasErrors)
-                    this.$store.dispatch('cashgame/report', { stack: this.stack });
+                    this.$_report(this.stack);
             },
             cancel() {
-                this.$store.dispatch('cashgame/hideForms');
+                this.$_hideForms();
             },
             focus(event) {
                 forms.selectAll(event.target);

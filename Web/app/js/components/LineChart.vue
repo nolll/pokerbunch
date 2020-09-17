@@ -40,12 +40,12 @@
             }
         },
         watch: {
-            'chartsLoaded': function (val) {
+            chartsLoaded: function (val) {
                 if (this.ready) {
                     this.draw();
                 }
             },
-            'chartData': function (val) {
+            chartData: function (val) {
                 if (this.ready) {
                     this.draw();
                 }

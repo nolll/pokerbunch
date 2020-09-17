@@ -7,20 +7,15 @@
         <block>
             <custom-link :url="url" cssClasses="button button--action">{{linkText}}</custom-link>
         </block>
-        <!--Remove dashboard for now-->
-        <!--<block v-if="isRunning">
-            There is also a <router-link :to="dashboardUrl">dashboard</router-link> for this game.
-        </block>-->
     </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
     import { OverviewRow } from '.';
     import urls from '@/urls';
-    import { BUNCH, CURRENT_GAME } from '@/store-names';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import { Block } from '@/components/Common';
+    import { BunchMixin, CurrentGameMixin } from '@/mixins';
 
     export default {
         components: {
@@ -28,29 +23,27 @@
             CustomLink,
             Block
         },
+        mixins: [
+            BunchMixin,
+            CurrentGameMixin
+        ],
         computed: {
-            ...mapGetters(CURRENT_GAME, [
-                'currentGames'
-            ]),
-            ...mapGetters(BUNCH, [
-                'slug'
-            ]),
             url() {
                 return this.gameIsRunning ? this.runningGameUrl : this.addGameUrl;
             },
             addGameUrl() {
-                return urls.cashgame.add(this.slug);
+                return urls.cashgame.add(this.$_slug);
             },
             runningGameUrl() {
-                return urls.cashgame.details(this.slug, this.runningGameId);
+                return urls.cashgame.details(this.$_slug, this.runningGameId);
             },
             runningGameId() {
-                if (this.currentGames.length === 0)
+                if (this.$_currentGames.length === 0)
                     return 0;
-                return this.currentGames[0].id;
+                return this.$_currentGames[0].id;
             },
             gameIsRunning() {
-                return this.currentGames.length > 0;
+                return this.$_currentGames.length > 0;
             },
             linkText() {
                 return this.gameIsRunning ? 'Go to game' : 'Start a game';

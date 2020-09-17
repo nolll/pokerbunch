@@ -16,7 +16,7 @@
         props: ['name', 'amount'],
         computed: {
             formattedAmount() {
-                return this.formatResult(this.amount);
+                return this.$_formatResult(this.amount);
             },
             cssClasses() {
                 return {

@@ -1,25 +1,21 @@
-﻿import { mapGetters } from 'vuex';
-import format from '@/format';
-import { BUNCH } from '@/store-names';
+﻿import format from '@/format';
+import { BunchMixin } from '@/mixins';
 
 export default {
-    computed: {
-        ...mapGetters(BUNCH, [
-            'currencyFormat',
-            'thousandSeparator'
-        ])
-    },
+    mixins: [
+        BunchMixin
+    ],
     methods: {
-        formatCurrency(val) {
-            return format.currency(val, this.currencyFormat, this.thousandSeparator);
+        $_formatCurrency(val) {
+            return format.currency(val, this.$_currencyFormat, this.$_thousandSeparator);
         },
-        formatResult(val) {
-            return format.result(val, this.currencyFormat, this.thousandSeparator);
+        $_formatResult(val) {
+            return format.result(val, this.$_currencyFormat, this.$_thousandSeparator);
         },
-        formatWinrate(val) {
-            return format.winrate(val, this.currencyFormat, this.thousandSeparator);
+        $_formatWinrate(val) {
+            return format.winrate(val, this.$_currencyFormat, this.$_thousandSeparator);
         },
-        formatTime(val) {
+        $_formatTime(val) {
             return format.time(val);
         }
     }

@@ -6,7 +6,6 @@ import {
     LoginPage,
     UserListPage,
     CashgameDetailsPage,
-    DashboardPage,
     OverviewPage,
     MatrixPage,
     ToplistPage,
@@ -25,7 +24,6 @@ const routes = [
     { path: '/auth/login', component: LoginPage },
     { path: '/bunches/:slug', component: BunchDetailsPage },
     { path: '/bunches/:slug/cashgames/chart/:year?', component: ChartPage },
-    { path: '/bunches/:slug/cashgames/dashboard', component: DashboardPage },
     { path: '/bunches/:slug/cashgames/facts/:year?', component: FactsPage },
     { path: '/bunches/:slug/cashgames', component: OverviewPage },
     { path: '/bunches/:slug/cashgames/list/:year?', component: ListPage },
@@ -40,7 +38,6 @@ const routes = [
 const redirects = [
     { path: '/bunch/details/:slug', redirect: '/bunches/:slug' },
     { path: '/cashgame/chart/:slug/:year?', redirect: '/bunches/:slug/cashgames/chart/:year?' },
-    { path: '/cashgame/dashboard/:slug', redirect: '/bunches/:slug/cashgames/dashboard' },
     { path: '/cashgame/facts/:slug/:year?', redirect: '/bunches/:slug/cashgames/facts/:year?' },
     { path: '/cashgame/index/:slug', redirect: '/bunches/:slug/cashgames' },
     { path: '/cashgame/list/:slug/:year?', redirect: '/bunches/:slug/cashgames/list/:year?' },

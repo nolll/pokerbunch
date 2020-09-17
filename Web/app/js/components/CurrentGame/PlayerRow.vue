@@ -30,17 +30,16 @@
 </template>
 
 <script>
-    import { FormatMixin } from '@/mixins';
+    import { CashgameMixin, FormatMixin } from '@/mixins';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import { PlayerAction } from '.';
     import playerCalculator from '@/player-calculator';
     import urls from '@/urls';
-    import { mapGetters } from 'vuex';
-    import { CASHGAME } from '@/store-names';
     import CashgameActionChart from '@/components/CashgameActionChart.vue';
 
     export default {
         mixins: [
+            CashgameMixin,
             FormatMixin
         ],
         components: {
@@ -65,9 +64,6 @@
             }
         },
         computed: {
-            ...mapGetters(CASHGAME, {
-                cashgameId: 'id',
-            }),
             hasCashedOut() {
                 return playerCalculator.hasCashedOut(this.player);
             },
@@ -77,7 +73,7 @@
             lastReportTime() {
                 return playerCalculator.getLastReportTime(this.player);
             },
-            buyin() {
+            calculatedBuyin() {
                 return playerCalculator.getBuyin(this.player);
             },
             stack() {
@@ -93,13 +89,13 @@
                 };
             },
             formattedBuyin() {
-                return this.formatCurrency(this.buyin);
+                return this.$_formatCurrency(this.calculatedBuyin);
             },
             formattedStack() {
-                return this.formatCurrency(this.stack);
+                return this.$_formatCurrency(this.stack);
             },
             formattedWinnings() {
-                return this.formatResult(this.winnings);
+                return this.$_formatResult(this.winnings);
             },
             url() {
                 return urls.player.details(this.player.id);

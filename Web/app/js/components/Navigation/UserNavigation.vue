@@ -1,8 +1,8 @@
 ﻿<template>
-    <nav class="user-nav" v-if="userReady">
+    <nav class="user-nav" v-if="$_userReady">
         <h2>Account</h2>
-        <ul v-if="isSignedIn">
-            <li><custom-link :url="userDetailsUrl"><span>Signed in as {{displayName}}</span></custom-link></li>
+        <ul v-if="$_isSignedIn">
+            <li><custom-link :url="userDetailsUrl"><span>Signed in as {{$_displayName}}</span></custom-link></li>
             <li><a href="#" @click.prevent="logOut"><span>Sign Out</span></a></li>
         </ul>
         <ul v-else>
@@ -14,8 +14,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
-    import { USER } from '@/store-names';
+    import { UserMixin } from '@/mixins';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
     import auth from '@/auth';
@@ -25,15 +24,12 @@
         components: {
             CustomLink
         },
+        mixins: [
+            UserMixin
+        ],
         computed: {
-            ...mapGetters(USER, [
-                'isSignedIn',
-                'userName',
-                'displayName',
-                'userReady'
-            ]),
             userDetailsUrl() {
-                return urls.user.details(this.userName);
+                return urls.user.details(this.$_userName);
             },
             registerUrl() {
                 return urls.user.add;
