@@ -27,13 +27,14 @@
 </template>
 
 <script>
-    import { BunchMixin, FormatMixin } from '@/mixins';
+    import { BunchMixin, CashgameMixin, FormatMixin } from '@/mixins';
     import actionTypes from '@/action-types';
     import moment from 'moment';
 
     export default {
         mixins: [
             BunchMixin,
+            CashgameMixin,
             FormatMixin
         ],
         props: {
