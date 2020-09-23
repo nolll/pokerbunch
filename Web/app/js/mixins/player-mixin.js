@@ -7,14 +7,14 @@ export default {
         },
         $_players() {
             return this.$store.getters[PlayerStoreGetters.Players];
-        },
-        $_getPlayer(id) {
-            return this.$store.getters[PlayerStoreGetters.GetPlayer](id);
         }
     },
     methods: {
         $_loadPlayers() {
             this.$store.dispatch(PlayerStoreActions.LoadPlayers, { slug: this.$route.params.slug });
+        },
+        $_getPlayer(id) {
+            return this.$store.getters[PlayerStoreGetters.GetPlayer](id);
         }
     }
 };
