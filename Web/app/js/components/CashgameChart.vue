@@ -1,46 +1,50 @@
 ﻿<template>
     <div v-if="ready">
-        <line-chart :chart-data="chartData" :chart-options="chartOptions" />
+        <LineChart :chart-data="chartData" :chart-options="chartOptions" />
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
     import moment from 'moment';
-    import { LineChart } from '.';
+    import LineChart from './LineChart.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
+    import { ChartOptions } from '@/models/ChartOptions';
+    import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+    import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+    import { ChartColumnType } from '@/models/ChartColumnType';
+    import { ChartRowData } from '@/models/ChartRowData';
+    import { ChartRow } from '@/models/ChartRow';
 
-    export default {
+    @Component({
         components: {
             LineChart
-        },
-        mixins: [
-            GameArchiveMixin,
-            BunchMixin
-        ],
-        computed: {
-            chartData() {
-                if (!this.ready) {
-                    return null;
-                }
-                return getChartData(this.$_sortedGames, this.$_sortedPlayers);
-            },
-            ready() {
-                return this.$_bunchReady && this.$_gamesReady;
-            }
-        },
-        data: function () {
-            return {
-                chartOptions: {
-                    pointSize: 0,
-                    legend: {
-                        position: 'none'
-                    }
-                }
+        }
+    })
+    export default class CashgameChart extends Mixins(
+        GameArchiveMixin,
+        BunchMixin
+    ) {
+        chartOptions: ChartOptions = {
+            pointSize: 0,
+            legend: {
+                position: 'none'
             }
         }
-    };
 
-    function getChartData(games, players) {
+        get chartData() {
+            if (!this.ready) {
+                return null;
+            }
+            return getChartData(this.$_sortedGames, this.$_sortedPlayers);
+        }
+
+        get ready() {
+            return this.$_bunchReady && this.$_gamesReady;
+        }
+    }
+
+    function getChartData(games: ArchiveCashgame[], players: CashgameListPlayerData[]) {
         return {
             colors: getColors(players),
             cols: getCols(players),
@@ -49,7 +53,7 @@
         }
     }
 
-    function getColors(players) {
+    function getColors(players: CashgameListPlayerData[]) {
         var colors = [];
         for (var i = 0; i < players.length; i++) {
             colors.push('#000000');
@@ -57,16 +61,16 @@
         return colors;
     }
 
-    function getCols(players) {
+    function getCols(players: CashgameListPlayerData[]) {
         var cols = [];
-        cols.push(getCol('string', 'Date'));
+        cols.push(getCol(ChartColumnType.String, 'Date'));
         for (var i = 0; i < players.length; i++) {
-            cols.push(getCol('number', players[i].name));
+            cols.push(getCol(ChartColumnType.Number, players[i].name));
         }
         return cols;
     }
 
-    function getCol(type, label) {
+    function getCol(type: ChartColumnType, label: string) {
         return {
             type: type,
             label: label,
@@ -74,7 +78,7 @@
         };
     }
 
-    function getRows(games, players) {
+    function getRows(games: ArchiveCashgame[], players: CashgameListPlayerData[]) {
         var rows = [];
         rows.push(getFirstRow(players));
         var gameCount = games.length;
@@ -88,7 +92,7 @@
             points.push(getPoint(formattedDate));
             for (var pi = 0; pi < players.length; pi++) {
                 var player = players[pi];
-                var playerGame = player.games[rgi];
+                var playerGame = player.gameResults[rgi];
                 var chartVal = null;
                 if (playerGame) {
                     var val = accumulatedWinnings[player.id] + playerGame.winnings;
@@ -104,15 +108,15 @@
         return rows;
     }
 
-    function getAccumulatedWinnings(players) {
-        var accumulated = {};
+    function getAccumulatedWinnings(players: CashgameListPlayerData[]) {
+        var accumulated: Record<string, number> = {};
         for (var i = 0; i < players.length; i++) {
             accumulated[players[i].id] = 0;
         }
         return accumulated;
     }
 
-    function getFirstRow(players) {
+    function getFirstRow(players: CashgameListPlayerData[]) {
         var points = [];
         points.push(getPoint(''));
         for (var i = 0; i < players.length; i++) {
@@ -121,19 +125,16 @@
         return getRowObj(points);
     }
 
-    function getPoint(val) {
+    function getPoint(val: Date | string | null): ChartRowData {
         return {
             v: val,
             f: null
         };
     }
 
-    function getRowObj(points) {
+    function getRowObj(points: ChartRowData[]): ChartRow {
         return {
             c: points
         };
     }
 </script>
-
-<style>
-</style>

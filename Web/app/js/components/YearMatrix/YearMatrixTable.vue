@@ -6,7 +6,7 @@
                     <th class="table-list__column-header"></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
-                    <th is="year-matrix-column" v-for="year in $_years" :year="year" :key="year"></th>
+                    <th is="year-matrix-column" v-for="year in years" :year="year" :key="year"></th>
                 </tr>
             </thead>
             <tbody>
@@ -16,79 +16,86 @@
     </div>
 </template>
 
-<script>
-    import { YearMatrixColumn, YearMatrixRow } from '.';
+<script lang="ts">
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
+    import YearMatrixColumn from './YearMatrixColumn.vue';
+    import YearMatrixRow from './YearMatrixRow.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
+    import { CashgamePlayerData } from '@/models/CashgamePlayerData';
+    import { CashgamePlayerYearlyResultCollection } from '@/models/CashgamePlayerYearlyResultCollection';
+    import moment from 'moment';
 
-    export default {
+    @Component({
         components: {
             YearMatrixColumn,
             YearMatrixRow
-        },
-        mixins: [
-            BunchMixin,
-            GameArchiveMixin
-        ],
-        computed: {
-            playersWithYearResults() {
-                var matrixArray = [];
-                for (let i = 0; i < this.$_allYearsPlayers.length; i++) {
-                    var player = this.$_allYearsPlayers[i];
-                    var mostRecentGame = getMostRecentGame(player.games);
-                    var yearOfMostRecentGame = mostRecentGame.buyinTime.year();
-                    if (yearOfMostRecentGame === this.$_currentYear) {
-                        var playerYears = [];
-                        for (let k = 0; k < this.$_years.length; k++) {
-                            var year = this.$_years[k]
-                            var yearGames = getGamesForYear(player.games, year);
-                            var playerYear = {
-                                winnings: 0,
-                                playedThisYear: yearGames.length > 0
-                            }
-                            for (let j = 0; j < yearGames.length; j++) {
-                                var game = yearGames[j];
-                                playerYear.winnings += game.winnings;
-                            }
-                            playerYears.push(playerYear);
-                        }
-                        var matrixPlayer = {
-                            id: player.id,
-                            name: player.name,
-                            winnings: player.winnings,
-                            years: playerYears
-                        };
-                        matrixArray.push(matrixPlayer);
-                    }
-                }
-                return matrixArray;
-            },
-            ready() {
-                return this.$_bunchReady && this.$_allYearsPlayers.length > 0;
-            }
         }
-    };
+    })
+    export default class YearMatrixTable extends Mixins(
+        BunchMixin,
+        GameArchiveMixin
+    ) {
+        get years(){
+            return this.$_years;
+        }
 
-    function getMostRecentGame(games) {
+        get playersWithYearResults(): CashgamePlayerYearlyResultCollection[] {
+            var matrixArray: CashgamePlayerYearlyResultCollection[] = [];
+            if(!this.$_currentYear)
+                return matrixArray;
+            for (let i = 0; i < this.$_allYearsPlayers.length; i++) {
+                var player = this.$_allYearsPlayers[i];
+                var mostRecentGame = getMostRecentGame(player.gameResults);
+                var yearOfMostRecentGame = mostRecentGame?.buyinTime.year();
+                if (yearOfMostRecentGame === this.$_currentYear) {
+                    var playerYears = [];
+                    for (let k = 0; k < this.$_years.length; k++) {
+                        var year = this.$_years[k]
+                        var yearGames = getGamesForYear(player.gameResults, year);
+                        var playerYear = {
+                            winnings: 0,
+                            playedThisYear: yearGames.length > 0
+                        }
+                        for (let j = 0; j < yearGames.length; j++) {
+                            var game = yearGames[j];
+                            playerYear.winnings += game.winnings;
+                        }
+                        playerYears.push(playerYear);
+                    }
+                    var matrixPlayer = {
+                        id: player.id,
+                        name: player.name,
+                        winnings: player.winnings,
+                        years: playerYears
+                    };
+                    matrixArray.push(matrixPlayer);
+                }
+            }
+            return matrixArray;
+        }
+
+        get ready() {
+            return this.$_bunchReady && this.$_allYearsPlayers.length > 0;
+        }
+    }
+
+    function getMostRecentGame(games: CashgamePlayerData[]) {
         for (let i = 0; i < games.length; i++) {
-            if (games[i]) {
+            if (games[i] && games[i].playedThisGame) {
                 return games[i];
             }
         }
         return null;
     }
 
-    function getGamesForYear(games, year) {
+    function getGamesForYear(games: CashgamePlayerData[], year: number) {
         var yearGames = [];
         for (let i = 0; i < games.length; i++) {
             var game = games[i];
-            if (game && game.buyinTime.year() === year) {
+            if (game && game.playedThisGame && moment(game.buyinTime).year() === year) {
                 yearGames.push(game);
             }
         }
         return yearGames;
     }
 </script>
-
-<style>
-
-</style>

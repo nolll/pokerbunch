@@ -1,57 +1,60 @@
 ﻿<template>
     <div v-if="ready">
         <h2 class="h2">Single Game</h2>
-        <definition-list>
-            <definition-term>Best Result</definition-term>
-            <player-result-fact :name="facts.bestResult.name" :amount="facts.bestResult.amount" />
+        <DefinitionList>
+            <DefinitionTerm>Best Result</DefinitionTerm>
+            <PlayerResultFact :name="facts.bestResult.name" :amount="facts.bestResult.amount" />
 
-            <definition-term>Worst Result</definition-term>
-            <player-result-fact :name="facts.worstResult.name" :amount="facts.worstResult.amount" />
-        </definition-list>
+            <DefinitionTerm>Worst Result</DefinitionTerm>
+            <PlayerResultFact :name="facts.worstResult.name" :amount="facts.worstResult.amount" />
+        </DefinitionList>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
     //Things to add
     //BiggestBuyin
     //BiggestCashout
     //BiggestComeback
 
-    import { PlayerResultFact } from '.';
-    import { DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
+    import PlayerResultFact from './PlayerResultFact.vue';
+    import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
+    import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
     import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
+    import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+    import { SingleGameFactCollection } from '@/models/SingleGameFactCollection';
+    import { PlayerWinningsFact } from '@/models/PlayerWinningsFact';
 
-    export default {
-        mixins: [
-            BunchMixin,
-            FormatMixin,
-            GameArchiveMixin
-        ],
+    @Component({
         components: {
             PlayerResultFact,
             DefinitionList,
             DefinitionTerm
-        },
-        computed: {
-            facts() {
-                return getFacts(this.$_sortedPlayers);
-            },
-        },
-        methods: {
-            ready() {
-                return this.$_bunchReady && this.$_gamesReady;
-            }
         }
-    };
+    })
+    export default class SingleGameFacts extends Mixins(
+        BunchMixin,
+        FormatMixin,
+        GameArchiveMixin
+    ) {
+        get facts() {
+            return getFacts(this.$_sortedPlayers);
+        }
+        
+        get ready() {
+            return this.$_bunchReady && this.$_gamesReady;
+        }
+    }
 
-    function getFacts(players) {
-        var bestResult = { name: '', id: 0, amount: 0 };
-        var worstResult = { name: '', id: 0, amount: 0 };
+    function getFacts(players: CashgameListPlayerData[]): SingleGameFactCollection {
+        var bestResult: PlayerWinningsFact = { name: '', id: '0', amount: 0 };
+        var worstResult: PlayerWinningsFact = { name: '', id: '0', amount: 0 };
         for (var pi = 0; pi < players.length; pi++) {
             var player = players[pi];
-            for (var gi = 0; gi < player.games.length; gi++) {
-                var game = player.games[gi];
+            for (var gi = 0; gi < player.gameResults.length; gi++) {
+                var game = player.gameResults[gi];
                 if (game && game.winnings > bestResult.amount) {
                     bestResult = { name: player.name, id: player.id, amount: game.winnings };
                 }
@@ -66,7 +69,3 @@
         }
     }
 </script>
-
-<style>
-
-</style>

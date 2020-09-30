@@ -1,134 +1,145 @@
 ﻿<template>
     <div>
-        <line-chart :chart-data="chartData" :chart-options="chartOptions"></line-chart>
+        <LineChart :chart-data="chartData" :chart-options="chartOptions" />
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Mixins, Watch } from 'vue-property-decorator';
     import moment from 'moment';
-    import { LineChart } from '@/components';
-    import playerCalculator from '@/player-calculator';
+    import LineChart from '@/components/LineChart.vue';
+    import playerCalculator from '@/PlayerCalculator';
     import { CashgameMixin } from '@/mixins';
+    import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
+    import { ChartData } from '@/models/ChartData';
+    import { ChartRow } from '@/models/ChartRow';
+    import { ChartColumn } from '@/models/ChartColumn';
+    import { ChartColumnType } from '@/models/ChartColumnType';
+    import { ChartColumnPattern } from '@/models/ChartColumnPattern';
+    import { ChartRowData } from '@/models/ChartRowData';
+    import { ChartOptions } from '@/models/ChartOptions';
 
-    export default {
+    @Component({
         components: {
             LineChart
-        },
-        mixins: [
-            CashgameMixin
-        ],
-        watch: {
-            $_cashgamePlayers: function () {
-                this.drawChart();
+        }
+    })
+    export default class GameChart extends Mixins(
+        CashgameMixin
+    ) {
+        chartData: ChartData | null = null;
+        chartOptions: ChartOptions = {
+            pointSize: 0,
+            vAxis: { minValue: 0 },
+            hAxis: { format: 'HH:mm' },
+            legend: {
+                position: 'none'
             },
-            $_cashgameReady: function (isReady) {
-                if (isReady) {
-                    this.drawChart();
+            colors: []
+        };
+
+        drawChart() {
+            this.chartData = this.getGameChartData();
+            this.chartOptions = { ...this.chartOptions, colors: this.getColors() };
+        }
+
+        getGameChartData(): ChartData {
+            return {
+                cols: this.getColumns(),
+                rows: this.getRows(),
+                p: null
+            };
+        }
+
+        getColors() {
+            const colors = [];
+            for (let i = 0; i < this.$_cashgamePlayers.length; i++) {
+                const p = this.$_cashgamePlayers[i];
+                colors.push(p.color);
+            }
+            return colors;
+        }
+
+        getColumns(): ChartColumn[] {
+            const cols: ChartColumn[] = [{ type: ChartColumnType.DateTime, label: 'Time', pattern: ChartColumnPattern.HoursAndMinutes }];
+            for (let i = 0; i < this.$_cashgamePlayers.length; i++) {
+                const p = this.$_cashgamePlayers[i];
+                cols.push({ type: ChartColumnType.Number, label: p.name, pattern: null });
+            }
+            return cols;
+        }
+
+        getRows(): ChartRow[] {
+            var rows = [];
+            for (let i = 0; i < this.$_cashgamePlayers.length; i++) {
+                const p = this.$_cashgamePlayers[i];
+                const r = this.getPlayerResults(p);
+                for (let j = 0; j < r.length; j++) {
+                    rows.push(this.getRow(r[j], p.id));
+                }
+                if (!playerCalculator.hasCashedOut(p)) {
+                    var currentResult = this.createPlayerResult(moment().utc().toDate(), r[r.length - 1].winnings);
+                    rows.push(this.getRow(currentResult, p.id));
                 }
             }
-        },
-        mounted: function () {
-            var self = this;
+            return rows;
+        }
+
+        getPlayerResults(player: DetailedCashgameResponsePlayer) {
+            let added = 0;
+            const results = [];
+            const actions = player.actions;
+            for (let i = 0; i < actions.length; i++) {
+                const a = actions[i];
+                added += a.added || 0;
+                const winnings = a.stack - added;
+                results.push(this.createPlayerResult(a.time, winnings));
+            }
+            return results;
+        }
+
+        createPlayerResult(time: Date, winnings: number): ChartPlayerResult {
+            return {
+                time: time,
+                winnings: winnings
+            };
+        }
+
+        getRow(result: ChartPlayerResult, playerId: string) {
+            const values: ChartRowData[] = [{ v: moment(result.time).toDate(), f: null }];
+            for (var i = 0; i < this.$_cashgamePlayers.length; i++) {
+                var val = null;
+                if (this.$_cashgamePlayers[i].id === playerId) {
+                    val = result.winnings + '';
+                }
+                values.push({ v: val, f: null });
+            }
+            return { c: values };
+        }
+
+        mounted() {
+            const self = this;
             self.$nextTick(function () {
                 if (this.$_cashgameReady) {
                     self.drawChart();
                 }
             });
-        },
-        methods: {
-            drawChart() {
-                this.chartData = this.getGameChartData();
-                this.chartOptions = { colors: this.getColors() };
-            },
-            getGameChartData() {
-                return {
-                    cols: this.getColumns(),
-                    rows: this.getRows(),
-                    p: null
-                };
-            },
-            getColors() {
-                var i,
-                    p,
-                    colors = [];
-                for (i = 0; i < this.$_cashgamePlayers.length; i++) {
-                    p = this.$_cashgamePlayers[i];
-                    colors.push(p.color);
-                }
-                return colors;
-            },
-            getColumns() {
-                var i,
-                    p,
-                    cols = [{ type: 'datetime', label: 'Time', pattern: 'HH:mm' }];
-                for (i = 0; i < this.$_cashgamePlayers.length; i++) {
-                    p = this.$_cashgamePlayers[i];
-                    cols.push({ type: 'number', label: p.name, pattern: null });
-                }
-                return cols;
-            },
-            getRows() {
-                var i, j, p, r;
-                var rows = [];
-                for (i = 0; i < this.$_cashgamePlayers.length; i++) {
-                    p = this.$_cashgamePlayers[i];
-                    r = this.getPlayerResults(p);
-                    for (j = 0; j < r.length; j++) {
-                        rows.push(this.getRow(r[j], p.id));
-                    }
-                    if (!playerCalculator.hasCashedOut(p)) {
-                        var currentResult = this.createPlayerResult(moment().utc(), r[r.length - 1].winnings);
-                        rows.push(this.getRow(currentResult, p.id));
-                    }
-                }
-                return rows;
-            },
-            getPlayerResults(player) {
-                var i,
-                    a,
-                    winnings,
-                    added = 0,
-                    results = [],
-                    actions = player.actions;
-                for (i = 0; i < actions.length; i++) {
-                    a = actions[i];
-                    added += a.added || 0;
-                    winnings = a.stack - added;
-                    results.push(this.createPlayerResult(a.time, winnings));
-                }
-                return results;
-            },
-            createPlayerResult(time, winnings) {
-                return { time: time, winnings: winnings };
-            },
-            getRow(result, playerId) {
-                var values = [{ v: moment(result.time).toDate(), f: null }];
-                for (var i = 0; i < this.$_cashgamePlayers.length; i++) {
-                    var val = null;
-                    if (this.$_cashgamePlayers[i].id === playerId) {
-                        val = result.winnings + '';
-                    }
-                    values.push({ v: val, f: null });
-                }
-                return { c: values };
-            }
-        },
-        data: function () {
-            return {
-                chartData: null,
-                chartOptions: {
-                    pointSize: 0,
-                    vAxis: { minValue: 0 },
-                    hAxis: { format: 'HH:mm' },
-                    legend: {
-                        position: 'none'
-                    }
-                }
-            }
-        },
-    };
+        }
+
+        @Watch('$_cashgamePlayers')
+        cashgamePlayersChanged() {
+            this.drawChart();
+        }
+
+        @Watch('$_cashgameReady')
+        cashgameReadyChanged(isReady: boolean) {
+            if (isReady)
+                this.drawChart();
+        }
+    }
+
+    interface ChartPlayerResult{
+        time: Date;
+        winnings: number;
+    }
 </script>
-
-<style>
-
-</style>

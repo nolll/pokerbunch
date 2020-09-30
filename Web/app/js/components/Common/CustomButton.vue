@@ -1,45 +1,37 @@
 ﻿<template>
-    <custom-link :url="url" :cssClasses="cssClasses" v-if="hasUrl">{{text}}</custom-link>
+    <CustomLink :url="url" :cssClasses="cssClasses" v-if="hasUrl">{{text}}</CustomLink>
     <button v-on:click="click" :class="cssClasses" v-else>{{text}}</button>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import { ButtonType } from '@/models/ButtonType';
+    import { CssClasses } from '@/models/CssClasses';
 
-    export default {
+    @Component({
         components: {
             CustomLink
-        },
-        props: {
-            type: {
-                type: String
-            },
-            url: {
-                type: String
-            },
-            text: {
-                type: String
-            }
-        },
-        computed: {
-            hasUrl() {
-                return !!this.url;
-            },
-            cssClasses() {
-                return {
-                    'button': true,
-                    'button--action': this.type === 'action'
-                }
-            }
-        },
-        methods: {
-            click() {
-                this.$emit('click');
+        }
+    })
+    export default class CustomButton extends Vue {
+        @Prop({default: ButtonType.Default}) readonly type!: ButtonType;
+        @Prop() readonly text!: string;
+        @Prop() readonly url?: string | undefined;
+
+        get hasUrl(): boolean {
+            return !!this.url;
+        }
+
+        get cssClasses(): CssClasses {
+            return {
+                'button': true,
+                'button--action': this.type === ButtonType.Action
             }
         }
-    };
+
+        click() {
+            this.$emit('click');
+        }
+    }
 </script>
-
-<style>
-
-</style>

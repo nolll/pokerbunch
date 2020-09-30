@@ -1,63 +1,68 @@
 ﻿<template>
     <nav class="game-nav" v-if="hasSlug">
-        <h2><custom-link :url="bunchDetailsUrl">{{bunchName}}</custom-link></h2>
+        <h2><CustomLink :url="bunchDetailsUrl">{{bunchName}}</CustomLink></h2>
         <ul>
-            <li><custom-link :url="cashgamesUrl"><span>Cashgames</span></custom-link></li>
-            <li><custom-link :url="playersUrl"><span>Players</span></custom-link></li>
-            <li><custom-link :url="eventsUrl"><span>Events</span></custom-link></li>
-            <li><custom-link :url="locationsUrl"><span>Locations</span></custom-link></li>
+            <li><CustomLink :url="cashgamesUrl"><span>Cashgames</span></CustomLink></li>
+            <li><CustomLink :url="playersUrl"><span>Players</span></CustomLink></li>
+            <li><CustomLink :url="eventsUrl"><span>Events</span></CustomLink></li>
+            <li><CustomLink :url="locationsUrl"><span>Locations</span></CustomLink></li>
         </ul>
     </nav>
 </template>
 
-<script>
+<script lang="ts">
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
     import { BunchMixin } from '@/mixins';
 
-    export default {
+    import { Component, Mixins } from 'vue-property-decorator';
+
+    @Component({
         components: {
             CustomLink
-        },
-        mixins: [
-            BunchMixin
-        ],
-        computed: {
-            slug() {
-                if (this.$_slug && this.$_slug.length > 0)
-                    return this.$_slug;
-                if (this.$_userBunches.length > 0)
-                    return this.$_userBunches[0].id;
-                return null;
-            },
-            bunchName() {
-                if (this.$_bunchName && this.$_bunchName.length > 0)
-                    return this.$_bunchName;
-                if (this.$_userBunches.length > 0)
-                    return this.$_userBunches[0].name;
-                return null;
-            },
-            hasSlug() {
-                return !!this.slug;
-            },
-            bunchDetailsUrl() {
-                return urls.bunch.details(this.slug);
-            },
-            cashgamesUrl() {
-                return urls.cashgame.index(this.slug);
-            },
-            playersUrl() {
-                return urls.player.list(this.slug);
-            },
-            eventsUrl() {
-                return urls.event.list(this.slug);
-            },
-            locationsUrl() {
-                return urls.location.list(this.slug);
-            }
         }
-    };
-</script>
+    })
+    export default class BunchNavigation extends Mixins(
+        BunchMixin
+    ) {
+        get slug() {
+            if (this.$_slug && this.$_slug.length > 0)
+                return this.$_slug;
+            if (this.$_userBunches.length > 0)
+                return this.$_userBunches[0].id;
+            return '';
+        }
 
-<style>
-</style>
+        get bunchName() {
+            if (this.$_bunchName && this.$_bunchName.length > 0)
+                return this.$_bunchName;
+            if (this.$_userBunches.length > 0)
+                return this.$_userBunches[0].name;
+            return '';
+        }
+
+        get hasSlug() {
+            return !!this.slug;
+        }
+
+        get bunchDetailsUrl() {
+            return urls.bunch.details(this.slug);
+        }
+
+        get cashgamesUrl() {
+            return urls.cashgame.index(this.slug);
+        }
+
+        get playersUrl() {
+            return urls.player.list(this.slug);
+        }
+
+        get eventsUrl() {
+            return urls.event.list(this.slug);
+        }
+
+        get locationsUrl() {
+            return urls.location.list(this.slug);
+        }
+    }
+</script>

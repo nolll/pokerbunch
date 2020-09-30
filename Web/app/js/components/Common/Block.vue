@@ -4,10 +4,10 @@
     </div>
 </template>
 
-<script>
-    export default {
-    };
-</script>
+<script lang="ts">
+    import { Component, Vue } from 'vue-property-decorator';
 
-<style lang="less">
-</style>
+    @Component
+    export default class Block extends Vue {
+    }
+</script>

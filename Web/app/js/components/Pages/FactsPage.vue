@@ -1,43 +1,49 @@
 ﻿<template>
-    <layout :ready="ready">
+    <Layout :ready="ready">
         <template slot="top-nav">
-            <bunch-navigation />
+            <BunchNavigation />
         </template>
 
-        <page-section>
-            <block>
-                <cashgame-navigation page="facts" />
-            </block>
-        </page-section>
+        <PageSection>
+            <Block>
+                <CashgameNavigation page="facts" />
+            </Block>
+        </PageSection>
 
-        <page-section>
-            <block>
-                <single-game-facts />
-            </block><block>
-                <total-facts />
-            </block>
+        <PageSection>
+            <Block>
+                <SingleGameFacts />
+            </Block>
+            <Block>
+                <TotalFacts />
+            </Block>
             <template slot="aside2">
-                <block>
-                    <overall-facts />
-                </block>
+                <Block>
+                    <OverallFacts />
+                </Block>
             </template>
-        </page-section>
+        </PageSection>
 
         <template slot="main">
-            <page-section>
-            </page-section>
+            <PageSection>
+            </PageSection>
         </template>
-    </layout>
+    </Layout>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Mixins, Watch } from 'vue-property-decorator';
     import { BunchMixin, UserMixin, GameArchiveMixin } from '@/mixins';
-    import { Layout } from '@/components/Layouts';
-    import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
-    import { SingleGameFacts, TotalFacts, OverallFacts } from '@/components/Facts';
-    import { Block, PageSection } from '@/components/Common';
+    import Layout from '@/components/Layouts/Layout.vue';
+    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+    import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
+    import SingleGameFacts from '@/components/Facts/SingleGameFacts.vue';
+    import TotalFacts from '@/components/Facts/TotalFacts.vue';
+    import OverallFacts from '@/components/Facts/OverallFacts.vue';
+    import Block from '@/components/Common/Block.vue';
+    import PageSection from '@/components/Common/PageSection.vue';
 
-    export default {
+    @Component({
         components: {
             Layout,
             BunchNavigation,
@@ -47,34 +53,30 @@
             OverallFacts,
             Block,
             PageSection
-        },
-        mixins: [
-            BunchMixin,
-            UserMixin,
-            GameArchiveMixin
-        ],
-        computed: {
-            ready() {
-                return this.$_bunchReady && this.$_gamesReady;
-            }
-        },
-        methods: {
-            init() {
-                this.$_requireUser();
-                this.$_loadBunch();
-                this.$_loadGames();
-            }
-        },
-        watch: {
-            '$route'(to, from) {
-                this.init();
-            }
-        },
-        mounted: function () {
+        }
+    })
+    export default class FactsPage extends Mixins(
+        BunchMixin,
+        UserMixin,
+        GameArchiveMixin
+    ) {
+        get ready() {
+            return this.$_bunchReady && this.$_gamesReady;
+        }
+
+        init() {
+            this.$_requireUser();
+            this.$_loadBunch();
+            this.$_loadGames();
+        }
+
+        mounted() {
             this.init();
         }
-    };
-</script>
 
-<style>
-</style>
+        @Watch('$route')
+        routeChanged() {
+            this.init();
+        }
+    }
+</script>

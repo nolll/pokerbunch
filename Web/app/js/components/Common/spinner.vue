@@ -8,10 +8,12 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: 'spinner'
-    };
+<script lang="ts">
+    import { Component, Vue } from 'vue-property-decorator';
+
+    @Component
+    export default class Spinner extends Vue {
+    }
 </script>
 
 <style lang="less">

@@ -4,120 +4,138 @@
             <span v-on:click="$_togglePageNav" class="heading-nav__sub-nav">{{selectedPageName}}</span>
             <span v-show="isYearNavEnabled">| <span v-on:click="$_toggleYearNav" class="heading-nav__sub-nav">{{presentationYear}}</span></span>
             <ul v-show="$_isPageNavExpanded">
-                <cashgame-navigation-item :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="$_togglePageNav" />
-                <cashgame-navigation-item :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="$_togglePageNav" />
-                <cashgame-navigation-item :url="toplistUrl" text="Toplist" :isSelected="isToplistSelected" v-on:selected="$_togglePageNav" />
-                <cashgame-navigation-item :url="chartUrl" text="Chart" :isSelected="isChartSelected" v-on:selected="$_togglePageNav" />
-                <cashgame-navigation-item :url="listUrl" text="List" :isSelected="isListSelected" v-on:selected="$_togglePageNav" />
-                <cashgame-navigation-item :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="$_togglePageNav" />
+                <CashgameNavigationItem :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="onSelected" />
+                <CashgameNavigationItem :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="onSelected" />
+                <CashgameNavigationItem :url="toplistUrl" text="Toplist" :isSelected="isToplistSelected" v-on:selected="onSelected" />
+                <CashgameNavigationItem :url="chartUrl" text="Chart" :isSelected="isChartSelected" v-on:selected="onSelected" />
+                <CashgameNavigationItem :url="listUrl" text="List" :isSelected="isListSelected" v-on:selected="onSelected" />
+                <CashgameNavigationItem :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="onSelected" />
             </ul>
             <ul v-show="$_isYearNavExpanded">
-                <cashgame-navigation-item v-for="year in $_years" :key="year" :url="getUrl(year)" :text="year" :isSelected="isSelected(year)" v-on:selected="$_toggleYearNav" />
-                <cashgame-navigation-item :url="getUrl()" :text="allYearsText" :isSelected="isSelected()" v-on:selected="$_toggleYearNav" />
+                <CashgameNavigationItem v-for="year in $_years" :key="year" :url="getUrl(year)" :text="year" :isSelected="isSelected(year)" v-on:selected="onSelected" />
+                <CashgameNavigationItem :url="getUrl()" :text="allYearsText" :isSelected="isSelected()" v-on:selected="onSelected" />
             </ul>
         </nav>
     </div>
 </template>
 
-<script>
-    import { CashgameNavigationItem } from '.';
+<script lang="ts">
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
+    import CashgameNavigationItem from './CashgameNavigationItem.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
+    import { CashgamePage } from '@/models/CashgamePage';
 
-    export default {
+    @Component({
         components: {
             CashgameNavigationItem
-        },
-        mixins: [
-            BunchMixin,
-            GameArchiveMixin
-        ],
-        props: ['page', 'year'],
-        data: function () {
-            return {
-                allYearsText: 'All years'
-            };
-        },
-        computed: {
-            computedYear() {
+        }
+    })
+    export default class CashgameNavigation extends Mixins(
+        BunchMixin,
+        GameArchiveMixin
+    ) {
+        @Prop() readonly page!: CashgamePage;
+        @Prop() readonly year?: number | null | undefined;
+
+        allYearsText = 'All years';
+            get computedYear() {
                 if (this.year)
                     return this.year;
                 return this.$_selectedYear;
-            },
-            presentationYear() {
+            }
+
+            get presentationYear() {
                 return this.$_selectedYear || this.allYearsText;
-            },
-            selectedPageName() {
-                if (this.page === 'matrix')
+            }
+
+            get selectedPageName() {
+                if (this.page === CashgamePage.Matrix)
                     return 'Matrix';
-                if (this.page === 'toplist')
+                if (this.page === CashgamePage.Toplist)
                     return 'Toplist';
-                if (this.page === 'chart')
+                if (this.page === CashgamePage.Chart)
                     return 'Chart';
-                if (this.page === 'list')
+                if (this.page === CashgamePage.List)
                     return 'List';
-                if (this.page === 'facts')
+                if (this.page === CashgamePage.Facts)
                     return 'Facts';
                 return 'Overview'
-            },
-            isYearNavEnabled() {
-                return this.page !== 'overview'
-            },
-            overviewUrl() {
-                return buildUrl('index', this.$_slug);
-            },
-            matrixUrl() {
-                return buildUrl('matrix', this.$_slug, this.computedYear);
-            },
-            toplistUrl() {
-                return buildUrl('toplist', this.$_slug, this.computedYear);
-            },
-            chartUrl() {
-                return buildUrl('chart', this.$_slug, this.computedYear);
-            },
-            listUrl() {
-                return buildUrl('list', this.$_slug, this.computedYear);
-            },
-            factsUrl() {
-                return buildUrl('facts', this.$_slug, this.computedYear);
-            },
-            isOverviewSelected() {
-                return this.page === 'overview';
-            },
-            isMatrixSelected() {
-                return this.page === 'matrix';
-            },
-            isToplistSelected() {
-                return this.page === 'toplist';
-            },
-            isChartSelected() {
-                return this.page === 'chart';
-            },
-            isListSelected() {
-                return this.page === 'list';
-            },
-            isFactsSelected() {
-                return this.page === 'facts';
             }
-        },
-        methods: {
-            getUrl(year) {
+
+            get isYearNavEnabled() {
+                return this.page !== CashgamePage.Overview
+            }
+
+            get overviewUrl() {
+                return buildUrl(CashgamePage.Overview, this.$_slug);
+            }
+
+            get matrixUrl() {
+                return buildUrl(CashgamePage.Matrix, this.$_slug, this.computedYear);
+            }
+
+            get toplistUrl() {
+                return buildUrl(CashgamePage.Toplist, this.$_slug, this.computedYear);
+            }
+
+            get chartUrl() {
+                return buildUrl(CashgamePage.Chart, this.$_slug, this.computedYear);
+            }
+
+            get listUrl() {
+                return buildUrl(CashgamePage.List, this.$_slug, this.computedYear);
+            }
+
+            get factsUrl() {
+                return buildUrl(CashgamePage.Facts, this.$_slug, this.computedYear);
+            }
+
+            get isOverviewSelected() {
+                return this.page === CashgamePage.Overview;
+            }
+
+            get isMatrixSelected() {
+                return this.page === CashgamePage.Matrix;
+            }
+
+            get isToplistSelected() {
+                return this.page === CashgamePage.Toplist;
+            }
+
+            get isChartSelected() {
+                return this.page === CashgamePage.Chart;
+            }
+
+            get isListSelected() {
+                return this.page === CashgamePage.List;
+            }
+
+            get isFactsSelected() {
+                return this.page === CashgamePage.Facts;
+            }
+
+            getUrl(year?: number) {
                 return buildUrl(this.page, this.$_slug, year)
-            },
-            isSelected(year) {
+            }
+            
+            isSelected(year: number) {
                 if (!year && !this.$_selectedYear)
                     return true;
                 return year === this.$_selectedYear;
             }
-        }
-    };
 
-    function buildUrl(page, slug, year) {
-        var url = '/cashgame/' + page + '/' + slug;
-        if (year)
-            url += '/' + year;
-        return url;
+            onSelected(url: string) {
+                this.$_closePageNav();
+                this.$_closeYearNav();
+                if(this.$router.currentRoute.fullPath !== url)
+                    this.$router.push(url);
+            }
+    }
+
+    function buildUrl(page: CashgamePage, slug: string, year?: number | null | undefined ) {
+        var pageName = page.toLowerCase();
+        return year
+            ? `/cashgame/${pageName}/${slug}/${year}`
+            : `/cashgame/${pageName}/${slug}`
     }
 </script>
-
-<style>
-</style>

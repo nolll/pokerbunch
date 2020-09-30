@@ -1,4 +1,6 @@
-﻿export enum CashgameStoreGetters {
+﻿import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
+
+export enum CashgameStoreGetters {
     CashgameId = 'cashgame_id',
     IsRunning = 'cashgame_isRunning',
     LocationId = 'cashgame_locationId',
@@ -57,4 +59,36 @@ export enum CashgameStoreMutations {
     RemoveAction = 'cashgame_removeAction',
     UpdateAction = 'cashgame_updateAction',
     DataLoaded = 'cashgame_dataLoaded'
+}
+
+export interface CashgameStoreState {
+    _slug: string;
+    _id: string;
+    _isRunning: boolean;
+    _playerId: string | null;
+    _locationId: string;
+    _locationName: string;
+    _players: DetailedCashgameResponsePlayer[];
+    _currentStack: number;
+    _updatedTime: Date | null;
+    _reportFormVisible: boolean;
+    _buyinFormVisible: boolean;
+    _cashoutFormVisible: boolean;
+    _cashgameReady: boolean;
+}
+
+export interface BuyinParams{
+    amount: number;
+    stack: number;
+}
+
+export interface FirstBuyinParams{
+    amount: number;
+    stack: number;
+    name: string;
+    color: string;
+}
+
+export interface DeleteActionParams{
+    id: string;
 }

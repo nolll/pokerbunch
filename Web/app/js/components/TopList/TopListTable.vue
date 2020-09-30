@@ -14,25 +14,31 @@
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="top-list-row" v-for="player in $_sortedPlayers" :player="player" :key="player.id"></tr>
+                <tr is="top-list-row" v-for="player in players" :player="player" :key="player.id"></tr>
             </tbody>
         </table>
     </div>
 </template>
 
-<script>
-    import { TopListColumn, TopListRow } from '.';
+<script lang="ts">
+    import { Component, Mixins } from 'vue-property-decorator';
+    import TopListColumn from './TopListColumn.vue';
+    import TopListRow from './TopListRow.vue';
     import { GameArchiveMixin } from '@/mixins';
 
-    export default {
+    @Component({
         components: {
             TopListColumn,
             TopListRow
-        },
-        mixins: [
-            GameArchiveMixin
-        ]
-    };
+        }
+    })
+    export default class TopListTable extends Mixins(
+        GameArchiveMixin
+    ) {
+        get players(){
+            return this.$_sortedPlayers;
+        }
+    }
 </script>
 
 <style lang="less" scoped>
@@ -40,4 +46,3 @@
         overflow: auto;
     }
 </style>
-

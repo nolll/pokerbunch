@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-    entry: './js/index.js',
+    entry: './js/index.ts',
     output: {
         filename: 'dist/[name]-[contenthash].js',
         path: path.resolve(__dirname, '../wwwroot'),
@@ -27,7 +27,12 @@ module.exports = {
             },
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
+                use: [{
+                    loader: 'vue-loader',
+                    options: {
+                        appendExtension: true
+                    }
+                }],
                 exclude: /node_modules/
             },
             {
@@ -39,7 +44,13 @@ module.exports = {
                 test: /\.ts$/,
                 use: [
                     { loader: 'babel-loader' },
-                    { loader: 'ts-loader' }
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            appendTsSuffixTo: [/\.vue$/],
+                            transpileOnly: true
+                        }
+                    }
                 ],
                 exclude: /node_modules/
             }
@@ -76,7 +87,7 @@ module.exports = {
             vue: 'vue/dist/vue.esm.js',
             '@': path.resolve(__dirname, './js')
         },
-        extensions: ['.ts', '.js']
+        extensions: ['.ts', '.js', '.vue']
     },
     optimization: {
         splitChunks: {

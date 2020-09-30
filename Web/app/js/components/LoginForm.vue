@@ -25,76 +25,76 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
     import querystring from '@/querystring';
     import api from '@/api';
     import auth from '@/auth'
+    import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
 
-    export default {
-        computed: {
-            isErrorVisible() {
-                return this.errorMessage !== null;
-            }
-        },
-        methods: {
-            login() {
-                this.clearError();
-                var self = this;
+    @Component
+    export default class LoginForm extends Vue {
+        @Prop(String) readonly text!: string;
 
-                if (this.validateForm()) {
-                    var data = {
-                        username: this.username,
-                        password: this.password,
-                        rememberMe: this.rememberMe
-                    }
+        username = '';
+        password = '';
+        rememberMe = false;
+        errorMessage: string | null = null;
 
-                    api.getToken(data)
-                        .then(function (response) {
-                            if (response.data.success) {
-                                self.saveToken(response.data.token);
-                                self.redirect();
-                            } else {
-                                self.showError(response.data.message);
-                            }
-                        })
-                        .catch(function () {
-                            self.showError('There was something wrong with your username or password. Please try again.');
-                        });
-                } else {
-                    this.showError('Please enter your username (or email) and password');
+        get isErrorVisible() {
+            return this.errorMessage !== null;
+        }
+
+        async login() {
+            this.clearError();
+            var self = this;
+
+            if (this.validateForm()) {
+                var data: ApiParamsGetToken = {
+                    username: this.username,
+                    password: this.password,
+                    rememberMe: this.rememberMe
                 }
-            },
-            validateForm() {
-                this.clearError();
-                if (this.username === '' || this.password === '')
-                    return false;
-                return true;
-            },
-            clearError() {
-                this.errorMessage = null;
-            },
-            showError(message) {
-                this.errorMessage = message;
-            },
-            saveToken(token) {
-                auth.setToken(token, this.rememberMe);
-            },
-            redirect() {
-                var returnUrl = querystring.get('returnurl');
-                var redirectUrl = returnUrl || '/';
-                window.location.href = redirectUrl;
-            }
-        },
-        data: function () {
-            return {
-                username: '',
-                password: '',
-                rememberMe: false,
-                errorMessage: null
+
+                try{
+                    const response = await api.getToken(data);
+                    if (response.data.success) {
+                        self.saveToken(response.data.token);
+                        self.redirect();
+                    } else {
+                        self.showError(response.data.message);
+                    }
+                } catch {
+                    self.showError('There was something wrong with your username or password. Please try again.');
+                }
+            } else {
+                this.showError('Please enter your username (or email) and password');
             }
         }
-    };
-</script>
 
-<style>
-</style>
+        validateForm() {
+            this.clearError();
+            if (this.username === '' || this.password === '')
+                return false;
+            return true;
+        }
+
+        clearError() {
+            this.errorMessage = null;
+        }
+
+        showError(message: string) {
+            this.errorMessage = message;
+        }
+
+        saveToken(token: string) {
+            auth.setToken(token, this.rememberMe);
+        }
+
+        redirect() {
+            const returnUrl = querystring.get('returnurl');
+            const redirectUrl = returnUrl || '/';
+            window.location.href = redirectUrl;
+        }
+    }
+</script>

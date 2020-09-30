@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
-        <div v-for="player in $_sortedPlayers">
-            <player-row :player="player" :isCheckmarkEnabled="$_isRunning" :isReportTimeEnabled="$_isRunning" />
+        <div v-for="player in players" v-bind:key="player.id">
+            <PlayerRow :player="player" :isCheckmarkEnabled="$_isRunning" :isReportTimeEnabled="$_isRunning" />
         </div>
         <div class="totals">
             <div class="title">Totals: </div>
@@ -13,29 +13,30 @@
     </div>
 </template>
 
-<script>
-    import { PlayerRow } from '.';
+<script lang="ts">
+    import { Component, Mixins } from 'vue-property-decorator';
+    import PlayerRow from './PlayerRow.vue';
     import { CashgameMixin, FormatMixin } from '@/mixins'
 
-    export default {
-        mixins: [
-            CashgameMixin,
-            FormatMixin
-        ],
+    @Component({
         components: {
             PlayerRow
-        },
-        computed: {
-            formattedTotalBuyin() {
-                return this.$_formatCurrency(this.$_totalBuyin);
-            },
-            formattedTotalStacks() {
-                return this.$_formatCurrency(this.$_totalStacks);
-            }
         }
-    };
+    })
+    export default class PlayerTable extends Mixins(
+        CashgameMixin,
+        FormatMixin
+    ) {
+        get players(){
+            return this.$_sortedPlayers;
+        }
+
+        get formattedTotalBuyin() {
+            return this.$_formatCurrency(this.$_totalBuyin);
+        }
+
+        get formattedTotalStacks() {
+            return this.$_formatCurrency(this.$_totalStacks);
+        }
+    }
 </script>
-
-<style>
-
-</style>

@@ -4,11 +4,10 @@
     </li>
 </template>
 
-<script>
-    export default {
-    };
+<script lang="ts">
+    import { Component, Vue } from 'vue-property-decorator';
+
+    @Component
+    export default class SimpleListItem extends Vue {
+    }
 </script>
-
-<style>
-
-</style>

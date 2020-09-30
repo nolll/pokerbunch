@@ -1,27 +1,23 @@
 ﻿<template>
-    <definition-data>{{name}}: {{formattedAmount}}</definition-data>
+    <DefinitionData>{{name}}: {{formattedAmount}}</DefinitionData>
 </template>
 
-<script>
-    import { FormatMixin } from '@/mixins'
-    import { DefinitionData } from '@/components/DefinitionList';
+<script lang="ts">
+    import { Component, Mixins, Prop } from 'vue-property-decorator';
+    import { FormatMixin } from '@/mixins';
+    import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
 
-    export default {
-        mixins: [
-            FormatMixin
-        ],
+    @Component({
         components: {
             DefinitionData
-        },
-        props: ['name', 'amount'],
-        computed: {
-            formattedAmount() {
-                return this.$_formatCurrency(this.amount);
-            }
+        }
+    })
+    export default class PlayerAmountFact extends Mixins(FormatMixin) {
+        @Prop(String) readonly name!: string;
+        @Prop(Number) readonly amount!: number;
+        
+        get formattedAmount() {
+            return this.$_formatCurrency(this.amount);
         }
     };
 </script>
-
-<style>
-
-</style>

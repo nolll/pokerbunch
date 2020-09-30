@@ -1,41 +1,40 @@
 ﻿<template>
     <select v-model="selectedPlayerId" v-on:change="changePlayer">
-        <option v-for="player in $_players" :value="player.id">{{player.name}}</option>
+        <option v-for="player in players" :value="player.id" v-bind:key="player.id">{{player.name}}</option>
     </select>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Mixins, Watch } from 'vue-property-decorator';
     import { CashgameMixin, PlayerMixin } from '@/mixins';
+    
+    @Component
+    export default class PlayerDropdown extends Mixins(
+        CashgameMixin,
+        PlayerMixin
+    ) {
+        selectedPlayerId: string | null = null;
 
-    export default {
-        mixins: [
-            CashgameMixin,
-            PlayerMixin
-        ],
-        methods: {
-            changePlayer(event) {
-                this.$_selectPlayer(this.selectedPlayerId);
-            },
-            setSelectedPlayerId(playerId) {
-                this.selectedPlayerId = playerId;
-            }
-        },
-        watch: {
-            $_playerId: function (val) {
-                this.setSelectedPlayerId(val);
-            }
-        },
-        mounted: function () {
-            this.setSelectedPlayerId(this.$_playerId);
-        },
-        data: function () {
-            return {
-                selectedPlayerId: null
-            }
+        get players(){
+            return this.$_players;
         }
-    };
+
+        changePlayer() {
+            if(this.selectedPlayerId)
+                this.$_selectPlayer(this.selectedPlayerId);
+        }
+
+        setSelectedPlayerId(playerId: string) {
+            this.selectedPlayerId = playerId;
+        }
+
+        mounted(){
+            this.setSelectedPlayerId(this.$_playerId);
+        }
+
+        @Watch('$_playerId')
+        playerIdChanged(val: string) {
+            this.setSelectedPlayerId(val);
+        }
+    }
 </script>
-
-<style>
-
-</style>

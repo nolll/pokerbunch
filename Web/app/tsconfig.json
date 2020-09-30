@@ -10,17 +10,32 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "downlevelIteration": true,
-    "baseUrl": "./app/js/",
+    "noImplicitAny": true,
+    "baseUrl": "./js/",
     "paths": {
       "@/*": [
           "*"
       ]
     },
   },
-  "files": [
+  "typeRoots" : [
+    "./node_modules/@types"
+  ],
+  "include": [
+    "./js/*.ts",
+    "./js/**/*.ts",
+    "./js/*.vue",
+    "./js/**/*.vue",
+    "./global-shim.d.ts",
     "./js/types.d.ts"
   ],
   "exclude": [
     "node_modules"
+  ],
+  "lib": [
+    "dom",
+    "dom.iterable",
+    "scripthost",
+    "es2015"
   ]
 }

@@ -4,11 +4,10 @@
     </dl>
 </template>
 
-<script>
-    export default {
-    };
+<script lang="ts">
+    import { Component, Vue } from 'vue-property-decorator';
+
+    @Component
+    export default class DefinitionList extends Vue {
+    }
 </script>
-
-<style>
-
-</style>

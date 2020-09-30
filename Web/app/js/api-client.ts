@@ -1,12 +1,20 @@
-import auth from './auth';
+import auth from '@/auth';
 import httpClient from './http-client';
 import settings from './settings';
 
 export default {
-    get: (url: string) => httpClient.get(getApiUrl(url), getApiHeaders()),
-    post: (url: string, data: object) => httpClient.post(getApiUrl(url), data, getApiHeaders()),
-    put: (url: string, data: object) => httpClient.put(getApiUrl(url), data, getApiHeaders()),
-    delete: (url: string) => httpClient.delete(getApiUrl(url), getApiHeaders())
+    get<T = any>(url: string) {
+        return httpClient.get<T>(getApiUrl(url), getApiHeaders());
+    },
+    post<T = any>(url: string, data: object) {
+        return httpClient.post<T>(getApiUrl(url), data, getApiHeaders());
+    },
+    put<T = any>(url: string, data: object) {
+        return httpClient.put<T>(getApiUrl(url), data, getApiHeaders());
+    },
+    delete<T = any>(url: string) {
+        return httpClient.delete<T>(getApiUrl(url), getApiHeaders());
+    }
 };
 
 function getApiHeaders() {

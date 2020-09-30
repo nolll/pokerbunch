@@ -1,29 +1,31 @@
 ﻿<template>
-    <layout :ready="true">
-        <page-section>
-            <block>
-                <page-heading text="Page not found" />
-            </block>
-            <block>
+    <Layout :ready="true">
+        <PageSection>
+            <Block>
+                <PageHeading text="Page not found" />
+            </Block>
+            <Block>
                 Please check the url for errors
-            </block>
-        </page-section>
-    </layout>
+            </Block>
+        </PageSection>
+    </Layout>
 </template>
 
-<script>
-    import { Layout } from '@/components/Layouts';
-    import { Block, PageHeading, PageSection } from '@/components/Common';
+<script lang="ts">
+    import Layout from '@/components/Layouts/Layout.vue';
+    import Block from '@/components/Common/Block.vue';
+    import PageHeading from '@/components/Common/PageHeading.vue';
+    import PageSection from '@/components/Common/PageSection.vue';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
 
-    export default {
+    @Component({
         components: {
             Layout,
             Block,
             PageHeading,
             PageSection
         }
-    };
+    })
+    export default class NotFoundPage extends Vue {
+    }
 </script>
-
-<style>
-</style>

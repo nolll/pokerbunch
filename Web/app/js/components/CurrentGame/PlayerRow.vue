@@ -29,96 +29,101 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
     import { CashgameMixin, FormatMixin } from '@/mixins';
     import CustomLink from '@/components/Common/CustomLink.vue';
-    import { PlayerAction } from '.';
-    import playerCalculator from '@/player-calculator';
+    import PlayerAction from './PlayerAction.vue';
+    import playerCalculator from '@/PlayerCalculator';
     import urls from '@/urls';
     import CashgameActionChart from '@/components/CashgameActionChart.vue';
+    import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
+    import { CssClasses } from '@/models/CssClasses';
 
-    export default {
-        mixins: [
-            CashgameMixin,
-            FormatMixin
-        ],
+    @Component({
         components: {
             CustomLink,
             PlayerAction,
             CashgameActionChart
-        },
-        props: {
-            player: {
-                type: Object
-            },
-            isReportTimeEnabled: {
-                type: Boolean
-            },
-            isCheckmarkEnabled: {
-                type: Boolean
-            }
-        },
-        data: function () {
-            return {
-                isExpanded: false
-            }
-        },
-        computed: {
-            hasCashedOut() {
-                return playerCalculator.hasCashedOut(this.player);
-            },
-            showCheckmark() {
-                return this.isCheckmarkEnabled && this.hasCashedOut;
-            },
-            lastReportTime() {
-                return playerCalculator.getLastReportTime(this.player);
-            },
-            calculatedBuyin() {
-                return playerCalculator.getBuyin(this.player);
-            },
-            stack() {
-                return playerCalculator.getStack(this.player);
-            },
-            winnings() {
-                return playerCalculator.getWinnings(this.player);
-            },
-            winningsCssClasses() {
-                return {
-                    'pos-result': this.winnings > 0,
-                    'neg-result': this.winnings < 0
-                };
-            },
-            formattedBuyin() {
-                return this.$_formatCurrency(this.calculatedBuyin);
-            },
-            formattedStack() {
-                return this.$_formatCurrency(this.stack);
-            },
-            formattedWinnings() {
-                return this.$_formatResult(this.winnings);
-            },
-            url() {
-                return urls.player.details(this.player.id);
-            },
-            showDetails() {
-                return this.isExpanded;
-            }
-        },
-        methods: {
-            expand() {
-                this.isExpanded = true;
-            },
-            collapse() {
-                this.isExpanded = false;
-            },
-            toggle() {
-                this.isExpanded = !this.isExpanded;
-            },
-            click() {
-                this.toggle();
-            }
         }
-    };
+    })
+    export default class PlayerRow extends Mixins(
+        CashgameMixin,
+        FormatMixin
+    ) {
+        @Prop() readonly player!: DetailedCashgameResponsePlayer;
+        @Prop() readonly isReportTimeEnabled!: boolean;
+        @Prop() readonly isCheckmarkEnabled!: boolean;
+
+        isExpanded = false;
+
+        get hasCashedOut() {
+            return playerCalculator.hasCashedOut(this.player);
+        }
+
+        get showCheckmark() {
+            return this.isCheckmarkEnabled && this.hasCashedOut;
+        }
+
+        get lastReportTime() {
+            return playerCalculator.getLastReportTime(this.player);
+        }
+
+        get calculatedBuyin() {
+            return playerCalculator.getBuyin(this.player);
+        }
+
+        get stack() {
+            return playerCalculator.getStack(this.player);
+        }
+
+        get winnings() {
+            return playerCalculator.getWinnings(this.player);
+        }
+
+        get winningsCssClasses(): CssClasses {
+            return {
+                'pos-result': this.winnings > 0,
+                'neg-result': this.winnings < 0
+            };
+        }
+
+        get formattedBuyin() {
+            return this.$_formatCurrency(this.calculatedBuyin);
+        }
+
+        get formattedStack() {
+            return this.$_formatCurrency(this.stack);
+        }
+
+        get formattedWinnings() {
+            return this.$_formatResult(this.winnings);
+        }
+
+        get url() {
+            return urls.player.details(this.player.id);
+        }
+
+        get showDetails() {
+            return this.isExpanded;
+        }
+
+        expand() {
+            this.isExpanded = true;
+        }
+
+        collapse() {
+            this.isExpanded = false;
+        }
+
+        toggle() {
+            this.isExpanded = !this.isExpanded;
+        }
+
+        click() {
+            this.toggle();
+        }
+    }
 </script>
 
 <style lang="less" scoped>

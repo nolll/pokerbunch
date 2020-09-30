@@ -18,25 +18,27 @@
     </div>
 </template>
 
-<script>
-    import { GameListColumn, GameListRow } from '.';
+<script lang="ts">
+    import GameListColumn from './GameListColumn.vue';
+    import GameListRow from './GameListRow.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
+    import Component from 'vue-class-component';
+    import { Mixins } from 'vue-property-decorator';
 
-    export default {
+    @Component({
         components: {
             GameListColumn,
             GameListRow
-        },
-        mixins: [
-            BunchMixin,
-            GameArchiveMixin
-        ],
-        computed: {
-            ready() {
-                return this.$_bunchReady && this.$_sortedGames.length > 0;
-            }
         }
-    };
+    })
+    export default class GameListTable extends Mixins(
+        BunchMixin,
+        GameArchiveMixin
+    ){
+        get ready() {
+            return this.$_bunchReady && this.$_sortedGames.length > 0;
+        }
+    }
 </script>
 
 <style lang="less" scoped>

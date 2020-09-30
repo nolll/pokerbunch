@@ -1,66 +1,72 @@
 ﻿<template>
     <div v-if="ready">
         <h2 class="h2">Totals</h2>
-        <definition-list>
-            <definition-term>Most Time Played</definition-term>
-            <player-time-fact :name="facts.mostTime.name" :minutes="facts.mostTime.minutes" />
+        <DefinitionList>
+            <DefinitionTerm>Most Time Played</DefinitionTerm>
+            <PlayerTime-fact :name="facts.mostTime.name" :minutes="facts.mostTime.minutes" />
 
-            <definition-term>Best Total Result</definition-term>
-            <player-result-fact :name="facts.bestTotal.name" :amount="facts.bestTotal.amount" />
+            <DefinitionTerm>Best Total Result</DefinitionTerm>
+            <PlayerResultFact :name="facts.bestTotal.name" :amount="facts.bestTotal.amount" />
 
-            <definition-term>Worst Total Result</definition-term>
-            <player-result-fact :name="facts.worstTotal.name" :amount="facts.worstTotal.amount" />
+            <DefinitionTerm>Worst Total Result</DefinitionTerm>
+            <PlayerResultFact :name="facts.worstTotal.name" :amount="facts.worstTotal.amount" />
 
-            <definition-term>Biggest Total Buyin</definition-term>
-            <player-amount-fact :name="facts.biggestBuyin.name" :amount="facts.biggestBuyin.amount" />
+            <DefinitionTerm>Biggest Total Buyin</DefinitionTerm>
+            <PlayerResultFact :name="facts.biggestBuyin.name" :amount="facts.biggestBuyin.amount" />
 
-            <definition-term>Biggest Total Cashout</definition-term>
-            <player-amount-fact :name="facts.biggestCashout.name" :amount="facts.biggestCashout.amount" />
-        </definition-list>
+            <DefinitionTerm>Biggest Total Cashout</DefinitionTerm>
+            <PlayerResultFact :name="facts.biggestCashout.name" :amount="facts.biggestCashout.amount" />
+        </DefinitionList>
     </div>
 </template>
 
-<script>
+<script lang="ts">
 
     //Things to add
     //MostGamesPlayed
     //HighestWinrate
 
-    import { PlayerAmountFact, PlayerResultFact, PlayerTimeFact } from '.';
-    import { DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
+    import PlayerAmountFact from './PlayerAmountFact.vue';
+    import PlayerResultFact from './PlayerResultFact.vue';
+    import PlayerTimeFact from './PlayerTimeFact.vue';
+    import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
+    import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
     import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
-
-    export default {
-        mixins: [
-            BunchMixin,
-            FormatMixin,
-            GameArchiveMixin
-        ],
+    import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+    import { TotalFactCollection } from '@/models/TotalFactCollection';
+    
+    @Component({
         components: {
             PlayerAmountFact,
             PlayerResultFact,
             PlayerTimeFact,
             DefinitionList,
             DefinitionTerm
-        },
-        computed: {
-            facts() {
-                return getFacts(this.$_sortedPlayers);
-            }
-        },
-        methods: {
-            ready() {
-                return this.$_bunchReady && this.$_sortedGames.length > 0;
-            }
         }
-    };
+    })
+    export default class TotalFacts extends Mixins(
+        BunchMixin,
+        FormatMixin,
+        GameArchiveMixin
+    ) {
+        @Prop(String) readonly text!: string;
 
-    function getFacts(players) {
-        var mostTime = { name: '', id: 0, minutes: 0 };
-        var bestTotal = { name: '', id: 0, amount: 0 };
-        var worstTotal = { name: '', id: 0, amount: 0 };
-        var biggestBuyin = { name: '', id: 0, amount: 0 };
-        var biggestCashout = { name: '', id: 0, amount: 0 };
+        get facts() {
+            return getFacts(this.$_sortedPlayers);
+        }
+
+        get ready() {
+            return this.$_bunchReady && this.$_sortedGames.length > 0;
+        }
+    }
+
+    function getFacts(players: CashgameListPlayerData[]): TotalFactCollection {
+        var mostTime = { name: '', id: '0', minutes: 0 };
+        var bestTotal = { name: '', id: '0', amount: 0 };
+        var worstTotal = { name: '', id: '0', amount: 0 };
+        var biggestBuyin = { name: '', id: '0', amount: 0 };
+        var biggestCashout = { name: '', id: '0', amount: 0 };
         for (var pi = 0; pi < players.length; pi++) {
             var player = players[pi];
             if (player.playedTimeInMinutes > mostTime.minutes) {
@@ -88,6 +94,3 @@
         }
     }
 </script>
-
-<style>
-</style>

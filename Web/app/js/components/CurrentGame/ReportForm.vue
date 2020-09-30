@@ -5,80 +5,72 @@
             <input class="numberfield" v-model.number="stack" v-on:focus="focus" ref="stack" id="report-stack" type="text" pattern="[0-9]*">
         </div>
         <div class="buttons">
-            <custom-button v-on:click="report" type="action" text="Report" />
-            <custom-button v-on:click="cancel" text="Cancel" />
+            <CustomButton v-on:click="report" type="action" text="Report" />
+            <CustomButton v-on:click="cancel" text="Cancel" />
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Mixins, Watch } from 'vue-property-decorator';
     import validate from '@/validate';
     import forms from '@/forms';
-
-    import { CustomButton } from '@/components/Common';
+    import CustomButton from '@/components/Common/CustomButton.vue';
     import { BunchMixin, CashgameMixin } from '@/mixins';
 
-    export default {
-        props: {
-            isActive: {
-                type: Boolean
-            }
-        },
+    @Component({
         components: {
             CustomButton
-        },
-        mixins: [
-            BunchMixin,
-            CashgameMixin
-        ],
-        computed: {
-            hasErrors() {
-                return this.stackError === null;
-            }
-        },
-        mounted: function () {
+        }
+    })
+    export default class ReportForm extends Mixins(
+        BunchMixin,
+        CashgameMixin
+    ) {
+        @Prop() readonly isActive!: boolean;
+
+        stack = 0;
+        stackError: string | null = null;
+
+        get hasErrors() {
+            return this.stackError === null;
+        }
+
+        report() {
+            this.validateForm();
+            if (!this.hasErrors)
+                this.$_report(this.stack);
+        }
+
+        cancel() {
+            this.$_hideForms();
+        }
+
+        focus(e: Event) {
+            var el = e.target as HTMLInputElement;
+            forms.selectAll(el);
+        }
+
+        validateForm() {
+            this.clearErrors();
+            if (validate.intRange(this.stack, 0))
+                this.stackError = 'Stack can\'t be negative';
+        }
+
+        clearErrors() {
+            this.stackError = null;
+        }
+
+        mounted() {
             this.stack = this.$_defaultBuyin;
-        },
-        watch: {
-            isActive: function (val) {
-                if (val) {
-                    this.$refs.stack.focus();
-                }
-            },
-            $_defaultBuyin: function (val) {
-                this.stack = val;
-            }
-        },
-        methods: {
-            report() {
-                this.validateForm();
-                if (!this.hasErrors)
-                    this.$_report(this.stack);
-            },
-            cancel() {
-                this.$_hideForms();
-            },
-            focus(event) {
-                forms.selectAll(event.target);
-            },
-            validateForm() {
-                this.clearErrors();
-                if (validate.intRange(this.stack, 0))
-                    this.stackError = 'Stack can\'t be negative';
-            },
-            clearErrors() {
-                this.stackError = null;
-            }
-        },
-        data: function () {
-            return {
-                stack: 0,
-                stackError: null
+        }
+
+        @Watch('isActive')
+        isActiveChanged(val: boolean) {
+            if (val) {
+                var el = this.$refs.stack as HTMLInputElement;
+                el.focus();
             }
         }
-    };
+    }
 </script>
-
-<style>
-
-</style>

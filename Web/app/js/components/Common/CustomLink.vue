@@ -3,30 +3,24 @@
     <a :href="checkedUrl" :class="cssClasses" v-else><slot></slot></a>
 </template>
 
-<script>
-    export default {
-        props: {
-            url: {
-                type: String
-            },
-            cssClasses: {
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { CssClasses } from '@/models/CssClasses';
 
-            }
-        },
-        computed: {
-            isInRouter() {
-                if (!this.url)
-                    return false;
-                let resolved = this.$router.resolve(this.url);
-                return resolved && resolved.routeName && resolved.routeName != '404';
-            },
-            checkedUrl() {
-                return this.url || '#'
-            }
+    @Component
+    export default class CustomLink extends Vue {
+        @Prop(String) readonly url!: string;
+        @Prop({default: () => {}}) readonly cssClasses!: CssClasses;
+
+        get isInRouter() {
+            if (!this.url)
+                return false;
+            let resolved = this.$router.resolve(this.url);
+            return resolved && resolved.route.name != '404';
         }
-    };
+            
+        get checkedUrl() {
+            return this.url || '#'
+        }
+    }
 </script>
-
-<style>
-
-</style>

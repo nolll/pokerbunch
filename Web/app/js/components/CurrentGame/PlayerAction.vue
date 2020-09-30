@@ -26,114 +26,123 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
     import { BunchMixin, CashgameMixin, FormatMixin } from '@/mixins';
-    import actionTypes from '@/action-types';
     import moment from 'moment';
+    import { DetailedCashgameResponseAction } from '@/response/DetailedCashgameResponseAction';
+    import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 
-    export default {
-        mixins: [
-            BunchMixin,
-            CashgameMixin,
-            FormatMixin
-        ],
-        props: {
-            action: {
-                type: Object
-            }
-        },
-        computed: {
-            formTime() {
-                if (this.changedTime !== null)
-                    return this.changedTime;
-                return this.action.time;
-            },
-            formStack() {
-                if (this.changedStack !== null)
-                    return this.changedStack;
-                return this.action.stack;
-            },
-            formAdded() {
-                if (this.changedAdded !== null)
-                    return this.changedAdded;
-                return this.action.added;
-            },
-            formattedTime() {
-                return moment(this.action.time).format('HH:mm');
-            },
-            formattedAmount() {
-                return this.$_formatCurrency(this.amount);
-            },
-            amount() {
-                if (this.action.type === actionTypes.buyin)
-                    return this.action.added;
-                return this.action.stack;
-            },
-            typeName() {
-                if (this.action.type === actionTypes.buyin)
-                    return 'Buyin';
-                if (this.action.type === actionTypes.cashout)
-                    return 'Cashout';
-                return 'Report';
-            },
-            canEdit() {
-                return this.$_isManager;
-            },
-            showAddedField() {
-                return this.action.type === actionTypes.buyin;
-            }
-        },
-        methods: {
-            clickEdit() {
-                this.showForm();
-            },
-            clickDelete() {
-                if (window.confirm('Do you want to delete this action?')) {
-                    this.$_deleteAction(this.action.id);
-                }
-            },
-            clickCancel() {
-                this.hideForm();
-            },
-            clickSave() {
-                const data = {
-                    id: this.action.id,
-                    time: this.formTime,
-                    stack: this.formStack,
-                    added: this.formAdded
-                };
-                this.$_saveAction(data);
-                this.hideForm();
-                this.changedTime = null;
-                this.changedStack = null;
-                this.changedAdded = null;
-            },
-            showForm() {
-                this.isFormVisible = true;
-            },
-            hideForm() {
-                this.isFormVisible = false;
-            },
-            updateTime(e) {
-                this.changedTime = e.target.value;
-            },
-            updateStack(e) {
-                this.changedStack = parseInt(e.target.value);
-            },
-            updateAdded(e) {
-                this.changedAdded = parseInt(e.target.value);
-            }
-        },
-        data: function () {
-            return {
-                isFormVisible: false,
-                changedTime: null,
-                changedStack: null,
-                changedAdded: null
-            };
+    @Component
+    export default class PlayerAction extends Mixins(
+        BunchMixin,
+        CashgameMixin,
+        FormatMixin
+    ) {
+        @Prop() readonly action!: DetailedCashgameResponseAction;
+
+        isFormVisible = false;
+        changedTime: string | null = null;
+        changedStack: number | null = null;
+        changedAdded: number | null = null;
+
+        get formTime() {
+            if (this.changedTime !== null)
+                return this.changedTime;
+            return this.action.time;
         }
-    };
-</script>
 
-<style>
-</style>
+        get formStack() {
+            if (this.changedStack !== null)
+                return this.changedStack;
+            return this.action.stack;
+        }
+
+        get formAdded() {
+            if (this.changedAdded !== null)
+                return this.changedAdded;
+            return this.action.added;
+        }
+
+        get formattedTime() {
+            return moment(this.action.time).format('HH:mm');
+        }
+
+        get formattedAmount() {
+            return this.$_formatCurrency(this.amount);
+        }
+
+        get amount() {
+            if (this.action.type === DetailedCashgameResponseActionType.Buyin && this.action.added)
+                return this.action.added;
+            return this.action.stack;
+        }
+
+        get typeName(): string {
+            if (this.action.type === DetailedCashgameResponseActionType.Buyin)
+                return 'Buyin';
+            if (this.action.type === DetailedCashgameResponseActionType.Cashout)
+                return 'Cashout';
+            return 'Report';
+        }
+
+        get canEdit() {
+            return this.$_isManager;
+        }
+
+        get showAddedField() {
+            return this.action.type === DetailedCashgameResponseActionType.Buyin;
+        }
+
+        clickEdit() {
+            this.showForm();
+        }
+
+        clickDelete() {
+            if (this.action.id && window.confirm('Do you want to delete this action?')) {
+                this.$_deleteAction(this.action.id);
+            }
+        }
+
+        clickCancel() {
+            this.hideForm();
+        }
+
+        clickSave() {
+            const data = {
+                id: this.action.id,
+                time: this.formTime,
+                stack: this.formStack,
+                added: this.formAdded
+            };
+            this.$_saveAction(data);
+            this.hideForm();
+            this.changedTime = null;
+            this.changedStack = null;
+            this.changedAdded = null;
+        }
+
+        showForm() {
+            this.isFormVisible = true;
+        }
+
+        hideForm() {
+            this.isFormVisible = false;
+        }
+
+        updateTime(e: Event) {
+            const el = e.target as HTMLInputElement
+            this.changedTime = el.value;
+        }
+
+        updateStack(e: Event) {
+            const el = e.target as HTMLInputElement
+            this.changedStack = parseInt(el.value);
+        }
+
+        updateAdded(e: Event) {
+            const el = e.target as HTMLInputElement
+            this.changedAdded = parseInt(el.value);
+        }
+    }
+</script>

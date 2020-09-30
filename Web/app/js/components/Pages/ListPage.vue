@@ -1,28 +1,31 @@
 ﻿<template>
-    <layout :ready="ready">
+    <Layout :ready="ready">
         <template slot="top-nav">
-            <bunch-navigation />
+            <BunchNavigation />
         </template>
 
-        <page-section>
-            <block>
-                <cashgame-navigation page="list" />
-            </block>
-            <block>
-                <game-list-table />
-            </block>
-        </page-section>
-    </layout>
+        <PageSection>
+            <Block>
+                <CashgameNavigation page="list" />
+            </Block>
+            <Block>
+                <GameListTable />
+            </Block>
+        </PageSection>
+    </Layout>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Mixins, Watch } from 'vue-property-decorator';
     import { BunchMixin, UserMixin, GameArchiveMixin } from '@/mixins';
-    import { Layout } from '@/components/Layouts';
-    import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
-    import { GameListTable } from '@/components';
-    import { Block, PageSection } from '@/components/Common';
-
-    export default {
+    import Layout from '@/components/Layouts/Layout.vue';
+    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+    import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
+    import GameListTable from '@/components/GameList/GameListTable.vue';
+    import Block from '@/components/Common/Block.vue';
+    import PageSection from '@/components/Common/PageSection.vue';
+    
+    @Component({
         components: {
             Layout,
             BunchNavigation,
@@ -30,35 +33,30 @@
             GameListTable,
             Block,
             PageSection
-        },
-        mixins: [
-            BunchMixin,
-            UserMixin,
-            GameArchiveMixin
-        ],
-        computed: {
-            ready() {
-                return this.$_bunchReady && this.$_gamesReady;
-            }
-        },
-        methods: {
-            init() {
-                this.$_requireUser();
-                this.$_loadBunch();
-                this.$_loadGames();
-            }
-        },
-        watch: {
-            '$route'(to, from) {
-                this.init();
-            }
-        },
-        mounted: function () {
+        }
+    })
+    export default class ListPage extends Mixins(
+        BunchMixin,
+        UserMixin,
+        GameArchiveMixin
+    ) {
+        get ready() {
+            return this.$_bunchReady && this.$_gamesReady;
+        }
+
+        init() {
+            this.$_requireUser();
+            this.$_loadBunch();
+            this.$_loadGames();
+        }
+
+        mounted() {
             this.init();
         }
-    };
+
+        @Watch('$route')
+        routeChanged() {
+            this.init();
+        }
+    }
 </script>
-
-<style>
-
-</style>

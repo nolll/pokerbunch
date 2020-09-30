@@ -12,49 +12,49 @@
     </div>
 </template>
 
-<script>
-    export default {
-        props: {
-            isWide: {
-                type: Boolean
-            }
-        },
-        computed: {
-            isAside1Enabled() {
-                return this.isSlotEnabled('aside1');
-            },
-            isAside2Enabled() {
-                return this.isSlotEnabled('aside2');
-            },
-            hasAside() {
-                return this.isAside1Enabled || this.isAside2Enabled;
-            },
-            cssClasses() {
-                return {
-                    'page-section': true,
-                    'page-section--wide': this.isWide
-                }
-            },
-            asideCssClasses() {
-                return {
-                    region: true,
-                    aside: true
-                };
-            },
-            mainCssClasses() {
-                return {
-                    region: true,
-                    width2: this.hasAside
-                };
-            }
-        },
-        methods: {
-            isSlotEnabled(name) {
-                return !!this.$slots[name];
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import { CssClasses } from '@/models/CssClasses';
+
+    @Component
+    export default class PageSection extends Vue {
+        @Prop({default: false}) readonly isWide!: boolean;
+
+        get isAside1Enabled() {
+            return this.isSlotEnabled('aside1');
+        }
+
+        get isAside2Enabled() {
+            return this.isSlotEnabled('aside2');
+        }
+        
+        get hasAside() {
+            return this.isAside1Enabled || this.isAside2Enabled;
+        }
+        
+        get cssClasses(): CssClasses {
+            return {
+                'page-section': true,
+                'page-section--wide': this.isWide
             }
         }
-    };
-</script>
+        
+        get asideCssClasses(): CssClasses {
+            return {
+                region: true,
+                aside: true
+            };
+        }
+        
+        get mainCssClasses(): CssClasses {
+            return {
+                region: true,
+                width2: this.hasAside
+            };
+        }
 
-<style lang="less">
-</style>
+        isSlotEnabled(name: string) {
+            return !!this.$slots[name];
+        }
+    }
+</script>

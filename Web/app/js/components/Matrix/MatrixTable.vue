@@ -6,37 +6,46 @@
                     <th class="table-list__column-header"></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
                     <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
-                    <th is="matrix-column" v-for="game in $_sortedGames" :game="game" :slug="$_slug" :key="game.id"></th>
+                    <th is="matrix-column" v-for="game in games" :game="game" :slug="slug" :key="game.id"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr is="matrix-row" v-for="(player, index) in $_sortedPlayers" :player="player" :index="index" :key="player.id"></tr>
+                <tr is="matrix-row" v-for="(player, index) in players" :player="player" :index="index" :key="player.id"></tr>
             </tbody>
         </table>
     </div>
 </template>
 
-<script>
-    import { MatrixColumn, MatrixRow } from '.';
+<script lang="ts">
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
+    import MatrixColumn from './MatrixColumn.vue';
+    import MatrixRow from './MatrixRow.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
 
-    export default {
+    @Component({
         components: {
             MatrixColumn,
             MatrixRow
-        },
-        mixins: [
-            BunchMixin,
-            GameArchiveMixin
-        ],
-        computed: {
-            ready() {
-                return this.$_bunchReady && this.$_sortedGames.length > 0;
-            }
         }
-    };
+    })
+    export default class MatrixTable extends Mixins(
+        BunchMixin,
+        GameArchiveMixin
+    ) {
+        get slug(){
+            return this.$_slug;
+        }
+
+        get games(){
+            return this.$_sortedGames;
+        }
+
+        get players(){
+            return this.$_sortedPlayers;
+        }
+
+        get ready() {
+            return this.$_bunchReady && this.$_sortedGames.length > 0;
+        }
+    }
 </script>
-
-<style>
-
-</style>

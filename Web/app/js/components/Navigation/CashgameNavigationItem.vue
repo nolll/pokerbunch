@@ -1,24 +1,27 @@
 ﻿<template>
-    <li><router-link :to="url" :class="selectedClass" @click.native="click">{{text}}</router-link></li>
+    <li><a :href="url" :class="selectedClass" @click.prevent="click">{{text}}</a></li>
 </template>
 
-<script>
-    export default {
-        props: ['url', 'text', 'isSelected'],
-        computed: {
-            selectedClass() {
-                if (this.isSelected) {
-                    return 'selected';
-                }
-                return '';
-            }
-        },
-        methods: {
-            click() {
-                this.$emit('selected');
+<script lang="ts">
+import { CssClasses } from '@/models/CssClasses';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+
+    @Component
+    export default class CashgameNavigationItem extends Vue {
+        @Prop() readonly url!: string;
+        @Prop() readonly text!: string;
+        @Prop() readonly isSelected!: boolean;
+
+        get selectedClass(): CssClasses {
+            return {
+                'selected': this.isSelected
             }
         }
-    };
+
+        click() {
+            this.$emit('selected', this.url);
+        }
+    }
 </script>
 
 <style lang="less" scoped>

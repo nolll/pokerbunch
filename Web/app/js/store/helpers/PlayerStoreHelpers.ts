@@ -1,4 +1,6 @@
-﻿export enum PlayerStoreGetters {
+﻿import { Player } from '@/models/Player';
+
+export enum PlayerStoreGetters {
     Slug = 'player_slug',
     Players = 'player_players',
     PlayersReady = 'player_playersReady',
@@ -12,4 +14,11 @@ export enum PlayerStoreActions {
 export enum PlayerStoreMutations {
     SetPlayersData = 'player_setPlayersData',
     SetInitialized = 'player_setInitialized'
+}
+
+export interface PlayerStoreState {
+    _slug: string;
+    _players: Player[];
+    _playersReady: boolean;
+    _initialized: boolean;
 }

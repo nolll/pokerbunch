@@ -1,31 +1,34 @@
 ﻿<template>
-    <layout :ready="ready">
+    <Layout :ready="ready">
         <template slot="top-nav">
-            <bunch-navigation />
+            <BunchNavigation />
         </template>
 
-        <page-section>
-            <block>
-                <cashgame-navigation page="chart" />
-            </block>
-        </page-section>
+        <PageSection>
+            <Block>
+                <CashgameNavigation page="chart" />
+            </Block>
+        </PageSection>
 
-        <page-section>
-            <block>
-                <cashgame-chart />
-            </block>
-        </page-section>
-    </layout>
+        <PageSection>
+            <Block>
+                <CashgameChart />
+            </Block>
+        </PageSection>
+    </Layout>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Mixins, Watch } from 'vue-property-decorator';
     import { BunchMixin, UserMixin, GameArchiveMixin } from '@/mixins';
-    import { Layout } from '@/components/Layouts';
-    import { BunchNavigation, CashgameNavigation } from '@/components/Navigation';
-    import { CashgameChart } from '@/components';
-    import { Block, PageSection } from '@/components/Common';
+    import Layout from '@/components/Layouts/Layout.vue';
+    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+    import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
+    import CashgameChart from '@/components/CashgameChart.vue';
+    import Block from '@/components/Common/Block.vue';
+    import PageSection from '@/components/Common/PageSection.vue';
 
-    export default {
+    @Component({
         components: {
             Layout,
             BunchNavigation,
@@ -33,35 +36,30 @@
             CashgameChart,
             Block,
             PageSection
-        },
-        mixins: [
-            BunchMixin,
-            UserMixin,
-            GameArchiveMixin
-        ],
-        computed: {
-            ready() {
-                return this.$_bunchReady && this.$_gamesReady;
-            }
-        },
-        methods: {
-            init() {
-                this.$_requireUser();
-                this.$_loadBunch();
-                this.$_loadGames();
-            }
-        },
-        watch: {
-            '$route'(to, from) {
-                this.init();
-            }
-        },
-        mounted: function () {
+        }
+    })
+    export default class ChartPage extends Mixins(
+        BunchMixin,
+        UserMixin,
+        GameArchiveMixin
+    ) {
+        get ready() {
+            return this.$_bunchReady && this.$_gamesReady;
+        }
+
+        init() {
+            this.$_requireUser();
+            this.$_loadBunch();
+            this.$_loadGames();
+        }
+
+        mounted() {
             this.init();
         }
-    };
+
+        @Watch('$route')
+        routeChanged() {
+            this.init();
+        }
+    }
 </script>
-
-<style>
-
-</style>

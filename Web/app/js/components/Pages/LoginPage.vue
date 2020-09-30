@@ -1,28 +1,32 @@
 ﻿<template>
-    <layout :ready="ready">
-        <page-section>
-            <block>
-                <page-heading text="Sign in" />
+    <Layout :ready="ready">
+        <PageSection>
+            <Block>
+                <PageHeading text="Sign in" />
                 <p>
-                    Please sign in using your username and password. <custom-link :url="forgotPasswordUrl">Forgot password?</custom-link>
+                    Please sign in using your username and password. <CustomLink :url="forgotPasswordUrl">Forgot password?</CustomLink>
                 </p>
                 <p>
-                    If you are a new user, please <custom-link :url="registerUrl">register</custom-link>!
+                    If you are a new user, please <CustomLink :url="registerUrl">register</CustomLink>!
                 </p>
-                <login-form />
-            </block>
-        </page-section>
-    </layout>
+                <LoginForm />
+            </Block>
+        </PageSection>
+    </Layout>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Mixins, Watch } from 'vue-property-decorator';
     import { UserMixin } from '@/mixins';
-    import { Layout } from '@/components/Layouts';
-    import { LoginForm } from '@/components';
-    import { CustomLink, Block, PageHeading, PageSection } from '@/components/Common';
+    import Layout from '@/components/Layouts/Layout.vue';
+    import LoginForm from '@/components/LoginForm.vue';
+    import CustomLink from '@/components/Common/CustomLink.vue';
+    import Block from '@/components/Common/Block.vue';
+    import PageHeading from '@/components/Common/PageHeading.vue';
+    import PageSection from '@/components/Common/PageSection.vue';
     import urls from '@/urls';
-
-    export default {
+    
+    @Component({
         components: {
             Layout,
             LoginForm,
@@ -30,42 +34,41 @@
             Block,
             PageHeading,
             PageSection
-        },
-        mixins: [
-            UserMixin
-        ],
-        computed: {
-            forgotPasswordUrl() {
-                return urls.user.forgotPassword;
-            },
-            registerUrl() {
-                return urls.user.add;
-            },
-            ready() {
-                return this.$_userReady;
+        }
+    })
+    export default class LoginPage extends Mixins(
+        UserMixin
+    ) {
+        get forgotPasswordUrl() {
+            return urls.user.forgotPassword;
+        }
+
+        get registerUrl() {
+            return urls.user.add;
+        }
+
+        get ready() {
+            return this.$_userReady;
+        }
+
+        redirectIfSignedIn() {
+            if (this.$_userReady && this.$_isSignedIn) {
+                this.$router.push(urls.home);
             }
-        },
-        methods: {
-            redirectIfSignedIn() {
-                if (this.$_userReady && this.$_isSignedIn) {
-                    this.$router.push(urls.home);
-                }
-            },
-            init() {
-                this.$_requireUser();
-            }
-        },
-        watch: {
-            $_userReady() {
-                this.redirectIfSignedIn();
-            }
-        },
+        }
+
+        init() {
+            this.$_requireUser();
+        }
+
         mounted() {
             this.init();
             this.redirectIfSignedIn();
         }
-    };
-</script>
 
-<style>
-</style>
+        @Watch('$_userReady')
+        userReadyChanged() {
+            this.redirectIfSignedIn();
+        }
+    }
+</script>

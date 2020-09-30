@@ -1,7 +1,9 @@
 import vue from 'vue';
-import store from './store';
+import RootStore from './store/RootStore';
 import router from './router';
-import { CashgameActionChart, CashgameDetailsChart } from './components';
+
+Vue.use(Vuex);
+const store = new Vuex.Store(RootStore);
 
 function init() {
     vue.prototype.eventHub = new vue();
@@ -9,12 +11,6 @@ function init() {
     const appElement = document.getElementById('app');
     if (appElement)
         initApp(appElement);
-    else
-        initStandalone();
-}
-
-function initStandalone() {
-    initElement('vue-component');
 }
 
 function initApp(appElement) {
@@ -24,23 +20,6 @@ function initApp(appElement) {
         store
     };
     new vue(options);
-}
-
-function initElement(elementId) {
-    const element = document.getElementById(elementId);
-
-    if (element) {
-        const options = {
-            el: element,
-            components: {
-                CashgameActionChart,
-                CashgameDetailsChart
-            },
-            router,
-            store
-        };
-        new vue(options);
-    }
 }
 
 export default {

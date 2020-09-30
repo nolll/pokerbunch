@@ -1,63 +1,59 @@
 ﻿<template>
     <div>
-        <page-section>
+        <PageSection>
             <div class="page-header">
-                <div class="logo"><custom-link :url="homeUrl" cssClasses="logo-link">Poker Bunch</custom-link></div>
+                <div class="logo"><CustomLink :url="homeUrl" cssClasses="logo-link">Poker Bunch</CustomLink></div>
                 <div v-if="isTopNavEnabled">
                     <slot name="top-nav"></slot>
                 </div>
             </div>
-        </page-section>
+        </PageSection>
 
         <div v-if="ready">
             <div class="main clearfix">
                 <slot></slot>
             </div>
 
-            <page-section>
-                <slot name="bottom-nav"><user-navigation /></slot>
-            </page-section>
+            <PageSection>
+                <slot name="bottom-nav"><UserNavigation /></slot>
+            </PageSection>
         </div>
 
         <div v-else>
-            <spinner />
+            <Spinner />
         </div>
     </div>
 </template>
 
-<script>
-    import { UserNavigation } from '@/components/Navigation';
-    import { PageSection, Spinner } from '@/components/Common';
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+    import UserNavigation from '@/components/Navigation/UserNavigation.vue';
+    import PageSection from '@/components/Common/PageSection.vue';
+    import Spinner from '@/components/Common/Spinner.vue';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
 
-    export default {
+    @Component({
         components: {
             UserNavigation,
             PageSection,
             Spinner,
             CustomLink
-        },
-        props: {
-            ready: {
-                type: Boolean
-            }
-        },
-        computed: {
-            isTopNavEnabled() {
-                return this.isSlotEnabled('top-nav');
-            },
-            homeUrl() {
-                return urls.home;
-            }
-        },
-        methods: {
-            isSlotEnabled(name) {
-                return !!this.$slots[name];
-            }
         }
-    };
-</script>
+    })
+    export default class Layout extends Vue {
+        @Prop({default: false}) readonly ready!: boolean;
 
-<style>
-</style>
+        get isTopNavEnabled() {
+            return this.isSlotEnabled('top-nav');
+        }
+        
+        get homeUrl() {
+            return urls.home;
+        }
+
+        isSlotEnabled(name: string) {
+            return !!this.$slots[name];
+        }
+    }
+</script>

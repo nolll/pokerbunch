@@ -4,16 +4,11 @@
     </th>
 </template>
 
-<script>
-    export default {
-        props: {
-            year: {
-                type: Number
-            }
-        }
-    };
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+
+    @Component
+    export default class YearMatrixColumn extends Vue {
+        @Prop() readonly year!: number;
+    }
 </script>
-
-<style>
-
-</style>

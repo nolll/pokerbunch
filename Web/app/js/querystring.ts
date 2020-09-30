@@ -1,5 +1,5 @@
 export default {
-    get(name:string, url:string) {
+    get(name: string, url?: string) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
         const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);

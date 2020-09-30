@@ -1,34 +1,34 @@
 ﻿<template>
-    <simple-list>
-        <simple-list-item v-for="player in $_players" :key="player.id">
-            <player-list-item :id="player.id" :name="player.name" :color="player.color"/>
-        </simple-list-item>
-    </simple-list>
+    <SimpleList>
+        <SimpleListItem v-for="player in players" :key="player.id">
+            <PlayerList-item :id="player.id" :name="player.name" :color="player.color"/>
+        </SimpleListItem>
+    </SimpleList>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Mixins } from 'vue-property-decorator';
     import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
     import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
     import PlayerListItem from '@/components/PlayerList/PlayerListItem.vue';
     import { PlayerMixin } from '@/mixins';
 
-    export default {
+    @Component({
         components: {
             SimpleList,
             SimpleListItem,
             PlayerListItem
-        },
-        mixins: [
-            PlayerMixin
-        ],
-        computed: {
-            ready() {
-                return this.$_playersReady;
-            }
         }
-    };
+    })
+    export default class PlayerList extends Mixins(
+        PlayerMixin
+    ) {
+        get players(){
+            return this.$_players;
+        }
+
+        get ready() {
+            return this.$_playersReady;
+        }
+    }
 </script>
-
-<style>
-
-</style>

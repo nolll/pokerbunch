@@ -1,29 +1,30 @@
 ﻿<template>
-    <simple-list>
-        <simple-list-item v-for="user in $_users" :key="user.id">
-            <user-list-item :userName="user.userName" />
-        </simple-list-item>
-    </simple-list>
+    <SimpleList>
+        <SimpleListItem v-for="user in users" :key="user.id">
+            <UserList-item :userName="user.userName" />
+        </SimpleListItem>
+    </SimpleList>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Mixins } from 'vue-property-decorator';
     import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
     import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
     import UserListItem from '@/components/UserList/UserListItem.vue';
     import { UserMixin } from '@/mixins';
 
-    export default {
+    @Component({
         components: {
             SimpleList,
             SimpleListItem,
             UserListItem
-        },
-        mixins: [
-            UserMixin
-        ]
-    };
+        }
+    })
+    export default class UserList extends Mixins(
+        UserMixin
+    ) {
+        get users(){
+            return this.$_users;
+        }
+    }
 </script>
-
-<style>
-
-</style>

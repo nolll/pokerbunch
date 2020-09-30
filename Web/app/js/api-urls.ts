@@ -9,7 +9,7 @@ export default {
 
         current: (slug: string) => `/bunches/${slug}/cashgames/current`,
         get: (id: string) => `/cashgames/${id}`,
-        list: (slug: string, year: number) => year ? `/bunches/${slug}/cashgames/${year}` : `/bunches/${slug}/cashgames`
+        list: (slug: string, year?: number) => year ? `/bunches/${slug}/cashgames/${year}` : `/bunches/${slug}/cashgames`
     },
     player: {
         list: (slug: string) => `/bunches/${slug}/players`

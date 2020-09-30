@@ -1,27 +1,22 @@
 ﻿<template>
-    <definition-data>{{formattedTime}}</definition-data>
+    <DefinitionData>{{formattedTime}}</DefinitionData>
 </template>
 
-<script>
-    import { FormatMixin } from '@/mixins'
-    import { DefinitionData } from '@/components/DefinitionList';
+<script lang="ts">
+    import { Component, Mixins, Prop } from 'vue-property-decorator';
+    import { FormatMixin } from '@/mixins';
+    import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
 
-    export default {
-        mixins: [
-            FormatMixin
-        ],
+    @Component({
         components: {
             DefinitionData
-        },
-        props: ['minutes'],
-        computed: {
-            formattedTime() {
-                return this.$_formatTime(this.minutes);
-            }
+        }
+    })
+    export default class TimeFact extends Mixins(FormatMixin) {
+        @Prop(Number) readonly minutes!: number;
+
+        get formattedTime() {
+            return this.$_formatTime(this.minutes);
         }
     };
 </script>
-
-<style>
-
-</style>

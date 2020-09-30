@@ -2,34 +2,32 @@
     <th :class="cssClasses"><span class="table-list__column-header__content" v-on:click="sort">{{title}}</span></th>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
     import { GameArchiveMixin } from '@/mixins';
+    import { CssClasses } from '@/models/CssClasses';
 
-    export default {
-        props: ['name', 'title'],
-        mixins: [
-            GameArchiveMixin
-        ],
-        computed: {
-            isSelected() {
-                return this.name === this.$_gameSortOrder;
-            },
-            cssClasses() {
-                return {
-                    'table-list__column-header': true,
-                    'table-list__column-header--sortable': true,
-                    'table-list--sortable__sort-column': this.isSelected
-                }
-            }
-        },
-        methods: {
-            sort() {
-                GameArchiveMixin.$_sortGames(this.name);
+    @Component
+    export default class GameListColumn extends Mixins(
+        GameArchiveMixin
+    ) {
+        @Prop(String) readonly name!: string;
+        @Prop(String) readonly title!: string;
+
+        get isSelected() {
+            return this.name === this.$_gameSortOrder;
+        }
+
+        get cssClasses(): CssClasses {
+            return {
+                'table-list__column-header': true,
+                'table-list__column-header--sortable': true,
+                'table-list--sortable__sort-column': this.isSelected
             }
         }
-    };
+
+        sort() {
+            this.$_sortGames(this.name);
+        }
+    }
 </script>
-
-<style>
-
-</style>

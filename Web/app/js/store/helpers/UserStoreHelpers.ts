@@ -1,4 +1,7 @@
-﻿export enum UserStoreGetters {
+﻿import { Role } from '@/models/Role';
+import { User } from '@/models/User';
+
+export enum UserStoreGetters {
     IsSignedIn = 'user_isSignedIn',
     IsAdmin = 'user_isAdmin',
     UserName = 'user_userName',
@@ -9,7 +12,7 @@
 }
 
 export enum UserStoreActions {
-    LoadUser = 'user_loadUser',
+    LoadCurrentUser = 'user_loadCurrentUser',
     LoadUsers = 'user_loadUsers'
 }
 
@@ -21,4 +24,16 @@ export enum UserStoreMutations {
     SetUsers = 'user_setUsers',
     SetUsersError = 'user_setUsersError',
     SetUsersInitialized = 'user_setUsersInitialized'
+}
+
+export interface UserStoreState{
+    _isSignedIn: boolean;
+    _userName: string;
+    _displayName: string;
+    _role: Role;
+    _userReady: boolean;
+    _userInitialized: boolean;
+    _users: User[];
+    _usersReady: boolean;
+    _usersInitialized: boolean;
 }

@@ -1,4 +1,8 @@
-﻿export enum GameArchiveStoreGetters {
+﻿import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
+import { CashgameSortOrder } from '@/models/CashgameSortOrder';
+
+export enum GameArchiveStoreGetters {
     GameSortOrder = 'gameArchive_gameSortOrder',
     Games = 'gameArchive_games',
     PlayerSortOrder = 'gameArchive_playerSortOrder',
@@ -22,7 +26,9 @@ export enum GameArchiveStoreActions {
     SortGames = 'gameArchive_sortGames',
     SortPlayers = 'gameArchive_sortPlayers',
     TogglePageNav = 'gameArchive_togglePageNav',
-    ToggleYearNav = 'gameArchive_toggleYearNav'
+    ToggleYearNav = 'gameArchive_toggleYearNav',
+    ClosePageNav = 'gameArchive_closePageNav',
+    CloseYearNav = 'gameArchive_closeYearNav'
 }
 
 export enum GameArchiveStoreMutations {
@@ -31,6 +37,17 @@ export enum GameArchiveStoreMutations {
     SetPlayerSortorder = 'gameArchive_setPlayerSortorder',
     SetInitialized = 'gameArchive_setInitialized',
     SetSelectedYear = 'gameArchive_setSelectedYear',
-    TogglePageNav = 'gameArchive_togglePageNav',
-    ToggleYearNav = 'gameArchive_toggleYearNav'
+    SetPageNavExpanded = 'gameArchive_setPageNavExpanded',
+    SetYearNavExpanded = 'gameArchive_setYearNavExpanded'
+}
+
+export interface GameArchiveStoreState{
+    _gameSortOrder: CashgameSortOrder;
+    _games: ArchiveCashgame[];
+    _playerSortOrder: CashgamePlayerSortOrder;
+    _initialized: boolean;
+    _selectedYear: number | null;
+    _isPageNavExpanded: boolean;
+    _isYearNavExpanded: boolean;
+    _ready: boolean;
 }

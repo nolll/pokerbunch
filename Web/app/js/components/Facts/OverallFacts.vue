@@ -1,56 +1,62 @@
 ﻿<template>
     <div v-if="ready">
         <h2 class="h2">Overall</h2>
-        <definition-list>
-            <definition-term>Number of games</definition-term>
-            <definition-data>{{gameCount}}</definition-data>
+        <DefinitionList>
+            <DefinitionTerm>Number of games</DefinitionTerm>
+            <DefinitionData>{{gameCount}}</DefinitionData>
 
-            <definition-term>Total Time Played</definition-term>
-            <time-fact :minutes="facts.duration" />
+            <DefinitionTerm>Total Time Played</DefinitionTerm>
+            <TimeFact :minutes="facts.duration" />
 
-            <definition-term>Total Turnover</definition-term>
-            <amount-fact :amount="turnover" />
-        </definition-list>
+            <DefinitionTerm>Total Turnover</DefinitionTerm>
+            <AmountFact :amount="turnover" />
+        </DefinitionList>
     </div>
 </template>
 
-<script>
-    import { AmountFact, TimeFact } from '.';
-    import { DefinitionData, DefinitionList, DefinitionTerm } from '@/components/DefinitionList';
+<script lang="ts">
+    import { Component, Mixins } from 'vue-property-decorator';
+    import AmountFact from './AmountFact.vue';
+    import TimeFact from './TimeFact.vue';
+    import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
+    import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
+    import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
     import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
-
-    export default {
+    import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+    import { OverallFactCollection } from '@/models/OverallFactCollection';
+    
+    @Component({
         components: {
             AmountFact,
             TimeFact,
             DefinitionData,
             DefinitionList,
             DefinitionTerm
-        },
-        mixins: [
-            BunchMixin,
-            FormatMixin,
-            GameArchiveMixin
-        ],
-        computed: {
-            facts() {
-                return getFacts(this.$_sortedGames);
-            },
-            gameCount() {
-                return this.$_sortedGames.length;
-            },
-            turnover() {
-                return this.$_formatCurrency(this.facts.turnover)
-            }
-        },
-        methods: {
-            ready() {
-                return this.$_bunchReady && this.$_gamesReady;
-            }
         }
-    };
+    })
+    export default class OverallFacts extends Mixins(
+        BunchMixin,
+        FormatMixin,
+        GameArchiveMixin
+    ){
+        get facts() {
+            return getFacts(this.$_sortedGames);
+        }
 
-    function getFacts(games) {
+        get gameCount() {
+            return this.$_sortedGames.length;
+        }
+
+        get turnover() {
+            return this.$_formatCurrency(this.facts.turnover)
+        }
+
+        get ready() {
+            return this.$_bunchReady && this.$_gamesReady;
+        }
+    }
+
+    function getFacts(games: ArchiveCashgame[]): OverallFactCollection {
         var duration = 0;
         var turnover = 0;
         for (var gi = 0; gi < games.length; gi++) {
@@ -64,7 +70,3 @@
         }
     }
 </script>
-
-<style>
-
-</style>

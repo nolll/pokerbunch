@@ -1,12 +1,5 @@
-function select(field:ITextInput, start:number, end:number) {
-    if (field.createTextRange) {
-        const selRange = field.createTextRange();
-        selRange.collapse(true);
-        selRange.moveStart('character', start);
-        selRange.moveEnd('character', end);
-        selRange.select();
-        field.focus();
-    } else if (field.setSelectionRange) {
+function select(field: HTMLInputElement, start:number, end:number) {
+    if (field.setSelectionRange) {
         window.setTimeout(() => {
             field.focus();
             field.setSelectionRange(start, end);
@@ -19,7 +12,7 @@ function select(field:ITextInput, start:number, end:number) {
 }
 
 export default {
-    selectAll(field:ITextInput) {
+    selectAll(field: HTMLInputElement) {
         return select(field, 0, field.value.length);
     }
 };

@@ -2,85 +2,67 @@
     <tr class="table-list__row">
         <td class="table-list__cell table-list__cell--numeric table-list--sortable__base-column">{{player.rank}}.</td>
         <td class="table-list__cell table-list--sortable__base-column">
-            <custom-link :url="url">{{player.name}}</custom-link>
+            <CustomLink :url="url">{{player.name}}</CustomLink>
         </td>
-        <td :class="'table-list__cell table-list__cell--numeric ' + winningsCssClass + ' ' + winningsSortCssClass">{{formattedWinnings}}</td>
-        <td :class="'table-list__cell table-list__cell--numeric ' + buyinSortCssClass">{{formattedBuyin}}</td>
-        <td :class="'table-list__cell table-list__cell--numeric ' + cashoutSortCssClass">{{formattedCashout}}</td>
-        <td :class="'table-list__cell ' + timeSortCssClass">{{formattedTime}}</td>
-        <td :class="'table-list__cell table-list__cell--numeric ' + gameCountSortCssClass">{{player.gameCount}}</td>
-        <td :class="'table-list__cell table-list__cell--numeric ' + winrateSortCssClass">{{formattedWinrate}}</td>
+        <td class="table-list__cell table-list__cell--numeric" :class="winningsCssClass">{{formattedWinnings}}</td>
+        <td class="table-list__cell table-list__cell--numeric">{{formattedBuyin}}</td>
+        <td class="table-list__cell table-list__cell--numeric">{{formattedCashout}}</td>
+        <td class="table-list__cell">{{formattedTime}}</td>
+        <td class="table-list__cell table-list__cell--numeric">{{player.gameCount}}</td>
+        <td class="table-list__cell table-list__cell--numeric">{{formattedWinrate}}</td>
     </tr>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Mixins } from 'vue-property-decorator';
     import { FormatMixin } from '@/mixins';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
     import { GameArchiveMixin } from '@/mixins';
+    import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+    import { CssClasses } from '@/models/CssClasses';
 
-    export default {
-        mixins: [
-            FormatMixin,
-            GameArchiveMixin
-        ],
+    @Component({
         components: {
             CustomLink
-        },
-        props: ['player'],
-        computed: {
-            url() {
-                return urls.player.details(this.player.id);
-            },
-            winningsCssClass() {
-                var winnings = this.player.winnings;
-                if (winnings === 0)
-                    return '';
-                return winnings > 0 ? 'pos-result' : 'neg-result';
-            },
-            winningsSortCssClass() {
-                return getSortCssClass(this.orderBy, 'winnings');
-            },
-            buyinSortCssClass() {
-                return getSortCssClass(this.orderBy, 'buyin');
-            },
-            cashoutSortCssClass() {
-                return getSortCssClass(this.orderBy, 'cashout');
-            },
-            timeSortCssClass() {
-                return getSortCssClass(this.orderBy, 'time');
-            },
-            gameCountSortCssClass() {
-                return getSortCssClass(this.orderBy, 'gamecount');
-            },
-            winrateSortCssClass() {
-                return getSortCssClass(this.orderBy, 'winrate');
-            },
-            formattedWinnings() {
-                return this.$_formatResult(this.player.winnings);
-            },
-            formattedBuyin() {
-                return this.$_formatCurrency(this.player.buyin);
-            },
-            formattedCashout() {
-                return this.$_formatCurrency(this.player.stack);
-            },
-            formattedWinrate() {
-                return this.$_formatWinrate(this.player.winrate);
-            },
-            formattedTime() {
-                return this.$_formatTime(this.player.playedTimeInMinutes);
+        }
+    })
+    export default class TopListRow extends Mixins(
+        FormatMixin,
+        GameArchiveMixin
+    ) {
+        @Prop() readonly player!: CashgameListPlayerData;
+
+        get url() {
+            return urls.player.details(this.player.id);
+        }
+        
+        get winningsCssClass(): CssClasses {
+            const winnings = this.player.winnings;
+            return {
+                'pos-result': winnings > 0,
+                'neg-result': winnings < 0
             }
         }
-    };
 
-    function getSortCssClass(orderBy, query) {
-        if (orderBy === query)
-            return 'table-list--sortable__sort-item';
-        return '';
+        get formattedWinnings() {
+            return this.$_formatResult(this.player.winnings);
+        }
+
+        get formattedBuyin() {
+            return this.$_formatCurrency(this.player.buyin);
+        }
+
+        get formattedCashout() {
+            return this.$_formatCurrency(this.player.stack);
+        }
+
+        get formattedWinrate() {
+            return this.$_formatWinrate(this.player.winrate);
+        }
+
+        get formattedTime() {
+            return this.$_formatTime(this.player.playedTimeInMinutes);
+        }
     }
 </script>
-
-<style>
-
-</style>

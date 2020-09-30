@@ -5,24 +5,16 @@
     </button>
 </template>
 
-<script>
-    export default {
-        props: {
-            text: {
-                type: String
-            },
-            icon: {
-                type: String
-            }
-        },
-        computed: {
-            iconCssClass() {
-                return `icon-${this.icon}`;
-            }
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
+
+    @Component
+    export default class GameButton extends Vue {
+        @Prop(String) readonly text!: string;
+        @Prop(String) readonly icon!: string;
+
+        get iconCssClass(){
+            return `icon-${this.icon}`;
         }
-    };
+    }
 </script>
-
-<style>
-
-</style>

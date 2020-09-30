@@ -1,30 +1,31 @@
 ﻿<template>
     <th class="table-list__column-header">
-        <custom-link :url="url" cssClasses="table-list__column-header__content">{{displayDate}}</custom-link>
+        <CustomLink :url="url" cssClasses="table-list__column-header__content">{{displayDate}}</CustomLink>
     </th>
 </template>
 
-<script>
+<script lang="ts">
+    import { Component, Prop, Vue } from 'vue-property-decorator';
     import moment from 'moment';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
+    import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 
-    export default {
+    @Component({
         components: {
             CustomLink
-        },
-        props: ['game', 'slug'],
-        computed: {
-            url() {
-                return urls.cashgame.details(this.slug, this.game.id);
-            },
-            displayDate() {
-                return moment(this.game.startTime).format('MMM D');
-            },
         }
-    };
+    })
+    export default class MatrixColumn extends Vue {
+        @Prop() readonly game!: ArchiveCashgame;
+        @Prop() readonly slug!: string;
+
+        get url() {
+            return urls.cashgame.details(this.slug, this.game.id);
+        }
+
+        get displayDate() {
+            return moment(this.game.startTime).format('MMM D');
+        }
+    }
 </script>
-
-<style>
-
-</style>
