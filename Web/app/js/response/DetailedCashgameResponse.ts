@@ -8,8 +8,8 @@ export interface DetailedCashgameResponse {
     id: string;
     bunch: DetailedCashgameResponseBunch;
     location: DetailedCashgameResponseLocation;
-    startTime: Date;
-    updatedTime: Date;
+    startTime: string;
+    updatedTime: string;
     players: DetailedCashgameResponsePlayer[];
     event: DetailedCashgameResponseEvent | null;
 }

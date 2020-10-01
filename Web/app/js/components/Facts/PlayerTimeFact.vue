@@ -17,7 +17,7 @@
         @Prop(Number) readonly minutes!: number;
 
         get formattedTime() {
-            return this.$_formatTime(this.minutes);
+            return this.$_formatDuration(this.minutes);
         }
     };
 </script>

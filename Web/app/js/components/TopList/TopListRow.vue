@@ -62,7 +62,7 @@
         }
 
         get formattedTime() {
-            return this.$_formatTime(this.player.playedTimeInMinutes);
+            return this.$_formatDuration(this.player.playedTimeInMinutes);
         }
     }
 </script>

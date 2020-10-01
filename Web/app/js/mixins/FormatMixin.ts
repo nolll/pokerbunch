@@ -16,7 +16,7 @@ export class FormatMixin extends Mixins(BunchMixin) {
         return format.winrate(val, this.$_currencyFormat, this.$_thousandSeparator);
     }
 
-    protected $_formatTime(val: number): string {
-        return format.time(val);
+    protected $_formatDuration(val: number): string {
+        return format.duration(val);
     }
 }

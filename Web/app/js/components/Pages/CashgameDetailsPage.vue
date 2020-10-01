@@ -77,6 +77,7 @@
     import ValueList from '@/components/Common/ValueList/ValueList.vue';
     import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
     import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
+import format from '@/format';
 
     @Component({
         components: {
@@ -113,19 +114,19 @@
         }
 
         get formattedDate() {
-            return this.$_startTime.format('MMM D YYYY');
+            return format.monthDayYear(this.$_startTime);
         }
 
         get formattedStartTime() {
-            return this.$_startTime.format('HH:mm');
+            return format.hourMinute(this.$_startTime);
         }
 
         get formattedEndTime() {
-            return this.$_updatedTime.format('HH:mm');
+            return format.hourMinute(this.$_updatedTime);
         }
 
         get formattedDuration() {
-            return this.$_formatTime(this.durationMinutes);
+            return this.$_formatDuration(this.durationMinutes);
         }
 
         get durationMinutes() {

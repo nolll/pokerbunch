@@ -6,11 +6,10 @@
 
 <script lang="ts">
     import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import moment from 'moment';
+    import dayjs from 'dayjs';
     import LineChart from '@/components/LineChart.vue';
     import playerCalculator from '@/PlayerCalculator';
     import { CashgameMixin } from '@/mixins';
-    import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
     import { ChartData } from '@/models/ChartData';
     import { ChartRow } from '@/models/ChartRow';
     import { ChartColumn } from '@/models/ChartColumn';
@@ -18,6 +17,7 @@
     import { ChartColumnPattern } from '@/models/ChartColumnPattern';
     import { ChartRowData } from '@/models/ChartRowData';
     import { ChartOptions } from '@/models/ChartOptions';
+    import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 
     @Component({
         components: {
@@ -78,14 +78,14 @@
                     rows.push(this.getRow(r[j], p.id));
                 }
                 if (!playerCalculator.hasCashedOut(p)) {
-                    var currentResult = this.createPlayerResult(moment().utc().toDate(), r[r.length - 1].winnings);
+                    var currentResult = this.createPlayerResult(dayjs().utc().toDate(), r[r.length - 1].winnings);
                     rows.push(this.getRow(currentResult, p.id));
                 }
             }
             return rows;
         }
 
-        getPlayerResults(player: DetailedCashgameResponsePlayer) {
+        getPlayerResults(player: DetailedCashgamePlayer) {
             let added = 0;
             const results = [];
             const actions = player.actions;
@@ -106,7 +106,7 @@
         }
 
         getRow(result: ChartPlayerResult, playerId: string) {
-            const values: ChartRowData[] = [{ v: moment(result.time).toDate(), f: null }];
+            const values: ChartRowData[] = [{ v: result.time, f: null }];
             for (var i = 0; i < this.$_cashgamePlayers.length; i++) {
                 var val = null;
                 if (this.$_cashgamePlayers[i].id === playerId) {

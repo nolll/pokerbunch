@@ -1,15 +1,15 @@
-import { ArchiveCashgameLocationResponse } from '@/response/ArchiveCashgameLocationResponse';
-import { ArchiveCashgamePlayerResponse } from '@/response/ArchivePlayerResponse';
+import { DetailedCashgameBunch } from './DetailedCashgameBunch';
+import { DetailedCashgameEvent } from './DetailedCashgameEvent';
+import { DetailedCashgameLocation } from './DetailedCashgameLocation';
+import { DetailedCashgamePlayer } from './DetailedCashgamePlayer';
 
 export interface DetailedCashgame {
+    isRunning: boolean;
     id: string;
+    bunch: DetailedCashgameBunch;
+    location: DetailedCashgameLocation;
     startTime: Date;
     updatedTime: Date;
-    date: Date;
-    turnover: number;
-    averageBuyin: number;
-    playerCount: number;
-    duration: number;
-    location: ArchiveCashgameLocationResponse;
-    players: ArchiveCashgamePlayerResponse[];
+    players: DetailedCashgamePlayer[];
+    event: DetailedCashgameEvent | null;
 }

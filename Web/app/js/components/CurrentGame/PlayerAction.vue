@@ -29,9 +29,10 @@
 <script lang="ts">
     import { Component, Prop, Mixins } from 'vue-property-decorator';
     import { BunchMixin, CashgameMixin, FormatMixin } from '@/mixins';
-    import moment from 'moment';
+    import dayjs from 'dayjs';
     import { DetailedCashgameResponseAction } from '@/response/DetailedCashgameResponseAction';
     import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
+import format from '@/format';
 
     @Component
     export default class PlayerAction extends Mixins(
@@ -65,7 +66,7 @@
         }
 
         get formattedTime() {
-            return moment(this.action.time).format('HH:mm');
+            return format.hourMinute(this.action.time);
         }
 
         get formattedAmount() {

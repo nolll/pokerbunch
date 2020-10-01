@@ -1,12 +1,15 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { DetailedCashgameResponsePlayer } from './response/DetailedCashgameResponsePlayer';
 import { DetailedCashgameResponseActionType } from './response/DetailedCashgameResponseActionType';
+
+dayjs.extend(relativeTime);
 
 export default {
     getLastReportTime(player: DetailedCashgameResponsePlayer) {
         if (player.actions.length === 0)
-            return moment().fromNow();
-        return moment(player.actions[player.actions.length - 1].time).fromNow();
+            return dayjs().fromNow();
+        return dayjs(player.actions[player.actions.length - 1].time).fromNow();
     },
     getBuyin(player: DetailedCashgameResponsePlayer) {
         if (player.actions.length === 0)

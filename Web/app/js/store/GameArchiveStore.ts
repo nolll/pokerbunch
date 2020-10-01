@@ -3,7 +3,7 @@ import api from '@/api';
 import gameSorter from '@/GameSorter';
 import playerSorter from '@/PlayerSorter';
 import timeFunctions from '@/time-functions';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { GameArchiveStoreGetters, GameArchiveStoreActions, GameArchiveStoreMutations, GameArchiveStoreState } from '@/store/helpers/GameArchiveStoreHelpers';
 import { CashgameSortOrder } from '@/models/CashgameSortOrder';
 import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
@@ -55,7 +55,7 @@ export default {
         [GameArchiveStoreGetters.CurrentYear]: state => {
             if (state._games.length > 0) {
                 const latestGame = state._games[0];
-                return moment(latestGame.startTime).year();
+                return dayjs(latestGame.startTime).year();
             }
             return null;
         },
@@ -126,8 +126,6 @@ function buildGames(rawGames: ArchiveCashgameResponse[]): ArchiveCashgame[] {
     const responseGames: ArchiveCashgame[] = [];
     for (let gi = 0; gi < rawGames.length; gi++) {
         const rawGame = rawGames[gi];
-        const startTime = moment(rawGame.startTime);
-        const updatedTime = moment(rawGame.updatedTime);
         const game: ArchiveCashgame = {
             id: rawGame.id,
             startTime: rawGame.startTime,
@@ -138,7 +136,7 @@ function buildGames(rawGames: ArchiveCashgameResponse[]): ArchiveCashgame[] {
             turnover: getTurnover(rawGame),
             averageBuyin: getAverageBuyin(rawGame),
             playerCount: rawGame.players.length,
-            duration: timeFunctions.diffInMinutes(startTime, updatedTime)
+            duration: timeFunctions.diffInMinutes(rawGame.startTime, rawGame.updatedTime)
         };
         responseGames.push(game);
     }
@@ -151,7 +149,7 @@ function getSelectedGames(games: ArchiveCashgame[], selectedYear?: number | null
     const selectedGames = [];
     for (let gi = 0; gi < games.length; gi++) {
         const game = games[gi];
-        const year = moment(game.startTime).year();
+        const year = dayjs(game.startTime).year();
         if (year === selectedYear) {
             selectedGames.push(game);
         }
@@ -163,7 +161,7 @@ function getYears(games: ArchiveCashgame[]) {
     const years: number[] = [];
     for (let gi = 0; gi < games.length; gi++) {
         const game = games[gi];
-        const year = moment(game.startTime).year();
+        const year = dayjs(game.startTime).year();
         if (!years.includes(year)) {
             years.push(year);
         }
@@ -209,8 +207,8 @@ function getPlayers(games: ArchiveCashgame[]) {
                 };
                 resultsList.push(playerResult);
             }
-            const buyinTime = moment(singlePlayerResult.startTime);
-            const updatedTime = moment(singlePlayerResult.updatedTime);
+            const buyinTime = singlePlayerResult.startTime;
+            const updatedTime = singlePlayerResult.updatedTime;
             const timeDiffInMinutes = timeFunctions.diffInMinutes(buyinTime, updatedTime);
             const playerGameResult: CashgamePlayerData = {
                 gameId: game.id,

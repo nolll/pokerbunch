@@ -1,13 +1,19 @@
 ﻿import { ActionContext, StoreOptions } from 'vuex';
-import moment from 'moment';
 import api from '@/api';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
 import playerCalculator from '@/PlayerCalculator';
 import { BunchStoreGetters } from '@/store/helpers/BunchStoreHelpers';
 import { CashgameStoreGetters, CashgameStoreActions, CashgameStoreMutations, CashgameStoreState, BuyinParams, FirstBuyinParams, DeleteActionParams } from '@/store/helpers/CashgameStoreHelpers';
 import { DetailedCashgameResponse } from '@/response/DetailedCashgameResponse';
 import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
+import { DetailedCashgame } from '@/models/DetailedCashgame';
+import { DetailedCashgameResponseAction } from '@/response/DetailedCashgameResponseAction';
+import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
+import { DetailedCashgameAction } from '@/models/DetailedCashgameAction';
 
+dayjs.extend(utc);
 const longRefresh = 30000;
 
 export default {
@@ -95,7 +101,7 @@ export default {
         },
         [CashgameStoreGetters.StartTime]: state => {
             let first;
-            let t = moment().utc();
+            let t = dayjs.utc();
             const p = state._players;
 
             if (p.length === 0)
@@ -103,16 +109,16 @@ export default {
             for (let i = 0; i < p.length; i++) {
                 first = p[i].actions[0];
                 if (first) {
-                    const firstTime = moment(first.time);
+                    const firstTime = dayjs(first.time);
                     if (firstTime.isBefore(t)) {
                         t = firstTime;
                     }
                 }
             }
-            return t;
+            return t.toDate();
         },
         [CashgameStoreGetters.UpdatedTime]: state => {
-            return moment(state._updatedTime);
+            return state._updatedTime;
         },
         [CashgameStoreGetters.CashgameReady](state) {
             return state._cashgameReady;
@@ -121,8 +127,10 @@ export default {
     actions: {
         async [CashgameStoreActions.LoadCashgame](context, { id }) {
             const response = await api.getCashgame(id);
+
             if (response.status === 200) {
-                context.commit(CashgameStoreMutations.DataLoaded, response.data);
+                const cashgame = mapCashgame(response.data);
+                context.commit(CashgameStoreMutations.DataLoaded, cashgame);
             }
             context.commit(CashgameStoreMutations.LoadingComplete);
             setupRefresh(context, longRefresh);
@@ -260,13 +268,13 @@ export default {
                     });
                 });
         },
-        [CashgameStoreMutations.DataLoaded](state, data: DetailedCashgameResponse) {
+        [CashgameStoreMutations.DataLoaded](state, data: DetailedCashgame) {
             state._isRunning = data.isRunning;
             state._id = data.id;
             state._slug = data.bunch.id;
             state._locationId = data.location.id;
             state._locationName = data.location.name;
-            state._updatedTime = data.updatedTime;
+            state._updatedTime = dayjs(data.updatedTime).toDate();
             state._players = data.players;
         }
     }
@@ -300,7 +308,7 @@ function setPlayers(context: ActionContext<CashgameStoreState, CashgameStoreStat
 }
 
 function addCheckpoint(type: DetailedCashgameResponseActionType, player: DetailedCashgameResponsePlayer, stack: number, added: number | null) {
-    const action = { id: null, type, time: moment().utc().toDate(), stack, added };
+    const action = { id: null, type, time: dayjs().utc().toDate(), stack, added };
     player.actions.push(action);
 }
 
@@ -315,4 +323,55 @@ function createPlayer(playerId: string, playerName: string | null, playerColor: 
         stack: null,
         actions: []
     };
+}
+
+function mapCashgame(response: DetailedCashgameResponse): DetailedCashgame {
+    return {
+        isRunning: response.isRunning,
+        id: response.id,
+        bunch: {
+            id: response.bunch.id,
+            timezone: response.bunch.timezone,
+            currencyFormat: response.bunch.currencyFormat,
+            currencySymbol: response.bunch.currencySymbol,
+            currencyLayout: response.bunch.currencyLayout,
+            thousandSeparator: response.bunch.thousandSeparator,
+            culture: response.bunch.culture,
+            role: response.bunch.role
+        },
+        location: {
+            id: response.location.id,
+            name: response.location.name
+        },
+        startTime: dayjs(response.startTime).toDate(),
+        updatedTime: dayjs(response.updatedTime).toDate(),
+        players: response.players.map((o) => mapCashgamePlayer(o)),
+        event: response.event ? {
+            id: response.event.id,
+            name: response.event.name
+        } : null,
+    }
+}
+
+function mapCashgamePlayer(response: DetailedCashgameResponsePlayer): DetailedCashgamePlayer{
+    return {
+        id: response.id,
+        name: response.name,
+        color: response.color,
+        startTime: response.startTime ? dayjs(response.startTime).toDate() : null,
+        updatedTime: response.updatedTime ? dayjs(response.updatedTime).toDate() : null,
+        buyin: response.buyin,
+        stack: response.stack,
+        actions: response.actions.map((o) => mapCashgameAction(o))
+    }
+}
+
+function mapCashgameAction(response: DetailedCashgameResponseAction): DetailedCashgameAction{
+    return {
+        id: response.id,
+        type: response.type,
+        time: dayjs(response.time).toDate(),
+        stack: response.stack,
+        added: response.added
+    }
 }

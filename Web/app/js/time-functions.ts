@@ -1,8 +1,8 @@
-import * as moment from 'moment';
+import dayjs from 'dayjs';
 
 export default {
-    diffInMinutes(a: moment.Moment, b: moment.Moment) {
-        const diff = moment.duration(b.diff(a));
-        return Math.round(Math.abs(diff.asMinutes()));
+    diffInMinutes(a: Date, b: Date) {
+        const diffMinutes = dayjs(a).diff(dayjs(b), 'minute');
+        return Math.abs(diffMinutes);
     }
 };

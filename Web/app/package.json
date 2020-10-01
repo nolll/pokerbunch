@@ -37,8 +37,8 @@
   },
   "dependencies": {
     "axios": "0.20.0",
+    "dayjs": "^1.9.1",
     "google-charts": "2.0.0",
-    "moment": "2.27.0",
     "ts-debounce": "2.0.1",
     "vue": "2.6.12",
     "vue-router": "3.4.3",

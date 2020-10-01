@@ -1,9 +1,4 @@
-export default {
-    currency: formatCurrency,
-    result: formatResult,
-    winrate: formatWinrate,
-    time: formatTime
-};
+import dayjs from 'dayjs';
 
 function formatCurrency(value: number, format: string, separator: string) {
     const f = format !== undefined ? format : '${0}';
@@ -27,7 +22,7 @@ function formatWinrate(value: number, format: string, separator: string) {
     return currencyValue + '/h';
 }
 
-function formatTime(minutes: number) {
+function formatDuration(minutes: number) {
     const h = Math.floor(minutes / 60);
     const m = minutes % 60;
     if (h > 0 && m > 0)
@@ -36,3 +31,25 @@ function formatTime(minutes: number) {
         return h + 'h';
     return m + 'm';
 }
+
+function formatMonthDay(date: Date) {
+    return dayjs(date).format('MMM D');
+}
+
+function formatHourMinute(date: Date) {
+    return dayjs(date).format('HH:mm');
+}
+
+function formatMonthDayYear(date: Date) {
+    return dayjs(date).format('MMM D YYYY');
+}
+
+export default {
+    currency: formatCurrency,
+    result: formatResult,
+    winrate: formatWinrate,
+    duration: formatDuration,
+    monthDay: formatMonthDay,
+    hourMinute: formatHourMinute,
+    monthDayYear: formatMonthDayYear
+};

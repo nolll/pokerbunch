@@ -56,11 +56,11 @@ export class CashgameMixin extends Vue {
         return this.$store.getters[CashgameStoreGetters.HasPlayers];
     }
 
-    protected get $_startTime(): moment.Moment {
+    protected get $_startTime(): Date {
         return this.$store.getters[CashgameStoreGetters.StartTime];
     }
 
-    protected get $_updatedTime(): moment.Moment {
+    protected get $_updatedTime(): Date {
         return this.$store.getters[CashgameStoreGetters.UpdatedTime];
     }
 

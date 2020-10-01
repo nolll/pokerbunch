@@ -12,13 +12,14 @@
 </template>
 
 <script lang="ts">
-    import moment from 'moment';
+    import dayjs from 'dayjs';
     import urls from '@/urls';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
     import { Component, Mixins, Prop } from 'vue-property-decorator';
     import { ArchiveCashgame } from '@/models/ArchiveCashgame';
     import { CashgameSortOrder } from '@/models/CashgameSortOrder';
+    import format from '@/format';
 
     @Component({
         components: {
@@ -37,7 +38,7 @@
         }
 
         get displayDate() {
-            return moment(this.game.date).format('MMM D');
+            return format.monthDay(this.game.date);
         }
 
         get dateSortClasses() {
@@ -61,7 +62,7 @@
         }
         
         get duration() {
-            return this.$_formatTime(this.game.duration);
+            return this.$_formatDuration(this.game.duration);
         }
 
         get formattedAverageBuyin() {

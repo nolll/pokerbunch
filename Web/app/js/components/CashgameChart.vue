@@ -6,7 +6,7 @@
 
 <script lang="ts">
     import { Component, Prop, Mixins } from 'vue-property-decorator';
-    import moment from 'moment';
+    import dayjs from 'dayjs';
     import LineChart from './LineChart.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
     import { ChartOptions } from '@/models/ChartOptions';
@@ -15,6 +15,7 @@
     import { ChartColumnType } from '@/models/ChartColumnType';
     import { ChartRowData } from '@/models/ChartRowData';
     import { ChartRow } from '@/models/ChartRow';
+    import format from '@/format';
 
     @Component({
         components: {
@@ -88,7 +89,7 @@
             var fillEndValues = rgi === 0;
             var game = games[rgi];
             var points = [];
-            var formattedDate = moment(game.date).format('MMM D');
+            var formattedDate = format.monthDay(game.date);
             points.push(getPoint(formattedDate));
             for (var pi = 0; pi < players.length; pi++) {
                 var player = players[pi];

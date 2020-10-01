@@ -6,10 +6,11 @@
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
-    import moment from 'moment';
+    import dayjs from 'dayjs';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
     import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+    import format from '@/format';
 
     @Component({
         components: {
@@ -25,7 +26,7 @@
         }
 
         get displayDate() {
-            return moment(this.game.startTime).format('MMM D');
+            return format.monthDay(this.game.startTime);
         }
     }
 </script>
