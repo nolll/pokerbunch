@@ -26,7 +26,9 @@ export default {
         actions: (cashgameId: string, playerId: string) => `/cashgame/action/${cashgameId}/${playerId}`
     },
     event: {
-        list: (slug: string) => `/event/list/${slug}`
+        add: (slug: string) => `/bunches/${slug}/events/add`,
+        details: (id: string) => `/events/${id}`,
+        list: (slug: string) => `/bunches/${slug}/events`
     },
     home: '/',
     location: {

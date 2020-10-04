@@ -11,6 +11,9 @@ export default {
         get: (id: string) => `/cashgames/${id}`,
         list: (slug: string, year?: number) => year ? `/bunches/${slug}/cashgames/${year}` : `/bunches/${slug}/cashgames`
     },
+    event: {
+        list: (slug: string) => `/bunches/${slug}/events`
+    },
     player: {
         list: (slug: string) => `/bunches/${slug}/players`
     },

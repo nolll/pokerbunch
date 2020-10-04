@@ -26,10 +26,5 @@ namespace PokerBunch.Client.Clients
         {
             return ApiConnection.Post<Event>(new ApiBunchEventsUrl(bunchId), e);
         }
-
-        public void AddCashgame(string eventId, EventCashgameAdd eventCashgame)
-        {
-            ApiConnection.Post<EventCashgame>(new ApiEventCashgamesUrl(eventId), eventCashgame);
-        }
     }
 }

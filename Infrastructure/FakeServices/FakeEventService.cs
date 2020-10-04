@@ -20,10 +20,5 @@ namespace Infrastructure.Api.FakeServices
         {
             throw new System.NotImplementedException();
         }
-
-        public void AddCashgame(string eventId, string cashgameId)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

@@ -33,12 +33,6 @@ namespace Infrastructure.Api.Services
             return CreateEvent(apiEvent).Id;
         }
 
-        public void AddCashgame(string eventId, string cashgameId)
-        {
-            var postCashame = new EventCashgameAdd(cashgameId);
-            ApiClient.Events.AddCashgame(eventId, postCashame);
-        }
-
         private Event CreateEvent(ApiEvent e)
         {
             if (e.Location != null && e.StartDate != null)

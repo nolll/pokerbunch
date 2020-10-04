@@ -111,7 +111,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<JoinBunchConfirmation>();
 
             // Events
-            _services.AddScoped<EventList>();
             _services.AddScoped<EventDetails>();
             _services.AddScoped<AddEvent>();
 
