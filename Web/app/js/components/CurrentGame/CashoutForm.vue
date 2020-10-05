@@ -20,7 +20,6 @@
     import Block from '@/components/Common/Block.vue';
     import PageHeading from '@/components/Common/PageHeading.vue';
     import PageSection from '@/components/Common/PageSection.vue';
-    import Spinner from '@/components/Common/Spinner.vue';
     import { BunchMixin, CashgameMixin } from '@/mixins';
 
     @Component({

@@ -1,31 +1,33 @@
 ﻿<template>
-    <td class="table-list__cell table-list__cell--numeric">
-        <div v-if="playedThisYear">
-            <span class="matrix__value" :class="valueCss">{{formattedWinnings}}</span>
-        </div>
-    </td>
+    <TableListCell :is-numeric="true">
+        <span class="matrix__value" v-if="playedThisYear"><FormattedResult :text="formattedWinnings" :value="winnings" /></span>
+    </TableListCell>
 </template>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import { CashgamePlayerYearlyResult } from '@/models/CashgamePlayerYearlyResult';
     import { CssClasses } from '@/models/CssClasses';
+    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+    import FormattedResult from '@/components/Common/FormattedResult.vue';
 
-    @Component
+    @Component({
+        components: {
+            TableListCell,
+            FormattedResult
+        }
+    })
     export default class YearMatrixItem extends Vue {
         @Prop() readonly year!: CashgamePlayerYearlyResult;
 
         get formattedWinnings() {
-            if (this.year.winnings > 0)
-                return '+' + this.year.winnings;
-            return this.year.winnings.toString();
+            if (this.winnings > 0)
+                return '+' + this.winnings;
+            return this.winnings.toString();
         }
 
-        get valueCss(): CssClasses {
-            return {
-                'pos-result': this.year.winnings > 0,
-                'neg-result': this.year.winnings < 0
-            };
+        get winnings() {
+            return this.year.winnings;
         }
 
         get playedThisYear() {

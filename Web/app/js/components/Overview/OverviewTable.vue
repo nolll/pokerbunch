@@ -1,20 +1,20 @@
 ﻿<template>
     <div class="matrix" v-if="ready">
-        <table class="table-list">
+        <TableList>
             <thead>
                 <tr>
-                    <th class="table-list__column-header"></th>
-                    <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
-                    <th class="table-list__column-header"><span class="table-list__column-header__content">Total</span></th>
-                    <th class="table-list__column-header">
-                        <CustomLink :url="url" cssClasses="table-list__column-header__content">Last game</CustomLink>
-                    </th>
+                    <TableListColumnHeader />
+                    <TableListColumnHeader>Player</TableListColumnHeader>
+                    <TableListColumnHeader>Total</TableListColumnHeader>
+                    <TableListColumnHeader>
+                        <CustomLink :url="url">Last game</CustomLink>
+                    </TableListColumnHeader>
                 </tr>
             </thead>
             <tbody>
-                <tr is="overview-row" v-for="(player, index) in players" :player="player" :index="index" :key="player.id"></tr>
+                <OverviewRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" />
             </tbody>
-        </table>
+        </TableList>
     </div>
 </template>
 
@@ -24,11 +24,15 @@
     import OverviewRow from '@/components/Overview/OverviewRow.vue';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
+    import TableList from '@/components/Common/TableList/TableList.vue';
+    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 
     @Component({
         components: {
             OverviewRow,
-            CustomLink
+            CustomLink,
+            TableList,
+            TableListColumnHeader
         }
     })
     export default class OverviewTable extends Mixins(

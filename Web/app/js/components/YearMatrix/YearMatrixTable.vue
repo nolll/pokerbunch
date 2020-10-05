@@ -1,18 +1,18 @@
 ﻿<template>
     <div class="matrix" v-if="ready">
-        <table class="table-list">
+        <TableList>
             <thead>
                 <tr>
-                    <th class="table-list__column-header"></th>
-                    <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
-                    <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
-                    <th is="year-matrix-column" v-for="year in years" :year="year" :key="year"></th>
+                    <TableListColumnHeader />
+                    <TableListColumnHeader>Player</TableListColumnHeader>
+                    <TableListColumnHeader>Winnings</TableListColumnHeader>
+                    <YearMatrixColumn v-for="year in years" :year="year" :key="year" />
                 </tr>
             </thead>
             <tbody>
-                <tr is="year-matrix-row" v-for="(player, index) in playersWithYearResults" :player="player" :index="index" :key="player.id"></tr>
+                <YearMatrixRow v-for="(player, index) in playersWithYearResults" :player="player" :index="index" :key="player.id" />
             </tbody>
-        </table>
+        </TableList>
     </div>
 </template>
 
@@ -24,11 +24,15 @@
     import { CashgamePlayerData } from '@/models/CashgamePlayerData';
     import { CashgamePlayerYearlyResultCollection } from '@/models/CashgamePlayerYearlyResultCollection';
     import dayjs from 'dayjs';
+    import TableList from '@/components/Common/TableList/TableList.vue';
+    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 
     @Component({
         components: {
             YearMatrixColumn,
-            YearMatrixRow
+            YearMatrixRow,
+            TableList,
+            TableListColumnHeader
         }
     })
     export default class YearMatrixTable extends Mixins(

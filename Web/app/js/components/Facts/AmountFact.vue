@@ -12,6 +12,6 @@
         }
     })
     export default class AmountFact extends Vue {
-        @Prop(String) readonly amount!: string;
+        @Prop() readonly amount!: string;
     };
 </script>

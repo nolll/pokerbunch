@@ -34,7 +34,7 @@
 
     @Component
     export default class LoginForm extends Vue {
-        @Prop(String) readonly text!: string;
+        @Prop() readonly text!: string;
 
         username = '';
         password = '';

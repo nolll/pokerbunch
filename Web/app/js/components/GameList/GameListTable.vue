@@ -1,34 +1,36 @@
 ﻿<template>
     <div class="game-list">
-        <table class="table-list table-list--sortable">
+        <TableList>
             <thead>
                 <tr>
-                    <th is="game-list-column" name="date" title="Date"></th>
-                    <th is="game-list-column" name="playercount" title="Players"></th>
-                    <th class="table-list__column-header"><span class="table-list__column-header__content">Location</span></th>
-                    <th is="game-list-column" name="duration" title="Duration"></th>
-                    <th is="game-list-column" name="turnover" title="Turnover"></th>
-                    <th is="game-list-column" name="averagebuyin" title="Average Buyin"></th>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="date">Date</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="playercount">Players</TableListColumnHeader>
+                    <TableListColumnHeader>Location</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="duration">Duration</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="turnover">Turnover</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="averagebuyin">Average Buyin</TableListColumnHeader>
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="game-list-row" v-for="game in $_sortedGames" :game="game" :key="game.id"></tr>
+                <GameListRow v-for="game in $_sortedGames" :game="game" :key="game.id" />
             </tbody>
-        </table>
+        </TableList>
     </div>
 </template>
 
 <script lang="ts">
-    import GameListColumn from './GameListColumn.vue';
     import GameListRow from './GameListRow.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
     import Component from 'vue-class-component';
     import { Mixins } from 'vue-property-decorator';
+    import TableList from '@/components/Common/TableList/TableList.vue';
+    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 
     @Component({
         components: {
-            GameListColumn,
-            GameListRow
+            GameListRow,
+            TableList,
+            TableListColumnHeader
         }
     })
     export default class GameListTable extends Mixins(
@@ -37,6 +39,14 @@
     ){
         get ready() {
             return this.$_bunchReady && this.$_sortedGames.length > 0;
+        }
+
+        get orderedBy(){
+            return this.$_gameSortOrder;
+        }
+
+        sort(column: string) {
+            this.$_sortGames(column);
         }
     }
 </script>

@@ -73,11 +73,10 @@
     import CustomLink from '@/components/Common/CustomLink.vue';
     import PageHeading from '@/components/Common/PageHeading.vue';
     import PageSection from '@/components/Common/PageSection.vue';
-    import Spinner from '@/components/Common/Spinner.vue';
     import ValueList from '@/components/Common/ValueList/ValueList.vue';
     import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
     import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
-import format from '@/format';
+    import format from '@/format';
 
     @Component({
         components: {
@@ -93,7 +92,6 @@ import format from '@/format';
             Block,
             PageHeading,
             PageSection,
-            Spinner,
             CustomLink,
             ValueList,
             ValueListKey,
@@ -107,7 +105,7 @@ import format from '@/format';
         FormatMixin,
         UserMixin
     ) {
-        @Prop(String) readonly apiHost!: string;
+        @Prop() readonly apiHost!: string;
 
         get title() {
             return `Cashgame ${this.formattedDate}`;

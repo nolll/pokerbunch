@@ -12,7 +12,7 @@
     import { Component, Vue } from 'vue-property-decorator';
 
     @Component
-    export default class Spinner extends Vue {
+    export default class LoadingSpinner extends Vue {
     }
 </script>
 

@@ -50,7 +50,7 @@
         FormatMixin,
         GameArchiveMixin
     ) {
-        @Prop(String) readonly text!: string;
+        @Prop() readonly text!: string;
 
         get facts() {
             return getFacts(this.$_sortedPlayers);

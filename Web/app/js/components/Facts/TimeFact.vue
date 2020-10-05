@@ -13,7 +13,7 @@
         }
     })
     export default class TimeFact extends Mixins(FormatMixin) {
-        @Prop(Number) readonly minutes!: number;
+        @Prop() readonly minutes!: number;
 
         get formattedTime() {
             return this.$_formatDuration(this.minutes);

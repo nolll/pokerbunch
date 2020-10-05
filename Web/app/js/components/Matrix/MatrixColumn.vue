@@ -1,20 +1,22 @@
 ﻿<template>
-    <th class="table-list__column-header">
-        <CustomLink :url="url" cssClasses="table-list__column-header__content">{{displayDate}}</CustomLink>
-    </th>
+    <TableListColumnHeader>
+        <CustomLink :url="url">{{displayDate}}</CustomLink>
+    </TableListColumnHeader>
 </template>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import dayjs from 'dayjs';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
     import urls from '@/urls';
     import { ArchiveCashgame } from '@/models/ArchiveCashgame';
     import format from '@/format';
 
     @Component({
         components: {
-            CustomLink
+            CustomLink,
+            TableListColumnHeader
         }
     })
     export default class MatrixColumn extends Vue {

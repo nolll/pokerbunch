@@ -1,13 +1,18 @@
 ﻿<template>
-    <th class="table-list__column-header">
-        <span class="table-list__column-header__content">{{year}}</span>
-    </th>
+    <TableListColumnHeader>
+        {{year}}
+    </TableListColumnHeader>
 </template>
 
 <script lang="ts">
     import { Component, Prop, Vue } from 'vue-property-decorator';
+    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 
-    @Component
+    @Component({
+        components: {
+            TableListColumnHeader
+        }
+    })
     export default class YearMatrixColumn extends Vue {
         @Prop() readonly year!: number;
     }

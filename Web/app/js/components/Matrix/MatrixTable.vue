@@ -1,18 +1,18 @@
 ﻿<template>
     <div class="matrix" v-if="ready">
-        <table class="table-list">
+        <TableList>
             <thead>
                 <tr>
-                    <th class="table-list__column-header"></th>
-                    <th class="table-list__column-header"><span class="table-list__column-header__content">Player</span></th>
-                    <th class="table-list__column-header"><span class="table-list__column-header__content">Winnings</span></th>
-                    <th is="matrix-column" v-for="game in games" :game="game" :slug="slug" :key="game.id"></th>
+                    <TableListColumnHeader />
+                    <TableListColumnHeader>Player</TableListColumnHeader>
+                    <TableListColumnHeader>Winnings</TableListColumnHeader>
+                    <MatrixColumn v-for="game in games" :game="game" :slug="slug" :key="game.id" />
                 </tr>
             </thead>
             <tbody>
-                <tr is="matrix-row" v-for="(player, index) in players" :player="player" :index="index" :key="player.id"></tr>
+                <MatrixRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" />
             </tbody>
-        </table>
+        </TableList>
     </div>
 </template>
 
@@ -21,11 +21,15 @@
     import MatrixColumn from './MatrixColumn.vue';
     import MatrixRow from './MatrixRow.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
+    import TableList from '@/components/Common/TableList/TableList.vue';
+    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 
     @Component({
         components: {
             MatrixColumn,
-            MatrixRow
+            MatrixRow,
+            TableList, 
+            TableListColumnHeader
         }
     })
     export default class MatrixTable extends Mixins(

@@ -1,16 +1,14 @@
 ﻿<template>
-    <tr class="table-list__row">
-        <td class="table-list__cell table-list__cell--numeric table-list--sortable__base-column">{{player.rank}}.</td>
-        <td class="table-list__cell table-list--sortable__base-column">
-            <CustomLink :url="url">{{player.name}}</CustomLink>
-        </td>
-        <td class="table-list__cell table-list__cell--numeric" :class="winningsCssClass">{{formattedWinnings}}</td>
-        <td class="table-list__cell table-list__cell--numeric">{{formattedBuyin}}</td>
-        <td class="table-list__cell table-list__cell--numeric">{{formattedCashout}}</td>
-        <td class="table-list__cell">{{formattedTime}}</td>
-        <td class="table-list__cell table-list__cell--numeric">{{player.gameCount}}</td>
-        <td class="table-list__cell table-list__cell--numeric">{{formattedWinrate}}</td>
-    </tr>
+    <TableListRow>
+        <TableListCell :is-numeric="true">{{player.rank}}.</TableListCell>
+        <TableListCell><CustomLink :url="url">{{player.name}}</CustomLink></TableListCell>
+        <TableListCell :is-numeric="true"><FormattedResult :text="formattedWinnings" :value="winnings" /></TableListCell>
+        <TableListCell :is-numeric="true">{{formattedBuyin}}</TableListCell>
+        <TableListCell :is-numeric="true">{{formattedCashout}}</TableListCell>
+        <TableListCell>{{formattedTime}}</TableListCell>
+        <TableListCell :is-numeric="true">{{player.gameCount}}</TableListCell>
+        <TableListCell :is-numeric="true">{{formattedWinrate}}</TableListCell>
+    </TableListRow>
 </template>
 
 <script lang="ts">
@@ -21,10 +19,16 @@
     import { GameArchiveMixin } from '@/mixins';
     import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
     import { CssClasses } from '@/models/CssClasses';
+    import TableListRow from '@/components/Common/TableList/TableListRow.vue';
+    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+    import FormattedResult from '@/components/Common/FormattedResult.vue';
 
     @Component({
         components: {
-            CustomLink
+            CustomLink,
+            TableListRow,
+            TableListCell,
+            FormattedResult
         }
     })
     export default class TopListRow extends Mixins(
@@ -46,7 +50,11 @@
         }
 
         get formattedWinnings() {
-            return this.$_formatResult(this.player.winnings);
+            return this.$_formatResult(this.winnings);
+        }
+
+        get winnings() {
+            return this.player.winnings;
         }
 
         get formattedBuyin() {

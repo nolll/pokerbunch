@@ -1,12 +1,12 @@
 ﻿<template>
-    <tr class="table-list__row">
-        <td class="table-list__cell table-list__cell--numeric">{{rank}}.</td>
-        <td class="table-list__cell">
+    <TableListRow>
+        <TableListCell :is-numeric="true">{{rank}}.</TableListCell>
+        <TableListCell>
             <CustomLink :url="url">{{name}}</CustomLink>
-        </td>
-        <td :class="'table-list__cell table-list__cell--numeric' + resultClass">{{formattedWinnings}}</td>
-        <td is="matrix-item" v-for="game in player.gameResults" :game="game" :key="game.gameId"></td>
-    </tr>
+        </TableListCell>
+        <TableListCell :is-numeric="true"><FormattedResult :text="formattedWinnings" :value="winnings" /></TableListCell>
+        <MatrixItem v-for="game in player.gameResults" :game="game" :key="game.gameId" />
+    </TableListRow>
 </template>
 
 <script lang="ts">
@@ -15,12 +15,18 @@
     import { FormatMixin } from '@/mixins'
     import MatrixItem from './MatrixItem.vue';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import TableListRow from '@/components/Common/TableList/TableListRow.vue';
+    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+    import FormattedResult from '@/components/Common/FormattedResult.vue';
     import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 
     @Component({
         components: {
             MatrixItem,
-            CustomLink
+            CustomLink,
+            TableListRow,
+            TableListCell,
+            FormattedResult
         }
     })
     export default class MatrixRow extends Mixins(
@@ -47,14 +53,6 @@
 
         get formattedWinnings() {
             return this.$_formatResult(this.winnings);
-        }
-
-        get resultClass(): string {
-            if (this.winnings > 0)
-                return ' pos-result';
-            if (this.winnings < 0)
-                return ' neg-result';
-            return '';
         }
     }
 </script>

@@ -1,9 +1,7 @@
 ﻿<template>
-    <td class="table-list__cell table-list__cell--numeric">
-        <div v-if="isInGame">
-            <span class="matrix__value" :class="resultClass">{{formattedWinnings}}</span>
-        </div>
-    </td>
+    <TableListCell :is-numeric="true">
+        <span class="matrix__value" v-if="isInGame"><FormattedResult :text="formattedWinnings" :value="winnings" /></span>
+    </TableListCell>
 </template>
 
 <script lang="ts">
@@ -11,8 +9,15 @@
     import { FormatMixin } from '@/mixins';
     import { CashgamePlayerData } from '@/models/CashgamePlayerData';
     import { CssClasses } from '@/models/CssClasses';
+    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+    import FormattedResult from '@/components/Common/FormattedResult.vue';
     
-    @Component
+    @Component({
+        components: {
+            TableListCell,
+            FormattedResult
+        }
+    })
     export default class OverviewItem extends Mixins(
         FormatMixin
     ) {
@@ -32,13 +37,6 @@
 
         get formattedWinnings() {
             return this.$_formatResult(this.winnings);
-        }
-
-        get resultClass(): CssClasses {
-            return {
-                'pos-result': this.winnings > 0,
-                'neg-result': this.winnings < 0
-            };
         }
 
         get isInGame() {

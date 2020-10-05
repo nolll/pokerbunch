@@ -20,7 +20,7 @@
         </div>
 
         <div v-else>
-            <Spinner />
+            <LoadingSpinner />
         </div>
     </div>
 </template>
@@ -29,7 +29,7 @@
     import { Component, Prop, Vue } from 'vue-property-decorator';
     import UserNavigation from '@/components/Navigation/UserNavigation.vue';
     import PageSection from '@/components/Common/PageSection.vue';
-    import Spinner from '@/components/Common/Spinner.vue';
+    import LoadingSpinner from '@/components/Common/LoadingSpinner.vue';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
 
@@ -37,7 +37,7 @@
         components: {
             UserNavigation,
             PageSection,
-            Spinner,
+            LoadingSpinner,
             CustomLink
         }
     })

@@ -1,35 +1,37 @@
 ﻿<template>
     <div class="top-list">
-        <table class="table-list table-list--sortable">
+        <TableList>
             <thead>
                 <tr>
-                    <th class="table-list__column-header table-list--sortable__base-column"></th>
-                    <th class="table-list__column-header table-list--sortable__base-column"><span class="table-list__column-header__content">Player</span></th>
-                    <th is="top-list-column" name="winnings" title="Winnings"></th>
-                    <th is="top-list-column" name="buyin" title="Buyin"></th>
-                    <th is="top-list-column" name="stack" title="Cashout"></th>
-                    <th is="top-list-column" name="time" title="Time"></th>
-                    <th is="top-list-column" name="gamecount" title="Games"></th>
-                    <th is="top-list-column" name="winrate" title="Win rate"></th>
+                    <TableListColumnHeader />
+                    <TableListColumnHeader>Player</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="winnings">Winnings</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="buyin">Buyin</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="stack">Cashout</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="time">Time</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="gamecount">Games</TableListColumnHeader>
+                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="winrate">Win rate</TableListColumnHeader>
                 </tr>
             </thead>
             <tbody class="list">
-                <tr is="top-list-row" v-for="player in players" :player="player" :key="player.id"></tr>
+                <TopListRow v-for="player in players" :player="player" :key="player.id" />
             </tbody>
-        </table>
+        </TableList>
     </div>
 </template>
 
 <script lang="ts">
     import { Component, Mixins } from 'vue-property-decorator';
-    import TopListColumn from './TopListColumn.vue';
     import TopListRow from './TopListRow.vue';
     import { GameArchiveMixin } from '@/mixins';
+    import TableList from '@/components/Common/TableList/TableList.vue';
+    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 
     @Component({
         components: {
-            TopListColumn,
-            TopListRow
+            TopListRow,
+            TableList,
+            TableListColumnHeader
         }
     })
     export default class TopListTable extends Mixins(
@@ -37,6 +39,14 @@
     ) {
         get players(){
             return this.$_sortedPlayers;
+        }
+
+        get orderedBy(){
+            return this.$_playerSortOrder;
+        }
+
+        sort(column: string) {
+            this.$_sortPlayers(column);
         }
     }
 </script>

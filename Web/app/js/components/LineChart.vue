@@ -1,7 +1,7 @@
 ﻿<template>
     <div ref="container">
         <div ref="placeholder"></div>
-        <Spinner v-show="!ready"></spinner>
+        <LoadingSpinner v-show="!ready"></LoadingSpinner>
     </div>
 </template>
 
@@ -9,13 +9,13 @@
     import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
     import { debounce } from 'ts-debounce';
     import { GoogleCharts } from 'google-charts';
-    import Spinner from '@/components/Common/Spinner.vue';
+    import LoadingSpinner from '@/components/Common/LoadingSpinner.vue';
     import { ChartData } from '@/models/ChartData';
     import { ChartOptions } from '@/models/ChartOptions';
 
     @Component({
         components: {
-            Spinner
+            LoadingSpinner
         }
     })
     export default class PageHeading extends Vue {

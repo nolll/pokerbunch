@@ -1,12 +1,12 @@
 ﻿<template>
-    <tr class="table-list__row">
-        <td class="table-list__cell table-list__cell--numeric">{{rank}}.</td>
-        <td class="table-list__cell">
+    <TableListRow>
+        <TableListCell :is-numeric="true">{{rank}}.</TableListCell>
+        <TableListCell>
             <CustomLink :url="url">{{name}}</CustomLink>
-        </td>
-        <td class="table-list__cell table-list__cell--numeric" :class="resultClass">{{formattedWinnings}}</td>
-        <td is="year-matrix-item" v-for="year in player.years" :year="year" :key="year.year"></td>
-    </tr>
+        </TableListCell>
+        <TableListCell :is-numeric="true"><FormattedResult :text="formattedWinnings" :value="winnings" /></TableListCell>
+        <YearMatrixItem v-for="year in player.years" :year="year" :key="year.year" />
+    </TableListRow>
 </template>
 
 <script lang="ts">
@@ -17,11 +17,17 @@
     import urls from '@/urls';
     import { CashgamePlayerYearlyResultCollection } from '@/models/CashgamePlayerYearlyResultCollection';
     import { CssClasses } from '@/models/CssClasses';
+    import TableListRow from '@/components/Common/TableList/TableListRow.vue';
+    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+    import FormattedResult from '@/components/Common/FormattedResult.vue';
 
     @Component({
         components: {
             YearMatrixItem,
-            CustomLink
+            CustomLink,
+            TableListRow,
+            TableListCell,
+            FormattedResult
         }
     })
     export default class YearMatrixRow extends Mixins(
@@ -38,12 +44,5 @@
         get rank() { return this.index + 1; }
         get winnings() { return this.player.winnings; }
         get formattedWinnings() { return this.$_formatResult(this.winnings); }
-
-        get resultClass(): CssClasses {
-            return {
-                'pos-result': this.winnings > 0,
-                'neg-result': this.winnings < 0
-            }
-        }
     }
 </script>

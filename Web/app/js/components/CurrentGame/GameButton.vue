@@ -10,8 +10,8 @@
 
     @Component
     export default class GameButton extends Vue {
-        @Prop(String) readonly text!: string;
-        @Prop(String) readonly icon!: string;
+        @Prop() readonly text!: string;
+        @Prop() readonly icon!: string;
 
         get iconCssClass(){
             return `icon-${this.icon}`;

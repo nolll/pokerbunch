@@ -16,8 +16,8 @@
     export default class PlayerResultFact extends Mixins(
         FormatMixin
     ) {
-        @Prop(String) readonly name!: string;
-        @Prop(Number) readonly amount!: number;
+        @Prop() readonly name!: string;
+        @Prop() readonly amount!: number;
 
         get formattedAmount() {
             return this.$_formatResult(this.amount);

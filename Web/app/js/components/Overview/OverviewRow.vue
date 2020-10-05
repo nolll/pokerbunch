@@ -1,12 +1,12 @@
 ﻿<template>
-    <tr class="table-list__row">
-        <td class="table-list__cell table-list__cell--numeric">{{rank}}.</td>
-        <td class="table-list__cell">
+    <TableListRow>
+        <TableListCell :is-numeric="true">{{rank}}.</TableListCell>
+        <TableListCell>
             <CustomLink :url="url">{{name}}</CustomLink>
-        </td>
-        <td class="table-list__cell table-list__cell--numeric" :class="resultClass">{{formattedWinnings}}</td>
-        <td is="overview-item" :game="game"></td>
-    </tr>
+        </TableListCell>
+        <TableListCell :is-numeric="true"><FormattedResult :text="formattedWinnings" :value="winnings" /></TableListCell>
+        <OverviewItem :game="game" />
+    </TableListRow>
 </template>
 
 <script lang="ts">
@@ -17,11 +17,17 @@
     import urls from '@/urls';
     import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
     import { CssClasses } from '@/models/CssClasses';
+    import TableListRow from '@/components/Common/TableList/TableListRow.vue';
+    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+    import FormattedResult from '@/components/Common/FormattedResult.vue';
 
     @Component({
         components: {
             OverviewItem,
-            CustomLink
+            CustomLink,
+            TableListRow,
+            TableListCell,
+            FormattedResult
         }
     })
     export default class OverviewRow extends Mixins(
@@ -48,13 +54,6 @@
 
         get formattedWinnings() {
             return this.$_formatResult(this.winnings);
-        }
-
-        get resultClass(): CssClasses {
-            return {
-                'pos-result': this.winnings > 0,
-                'neg-result': this.winnings < 0
-            }
         }
 
         get game() {

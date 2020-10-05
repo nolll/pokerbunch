@@ -9,7 +9,7 @@
 
     @Component
     export default class CustomLink extends Vue {
-        @Prop(String) readonly url!: string;
+        @Prop() readonly url!: string;
         @Prop({default: () => {}}) readonly cssClasses!: CssClasses;
 
         get isInRouter() {

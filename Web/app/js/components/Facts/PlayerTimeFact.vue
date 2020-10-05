@@ -13,8 +13,8 @@
         }
     })
     export default class PlayerTimeFact extends Mixins(FormatMixin) {
-        @Prop(String) readonly name!: string;
-        @Prop(Number) readonly minutes!: number;
+        @Prop() readonly name!: string;
+        @Prop() readonly minutes!: number;
 
         get formattedTime() {
             return this.$_formatDuration(this.minutes);
