@@ -32,13 +32,14 @@ export default {
     },
     home: '/',
     location: {
-        details: (id: string) => `/location/details/${id}`,
-        list: (slug: string) => `/location/list/${slug}`
+        add: (slug: string) => `/bunches/${slug}/locations/add`,
+        details: (slug: string, id: string) => `/bunches/${slug}/locations/${id}`,
+        list: (slug: string) => `/bunches/${slug}/locations`
     },
     player: {
         add: (slug: string) => `/player/add/${slug}`,
         details: (id: string) => `/player/details/${id}`,
-        list: (slug: string) => `/player/list/${slug}`
+        list: (slug: string) => `/bunches/${slug}/players`
     },
     user: {
         add: '/user/add',

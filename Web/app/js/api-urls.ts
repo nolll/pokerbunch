@@ -14,6 +14,9 @@ export default {
     event: {
         list: (slug: string) => `/bunches/${slug}/events`
     },
+    location: {
+        list: (slug: string) => `/bunches/${slug}/locations`
+    },
     player: {
         list: (slug: string) => `/bunches/${slug}/players`
     },

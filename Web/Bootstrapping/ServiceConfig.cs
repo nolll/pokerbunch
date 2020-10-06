@@ -114,11 +114,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<EventDetails>();
             _services.AddScoped<AddEvent>();
 
-            // Locations
-            _services.AddScoped<LocationList>();
-            _services.AddScoped<LocationDetails>();
-            _services.AddScoped<AddLocation>();
-
             // Cashgame
             _services.AddScoped<AddCashgameForm>();
             _services.AddScoped<AddCashgame>();

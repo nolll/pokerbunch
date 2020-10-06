@@ -4,5 +4,6 @@ export { CurrentGameMixin } from './CurrentGameMixin';
 export { EventMixin } from './EventMixin';
 export { FormatMixin } from './FormatMixin';
 export { GameArchiveMixin } from './GameArchiveMixin';
+export { LocationMixin } from './LocationMixin';
 export { PlayerMixin } from './PlayerMixin';
 export { UserMixin } from './UserMixin';

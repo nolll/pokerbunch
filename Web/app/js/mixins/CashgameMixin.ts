@@ -101,11 +101,11 @@ export class CashgameMixin extends Vue {
     }
 
     protected $_buyin(amount: number, stack: number) {
-        this.$store.dispatch(CashgameStoreActions.Buyin, { amount: amount, stack: stack });
+        this.$store.dispatch(CashgameStoreActions.Buyin, { amount, stack });
     }
 
     protected $_firstBuyin(amount: number, stack: number, playerName: string, playerColor: string) {
-        this.$store.dispatch(CashgameStoreActions.FirstBuyin, { amount: amount, stack: stack, name: playerName, color: playerColor });
+        this.$store.dispatch(CashgameStoreActions.FirstBuyin, { amount, stack, name: playerName, color: playerColor });
     }
 
     protected $_hideForms() {
@@ -113,7 +113,7 @@ export class CashgameMixin extends Vue {
     }
 
     protected $_cashout(stack: number) {
-        this.$store.dispatch(CashgameStoreActions.Cashout, { stack: stack });
+        this.$store.dispatch(CashgameStoreActions.Cashout, { stack });
     }
 
     protected $_deleteAction(actionId: string) {

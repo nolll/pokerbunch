@@ -10,6 +10,6 @@ namespace PokerBunch.Common.Urls.SiteUrls
         }
 
         protected override string Input => RouteParams.Replace(Route, RouteReplace.BunchId(_bunchId));
-        public const string Route = "location/add/{bunchId}";
+        public const string Route = "bunches/{bunchId}/locations/add";
     }
 }

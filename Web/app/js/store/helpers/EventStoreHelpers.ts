@@ -1,5 +1,4 @@
-﻿import { Player } from '@/models/Player';
-import { EventResponse } from '@/response/EventResponse';
+﻿import { EventResponse } from '@/response/EventResponse';
 
 export enum EventStoreGetters {
     Slug = 'event_slug',
