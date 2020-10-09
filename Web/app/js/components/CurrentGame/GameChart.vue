@@ -98,7 +98,7 @@
             return results;
         }
 
-        createPlayerResult(time: Date, winnings: number): ChartPlayerResult {
+        createPlayerResult(time: string, winnings: number): ChartPlayerResult {
             return {
                 time: time,
                 winnings: winnings
@@ -106,7 +106,7 @@
         }
 
         getRow(result: ChartPlayerResult, playerId: string) {
-            const values: ChartRowData[] = [{ v: result.time, f: null }];
+            const values: ChartRowData[] = [{ v: new Date(result.time), f: null }];
             for (var i = 0; i < this.$_cashgamePlayers.length; i++) {
                 var val = null;
                 if (this.$_cashgamePlayers[i].id === playerId) {
@@ -139,7 +139,7 @@
     }
 
     interface ChartPlayerResult{
-        time: Date;
+        time: string;
         winnings: number;
     }
 </script>

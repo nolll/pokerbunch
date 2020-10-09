@@ -1,5 +1,12 @@
-function select(field: HTMLInputElement, start:number, end:number) {
-    if (field.setSelectionRange) {
+function select(field: HTMLInputElement, start: number, end: number) {
+    if (field.createTextRange) {
+        const selRange = field.createTextRange();
+        selRange.collapse(true);
+        selRange.moveStart('character', start);
+        selRange.moveEnd('character', end);
+        selRange.select();
+        field.focus();
+    } else if (field.setSelectionRange) {
         window.setTimeout(() => {
             field.focus();
             field.setSelectionRange(start, end);

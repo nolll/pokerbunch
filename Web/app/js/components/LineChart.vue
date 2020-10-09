@@ -18,7 +18,7 @@
             LoadingSpinner
         }
     })
-    export default class PageHeading extends Vue {
+    export default class LineChart extends Vue {
         @Prop() readonly chartData!: ChartData;
         @Prop() readonly chartOptions!: ChartOptions;
 

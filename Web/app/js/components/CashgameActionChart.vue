@@ -15,7 +15,7 @@
             LineChart
         }
     })
-    export default class PageHeading extends Vue {
+    export default class CashgameActionChart extends Vue {
         @Prop() readonly player!: DetailedCashgameResponsePlayer;
 
         chartOptions: ChartOptions = {

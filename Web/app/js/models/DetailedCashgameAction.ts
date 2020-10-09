@@ -3,7 +3,7 @@ import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameR
 export interface DetailedCashgameAction {
     id: string | null;
     type: DetailedCashgameResponseActionType;
-    time: Date;
+    time: string;
     stack: number;
     added: number | null;
 }
