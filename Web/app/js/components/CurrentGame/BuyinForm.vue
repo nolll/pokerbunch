@@ -100,7 +100,7 @@
         isActiveChanged(val: boolean) {
             if (val) {
                 var el = this.$refs.buyin as HTMLInputElement;
-                el.focus();
+                forms.selectAll(el);
             }
         }
     }

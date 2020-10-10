@@ -160,7 +160,7 @@
         }
 
         get locationUrl() {
-            return urls.location.details(this.$_locationId);
+            return urls.location.details(this.$_slug, this.$_locationId);
         }
 
         get canEdit() {

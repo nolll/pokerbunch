@@ -69,7 +69,7 @@
         isActiveChanged(val: boolean) {
             if (val) {
                 var el = this.$refs.stack as HTMLInputElement;
-                el.focus();
+                forms.selectAll(el);
             }
         }
     }

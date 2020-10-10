@@ -72,8 +72,8 @@
         @Watch('isActive')
         isActiveChanged(val: boolean) {
             if (val) {
-                var el = this.$refs.buyin as HTMLInputElement;
-                el.focus();
+                var el = this.$refs.stack as HTMLInputElement;
+                forms.selectAll(el);
             }
         }
     }
