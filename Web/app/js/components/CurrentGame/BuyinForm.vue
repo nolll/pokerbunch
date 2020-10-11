@@ -99,8 +99,11 @@
         @Watch('isActive')
         isActiveChanged(val: boolean) {
             if (val) {
-                var el = this.$refs.buyin as HTMLInputElement;
-                forms.selectAll(el);
+                var self = this;
+                self.$nextTick(function () {
+                    var el = self.$refs.buyin as HTMLInputElement;
+                    forms.selectAll(el);
+                });
             }
         }
     }

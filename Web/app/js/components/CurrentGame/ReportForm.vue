@@ -68,8 +68,11 @@
         @Watch('isActive')
         isActiveChanged(val: boolean) {
             if (val) {
-                var el = this.$refs.stack as HTMLInputElement;
-                forms.selectAll(el);
+                var self = this;
+                self.$nextTick(function () {
+                    var el = self.$refs.stack as HTMLInputElement;
+                    forms.selectAll(el);
+                });
             }
         }
     }
