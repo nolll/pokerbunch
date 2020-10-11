@@ -7,23 +7,11 @@
 
             <template v-if="isAdmin">
                 <Block>
-                    <h2 class="module-heading">Clear cache</h2>
-                    <p>
-                        <CustomButton text="Clear" type="action" v-on:click="clearCache" />
-                    </p>
-                    <p v-if="hasCacheMessage">
-                        {{cacheMessage}}
-                    </p>
+                    <ClearCache />
                 </Block>
 
                 <Block>
-                    <h2 class="module-heading">Send test email</h2>
-                    <p>
-                        <CustomButton text="Send" type="action" v-on:click="sendEmail" />
-                    </p>
-                    <p v-if="hasEmailMessage">
-                        {{emailMessage}}
-                    </p>
+                    <SendEmail />
                 </Block>
             </template>
 
@@ -44,10 +32,8 @@
     import Block from '@/components/Common/Block.vue';
     import PageHeading from '@/components/Common/PageHeading.vue';
     import PageSection from '@/components/Common/PageSection.vue';
-    import urls from '@/urls';
-    import api from '@/api'; 
-    import CustomButton from '@/components/Common/CustomButton.vue';
-import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
+    import SendEmail from '@/components/Admin/SendEmail.vue';
+    import ClearCache from '@/components/Admin/ClearCache.vue';
 
     @Component({
         components: {
@@ -55,49 +41,19 @@ import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
             Block,
             PageHeading,
             PageSection,
-            CustomButton
+            SendEmail,
+            ClearCache
         }
     })
     export default class AdminToolsPage extends Mixins(
         UserMixin
     ) {
-        cacheMessage: string | null = null;
-        emailMessage: string | null = null;
-
         get isAdmin() {
             return this.$_isAdmin;
         }
 
-        get hasCacheMessage(){
-            return !!this.cacheMessage;
-        }
-
-        get hasEmailMessage(){
-            return !!this.emailMessage;
-        }
-
         get ready() {
             return this.$_userReady;
-        }
-
-        async clearCache(){
-            var response = await api.clearCache();
-            this.cacheMessage = response.data.message;
-            setTimeout(this.hideCacheMessage, 3000);
-        }
-
-        async sendEmail(){
-            var response = await api.sendEmail();
-            this.emailMessage = response.data.message;
-            setTimeout(this.hideEmailMessage, 3000);
-        }
-
-        hideCacheMessage(){
-            this.cacheMessage = null;
-        }
-
-        hideEmailMessage(){
-            this.emailMessage = null;
         }
 
         init() {
