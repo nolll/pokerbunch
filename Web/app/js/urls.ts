@@ -9,9 +9,6 @@ export default {
     api: {
         docs: '/apidocs'
     },
-    app: {
-        list: '/apps/all'
-    },
     bunch: {
         add: '/bunch/add',
         details: (slug: string) => `/bunch/details/${slug}`,

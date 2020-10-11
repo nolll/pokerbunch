@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Core.Settings;
 using Core.UseCases;
-using PokerBunch.Common.Urls.SiteUrls;
 using Web.Components.ApiDocsModels.ContentBlock;
 using Web.Components.ApiDocsModels.NavigationBlock;
 using Web.Components.ApiDocsModels.PageHeadingBlock;
@@ -13,7 +12,6 @@ namespace Web.Models.ApiDocsModels
     public class ApiDocsIndexPageModel : ApiDocsPageModel
     {
         public override string BrowserTitle => "Api Documentation";
-        private const string AppListUrl = UserAppsUrl.Route;
 
         public ApiDocsIndexPageModel(AppSettings appSettings, CoreContext.Result contextResult)
             : base(appSettings, contextResult)
@@ -25,10 +23,6 @@ namespace Web.Models.ApiDocsModels
             new SectionModel(
                 new PageHeadingBlockModel("Api Documentation"),
                 new ContentBlockModel("You can build your own applications that interact with Poker Bunch, by using the Poker Bunch API. You'll find everything you need to know right here.")),
-
-            new SectionModel(
-                new SectionHeadingBlockModel("API Key"),
-                new ContentBlockModel($"The first thing you need to know is that you will need an <a href=\"{AppListUrl}\">API Key</a> to access the API.")),
 
             new SectionModel(
                 new SectionHeadingBlockModel("Posting Data"),

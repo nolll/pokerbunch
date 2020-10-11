@@ -19,7 +19,6 @@ namespace Plumbing
 
         public ILocationService Location => _useFakeData ? (ILocationService)new FakeLocationService() : new LocationService(_apiClient);
         public IBunchService Bunch => _useFakeData ? (IBunchService)new FakeBunchService() : new BunchService(_apiClient);
-        public IAppService App => _useFakeData ? (IAppService)new FakeAppService() : new AppService(_apiClient);
         public ICashgameService Cashgame => _useFakeData ? (ICashgameService)new FakeCashgameService() : new CashgameService(_apiClient);
         public IEventService Event => _useFakeData ? (IEventService)new FakeEventService() : new EventService(_apiClient);
         public IPlayerService Player => _useFakeData ? (IPlayerService)new FakePlayerService() : new PlayerService(_apiClient);

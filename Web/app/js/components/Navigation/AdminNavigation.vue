@@ -9,9 +9,6 @@
                 <CustomLink :url="usersUrl"><span>Users</span></CustomLink>
             </SimpleListItem>
             <SimpleListItem>
-                <CustomLink :url="appsUrl"><span>Apps</span></CustomLink>
-            </SimpleListItem>
-            <SimpleListItem>
                 <CustomLink :url="toolsUrl"><span>Tools</span></CustomLink>
             </SimpleListItem>
         </SimpleList>
@@ -42,10 +39,6 @@
 
         get usersUrl() {
             return urls.user.list;
-        }
-
-        get appsUrl() {
-            return urls.app.list;
         }
 
         get toolsUrl() {

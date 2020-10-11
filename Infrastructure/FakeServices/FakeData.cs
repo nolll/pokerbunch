@@ -13,11 +13,6 @@ namespace Infrastructure.Api.FakeServices
             new User("user1", "user1", "User 1", "Firstname1 Lastname1", "user1@example.org", Role.Admin)
         };
 
-        public static readonly List<App> Apps = new List<App>
-        {
-            new App("app1", "appkey1", "App 1", "user1")
-        };
-
         public static readonly List<Bunch> Bunches = new List<Bunch>
         {
             new Bunch("bunch1", "Bunch 1", "This is Bunch 1", "Bunch 1 House Rules", null, 200)

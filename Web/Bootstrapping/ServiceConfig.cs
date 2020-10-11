@@ -73,7 +73,6 @@ namespace Web.Bootstrapping
             
             _services.AddScoped<ILocationService, LocationService>();
             _services.AddScoped<IBunchService, BunchService>();
-            _services.AddScoped<IAppService, AppService>();
             _services.AddScoped<ICashgameService, CashgameService>();
             _services.AddScoped<IEventService, EventService>();
             _services.AddScoped<IPlayerService, PlayerService>();
@@ -131,13 +130,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<InvitePlayerConfirmation>();
             _services.AddScoped<AddPlayer>();
             _services.AddScoped<DeletePlayer>();
-
-            // Apps
-            _services.AddScoped<AppDetails>();
-            _services.AddScoped<AppListUser>();
-            _services.AddScoped<AppListAll>();
-            _services.AddScoped<AddApp>();
-            _services.AddScoped<DeleteApp>();
         }
 
         private void AddAuthentication()

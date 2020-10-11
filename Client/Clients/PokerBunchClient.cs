@@ -6,7 +6,6 @@ namespace PokerBunch.Client.Clients
     public class PokerBunchClient
     {
         public AdminClient Admin { get; }
-        public AppClient Apps { get; }
         public AuthClient Auth { get; }
         public BunchClient Bunches { get; }
         public CashgameClient Cashgames { get; }
@@ -18,7 +17,6 @@ namespace PokerBunch.Client.Clients
         public PokerBunchClient(ApiConnection apiConnection)
         {
             Admin = new AdminClient(apiConnection);
-            Apps = new AppClient(apiConnection);
             Auth = new AuthClient(apiConnection);
             Bunches = new BunchClient(apiConnection);
             Cashgames = new CashgameClient(apiConnection);
