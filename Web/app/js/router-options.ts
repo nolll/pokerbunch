@@ -16,9 +16,11 @@ import LocationDetailsPage from '@/components/Pages/LocationDetailsPage.vue';
 import AddLocationPage from '@/components/Pages/AddLocationPage.vue';
 import NotFoundPage from '@/components/Pages/NotFoundPage.vue';
 import BunchDetailsPage from '@/components/Pages/BunchDetailsPage.vue';
+import AdminToolsPage from '@/components/Pages/AdminToolsPage.vue';
 
 const routes: RouteConfig[] = [
     { path: '/', component: HomePage },
+    { path: '/admin/tools', component: AdminToolsPage },
     { path: '/auth/login', component: LoginPage },
     { path: '/bunches/:slug', component: BunchDetailsPage },
     { path: '/bunches/:slug/cashgames/chart/:year?', component: ChartPage },

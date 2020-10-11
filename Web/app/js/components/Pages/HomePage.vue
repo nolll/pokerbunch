@@ -9,7 +9,7 @@
                 <PageHeading text="This is Poker Bunch" />
             </Block>
 
-            <div v-if="$_isSignedIn">
+            <div v-if="isSignedIn">
                 <Block>
                     <p>
                         Poker Bunch helps you keep track of the results in your poker homegames.
@@ -83,6 +83,10 @@
         BunchMixin,
         UserMixin
     ) {
+        get isSignedIn(){
+            return this.$_isSignedIn;
+        }
+
         get loginUrl() {
             return urls.auth.login;
         }

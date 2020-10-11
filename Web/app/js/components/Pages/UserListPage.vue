@@ -1,12 +1,19 @@
 ﻿<template>
     <Layout :ready="ready">
         <PageSection>
+            
             <Block>
                 <PageHeading text="Users" />
             </Block>
-            <Block>
+
+            <Block v-if="isAdmin">
                 <UserList />
             </Block>
+
+            <Block v-else>
+                Access denied
+            </Block>
+
         </PageSection>
     </Layout>
 </template>
@@ -34,6 +41,10 @@
     ) {
         get ready() {
             return this.$_userReady && this.$_usersReady;
+        }
+
+        get isAdmin(){
+            return this.$_isAdmin;
         }
 
         init() {

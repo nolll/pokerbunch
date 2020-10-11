@@ -1,4 +1,8 @@
 export default {
+    admin: {
+        clearCache: '/admin/clearcache',
+        sendEmail: '/admin/sendemail'
+    },
     bunch: {
         get: (slug: string) => `/bunches/${slug}`,
         user: '/user/bunches'

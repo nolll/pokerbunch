@@ -4,7 +4,7 @@ export default {
     get<T>(url: string, headers?: object): Promise<IHttpResponse<T>> {
         return axios.get<T>(url, { headers });
     },
-    post<T>(url: string, data: object, headers?: object): Promise<IHttpResponse<T>> {
+    post<T>(url: string, data?: object, headers?: object): Promise<IHttpResponse<T>> {
         return axios.post<T>(url, data, { headers });
     },
     put<T>(url: string, data: object, headers?: object): Promise<IHttpResponse<T>> {

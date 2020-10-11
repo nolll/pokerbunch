@@ -6,7 +6,7 @@ export default {
     get<T = any>(url: string) {
         return httpClient.get<T>(getApiUrl(url), getApiHeaders());
     },
-    post<T = any>(url: string, data: object) {
+    post<T = any>(url: string, data?: object) {
         return httpClient.post<T>(getApiUrl(url), data, getApiHeaders());
     },
     put<T = any>(url: string, data: object) {
