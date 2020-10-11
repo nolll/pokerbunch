@@ -1,21 +1,5 @@
 function select(field: HTMLInputElement, start: number, end: number) {
-    if (field.createTextRange) {
-        const selRange = field.createTextRange();
-        selRange.collapse(true);
-        selRange.moveStart('character', start);
-        selRange.moveEnd('character', end);
-        selRange.select();
-        field.focus();
-    } else if (field.setSelectionRange) {
-        window.setTimeout(() => {
-            field.focus();
-            field.setSelectionRange(start, end);
-        }, 1);
-    } else if (typeof field.selectionStart !== 'undefined') {
-        field.selectionStart = start;
-        field.selectionEnd = end;
-        field.focus();
-    }
+    field.setSelectionRange(start, end);
 }
 
 export default {

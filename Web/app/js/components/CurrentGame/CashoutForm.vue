@@ -68,16 +68,5 @@
         mounted() {
             this.stack = this.$_defaultBuyin;
         }
-
-        @Watch('isActive')
-        isActiveChanged(val: boolean) {
-            if (val) {
-                var self = this;
-                self.$nextTick(function () {
-                    var el = self.$refs.stack as HTMLInputElement;
-                    forms.selectAll(el);
-                });
-            }
-        }
     }
 </script>
