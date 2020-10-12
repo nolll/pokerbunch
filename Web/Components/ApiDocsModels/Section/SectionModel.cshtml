@@ -1,9 +1,0 @@
-@using Web.Extensions
-@model Web.Components.ApiDocsModels.Section.SectionModel
-
-@foreach (var block in Model.Blocks)
-{
-    <div class="block gutter">
-        @Html.RenderModel(block)
-    </div>
-}

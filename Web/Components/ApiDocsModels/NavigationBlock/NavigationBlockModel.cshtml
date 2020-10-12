@@ -1,9 +1,0 @@
-@using Web.Extensions
-@model Web.Components.ApiDocsModels.NavigationBlock.NavigationBlockModel
-
-<p>
-    @foreach (var item in Model.Items)
-    {
-        @Html.RenderModel(item)
-    }
-</p>
