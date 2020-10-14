@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Plumbing;
 using PokerBunch.Client.Clients;
 using PokerBunch.Client.Connection;
 using PokerBunch.Common.Urls;
@@ -69,7 +68,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<IUrlFormatter>(o => new UrlFormatter(_settings.Urls.SiteUri, _settings.Urls.ApiUri));
             _services.AddScoped(o => new ApiConnection(_settings.ApiKey, _settings.DetailedErrorsForApi, o.GetService<IUrlFormatter>(), o.GetService<ITokenReader>()));
             _services.AddScoped(o => new PokerBunchClient(o.GetService<ApiConnection>()));
-            _services.AddScoped(o => new ServiceFactory(o.GetService<PokerBunchClient>(), _settings.UseFakeData));
             
             _services.AddScoped<ILocationService, LocationService>();
             _services.AddScoped<IBunchService, BunchService>();
@@ -78,7 +76,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<IPlayerService, PlayerService>();
             _services.AddScoped<IUserService, UserService>();
             _services.AddScoped<IAuthService, AuthService>();
-            _services.AddScoped<IAdminService, AdminService>();
 
             // Contexts
             _services.AddScoped<CoreContext, CoreContext>();
@@ -86,10 +83,6 @@ namespace Web.Bootstrapping
 
             // Auth and Home
             _services.AddScoped<Login>();
-
-            // Admin
-            _services.AddScoped<TestEmail>();
-            _services.AddScoped<ClearCache>();
 
             // User
             _services.AddScoped<UserDetails>();
