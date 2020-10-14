@@ -32,6 +32,14 @@ export class BunchMixin extends Vue {
         return this.$store.getters[BunchStoreGetters.UserBunchesReady];
     }
 
+    protected get $_bunches(): BunchResponse[] {
+        return this.$store.getters[BunchStoreGetters.Bunches];
+    }
+
+    protected get $_bunchesReady(): boolean {
+        return this.$store.getters[BunchStoreGetters.BunchesReady];
+    }
+
     protected get $_description(): string {
         return this.$store.getters[BunchStoreGetters.Description];
     }
@@ -54,6 +62,10 @@ export class BunchMixin extends Vue {
 
     protected $_loadUserBunches() {
         this.$store.dispatch(BunchStoreActions.LoadUserBunches);
+    }
+
+    protected $_loadBunches() {
+        this.$store.dispatch(BunchStoreActions.LoadBunches);
     }
 
     $store: any;

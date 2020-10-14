@@ -5,6 +5,7 @@ export default {
     },
     bunch: {
         get: (slug: string) => `/bunches/${slug}`,
+        list: '/bunches',
         user: '/user/bunches'
     },
     cashgame: {

@@ -13,7 +13,7 @@ export default {
         add: '/bunch/add',
         details: (slug: string) => `/bunch/details/${slug}`,
         edit: (slug: string) => `/bunch/edit/${slug}`,
-        list: '/bunch/all'
+        list: '/bunches'
     },
     cashgame: {
         add: (slug: string) => `/bunches/${slug}/cashgames/add`,

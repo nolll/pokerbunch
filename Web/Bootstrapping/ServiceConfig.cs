@@ -93,7 +93,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<ChangePassword>();
 
             // Bunch
-            _services.AddScoped<BunchList>();
             _services.AddScoped<AddBunchForm>();
             _services.AddScoped<AddBunch>();
             _services.AddScoped<EditBunchForm>();

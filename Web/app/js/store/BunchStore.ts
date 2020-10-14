@@ -20,7 +20,10 @@ export default {
         _bunchInitialized: false,
         _userBunches: [],
         _userBunchesReady: false,
-        _userBunchesInitialized: false
+        _userBunchesInitialized: false,
+        _bunches: [],
+        _bunchesReady: false,
+        _bunchesInitialized: false
     },
     getters: {
         [BunchStoreGetters.Slug]: state => state._slug,
@@ -34,7 +37,9 @@ export default {
         [BunchStoreGetters.IsManager]: state => state._role === roles.manager || state._role === roles.admin,
         [BunchStoreGetters.BunchReady]: state => state._bunchReady,
         [BunchStoreGetters.UserBunches]: state => state._userBunches,
-        [BunchStoreGetters.UserBunchesReady]: state => state._userBunchesReady
+        [BunchStoreGetters.UserBunchesReady]: state => state._userBunchesReady,
+        [BunchStoreGetters.Bunches]: state => state._bunches,
+        [BunchStoreGetters.BunchesReady]: state => state._bunchesReady
     },
     actions: {
         async [BunchStoreActions.LoadBunch](context, params: LoadBunchParams) {
@@ -52,6 +57,17 @@ export default {
                     context.commit(BunchStoreMutations.SetUserBunchesData, response.data);
                 } catch {
                     context.commit(BunchStoreMutations.SetUserBunchesError);
+                }
+            }
+        },
+        async [BunchStoreActions.LoadBunches](context) {
+            if (!context.state._bunchesInitialized) {
+                context.commit(BunchStoreMutations.SetBunchesInitialized);
+                try{
+                    const response = await api.getBunches();
+                    context.commit(BunchStoreMutations.SetBunchesData, response.data);
+                } catch {
+                    context.commit(BunchStoreMutations.SetBunchesError);
                 }
             }
         }
@@ -82,6 +98,17 @@ export default {
         },
         [BunchStoreMutations.SetUserBunchesInitialized](state) {
             state._userBunchesInitialized = true;
+        },
+        [BunchStoreMutations.SetBunchesData](state, bunches: BunchResponse[]) {
+            state._bunches = bunches;
+            state._bunchesReady = true;
+        },
+        [BunchStoreMutations.SetBunchesError](state) {
+            state._bunches = [];
+            state._bunchesReady = true;
+        },
+        [BunchStoreMutations.SetBunchesInitialized](state) {
+            state._bunchesInitialized = true;
         }
     }
 } as StoreOptions<BunchStoreState>;

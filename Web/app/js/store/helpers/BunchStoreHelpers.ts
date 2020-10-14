@@ -13,12 +13,15 @@ export enum BunchStoreGetters {
     IsManager = 'bunch_isManager',
     BunchReady = 'bunch_bunchReady',
     UserBunches = 'bunch_userBunches',
-    UserBunchesReady = 'bunch_userBunchesReady'
+    UserBunchesReady = 'bunch_userBunchesReady',
+    Bunches = 'bunch_bunches',
+    BunchesReady = 'bunch_bunchesReady'
 }
 
 export enum BunchStoreActions {
     LoadBunch = 'bunch_loadBunch',
-    LoadUserBunches = 'bunch_loadUserBunches'
+    LoadUserBunches = 'bunch_loadUserBunches',
+    LoadBunches = 'bunch_loadBunches'
 }
 
 export enum BunchStoreMutations {
@@ -26,7 +29,10 @@ export enum BunchStoreMutations {
     SetBunchInitialized = 'bunch_setBunchInitialized',
     SetUserBunchesData = 'bunch_setUserBunchesData',
     SetUserBunchesError = 'bunch_setUserBunchesError',
-    SetUserBunchesInitialized = 'bunch_setUserBunchesInitialized'
+    SetUserBunchesInitialized = 'bunch_setUserBunchesInitialized',
+    SetBunchesData = 'bunch_setBunchesData',
+    SetBunchesError = 'bunch_setBunchesError',
+    SetBunchesInitialized = 'bunch_setBunchesInitialized',
 }
 
 export interface BunchStoreState{
@@ -44,6 +50,9 @@ export interface BunchStoreState{
     _userBunches: BunchResponse[];
     _userBunchesReady: boolean;
     _userBunchesInitialized: boolean;
+    _bunches: BunchResponse[];
+    _bunchesReady: boolean;
+    _bunchesInitialized: boolean;
 }
 
 export interface LoadBunchParams{

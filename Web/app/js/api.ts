@@ -21,6 +21,7 @@ export default {
     getCurrentGames: (slug: string) => apiClient.get<CurrentGameResponse[]>(apiUrls.cashgame.current(slug)),
     getBunch: (slug: string) => apiClient.get<BunchResponse>(apiUrls.bunch.get(slug)),
     getUserBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.user),
+    getBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.list),
     getPlayers: (slug: string) => apiClient.get<Player[]>(apiUrls.player.list(slug)),
     getGames: (slug: string, year?: number) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.list(slug, year)),
     buyin: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),

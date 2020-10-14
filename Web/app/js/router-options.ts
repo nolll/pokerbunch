@@ -15,6 +15,7 @@ import LocationListPage from '@/components/Pages/LocationListPage.vue';
 import LocationDetailsPage from '@/components/Pages/LocationDetailsPage.vue';
 import AddLocationPage from '@/components/Pages/AddLocationPage.vue';
 import NotFoundPage from '@/components/Pages/NotFoundPage.vue';
+import BunchListPage from '@/components/Pages/BunchListPage.vue';
 import BunchDetailsPage from '@/components/Pages/BunchDetailsPage.vue';
 import AdminToolsPage from '@/components/Pages/AdminToolsPage.vue';
 import ApiDocsPage from '@/components/Pages/ApiDocsPage.vue';
@@ -24,6 +25,7 @@ const routes: RouteConfig[] = [
     { path: '/admin/tools', component: AdminToolsPage },
     { path: '/apidocs', component: ApiDocsPage },
     { path: '/auth/login', component: LoginPage },
+    { path: '/bunches', component: BunchListPage },
     { path: '/bunches/:slug', component: BunchDetailsPage },
     { path: '/bunches/:slug/cashgames/chart/:year?', component: ChartPage },
     { path: '/bunches/:slug/cashgames/facts/:year?', component: FactsPage },

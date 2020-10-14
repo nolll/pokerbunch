@@ -1,7 +1,7 @@
 ﻿<template>
     <SimpleList>
-        <SimpleListItem v-for="user in users" :key="user.id">
-            <UserListItem :userName="user.userName" />
+        <SimpleListItem v-for="bunch in bunches" :key="bunch.id">
+            <BunchListItem :id="bunch.id" :name="bunch.name" />
         </SimpleListItem>
     </SimpleList>
 </template>
@@ -10,21 +10,21 @@
     import { Component, Mixins } from 'vue-property-decorator';
     import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
     import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-    import UserListItem from '@/components/UserList/UserListItem.vue';
-    import { UserMixin } from '@/mixins';
+    import BunchListItem from '@/components/BunchList/BunchListItem.vue';
+    import { BunchMixin } from '@/mixins';
 
     @Component({
         components: {
             SimpleList,
             SimpleListItem,
-            UserListItem
+            BunchListItem
         }
     })
-    export default class UserList extends Mixins(
-        UserMixin
+    export default class BunchList extends Mixins(
+        BunchMixin
     ) {
-        get users(){
-            return this.$_users;
+        get bunches(){
+            return this.$_bunches;
         }
     }
 </script>

@@ -1,4 +1,4 @@
-var config = window.vueConfig;
+const config = window.vueConfig;
 
 if (!config) {
     throw new Error('No api host configured');
