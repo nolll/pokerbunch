@@ -4,7 +4,6 @@ import ajaxClient from './ajax-client';
 import ajaxUrls from '@/ajax-urls';
 import { Player } from '@/models/Player';
 import { User } from '@/models/User';
-import { CurrentUser } from '@/models/CurrentUser';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
 import { ArchiveCashgameResponse } from '@/response/ArchiveCashgameResponse';
 import { DetailedCashgameResponse } from '@/response/DetailedCashgameResponse';
@@ -27,7 +26,9 @@ export default {
     buyin: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     report: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     cashout: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
-    getCurrentUser: () => apiClient.get<CurrentUser>(apiUrls.user.current),
+    getCurrentUser: () => apiClient.get<User>(apiUrls.user.current),
+    getUser: (userName: string) => apiClient.get<User>(apiUrls.user.get(userName)),
+    updateUser: (data: User) => apiClient.put(apiUrls.user.get(data.userName), data),
     getUsers: () => apiClient.get<User[]>(apiUrls.user.list),
     deleteAction: (cashgameId: string, actionId: string) => apiClient.delete(apiUrls.cashgame.action(cashgameId, actionId)),
     updateAction: (cashgameId: string, actionId: string, data: object) => apiClient.put(apiUrls.cashgame.action(cashgameId, actionId), data),

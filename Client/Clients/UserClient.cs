@@ -21,19 +21,9 @@ namespace PokerBunch.Client.Clients
             return ApiConnection.Get<User>(token, new ApiUserProfileUrl());
         }
 
-        public IList<UserSmall> List()
-        {
-            return ApiConnection.Get<IList<UserSmall>>(new ApiUsersUrl());
-        }
-
         public User Get(string nameOrEmail)
         {
             return ApiConnection.Get<User>(new ApiUserUrl(nameOrEmail));
-        }
-
-        public void Update(UserUpdate user)
-        {
-            ApiConnection.Post<User>(new ApiUserUrl(user.UserName), user);
         }
 
         public User Add(UserAdd user)

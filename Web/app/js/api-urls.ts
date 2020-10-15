@@ -27,6 +27,8 @@ export default {
     },
     user: {
         current: '/user',
+        get: (userName: string) => `/users/${userName}`,
+        update: (userName: string) => `/users/${userName}`,
         list: '/users'
     }
 };

@@ -85,10 +85,8 @@ namespace Web.Bootstrapping
             _services.AddScoped<Login>();
 
             // User
-            _services.AddScoped<UserDetails>();
             _services.AddScoped<AddUser>();
             _services.AddScoped<EditUserForm>();
-            _services.AddScoped<EditUser>();
             _services.AddScoped<ForgotPassword>();
             _services.AddScoped<ChangePassword>();
 

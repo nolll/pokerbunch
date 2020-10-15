@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
 using PokerBunch.Client.Models.Request;
-using PokerBunch.Client.Models.Response;
 using User = Core.Entities.User;
 using ApiUser = PokerBunch.Client.Models.Response.User;
 
@@ -23,22 +20,10 @@ namespace Infrastructure.Api.Services
             return CreateUser(apiUser);
         }
 
-        public IList<ListUser> List()
-        {
-            var apiUsers = ApiClient.Users.List();
-            return apiUsers.Select(CreateListUser).ToList();
-        }
-
         public User GetByNameOrEmail(string nameOrEmail)
         {
             var apiUser = ApiClient.Users.Get(nameOrEmail);
             return CreateUser(apiUser);
-        }
-
-        public void Update(User user)
-        {
-            var apiUser = new UserUpdate(user.UserName, user.DisplayName, user.RealName, user.Email);
-            ApiClient.Users.Update(apiUser);
         }
 
         public string Add(User user, string password)
@@ -64,11 +49,6 @@ namespace Infrastructure.Api.Services
         {
             var role = (Role)Enum.Parse(typeof(Role), u.Role, true);
             return new User(u.Id, u.UserName, u.DisplayName, u.RealName, u.Email, role);
-        }
-
-        private ListUser CreateListUser(UserSmall u)
-        {
-            return new ListUser(u.UserName, u.DisplayName);
         }
     }
 }

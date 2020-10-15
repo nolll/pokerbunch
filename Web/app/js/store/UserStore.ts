@@ -3,7 +3,6 @@ import api from '@/api';
 import roles from '@/roles';
 import auth from '@/auth';
 import { UserStoreGetters, UserStoreActions, UserStoreMutations, UserStoreState } from '@/store/helpers/UserStoreHelpers';
-import { CurrentUser } from '@/models/CurrentUser';
 import { User } from '@/models/User';
 import { Role } from '@/models/Role';
 
@@ -61,7 +60,7 @@ export default {
         [UserStoreMutations.SetIsSignedIn](state, isSignedIn) {
             state._isSignedIn = isSignedIn;
         },
-        [UserStoreMutations.SetUser](state, user: CurrentUser) {
+        [UserStoreMutations.SetUser](state, user: User) {
             state._userName = user.userName;
             state._displayName = user.displayName;
             state._role = user.role;

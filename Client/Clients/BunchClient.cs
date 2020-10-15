@@ -35,7 +35,7 @@ namespace PokerBunch.Client.Clients
 
         public Bunch Update(BunchUpdate bunch)
         {
-            return ApiConnection.Post<Bunch>(new ApiBunchUrl(bunch.Id), bunch);
+            return ApiConnection.Put<Bunch>(new ApiBunchUrl(bunch.Id), bunch);
         }
 
         public void Join(BunchJoin bunchJoin)
