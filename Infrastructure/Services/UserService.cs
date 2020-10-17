@@ -33,12 +33,6 @@ namespace Infrastructure.Api.Services
             return apiUser.Id;
         }
 
-        public void ChangePassword(string oldPassword, string newPassword, string repeat)
-        {
-            var apiChangePassword = new PasswordChange(oldPassword, newPassword, repeat);
-            ApiClient.Users.Passwords.ChangePassword(apiChangePassword);
-        }
-
         public void ResetPassword(string email)
         {
             var apiResetPassword = new PasswordReset(email);

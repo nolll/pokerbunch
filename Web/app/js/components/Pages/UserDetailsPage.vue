@@ -69,7 +69,7 @@
     import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
     import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
     import { AxiosError } from 'axios';
-    import { ApiError}  from '@/models/ApiError';
+    import { ApiError} from '@/models/ApiError';
     
     @Component({
         components: {

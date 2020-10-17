@@ -11,11 +11,6 @@ namespace PokerBunch.Client.Clients
         {
         }
 
-        public void ChangePassword(PasswordChange passwordChange)
-        {
-            ApiConnection.Post(new ApiUserChangePasswordUrl(), passwordChange);
-        }
-
         public void ResetPassword(PasswordReset passwordReset)
         {
             ApiConnection.Post(new ApiUserResetPasswordUrl(), passwordReset);

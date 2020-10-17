@@ -12,6 +12,7 @@ import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
 import { EventResponse } from './response/EventResponse';
 import { LocationResponse } from './response/LocationResponse';
 import { MessageResponse } from './response/MessageResponse';
+import { ApiParamsChangePassword } from '@/models/ApiParamsChangePassword';
 
 export default {
     getToken: (data: ApiParamsGetToken) => ajaxClient.post(ajaxUrls.auth.token, data),
@@ -27,6 +28,7 @@ export default {
     report: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     cashout: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     getCurrentUser: () => apiClient.get<User>(apiUrls.user.current),
+    changePassword: (data: ApiParamsChangePassword) => apiClient.put(apiUrls.user.changePassword, data),
     getUser: (userName: string) => apiClient.get<User>(apiUrls.user.get(userName)),
     updateUser: (data: User) => apiClient.put(apiUrls.user.get(data.userName), data),
     getUsers: () => apiClient.get<User[]>(apiUrls.user.list),

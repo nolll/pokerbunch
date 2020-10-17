@@ -3,6 +3,7 @@ import HomePage from '@/components/Pages/HomePage.vue';
 import LoginPage from '@/components/Pages/LoginPage.vue';
 import UserListPage from '@/components/Pages/UserListPage.vue';
 import UserDetailsPage from '@/components/Pages/UserDetailsPage.vue';
+import ChangePasswordPage from '@/components/Pages/ChangePasswordPage.vue';
 import CashgameDetailsPage from '@/components/Pages/CashgameDetailsPage.vue';
 import OverviewPage from '@/components/Pages/OverviewPage.vue';
 import MatrixPage from '@/components/Pages/MatrixPage.vue';
@@ -42,6 +43,7 @@ const routes: RouteConfig[] = [
     { path: '/bunches/:slug/locations/:id', component: LocationDetailsPage },
     { path: '/users', component: UserListPage },
     { path: '/users/:userName', component: UserDetailsPage },
+    { path: '/user/changepassword', component: ChangePasswordPage },
     { path: '*', component: NotFoundPage, name: '404' }
 ];
 

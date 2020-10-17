@@ -2,14 +2,6 @@ namespace PokerBunch.Common.Routes
 {
     public static class ApiRoutes
     {
-        public const string Root = "";
-
-        public static class Action
-        {
-            public const string Get = "cashgames/{cashgameId}/actions/{actionId}";
-            public const string List = "cashgames/{cashgameId}/actions";
-        }
-
         public static class Admin
         {
             public const string ClearCache = "admin/clearcache";
@@ -32,7 +24,6 @@ namespace PokerBunch.Common.Routes
             public const string ListCurrentByBunch = "bunches/{bunchId}/cashgames/current";
             public const string ListByEvent = "events/{eventId}/cashgames";
             public const string ListByPlayer = "players/{playerId}/cashgames";
-            public const string YearsByBunch = "years/cashgames/{bunchId}";
         }
         
         public static class Event
@@ -57,7 +48,6 @@ namespace PokerBunch.Common.Routes
         public static class Profile
         {
             public const string Get = "user";
-            public const string PasswordChange = "user/password/change";
             public const string PasswordReset = "user/password/reset";
         }
 

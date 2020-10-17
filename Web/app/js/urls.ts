@@ -42,6 +42,7 @@ export default {
         add: '/user/add',
         details: (userName: string) => `/users/${userName}`,
         forgotPassword: '/user/forgotpassword',
+        changePassword: '/user/changepassword',
         list: '/users'
     }
 };

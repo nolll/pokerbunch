@@ -26,6 +26,7 @@ export default {
         list: (slug: string) => `/bunches/${slug}/players`
     },
     user: {
+        changePassword: '/user/password/change',
         current: '/user',
         get: (userName: string) => `/users/${userName}`,
         update: (userName: string) => `/users/${userName}`,
