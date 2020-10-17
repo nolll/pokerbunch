@@ -28,7 +28,7 @@ export default {
     report: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     cashout: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     getCurrentUser: () => apiClient.get<User>(apiUrls.user.current),
-    changePassword: (data: ApiParamsChangePassword) => apiClient.put(apiUrls.user.changePassword, data),
+    changePassword: (data: ApiParamsChangePassword) => apiClient.put(apiUrls.user.password, data),
     getUser: (userName: string) => apiClient.get<User>(apiUrls.user.get(userName)),
     updateUser: (data: User) => apiClient.put(apiUrls.user.get(data.userName), data),
     getUsers: () => apiClient.get<User[]>(apiUrls.user.list),
