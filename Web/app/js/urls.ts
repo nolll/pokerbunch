@@ -41,7 +41,7 @@ export default {
     user: {
         add: '/user/add',
         details: (userName: string) => `/users/${userName}`,
-        forgotPassword: '/user/forgotpassword',
+        resetPassword: '/user/resetpassword',
         changePassword: '/user/changepassword',
         list: '/users'
     }

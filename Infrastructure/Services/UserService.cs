@@ -33,12 +33,6 @@ namespace Infrastructure.Api.Services
             return apiUser.Id;
         }
 
-        public void ResetPassword(string email)
-        {
-            var apiResetPassword = new PasswordReset(email);
-            ApiClient.Users.Passwords.ResetPassword(apiResetPassword);
-        }
-
         private User CreateUser(ApiUser u)
         {
             var role = (Role)Enum.Parse(typeof(Role), u.Role, true);

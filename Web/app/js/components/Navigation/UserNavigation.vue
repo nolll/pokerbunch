@@ -8,7 +8,7 @@
         <ul v-else>
             <li><CustomLink :url="loginUrl"><span>Sign in</span></CustomLink></li>
             <li><CustomLink :url="registerUrl"><span>Register</span></CustomLink></li>
-            <li><CustomLink :url="forgotPasswordUrl"><span>Forgot password</span></CustomLink></li>
+            <li><CustomLink :url="resetPasswordUrl"><span>Reset password</span></CustomLink></li>
         </ul>
     </nav>
 </template>
@@ -41,8 +41,8 @@
             return urls.user.add;
         }
 
-        get forgotPasswordUrl() {
-            return urls.user.forgotPassword;
+        get resetPasswordUrl() {
+            return urls.user.resetPassword;
         }
 
         get loginUrl() {

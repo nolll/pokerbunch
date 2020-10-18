@@ -4,6 +4,7 @@ import LoginPage from '@/components/Pages/LoginPage.vue';
 import UserListPage from '@/components/Pages/UserListPage.vue';
 import UserDetailsPage from '@/components/Pages/UserDetailsPage.vue';
 import ChangePasswordPage from '@/components/Pages/ChangePasswordPage.vue';
+import ResetPasswordPage from '@/components/Pages/ResetPasswordPage.vue';
 import CashgameDetailsPage from '@/components/Pages/CashgameDetailsPage.vue';
 import OverviewPage from '@/components/Pages/OverviewPage.vue';
 import MatrixPage from '@/components/Pages/MatrixPage.vue';
@@ -44,6 +45,7 @@ const routes: RouteConfig[] = [
     { path: '/users', component: UserListPage },
     { path: '/users/:userName', component: UserDetailsPage },
     { path: '/user/changepassword', component: ChangePasswordPage },
+    { path: '/user/resetpassword', component: ResetPasswordPage },
     { path: '*', component: NotFoundPage, name: '404' }
 ];
 

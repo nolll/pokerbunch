@@ -4,7 +4,7 @@
             <Block>
                 <PageHeading text="Sign in" />
                 <p>
-                    Please sign in using your username and password. <CustomLink :url="forgotPasswordUrl">Forgot password?</CustomLink>
+                    Please sign in using your username and password. <CustomLink :url="resetPasswordUrl">Forgot password?</CustomLink>
                 </p>
                 <p>
                     If you are a new user, please <CustomLink :url="registerUrl">register</CustomLink>!
@@ -39,8 +39,8 @@
     export default class LoginPage extends Mixins(
         UserMixin
     ) {
-        get forgotPasswordUrl() {
-            return urls.user.forgotPassword;
+        get resetPasswordUrl() {
+            return urls.user.resetPassword;
         }
 
         get registerUrl() {

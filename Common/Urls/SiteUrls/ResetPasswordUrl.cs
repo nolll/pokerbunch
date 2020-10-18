@@ -1,8 +1,8 @@
 namespace PokerBunch.Common.Urls.SiteUrls
 {
-    public class ForgotPasswordUrl : SiteUrl
+    public class ResetPasswordUrl : SiteUrl
     {
         protected override string Input => Route;
-        public const string Route = "user/forgotpassword";
+        public const string Route = "user/resetpassword";
     }
 }

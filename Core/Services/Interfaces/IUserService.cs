@@ -7,6 +7,5 @@ namespace Core.Services
         User Current(string token);
         User GetByNameOrEmail(string nameOrEmail);
         string Add(User user, string password);
-        void ResetPassword(string email);
     }
 }
