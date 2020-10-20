@@ -25,7 +25,6 @@
 
                 <p>Send the following parameters in the body:</p>
                 <pre><code>grant_type = password
-client_id = { your API key}
 username = {your user's username}
 password = {your user's password}</code></pre>
 
@@ -34,7 +33,7 @@ password = {your user's password}</code></pre>
 
                 <p>For subsequent requests, include an Authorization header with the content</p>
                 <pre><code>bearer ABCDE</code></pre>
-                </Block>
+            </Block>
         </PageSection>
     </Layout>
 </template>

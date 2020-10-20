@@ -1,8 +1,10 @@
-﻿import { RouteConfig, RouterOptions } from 'vue-router';
+﻿import urls from '@/urls';
+import { RouteConfig, RouterOptions } from 'vue-router';
 import HomePage from '@/components/Pages/HomePage.vue';
 import LoginPage from '@/components/Pages/LoginPage.vue';
 import UserListPage from '@/components/Pages/UserListPage.vue';
 import UserDetailsPage from '@/components/Pages/UserDetailsPage.vue';
+import AddUserPage from '@/components/Pages/AddUserPage.vue';
 import ChangePasswordPage from '@/components/Pages/ChangePasswordPage.vue';
 import ResetPasswordPage from '@/components/Pages/ResetPasswordPage.vue';
 import CashgameDetailsPage from '@/components/Pages/CashgameDetailsPage.vue';
@@ -24,7 +26,7 @@ import AdminToolsPage from '@/components/Pages/AdminToolsPage.vue';
 import ApiDocsPage from '@/components/Pages/ApiDocsPage.vue';
 
 const routes: RouteConfig[] = [
-    { path: '/', component: HomePage },
+    { path: urls.home, component: HomePage },
     { path: '/admin/tools', component: AdminToolsPage },
     { path: '/apidocs', component: ApiDocsPage },
     { path: '/auth/login', component: LoginPage },
@@ -44,6 +46,7 @@ const routes: RouteConfig[] = [
     { path: '/bunches/:slug/locations/:id', component: LocationDetailsPage },
     { path: '/users', component: UserListPage },
     { path: '/users/:userName', component: UserDetailsPage },
+    { path: '/user/add', component: AddUserPage },
     { path: '/user/changepassword', component: ChangePasswordPage },
     { path: '/user/resetpassword', component: ResetPasswordPage },
     { path: '*', component: NotFoundPage, name: '404' }

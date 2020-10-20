@@ -84,9 +84,6 @@ namespace Web.Bootstrapping
             // Auth and Home
             _services.AddScoped<Login>();
 
-            // User
-            _services.AddScoped<AddUser>();
-
             // Bunch
             _services.AddScoped<AddBunchForm>();
             _services.AddScoped<AddBunch>();

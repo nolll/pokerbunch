@@ -2,7 +2,6 @@ using System;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models.Request;
 using User = Core.Entities.User;
 using ApiUser = PokerBunch.Client.Models.Response.User;
 
@@ -24,13 +23,6 @@ namespace Infrastructure.Api.Services
         {
             var apiUser = ApiClient.Users.Get(nameOrEmail);
             return CreateUser(apiUser);
-        }
-
-        public string Add(User user, string password)
-        {
-            var postUser = new UserAdd(user.UserName, user.DisplayName, user.Email, password);
-            var apiUser = ApiClient.Users.Add(postUser);
-            return apiUser.Id;
         }
 
         private User CreateUser(ApiUser u)

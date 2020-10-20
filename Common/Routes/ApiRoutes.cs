@@ -59,7 +59,6 @@ namespace PokerBunch.Common.Routes
         public static class User
         {
             public const string Get = "users/{userName}";
-            public const string List = "users";
         }
     }
 }
