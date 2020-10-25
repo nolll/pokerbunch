@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Services;
 using Core.Settings;
 using Core.UseCases;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -48,7 +49,7 @@ namespace Web.Models.HomegameModels.Edit
             Errors = new ErrorListModel(errors);
         }
 
-        private SelectListItem CreateTimezoneSelectListItem(AddBunchForm.TimeZoneItem item)
+        private SelectListItem CreateTimezoneSelectListItem(TimeZoneItem item)
         {
             return CreateSelectListItem(item.Name, item.Id);
         }

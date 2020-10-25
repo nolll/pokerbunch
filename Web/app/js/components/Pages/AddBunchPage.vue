@@ -2,39 +2,39 @@
     <Layout :ready="true">
         <PageSection>
             <Block>
-                <PageHeading text="Register" />
+                <PageHeading text="Create Bunch" />
             </Block>
 
             <template v-if="isSaving">
                 <Block>
                     <p>
-                        Welcome to Poker Bunch!
+                        Your bunch has been created.
                     </p>
                     <p>
-                        <CustomLink :url="loginUrl">Sign in here!</CustomLink> GL!
+                        <CustomLink :url="bunchUrl">Go to bunch!</CustomLink>
                     </p>
                 </Block>
             </template>
             <Block v-else>
                 <p>
-                    <label class="label" for="userName">Login Name</label>
-                    <input class="textfield" v-model="userName" id="userName" type="text">
+                    <label class="label" for="name">Name</label>
+                    <input class="textfield" v-model="name" id="name" type="text">
                 </p>
                 <p>
-                    <label class="label" for="displayName">Display Name</label>
-                    <input class="textfield" v-model="displayName" id="displayName" type="text">
+                    <label class="label" for="description">Description</label>
+                    <input class="textfield" v-model="description" id="description" type="text">
                 </p>
                 <p>
-                    <label class="label" for="email">Email</label>
-                    <input class="textfield" v-model="email" id="email" type="email">
+                    <label class="label" for="currencySymbol">Currency Symbol</label>
+                    <input class="textfield" v-model="currencySymbol" id="currencySymbol" type="text">
                 </p>
                 <p>
-                    <label class="label" for="password">Password</label>
-                    <input class="textfield" v-model="password" id="password" type="password">
+                    <label class="label" for="currencyLayout">Currency Layout</label>
+                    <CurrencyLayoutDropdown v-model="currencyLayout" :symbol="currencySymbol" />
                 </p>
                 <p>
-                    <label class="label" for="repeatPassword">Repeat Password</label>
-                    <input class="textfield" v-model="repeatPassword" id="repeatPassword" type="password">
+                    <label class="label" for="timezone">Timezone</label>
+                    <TimezoneDropdown v-model="timezone" />
                 </p>
                 <p v-if="hasError" class="validation-error">
                     {{errorMessage}}
@@ -51,7 +51,7 @@
 
 <script lang="ts">
     import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { UserMixin } from '@/mixins';
+    import { TimezoneMixin, UserMixin } from '@/mixins';
     import urls from '@/urls';
     import api from '@/api';
     import Layout from '@/components/Layouts/Layout.vue';
@@ -63,7 +63,9 @@
     import { User } from '@/models/User';
     import { AxiosError } from 'axios';
     import { ApiError} from '@/models/ApiError';
-    import { ApiParamsAddUser } from '@/models/ApiParamsAddUser';
+    import { ApiParamsAddBunch } from '@/models/ApiParamsAddBunch';
+    import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
+    import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
     
     @Component({
         components: {
@@ -72,19 +74,23 @@
             PageHeading,
             PageSection,
             CustomButton,
-            CustomLink
+            CustomLink,
+            TimezoneDropdown,
+            CurrencyLayoutDropdown
         }
     })
-    export default class AddUserPage extends Mixins(
+    export default class AddBunchPage extends Mixins(
+        TimezoneMixin,
         UserMixin
     ) {
-        userName = '';
-        displayName = '';
-        email = '';
-        password = '';
-        repeatPassword = '';
+        description = '';
+        name = '';
+        currencySymbol = '$';
+        currencyLayout = '';
+        timezone = '';
         errorMessage = '';
         isSaving = false;
+        savedSlug = '';
 
         get hasError(){
             return !!this.errorMessage;
@@ -94,22 +100,24 @@
             return urls.auth.login;
         }
 
+        get bunchUrl(){
+            return urls.bunch.details(this.savedSlug);
+        }
+
         async save(){
             this.errorMessage = '';
 
-            if(this.repeatPassword !== this.password){
-                this.errorMessage = 'Passwords doesn\'t match';
-                return;
-            }
-
             try{
-                const params: ApiParamsAddUser = {
-                    userName: this.userName,
-                    displayName: this.displayName,
-                    email: this.email,
-                    password: this.password
+                const params: ApiParamsAddBunch = {
+                    name: this.name,
+                    description: this.description,
+                    currencySymbol: this.currencySymbol,
+                    currencyLayout: this.currencyLayout,
+                    timezone: this.timezone
                 };
-                const response = await api.addUser(params);
+
+                const response = await api.addBunch(params);
+                this.savedSlug = response.data.id;
                 this.isSaving = true;
             } catch (err){
                 const error = err as AxiosError<ApiError>;
@@ -123,6 +131,7 @@
         }
 
         init() {
+            this.$_loadTimezones();
         }
 
         mounted() {

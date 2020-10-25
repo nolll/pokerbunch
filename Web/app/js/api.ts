@@ -15,6 +15,8 @@ import { MessageResponse } from './response/MessageResponse';
 import { ApiParamsChangePassword } from '@/models/ApiParamsChangePassword';
 import { ApiParamsResetPassword } from './models/ApiParamsResetPassword';
 import { ApiParamsAddUser } from './models/ApiParamsAddUser';
+import { Timezone } from './models/Timezone';
+import { ApiParamsAddBunch } from './models/ApiParamsAddBunch';
 
 export default {
     getToken: (data: ApiParamsGetToken) => ajaxClient.post(ajaxUrls.auth.token, data),
@@ -24,6 +26,7 @@ export default {
     getBunch: (slug: string) => apiClient.get<BunchResponse>(apiUrls.bunch.get(slug)),
     getUserBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.user),
     getBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.list),
+    addBunch: (data: ApiParamsAddBunch) => apiClient.post<BunchResponse>(apiUrls.bunch.list, data),
     getPlayers: (slug: string) => apiClient.get<Player[]>(apiUrls.player.list(slug)),
     getGames: (slug: string, year?: number) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.list(slug, year)),
     buyin: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
@@ -42,5 +45,6 @@ export default {
     getLocations: (slug: string) => apiClient.get<LocationResponse[]>(apiUrls.location.list(slug)),
     addLocation: (slug: string, data: object) => apiClient.post<LocationResponse>(apiUrls.location.list(slug), data),
     sendEmail: () => apiClient.post<MessageResponse>(apiUrls.admin.sendEmail),
-    clearCache: () => apiClient.post<MessageResponse>(apiUrls.admin.clearCache)
+    clearCache: () => apiClient.post<MessageResponse>(apiUrls.admin.clearCache),
+    getTimezones: () => apiClient.get<Timezone[]>(apiUrls.misc.timezones.list)
 };

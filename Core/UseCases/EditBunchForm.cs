@@ -48,10 +48,20 @@ namespace Core.UseCases
             public string TimeZoneId { get; }
             public string CurrencySymbol { get; }
             public string CurrencyLayout { get; }
-            public IList<AddBunchForm.TimeZoneItem> TimeZones { get; }
+            public IList<TimeZoneItem> TimeZones { get; }
             public IList<string> CurrencyLayouts { get; }
 
-            public Result(string heading, string slug, string description, string houseRules, int defaultBuyin, string timeZoneId, string currencySymbol, string currencyLayout, IList<AddBunchForm.TimeZoneItem> timeZones, IList<string> currencyLayouts)
+            public Result(
+                string heading, 
+                string slug, 
+                string description, 
+                string houseRules, 
+                int defaultBuyin, 
+                string timeZoneId, 
+                string currencySymbol, 
+                string currencyLayout, 
+                IList<TimeZoneItem> timeZones, 
+                IList<string> currencyLayouts)
             {
                 Heading = heading;
                 Slug = slug;

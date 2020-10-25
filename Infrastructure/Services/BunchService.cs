@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
 using PokerBunch.Client.Models.Request;
-using PokerBunch.Client.Models.Response;
 using ApiBunch = PokerBunch.Client.Models.Response.Bunch;
 using Bunch = Core.Entities.Bunch;
 
@@ -20,19 +17,6 @@ namespace Infrastructure.Api.Services
         public Bunch Get(string id)
         {
             var apiBunch = ApiClient.Bunches.Get(id);
-            return ToBunch(apiBunch);
-        }
-
-        public IList<SmallBunch> List()
-        {
-            var apiBunches = ApiClient.Bunches.List();
-            return apiBunches.Select(ToSmallBunch).ToList();
-        }
-
-        public Bunch Add(Bunch bunch)
-        {
-            var postBunch = new BunchAdd(bunch.DisplayName, bunch.Description, bunch.Timezone.Id, bunch.Currency.Symbol, bunch.Currency.Layout);
-            var apiBunch = ApiClient.Bunches.Add(postBunch);
             return ToBunch(apiBunch);
         }
 
@@ -56,11 +40,6 @@ namespace Infrastructure.Api.Services
             var role = ParseRole(b.Role);
             var id = b.Player?.Id;
             return new Bunch(b.Id, b.Name, b.Description, b.HouseRules, timezone, b.DefaultBuyin, currency, role, id);
-        }
-
-        private SmallBunch ToSmallBunch(BunchSmall b)
-        {
-            return new SmallBunch(b.Id, b.Name, b.Description);
         }
 
         private Role ParseRole(string role)

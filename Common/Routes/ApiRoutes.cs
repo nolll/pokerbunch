@@ -2,18 +2,10 @@ namespace PokerBunch.Common.Routes
 {
     public static class ApiRoutes
     {
-        public static class Admin
-        {
-            public const string ClearCache = "admin/clearcache";
-            public const string SendEmail = "admin/sendemail";
-        }
-
         public static class Bunch
         {
             public const string Get = "bunches/{bunchId}";
             public const string Join = "bunches/{bunchId}/join";
-            public const string List = "bunches";
-            public const string ListForCurrentUser = "user/bunches";
         }
 
         public static class Cashgame

@@ -22,6 +22,11 @@ export default {
     location: {
         list: (slug: string) => `/bunches/${slug}/locations`
     },
+    misc: {
+        timezones: {
+            list: '/misc/timezones'
+        }
+    },
     player: {
         list: (slug: string) => `/bunches/${slug}/players`
     },

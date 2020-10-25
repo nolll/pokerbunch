@@ -6,7 +6,7 @@ namespace Core.Entities
         public string DisplayName { get; }
         public string Description { get; }
 
-        public SmallBunch(
+        protected SmallBunch(
             string id, 
             string displayName = null,
             string description = null)
