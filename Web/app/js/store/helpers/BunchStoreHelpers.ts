@@ -26,13 +26,13 @@ export enum BunchStoreActions {
 
 export enum BunchStoreMutations {
     SetBunchData = 'bunch_setBunchData',
-    SetBunchInitialized = 'bunch_setBunchInitialized',
+    SetBunchReady = 'bunch_setBunchReady',
     SetUserBunchesData = 'bunch_setUserBunchesData',
     SetUserBunchesError = 'bunch_setUserBunchesError',
-    SetUserBunchesInitialized = 'bunch_setUserBunchesInitialized',
+    SetUserBunchesReady = 'bunch_setUserBunchesReady',
     SetBunchesData = 'bunch_setBunchesData',
     SetBunchesError = 'bunch_setBunchesError',
-    SetBunchesInitialized = 'bunch_setBunchesInitialized',
+    SetBunchesReady = 'bunch_setBunchesReady',
 }
 
 export interface BunchStoreState{
@@ -46,13 +46,10 @@ export interface BunchStoreState{
     _role: Role;
     _playerId: string | null;
     _bunchReady: boolean;
-    _bunchInitialized: boolean;
     _userBunches: BunchResponse[];
     _userBunchesReady: boolean;
-    _userBunchesInitialized: boolean;
     _bunches: BunchResponse[];
     _bunchesReady: boolean;
-    _bunchesInitialized: boolean;
 }
 
 export interface LoadBunchParams{

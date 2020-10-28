@@ -7,17 +7,23 @@ export enum EventStoreGetters {
 }
 
 export enum EventStoreActions {
-    LoadEvents = 'event_loadEvents'
+    LoadEvents = 'event_loadEvents',
+    AddEvent = 'event_addEvent'
 }
 
 export enum EventStoreMutations {
     SetEventsData = 'event_setEventsData',
-    SetInitialized = 'event_setInitialized'
+    SetSlug = 'event_setSlug',
+    AddEvent = 'event_addEvent'
 }
 
 export interface EventStoreState {
     _slug: string;
     _events: EventResponse[];
     _eventsReady: boolean;
-    _initialized: boolean;
+}
+
+export interface AddEventParams{
+    bunchId: string;
+    name: string;
 }

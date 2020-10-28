@@ -8,8 +8,7 @@ export default {
     state: {
         _slug: '',
         _players: [],
-        _playersReady: false,
-        _initialized: false
+        _playersReady: false
     },
     getters: {
         [PlayerStoreGetters.Slug]: state => state._slug,
@@ -29,8 +28,8 @@ export default {
     },
     actions: {
         async [PlayerStoreActions.LoadPlayers](context, data) {
-            if (!context.state._initialized) {
-                context.commit(PlayerStoreMutations.SetInitialized);
+            if (data.slug !== context.state._slug) {
+                context.commit(PlayerStoreMutations.SetSlug, data.slug);
                 const response = await api.getPlayers(data.slug);
                 context.commit(PlayerStoreMutations.SetPlayersData, response.data);
             }
@@ -41,8 +40,8 @@ export default {
             state._players = players;
             state._playersReady = true;
         },
-        [PlayerStoreMutations.SetInitialized](state) {
-            state._initialized = true;
+        [PlayerStoreMutations.SetSlug](state, slug:string) {
+            state._slug = slug;
         }
     }
 } as StoreOptions<PlayerStoreState>;

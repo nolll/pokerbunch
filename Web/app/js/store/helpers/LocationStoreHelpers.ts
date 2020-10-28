@@ -13,7 +13,7 @@ export enum LocationStoreActions {
 
 export enum LocationStoreMutations {
     SetLocationsData = 'location_setLocationsData',
-    SetInitialized = 'location_setInitialized',
+    SetSlug = 'location_setSlug',
     AddLocation = 'location_addLocation'
 }
 
@@ -21,7 +21,6 @@ export interface LocationStoreState {
     _slug: string;
     _locations: LocationResponse[];
     _locationsReady: boolean;
-    _initialized: boolean;
 }
 
 export interface AddLocationParams{

@@ -1,6 +1,6 @@
 ﻿import { StoreOptions } from 'vuex';
 import api from '@/api';
-import { EventStoreGetters, EventStoreActions, EventStoreMutations, EventStoreState } from '@/store/helpers/EventStoreHelpers';
+import { EventStoreGetters, EventStoreActions, EventStoreMutations, EventStoreState, AddEventParams } from '@/store/helpers/EventStoreHelpers';
 import { EventResponse } from '@/response/EventResponse';
 
 export default {
@@ -8,8 +8,7 @@ export default {
     state: {
         _slug: '',
         _events: [],
-        _eventsReady: false,
-        _initialized: false
+        _eventsReady: false
     },
     getters: {
         [EventStoreGetters.Slug]: state => state._slug,
@@ -18,10 +17,16 @@ export default {
     },
     actions: {
         async [EventStoreActions.LoadEvents](context, data) {
-            if (!context.state._initialized) {
-                context.commit(EventStoreMutations.SetInitialized);
+            if (data.slug !== this.state._slug) {
+                context.commit(EventStoreMutations.SetSlug, data.slug);
                 const response = await api.getEvents(data.slug);
                 context.commit(EventStoreMutations.SetEventsData, response.data);
+            }
+        },
+        async [EventStoreActions.AddEvent](context, data: AddEventParams) {
+            if (context.state._eventsReady) {
+                const response = await api.addEvent(data.bunchId, { name: data.name });
+                context.commit(EventStoreMutations.AddEvent, response.data);
             }
         }
     },
@@ -30,8 +35,11 @@ export default {
             state._events = players;
             state._eventsReady = true;
         },
-        [EventStoreMutations.SetInitialized](state) {
-            state._initialized = true;
+        [EventStoreMutations.SetSlug](state, slug: string) {
+            state._slug = slug;
+        },
+        [EventStoreMutations.AddEvent](state, event) {
+            state._events.push(event);
         }
     }
 } as StoreOptions<EventStoreState>;

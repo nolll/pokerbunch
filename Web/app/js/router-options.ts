@@ -15,6 +15,7 @@ import ChartPage from '@/components/Pages/ChartPage.vue';
 import ListPage from '@/components/Pages/ListPage.vue';
 import FactsPage from '@/components/Pages/FactsPage.vue';
 import PlayerListPage from '@/components/Pages/PlayerListPage.vue';
+import AddEventPage from '@/components/Pages/AddEventPage.vue';
 import EventListPage from '@/components/Pages/EventListPage.vue';
 import LocationListPage from '@/components/Pages/LocationListPage.vue';
 import LocationDetailsPage from '@/components/Pages/LocationDetailsPage.vue';
@@ -42,6 +43,7 @@ const routes: RouteConfig[] = [
     { path: '/bunches/:slug/cashgames/:id', component: CashgameDetailsPage },
     { path: '/bunches/:slug/cashgames/toplist/:year?', component: ToplistPage },
     { path: '/bunches/:slug/players', component: PlayerListPage },
+    { path: '/bunches/:slug/events/add', component: AddEventPage },
     { path: '/bunches/:slug/events', component: EventListPage },
     { path: '/bunches/:slug/locations', component: LocationListPage },
     { path: '/bunches/:slug/locations/add', component: AddLocationPage },

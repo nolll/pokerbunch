@@ -16,5 +16,9 @@ export class EventMixin extends Vue {
         this.$store.dispatch(EventStoreActions.LoadEvents, { slug: this.$route.params.slug });
     }
 
+    protected $_addEvent(name: string) {
+        this.$store.dispatch(EventStoreActions.AddEvent, { bunchId: this.$route.params.slug, name });
+    }
+
     $store: any;
 }

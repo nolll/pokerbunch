@@ -12,7 +12,7 @@ export default {
     clearToken() {
         storage.delete(tokenKey);
     },
-    isLoggedIn: function() {
+    isLoggedIn() {
         return !!this.getToken();
     }
 };

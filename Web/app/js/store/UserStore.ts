@@ -16,8 +16,7 @@ export default {
         _userReady: false,
         _userInitialized: false,
         _users: [],
-        _usersReady: false,
-        _usersInitialized: false
+        _usersReady: false
     },
     getters: {
         [UserStoreGetters.IsSignedIn]: state => state._isSignedIn,
@@ -47,13 +46,13 @@ export default {
             }
         },
         async [UserStoreActions.LoadUsers](context) {
-            context.commit(UserStoreMutations.SetUserInitialized);
             try{
                 const response = await api.getUsers();
                 context.commit(UserStoreMutations.SetUsers, response.data);
             } catch(error){
                 context.commit(UserStoreMutations.SetUsersError);
             }
+            context.commit(UserStoreMutations.SetUsersReady);
         }
     },
     mutations: {
@@ -77,13 +76,9 @@ export default {
         },
         [UserStoreMutations.SetUsers](state, users: User[]) {
             state._users = users;
-            state._usersReady = true;
         },
-        [UserStoreMutations.SetUsersError](state) {
-            state._usersReady = true;
-        },
-        [UserStoreMutations.SetUsersInitialized](state) {
-            state._usersInitialized = true;
+        [UserStoreMutations.SetUsersReady](state, isReady: boolean) {
+            state._usersReady = isReady;
         }
     }
 } as StoreOptions<UserStoreState>;

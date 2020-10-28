@@ -7,8 +7,7 @@ export default {
     namespaced: false,
     state: {
         _timezones: [],
-        _timezonesReady: false,
-        _initialized: false
+        _timezonesReady: false
     },
     getters: {
         [TimezoneStoreGetters.Timezones]: state => state._timezones,
@@ -16,8 +15,7 @@ export default {
     },
     actions: {
         async [TimezoneStoreActions.LoadTimezones](context) {
-            if (!context.state._initialized) {
-                context.commit(TimezoneStoreMutations.SetInitialized);
+            if (context.state._timezones.length === 0) {
                 const response = await api.getTimezones();
                 context.commit(TimezoneStoreMutations.SetTimezonesData, response.data);
             }
@@ -27,9 +25,6 @@ export default {
         [TimezoneStoreMutations.SetTimezonesData](state, timezones: Timezone[]) {
             state._timezones = timezones;
             state._timezonesReady = true;
-        },
-        [TimezoneStoreMutations.SetInitialized](state) {
-            state._initialized = true;
         }
     }
 } as StoreOptions<TimezoneStoreState>;

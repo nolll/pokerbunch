@@ -16,7 +16,7 @@ export default {
         list: '/bunches'
     },
     cashgame: {
-        add: (slug: string) => `/bunches/${slug}/cashgames/add`,
+        add: (slug: string) => `/bunches/${slug}/add-cashgame`,
         details: (slug: string, id: string) => `/bunches/${slug}/cashgames/${id}`,
         edit: (id: string) => `/cashgame/edit/${id}`,
         index: (slug: string) => `/bunches/${slug}/cashgames`,

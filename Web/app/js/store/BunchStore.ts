@@ -17,13 +17,10 @@ export default {
         _role: roles.none,
         _playerId: null,
         _bunchReady: false,
-        _bunchInitialized: false,
         _userBunches: [],
         _userBunchesReady: false,
-        _userBunchesInitialized: false,
         _bunches: [],
-        _bunchesReady: false,
-        _bunchesInitialized: false
+        _bunchesReady: false
     },
     getters: {
         [BunchStoreGetters.Slug]: state => state._slug,
@@ -43,26 +40,24 @@ export default {
     },
     actions: {
         async [BunchStoreActions.LoadBunch](context, params: LoadBunchParams) {
-            if (!context.state._bunchInitialized) {
-                context.commit(BunchStoreMutations.SetBunchInitialized);
+            if (params.slug !== context.state._slug) {
+                context.commit(BunchStoreMutations.SetBunchReady, false);
                 const response = await api.getBunch(params.slug);
                 context.commit(BunchStoreMutations.SetBunchData, response.data);
+                context.commit(BunchStoreMutations.SetBunchReady, true);
             }
         },
         async [BunchStoreActions.LoadUserBunches](context) {
-            if (!context.state._userBunchesInitialized) {
-                context.commit(BunchStoreMutations.SetUserBunchesInitialized);
-                try{
-                    const response = await api.getUserBunches();
-                    context.commit(BunchStoreMutations.SetUserBunchesData, response.data);
-                } catch {
-                    context.commit(BunchStoreMutations.SetUserBunchesError);
-                }
+            try{
+                const response = await api.getUserBunches();
+                context.commit(BunchStoreMutations.SetUserBunchesData, response.data);
+            } catch {
+                context.commit(BunchStoreMutations.SetUserBunchesError);
             }
+            context.commit(BunchStoreMutations.SetUserBunchesReady, true);
         },
         async [BunchStoreActions.LoadBunches](context) {
-            if (!context.state._bunchesInitialized) {
-                context.commit(BunchStoreMutations.SetBunchesInitialized);
+            if (context.state._bunches.length === 0) {
                 try{
                     const response = await api.getBunches();
                     context.commit(BunchStoreMutations.SetBunchesData, response.data);
@@ -83,32 +78,27 @@ export default {
             state._defaultBuyin = bunch.defaultBuyin;
             state._playerId = bunch.player.id;
             state._role = bunch.role;
-            state._bunchReady = true;
         },
-        [BunchStoreMutations.SetBunchInitialized](state) {
-            state._bunchInitialized = true;
+        [BunchStoreMutations.SetBunchReady](state, isReady: boolean) {
+            state._bunchReady = isReady;
         },
         [BunchStoreMutations.SetUserBunchesData](state, bunches: BunchResponse[]) {
             state._userBunches = bunches;
-            state._userBunchesReady = true;
+        },
+        [BunchStoreMutations.SetUserBunchesReady](state, isReady: boolean) {
+            state._userBunchesReady = isReady;
         },
         [BunchStoreMutations.SetUserBunchesError](state) {
             state._userBunches = [];
-            state._userBunchesReady = true;
-        },
-        [BunchStoreMutations.SetUserBunchesInitialized](state) {
-            state._userBunchesInitialized = true;
         },
         [BunchStoreMutations.SetBunchesData](state, bunches: BunchResponse[]) {
             state._bunches = bunches;
-            state._bunchesReady = true;
         },
         [BunchStoreMutations.SetBunchesError](state) {
             state._bunches = [];
-            state._bunchesReady = true;
         },
-        [BunchStoreMutations.SetBunchesInitialized](state) {
-            state._bunchesInitialized = true;
+        [BunchStoreMutations.SetBunchesReady](state, isReady: boolean) {
+            state._bunchReady = isReady;
         }
     }
 } as StoreOptions<BunchStoreState>;

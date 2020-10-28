@@ -19,7 +19,7 @@ export default {
         _gameSortOrder: CashgameSortOrder.Date,
         _games: [],
         _playerSortOrder: CashgamePlayerSortOrder.Winnings,
-        _initialized: false,
+        _slug: '',
         _selectedYear: null,
         _isPageNavExpanded: false,
         _isYearNavExpanded: false,
@@ -66,8 +66,8 @@ export default {
     },
     actions: {
         async [GameArchiveStoreActions.LoadGames](context, data) {
-            if (!context.state._initialized) {
-                context.commit(GameArchiveStoreMutations.SetInitialized);
+            if (data.slug !== context.state._slug) {
+                context.commit(GameArchiveStoreMutations.SetSlug, data.slug);
                 const response = await api.getGames(data.slug);
                 context.commit(GameArchiveStoreMutations.SetData, response.data);
             }
@@ -107,8 +107,8 @@ export default {
         [GameArchiveStoreMutations.SetPlayerSortorder](state, sortOrder) {
             state._playerSortOrder = sortOrder;
         },
-        [GameArchiveStoreMutations.SetInitialized](state) {
-            state._initialized = true;
+        [GameArchiveStoreMutations.SetSlug](state, slug: string) {
+            state._slug = slug;
         },
         [GameArchiveStoreMutations.SetSelectedYear](state, year) {
             state._selectedYear = year ? year : null;

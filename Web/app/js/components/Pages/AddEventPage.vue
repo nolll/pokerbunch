@@ -6,13 +6,13 @@
 
         <PageSection>
             <Block>
-                <PageHeading text="Add Location" />
+                <PageHeading text="Add Event" />
             </Block>
 
             <Block>
                 <div class="field">
-                    <label class="label" for="location-name">Name</label>
-                    <input class="textfield" v-model="locationName" ref="locationName" id="location-name" type="text">
+                    <label class="label" for="event-name">Name</label>
+                    <input class="textfield" v-model="eventName" ref="eventName" id="event-name" type="text">
                 </div>
                 <div class="buttons">
                     <CustomButton v-on:click="add" type="action" text="Add" />
@@ -25,7 +25,7 @@
 
 <script lang="ts">
     import { Component, Mixins, Prop, Watch } from 'vue-property-decorator';
-    import { BunchMixin, LocationMixin, UserMixin } from '@/mixins';
+    import { BunchMixin, EventMixin, UserMixin } from '@/mixins';
     import Layout from '@/components/Layouts/Layout.vue';
     import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
     import Block from '@/components/Common/Block.vue';
@@ -44,22 +44,22 @@
             PageSection
         }
     })
-    export default class AddLocationPage extends Mixins(
+    export default class AddEventPage extends Mixins(
         BunchMixin,
-        LocationMixin,
+        EventMixin,
         UserMixin
     ) {
-        locationName = '';
+        eventName = '';
 
         init() {
             this.$_requireUser();
             this.$_loadBunch();
-            this.$_loadLocations();
+            this.$_loadEvents();
         }
 
         add(){
-            if(this.locationName.length > 0){
-                this.$_addLocation(this.locationName);
+            if(this.eventName.length > 0){
+                this.$_addEvent(this.eventName);
                 this.redirect();
             }
         }
@@ -73,7 +73,7 @@
         }
 
         get ready() {
-            return this.$_bunchReady && this.$_locationsReady;
+            return this.$_bunchReady && this.$_eventsReady;
         }
 
         mounted() {

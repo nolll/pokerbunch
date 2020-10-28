@@ -11,11 +11,9 @@ export enum TimezoneStoreActions {
 
 export enum TimezoneStoreMutations {
     SetTimezonesData = 'timezone_setTimezonesData',
-    SetInitialized = 'timezone_setInitialized'
 }
 
 export interface TimezoneStoreState {
     _timezones: Timezone[];
     _timezonesReady: boolean;
-    _initialized: boolean;
 }

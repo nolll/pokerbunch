@@ -8,8 +8,7 @@ export default {
     state: {
         _slug: '',
         _locations: [],
-        _locationsReady: false,
-        _initialized: false
+        _locationsReady: false
     },
     getters: {
         [LocationStoreGetters.Slug]: state => state._slug,
@@ -18,8 +17,8 @@ export default {
     },
     actions: {
         async [LocationStoreActions.LoadLocations](context, data) {
-            if (!context.state._initialized) {
-                context.commit(LocationStoreMutations.SetInitialized);
+            if (data.slug !== context.state._slug) {
+                context.commit(LocationStoreMutations.SetSlug, data.slug);
                 const response = await api.getLocations(data.slug);
                 context.commit(LocationStoreMutations.SetLocationsData, response.data);
             }
@@ -36,8 +35,8 @@ export default {
             state._locations = players;
             state._locationsReady = true;
         },
-        [LocationStoreMutations.SetInitialized](state) {
-            state._initialized = true;
+        [LocationStoreMutations.SetSlug](state, slug:string) {
+            state._slug = slug;
         },
         [LocationStoreMutations.AddLocation](state, location) {
             state._locations.push(location);

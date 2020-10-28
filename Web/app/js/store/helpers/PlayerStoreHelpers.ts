@@ -13,12 +13,11 @@ export enum PlayerStoreActions {
 
 export enum PlayerStoreMutations {
     SetPlayersData = 'player_setPlayersData',
-    SetInitialized = 'player_setInitialized'
+    SetSlug = 'player_setSlug'
 }
 
 export interface PlayerStoreState {
     _slug: string;
     _players: Player[];
     _playersReady: boolean;
-    _initialized: boolean;
 }

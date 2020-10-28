@@ -35,7 +35,7 @@ export enum GameArchiveStoreMutations {
     SetData = 'gameArchive_setData',
     SetGameSortorder = 'gameArchive_setGameSortorder',
     SetPlayerSortorder = 'gameArchive_setPlayerSortorder',
-    SetInitialized = 'gameArchive_setInitialized',
+    SetSlug = 'gameArchive_setSlug',
     SetSelectedYear = 'gameArchive_setSelectedYear',
     SetPageNavExpanded = 'gameArchive_setPageNavExpanded',
     SetYearNavExpanded = 'gameArchive_setYearNavExpanded'
@@ -45,7 +45,7 @@ export interface GameArchiveStoreState{
     _gameSortOrder: CashgameSortOrder;
     _games: ArchiveCashgame[];
     _playerSortOrder: CashgamePlayerSortOrder;
-    _initialized: boolean;
+    _slug: string;
     _selectedYear: number | null;
     _isPageNavExpanded: boolean;
     _isYearNavExpanded: boolean;
