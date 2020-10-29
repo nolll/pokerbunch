@@ -12,7 +12,7 @@
 
         <PageSection>
             <Block>
-                <MatrixTable />
+                <MatrixTable :slug="slug" :games="games" :players="players" />
             </Block>
         </PageSection>
     </Layout>
@@ -43,6 +43,18 @@
         UserMixin,
         GameArchiveMixin
     ) {
+        get slug(){
+            return this.$_slug;
+        }
+
+        get games(){
+            return this.$_sortedGames;
+        }
+
+        get players(){
+            return this.$_sortedPlayers;
+        }
+
         get ready() {
             return this.$_bunchReady && this.$_gamesReady;
         }

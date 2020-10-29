@@ -1,5 +1,5 @@
 ﻿<template>
-    <div class="matrix" v-if="ready">
+    <div class="matrix" v-if="hasGames">
         <TableList>
             <thead>
                 <tr>
@@ -23,6 +23,8 @@
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
     import TableList from '@/components/Common/TableList/TableList.vue';
     import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+    import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+    import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 
     @Component({
         components: {
@@ -36,20 +38,12 @@
         BunchMixin,
         GameArchiveMixin
     ) {
-        get slug(){
-            return this.$_slug;
-        }
+        @Prop() readonly slug!: string;
+        @Prop() readonly games!: ArchiveCashgame[];
+        @Prop() readonly players!: CashgameListPlayerData[];
 
-        get games(){
-            return this.$_sortedGames;
-        }
-
-        get players(){
-            return this.$_sortedPlayers;
-        }
-
-        get ready() {
-            return this.$_bunchReady && this.$_sortedGames.length > 0;
+        get hasGames() {
+            return this.$_sortedGames.length > 0;
         }
     }
 </script>

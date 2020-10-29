@@ -69,7 +69,7 @@ export class GameArchiveMixin extends Vue {
 
     protected get $_routeYear() {
         if (this.$route.params.year)
-            return parseInt(this.$route.params.year);
+            return parseInt(this.$route.params.year, 10);
         return null;
     }
 
