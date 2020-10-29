@@ -1,8 +1,7 @@
 ﻿<template>
     <div>
         <CustomLink :url="url">{{name}}</CustomLink>,
-        {{location}},
-        {{date}}
+        {{details}}
     </div>
 </template>
 
@@ -34,6 +33,16 @@
 
         get url() {
             return urls.event.details(this.event.id.toString());
+        }
+
+        get details(){
+            return this.hasGames
+                ? `${this.location}, ${this.date}`
+                : 'No games';
+        }
+
+        get hasGames(){
+            return !!this.event.location && !!this.event.startDate;
         }
     }
 </script>

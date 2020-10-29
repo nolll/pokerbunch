@@ -69,7 +69,7 @@
         }
 
         redirect() {
-            this.$router.push(urls.location.list(this.$_slug));
+            this.$router.push(urls.event.list(this.$_slug));
         }
 
         get ready() {
