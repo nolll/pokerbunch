@@ -26,13 +26,6 @@ namespace Infrastructure.Api.Services
             return apiPlayers.Select(CreatePlayer).ToList();
         }
         
-        public string Add(Player player)
-        {
-            var postPlayer = new PlayerAdd(player.DisplayName);
-            var returnedPlayer = ApiClient.Players.Add(player.BunchId, postPlayer);
-            return CreatePlayer(returnedPlayer).Id;
-        }
-
         public void Delete(string playerId)
         {
             ApiClient.Players.Delete(playerId);

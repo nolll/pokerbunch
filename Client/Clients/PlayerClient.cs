@@ -23,11 +23,6 @@ namespace PokerBunch.Client.Clients
             return ApiConnection.Get<IList<Player>>(new ApiBunchPlayersUrl(bunchId));
         }
 
-        public Player Add(string bunchId, PlayerAdd player)
-        {
-            return ApiConnection.Post<Player>(new ApiBunchPlayersUrl(bunchId), player);
-        }
-
         public void Delete(string playerId)
         {
             ApiConnection.Delete(new ApiPlayerUrl(playerId));

@@ -20,5 +20,9 @@ export class PlayerMixin extends Vue {
         this.$store.dispatch(PlayerStoreActions.LoadPlayers, { slug: this.$route.params.slug });
     }
 
+    protected $_addPlayer(name: string) {
+        this.$store.dispatch(PlayerStoreActions.AddPlayer, { bunchId: this.$route.params.slug, name });
+    }
+
     $store: any;
 }

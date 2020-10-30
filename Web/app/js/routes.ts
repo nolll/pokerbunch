@@ -11,6 +11,7 @@ import CashgameDetailsPage from '@/components/Pages/CashgameDetailsPage.vue';
 import OverviewPage from '@/components/Pages/OverviewPage.vue';
 import MatrixPage from '@/components/Pages/MatrixPage.vue';
 import ToplistPage from '@/components/Pages/ToplistPage.vue';
+import AddPlayerPage from '@/components/Pages/AddPlayerPage.vue';
 import ChartPage from '@/components/Pages/ChartPage.vue';
 import ListPage from '@/components/Pages/ListPage.vue';
 import FactsPage from '@/components/Pages/FactsPage.vue';
@@ -29,8 +30,8 @@ import ApiDocsPage from '@/components/Pages/ApiDocsPage.vue';
 
 const routes: RouteConfig[] = [
     { path: urls.home, component: HomePage },
-    { path: '/admin/tools', component: AdminToolsPage },
-    { path: '/apidocs', component: ApiDocsPage },
+    { path: urls.admin.tools, component: AdminToolsPage },
+    { path: urls.api.docs, component: ApiDocsPage },
     { path: '/auth/login', component: LoginPage },
     { path: '/bunch/add', component: AddBunchPage },
     { path: '/bunches', component: BunchListPage },
@@ -42,6 +43,7 @@ const routes: RouteConfig[] = [
     { path: '/bunches/:slug/cashgames/matrix/:year?', component: MatrixPage },
     { path: '/bunches/:slug/cashgames/:id', component: CashgameDetailsPage },
     { path: '/bunches/:slug/cashgames/toplist/:year?', component: ToplistPage },
+    { path: '/bunches/:slug/players/add', component: AddPlayerPage },
     { path: '/bunches/:slug/players', component: PlayerListPage },
     { path: '/bunches/:slug/events/add', component: AddEventPage },
     { path: '/bunches/:slug/events', component: EventListPage },

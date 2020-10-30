@@ -1,6 +1,6 @@
 ﻿import { StoreOptions } from 'vuex';
 import api from '@/api';
-import { PlayerStoreGetters, PlayerStoreActions, PlayerStoreMutations, PlayerStoreState } from '@/store/helpers/PlayerStoreHelpers';
+import { PlayerStoreGetters, PlayerStoreActions, PlayerStoreMutations, PlayerStoreState, AddPlayerParams } from '@/store/helpers/PlayerStoreHelpers';
 import { Player } from '@/models/Player';
 
 export default {
@@ -33,6 +33,12 @@ export default {
                 const response = await api.getPlayers(data.slug);
                 context.commit(PlayerStoreMutations.SetPlayersData, response.data);
             }
+        },
+        async [PlayerStoreActions.AddPlayer](context, data: AddPlayerParams) {
+            if (context.state._playersReady) {
+                const response = await api.addPlayer(data.bunchId, { name: data.name });
+                context.commit(PlayerStoreMutations.AddPlayer, response.data);
+            }
         }
     },
     mutations: {
@@ -42,6 +48,9 @@ export default {
         },
         [PlayerStoreMutations.SetSlug](state, slug:string) {
             state._slug = slug;
+        },
+        [PlayerStoreMutations.AddPlayer](state, player) {
+            state._players.push(player);
         }
     }
 } as StoreOptions<PlayerStoreState>;

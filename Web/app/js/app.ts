@@ -2,7 +2,7 @@ import vue from 'vue';
 import vuex from 'vuex';
 import VueRouter from 'vue-router';
 import rootStore from './store/RootStore';
-import routerOptions from './router-options';
+import routerOptions from './routes';
 
 vue.use(vuex);
 const store = new vuex.Store(rootStore);

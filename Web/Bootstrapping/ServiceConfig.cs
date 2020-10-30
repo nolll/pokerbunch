@@ -109,7 +109,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<InvitePlayer>();
             _services.AddScoped<InvitePlayerForm>();
             _services.AddScoped<InvitePlayerConfirmation>();
-            _services.AddScoped<AddPlayer>();
             _services.AddScoped<DeletePlayer>();
         }
 

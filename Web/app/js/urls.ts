@@ -34,7 +34,7 @@ export default {
         list: (slug: string) => `/bunches/${slug}/locations`
     },
     player: {
-        add: (slug: string) => `/player/add/${slug}`,
+        add: (slug: string) => `/bunches/${slug}/players/add`,
         details: (id: string) => `/player/details/${id}`,
         list: (slug: string) => `/bunches/${slug}/players`
     },

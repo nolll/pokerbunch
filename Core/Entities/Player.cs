@@ -30,17 +30,7 @@ namespace Core.Entities
 	        Role = role;
 	        Color = color ?? DefaultColor;
 	    }
-
-        public static Player NewWithoutUser(string bunchId, string displayName, Role role = Role.Player, string color = null)
-        {
-            return new Player(bunchId, "", "", "", displayName, role, color);
-        }
-
-        public static Player NewWithUser(string bunchId, string userId, string userName, Role role = Role.Player, string color = null)
-        {
-            return new Player(bunchId, "", userId, userName, null, role, color);
-        }
-
+        
         public bool IsInRole(Role requiredRole)
         {
             return Role >= requiredRole;
