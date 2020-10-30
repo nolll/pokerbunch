@@ -35,12 +35,6 @@ namespace Infrastructure.Api.Services
             return null;
         }
 
-        public IList<ListCashgame> EventList(string eventId)
-        {
-            var apiCashgames = ApiClient.Cashgames.EventList(eventId);
-            return apiCashgames.Select(CreateListCashgame).ToList();
-        }
-
         public IList<ListCashgame> PlayerList(string playerId)
         {
             var apiCashgames = ApiClient.Cashgames.PlayerList(playerId);

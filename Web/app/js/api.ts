@@ -30,6 +30,7 @@ export default {
     getPlayers: (slug: string) => apiClient.get<Player[]>(apiUrls.player.list(slug)),
     addPlayer: (slug: string, data: object) => apiClient.post<Player>(apiUrls.player.list(slug), data),
     getGames: (slug: string, year?: number) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.list(slug, year)),
+    getEventGames: (slug: string, eventId: string) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.listByEvent(slug, eventId)),
     buyin: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     report: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
     cashout: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),

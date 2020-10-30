@@ -24,7 +24,7 @@ export default {
     },
     event: {
         add: (slug: string) => `/bunches/${slug}/events/add`,
-        details: (id: string) => `/events/${id}`,
+        details: (slug: string, id: string) => `/bunches/${slug}/events/${id}`,
         list: (slug: string) => `/bunches/${slug}/events`
     },
     home: '/',

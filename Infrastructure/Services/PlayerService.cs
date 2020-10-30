@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
@@ -20,12 +18,6 @@ namespace Infrastructure.Api.Services
             return CreatePlayer(apiPlayer);
         }
 
-        public IList<Player> List(string bunchId)
-        {
-            var apiPlayers = ApiClient.Players.List(bunchId);
-            return apiPlayers.Select(CreatePlayer).ToList();
-        }
-        
         public void Delete(string playerId)
         {
             ApiClient.Players.Delete(playerId);

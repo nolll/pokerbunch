@@ -19,10 +19,5 @@ namespace Core.Services
                 return "+" + str;
             return str;
         }
-
-        public static string FormatWinRate(Money winRate)
-        {
-            return FormatWinnings(winRate) + "/h";
-        }
     }
 }

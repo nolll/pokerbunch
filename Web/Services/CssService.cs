@@ -9,7 +9,7 @@ namespace Web.Services
             return GetWinningsCssClass(winnings.Amount);
         }
 
-        public static string GetWinningsCssClass(int winnings)
+        private static string GetWinningsCssClass(int winnings)
         {
             if (winnings == 0)
                 return string.Empty;

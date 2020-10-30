@@ -3,12 +3,12 @@ import { CashgameListPlayerData } from './models/CashgameListPlayerData';
 import { CashgamePlayerSortOrder } from './models/CashgamePlayerSortOrder';
 
 export default {
-    sort(players: CashgameListPlayerData[], sortOrder: CashgamePlayerSortOrder) {
+    sort(players: CashgameListPlayerData[], sortOrder?: CashgamePlayerSortOrder) {
         return players.slice().sort(getPlayersCompareFunc(sortOrder)).reverse();
     }
 };
 
-function getPlayersCompareFunc(sortOrder: CashgamePlayerSortOrder) {
+function getPlayersCompareFunc(sortOrder?: CashgamePlayerSortOrder) {
     if (sortOrder === CashgamePlayerSortOrder.Buyin)
         return compareBuyin;
     if (sortOrder === CashgamePlayerSortOrder.Stack)

@@ -91,13 +91,9 @@ namespace Web.Bootstrapping
             _services.AddScoped<JoinBunch>();
             _services.AddScoped<JoinBunchConfirmation>();
 
-            // Events
-            _services.AddScoped<EventDetails>();
-
             // Cashgame
             _services.AddScoped<AddCashgameForm>();
             _services.AddScoped<AddCashgame>();
-            _services.AddScoped<EventMatrix>();
             _services.AddScoped<EditCashgameForm>();
             _services.AddScoped<EditCashgame>();
             _services.AddScoped<DeleteCashgame>();

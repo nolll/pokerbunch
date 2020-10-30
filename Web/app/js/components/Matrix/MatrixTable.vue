@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Mixins } from 'vue-property-decorator';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
     import MatrixColumn from './MatrixColumn.vue';
     import MatrixRow from './MatrixRow.vue';
     import { BunchMixin, GameArchiveMixin } from '@/mixins';
@@ -25,6 +25,8 @@
     import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
     import { ArchiveCashgame } from '@/models/ArchiveCashgame';
     import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+    import archiveHelper from '@/ArchiveHelper';
+    import playerSorter from '@/PlayerSorter';
 
     @Component({
         components: {
@@ -34,16 +36,16 @@
             TableListColumnHeader
         }
     })
-    export default class MatrixTable extends Mixins(
-        BunchMixin,
-        GameArchiveMixin
-    ) {
+    export default class MatrixTable extends Vue{
         @Prop() readonly slug!: string;
         @Prop() readonly games!: ArchiveCashgame[];
-        @Prop() readonly players!: CashgameListPlayerData[];
 
         get hasGames() {
-            return this.$_sortedGames.length > 0;
+            return this.games.length > 0;
+        }
+
+        get players(){
+            return playerSorter.sort(archiveHelper.getPlayers(this.games));
         }
     }
 </script>

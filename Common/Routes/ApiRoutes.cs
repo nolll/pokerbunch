@@ -14,13 +14,11 @@ namespace PokerBunch.Common.Routes
             public const string ListByBunch = "bunches/{bunchId}/cashgames";
             public const string ListByBunchAndYear = "bunches/{bunchId}/cashgames/{year}";
             public const string ListCurrentByBunch = "bunches/{bunchId}/cashgames/current";
-            public const string ListByEvent = "events/{eventId}/cashgames";
             public const string ListByPlayer = "players/{playerId}/cashgames";
         }
         
         public static class Event
         {
-            public const string Get = "events/{eventId}";
             public const string ListByBunch = "bunches/{bunchId}/events";
         }
 
@@ -34,7 +32,6 @@ namespace PokerBunch.Common.Routes
         {
             public const string Get = "players/{playerId}";
             public const string Invite = "players/{playerId}/invite";
-            public const string ListByBunch = "bunches/{bunchId}/players";
         }
 
         public static class Profile

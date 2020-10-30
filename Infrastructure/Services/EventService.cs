@@ -14,12 +14,6 @@ namespace Infrastructure.Api.Services
         {
         }
 
-        public Event Get(string id)
-        {
-            var apiEvent = ApiClient.Events.Get(id);
-            return CreateEvent(apiEvent);
-        }
-
         public IList<Event> ListByBunch(string bunchId)
         {
             var apiEvents = ApiClient.Events.ListByBunch(bunchId);

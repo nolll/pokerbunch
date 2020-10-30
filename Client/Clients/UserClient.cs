@@ -1,5 +1,4 @@
 using PokerBunch.Client.Connection;
-using PokerBunch.Client.Models.Request;
 using PokerBunch.Client.Models.Response;
 using PokerBunch.Common.Urls.ApiUrls;
 

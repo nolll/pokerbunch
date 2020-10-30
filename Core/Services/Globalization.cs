@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Core.Entities;
 
 namespace Core.Services
 {
@@ -32,16 +31,6 @@ namespace Core.Services
             if (minutes == 1)
                 return "1 minute";
             return minutes + " minutes";
-        }
-
-        public static string FormatShortDate(DateTime dateTime, bool includeYear = false)
-        {
-            return dateTime.ToString(GetShortDateFormat(includeYear), CultureInfo.InvariantCulture);
-        }
-
-        public static string FormatShortDate(Date date, bool includeYear = false)
-        {
-            return FormatShortDate(date.UtcMidninght, includeYear);
         }
 
         public static string FormatShortDateTime(DateTime dateTime, bool includeYear = false)
@@ -83,11 +72,6 @@ namespace Core.Services
                     "{AMOUNT}{SYMBOL}",
                     "{AMOUNT} {SYMBOL}"
                 };
-        }
-
-        private static string GetShortDateFormat(bool includeYear = false)
-        {
-            return includeYear ? "MMM d yyyy" : "MMM d";
         }
 
         private static string GetShortDateTimeFormat(bool includeYear = false)

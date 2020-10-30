@@ -40,15 +40,6 @@ namespace Tests.Core.Services
 			Assert.AreEqual(expected, result);
 		}
 
-        [TestCase(false, "Feb 1")]
-        [TestCase(true, "Feb 1 2010")]
-		public void FormatShortDate(bool includeYear, string expected)
-        {
-			var dateTime = DateTime.Parse("2010-02-01");
-            var result = Globalization.FormatShortDate(dateTime, includeYear);
-			Assert.AreEqual(expected, result);
-		}
-
         [TestCase(false, "Feb 1 12:28")]
         [TestCase(true, "Feb 1 2010 12:28")]
 		public void FormatShortDateTime(bool includeYear, string expected)

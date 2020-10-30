@@ -12,11 +12,6 @@ namespace PokerBunch.Client.Clients
         {
         }
 
-        public Event Get(string id)
-        {
-            return ApiConnection.Get<Event>(new ApiEventUrl(id));
-        }
-
         public IList<Event> ListByBunch(string bunchId)
         {
             return ApiConnection.Get<IList<Event>>(new ApiBunchEventsUrl(bunchId));

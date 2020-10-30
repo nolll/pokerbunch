@@ -22,11 +22,6 @@ namespace PokerBunch.Client.Clients
             return ApiConnection.Get<IList<CashgameSmall>>(new ApiBunchCashgamesCurrentUrl(bunchId));
         }
 
-        public IList<CashgameSmall> EventList(string eventId)
-        {
-            return ApiConnection.Get<IList<CashgameSmall>>(new ApiEventCashgamesUrl(eventId));
-        }
-
         public IList<CashgameSmall> PlayerList(string playerId)
         {
             return ApiConnection.Get<IList<CashgameSmall>>(new ApiPlayerCashgamesUrl(playerId));

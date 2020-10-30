@@ -18,6 +18,7 @@ import FactsPage from '@/components/Pages/FactsPage.vue';
 import PlayerListPage from '@/components/Pages/PlayerListPage.vue';
 import AddEventPage from '@/components/Pages/AddEventPage.vue';
 import EventListPage from '@/components/Pages/EventListPage.vue';
+import EventDetailsPage from '@/components/Pages/EventDetailsPage.vue';
 import LocationListPage from '@/components/Pages/LocationListPage.vue';
 import LocationDetailsPage from '@/components/Pages/LocationDetailsPage.vue';
 import AddLocationPage from '@/components/Pages/AddLocationPage.vue';
@@ -47,6 +48,7 @@ const routes: RouteConfig[] = [
     { path: '/bunches/:slug/players', component: PlayerListPage },
     { path: '/bunches/:slug/events/add', component: AddEventPage },
     { path: '/bunches/:slug/events', component: EventListPage },
+    { path: '/bunches/:slug/events/:id', component: EventDetailsPage },
     { path: '/bunches/:slug/locations', component: LocationListPage },
     { path: '/bunches/:slug/locations/add', component: AddLocationPage },
     { path: '/bunches/:slug/locations/:id', component: LocationDetailsPage },

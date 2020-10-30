@@ -8,7 +8,6 @@ namespace Core.Services
 	    DetailedCashgame GetDetailedById(string id);
 	    DetailedCashgame GetCurrent(string bunchId);
 
-        IList<ListCashgame> EventList(string eventId);
         IList<ListCashgame> PlayerList(string playerId);
         
         void DeleteGame(string id);

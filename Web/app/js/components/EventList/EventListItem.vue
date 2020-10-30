@@ -32,7 +32,7 @@
         }
 
         get url() {
-            return urls.event.details(this.event.id.toString());
+            return urls.event.details(this.event.bunchId, this.event.id.toString());
         }
 
         get details(){

@@ -12,7 +12,7 @@
 
         <PageSection>
             <Block>
-                <MatrixTable :slug="slug" :games="games" :players="players" />
+                <MatrixTable :slug="slug" :games="games" />
             </Block>
         </PageSection>
     </Layout>
@@ -49,10 +49,6 @@
 
         get games(){
             return this.$_sortedGames;
-        }
-
-        get players(){
-            return this.$_sortedPlayers;
         }
 
         get ready() {
