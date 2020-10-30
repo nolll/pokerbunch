@@ -93,7 +93,6 @@ namespace Web.Bootstrapping
 
             // Events
             _services.AddScoped<EventDetails>();
-            _services.AddScoped<AddEvent>();
 
             // Cashgame
             _services.AddScoped<AddCashgameForm>();
