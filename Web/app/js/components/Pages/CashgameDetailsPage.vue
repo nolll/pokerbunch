@@ -37,12 +37,14 @@
                         <ValueListValue v-if="showDuration">{{formattedDuration}}</ValueListValue>
                         <ValueListKey>Location</ValueListKey>
                         <ValueListValue><CustomLink :url="locationUrl">{{locationName}}</CustomLink></ValueListValue>
+                        <ValueListKey v-if="isPartOfEvent">Event</ValueListKey>
+                        <ValueListValue v-if="isPartOfEvent"><CustomLink :url="eventUrl">{{eventName}}</CustomLink></ValueListValue>
                         <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
                         <ValueListValue v-if="isPlayerSelectionEnabled"><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId" /></ValueListValue>
                     </ValueList>
                 </Block>
                 <Block v-if="canEdit">
-                    <CustomLink :url="editUrl" cssClasses="button button--action">Edit Cashgame</CustomLink>
+                    <CustomButton @click="onEdit" type="action" text="Edit Cashgame" />
                 </Block>
             </template>
         </PageSection>
@@ -71,6 +73,7 @@
     import GameChart from '@/components/CurrentGame/GameChart.vue';
     import Block from '@/components/Common/Block.vue';
     import CustomLink from '@/components/Common/CustomLink.vue';
+    import CustomButton from '@/components/Common/CustomButton.vue';
     import PageHeading from '@/components/Common/PageHeading.vue';
     import PageSection from '@/components/Common/PageSection.vue';
     import ValueList from '@/components/Common/ValueList/ValueList.vue';
@@ -98,6 +101,7 @@
             PageHeading,
             PageSection,
             CustomLink,
+            CustomButton,
             ValueList,
             ValueListKey,
             ValueListValue
@@ -117,6 +121,7 @@
         cashoutFormVisible = false;
         selectedPlayerId: string = '';
         refreshHandle = 0;
+        isEditing = false;
 
         get title() {
             return `Cashgame ${this.formattedDate}`;
@@ -210,14 +215,26 @@
             return urls.location.details(this.$_slug, this.cashgame.location.id);
         }
 
-        get canEdit() {
-            return this.$_isManager;
+        get isPartOfEvent(){
+            return !!this.cashgame?.event;
         }
 
-        get editUrl() {
+        get eventName(){
+            return this.cashgame?.event?.name || '';
+        }
+
+        get eventUrl() {
             if(!this.cashgame)
                 return '';
-            return urls.cashgame.edit(this.cashgame.id);
+
+            if(!this.cashgame.event)
+                return '';
+            
+            return urls.event.details(this.$_slug, this.cashgame.event.id);
+        }
+
+        get canEdit() {
+            return this.$_isManager;
         }
 
         get playersInGame(){
@@ -364,6 +381,10 @@
                 this.selectedPlayerId = id;
         }
 
+        onEdit(){
+            this.isEditing = true;
+        }
+
         async onDeleteAction(id: string){
             if(!this.cashgame)
                 return;
@@ -400,10 +421,9 @@
 
         async loadCashgame(){
             const response = await api.getCashgame(this.$route.params.id);
-            const cashgame = response.status === 200
+            this.cashgame = response.status === 200
                 ? new DetailedCashgame(response.data)
                 : null;
-            this.cashgame = cashgame;
         }
 
         async refresh(){
