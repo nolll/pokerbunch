@@ -28,11 +28,11 @@
         }
 
         getDisplayName(layout: string){
-            return layout.replace('{SYMBOL}', this.symbol).replace('{AMOUNT}', '123')
+            return layout.replace('{SYMBOL}', this.symbol).replace('{AMOUNT}', '123');
         }
 
         updateValue(event: any){
-            this.$emit('input', event.target.value)
+            this.$emit('input', event.target.value);
         }
     }
 </script>

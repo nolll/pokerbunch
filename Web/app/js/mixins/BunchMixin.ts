@@ -24,6 +24,10 @@ export class BunchMixin extends Vue {
         return this.$store.getters[BunchStoreGetters.Name];
     }
 
+    protected get $_playerId(): string {
+        return this.$store.getters[BunchStoreGetters.PlayerId];
+    }
+
     protected get $_userBunches(): BunchResponse[] {
         return this.$store.getters[BunchStoreGetters.UserBunches];
     }

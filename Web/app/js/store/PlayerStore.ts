@@ -2,6 +2,7 @@
 import api from '@/api';
 import { PlayerStoreGetters, PlayerStoreActions, PlayerStoreMutations, PlayerStoreState, AddPlayerParams } from '@/store/helpers/PlayerStoreHelpers';
 import { Player } from '@/models/Player';
+import { PlayerResponse } from '@/response/PlayerResponse';
 
 export default {
     namespaced: false,
@@ -14,7 +15,7 @@ export default {
         [PlayerStoreGetters.Slug]: state => state._slug,
         [PlayerStoreGetters.Players]: state => state._players,
         [PlayerStoreGetters.PlayersReady]: state => state._playersReady,
-        [PlayerStoreGetters.GetPlayer]: (state) => (id: number) => {
+        [PlayerStoreGetters.GetPlayer]: (state) => (id: string) => {
             if (!state._players)
                 return null;
             let i;
@@ -31,12 +32,14 @@ export default {
             if (data.slug !== context.state._slug) {
                 context.commit(PlayerStoreMutations.SetSlug, data.slug);
                 const response = await api.getPlayers(data.slug);
-                context.commit(PlayerStoreMutations.SetPlayersData, response.data);
+                const players = response.data.map((o) => mapPlayer(o));
+                context.commit(PlayerStoreMutations.SetPlayersData, players);
             }
         },
         async [PlayerStoreActions.AddPlayer](context, data: AddPlayerParams) {
             if (context.state._playersReady) {
                 const response = await api.addPlayer(data.bunchId, { name: data.name });
+                const player = mapPlayer(response.data);
                 context.commit(PlayerStoreMutations.AddPlayer, response.data);
             }
         }
@@ -54,3 +57,11 @@ export default {
         }
     }
 } as StoreOptions<PlayerStoreState>;
+
+function mapPlayer(response: PlayerResponse): Player {
+    return {
+        id: response.id.toString(),
+        name: response.name,
+        color: response.color
+    };
+}

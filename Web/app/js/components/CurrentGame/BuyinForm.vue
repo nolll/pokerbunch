@@ -2,11 +2,11 @@
     <div class="form">
         <div class="field">
             <label class="label" for="buyin-amount">Amount</label>
-            <input class="numberfield" v-model="amount" v-on:focus="focus" ref="buyin" id="buyin-amount" type="text" pattern="[0-9]*">
+            <input class="numberfield" v-model.number="amount" v-on:focus="focus" ref="buyin" id="buyin-amount" type="text" pattern="[0-9]*">
         </div>
-        <div class="field" v-if="$_isInGame">
+        <div class="field" v-if="isPlayerInGame">
             <label class="label" for="buyin-stack">Stack Size</label>
-            <input class="numberfield" v-model="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*">
+            <input class="numberfield" v-model.number="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*">
         </div>
         <div class="buttons">
             <CustomButton v-on:click="buyin" type="action" text="Buy In" />
@@ -16,44 +16,24 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Mixins, Watch } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
     import validate from '@/validate';
     import forms from '@/forms';
     import CustomButton from '@/components/Common/CustomButton.vue';
-    import { BunchMixin, CashgameMixin, PlayerMixin } from '@/mixins';
 
     @Component({
         components: {
             CustomButton
         }
     })
-    export default class BuyinForm extends Mixins(
-        BunchMixin,
-        CashgameMixin,
-        PlayerMixin
-    ) {
-        @Prop() readonly isActive!: boolean;
+    export default class BuyinForm extends Vue {
+        @Prop() readonly defaultBuyin!: number;
+        @Prop() readonly isPlayerInGame!: boolean;
 
         amount = 0;
         stack = 0;
         buyinError: string | null = null;
         stackError: string | null = null;
-
-        get currentPlayer() {
-            return this.$_getPlayer(this.$_playerId);
-        }
-
-        get playerName() {
-            if (!this.currentPlayer)
-                return '';
-            return this.currentPlayer.name;
-        }
-
-        get playerColor() {
-            if (!this.currentPlayer)
-                return '';
-            return this.currentPlayer.color;
-        }
 
         get hasErrors() {
             return this.buyinError === null && this.stackError === null;
@@ -62,16 +42,12 @@
         buyin() {
             this.validateForm();
             if (!this.hasErrors) {
-                if (this.$_isInGame) {
-                    this.$_buyin(this.amount, this.stack);
-                } else {
-                    this.$_firstBuyin(this.amount, this.stack, this.playerName, this.playerColor);
-                }
+                this.$emit('buyin', this.amount, this.stack);
             }
         }
 
         cancel() {
-            this.$_hideForms();
+            this.$emit('cancel');
         }
 
         focus(e: FocusEvent) {
@@ -93,7 +69,7 @@
         }
 
         mounted() {
-            this.amount = this.$_defaultBuyin;
+            this.amount = this.defaultBuyin;
         }
     }
 </script>

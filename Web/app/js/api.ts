@@ -2,11 +2,11 @@ import apiClient from './api-client';
 import apiUrls from './api-urls';
 import ajaxClient from './ajax-client';
 import ajaxUrls from '@/ajax-urls';
-import { Player } from '@/models/Player';
 import { User } from '@/models/User';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
 import { ArchiveCashgameResponse } from '@/response/ArchiveCashgameResponse';
 import { DetailedCashgameResponse } from '@/response/DetailedCashgameResponse';
+import { PlayerResponse } from '@/response/PlayerResponse';
 import { BunchResponse } from '@/response/BunchResponse';
 import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
 import { EventResponse } from './response/EventResponse';
@@ -22,13 +22,14 @@ export default {
     getToken: (data: ApiParamsGetToken) => ajaxClient.post(ajaxUrls.auth.token, data),
     signOut: () => ajaxClient.post(ajaxUrls.auth.signOut),
     getCashgame: (id: string) => apiClient.get<DetailedCashgameResponse>(apiUrls.cashgame.get(id)),
+    addCashgame: (slug: string, data: object) => apiClient.post<DetailedCashgameResponse>(apiUrls.cashgame.list(slug), data),
     getCurrentGames: (slug: string) => apiClient.get<CurrentGameResponse[]>(apiUrls.cashgame.current(slug)),
     getBunch: (slug: string) => apiClient.get<BunchResponse>(apiUrls.bunch.get(slug)),
     getUserBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.user),
     getBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.list),
     addBunch: (data: ApiParamsAddBunch) => apiClient.post<BunchResponse>(apiUrls.bunch.list, data),
-    getPlayers: (slug: string) => apiClient.get<Player[]>(apiUrls.player.list(slug)),
-    addPlayer: (slug: string, data: object) => apiClient.post<Player>(apiUrls.player.list(slug), data),
+    getPlayers: (slug: string) => apiClient.get<PlayerResponse[]>(apiUrls.player.list(slug)),
+    addPlayer: (slug: string, data: object) => apiClient.post<PlayerResponse>(apiUrls.player.list(slug), data),
     getGames: (slug: string, year?: number) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.list(slug, year)),
     getEventGames: (slug: string, eventId: string) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.listByEvent(slug, eventId)),
     buyin: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),

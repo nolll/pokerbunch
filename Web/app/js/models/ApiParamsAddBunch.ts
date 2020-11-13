@@ -5,4 +5,3 @@ export interface ApiParamsAddBunch{
     currencyLayout: string;
     timezone: string;
 }
- 

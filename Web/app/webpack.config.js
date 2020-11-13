@@ -47,8 +47,7 @@ module.exports = {
                     {
                         loader: 'ts-loader',
                         options: {
-                            appendTsSuffixTo: [/\.vue$/],
-                            transpileOnly: true
+                            appendTsSuffixTo: [/\.vue$/]
                         }
                     }
                 ],

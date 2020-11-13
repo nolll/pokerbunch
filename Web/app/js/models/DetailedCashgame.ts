@@ -1,10 +1,11 @@
+import { DetailedCashgameResponse } from '@/response/DetailedCashgameResponse';
+import dayjs from 'dayjs';
 import { DetailedCashgameBunch } from './DetailedCashgameBunch';
 import { DetailedCashgameEvent } from './DetailedCashgameEvent';
 import { DetailedCashgameLocation } from './DetailedCashgameLocation';
 import { DetailedCashgamePlayer } from './DetailedCashgamePlayer';
 
-export interface DetailedCashgame {
-    isRunning: boolean;
+export class DetailedCashgame {
     id: string;
     bunch: DetailedCashgameBunch;
     location: DetailedCashgameLocation;
@@ -12,4 +13,77 @@ export interface DetailedCashgame {
     updatedTime: Date;
     players: DetailedCashgamePlayer[];
     event: DetailedCashgameEvent | null;
+
+    constructor(response: DetailedCashgameResponse) {
+        this.id = response.id;
+        this.bunch = new DetailedCashgameBunch(response.bunch);
+        this.location = new DetailedCashgameLocation(response.location);
+        this.startTime = dayjs(response.startTime).toDate();
+        this.updatedTime = dayjs(response.updatedTime).toDate();
+        this.players = response.players.map((o) => DetailedCashgamePlayer.fromResponse(o)),
+        this.event = !!response.event
+            ? new DetailedCashgameEvent(response.event)
+            : null;
+    }
+
+    public get isRunning(){
+        if(this.players.length === 0)
+            return true;
+
+        for(const player of this.players){
+            if (!player.hasCashedOut())
+                return true;
+        }
+        return false;
+    }
+
+    public deleteAction(id: string){
+        this.players.forEach((player) => {
+            const p = player.actions.map(item => item.id).indexOf(id);
+            if (p !== -1) {
+                player.actions.splice(p, 1);
+            }
+        });
+    }
+
+    public updateAction(id: string, data: any){
+        this.players.forEach((player) => {
+            player.actions = player.actions.map(action => {
+                if (action.id === data.id)
+                    return Object.assign({}, action, data);
+                return action;
+            });
+        });
+    }
+
+    public report(playerId: string, stack: number){
+        const player = this.getPlayer(playerId);
+        if(!player)
+            return;
+        player.addReport(stack);
+    }
+
+    public buyin(playerId: string, added: number, stack: number){
+        const player = this.getPlayer(playerId);
+        if(!player)
+            return;
+        player.addBuyin(added, stack + added);
+    }
+
+    public cashout(playerId: string, stack: number){
+        const player = this.getPlayer(playerId);
+        if(!player)
+            return;
+        player.addCashout(stack);
+    }
+
+    public addPlayer(id: string, name: string, color: string){
+        this.players.push(DetailedCashgamePlayer.new(id, name, color));
+    }
+
+    private getPlayer(id: string){
+        if (!id)
+            return null;
+        return this.players.find(p => p.id.toString() === id.toString()) || null;
+    }
 }

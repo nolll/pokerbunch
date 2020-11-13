@@ -17,11 +17,6 @@ namespace PokerBunch.Client.Clients
             return ApiConnection.Get<Cashgame>(new ApiCashgameUrl(id));
         }
 
-        public IList<CashgameSmall> GetCurrent(string bunchId)
-        {
-            return ApiConnection.Get<IList<CashgameSmall>>(new ApiBunchCashgamesCurrentUrl(bunchId));
-        }
-
         public IList<CashgameSmall> PlayerList(string playerId)
         {
             return ApiConnection.Get<IList<CashgameSmall>>(new ApiPlayerCashgamesUrl(playerId));
@@ -30,11 +25,6 @@ namespace PokerBunch.Client.Clients
         public void Delete(string id)
         {
             ApiConnection.Delete(new ApiCashgameUrl(id));
-        }
-
-        public Cashgame Add(CashgameAdd cashgameAdd)
-        {
-            return ApiConnection.Post<Cashgame>(new ApiBunchCashgamesUrl(cashgameAdd.BunchId), cashgameAdd);
         }
 
         public Cashgame Update(CashgameUpdate cashgameUpdate)

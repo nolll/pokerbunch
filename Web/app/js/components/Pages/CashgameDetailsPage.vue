@@ -9,18 +9,18 @@
                 <PageHeading :text="title" />
             </Block>
             <Block class="button-list" v-if="areButtonsVisible">
-                <GameButton text="Report" icon="reorder" v-show="$_canReport" v-on:click.native="$_showReportForm" />
-                <GameButton text="Buy In" icon="money" v-show="$_canBuyin" v-on:click.native="$_showBuyinForm" />
-                <GameButton text="Cash Out" icon="signout" v-show="$_canCashout" v-on:click.native="$_showCashoutForm" />
+                <GameButton text="Report" icon="reorder" v-show="canReport" @click.native="showReportForm" />
+                <GameButton text="Buy In" icon="money" v-show="canBuyin" @click.native="showBuyinForm" />
+                <GameButton text="Cash Out" icon="signout" v-show="canCashout" @click.native="showCashoutForm" />
             </Block>
             <Block>
-                <ReportForm v-show="$_reportFormVisible" :is-active="$_reportFormVisible" />
-                <BuyinForm v-show="$_buyinFormVisible" :is-active="$_buyinFormVisible" />
-                <CashoutForm v-show="$_cashoutFormVisible" :is-active="$_cashoutFormVisible" />
+                <ReportForm v-show="reportFormVisible" :defaultBuyin="defaultBuyin" @report="report" @cancel="hideForms" />
+                <BuyinForm v-show="buyinFormVisible" :defaultBuyin="defaultBuyin" @buyin="buyin" @cancel="hideForms" :isPlayerInGame="isInGame" />
+                <CashoutForm v-show="cashoutFormVisible" :defaultBuyin="defaultBuyin" @cashout="cashout" @cancel="hideForms" />
             </Block>
-            <Block v-if="$_hasPlayers">
+            <Block v-if="hasPlayers">
                 <div class="standings">
-                    <PlayerTable/>
+                    <PlayerTable :players="cashgame.players" :isCashgameRunning="cashgame.isRunning" @playerSelected="onSelectPlayer" @deleteAction="onDeleteAction" @saveAction="onSaveAction" :canEdit="canEdit" />
                 </div>
             </Block>
             <Block v-else>
@@ -36,9 +36,9 @@
                         <ValueListKey v-if="showDuration">Duration</ValueListKey>
                         <ValueListValue v-if="showDuration">{{formattedDuration}}</ValueListValue>
                         <ValueListKey>Location</ValueListKey>
-                        <ValueListValue><CustomLink :url="locationUrl">{{$_locationName}}</CustomLink></ValueListValue>
-                        <ValueListKey v-if="isPlayerSelectionVisible">Player</ValueListKey>
-                        <ValueListValue v-if="isPlayerSelectionVisible"><PlayerDropdown /></ValueListValue>
+                        <ValueListValue><CustomLink :url="locationUrl">{{locationName}}</CustomLink></ValueListValue>
+                        <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
+                        <ValueListValue v-if="isPlayerSelectionEnabled"><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId" /></ValueListValue>
                     </ValueList>
                 </Block>
                 <Block v-if="canEdit">
@@ -47,9 +47,9 @@
             </template>
         </PageSection>
 
-        <PageSection v-if="$_hasPlayers">
+        <PageSection v-if="hasPlayers">
             <Block>
-                <GameChart :players="$_cashgamePlayers" />
+                <GameChart :players="playersInGame" />
             </Block>
         </PageSection>
     </Layout>
@@ -57,7 +57,7 @@
 
 <script lang="ts">
     import { Component, Prop, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, CashgameMixin, PlayerMixin, FormatMixin, UserMixin } from '@/mixins';
+    import { BunchMixin, PlayerMixin, FormatMixin, UserMixin } from '@/mixins';
     import urls from '@/urls';
     import timeFunctions from '@/time-functions';
     import Layout from '@/components/Layouts/Layout.vue';
@@ -66,7 +66,7 @@
     import ReportForm from '@/components/CurrentGame/ReportForm.vue';
     import BuyinForm from '@/components/CurrentGame/BuyinForm.vue';
     import CashoutForm from '@/components/CurrentGame/CashoutForm.vue';
-    import PlayerDropdown from '@/components/CurrentGame/PlayerDropdown.vue';
+    import PlayerDropdown from '@/components/PlayerDropdown.vue';
     import PlayerTable from '@/components/CurrentGame/PlayerTable.vue';
     import GameChart from '@/components/CurrentGame/GameChart.vue';
     import Block from '@/components/Common/Block.vue';
@@ -77,6 +77,11 @@
     import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
     import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
     import format from '@/format';
+    import dayjs from 'dayjs';
+    import { DetailedCashgame } from '@/models/DetailedCashgame';
+    import api from '@/api';
+
+    const longRefresh = 30000;
 
     @Component({
         components: {
@@ -100,27 +105,35 @@
     })
     export default class CashgameDetailsPage extends Mixins(
         BunchMixin,
-        CashgameMixin,
         PlayerMixin,
         FormatMixin,
         UserMixin
     ) {
         @Prop() readonly apiHost!: string;
 
+        cashgame: DetailedCashgame | null = null;
+        reportFormVisible = false;
+        buyinFormVisible = false;
+        cashoutFormVisible = false;
+        selectedPlayerId: string = '';
+        refreshHandle = 0;
+
         get title() {
             return `Cashgame ${this.formattedDate}`;
         }
 
         get formattedDate() {
-            return format.monthDayYear(this.$_startTime);
+            return format.monthDayYear(this.startTime);
         }
 
         get formattedStartTime() {
-            return format.hourMinute(this.$_startTime);
+            return format.hourMinute(this.startTime);
         }
 
         get formattedEndTime() {
-            return format.hourMinute(this.$_updatedTime);
+            if(!this.cashgame)
+                return '';
+            return format.hourMinute(this.cashgame.updatedTime);
         }
 
         get formattedDuration() {
@@ -128,11 +141,13 @@
         }
 
         get durationMinutes() {
-            return timeFunctions.diffInMinutes(this.$_startTime, this.$_updatedTime);
+            if(!this.cashgame)
+                return 0;
+            return timeFunctions.diffInMinutes(this.startTime, this.cashgame.updatedTime);
         }
 
         get showStartTime() {
-            return this.$_hasPlayers;
+            return this.hasPlayers;
         }
 
         get showEndTime() {
@@ -143,24 +158,56 @@
             return this.isEnded;
         }
 
-        get isEnded() {
-            return this.$_hasPlayers && !this.$_isRunning;
+        get isRunning() {
+            return !!this.cashgame?.isRunning;
+        }
+
+        get isInGame(){
+            return !!this.playerInGame;
+        }
+
+        get canReport(){
+            return this.isInGame && !this.hasCachedOut;
+        }
+
+        get canBuyin(){
+            return !this.hasCachedOut;
+        }
+
+        get canCashout(){
+            return this.isInGame;
+        }
+
+        get hasCachedOut(){
+            if (!this.playerInGame)
+                return false;
+            return this.playerInGame.hasCashedOut();
+        }
+
+        get isEnded() { 
+            return this.hasPlayers && !this.isRunning;
         }
 
         get areButtonsVisible() {
-            return this.$_isRunning && !this.isAnyFormVisible;
+            return this.isRunning && !this.isAnyFormVisible;
         }
 
         get isAnyFormVisible() {
-            return this.$_isRunning && this.$_reportFormVisible || this.$_buyinFormVisible || this.$_cashoutFormVisible;
+            return this.isRunning && this.reportFormVisible || this.buyinFormVisible || this.cashoutFormVisible;
         }
 
-        get isPlayerSelectionVisible() {
-            return this.$_isRunning && this.$_isManager;
+        get isPlayerSelectionEnabled() {
+            return this.isRunning && this.$_isManager;
+        }
+
+        get locationName(){
+            return this.cashgame?.location.name || '';
         }
 
         get locationUrl() {
-            return urls.location.details(this.$_slug, this.$_locationId);
+            if(!this.cashgame)
+                return '';
+            return urls.location.details(this.$_slug, this.cashgame.location.id);
         }
 
         get canEdit() {
@@ -168,26 +215,217 @@
         }
 
         get editUrl() {
-            return urls.cashgame.edit(this.$_cashgameId);
+            if(!this.cashgame)
+                return '';
+            return urls.cashgame.edit(this.cashgame.id);
+        }
+
+        get playersInGame(){
+            if(!this.cashgame)
+                return [];
+            const sortedPlayers = this.cashgame.players.slice().sort((left, right) => right.getWinnings() - left.getWinnings());
+            return this.cashgame.players;
+        }
+
+        get allPlayers(){
+            return this.$_players;
+        }
+
+        get hasPlayers(){
+            return !!this.playersInGame.length;
+        }
+
+        get userPlayer() {
+            return this.$_getPlayer(this.$_playerId);
+        }
+
+        get playerName() {
+            return this.player?.name || '';
+        }
+
+        get playerColor() {
+            return this.player?.color || '#9e9e9e';
+        }
+
+        get defaultBuyin(){
+            return this.$_defaultBuyin;
+        }
+
+        get player(){
+            return this.$_getPlayer(this.selectedPlayerId);
+        }
+
+        get playerInGame(){
+            return this.getPlayerInGame(this.selectedPlayerId);
+        }
+
+        get startTime(){
+            let first;
+            let t = dayjs().utc();
+            const p = this.playersInGame;
+
+            if (p.length === 0)
+                return t.toDate();
+            for (let i = 0; i < p.length; i++) {
+                first = p[i].actions[0];
+                if (first) {
+                    const firstTime = dayjs(first.time);
+                    if (firstTime.isBefore(t)) {
+                        t = firstTime;
+                    }
+                }
+            }
+            return t.toDate();
+        }
+
+        get updatedTime(){
+            return this.cashgame?.updatedTime || null;
         }
 
         get ready() {
-            return this.$_bunchReady && this.$_cashgameReady;
+            return this.$_bunchReady && this.cashgameReady && this.$_playersReady;
+        }
+
+        setupRefresh(refreshTimeout: number) {
+            if (this.isRunning) {
+                window.setInterval(() => {
+                    this.refresh();
+                }, refreshTimeout);
+            }
+        }
+
+        async report(stack: number){
+            if(!this.cashgame)
+                return;
+
+            this.cashgame.report(this.selectedPlayerId, stack);
+            const reportData = { type: 'report', playerId: this.selectedPlayerId, stack: stack };
+            this.resetSelectedPlayerId();
+            this.hideForms();
+            await api.report(this.cashgame.id, reportData);
+        }
+
+        async buyin(amount: number, stack: number){
+            if (!this.cashgame)
+                return;
+                
+            if (!this.isInGame) {
+                const player = this.cashgame.addPlayer(this.selectedPlayerId, this.playerName, this.playerColor);
+            }
+
+            this.cashgame.buyin(this.selectedPlayerId, amount, stack);
+            const buyinData = { type: 'buyin', playerId: this.selectedPlayerId, stack: stack, added: amount };
+            this.resetSelectedPlayerId();
+            this.hideForms();
+            await api.buyin(this.cashgame.id, buyinData);
+        }
+
+        async cashout(stack: number){
+            if(!this.cashgame)
+                return;
+            
+            this.cashgame.cashout(this.selectedPlayerId, stack);
+            const cashoutData = { type: 'cashout', playerId: this.selectedPlayerId, stack: stack };
+            this.resetSelectedPlayerId();
+            this.hideForms();
+            await api.cashout(this.cashgame.id, cashoutData);
+        }
+
+        showReportForm(){
+            this.reportFormVisible = true;
+        }
+
+        showBuyinForm(){
+            this.buyinFormVisible = true;
+        }
+
+        showCashoutForm(){
+            this.cashoutFormVisible = true;
+        }
+
+        hideForms(){
+            this.reportFormVisible = false;
+            this.buyinFormVisible = false;
+            this.cashoutFormVisible = false;
+        }
+
+        resetSelectedPlayerId(){
+            this.selectedPlayerId = this.$_playerId;
+        }
+
+        getPlayerInGame(id: string){
+            if (!id)
+                return null;
+            return this.playersInGame.find(p => p.id.toString() === id.toString()) || null;
+        }
+
+        onSelectPlayer(id: string){
+            if(this.isPlayerSelectionEnabled)
+                this.selectedPlayerId = id;
+        }
+
+        async onDeleteAction(id: string){
+            if(!this.cashgame)
+                return;
+            
+            this.cashgame.deleteAction(id);
+            await api.deleteAction(this.cashgame.id, id);
+        }
+
+        async onSaveAction(data: any){
+            if(!this.cashgame)
+                return;
+
+            this.cashgame.updateAction(data.id, data);
+            const updateData = {
+                added: data.added,
+                stack: data.stack,
+                timestamp: data.time
+            };
+            await api.updateAction(this.cashgame.id, data.id, updateData);
         }
 
         mounted() {
             this.init();
         }
 
+        beforeDestroy(){
+            if(this.refreshHandle)
+                window.clearInterval(this.refreshHandle);
+        }
+
         redirect() {
             this.$router.push(urls.cashgame.index(this.$_slug));
         }
 
-        init() {
+        async loadCashgame(){
+            const response = await api.getCashgame(this.$route.params.id);
+            const cashgame = response.status === 200
+                ? new DetailedCashgame(response.data)
+                : null;
+            this.cashgame = cashgame;
+        }
+
+        async refresh(){
+            await this.loadCashgame();
+        }
+
+        get cashgameReady(){
+            return !!this.cashgame;
+        }
+
+        async init() {
+            this.selectedPlayerId = this.$_playerId;
             this.$_requireUser();
             this.$_loadBunch();
             this.$_loadPlayers();
-            this.$_loadCashgame();
+            await this.loadCashgame();
+            this.setupRefresh(longRefresh);
+        }
+
+        @Watch('$_playerId')
+        playerIdChanged() {
+            this.selectedPlayerId = this.$_playerId;
         }
 
         @Watch('$route')

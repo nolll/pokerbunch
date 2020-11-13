@@ -1,5 +1,5 @@
 import comparer from './comparer';
-import { ArchiveCashgame } from './models/Cashgame';
+import { ArchiveCashgame } from './models/ArchiveCashgame';
 import { CashgameSortOrder } from './models/CashgameSortOrder';
 
 export default {

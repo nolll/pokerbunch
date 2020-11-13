@@ -27,14 +27,6 @@ namespace Infrastructure.Api.Services
             return CreateDetailedCashgame(apiDetailedCashgame);
         }
 
-        public DetailedCashgame GetCurrent(string bunchId)
-        {
-            var apiCashgames = ApiClient.Cashgames.GetCurrent(bunchId);
-            if(apiCashgames.Any())
-                return GetDetailedById(apiCashgames.First().Id);
-            return null;
-        }
-
         public IList<ListCashgame> PlayerList(string playerId)
         {
             var apiCashgames = ApiClient.Cashgames.PlayerList(playerId);
@@ -44,13 +36,6 @@ namespace Infrastructure.Api.Services
         public void DeleteGame(string id)
         {
             ApiClient.Cashgames.Delete(id);
-        }
-
-        public string Add(string bunchId, string locationId)
-        {
-            var addObject = new CashgameAdd(bunchId, locationId);
-            var apiCashgame = ApiClient.Cashgames.Add(addObject);
-            return CreateDetailedCashgame(apiCashgame).Id;
         }
 
         public DetailedCashgame Update(string id, string locationId, string eventId)

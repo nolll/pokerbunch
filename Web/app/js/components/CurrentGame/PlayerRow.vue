@@ -3,7 +3,7 @@
         <div class="row-wrapper">
             <div class="name-and-time">
                 <div>
-                    <div class="player-color-box" :style="{backgroundColor: player.color}"></div>
+                    <div class="player-color-box" :style="{backgroundColor: player.color}" @click="onSelected"></div>
                     <a href="#" @click="toggle">{{player.name}}</a>
                     <i title="Cashed out" class="icon-ok-sign" v-if="showCheckmark"></i>
                 </div>
@@ -23,7 +23,7 @@
                 <CustomLink :url="url">View player</CustomLink>
             </div>
             <div class="actions">
-                <PlayerAction v-for="action in player.actions" :action="action" :key="action.id" />
+                <PlayerAction v-for="action in player.actions" :action="action" :key="action.id" @deleteAction="onDeleteAction" @saveAction="onSaveAction" :canEdit="canEdit" />
             </div>
         </div>
     </div>
@@ -31,14 +31,13 @@
 
 <script lang="ts">
     import { Component, Prop, Mixins } from 'vue-property-decorator';
-    import { CashgameMixin, FormatMixin } from '@/mixins';
+    import { FormatMixin } from '@/mixins';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import PlayerAction from './PlayerAction.vue';
-    import playerCalculator from '@/PlayerCalculator';
     import urls from '@/urls';
     import CashgameActionChart from '@/components/CashgameActionChart.vue';
-    import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
     import { CssClasses } from '@/models/CssClasses';
+    import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 
     @Component({
         components: {
@@ -48,37 +47,41 @@
         }
     })
     export default class PlayerRow extends Mixins(
-        CashgameMixin,
         FormatMixin
     ) {
-        @Prop() readonly player!: DetailedCashgameResponsePlayer;
-        @Prop() readonly isReportTimeEnabled!: boolean;
-        @Prop() readonly isCheckmarkEnabled!: boolean;
+        @Prop() readonly player!: DetailedCashgamePlayer;
+        @Prop() readonly isCashgameRunning!: boolean;
+        @Prop({default: false}) readonly canEdit!: boolean;
+
 
         isExpanded = false;
 
         get hasCashedOut() {
-            return playerCalculator.hasCashedOut(this.player);
+            return this.player.hasCashedOut();
         }
 
         get showCheckmark() {
-            return this.isCheckmarkEnabled && this.hasCashedOut;
+            return this.isCashgameRunning && this.hasCashedOut;
+        }
+
+        get isReportTimeEnabled(){
+            return this.isCashgameRunning;
         }
 
         get lastReportTime() {
-            return playerCalculator.getLastReportTime(this.player);
+            return this.player.getLastReportTime();
         }
 
         get calculatedBuyin() {
-            return playerCalculator.getBuyin(this.player);
+            return this.player.getBuyin();
         }
 
         get stack() {
-            return playerCalculator.getStack(this.player);
+            return this.player.getStack();
         }
 
         get winnings() {
-            return playerCalculator.getWinnings(this.player);
+            return this.player.getWinnings();
         }
 
         get winningsCssClasses(): CssClasses {
@@ -118,6 +121,18 @@
 
         toggle() {
             this.isExpanded = !this.isExpanded;
+        }
+
+        onSelected(){
+            this.$emit('selected', this.player.id);
+        }
+
+        onDeleteAction(id: string){
+            this.$emit('deleteAction', id);
+        }
+
+        onSaveAction(data: any){
+            this.$emit('saveAction', data);
         }
 
         click() {

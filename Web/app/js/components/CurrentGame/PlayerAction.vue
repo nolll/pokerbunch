@@ -28,19 +28,19 @@
 
 <script lang="ts">
     import { Component, Prop, Mixins } from 'vue-property-decorator';
-    import { BunchMixin, CashgameMixin, FormatMixin } from '@/mixins';
+    import { BunchMixin, FormatMixin } from '@/mixins';
     import dayjs from 'dayjs';
     import { DetailedCashgameResponseAction } from '@/response/DetailedCashgameResponseAction';
     import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
-import format from '@/format';
+    import format from '@/format';
 
     @Component
     export default class PlayerAction extends Mixins(
         BunchMixin,
-        CashgameMixin,
         FormatMixin
     ) {
         @Prop() readonly action!: DetailedCashgameResponseAction;
+        @Prop({default: false}) readonly canEdit!: boolean;
 
         isFormVisible = false;
         changedTime: string | null = null;
@@ -87,10 +87,6 @@ import format from '@/format';
             return 'Report';
         }
 
-        get canEdit() {
-            return this.$_isManager;
-        }
-
         get showAddedField() {
             return this.action.type === DetailedCashgameResponseActionType.Buyin;
         }
@@ -101,7 +97,7 @@ import format from '@/format';
 
         clickDelete() {
             if (this.action.id && window.confirm('Do you want to delete this action?')) {
-                this.$_deleteAction(this.action.id);
+                this.$emit('deleteAction', this.action.id)
             }
         }
 
@@ -116,7 +112,7 @@ import format from '@/format';
                 stack: this.formStack,
                 added: this.formAdded
             };
-            this.$_saveAction(data);
+            this.$emit('saveAction', data);
             this.hideForm();
             this.changedTime = null;
             this.changedStack = null;

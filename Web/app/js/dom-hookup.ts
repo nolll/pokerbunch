@@ -1,12 +1,14 @@
 import domModules from './dom-modules';
 
-function init() {
-    const elements = getElementsWithHookupAttribute();
-
-    for (let i = 0; i < elements.length; i++) {
-        hookupModulesForElement(elements[i]);
+export default {
+    init() {
+        const elements = getElementsWithHookupAttribute();
+    
+        for (let i = 0; i < elements.length; i++) {
+            hookupModulesForElement(elements[i]);
+        }
     }
-}
+};
 
 function getElementsWithHookupAttribute() {
     const elements = [];
@@ -30,7 +32,3 @@ function hookupModulesForElement(el: Element) {
         m.execute();
     }
 }
-
-export default {
-    init
-};

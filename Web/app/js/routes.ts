@@ -8,6 +8,7 @@ import AddUserPage from '@/components/Pages/AddUserPage.vue';
 import ChangePasswordPage from '@/components/Pages/ChangePasswordPage.vue';
 import ResetPasswordPage from '@/components/Pages/ResetPasswordPage.vue';
 import CashgameDetailsPage from '@/components/Pages/CashgameDetailsPage.vue';
+import AddCashgamePage from '@/components/Pages/AddCashgamePage.vue';
 import OverviewPage from '@/components/Pages/OverviewPage.vue';
 import MatrixPage from '@/components/Pages/MatrixPage.vue';
 import ToplistPage from '@/components/Pages/ToplistPage.vue';
@@ -35,6 +36,7 @@ const routes: RouteConfig[] = [
     { path: urls.api.docs, component: ApiDocsPage },
     { path: '/auth/login', component: LoginPage },
     { path: '/bunch/add', component: AddBunchPage },
+    { path: '/bunches/:slug/cashgames/add', component: AddCashgamePage },
     { path: '/bunches/:slug/cashgames/chart/:year?', component: ChartPage },
     { path: '/bunches/:slug/cashgames/facts/:year?', component: FactsPage },
     { path: '/bunches/:slug/cashgames/list/:year?', component: ListPage },

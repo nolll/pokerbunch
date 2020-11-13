@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Mixins, Watch } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
     import validate from '@/validate';
     import forms from '@/forms';
     import CustomLink from '@/components/Common/CustomLink.vue';
@@ -20,18 +20,14 @@
     import Block from '@/components/Common/Block.vue';
     import PageHeading from '@/components/Common/PageHeading.vue';
     import PageSection from '@/components/Common/PageSection.vue';
-    import { BunchMixin, CashgameMixin } from '@/mixins';
 
     @Component({
         components: {
             CustomButton
         }
     })
-    export default class CashoutForm extends Mixins(
-        BunchMixin,
-        CashgameMixin
-    ) {
-        @Prop() readonly isActive!: boolean;
+    export default class CashoutForm extends Vue {
+        @Prop() readonly defaultBuyin!: number;
 
         stack: number = 0;
         stackError: string | null = null;
@@ -43,11 +39,11 @@
         cashout() {
             this.validateForm();
             if (!this.hasErrors)
-                this.$_cashout(this.stack);
+                this.$emit('cashout', this.stack);
         }
 
         cancel() {
-            this.$_hideForms();
+            this.$emit('cancel');
         }
 
         focus(e: FocusEvent) {
@@ -66,7 +62,7 @@
         }
 
         mounted() {
-            this.stack = this.$_defaultBuyin;
+            this.stack = this.defaultBuyin;
         }
     }
 </script>

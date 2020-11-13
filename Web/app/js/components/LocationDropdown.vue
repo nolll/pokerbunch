@@ -1,27 +1,27 @@
 ﻿<template>
     <select :value="value" v-on:input="updateValue">
-        <option value="">Select timezone</option>
+        <option value="">Select Location</option>
         <option
-            v-for="(timezone) in timezones"
-            :value="timezone.id"
-            v-bind:key="timezone.id">
-            {{timezone.name}}
+            v-for="(location) in locations"
+            :value="location.id"
+            v-bind:key="location.id">
+            {{location.name}}
         </option>
     </select>
 </template>
 
 <script lang="ts">
     import { Component, Mixins, Prop, Watch } from 'vue-property-decorator';
-    import { TimezoneMixin } from '@/mixins';
+    import { LocationMixin } from '@/mixins';
     
     @Component
-    export default class TimezoneDropdown extends Mixins(
-        TimezoneMixin
+    export default class LocationDropdown extends Mixins(
+        LocationMixin
     ) {
         @Prop() value!: string;
 
-        get timezones(){
-            return this.$_timezones;
+        get locations(){
+            return this.$_locations;
         }
 
         updateValue(event: any){

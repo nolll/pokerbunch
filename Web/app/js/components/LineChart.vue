@@ -34,9 +34,8 @@
         }
 
         loadCharts() {
-            var self = this;
-            GoogleCharts.load(function () {
-                self.createChart();
+            GoogleCharts.load(() => {
+                this.createChart();
             });
         }
 
@@ -52,9 +51,8 @@
         }
 
         initResizeHandler() {
-            var self = this;
-            window.addEventListener('resize', debounce(function () {
-                self.draw();
+            window.addEventListener('resize', debounce(() => {
+                this.draw();
             }, 150));
         }
 

@@ -1,7 +1,6 @@
 ﻿import { StoreOptions } from 'vuex';
 import { RootStoreState } from './helpers/RootStoreHelpers';
 import BunchStore from './BunchStore';
-import CashgameStore from './CashgameStore';
 import CurrentGameStore from './CurrentGameStore';
 import EventStore from './EventStore';
 import GameArchiveStore from './GameArchiveStore';
@@ -14,7 +13,6 @@ export default {
     strict: true,
     modules: {
         bunch: BunchStore,
-        cashgame: CashgameStore,
         currentGame: CurrentGameStore,
         event: EventStore,
         location: LocationStore,

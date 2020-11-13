@@ -1,6 +1,7 @@
 import { Role } from '@/models/Role';
+import { DetailedCashgameResponseBunch } from '@/response/DetailedCashgameResponseBunch';
 
-export interface DetailedCashgameBunch {
+export class DetailedCashgameBunch {
     id: string;
     timezone: string;
     currencyFormat: string;
@@ -9,4 +10,15 @@ export interface DetailedCashgameBunch {
     thousandSeparator: string;
     culture: string;
     role: Role;
+
+    constructor(response: DetailedCashgameResponseBunch) {
+        this.id = response.id;
+        this.timezone = response.timezone;
+        this.currencyFormat = response.currencyFormat;
+        this.currencySymbol = response.currencySymbol;
+        this.currencyLayout = response.currencyLayout;
+        this.thousandSeparator = response.thousandSeparator;
+        this.culture = response.culture;
+        this.role = response.role;
+    }
 }

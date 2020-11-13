@@ -5,11 +5,10 @@
 </template>
 
 <script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
+    import { Component, Mixins, Prop, Watch } from 'vue-property-decorator';
     import dayjs from 'dayjs';
+    import utc from 'dayjs/plugin/utc';
     import LineChart from '@/components/LineChart.vue';
-    import playerCalculator from '@/PlayerCalculator';
-    import { CashgameMixin } from '@/mixins';
     import { ChartData } from '@/models/ChartData';
     import { ChartRow } from '@/models/ChartRow';
     import { ChartColumn } from '@/models/ChartColumn';
@@ -18,6 +17,9 @@
     import { ChartRowData } from '@/models/ChartRowData';
     import { ChartOptions } from '@/models/ChartOptions';
     import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
+    import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
+
+    dayjs.extend(utc);
 
     @Component({
         components: {
@@ -25,8 +27,10 @@
         }
     })
     export default class GameChart extends Mixins(
-        CashgameMixin
+        
     ) {
+        @Prop() readonly players!: DetailedCashgamePlayer[];
+
         chartData: ChartData | null = null;
         chartOptions: ChartOptions = {
             pointSize: 0,
@@ -53,8 +57,7 @@
 
         getColors() {
             const colors = [];
-            for (let i = 0; i < this.$_cashgamePlayers.length; i++) {
-                const p = this.$_cashgamePlayers[i];
+            for (const p of this.players) {
                 colors.push(p.color);
             }
             return colors;
@@ -62,8 +65,7 @@
 
         getColumns(): ChartColumn[] {
             const cols: ChartColumn[] = [{ type: ChartColumnType.DateTime, label: 'Time', pattern: ChartColumnPattern.HoursAndMinutes }];
-            for (let i = 0; i < this.$_cashgamePlayers.length; i++) {
-                const p = this.$_cashgamePlayers[i];
+            for (const p of this.players) {
                 cols.push({ type: ChartColumnType.Number, label: p.name, pattern: null });
             }
             return cols;
@@ -71,15 +73,16 @@
 
         getRows(): ChartRow[] {
             var rows = [];
-            for (let i = 0; i < this.$_cashgamePlayers.length; i++) {
-                const p = this.$_cashgamePlayers[i];
-                const r = this.getPlayerResults(p);
-                for (let j = 0; j < r.length; j++) {
-                    rows.push(this.getRow(r[j], p.id));
-                }
-                if (!playerCalculator.hasCashedOut(p)) {
-                    var currentResult = this.createPlayerResult(dayjs().utc().toDate(), r[r.length - 1].winnings);
-                    rows.push(this.getRow(currentResult, p.id));
+            for (const player of this.players) {
+                if(player.actions.length){
+                    const results = this.getPlayerResults(player);
+                    for (let j = 0; j < results.length; j++) {
+                        rows.push(this.getRow(results[j], player.id));
+                    }
+                    if (!player.hasCashedOut()) {
+                        var currentResult = this.createPlayerResult(dayjs.utc().toDate(), results[results.length - 1].winnings);
+                        rows.push(this.getRow(currentResult, player.id));
+                    }
                 }
             }
             return rows;
@@ -98,7 +101,7 @@
             return results;
         }
 
-        createPlayerResult(time: string, winnings: number): ChartPlayerResult {
+        createPlayerResult(time: Date, winnings: number): ChartPlayerResult {
             return {
                 time: time,
                 winnings: winnings
@@ -106,10 +109,10 @@
         }
 
         getRow(result: ChartPlayerResult, playerId: string) {
-            const values: ChartRowData[] = [{ v: new Date(result.time), f: null }];
-            for (var i = 0; i < this.$_cashgamePlayers.length; i++) {
+            const values: ChartRowData[] = [{ v: result.time, f: null }];
+            for (var i = 0; i < this.players.length; i++) {
                 var val = null;
-                if (this.$_cashgamePlayers[i].id === playerId) {
+                if (this.players[i].id === playerId) {
                     val = result.winnings + '';
                 }
                 values.push({ v: val, f: null });
@@ -120,26 +123,21 @@
         mounted() {
             const self = this;
             self.$nextTick(function () {
-                if (this.$_cashgameReady) {
+                if (this.players.length > 0) {
                     self.drawChart();
                 }
             });
         }
 
-        @Watch('$_cashgamePlayers')
+        @Watch('players')
         cashgamePlayersChanged() {
-            this.drawChart();
-        }
-
-        @Watch('$_cashgameReady')
-        cashgameReadyChanged(isReady: boolean) {
-            if (isReady)
+            if(!!this.players)
                 this.drawChart();
         }
     }
 
     interface ChartPlayerResult{
-        time: string;
+        time: Date;
         winnings: number;
     }
 </script>

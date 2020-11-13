@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         <div v-for="player in players" v-bind:key="player.id">
-            <PlayerRow :player="player" :isCheckmarkEnabled="$_isRunning" :isReportTimeEnabled="$_isRunning" />
+            <PlayerRow :player="player" :isCashgameRunning="isCashgameRunning" :isReportTimeEnabled="isCashgameRunning" @selected="onSelected" @deleteAction="onDeleteAction" @saveAction="onSaveAction" :canEdit="canEdit" />
         </div>
         <div class="totals">
             <div class="title">Totals: </div>
@@ -14,9 +14,11 @@
 </template>
 
 <script lang="ts">
-    import { Component, Mixins } from 'vue-property-decorator';
+    import { Component, Mixins, Prop } from 'vue-property-decorator';
     import PlayerRow from './PlayerRow.vue';
-    import { CashgameMixin, FormatMixin } from '@/mixins'
+    import { FormatMixin } from '@/mixins'
+    import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
+    import cashgameHelper from '@/CashgameHelper';
 
     @Component({
         components: {
@@ -24,19 +26,38 @@
         }
     })
     export default class PlayerTable extends Mixins(
-        CashgameMixin,
         FormatMixin
     ) {
-        get players(){
-            return this.$_sortedPlayers;
+        @Prop() readonly players!: DetailedCashgameResponsePlayer[];
+        @Prop() readonly isCashgameRunning!: boolean;
+        @Prop({default: false}) readonly canEdit!: boolean;
+
+        get totalBuyin(){
+            return cashgameHelper.getTotalBuyin(this.players);
         }
 
         get formattedTotalBuyin() {
-            return this.$_formatCurrency(this.$_totalBuyin);
+            return this.$_formatCurrency(this.totalBuyin);
+        }
+
+        get totalStacks(){
+            return cashgameHelper.getTotalStacks(this.players);
         }
 
         get formattedTotalStacks() {
-            return this.$_formatCurrency(this.$_totalStacks);
+            return this.$_formatCurrency(this.totalStacks);
+        }
+
+        onSelected(id: string){
+            this.$emit('playerSelected', id);
+        }
+
+        onDeleteAction(id: string){
+            this.$emit('deleteAction', id);
+        }
+
+        onSaveAction(data: any){
+            this.$emit('saveAction', data);
         }
     }
 </script>

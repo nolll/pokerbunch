@@ -12,22 +12,19 @@
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Mixins, Watch } from 'vue-property-decorator';
+    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
     import validate from '@/validate';
     import forms from '@/forms';
     import CustomButton from '@/components/Common/CustomButton.vue';
-    import { BunchMixin, CashgameMixin } from '@/mixins';
+    import { BunchMixin } from '@/mixins';
 
     @Component({
         components: {
             CustomButton
         }
     })
-    export default class ReportForm extends Mixins(
-        BunchMixin,
-        CashgameMixin
-    ) {
-        @Prop() readonly isActive!: boolean;
+    export default class ReportForm extends Vue {
+        @Prop() readonly defaultBuyin!: number;
 
         stack = 0;
         stackError: string | null = null;
@@ -39,11 +36,11 @@
         report() {
             this.validateForm();
             if (!this.hasErrors)
-                this.$_report(this.stack);
+                this.$emit('report', this.stack);
         }
 
         cancel() {
-            this.$_hideForms();
+            this.$emit('cancel');
         }
 
         focus(e: Event) {
@@ -62,7 +59,7 @@
         }
 
         mounted() {
-            this.stack = this.$_defaultBuyin;
+            this.stack = this.defaultBuyin;
         }
     }
 </script>
