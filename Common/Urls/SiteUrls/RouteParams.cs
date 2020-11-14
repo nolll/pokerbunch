@@ -17,7 +17,6 @@ namespace PokerBunch.Common.Urls.SiteUrls
         public static RouteReplace LocationId(string locationId) => new RouteReplace(nameof(locationId), locationId);
         public static RouteReplace PlayerId(string playerId) => new RouteReplace(nameof(playerId), playerId);
         public static RouteReplace UserName(string userName) => new RouteReplace(nameof(userName), userName);
-        public static RouteReplace Year(int year) => new RouteReplace(nameof(year), year.ToString());
     }
 
     public static class RouteParams

@@ -38,13 +38,6 @@ namespace Infrastructure.Api.Services
             ApiClient.Cashgames.Delete(id);
         }
 
-        public DetailedCashgame Update(string id, string locationId, string eventId)
-        {
-            var updateObject = new CashgameUpdate(id, locationId, eventId);
-            var apiCashgame = ApiClient.Cashgames.Update(updateObject);
-            return CreateDetailedCashgame(apiCashgame);
-        }
-        
         private ListCashgame CreateListCashgame(CashgameSmall c)
         {
             var location = new SmallLocation(c.Location.Id, c.Location.Name);

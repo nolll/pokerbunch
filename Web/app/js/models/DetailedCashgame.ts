@@ -17,12 +17,12 @@ export class DetailedCashgame {
     constructor(response: DetailedCashgameResponse) {
         this.id = response.id;
         this.bunch = new DetailedCashgameBunch(response.bunch);
-        this.location = new DetailedCashgameLocation(response.location);
+        this.location = DetailedCashgameLocation.fromResponse(response.location);
         this.startTime = dayjs(response.startTime).toDate();
         this.updatedTime = dayjs(response.updatedTime).toDate();
         this.players = response.players.map((o) => DetailedCashgamePlayer.fromResponse(o)),
         this.event = !!response.event
-            ? new DetailedCashgameEvent(response.event)
+            ? DetailedCashgameEvent.fromResponse(response.event)
             : null;
     }
 
@@ -54,6 +54,11 @@ export class DetailedCashgame {
                 return action;
             });
         });
+    }
+
+    public update(location: DetailedCashgameLocation, event: DetailedCashgameEvent | null){
+        this.location = location;
+        this.event = event;
     }
 
     public report(playerId: string, stack: number){

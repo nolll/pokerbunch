@@ -12,6 +12,10 @@ export class EventMixin extends Vue {
         return this.$store.getters[EventStoreGetters.Events];
     }
 
+    protected $_getEvent(id: string): EventResponse | null {
+        return this.$_events.find(e => e.id.toString() === id) || null;
+    }
+
     protected $_loadEvents() {
         this.$store.dispatch(EventStoreActions.LoadEvents, { slug: this.$route.params.slug });
     }

@@ -4,8 +4,15 @@ export class DetailedCashgameLocation {
     id: string;
     name: string;
 
-    constructor(response: DetailedCashgameResponseLocation) {
-        this.id = response.id;
-        this.name = response.name;
+    constructor(id: string, name: string) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public static fromResponse(response: DetailedCashgameResponseLocation){
+        return new DetailedCashgameLocation(
+            response.id,
+            response.name,
+        );
     }
 }

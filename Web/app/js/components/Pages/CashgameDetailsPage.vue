@@ -36,15 +36,25 @@
                         <ValueListKey v-if="showDuration">Duration</ValueListKey>
                         <ValueListValue v-if="showDuration">{{formattedDuration}}</ValueListValue>
                         <ValueListKey>Location</ValueListKey>
-                        <ValueListValue><CustomLink :url="locationUrl">{{locationName}}</CustomLink></ValueListValue>
-                        <ValueListKey v-if="isPartOfEvent">Event</ValueListKey>
-                        <ValueListValue v-if="isPartOfEvent"><CustomLink :url="eventUrl">{{eventName}}</CustomLink></ValueListValue>
+                        <ValueListValue>
+                            <LocationDropdown v-if="isEditing" v-model="locationId" />
+                            <CustomLink v-else :url="locationUrl">{{locationName}}</CustomLink>
+                        </ValueListValue>
+                        <ValueListKey v-if="isPartOfEvent || isEditing">Event</ValueListKey>
+                        <ValueListValue v-if="isPartOfEvent || isEditing">
+                            <EventDropdown v-if="isEditing" v-model="eventId" />
+                            <CustomLink v-else :url="eventUrl">{{eventName}}</CustomLink>
+                        </ValueListValue>
                         <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
                         <ValueListValue v-if="isPlayerSelectionEnabled"><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId" /></ValueListValue>
                     </ValueList>
                 </Block>
                 <Block v-if="canEdit">
-                    <CustomButton @click="onEdit" type="action" text="Edit Cashgame" />
+                    <template v-if="isEditing">
+                        <CustomButton @click="onSave" type="action" text="Save" />
+                        <CustomButton @click="onCancelEdit" text="Cancel" />
+                    </template>
+                    <CustomButton v-else @click="onEdit" type="action" text="Edit Cashgame" />
                 </Block>
             </template>
         </PageSection>
@@ -59,7 +69,7 @@
 
 <script lang="ts">
     import { Component, Prop, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, PlayerMixin, FormatMixin, UserMixin } from '@/mixins';
+    import { BunchMixin, EventMixin, LocationMixin, PlayerMixin, FormatMixin, UserMixin } from '@/mixins';
     import urls from '@/urls';
     import timeFunctions from '@/time-functions';
     import Layout from '@/components/Layouts/Layout.vue';
@@ -79,10 +89,14 @@
     import ValueList from '@/components/Common/ValueList/ValueList.vue';
     import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
     import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
+    import LocationDropdown from '@/components/LocationDropdown.vue';
+    import EventDropdown from '@/components/EventDropdown.vue';
     import format from '@/format';
     import dayjs from 'dayjs';
     import { DetailedCashgame } from '@/models/DetailedCashgame';
     import api from '@/api';
+import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
+import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 
     const longRefresh = 30000;
 
@@ -104,11 +118,15 @@
             CustomButton,
             ValueList,
             ValueListKey,
-            ValueListValue
+            ValueListValue,
+            LocationDropdown,
+            EventDropdown
         }
     })
     export default class CashgameDetailsPage extends Mixins(
         BunchMixin,
+        EventMixin,
+        LocationMixin,
         PlayerMixin,
         FormatMixin,
         UserMixin
@@ -122,6 +140,8 @@
         selectedPlayerId: string = '';
         refreshHandle = 0;
         isEditing = false;
+        locationId: string | null = null;
+        eventId: string | null = null;
 
         get title() {
             return `Cashgame ${this.formattedDate}`;
@@ -202,7 +222,7 @@
         }
 
         get isPlayerSelectionEnabled() {
-            return this.isRunning && this.$_isManager;
+            return this.isRunning && this.$_isManager && !this.isEditing;
         }
 
         get locationName(){
@@ -385,6 +405,39 @@
             this.isEditing = true;
         }
 
+        onSave(){
+            if(!this.cashgame)
+                return;
+                        
+            if(!this.locationId)
+                return;
+            
+            const location = this.$_getLocation(this.locationId);
+            if(!location)
+                return;
+            
+            const cashgameLocation = new DetailedCashgameLocation(location.id, location.name);
+
+            let cashgameEvent = null;
+            if(this.eventId){
+                const event = this.$_getEvent(this.eventId);
+                if(event){
+                    cashgameEvent = new DetailedCashgameEvent(event.id.toString(), event.name);
+                }
+            }
+
+            this.cashgame.update(cashgameLocation, cashgameEvent);
+            this.isEditing = false;
+
+            const locationId = cashgameLocation.id;
+            const eventId = cashgameEvent?.id
+            api.updateCashgame(this.cashgame.id, {locationId, eventId})
+        }
+
+        onCancelEdit(){
+            this.isEditing = false;
+        }
+
         async onDeleteAction(id: string){
             if(!this.cashgame)
                 return;
@@ -424,6 +477,8 @@
             this.cashgame = response.status === 200
                 ? new DetailedCashgame(response.data)
                 : null;
+            this.locationId = this.cashgame?.location.id || null;
+            this.eventId = this.cashgame?.event?.id || null;
         }
 
         async refresh(){
@@ -439,6 +494,8 @@
             this.$_requireUser();
             this.$_loadBunch();
             this.$_loadPlayers();
+            this.$_loadLocations();
+            this.$_loadEvents();
             await this.loadCashgame();
             this.setupRefresh(longRefresh);
         }

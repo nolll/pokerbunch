@@ -69,10 +69,8 @@ namespace Web.Bootstrapping
             _services.AddScoped(o => new ApiConnection(_settings.ApiKey, _settings.DetailedErrorsForApi, o.GetService<IUrlFormatter>(), o.GetService<ITokenReader>()));
             _services.AddScoped(o => new PokerBunchClient(o.GetService<ApiConnection>()));
             
-            _services.AddScoped<ILocationService, LocationService>();
             _services.AddScoped<IBunchService, BunchService>();
             _services.AddScoped<ICashgameService, CashgameService>();
-            _services.AddScoped<IEventService, EventService>();
             _services.AddScoped<IPlayerService, PlayerService>();
             _services.AddScoped<IUserService, UserService>();
             _services.AddScoped<IAuthService, AuthService>();
@@ -91,9 +89,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<JoinBunch>();
             _services.AddScoped<JoinBunchConfirmation>();
 
-            // Cashgame
-            _services.AddScoped<EditCashgameForm>();
-            _services.AddScoped<EditCashgame>();
             _services.AddScoped<DeleteCashgame>();
 
             // Player

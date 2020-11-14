@@ -26,10 +26,5 @@ namespace PokerBunch.Client.Clients
         {
             ApiConnection.Delete(new ApiCashgameUrl(id));
         }
-
-        public Cashgame Update(CashgameUpdate cashgameUpdate)
-        {
-            return ApiConnection.Put<Cashgame>(new ApiCashgameUrl(cashgameUpdate.CashgameId), cashgameUpdate);
-        }
     }
 }

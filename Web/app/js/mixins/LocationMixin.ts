@@ -12,6 +12,10 @@ export class LocationMixin extends Vue {
         return this.$store.getters[LocationStoreGetters.Locations];
     }
 
+    protected $_getLocation(id: string): LocationResponse | null {
+        return this.$_locations.find(l => l.id.toString() === id) || null;
+    }
+
     protected $_loadLocations() {
         this.$store.dispatch(LocationStoreActions.LoadLocations, { slug: this.$route.params.slug });
     }
