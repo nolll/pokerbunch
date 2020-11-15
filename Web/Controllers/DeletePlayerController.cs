@@ -31,7 +31,7 @@ namespace Web.Controllers
         {
             if (result.Deleted)
                 return new PlayerIndexUrl(result.Slug);
-            return new PlayerDetailsUrl(result.PlayerId);
+            return new PlayerDetailsUrl(result.Slug, result.PlayerId);
         }
     }
 }

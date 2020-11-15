@@ -22,16 +22,16 @@ namespace Web.Controllers
             _playerBadges = playerBadges;
         }
 
-        //[Authorize]
-        //[Route(PlayerDetailsUrl.Route)]
-        //public ActionResult Details(string playerId)
-        //{
-        //    var detailsResult = _playerDetails.Execute(new PlayerDetails.Request(playerId));
-        //    var contextResult = GetBunchContext(detailsResult.Slug);
-        //    var factsResult = _playerFacts.Execute(new PlayerFacts.Request(playerId));
-        //    var badgesResult = _playerBadges.Execute(new PlayerBadges.Request(playerId));
-        //    var model = new PlayerDetailsPageModel(AppSettings, contextResult, detailsResult, factsResult, badgesResult);
-        //    return View(model);
-        //}
+        [Authorize]
+        [Route(PlayerDetailsUrl.Route)]
+        public ActionResult Details(string playerId)
+        {
+            var detailsResult = _playerDetails.Execute(new PlayerDetails.Request(playerId));
+            var contextResult = GetBunchContext(detailsResult.Slug);
+            var factsResult = _playerFacts.Execute(new PlayerFacts.Request(playerId));
+            var badgesResult = _playerBadges.Execute(new PlayerBadges.Request(playerId));
+            var model = new PlayerDetailsPageModel(AppSettings, contextResult, detailsResult, factsResult, badgesResult);
+            return View(model);
+        }
     }
 }
