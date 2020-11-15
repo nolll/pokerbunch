@@ -38,12 +38,16 @@ export class DetailedCashgame {
     }
 
     public deleteAction(id: string){
-        this.players.forEach((player) => {
-            const p = player.actions.map(item => item.id).indexOf(id);
-            if (p !== -1) {
-                player.actions.splice(p, 1);
+        for(const p of this.players){
+            const index = p.actions.map(item => item.id).indexOf(id);
+            if (index !== -1) {
+                p.actions.splice(index, 1);
+                if(p && p.actions.length === 0){
+                    this.players = this.players.filter(o => o.id !== p.id);
+                }
+                break;
             }
-        });
+        }
     }
 
     public updateAction(id: string, data: any){

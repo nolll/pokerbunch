@@ -24,6 +24,7 @@ export default {
     getCashgame: (id: string) => apiClient.get<DetailedCashgameResponse>(apiUrls.cashgame.get(id)),
     addCashgame: (slug: string, data: object) => apiClient.post<DetailedCashgameResponse>(apiUrls.cashgame.list(slug), data),
     updateCashgame: (id: string, data: object) => apiClient.put(apiUrls.cashgame.get(id), data),
+    deleteCashgame: (id: string) => apiClient.delete(apiUrls.cashgame.get(id)),
     getCurrentGames: (slug: string) => apiClient.get<CurrentGameResponse[]>(apiUrls.cashgame.current(slug)),
     getBunch: (slug: string) => apiClient.get<BunchResponse>(apiUrls.bunch.get(slug)),
     getUserBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.user),

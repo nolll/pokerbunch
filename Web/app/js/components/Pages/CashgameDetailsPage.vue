@@ -56,6 +56,9 @@
                     </template>
                     <CustomButton v-else @click="onEdit" type="action" text="Edit Cashgame" />
                 </Block>
+                <Block v-if="isEditing && !hasPlayers">
+                    <CustomButton @click="onDelete" type="action" text="Delete" />
+                </Block>
             </template>
         </PageSection>
 
@@ -390,22 +393,22 @@ import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
             this.selectedPlayerId = this.$_playerId;
         }
 
-        getPlayerInGame(id: string){
+        private getPlayerInGame(id: string){
             if (!id)
                 return null;
             return this.playersInGame.find(p => p.id.toString() === id.toString()) || null;
         }
 
-        onSelectPlayer(id: string){
+        private onSelectPlayer(id: string){
             if(this.isPlayerSelectionEnabled)
                 this.selectedPlayerId = id;
         }
 
-        onEdit(){
+        private onEdit(){
             this.isEditing = true;
         }
 
-        onSave(){
+        private async onSave(){
             if(!this.cashgame)
                 return;
                         
@@ -431,10 +434,18 @@ import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 
             const locationId = cashgameLocation.id;
             const eventId = cashgameEvent?.id
-            api.updateCashgame(this.cashgame.id, {locationId, eventId})
+            await api.updateCashgame(this.cashgame.id, {locationId, eventId})
         }
 
-        onCancelEdit(){
+        private async onDelete(){
+            if(!this.cashgame || this.hasPlayers)
+                return;
+
+            await api.deleteCashgame(this.cashgame.id);
+            this.redirect();
+        }
+
+        private onCancelEdit(){
             this.isEditing = false;
         }
 

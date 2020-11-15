@@ -13,49 +13,7 @@ namespace Tests.Core.Data
         private static readonly DateTime EndTime1 = TimeData.Utc("2001-01-01 13:02:00");
         private static readonly DateTime StartTime2 = TimeData.Utc("2001-01-02 12:00:00");
         private static readonly DateTime EndTime2 = TimeData.Utc("2001-01-02 13:02:00");
-        private static readonly TimeZoneInfo Timezone = TimezoneData.Swedish;
-        private static readonly Currency Currency = CurrencyData.Sek;
-
-        public static DetailedCashgame GameWithTwoPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
-            Id1,
-            StartTime1,
-            EndTime1,
-            isRunning,
-            new CashgameBunch(BunchData.Id1, Timezone, Currency),
-            role,
-            new CashgameLocation(LocationData.Id1, LocationData.Name1),
-            null,
-            new List<DetailedCashgame.CashgamePlayer>
-            {
-                new DetailedCashgame.CashgamePlayer(
-                    PlayerData.Id1,
-                    PlayerData.Name1,
-                    PlayerData.Color1,
-                    350,
-                    200,
-                    StartTime1,
-                    EndTime1),
-                new DetailedCashgame.CashgamePlayer(
-                    PlayerData.Id2,
-                    PlayerData.Name2,
-                    PlayerData.Color2,
-                    50,
-                    200,
-                    StartTime1,
-                    EndTime1)
-            });
-
-        public static DetailedCashgame GameWithoutPlayers(Role role, bool isRunning = false) => new DetailedCashgame(
-            Id2,
-            StartTime1,
-            EndTime1,
-            isRunning,
-            new CashgameBunch(BunchData.Id1, Timezone, Currency),
-            role,
-            new CashgameLocation(LocationData.Id1, LocationData.Name1),
-            null,
-            new List<DetailedCashgame.CashgamePlayer>());
-
+        
         public static IList<ListCashgame> TwoGamesOnSameYearWithTwoPlayers => TwoGamesWithTwoPlayers(StartTime1, EndTime1, StartTime2, EndTime2);
 
         private static IList<ListCashgame> TwoGamesWithTwoPlayers(DateTime startTime1, DateTime endTime1, DateTime startTime2, DateTime endTime2) =>
