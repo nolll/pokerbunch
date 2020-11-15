@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <OverviewRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" />
+                <OverviewRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" :bunchId="slug" />
             </tbody>
         </TableList>
     </div>
@@ -44,11 +44,15 @@
         }
 
         get url() {
-            return urls.cashgame.details(this.$_slug, this.lastGame.id);
+            return urls.cashgame.details(this.slug, this.lastGame.id);
         }
 
         get lastGame() {
             return this.$_currentYearGames[0];
+        }
+
+        get slug(){
+            return this.$_slug;
         }
 
         get ready() {

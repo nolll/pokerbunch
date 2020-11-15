@@ -1,13 +1,13 @@
 ﻿<template>
     <SimpleList>
         <SimpleListItem v-for="player in players" :key="player.id">
-            <PlayerList-item :id="player.id" :name="player.name" :color="player.color"/>
+            <PlayerList-item :id="player.id" :name="player.name" :color="player.color" :bunchId="bunchId" />
         </SimpleListItem>
     </SimpleList>
 </template>
 
 <script lang="ts">
-    import { Component, Mixins } from 'vue-property-decorator';
+    import { Component, Mixins, Prop } from 'vue-property-decorator';
     import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
     import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
     import PlayerListItem from '@/components/PlayerList/PlayerListItem.vue';
@@ -23,6 +23,8 @@
     export default class PlayerList extends Mixins(
         PlayerMixin
     ) {
+        @Prop() readonly bunchId!: string;
+
         get players(){
             return this.$_players;
         }

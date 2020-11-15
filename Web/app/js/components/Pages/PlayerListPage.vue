@@ -16,7 +16,7 @@
             </Block>
 
             <Block>
-                <PlayerList />
+                <PlayerList :bunchId="slug" />
             </Block>
         </PageSection>
     </Layout>
@@ -52,7 +52,11 @@
     ) {
 
         get addPlayerUrl() {
-            return urls.player.add(this.$_slug);
+            return urls.player.add(this.slug);
+        }
+
+        get slug(){
+            return this.$_slug;
         }
 
         get ready() {

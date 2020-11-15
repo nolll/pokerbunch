@@ -49,6 +49,7 @@
     export default class PlayerRow extends Mixins(
         FormatMixin
     ) {
+        @Prop() readonly bunchId!: string;
         @Prop() readonly player!: DetailedCashgamePlayer;
         @Prop() readonly isCashgameRunning!: boolean;
         @Prop({default: false}) readonly canEdit!: boolean;
@@ -104,7 +105,7 @@
         }
 
         get url() {
-            return urls.player.details(this.player.id);
+            return urls.player.details(this.bunchId, this.player.id);
         }
 
         get showDetails() {

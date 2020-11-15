@@ -35,7 +35,7 @@ export default {
     },
     player: {
         add: (slug: string) => `/bunches/${slug}/players/add`,
-        details: (id: string) => `/player/details/${id}`,
+        details: (slug: string, id: string) => `/bunches/${slug}/players/${id}`,
         list: (slug: string) => `/bunches/${slug}/players`
     },
     user: {

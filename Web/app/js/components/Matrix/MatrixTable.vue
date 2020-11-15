@@ -10,7 +10,7 @@
                 </tr>
             </thead>
             <tbody>
-                <MatrixRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" />
+                <MatrixRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" :bunchId="slug" />
             </tbody>
         </TableList>
     </div>

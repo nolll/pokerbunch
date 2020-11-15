@@ -6,10 +6,7 @@
 
         <PageSection>
             <Block>
-                <CashgameNavigation page="toplist" />
-            </Block>
-            <Block>
-                <TopListTable :bunchId="bunchId" />
+                <PageHeading :text="playerName" />
             </Block>
         </PageSection>
     </Layout>
@@ -17,41 +14,46 @@
 
 <script lang="ts">
     import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, UserMixin, GameArchiveMixin } from '@/mixins';
+    import { BunchMixin, PlayerMixin, UserMixin } from '@/mixins';
+    import urls from '@/urls';
     import Layout from '@/components/Layouts/Layout.vue';
     import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-    import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
-    import TopListTable from '@/components/TopList/TopListTable.vue';
     import Block from '@/components/Common/Block.vue';
+    import PageHeading from '@/components/Common/PageHeading.vue';
     import PageSection from '@/components/Common/PageSection.vue';
+    import CustomLink from '@/components/Common/CustomLink.vue';
+    import { Player } from '@/models/Player';
     
     @Component({
         components: {
             Layout,
             BunchNavigation,
-            CashgameNavigation,
-            TopListTable,
             Block,
-            PageSection
+            PageHeading,
+            PageSection,
+            CustomLink
         }
     })
-    export default class ToplistPage extends Mixins(
+    export default class PlayerDetailsPage extends Mixins(
         BunchMixin,
-        UserMixin,
-        GameArchiveMixin
+        PlayerMixin,
+        UserMixin
     ) {
-        get bunchId(){
-            return this.$_slug;
+        player: Player | null = null
+
+        get playerName(){
+            return this.player?.name;
         }
 
         get ready() {
-            return this.$_bunchReady && this.$_gamesReady;
+            return this.player != null;
         }
 
-        init() {
+        async init() {
             this.$_requireUser();
             this.$_loadBunch();
-            this.$_loadGames();
+            await this.$_loadPlayers();
+            this.player = this.$_getPlayer(this.$route.params.id);
         }
 
         mounted() {

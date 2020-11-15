@@ -10,7 +10,7 @@
                 </tr>
             </thead>
             <tbody>
-                <YearMatrixRow v-for="(player, index) in playersWithYearResults" :player="player" :index="index" :key="player.id" />
+                <YearMatrixRow v-for="(player, index) in playersWithYearResults" :player="player" :index="index" :key="player.id" :bunchId="bunchId" />
             </tbody>
         </TableList>
     </div>
@@ -39,6 +39,10 @@
         BunchMixin,
         GameArchiveMixin
     ) {
+        get bunchId(){
+            return this.$_slug;
+        }
+
         get years(){
             return this.$_years;
         }

@@ -14,14 +14,14 @@
                 </tr>
             </thead>
             <tbody class="list">
-                <TopListRow v-for="player in players" :player="player" :key="player.id" />
+                <TopListRow v-for="player in players" :player="player" :key="player.id" :bunchId="bunchId" />
             </tbody>
         </TableList>
     </div>
 </template>
 
 <script lang="ts">
-    import { Component, Mixins } from 'vue-property-decorator';
+    import { Component, Mixins, Prop } from 'vue-property-decorator';
     import TopListRow from './TopListRow.vue';
     import { GameArchiveMixin } from '@/mixins';
     import TableList from '@/components/Common/TableList/TableList.vue';
@@ -37,6 +37,8 @@
     export default class TopListTable extends Mixins(
         GameArchiveMixin
     ) {
+        @Prop() readonly bunchId!: string;
+
         get players(){
             return this.$_sortedPlayers;
         }

@@ -16,12 +16,13 @@
         }
     })
     export default class PlayerListItem extends Vue {
+        @Prop() readonly bunchId!: string;
         @Prop() readonly id!: number;
         @Prop() readonly name!: string;
         @Prop() readonly color!: string;
 
         get url() {
-            return urls.player.details(this.id.toString());
+            return urls.player.details(this.bunchId, this.id.toString());
         }
 
         get colorBoxStyle() {

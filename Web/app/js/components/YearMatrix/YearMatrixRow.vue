@@ -33,11 +33,12 @@
     export default class YearMatrixRow extends Mixins(
         FormatMixin
     ) {
+        @Prop() readonly bunchId!: string;
         @Prop() readonly player!: CashgamePlayerYearlyResultCollection;
         @Prop() readonly index!: number;
 
         get url() {
-            return urls.player.details(this.player.id);
+            return urls.player.details(this.bunchId, this.player.id);
         }
 
         get name() { return this.player.name };

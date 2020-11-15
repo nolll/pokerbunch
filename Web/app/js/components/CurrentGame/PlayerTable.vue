@@ -1,7 +1,7 @@
 ﻿<template>
     <div>
         <div v-for="player in players" v-bind:key="player.id">
-            <PlayerRow :player="player" :isCashgameRunning="isCashgameRunning" :isReportTimeEnabled="isCashgameRunning" @selected="onSelected" @deleteAction="onDeleteAction" @saveAction="onSaveAction" :canEdit="canEdit" />
+            <PlayerRow :player="player" :isCashgameRunning="isCashgameRunning" :isReportTimeEnabled="isCashgameRunning" @selected="onSelected" @deleteAction="onDeleteAction" @saveAction="onSaveAction" :canEdit="canEdit" :bunchId="bunchId" />
         </div>
         <div class="totals">
             <div class="title">Totals: </div>
@@ -28,6 +28,7 @@
     export default class PlayerTable extends Mixins(
         FormatMixin
     ) {
+        @Prop() readonly bunchId!: string;
         @Prop() readonly players!: DetailedCashgameResponsePlayer[];
         @Prop() readonly isCashgameRunning!: boolean;
         @Prop({default: false}) readonly canEdit!: boolean;

@@ -20,7 +20,7 @@
             </Block>
             <Block v-if="hasPlayers">
                 <div class="standings">
-                    <PlayerTable :players="cashgame.players" :isCashgameRunning="cashgame.isRunning" @playerSelected="onSelectPlayer" @deleteAction="onDeleteAction" @saveAction="onSaveAction" :canEdit="canEdit" />
+                    <PlayerTable :players="cashgame.players" :isCashgameRunning="cashgame.isRunning" @playerSelected="onSelectPlayer" @deleteAction="onDeleteAction" @saveAction="onSaveAction" :canEdit="canEdit" :bunchId="slug" />
                 </div>
             </Block>
             <Block v-else>
@@ -320,6 +320,10 @@ import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 
         get updatedTime(){
             return this.cashgame?.updatedTime || null;
+        }
+
+        get slug(){
+            return this.$_slug;
         }
 
         get ready() {

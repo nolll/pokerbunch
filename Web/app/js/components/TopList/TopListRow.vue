@@ -35,10 +35,11 @@
         FormatMixin,
         GameArchiveMixin
     ) {
+        @Prop() readonly bunchId!: string;
         @Prop() readonly player!: CashgameListPlayerData;
 
         get url() {
-            return urls.player.details(this.player.id);
+            return urls.player.details(this.bunchId, this.player.id);
         }
         
         get winningsCssClass(): CssClasses {
