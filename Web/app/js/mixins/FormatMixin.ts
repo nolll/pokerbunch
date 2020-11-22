@@ -12,6 +12,10 @@ export class FormatMixin extends Mixins(BunchMixin) {
         return format.result(val, this.$_currencyFormat, this.$_thousandSeparator);
     }
 
+    protected $_formatResultWithoutCurrency(val: number): string {
+        return format.resultWithoutCurrency(val);
+    }
+
     protected $_formatWinrate(val: number): string {
         return format.winrate(val, this.$_currencyFormat, this.$_thousandSeparator);
     }

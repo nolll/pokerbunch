@@ -67,7 +67,8 @@ export default {
             if (data.slug !== context.state._slug) {
                 context.commit(GameArchiveStoreMutations.SetSlug, data.slug);
                 const response = await api.getGames(data.slug);
-                context.commit(GameArchiveStoreMutations.SetData, response.data);
+                const games = response.data.map(o => ArchiveCashgame.fromResponse(o));
+                context.commit(GameArchiveStoreMutations.SetData, games);
             }
         },
         [GameArchiveStoreActions.SelectYear](context, data) {
@@ -96,7 +97,7 @@ export default {
     },
     mutations: {
         [GameArchiveStoreMutations.SetData](state, games) {
-            state._games = buildGames(games);
+            state._games = games;
             state._ready = true;
         },
         [GameArchiveStoreMutations.SetGameSortorder](state, sortOrder) {
@@ -120,26 +121,6 @@ export default {
     }
 } as StoreOptions<GameArchiveStoreState>;
 
-function buildGames(rawGames: ArchiveCashgameResponse[]): ArchiveCashgame[] {
-    const responseGames: ArchiveCashgame[] = [];
-    for (const rawGame of rawGames) {
-        const game: ArchiveCashgame = {
-            id: rawGame.id,
-            startTime: rawGame.startTime,
-            updatedTime: rawGame.updatedTime,
-            location: rawGame.location,
-            players: rawGame.players,
-            date: rawGame.startTime,
-            turnover: getTurnover(rawGame),
-            averageBuyin: getAverageBuyin(rawGame),
-            playerCount: rawGame.players.length,
-            duration: timeFunctions.diffInMinutes(rawGame.startTime, rawGame.updatedTime)
-        };
-        responseGames.push(game);
-    }
-    return responseGames;
-}
-
 function getSelectedGames(games: ArchiveCashgame[], selectedYear?: number | null) {
     if (!selectedYear)
         return games;
@@ -162,18 +143,4 @@ function getYears(games: ArchiveCashgame[]) {
         }
     }
     return years;
-}
-
-function getAverageBuyin(game: ArchiveCashgameResponse) {
-    const sum = getTurnover(game);
-    const playerCount = game.players.length;
-    return Math.round(sum / playerCount);
-}
-
-function getTurnover(game: ArchiveCashgameResponse) {
-    let sum = 0;
-    for (const p of game.players) {
-        sum += p.buyin;
-    }
-    return sum;
 }

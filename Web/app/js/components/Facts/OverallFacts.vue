@@ -6,32 +6,32 @@
             <DefinitionData>{{gameCount}}</DefinitionData>
 
             <DefinitionTerm>Total Time Played</DefinitionTerm>
-            <TimeFact :minutes="facts.duration" />
+            <DefinitionData><DurationText :value="facts.duration" /></DefinitionData>
 
             <DefinitionTerm>Total Turnover</DefinitionTerm>
-            <AmountFact :amount="turnover" />
+            <DefinitionData><CurrencyText :value="turnover" /></DefinitionData>
         </DefinitionList>
     </div>
 </template>
 
 <script lang="ts">
     import { Component, Mixins } from 'vue-property-decorator';
-    import AmountFact from './AmountFact.vue';
-    import TimeFact from './TimeFact.vue';
     import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
     import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
     import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
+    import DurationText from '@/components/Common/DurationText.vue';
+    import CurrencyText from '@/components/Common/CurrencyText.vue';
     import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
     import { ArchiveCashgame } from '@/models/ArchiveCashgame';
     import { OverallFactCollection } from '@/models/OverallFactCollection';
     
     @Component({
         components: {
-            AmountFact,
-            TimeFact,
+            CurrencyText,
             DefinitionData,
             DefinitionList,
-            DefinitionTerm
+            DefinitionTerm,
+            DurationText
         }
     })
     export default class OverallFacts extends Mixins(

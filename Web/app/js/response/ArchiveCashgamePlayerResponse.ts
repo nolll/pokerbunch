@@ -1,8 +1,8 @@
 export interface ArchiveCashgamePlayerResponse {
     id: string;
     name: string;
-    startTime: Date;
-    updatedTime: Date;
+    startTime: string;
+    updatedTime: string;
     buyin: number;
     stack: number;
 }

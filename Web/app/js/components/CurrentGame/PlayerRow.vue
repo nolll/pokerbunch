@@ -10,9 +10,9 @@
                 <div class="time" v-if="isReportTimeEnabled"><i title="Last report" class="icon-time"></i> <span>{{lastReportTime}}</span></div>
             </div>
             <div class="amounts">
-                <div><i title="Buy in" class="icon-signin"></i> <span>{{formattedBuyin}}</span></div>
-                <div><i title="Stack" class="icon-reorder"></i> <span>{{formattedStack}}</span></div>
-                <div :class="winningsCssClasses">{{formattedWinnings}}</div>
+                <div><i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" /></div>
+                <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" /></div>
+                <div><WinningsText :value="winnings" /></div>
             </div>
         </div>
         <div v-if="showDetails">
@@ -36,14 +36,18 @@
     import PlayerAction from './PlayerAction.vue';
     import urls from '@/urls';
     import CashgameActionChart from '@/components/CashgameActionChart.vue';
+    import CurrencyText from '@/components/Common/CurrencyText.vue';
+    import WinningsText from '@/components/Common/WinningsText.vue';
     import { CssClasses } from '@/models/CssClasses';
     import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 
     @Component({
         components: {
+            CashgameActionChart,
+            CurrencyText,
             CustomLink,
             PlayerAction,
-            CashgameActionChart
+            WinningsText
         }
     })
     export default class PlayerRow extends Mixins(
@@ -53,7 +57,6 @@
         @Prop() readonly player!: DetailedCashgamePlayer;
         @Prop() readonly isCashgameRunning!: boolean;
         @Prop({default: false}) readonly canEdit!: boolean;
-
 
         isExpanded = false;
 
@@ -83,25 +86,6 @@
 
         get winnings() {
             return this.player.getWinnings();
-        }
-
-        get winningsCssClasses(): CssClasses {
-            return {
-                'pos-result': this.winnings > 0,
-                'neg-result': this.winnings < 0
-            };
-        }
-
-        get formattedBuyin() {
-            return this.$_formatCurrency(this.calculatedBuyin);
-        }
-
-        get formattedStack() {
-            return this.$_formatCurrency(this.stack);
-        }
-
-        get formattedWinnings() {
-            return this.$_formatResult(this.winnings);
         }
 
         get url() {

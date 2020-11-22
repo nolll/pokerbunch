@@ -34,7 +34,7 @@
                         <ValueListKey v-if="showEndTime">End Time</ValueListKey>
                         <ValueListValue v-if="showEndTime">{{formattedEndTime}}</ValueListValue>
                         <ValueListKey v-if="showDuration">Duration</ValueListKey>
-                        <ValueListValue v-if="showDuration">{{formattedDuration}}</ValueListValue>
+                        <ValueListValue v-if="showDuration"><DurationText :value="durationMinutes" /></ValueListValue>
                         <ValueListKey>Location</ValueListKey>
                         <ValueListValue>
                             <LocationDropdown v-if="isEditing" v-model="locationId" />
@@ -72,7 +72,7 @@
 
 <script lang="ts">
     import { Component, Prop, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, EventMixin, LocationMixin, PlayerMixin, FormatMixin, UserMixin } from '@/mixins';
+    import { BunchMixin, EventMixin, LocationMixin, PlayerMixin, UserMixin } from '@/mixins';
     import urls from '@/urls';
     import timeFunctions from '@/time-functions';
     import Layout from '@/components/Layouts/Layout.vue';
@@ -92,14 +92,15 @@
     import ValueList from '@/components/Common/ValueList/ValueList.vue';
     import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
     import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
+    import DurationText from '@/components/Common/DurationText.vue';
     import LocationDropdown from '@/components/LocationDropdown.vue';
     import EventDropdown from '@/components/EventDropdown.vue';
     import format from '@/format';
     import dayjs from 'dayjs';
     import { DetailedCashgame } from '@/models/DetailedCashgame';
     import api from '@/api';
-import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
-import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
+    import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
+    import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 
     const longRefresh = 30000;
 
@@ -107,6 +108,7 @@ import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
         components: {
             Layout,
             BunchNavigation,
+            DurationText,
             GameButton,
             ReportForm,
             BuyinForm,
@@ -131,7 +133,6 @@ import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
         EventMixin,
         LocationMixin,
         PlayerMixin,
-        FormatMixin,
         UserMixin
     ) {
         @Prop() readonly apiHost!: string;
@@ -162,10 +163,6 @@ import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
             if(!this.cashgame)
                 return '';
             return format.hourMinute(this.cashgame.updatedTime);
-        }
-
-        get formattedDuration() {
-            return this.$_formatDuration(this.durationMinutes);
         }
 
         get durationMinutes() {

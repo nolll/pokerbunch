@@ -62,6 +62,8 @@ function mapPlayer(response: PlayerResponse): Player {
     return {
         id: response.id.toString(),
         name: response.name,
-        color: response.color
+        color: response.color,
+        userId: response.userId,
+        userName: response.userName
     };
 }

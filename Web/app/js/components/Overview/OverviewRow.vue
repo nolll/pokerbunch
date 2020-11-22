@@ -4,7 +4,7 @@
         <TableListCell>
             <CustomLink :url="url">{{name}}</CustomLink>
         </TableListCell>
-        <TableListCell :is-numeric="true"><FormattedResult :text="formattedWinnings" :value="winnings" /></TableListCell>
+        <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
         <OverviewItem :game="game" />
     </TableListRow>
 </template>
@@ -19,7 +19,7 @@
     import { CssClasses } from '@/models/CssClasses';
     import TableListRow from '@/components/Common/TableList/TableListRow.vue';
     import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-    import FormattedResult from '@/components/Common/FormattedResult.vue';
+    import WinningsText from '@/components/Common/WinningsText.vue';
 
     @Component({
         components: {
@@ -27,7 +27,7 @@
             CustomLink,
             TableListRow,
             TableListCell,
-            FormattedResult
+            WinningsText
         }
     })
     export default class OverviewRow extends Mixins(
@@ -51,10 +51,6 @@
 
         get winnings() {
             return this.player.winnings;
-        }
-
-        get formattedWinnings() {
-            return this.$_formatResult(this.winnings);
         }
 
         get game() {

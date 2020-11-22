@@ -4,20 +4,19 @@
         <TableListCell>
             <CustomLink :url="url">{{name}}</CustomLink>
         </TableListCell>
-        <TableListCell :is-numeric="true"><FormattedResult :text="formattedWinnings" :value="winnings" /></TableListCell>
+        <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
         <MatrixItem v-for="game in player.gameResults" :game="game" :key="game.gameId" />
     </TableListRow>
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Mixins } from 'vue-property-decorator';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
     import urls from '@/urls';
-    import { FormatMixin } from '@/mixins'
     import MatrixItem from './MatrixItem.vue';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import TableListRow from '@/components/Common/TableList/TableListRow.vue';
     import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-    import FormattedResult from '@/components/Common/FormattedResult.vue';
+    import WinningsText from '@/components/Common/WinningsText.vue';
     import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 
     @Component({
@@ -26,12 +25,10 @@
             CustomLink,
             TableListRow,
             TableListCell,
-            FormattedResult
+            WinningsText
         }
     })
-    export default class MatrixRow extends Mixins(
-        FormatMixin
-    ) {
+    export default class MatrixRow extends Vue {
         @Prop() readonly bunchId!: string;
         @Prop() readonly player!: CashgameListPlayerData;
         @Prop() readonly index!: number;
@@ -50,10 +47,6 @@
 
         get winnings() {
             return this.player.winnings;
-        }
-
-        get formattedWinnings() {
-            return this.$_formatResult(this.winnings);
         }
     }
 </script>

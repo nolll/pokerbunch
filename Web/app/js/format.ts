@@ -17,6 +17,15 @@ function formatResult(value: number, format: string, separator:string) {
     return currencyValue;
 }
 
+function formatResultWithoutCurrency(value: number) {
+    const absValue = Math.abs(value);
+    if (value > 0)
+        return `+${absValue}`;
+    if (value < 0)
+        return `-${absValue}`;
+    return absValue.toString();
+}
+
 function formatWinrate(value: number, format: string, separator: string) {
     const currencyValue = formatCurrency(value, format, separator);
     return currencyValue + '/h';
@@ -47,6 +56,7 @@ function formatMonthDayYear(date: Date) {
 export default {
     currency: formatCurrency,
     result: formatResult,
+    resultWithoutCurrency: formatResultWithoutCurrency,
     winrate: formatWinrate,
     duration: formatDuration,
     monthDay: formatMonthDay,

@@ -2,39 +2,40 @@
     <TableListRow>
         <TableListCell :is-numeric="true">{{player.rank}}.</TableListCell>
         <TableListCell><CustomLink :url="url">{{player.name}}</CustomLink></TableListCell>
-        <TableListCell :is-numeric="true"><FormattedResult :text="formattedWinnings" :value="winnings" /></TableListCell>
-        <TableListCell :is-numeric="true">{{formattedBuyin}}</TableListCell>
-        <TableListCell :is-numeric="true">{{formattedCashout}}</TableListCell>
-        <TableListCell>{{formattedTime}}</TableListCell>
+        <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
+        <TableListCell :is-numeric="true"><CurrencyText :value="buyin" /></TableListCell>
+        <TableListCell :is-numeric="true"><CurrencyText :value="cashout" /></TableListCell>
+        <TableListCell><DurationText :value="time" /></TableListCell>
         <TableListCell :is-numeric="true">{{player.gameCount}}</TableListCell>
-        <TableListCell :is-numeric="true">{{formattedWinrate}}</TableListCell>
+        <TableListCell :is-numeric="true"><WinrateText :value="winrate" /></TableListCell>
     </TableListRow>
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Mixins } from 'vue-property-decorator';
-    import { FormatMixin } from '@/mixins';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
     import CustomLink from '@/components/Common/CustomLink.vue';
     import urls from '@/urls';
-    import { GameArchiveMixin } from '@/mixins';
     import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
     import { CssClasses } from '@/models/CssClasses';
     import TableListRow from '@/components/Common/TableList/TableListRow.vue';
     import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-    import FormattedResult from '@/components/Common/FormattedResult.vue';
+    import WinningsText from '@/components/Common/WinningsText.vue';
+    import WinrateText from '@/components/Common/WinrateText.vue';
+    import CurrencyText from '@/components/Common/CurrencyText.vue';
+    import DurationText from '@/components/Common/DurationText.vue';
 
     @Component({
         components: {
+            CurrencyText,
             CustomLink,
+            DurationText,
             TableListRow,
             TableListCell,
-            FormattedResult
+            WinningsText,
+            WinrateText
         }
     })
-    export default class TopListRow extends Mixins(
-        FormatMixin,
-        GameArchiveMixin
-    ) {
+    export default class TopListRow extends Vue {
         @Prop() readonly bunchId!: string;
         @Prop() readonly player!: CashgameListPlayerData;
 
@@ -42,36 +43,24 @@
             return urls.player.details(this.bunchId, this.player.id);
         }
         
-        get winningsCssClass(): CssClasses {
-            const winnings = this.player.winnings;
-            return {
-                'pos-result': winnings > 0,
-                'neg-result': winnings < 0
-            }
-        }
-
-        get formattedWinnings() {
-            return this.$_formatResult(this.winnings);
-        }
-
         get winnings() {
             return this.player.winnings;
         }
 
-        get formattedBuyin() {
-            return this.$_formatCurrency(this.player.buyin);
+        get buyin() {
+            return this.player.buyin;
         }
 
-        get formattedCashout() {
-            return this.$_formatCurrency(this.player.stack);
+        get cashout() {
+            return this.player.stack;
         }
 
-        get formattedWinrate() {
-            return this.$_formatWinrate(this.player.winrate);
+        get winrate() {
+            return this.player.winrate;
         }
 
-        get formattedTime() {
-            return this.$_formatDuration(this.player.playedTimeInMinutes);
+        get time() {
+            return this.player.playedTimeInMinutes;
         }
     }
 </script>

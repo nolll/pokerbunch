@@ -1,33 +1,20 @@
 ﻿<template>
-    <DefinitionData>{{name}}: <span :class="cssClasses">{{formattedAmount}}</span></DefinitionData>
+    <DefinitionData>{{name}}: <WinningsText :value="amount" /></DefinitionData>
 </template>
 
 <script lang="ts">
-    import { Component, Prop, Mixins } from 'vue-property-decorator';
-    import { FormatMixin } from '@/mixins'
+    import { Component, Prop, Vue } from 'vue-property-decorator';
     import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
-    import { CssClasses } from '@/models/CssClasses';
+    import WinningsText from '@/components/Common/WinningsText.vue'
 
     @Component({
         components: {
-            DefinitionData
+            DefinitionData,
+            WinningsText
         }
     })
-    export default class PlayerResultFact extends Mixins(
-        FormatMixin
-    ) {
+    export default class PlayerResultFact extends Vue {
         @Prop() readonly name!: string;
         @Prop() readonly amount!: number;
-
-        get formattedAmount() {
-            return this.$_formatResult(this.amount);
-        }
-
-        get cssClasses(): CssClasses {
-            return {
-                'pos-result': this.amount > 0,
-                'neg-result': this.amount < 0
-            };
-        }
     }
 </script>

@@ -6,28 +6,27 @@
         <div class="totals">
             <div class="title">Totals: </div>
             <div class="amounts">
-                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <span>{{formattedTotalBuyin}}</span></div>
-                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <span>{{formattedTotalStacks}}</span></div>
+                <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <CurrencyText :value="totalBuyin" /></div>
+                <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <CurrencyText :value="totalStacks" /></div>
             </div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    import { Component, Mixins, Prop } from 'vue-property-decorator';
+    import { Component, Prop, Vue } from 'vue-property-decorator';
     import PlayerRow from './PlayerRow.vue';
-    import { FormatMixin } from '@/mixins'
     import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
+    import CurrencyText from '@/components/Common/CurrencyText.vue';
     import cashgameHelper from '@/CashgameHelper';
 
     @Component({
         components: {
+            CurrencyText,
             PlayerRow
         }
     })
-    export default class PlayerTable extends Mixins(
-        FormatMixin
-    ) {
+    export default class PlayerTable extends Vue {
         @Prop() readonly bunchId!: string;
         @Prop() readonly players!: DetailedCashgameResponsePlayer[];
         @Prop() readonly isCashgameRunning!: boolean;
@@ -37,16 +36,8 @@
             return cashgameHelper.getTotalBuyin(this.players);
         }
 
-        get formattedTotalBuyin() {
-            return this.$_formatCurrency(this.totalBuyin);
-        }
-
         get totalStacks(){
             return cashgameHelper.getTotalStacks(this.players);
-        }
-
-        get formattedTotalStacks() {
-            return this.$_formatCurrency(this.totalStacks);
         }
 
         onSelected(id: string){

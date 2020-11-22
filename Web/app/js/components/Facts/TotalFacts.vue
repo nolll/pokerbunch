@@ -3,7 +3,7 @@
         <h2 class="h2">Totals</h2>
         <DefinitionList>
             <DefinitionTerm>Most Time Played</DefinitionTerm>
-            <PlayerTime-fact :name="facts.mostTime.name" :minutes="facts.mostTime.minutes" />
+            <PlayerTimeFact :name="facts.mostTime.name" :minutes="facts.mostTime.minutes" />
 
             <DefinitionTerm>Best Total Result</DefinitionTerm>
             <PlayerResultFact :name="facts.bestTotal.name" :amount="facts.bestTotal.amount" />

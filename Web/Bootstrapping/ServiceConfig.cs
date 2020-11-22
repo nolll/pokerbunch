@@ -90,9 +90,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<JoinBunchConfirmation>();
 
             // Player
-            _services.AddScoped<PlayerDetails>();
-            _services.AddScoped<PlayerFacts>();
-            _services.AddScoped<PlayerBadges>();
             _services.AddScoped<InvitePlayer>();
             _services.AddScoped<InvitePlayerForm>();
             _services.AddScoped<InvitePlayerConfirmation>();

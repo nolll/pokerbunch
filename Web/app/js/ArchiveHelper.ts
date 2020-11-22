@@ -2,9 +2,9 @@ import { ArchiveCashgame } from './models/ArchiveCashgame';
 import { CashgameListPlayerData } from './models/CashgameListPlayerData';
 import { CashgamePlayerData } from './models/CashgamePlayerData';
 import { CashgamePlayerSortOrder } from './models/CashgamePlayerSortOrder';
-import { ArchiveCashgamePlayerResponse } from './response/ArchivePlayerResponse';
 import timeFunctions from './time-functions';
 import playerSorter from '@/PlayerSorter';
+import { ArchiveCashgamePlayer } from './models/ArchiveCashgamePlayer';
 
 export default {
     getPlayers(games: ArchiveCashgame[]) {
@@ -69,7 +69,7 @@ function getPlayerResult(results: CashgameListPlayerData[], id: string): Cashgam
     return null;
 }
 
-function getWinningPlayerId(players: ArchiveCashgamePlayerResponse[]) {
+function getWinningPlayerId(players: ArchiveCashgamePlayer[]) {
     let winningPlayerId = '';
     let best: number | null = null;
     for (const player of players) {

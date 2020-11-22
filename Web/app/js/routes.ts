@@ -46,7 +46,7 @@ const routes: RouteConfig[] = [
     { path: '/bunches/:slug/cashgames/:id', component: CashgameDetailsPage },
     { path: '/bunches/:slug/cashgames', component: OverviewPage },
     { path: '/bunches/:slug/players/add', component: AddPlayerPage },
-    //{ path: '/bunches/:slug/players/:id', component: PlayerDetailsPage },
+    { path: '/bunches/:slug/players/:id', component: PlayerDetailsPage },
     { path: '/bunches/:slug/players', component: PlayerListPage },
     { path: '/bunches/:slug/events/add', component: AddEventPage },
     { path: '/bunches/:slug/events/:id', component: EventDetailsPage },

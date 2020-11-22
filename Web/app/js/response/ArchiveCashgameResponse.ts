@@ -1,5 +1,5 @@
 import { ArchiveCashgameLocationResponse } from './ArchiveCashgameLocationResponse';
-import { ArchiveCashgamePlayerResponse } from './ArchivePlayerResponse';
+import { ArchiveCashgamePlayerResponse } from './ArchiveCashgamePlayerResponse';
 
 export interface ArchiveCashgameResponse {
     id: string;
