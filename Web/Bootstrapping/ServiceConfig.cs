@@ -11,7 +11,6 @@ using PokerBunch.Client.Clients;
 using PokerBunch.Client.Connection;
 using PokerBunch.Common.Urls;
 using Web.Services;
-using CashgameService = Infrastructure.Api.Services.CashgameService;
 
 namespace Web.Bootstrapping
 {
@@ -70,7 +69,6 @@ namespace Web.Bootstrapping
             _services.AddScoped(o => new PokerBunchClient(o.GetService<ApiConnection>()));
             
             _services.AddScoped<IBunchService, BunchService>();
-            _services.AddScoped<ICashgameService, CashgameService>();
             _services.AddScoped<IPlayerService, PlayerService>();
             _services.AddScoped<IUserService, UserService>();
             _services.AddScoped<IAuthService, AuthService>();
@@ -93,7 +91,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<InvitePlayer>();
             _services.AddScoped<InvitePlayerForm>();
             _services.AddScoped<InvitePlayerConfirmation>();
-            _services.AddScoped<DeletePlayer>();
         }
 
         private void AddAuthentication()

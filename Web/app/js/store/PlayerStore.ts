@@ -1,6 +1,6 @@
 ﻿import { StoreOptions } from 'vuex';
 import api from '@/api';
-import { PlayerStoreGetters, PlayerStoreActions, PlayerStoreMutations, PlayerStoreState, AddPlayerParams } from '@/store/helpers/PlayerStoreHelpers';
+import { PlayerStoreGetters, PlayerStoreActions, PlayerStoreMutations, PlayerStoreState, AddPlayerParams, DeletePlayerParams } from '@/store/helpers/PlayerStoreHelpers';
 import { Player } from '@/models/Player';
 import { PlayerResponse } from '@/response/PlayerResponse';
 
@@ -40,7 +40,13 @@ export default {
             if (context.state._playersReady) {
                 const response = await api.addPlayer(data.bunchId, { name: data.name });
                 const player = mapPlayer(response.data);
-                context.commit(PlayerStoreMutations.AddPlayer, response.data);
+                context.commit(PlayerStoreMutations.AddPlayer, player);
+            }
+        },
+        async [PlayerStoreActions.DeletePlayer](context, data: DeletePlayerParams) {
+            if (context.state._playersReady) {
+                context.commit(PlayerStoreMutations.DeletePlayer, data.player);
+                await api.deletePlayer(data.player.id);
             }
         }
     },
@@ -54,6 +60,14 @@ export default {
         },
         [PlayerStoreMutations.AddPlayer](state, player) {
             state._players.push(player);
+        },
+        [PlayerStoreMutations.DeletePlayer](state, player) {
+            for(let i = 0; i < state._players.length; i++){
+                if(state._players[i].id === player.id){
+                    state._players.splice(i, 1);
+                    return;
+                }
+            }
         }
     }
 } as StoreOptions<PlayerStoreState>;

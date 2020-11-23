@@ -28,7 +28,8 @@ export default {
         }
     },
     player: {
-        list: (slug: string) => `/bunches/${slug}/players`
+        list: (slug: string) => `/bunches/${slug}/players`,
+        get: (id: string) => `/players/${id}`
     },
     user: {
         password: '/user/password',

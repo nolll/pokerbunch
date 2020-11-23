@@ -16,11 +16,6 @@ namespace PokerBunch.Client.Clients
             return ApiConnection.Get<Player>(new ApiPlayerUrl(id));
         }
 
-        public void Delete(string playerId)
-        {
-            ApiConnection.Delete(new ApiPlayerUrl(playerId));
-        }
-
         public void Invite(PlayerInvite playerInvite)
         {
             ApiConnection.Post(new ApiPlayerInviteUrl(playerInvite.PlayerId), playerInvite);

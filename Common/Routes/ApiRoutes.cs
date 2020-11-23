@@ -11,18 +11,11 @@ namespace PokerBunch.Common.Routes
         public static class Cashgame
         {
             public const string Get = "cashgames/{cashgameId}";
-            public const string ListByPlayer = "players/{playerId}/cashgames";
         }
         
-        public static class Event
-        {
-            public const string ListByBunch = "bunches/{bunchId}/events";
-        }
-
         public static class Location
         {
             public const string Get = "locations/{locationId}";
-            public const string ListByBunch = "bunches/{bunchId}/locations";
         }
 
         public static class Player

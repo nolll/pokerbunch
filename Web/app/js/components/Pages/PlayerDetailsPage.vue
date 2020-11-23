@@ -54,10 +54,21 @@
                         This player is not registered yet.
                     </p>
                     <p>
-                        <CustomButton :url="inviteUrl" text="Invite Player" />
+                        <CustomButton :url="inviteUrl" text="Invite Player" type="action" />
                     </p>
                 </Block>
             </template>
+        </PageSection>
+
+        <PageSection v-if="canDelete">
+            <Block>
+                <h2>Delete Player</h2>
+            </Block>
+            <Block>
+                <p>
+                    <CustomButton @click="deletePlayer" text="Delete Player" type="action" />
+                </p>
+            </Block>
         </PageSection>
     </Layout>
 </template>
@@ -280,6 +291,17 @@
 
         get userReady() {
             return this.user != null;
+        }
+
+        get canDelete(){
+            return this.results.length === 0;
+        }
+
+        private deletePlayer(){
+            if (window.confirm('Do you want to delete this player?')) {
+                this.$_deletePlayer(this.player);
+                this.$router.push(urls.player.list(this.$_slug));
+            }
         }
 
         private formatStreak(wonOrLost: string, gameCount: number){

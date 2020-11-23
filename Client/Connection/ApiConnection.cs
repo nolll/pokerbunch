@@ -56,12 +56,6 @@ namespace PokerBunch.Client.Connection
             return JsonConvert.DeserializeObject<T>(json);
         }
 
-        public bool Delete(ApiUrl apiUrl)
-        {
-            DeleteJson(apiUrl);
-            return true;
-        }
-
         private string ReadJson(ApiUrl apiUrl)
         {
             using (var client = GetClient())
@@ -96,15 +90,6 @@ namespace PokerBunch.Client.Connection
             {
                 var content = GetJsonContent(data);
                 var response = client.PutAsync(_urlFormatter.ToAbsolute(apiUrl), content).Result;
-                return ReadResponse(response);
-            }
-        }
-
-        private string DeleteJson(ApiUrl apiUrl)
-        {
-            using (var client = GetClient())
-            {
-                var response = client.DeleteAsync(_urlFormatter.ToAbsolute(apiUrl)).Result;
                 return ReadResponse(response);
             }
         }

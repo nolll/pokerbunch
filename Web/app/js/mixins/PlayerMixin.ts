@@ -24,5 +24,9 @@ export class PlayerMixin extends Vue {
         this.$store.dispatch(PlayerStoreActions.AddPlayer, { bunchId: this.$route.params.slug, name });
     }
 
+    protected $_deletePlayer(player: Player){
+        this.$store.dispatch(PlayerStoreActions.DeletePlayer, { player });
+    }
+
     $store: any;
 }

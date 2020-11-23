@@ -9,13 +9,15 @@ export enum PlayerStoreGetters {
 
 export enum PlayerStoreActions {
     LoadPlayers = 'player_loadPlayers',
-    AddPlayer = 'player_addPlayer'
+    AddPlayer = 'player_addPlayer',
+    DeletePlayer = 'player_deletePlayer'
 }
 
 export enum PlayerStoreMutations {
     SetPlayersData = 'player_setPlayersData',
     SetSlug = 'player_setSlug',
-    AddPlayer = 'player_addPlayer'
+    AddPlayer = 'player_addPlayer',
+    DeletePlayer = 'player_deletePlayer'
 }
 
 export interface PlayerStoreState {
@@ -27,4 +29,8 @@ export interface PlayerStoreState {
 export interface AddPlayerParams{
     bunchId: string;
     name: string;
+}
+
+export interface DeletePlayerParams{
+    player: Player;
 }

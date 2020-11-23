@@ -18,11 +18,6 @@ namespace Infrastructure.Api.Services
             return CreatePlayer(apiPlayer);
         }
 
-        public void Delete(string playerId)
-        {
-            ApiClient.Players.Delete(playerId);
-        }
-
         public void Invite(string playerId, string email)
         {
             var apiInvite = new PlayerInvite(playerId, email);

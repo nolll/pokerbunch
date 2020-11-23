@@ -1,9 +1,7 @@
 import cancelButton from './cancel-button';
-import deleteConfirmation from './delete-confirmation';
 
 const modules: Record<string, any> = {
-    'cancel-button': cancelButton,
-    'delete-confirmation': deleteConfirmation
+    'cancel-button': cancelButton
 };
 
 function get(name: string): any
