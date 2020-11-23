@@ -1,7 +1,6 @@
 using Core.Entities;
 using Core.Services;
 using PokerBunch.Client.Clients;
-using PokerBunch.Client.Models.Request;
 using ApiPlayer = PokerBunch.Client.Models.Response.Player;
 
 namespace Infrastructure.Api.Services
@@ -16,12 +15,6 @@ namespace Infrastructure.Api.Services
         {
             var apiPlayer = ApiClient.Players.Get(id);
             return CreatePlayer(apiPlayer);
-        }
-
-        public void Invite(string playerId, string email)
-        {
-            var apiInvite = new PlayerInvite(playerId, email);
-            ApiClient.Players.Invite(apiInvite);
         }
 
         private Player CreatePlayer(ApiPlayer p)

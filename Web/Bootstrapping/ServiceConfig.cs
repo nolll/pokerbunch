@@ -86,11 +86,6 @@ namespace Web.Bootstrapping
             _services.AddScoped<JoinBunchForm>();
             _services.AddScoped<JoinBunch>();
             _services.AddScoped<JoinBunchConfirmation>();
-
-            // Player
-            _services.AddScoped<InvitePlayer>();
-            _services.AddScoped<InvitePlayerForm>();
-            _services.AddScoped<InvitePlayerConfirmation>();
         }
 
         private void AddAuthentication()

@@ -21,7 +21,6 @@ namespace PokerBunch.Common.Routes
         public static class Player
         {
             public const string Get = "players/{playerId}";
-            public const string Invite = "players/{playerId}/invite";
         }
 
         public static class Profile
