@@ -50,12 +50,24 @@
                     </p>
                 </Block>
                 <Block v-else>
-                    <p>
-                        This player is not registered yet.
-                    </p>
-                    <p>
-                        <CustomButton :url="inviteUrl" text="Invite Player" type="action" />
-                    </p>
+                    <template v-if="isInvitationFormVisible">
+                        <div class="field">
+                            <label class="label" for="inviteEmail">Email</label>
+                            <input class="textfield" v-model="inviteEmail" id="inviteEmail" type="email">
+                        </div>
+                        <div class="buttons">
+                            <CustomButton @click="invitePlayer" text="Invite" type="action" />
+                            <CustomButton @click="cancelInvitation" text="Cancel" />
+                        </div>
+                    </template>
+                    <template v-else>
+                        <p>
+                            {{notRegisteredMessage}}
+                        </p>
+                        <p v-if="!invitationSent">
+                            <CustomButton @click="showInvitationForm" text="Invite Player" type="action" />
+                        </p>
+                    </template>
                 </Block>
             </template>
         </PageSection>
@@ -117,6 +129,9 @@
         UserMixin
     ) {
         user: User | null = null;
+        isInvitationFormVisible: boolean = false;
+        inviteEmail = '';
+        invitationSent = false;
 
         get hasUser(){
             return !!this.player?.userId;
@@ -295,6 +310,30 @@
 
         get canDelete(){
             return this.results.length === 0;
+        }
+
+        private showInvitationForm(){
+            this.isInvitationFormVisible = true;
+        }
+
+        private hideInvitationForm(){
+            this.isInvitationFormVisible = false;
+        }
+
+        private invitePlayer(){
+            api.invitePlayer(this.player.id, { email: this.inviteEmail });
+            this.invitationSent = true;
+            this.hideInvitationForm();
+        }
+
+        private cancelInvitation(){
+            this.hideInvitationForm();
+        }
+
+        private get notRegisteredMessage(){
+            return this.invitationSent
+                ? 'An invitation was sent.'
+                : 'This player is not registered yet.'
         }
 
         private deletePlayer(){

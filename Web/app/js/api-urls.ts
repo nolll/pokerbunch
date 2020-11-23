@@ -29,7 +29,8 @@ export default {
     },
     player: {
         list: (slug: string) => `/bunches/${slug}/players`,
-        get: (id: string) => `/players/${id}`
+        get: (id: string) => `/players/${id}`,
+        invite: (id: string) => `/players/${id}/invite`
     },
     user: {
         password: '/user/password',

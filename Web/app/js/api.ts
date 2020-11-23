@@ -17,6 +17,7 @@ import { ApiParamsResetPassword } from './models/ApiParamsResetPassword';
 import { ApiParamsAddUser } from './models/ApiParamsAddUser';
 import { Timezone } from './models/Timezone';
 import { ApiParamsAddBunch } from './models/ApiParamsAddBunch';
+import { ApiParamsInvitePlayer } from './models/ApiParamsInvitePlayer';
 
 export default {
     getToken: (data: ApiParamsGetToken) => ajaxClient.post(ajaxUrls.auth.token, data),
@@ -33,6 +34,7 @@ export default {
     getPlayers: (slug: string) => apiClient.get<PlayerResponse[]>(apiUrls.player.list(slug)),
     addPlayer: (slug: string, data: object) => apiClient.post<PlayerResponse>(apiUrls.player.list(slug), data),
     deletePlayer: (id: string) => apiClient.delete(apiUrls.player.get(id)),
+    invitePlayer: (id: string, data: ApiParamsInvitePlayer) => apiClient.post(apiUrls.player.invite(id), data),
     getGames: (slug: string, year?: number) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.list(slug, year)),
     getEventGames: (slug: string, eventId: string) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.listByEvent(slug, eventId)),
     buyin: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
