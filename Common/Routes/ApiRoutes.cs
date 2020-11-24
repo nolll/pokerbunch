@@ -5,17 +5,6 @@ namespace PokerBunch.Common.Routes
         public static class Bunch
         {
             public const string Get = "bunches/{bunchId}";
-            public const string Join = "bunches/{bunchId}/join";
-        }
-
-        public static class Cashgame
-        {
-            public const string Get = "cashgames/{cashgameId}";
-        }
-        
-        public static class Location
-        {
-            public const string Get = "locations/{locationId}";
         }
 
         public static class Player
@@ -26,7 +15,6 @@ namespace PokerBunch.Common.Routes
         public static class Profile
         {
             public const string Get = "user";
-            public const string PasswordReset = "user/password/reset";
         }
 
         public static class Token

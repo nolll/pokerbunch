@@ -6,6 +6,5 @@ namespace Core.Services
     {
         Bunch Get(string id);
         Bunch Update(Bunch bunch);
-        void Join(string bunchId, string code);
     }
 }

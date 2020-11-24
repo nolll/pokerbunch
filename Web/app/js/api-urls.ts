@@ -5,6 +5,7 @@ export default {
     },
     bunch: {
         get: (slug: string) => `/bunches/${slug}`,
+        join: (slug: string) => `/bunches/${slug}/join`,
         list: '/bunches',
         user: '/user/bunches'
     },

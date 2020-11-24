@@ -27,12 +27,6 @@ namespace Infrastructure.Api.Services
             return ToBunch(apiBunch);
         }
 
-        public void Join(string bunchId, string code)
-        {
-            var apiJoin = new BunchJoin(bunchId, code);
-            ApiClient.Bunches.Join(apiJoin);
-        }
-
         private Bunch ToBunch(ApiBunch b)
         {
             var timezone = TimeZoneInfo.FindSystemTimeZoneById(b.Timezone);

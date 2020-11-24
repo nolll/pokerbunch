@@ -52,7 +52,7 @@ export default {
             } catch(error){
                 context.commit(UserStoreMutations.SetUsersError);
             }
-            context.commit(UserStoreMutations.SetUsersReady);
+            context.commit(UserStoreMutations.SetUsersReady, true);
         }
     },
     mutations: {

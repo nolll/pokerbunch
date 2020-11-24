@@ -18,6 +18,7 @@ import { ApiParamsAddUser } from './models/ApiParamsAddUser';
 import { Timezone } from './models/Timezone';
 import { ApiParamsAddBunch } from './models/ApiParamsAddBunch';
 import { ApiParamsInvitePlayer } from './models/ApiParamsInvitePlayer';
+import { ApiParamsJoinBunch } from './models/ApiParamsJoinBunch copy';
 
 export default {
     getToken: (data: ApiParamsGetToken) => ajaxClient.post(ajaxUrls.auth.token, data),
@@ -31,6 +32,7 @@ export default {
     getUserBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.user),
     getBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.list),
     addBunch: (data: ApiParamsAddBunch) => apiClient.post<BunchResponse>(apiUrls.bunch.list, data),
+    joinBunch: (slug: string, data: ApiParamsJoinBunch) => apiClient.post(apiUrls.bunch.join(slug), data),
     getPlayers: (slug: string) => apiClient.get<PlayerResponse[]>(apiUrls.player.list(slug)),
     addPlayer: (slug: string, data: object) => apiClient.post<PlayerResponse>(apiUrls.player.list(slug), data),
     deletePlayer: (id: string) => apiClient.delete(apiUrls.player.get(id)),

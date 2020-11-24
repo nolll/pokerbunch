@@ -20,10 +20,5 @@ namespace PokerBunch.Client.Clients
         {
             return ApiConnection.Put<Bunch>(new ApiBunchUrl(bunch.Id), bunch);
         }
-
-        public void Join(BunchJoin bunchJoin)
-        {
-            ApiConnection.Post(new ApiBunchJoinUrl(bunchJoin.BunchId), bunchJoin);
-        }
     }
 }

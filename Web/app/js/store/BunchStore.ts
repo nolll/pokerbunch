@@ -64,6 +64,7 @@ export default {
                 } catch {
                     context.commit(BunchStoreMutations.SetBunchesError);
                 }
+                context.commit(BunchStoreMutations.SetBunchesReady, true);
             }
         }
     },
@@ -76,7 +77,7 @@ export default {
             state._description = bunch.description;
             state._houseRules = bunch.houseRules;
             state._defaultBuyin = bunch.defaultBuyin;
-            state._playerId = bunch.player.id;
+            state._playerId = bunch.player?.id;
             state._role = bunch.role;
         },
         [BunchStoreMutations.SetBunchReady](state, isReady: boolean) {
@@ -98,7 +99,7 @@ export default {
             state._bunches = [];
         },
         [BunchStoreMutations.SetBunchesReady](state, isReady: boolean) {
-            state._bunchReady = isReady;
+            state._bunchesReady = isReady;
         }
     }
 } as StoreOptions<BunchStoreState>;

@@ -83,9 +83,6 @@ namespace Web.Bootstrapping
             // Bunch
             _services.AddScoped<EditBunchForm>();
             _services.AddScoped<EditBunch>();
-            _services.AddScoped<JoinBunchForm>();
-            _services.AddScoped<JoinBunch>();
-            _services.AddScoped<JoinBunchConfirmation>();
         }
 
         private void AddAuthentication()
