@@ -37,7 +37,7 @@ export default {
                     try{
                         const response = await api.getCurrentUser();
                         context.commit(UserStoreMutations.SetUser, response.data);
-                    } catch {
+                    } catch(err) {
                         context.commit(UserStoreMutations.SetUserError);
                     }
                 } else {

@@ -47,25 +47,19 @@
 
         async login() {
             this.clearError();
-            var self = this;
 
             if (this.validateForm()) {
                 var data: ApiParamsGetToken = {
                     username: this.username,
-                    password: this.password,
-                    rememberMe: this.rememberMe
+                    password: this.password
                 }
 
                 try{
                     const response = await api.getToken(data);
-                    if (response.data.success) {
-                        self.saveToken(response.data.token);
-                        self.redirect();
-                    } else {
-                        self.showError(response.data.message);
-                    }
+                    this.saveToken(response.data);
+                    this.redirect();
                 } catch {
-                    self.showError('There was something wrong with your username or password. Please try again.');
+                    this.showError('There was something wrong with your username or password. Please try again.');
                 }
             } else {
                 this.showError('Please enter your username (or email) and password');

@@ -3,6 +3,7 @@ import { BunchResponse } from '@/response/BunchResponse';
 
 export enum BunchStoreGetters {
     Slug = 'bunch_slug',
+    Bunch = 'bunch_bunch',
     Name = 'bunch_name',
     CurrencyFormat = 'bunch_currencyFormat',
     ThousandSeparator = 'bunch_thousandSeparator',
@@ -36,6 +37,7 @@ export enum BunchStoreMutations {
 }
 
 export interface BunchStoreState{
+    _bunch: BunchResponse | null;
     _slug: string;
     _name: string;
     _currencyFormat: string;
@@ -54,4 +56,5 @@ export interface BunchStoreState{
 
 export interface LoadBunchParams{
     slug: string;
+    forceLoad: boolean | undefined;
 }

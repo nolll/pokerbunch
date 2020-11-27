@@ -1,5 +1,5 @@
 ﻿<template>
-    <Layout :ready="true">
+    <Layout :ready="ready">
         <PageSection>
             <Block>
                 <PageHeading text="Create Bunch" />
@@ -128,6 +128,10 @@
 
         back(){
             history.back();
+        }
+
+        get ready(){
+            return this.$_timezonesReady;
         }
 
         init() {

@@ -1,5 +1,4 @@
 import browser from './browser';
-import domHookup from './dom-hookup';
 import app from './app';
 import './styles';
 
@@ -15,6 +14,5 @@ if (!browser.isCapable()) {
 }
 
 domReady(() => {
-    domHookup.init();
     app.init();
 });

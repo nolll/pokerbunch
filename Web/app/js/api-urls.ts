@@ -3,6 +3,9 @@ export default {
         clearCache: '/admin/clearcache',
         sendEmail: '/admin/sendemail'
     },
+    auth: {
+        token: '/token'
+    },
     bunch: {
         get: (slug: string) => `/bunches/${slug}`,
         join: (slug: string) => `/bunches/${slug}/join`,

@@ -29,7 +29,6 @@
     export default class UserNavigation extends Mixins(UserMixin) {
         async logOut() {
             auth.clearToken();
-            await api.signOut();
             this.redirectHome();
         }
 

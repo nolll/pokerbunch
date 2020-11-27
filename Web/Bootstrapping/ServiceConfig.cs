@@ -1,16 +1,9 @@
-﻿using Core.Services;
-using Core.Settings;
-using Core.UseCases;
-using Infrastructure.Api.Services;
+﻿using Core.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using PokerBunch.Client.Clients;
-using PokerBunch.Client.Connection;
-using PokerBunch.Common.Urls;
-using Web.Services;
 
 namespace Web.Bootstrapping
 {
@@ -62,27 +55,7 @@ namespace Web.Bootstrapping
         {
             _services.AddHttpContextAccessor();
 
-            _services.AddScoped<ITokenReader, TokenReader>();
             _services.AddScoped(o => _settings);
-            _services.AddScoped<IUrlFormatter>(o => new UrlFormatter(_settings.Urls.SiteUri, _settings.Urls.ApiUri));
-            _services.AddScoped(o => new ApiConnection(_settings.ApiKey, _settings.DetailedErrorsForApi, o.GetService<IUrlFormatter>(), o.GetService<ITokenReader>()));
-            _services.AddScoped(o => new PokerBunchClient(o.GetService<ApiConnection>()));
-            
-            _services.AddScoped<IBunchService, BunchService>();
-            _services.AddScoped<IPlayerService, PlayerService>();
-            _services.AddScoped<IUserService, UserService>();
-            _services.AddScoped<IAuthService, AuthService>();
-
-            // Contexts
-            _services.AddScoped<CoreContext, CoreContext>();
-            _services.AddScoped<BunchContext, BunchContext>();
-
-            // Auth and Home
-            _services.AddScoped<Login>();
-
-            // Bunch
-            _services.AddScoped<EditBunchForm>();
-            _services.AddScoped<EditBunch>();
         }
 
         private void AddAuthentication()

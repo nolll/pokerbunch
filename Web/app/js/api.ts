@@ -19,10 +19,10 @@ import { Timezone } from './models/Timezone';
 import { ApiParamsAddBunch } from './models/ApiParamsAddBunch';
 import { ApiParamsInvitePlayer } from './models/ApiParamsInvitePlayer';
 import { ApiParamsJoinBunch } from './models/ApiParamsJoinBunch copy';
+import { ApiParamsUpdateBunch } from './models/ApiParamsUpdateBunch';
 
 export default {
-    getToken: (data: ApiParamsGetToken) => ajaxClient.post(ajaxUrls.auth.token, data),
-    signOut: () => ajaxClient.post(ajaxUrls.auth.signOut),
+    getToken: (data: ApiParamsGetToken) => apiClient.post(apiUrls.auth.token, data),
     getCashgame: (id: string) => apiClient.get<DetailedCashgameResponse>(apiUrls.cashgame.get(id)),
     addCashgame: (slug: string, data: object) => apiClient.post<DetailedCashgameResponse>(apiUrls.cashgame.list(slug), data),
     updateCashgame: (id: string, data: object) => apiClient.put(apiUrls.cashgame.get(id), data),
@@ -32,6 +32,7 @@ export default {
     getUserBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.user),
     getBunches: () => apiClient.get<BunchResponse[]>(apiUrls.bunch.list),
     addBunch: (data: ApiParamsAddBunch) => apiClient.post<BunchResponse>(apiUrls.bunch.list, data),
+    updateBunch: (id: string, data: ApiParamsUpdateBunch) => apiClient.put(apiUrls.bunch.get(id), data),
     joinBunch: (slug: string, data: ApiParamsJoinBunch) => apiClient.post(apiUrls.bunch.join(slug), data),
     getPlayers: (slug: string) => apiClient.get<PlayerResponse[]>(apiUrls.player.list(slug)),
     addPlayer: (slug: string, data: object) => apiClient.post<PlayerResponse>(apiUrls.player.list(slug), data),

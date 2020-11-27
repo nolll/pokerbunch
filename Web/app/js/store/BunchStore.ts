@@ -7,6 +7,7 @@ import { BunchResponse } from '@/response/BunchResponse';
 export default {
     namespaced: false,
     state: {
+        _bunch: null,
         _slug: '',
         _name: '',
         _currencyFormat: '${0}',
@@ -23,6 +24,7 @@ export default {
         _bunchesReady: false
     },
     getters: {
+        [BunchStoreGetters.Bunch]: state => state._bunch,
         [BunchStoreGetters.Slug]: state => state._slug,
         [BunchStoreGetters.Name]: state => state._name,
         [BunchStoreGetters.CurrencyFormat]: state => state._currencyFormat,
@@ -40,7 +42,7 @@ export default {
     },
     actions: {
         async [BunchStoreActions.LoadBunch](context, params: LoadBunchParams) {
-            if (params.slug !== context.state._slug) {
+            if (params.forceLoad || params.slug !== context.state._slug) {
                 context.commit(BunchStoreMutations.SetBunchReady, false);
                 const response = await api.getBunch(params.slug);
                 context.commit(BunchStoreMutations.SetBunchData, response.data);
@@ -70,6 +72,7 @@ export default {
     },
     mutations: {
         [BunchStoreMutations.SetBunchData](state, bunch: BunchResponse) {
+            state._bunch = bunch;
             state._slug = bunch.id;
             state._name = bunch.name;
             state._currencyFormat = bunch.currencyFormat;

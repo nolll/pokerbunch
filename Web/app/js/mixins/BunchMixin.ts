@@ -16,6 +16,10 @@ export class BunchMixin extends Vue {
         return this.$store.getters[BunchStoreGetters.IsManager];
     }
 
+    protected get $_bunch(): BunchResponse {
+        return this.$store.getters[BunchStoreGetters.Bunch];
+    }
+
     protected get $_slug(): string {
         return this.$store.getters[BunchStoreGetters.Slug];
     }
@@ -62,6 +66,10 @@ export class BunchMixin extends Vue {
 
     protected $_loadBunch() {
         this.$store.dispatch(BunchStoreActions.LoadBunch, { slug: this.$route.params.slug });
+    }
+
+    protected $_refreshBunch() {
+        this.$store.dispatch(BunchStoreActions.LoadBunch, { slug: this.$route.params.slug, forceLoad: true });
     }
 
     protected $_loadUserBunches() {
