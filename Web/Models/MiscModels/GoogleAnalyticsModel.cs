@@ -1,5 +1,5 @@
-using Core.Settings;
 using Web.Extensions;
+using Web.Settings;
 
 namespace Web.Models.MiscModels
 {

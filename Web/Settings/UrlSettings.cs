@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Settings
+namespace Web.Settings
 {
     public class UrlSettings
     {

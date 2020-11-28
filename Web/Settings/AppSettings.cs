@@ -1,4 +1,4 @@
-﻿namespace Core.Settings
+﻿namespace Web.Settings
 {
     public class AppSettings
     {

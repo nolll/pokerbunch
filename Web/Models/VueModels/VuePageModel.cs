@@ -1,6 +1,6 @@
-using Core.Settings;
 using Web.Extensions;
 using Web.Models.PageBaseModels;
+using Web.Settings;
 
 namespace Web.Models.VueModels
 {

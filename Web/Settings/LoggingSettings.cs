@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Core.Settings
+namespace Web.Settings
 {
     public class LoggingSettings
     {

@@ -1,6 +1,6 @@
-using Core.Settings;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models.VueModels;
+using Web.Settings;
 
 namespace Web.Controllers
 {
