@@ -3,7 +3,7 @@ function hasAddEventListener() {
 }
 
 function hasClassList() {
-    return document.body.classList;
+    return document?.body?.classList || false;
 }
 
 function hasArrayIndexOf() {

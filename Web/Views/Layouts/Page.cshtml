@@ -13,6 +13,7 @@
     <meta name="author" content="PokerBunch.com">
     <meta name="keywords" content="poker,homegame,cashgame,cash,home,game,stats,statistics,chart" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Html.RenderModel(Model.VueConfig)
     @Html.Partial(PageModel.ScriptView)
     <style type="text/css">
         @@font-face {
@@ -25,7 +26,6 @@
     </style>
     @Html.Partial(PageModel.StyleView)
     <link rel="shortcut icon" href="/favicon.ico" />
-    @Html.RenderModel(Model.VueConfig)
     <title>@Model.BrowserTitle</title>
 </head>
 
