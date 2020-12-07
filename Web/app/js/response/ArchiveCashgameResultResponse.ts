@@ -1,4 +1,4 @@
-export interface ArchiveCashgamePlayerResponse {
+export interface ArchiveCashgameResultResponse {
     id: string;
     name: string;
     startTime: string;

@@ -1,4 +1,4 @@
-import { ArchiveCashgamePlayerResponse } from '@/response/ArchiveCashgamePlayerResponse';
+import { ArchiveCashgameResultResponse } from '@/response/ArchiveCashgameResultResponse';
 import timeFunctions from '@/time-functions';
 import dayjs from 'dayjs';
 
@@ -23,7 +23,7 @@ export class ArchiveCashgamePlayer {
         this.timePlayed = timeFunctions.diffInMinutes(this.startTime, this.updatedTime);
     }
 
-    public static fromResponse(response: ArchiveCashgamePlayerResponse){
+    public static fromResponse(response: ArchiveCashgameResultResponse){
         return new ArchiveCashgamePlayer(
             response.id,
             response.name,

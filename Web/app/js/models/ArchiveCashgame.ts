@@ -60,7 +60,7 @@ export class ArchiveCashgame {
             dayjs(response.startTime).toDate(),
             dayjs(response.updatedTime).toDate(),
             ArchiveCashgameLocation.fromResponse(response.location),
-            response.players?.map(o => ArchiveCashgamePlayer.fromResponse(o)) || []
+            response.results?.map(o => ArchiveCashgamePlayer.fromResponse(o)) || []
         );
     }
 }

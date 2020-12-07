@@ -1,10 +1,10 @@
 import { ArchiveCashgameLocationResponse } from './ArchiveCashgameLocationResponse';
-import { ArchiveCashgamePlayerResponse } from './ArchiveCashgamePlayerResponse';
+import { ArchiveCashgameResultResponse } from './ArchiveCashgameResultResponse';
 
 export interface ArchiveCashgameResponse {
     id: string;
     startTime: Date;
     updatedTime: Date;
     location: ArchiveCashgameLocationResponse;
-    players: ArchiveCashgamePlayerResponse[];
+    results: ArchiveCashgameResultResponse[];
 }
