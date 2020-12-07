@@ -12,12 +12,6 @@ vue.use(VueRouter);
 const router = new VueRouter(routes);
 
 function initApp() {
-    //const options = {
-    //    el: '#app',
-    //    router,
-    //    store
-    //};
-    //new vue(options);
     new vue({
         router,
         store,

@@ -1,17 +1,18 @@
 using Web.Extensions;
-using Web.Services;
+using Web.InlineCode;
 using Web.Settings;
 
 namespace Web.Models.MiscModels
 {
     public class GoogleAnalyticsModel : IViewModel
     {
-        public string Script { get; }
+        public string Html { get; }
         public bool IsEnabled { get; }
 
         public GoogleAnalyticsModel(AppSettings appSettings)
         {
-            Script = GaScriptService.ScriptTag;
+            var gaScript = new GoogleAnalyticsScript();
+            Html = gaScript.Html;
             IsEnabled = appSettings.EnableAnalytics;
         }
 

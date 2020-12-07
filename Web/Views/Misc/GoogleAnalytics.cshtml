@@ -1,6 +1,6 @@
 @model Web.Models.MiscModels.GoogleAnalyticsModel
 
 @if(@Model.IsEnabled){
-    @Html.Raw(Model.Script)
+    @Html.Raw(Model.Html)
     <script async src="https://www.google-analytics.com/analytics.js"></script>
 }

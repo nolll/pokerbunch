@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Web.Extensions;
-using Web.Services;
+using Web.InlineCode;
 using Web.Settings;
 
 namespace Web.Middleware
@@ -48,16 +48,18 @@ namespace Web.Middleware
 
         private static IEnumerable<string> GetDefaultCspValues(AppSettings appSettings)
         {
-            var vueConfigHash = VueConfigScriptService.ComputedSha256Hash(appSettings);
+            var gaScript = new GoogleAnalyticsScript();
+            var fontStyle = new FontStyle();
+            var vueConfigScript =  new VueConfigScript(appSettings);
             var apiHost = appSettings.Urls.ApiHost;
 
             return new List<string>
             {
                 "default-src 'self'",
-                $"script-src 'self' *.google-analytics.com 'sha256-{GaScriptService.ComputedSha256Hash}' 'sha256-{vueConfigHash}'",
+                $"script-src 'self' *.google-analytics.com 'sha256-{gaScript.Hash}' 'sha256-{vueConfigScript.Hash}'",
                 "img-src 'self' *.google-analytics.com",
                 $"connect-src 'self' *.google-analytics.com {apiHost}",
-                $"style-src-elem 'self' fonts.googleapis.com 'sha256-{FontStyleService.ComputedSha256Hash}'",
+                $"style-src-elem 'self' fonts.googleapis.com 'sha256-{fontStyle.Hash}'",
                 "font-src 'self' fonts.gstatic.com"
             };
         }
