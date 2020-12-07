@@ -59,7 +59,7 @@ namespace Web.Middleware
                 $"script-src 'self' *.google-analytics.com www.gstatic.com 'sha256-{gaScript.Hash}' 'sha256-{vueConfigScript.Hash}'",
                 "img-src 'self' *.google-analytics.com",
                 $"connect-src 'self' *.google-analytics.com {apiHost}",
-                $"style-src-elem 'self' fonts.googleapis.com 'sha256-{fontStyle.Hash}'",
+                $"style-src-elem 'self' www.gstatic.com fonts.googleapis.com 'sha256-{fontStyle.Hash}'",
                 "font-src 'self' fonts.gstatic.com"
             };
         }
