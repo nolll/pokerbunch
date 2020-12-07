@@ -56,7 +56,7 @@ namespace Web.Middleware
             return new List<string>
             {
                 "default-src 'self'",
-                $"script-src 'self' *.google-analytics.com 'sha256-{gaScript.Hash}' 'sha256-{vueConfigScript.Hash}'",
+                $"script-src 'self' *.google-analytics.com www.gstatic.com 'sha256-{gaScript.Hash}' 'sha256-{vueConfigScript.Hash}'",
                 "img-src 'self' *.google-analytics.com",
                 $"connect-src 'self' *.google-analytics.com {apiHost}",
                 $"style-src-elem 'self' fonts.googleapis.com 'sha256-{fontStyle.Hash}'",
