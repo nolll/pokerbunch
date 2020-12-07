@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Web.Middleware;
 
 namespace Web.Bootstrapping
 {
@@ -26,6 +27,7 @@ namespace Web.Bootstrapping
             ConfigureExceptions();
             ConfigureHttps();
             ConfigureErrors();
+            ConfigureCustomHeaders();
             ConfigureCors();
             ConfigureStaticFiles();
             ConfigureMvc();
@@ -78,6 +80,11 @@ namespace Web.Bootstrapping
         private void ConfigureStaticFiles()
         {
             _app.UseStaticFiles();
+        }
+
+        private void ConfigureCustomHeaders()
+        {
+            _app.UseMiddleware<SecurityHeadersMiddleware>();
         }
 
         private void ConfigureErrors()

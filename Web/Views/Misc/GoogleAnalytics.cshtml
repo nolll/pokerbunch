@@ -1,11 +1,6 @@
 @model Web.Models.MiscModels.GoogleAnalyticsModel
 
-@if (Model.EnableAnalytics)
-{
-    <script>
-        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-        ga('create', 'UA-8453410-7', 'auto');
-        ga('send', 'pageview');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
+@if(@Model.IsEnabled){
+    @Html.Raw(Model.Script)
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
 }
