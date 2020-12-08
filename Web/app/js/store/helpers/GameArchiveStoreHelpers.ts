@@ -7,8 +7,6 @@ export enum GameArchiveStoreGetters {
     Games = 'gameArchive_games',
     PlayerSortOrder = 'gameArchive_playerSortOrder',
     SelectedYear = 'gameArchive_selectedYear',
-    IsPageNavExpanded = 'gameArchive_isPageNavExpanded',
-    IsYearNavExpanded = 'gameArchive_isYearNavExpanded',
     SortedGames = 'gameArchive_sortedGames',
     SortedPlayers = 'gameArchive_sortedPlayers',
     CurrentYearGames = 'gameArchive_currentYearGames',
@@ -24,11 +22,7 @@ export enum GameArchiveStoreActions {
     LoadGames = 'gameArchive_loadGames',
     SelectYear = 'gameArchive_selectYear',
     SortGames = 'gameArchive_sortGames',
-    SortPlayers = 'gameArchive_sortPlayers',
-    TogglePageNav = 'gameArchive_togglePageNav',
-    ToggleYearNav = 'gameArchive_toggleYearNav',
-    ClosePageNav = 'gameArchive_closePageNav',
-    CloseYearNav = 'gameArchive_closeYearNav'
+    SortPlayers = 'gameArchive_sortPlayers'
 }
 
 export enum GameArchiveStoreMutations {
@@ -36,9 +30,7 @@ export enum GameArchiveStoreMutations {
     SetGameSortorder = 'gameArchive_setGameSortorder',
     SetPlayerSortorder = 'gameArchive_setPlayerSortorder',
     SetSlug = 'gameArchive_setSlug',
-    SetSelectedYear = 'gameArchive_setSelectedYear',
-    SetPageNavExpanded = 'gameArchive_setPageNavExpanded',
-    SetYearNavExpanded = 'gameArchive_setYearNavExpanded'
+    SetSelectedYear = 'gameArchive_setSelectedYear'
 }
 
 export interface GameArchiveStoreState{
@@ -47,7 +39,5 @@ export interface GameArchiveStoreState{
     _playerSortOrder: CashgamePlayerSortOrder;
     _slug: string;
     _selectedYear: number | null;
-    _isPageNavExpanded: boolean;
-    _isYearNavExpanded: boolean;
     _ready: boolean;
 }

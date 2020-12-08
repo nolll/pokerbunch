@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
@@ -38,30 +39,111 @@ namespace Web.Middleware
         private static void SetCspSecurityHeaders(HttpContext httpContext, AppSettings appSettings)
         {
             var csp = GetCsp(appSettings);
-            httpContext.AddHeader("Content-Security-Policy", csp);
+            httpContext.AddHeader("Content-Security-Policy", csp.ToString());
         }
 
-        private static string GetCsp(AppSettings appSettings)
-        {
-            return string.Join("; ", GetDefaultCspValues(appSettings));
-        }
-
-        private static IEnumerable<string> GetDefaultCspValues(AppSettings appSettings)
+        private static ContentSecurityPolicy GetCsp(AppSettings appSettings)
         {
             var gaScript = new GoogleAnalyticsScript();
             var fontStyle = new FontStyle();
-            var vueConfigScript =  new VueConfigScript(appSettings);
+            var vueConfigScript = new VueConfigScript(appSettings);
             var apiHost = appSettings.Urls.ApiHost;
 
-            return new List<string>
-            {
-                "default-src 'self'",
-                $"script-src 'self' *.google-analytics.com www.gstatic.com 'sha256-{gaScript.Hash}' 'sha256-{vueConfigScript.Hash}'",
-                "img-src 'self' *.google-analytics.com",
-                $"connect-src 'self' *.google-analytics.com {apiHost}",
-                $"style-src-elem 'self' www.gstatic.com fonts.googleapis.com 'sha256-{fontStyle.Hash}'",
-                "font-src 'self' fonts.gstatic.com"
-            };
+            var csp = new ContentSecurityPolicy()
+                .AddDirective(
+                    new ContentSecurityDirective("default-src")
+                        .AddSelf()
+                )
+                .AddDirective(
+                    new ContentSecurityDirective("script-src")
+                        .AddSelf()
+                        .AddDomain("*.google-analytics.com")
+                        .AddDomain("www.gstatic.com")
+                        .AddHash(gaScript.Hash)
+                        .AddHash(vueConfigScript.Hash)
+                )
+                .AddDirective(
+                    new ContentSecurityDirective("img-src")
+                        .AddSelf()
+                        .AddDomain("*.google-analytics.com")
+                )
+                .AddDirective(
+                    new ContentSecurityDirective("connect-src")
+                        .AddSelf()
+                        .AddDomain("*.google-analytics.com")
+                        .AddDomain(apiHost)
+                )
+                .AddDirective(
+                    new ContentSecurityDirective("style-src-elem")
+                        .AddSelf()
+                        .AddDomain("www.gstatic.com")
+                        .AddDomain("fonts.googleapis.com")
+                        .AddHash(fontStyle.Hash)
+                )
+                .AddDirective(
+                    new ContentSecurityDirective("font-src")
+                        .AddSelf()
+                        .AddDomain("fonts.gstatic.com")
+                );
+
+            return csp;
+        }
+    }
+
+    public class ContentSecurityPolicy
+    {
+        private readonly List<ContentSecurityDirective> _directives;
+
+        public ContentSecurityPolicy()
+        {
+            _directives = new List<ContentSecurityDirective>();
+        }
+
+        public ContentSecurityPolicy AddDirective(ContentSecurityDirective directive)
+        {
+            _directives.Add(directive);
+            return this;
+        }
+
+        public override string ToString()
+        {
+            return string.Join("; ", _directives.Select(o => o.ToString()));
+        }
+    }
+
+    public class ContentSecurityDirective
+    {
+        private readonly string _name;
+        private readonly List<string> _values;
+
+        public ContentSecurityDirective(string name)
+        {
+            _name = name;
+            _values = new List<string>();
+        }
+
+        public ContentSecurityDirective AddSelf()
+        {
+            _values.Add("'self'");
+            return this;
+        }
+
+        public ContentSecurityDirective AddDomain(string domain)
+        {
+            _values.Add(domain);
+            return this;
+        }
+
+        public ContentSecurityDirective AddHash(string hash)
+        {
+            _values.Add($"'sha256-{hash}'");
+            return this;
+        }
+
+        public override string ToString()
+        {
+            var values = string.Join(" ", _values);
+            return $"{_name} {values}";
         }
     }
 }

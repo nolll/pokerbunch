@@ -17,8 +17,6 @@ export default {
         _playerSortOrder: CashgamePlayerSortOrder.Winnings,
         _slug: '',
         _selectedYear: null,
-        _isPageNavExpanded: false,
-        _isYearNavExpanded: false,
         _ready: false
     },
     getters: {
@@ -26,8 +24,6 @@ export default {
         [GameArchiveStoreGetters.Games]: state => state._games,
         [GameArchiveStoreGetters.PlayerSortOrder]: state => state._playerSortOrder,
         [GameArchiveStoreGetters.SelectedYear]: state => state._selectedYear,
-        [GameArchiveStoreGetters.IsPageNavExpanded]: state => state._isPageNavExpanded,
-        [GameArchiveStoreGetters.IsYearNavExpanded]: state => state._isYearNavExpanded,
         [GameArchiveStoreGetters.SortedGames]: state => {
             const selectedGames = getSelectedGames(state._games, state._selectedYear);
             return gameSorter.sort(selectedGames, state._gameSortOrder);
@@ -77,20 +73,6 @@ export default {
         },
         [GameArchiveStoreActions.SortPlayers](context, sortOrder) {
             context.commit(GameArchiveStoreMutations.SetPlayerSortorder, sortOrder);
-        },
-        [GameArchiveStoreActions.TogglePageNav](context) {
-            context.commit(GameArchiveStoreMutations.SetPageNavExpanded, !context.state._isPageNavExpanded);
-            context.commit(GameArchiveStoreMutations.SetYearNavExpanded, false);
-        },
-        [GameArchiveStoreActions.ToggleYearNav](context) {
-            context.commit(GameArchiveStoreMutations.SetYearNavExpanded, !context.state._isYearNavExpanded);
-            context.commit(GameArchiveStoreMutations.SetPageNavExpanded, false);
-        },
-        [GameArchiveStoreActions.ClosePageNav](context) {
-            context.commit(GameArchiveStoreMutations.SetPageNavExpanded, false);
-        },
-        [GameArchiveStoreActions.CloseYearNav](context) {
-            context.commit(GameArchiveStoreMutations.SetYearNavExpanded, false);
         }
     },
     mutations: {
@@ -109,12 +91,6 @@ export default {
         },
         [GameArchiveStoreMutations.SetSelectedYear](state, year) {
             state._selectedYear = year ? year : null;
-        },
-        [GameArchiveStoreMutations.SetPageNavExpanded](state, isExpanded) {
-            state._isPageNavExpanded = isExpanded;
-        },
-        [GameArchiveStoreMutations.SetYearNavExpanded](state, isExpanded) {
-            state._isYearNavExpanded = isExpanded;
         }
     }
 } as StoreOptions<GameArchiveStoreState>;

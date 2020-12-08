@@ -142,10 +142,10 @@
         buyinFormVisible = false;
         cashoutFormVisible = false;
         selectedPlayerId: string = '';
-        refreshHandle = 0;
         isEditing = false;
         locationId: string | null = null;
         eventId: string | null = null;
+        refreshHandle = 0;
 
         get title() {
             return `Cashgame ${this.formattedDate}`;
@@ -329,7 +329,7 @@
 
         setupRefresh(refreshTimeout: number) {
             if (this.isRunning) {
-                window.setInterval(() => {
+                this.refreshHandle = window.setInterval(() => {
                     this.refresh();
                 }, refreshTimeout);
             }

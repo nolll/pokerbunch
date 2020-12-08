@@ -1,3 +1,5 @@
+import { CashgamePage } from './models/CashgamePage';
+
 export default {
     admin: {
         tools: '/admin/tools'
@@ -20,7 +22,10 @@ export default {
         details: (slug: string, id: string) => `/bunches/${slug}/cashgames/${id}`,
         edit: (id: string) => `/cashgame/edit/${id}`,
         index: (slug: string) => `/bunches/${slug}/cashgames`,
-        actions: (cashgameId: string, playerId: string) => `/cashgame/action/${cashgameId}/${playerId}`
+        actions: (cashgameId: string, playerId: string) => `/cashgame/action/${cashgameId}/${playerId}`,
+        archive: (page: CashgamePage, slug: string, year?: number | null | undefined) => year
+            ? `/cashgame/${page}/${slug}/${year}`
+            : `/cashgame/${page}/${slug}`
     },
     event: {
         add: (slug: string) => `/bunches/${slug}/events/add`,

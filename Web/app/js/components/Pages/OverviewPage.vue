@@ -6,7 +6,7 @@
 
         <PageSection>
             <Block>
-                <CashgameNavigation page="index" :year="$_currentYear" />
+                <CashgameNavigation page="index" />
             </Block>
         </PageSection>
 

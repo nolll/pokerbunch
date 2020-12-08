@@ -39,14 +39,6 @@ export class GameArchiveMixin extends Vue {
         return this.$store.getters[GameArchiveStoreGetters.Years];
     }
 
-    protected get $_isPageNavExpanded(): boolean {
-        return this.$store.getters[GameArchiveStoreGetters.IsPageNavExpanded];
-    }
-
-    protected get $_isYearNavExpanded(): boolean {
-        return this.$store.getters[GameArchiveStoreGetters.IsYearNavExpanded];
-    }
-
     protected get $_currentYearGames(): ArchiveCashgame[] {
         return this.$store.getters[GameArchiveStoreGetters.CurrentYearGames];
     }
@@ -84,22 +76,6 @@ export class GameArchiveMixin extends Vue {
 
     protected $_sortPlayers(name: string) {
         this.$store.dispatch(GameArchiveStoreActions.SortPlayers, name);
-    }
-
-    protected $_toggleYearNav() {
-        this.$store.dispatch(GameArchiveStoreActions.ToggleYearNav);
-    }
-
-    protected $_togglePageNav() {
-        this.$store.dispatch(GameArchiveStoreActions.TogglePageNav);
-    }
-
-    protected $_closeYearNav() {
-        this.$store.dispatch(GameArchiveStoreActions.CloseYearNav);
-    }
-
-    protected $_closePageNav() {
-        this.$store.dispatch(GameArchiveStoreActions.ClosePageNav);
     }
 
     $store: any;
