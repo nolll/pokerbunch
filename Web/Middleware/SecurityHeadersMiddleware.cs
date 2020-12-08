@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Web.Extensions;
@@ -87,63 +85,6 @@ namespace Web.Middleware
                 );
 
             return csp;
-        }
-    }
-
-    public class ContentSecurityPolicy
-    {
-        private readonly List<ContentSecurityDirective> _directives;
-
-        public ContentSecurityPolicy()
-        {
-            _directives = new List<ContentSecurityDirective>();
-        }
-
-        public ContentSecurityPolicy AddDirective(ContentSecurityDirective directive)
-        {
-            _directives.Add(directive);
-            return this;
-        }
-
-        public override string ToString()
-        {
-            return string.Join("; ", _directives.Select(o => o.ToString()));
-        }
-    }
-
-    public class ContentSecurityDirective
-    {
-        private readonly string _name;
-        private readonly List<string> _values;
-
-        public ContentSecurityDirective(string name)
-        {
-            _name = name;
-            _values = new List<string>();
-        }
-
-        public ContentSecurityDirective AddSelf()
-        {
-            _values.Add("'self'");
-            return this;
-        }
-
-        public ContentSecurityDirective AddDomain(string domain)
-        {
-            _values.Add(domain);
-            return this;
-        }
-
-        public ContentSecurityDirective AddHash(string hash)
-        {
-            _values.Add($"'sha256-{hash}'");
-            return this;
-        }
-
-        public override string ToString()
-        {
-            var values = string.Join(" ", _values);
-            return $"{_name} {values}";
         }
     }
 }
