@@ -72,7 +72,7 @@ namespace Web.Middleware
                         .AddDomain(apiHost)
                 )
                 .AddDirective(
-                    new ContentSecurityDirective("style-src-elem")
+                    new ContentSecurityDirective("style-src")
                         .AddSelf()
                         .AddDomain("www.gstatic.com")
                         .AddDomain("fonts.googleapis.com")
