@@ -42,7 +42,6 @@ namespace Web.Middleware
 
         private static ContentSecurityPolicy GetCsp(AppSettings appSettings)
         {
-            var gaScript = new GoogleAnalyticsScript();
             var fontStyle = new FontStyle();
             var vueConfigScript = new VueConfigScript(appSettings);
             var apiHost = appSettings.Urls.ApiHost;
@@ -55,20 +54,16 @@ namespace Web.Middleware
                 .AddDirective(
                     new ContentSecurityDirective("script-src")
                         .AddSelf()
-                        .AddDomain("*.google-analytics.com")
                         .AddDomain("www.gstatic.com")
-                        .AddHash(gaScript.Hash)
                         .AddHash(vueConfigScript.Hash)
                 )
                 .AddDirective(
                     new ContentSecurityDirective("img-src")
                         .AddSelf()
-                        .AddDomain("*.google-analytics.com")
                 )
                 .AddDirective(
                     new ContentSecurityDirective("connect-src")
                         .AddSelf()
-                        .AddDomain("*.google-analytics.com")
                         .AddDomain(apiHost)
                 )
                 .AddDirective(

@@ -8,7 +8,6 @@ namespace Web.Models.PageBaseModels
     public abstract class PageModel : IViewModel
     {
         public string Version { get; }
-        public GoogleAnalyticsModel GoogleAnalyticsModel { get; }
         public virtual string Layout => ContextLayout.Base;
         public virtual string HtmlCssClass => null;
         public virtual string BodyCssClass => "body-wide";
@@ -23,7 +22,6 @@ namespace Web.Models.PageBaseModels
             var vueConfigScript = new VueConfigScript(appSettings);
 
             Version = appSettings.Version;
-            GoogleAnalyticsModel = new GoogleAnalyticsModel(appSettings);
             VueConfigScriptHtml = vueConfigScript.Html;
             FontStyleHtml = new FontStyle().Html;
         }

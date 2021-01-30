@@ -4,7 +4,7 @@ namespace Web.Settings
 {
     public class LoggingSettings
     {
-        public LogLevel LogLevel { get; set; } = LogLevel.Error;
+        public LoggingLogLevelSettings LogLevel { get; set; }
         public LoggingLoggersSettings Loggers { get; set; }
     }
 }
