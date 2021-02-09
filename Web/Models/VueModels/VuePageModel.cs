@@ -17,7 +17,7 @@ namespace Web.Models.VueModels
 
         public override View GetView()
         {
-            return new View("~/Views/Pages/Vue/Root.cshtml");
+            return new("~/Views/Pages/Vue/Root.cshtml");
         }
     }
 }
