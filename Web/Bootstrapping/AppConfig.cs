@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using Web.Middleware;
 
 namespace Web.Bootstrapping
@@ -8,12 +9,12 @@ namespace Web.Bootstrapping
     public class AppConfig
     {
         private readonly IApplicationBuilder _app;
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
 
         private bool IsDev => _env.IsDevelopment();
         private bool IsProd => !IsDev;
 
-        public AppConfig(IApplicationBuilder app, IHostingEnvironment env)
+        public AppConfig(IApplicationBuilder app, IWebHostEnvironment env)
         {
             _app = app;
             _env = env;
