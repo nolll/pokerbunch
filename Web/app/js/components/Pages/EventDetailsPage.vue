@@ -28,6 +28,7 @@
     import api from '@/api';
     import { ArchiveCashgameResponse } from '@/response/ArchiveCashgameResponse';
     import MatrixTable from '@/components/Matrix/MatrixTable.vue';
+    import { ArchiveCashgame } from '@/models/ArchiveCashgame';
     
     @Component({
         components: {
@@ -45,7 +46,7 @@
         EventMixin,
         UserMixin
     ) {
-        games: ArchiveCashgameResponse[] = [];
+        games: ArchiveCashgame[] = [];
 
         get name() {
             if(this.event)
@@ -84,7 +85,7 @@
         async loadGames(){
             try{
                 const response = await api.getEventGames(this.$_slug, this.eventId);
-                this.games = response.data;
+                this.games = response.data.map(o => ArchiveCashgame.fromResponse(o));
             } catch {
                 this.games = [];
             }
