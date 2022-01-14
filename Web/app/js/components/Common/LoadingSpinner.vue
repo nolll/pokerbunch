@@ -16,7 +16,7 @@
     }
 </script>
 
-<style lang="less">
+<style lang="scss">
     .spinner {
         margin: 100px auto;
         width: 50px;

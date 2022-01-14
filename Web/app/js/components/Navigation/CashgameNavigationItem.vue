@@ -24,7 +24,7 @@ import { CssClasses } from '@/models/CssClasses';
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
     li{
         margin-top: 5px;
     }

@@ -124,7 +124,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
     .year-dropdown{
         margin-top: 10px;
     }

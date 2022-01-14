@@ -1,4 +1,4 @@
-@import "mediaqueries.less";
+@import "mediaqueries";
 
 .cashgame-result-form-row{
 	overflow:hidden;
@@ -57,7 +57,7 @@
 
 }
 
-@media @widthSmall {
+@include widthSmall {
 	.cashgame-result-form{
 		display: table;
 	}

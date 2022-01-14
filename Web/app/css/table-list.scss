@@ -1,4 +1,4 @@
-@import "mixins.less";
+@import "mixins";
 
 .table-list{
     margin-bottom: 10px;
@@ -8,7 +8,7 @@
 	padding: 0;
 	text-align: left;
 	vertical-align: bottom;
-	.fontsize(12);
+	@include fontsize(12);
 	text-transform: uppercase;
 	font-weight: normal;
 }

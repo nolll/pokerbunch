@@ -1,10 +1,10 @@
-@import "mixins.less";
+@import "mixins";
 
 .value-list{
 }
 
 .value-list__key{
-	.fontsize(12);
+	@include fontsize(12);
 	text-transform: uppercase;
 }
 

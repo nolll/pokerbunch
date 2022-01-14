@@ -126,7 +126,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
     .player-row {
         padding: 5px 0;
         border-bottom: 1px solid #eee;

@@ -1,24 +1,24 @@
-@import "constants.less";
-@import "mixins.less";
-@import "mediaqueries.less";
+@import "constants";
+@import "mixins";
+@import "mediaqueries";
 
 html{
     overflow-y: auto;
 }
 
 body{
-    color: @text-color;
-    .default-font();
+    color: $text-color;
+    @include default-font;
 }
 
 a{
-	color: @text-color;
+	color: $text-color;
 }
 
 h1, h2, h3{
 	margin:0;
 	font-weight:normal;
-	.fontsize(16);
+	@include fontsize(16);
 }
 
 .page-bg{
@@ -33,7 +33,7 @@ h1, h2, h3{
 	color:#000;
 	display:inline-block;
 	text-decoration:none;
-	.fontsize(24);
+	@include fontsize(24);
 	text-transform: lowercase;
     font-family: 'Amatic SC';
 }
@@ -52,20 +52,20 @@ h1, h2, h3{
 
 .h1{
     margin-bottom: 10px;
-    .fontsize(18);
+    @include fontsize(18);
 }
 
 .page-heading{
-    .fontsize(20);
+    @include fontsize(20);
 }
 
 .module-heading{
-    .fontsize(18);
+    @include fontsize(18);
 }
 
 h2{
 	font-weight: normal;
-	.fontsize(18);
+	@include fontsize(18);
     margin: 0;
 }
 .h2{
@@ -74,7 +74,7 @@ h2{
 
 h3{
     font-weight: normal;
-	.fontsize(16);
+	@include fontsize(16);
 }
 
 td,
@@ -112,25 +112,25 @@ pre {
     margin: 10px auto;
 }
 
-@media @widthXSmall {
+@include widthXSmall {
     .page-header{
         padding-top: 15px;
     }
     
     .logo-link{
-        .fontsize(32);
+        @include fontsize(32);
     }
 
     .page-heading {
-        .fontsize(22);
+        @include fontsize(22);
     }
 
     .module-heading {
-        .fontsize(18);
+        @include fontsize(18);
     }
 }
 
-@media @widthSmall {
+@include widthSmall {
 	body{
 		margin-bottom: 15px;
 	}
@@ -141,7 +141,7 @@ pre {
     }
 }
 
-@media @widthLarge {
+@include widthLarge {
     .wrap{
         
     }

@@ -1,0 +1,11 @@
+@mixin default-font() {
+    font-family: arial, verdana;
+}
+
+@mixin fontsize($target, $context: 16) {
+	font-size: calc($target / $context * 1em);
+}
+
+@mixin lineheight($target, $context: 16) {
+	line-height: calc($target / $context * 1em);
+}
