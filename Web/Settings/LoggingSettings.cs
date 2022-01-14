@@ -1,10 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Web.Settings
+namespace Web.Settings;
+
+public class LoggingSettings
 {
-    public class LoggingSettings
-    {
-        public LoggingLogLevelSettings LogLevel { get; set; }
-        public LoggingLoggersSettings Loggers { get; set; }
-    }
+    public LoggingLogLevelSettings LogLevel { get; set; }
+    public LoggingLoggersSettings Loggers { get; set; }
 }

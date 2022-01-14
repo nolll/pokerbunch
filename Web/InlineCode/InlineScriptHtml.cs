@@ -1,10 +1,9 @@
-﻿namespace Web.InlineCode
+﻿namespace Web.InlineCode;
+
+public abstract class InlineScriptHtml : InlineCodeHtml
 {
-    public abstract class InlineScriptHtml : InlineCodeHtml
+    protected InlineScriptHtml()
+        : base("<script>", "</script>")
     {
-        protected InlineScriptHtml()
-            : base("<script>", "</script>")
-        {
-        }
     }
 }

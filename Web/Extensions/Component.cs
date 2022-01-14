@@ -1,12 +1,11 @@
 ﻿using Web.Models;
 
-namespace Web.Extensions
+namespace Web.Extensions;
+
+public abstract class Component : IViewModel
 {
-    public abstract class Component : IViewModel
+    public View GetView()
     {
-        public View GetView()
-        {
-            return new View(ComponentViewFinder.GetViewFor(GetType()));
-        }
+        return new View(ComponentViewFinder.GetViewFor(GetType()));
     }
 }

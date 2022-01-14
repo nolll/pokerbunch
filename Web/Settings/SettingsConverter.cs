@@ -1,21 +1,20 @@
 using System;
 
-namespace Web.Settings
+namespace Web.Settings;
+
+public static class SettingsConverter
 {
-    public static class SettingsConverter
+    public static bool ToBool(string str)
     {
-        public static bool ToBool(string str)
-        {
-            return bool.TryParse(str, out var ret) && ret;
-        }
+        return bool.TryParse(str, out var ret) && ret;
+    }
 
-        public static Uri ToUri(string str)
-        {
-            if (str == null)
-                return null;
+    public static Uri ToUri(string str)
+    {
+        if (str == null)
+            return null;
 
-            var urlWithScheme = str.StartsWith("http") ? str : $"https://{str}";
-            return new Uri(urlWithScheme);
-        }
+        var urlWithScheme = str.StartsWith("http") ? str : $"https://{str}";
+        return new Uri(urlWithScheme);
     }
 }

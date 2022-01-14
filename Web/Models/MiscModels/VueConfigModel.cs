@@ -1,20 +1,19 @@
 using Web.Extensions;
 using Web.Settings;
 
-namespace Web.Models.MiscModels
+namespace Web.Models.MiscModels;
+
+public class VueConfigModel : IViewModel
 {
-    public class VueConfigModel : IViewModel
+    public string ApiUrl { get; }
+
+    public VueConfigModel(AppSettings appSettings)
     {
-        public string ApiUrl { get; }
+        ApiUrl = appSettings.Urls.ApiUri.AbsoluteUri.TrimEnd('/');
+    }
 
-        public VueConfigModel(AppSettings appSettings)
-        {
-            ApiUrl = appSettings.Urls.ApiUri.AbsoluteUri.TrimEnd('/');
-        }
-
-        public View GetView()
-        {
-            return new View("~/Views/Misc/VueConfig.cshtml");
-        }
+    public View GetView()
+    {
+        return new View("~/Views/Misc/VueConfig.cshtml");
     }
 }

@@ -1,9 +1,8 @@
 using Web.Extensions;
 
-namespace Web.Models
+namespace Web.Models;
+
+public interface IViewModel
 {
-    public interface IViewModel
-    {
-        View GetView();
-    }
+    View GetView();
 }

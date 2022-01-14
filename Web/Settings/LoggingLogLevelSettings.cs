@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Web.Settings
+namespace Web.Settings;
+
+public class LoggingLogLevelSettings
 {
-    public class LoggingLogLevelSettings
-    {
-        public LogLevel Default { get; set; } = LogLevel.Error;
-    }
+    public LogLevel Default { get; set; } = LogLevel.Error;
 }

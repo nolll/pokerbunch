@@ -1,7 +1,6 @@
-namespace Web.Models.PageBaseModels
+namespace Web.Models.PageBaseModels;
+
+public static class ContextLayout
 {
-    public static class ContextLayout
-    {
-        public const string Base = "Page.cshtml";
-    }
+    public const string Base = "Page.cshtml";
 }
