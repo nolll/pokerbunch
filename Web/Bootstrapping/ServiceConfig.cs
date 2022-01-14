@@ -5,83 +5,82 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Web.Settings;
 
-namespace Web.Bootstrapping
+namespace Web.Bootstrapping;
+
+public class ServiceConfig
 {
-    public class ServiceConfig
+    private readonly AppSettings _settings;
+    private readonly IServiceCollection _services;
+
+    public ServiceConfig(AppSettings settings, IServiceCollection services)
     {
-        private readonly AppSettings _settings;
-        private readonly IServiceCollection _services;
+        _settings = settings;
+        _services = services;
+    }
 
-        public ServiceConfig(AppSettings settings, IServiceCollection services)
+    public void Configure()
+    {
+        AddCompression();
+        AddLogging();
+        AddDependencies();
+        AddAuthentication();
+        AddMvc();
+        AddCors();
+    }
+
+    private void AddCompression()
+    {
+        _services.AddResponseCompression(options =>
         {
-            _settings = settings;
-            _services = services;
-        }
+            options.EnableForHttps = true;
+            options.Providers.Add<GzipCompressionProvider>();
+        });
+    }
 
-        public void Configure()
+    private void AddLogging()
+    {
+        _services.AddLogging(logging =>
         {
-            AddCompression();
-            AddLogging();
-            AddDependencies();
-            AddAuthentication();
-            AddMvc();
-            AddCors();
-        }
+            if (_settings.Logging.Loggers.Debug)
+                logging.AddDebug();
 
-        private void AddCompression()
+            if (_settings.Logging.Loggers.Console)
+                logging.AddConsole();
+
+            logging.SetMinimumLevel(_settings.Logging.LogLevel.Default);
+        });
+    }
+
+    private void AddDependencies()
+    {
+        _services.AddHttpContextAccessor();
+
+        _services.AddScoped(o => _settings);
+    }
+
+    private void AddAuthentication()
+    {
+        _services
+            .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie();
+    }
+
+    private void AddMvc()
+    {
+        _services.AddMvc(options =>
         {
-            _services.AddResponseCompression(options =>
-            {
-                options.EnableForHttps = true;
-                options.Providers.Add<GzipCompressionProvider>();
-            });
-        }
+            options.EnableEndpointRouting = false;
+        });
+    }
 
-        private void AddLogging()
+    private void AddCors()
+    {
+        _services.AddCors(options =>
         {
-            _services.AddLogging(logging =>
-            {
-                if (_settings.Logging.Loggers.Debug)
-                    logging.AddDebug();
-
-                if (_settings.Logging.Loggers.Console)
-                    logging.AddConsole();
-
-                logging.SetMinimumLevel(_settings.Logging.LogLevel.Default);
-            });
-        }
-
-        private void AddDependencies()
-        {
-            _services.AddHttpContextAccessor();
-
-            _services.AddScoped(o => _settings);
-        }
-
-        private void AddAuthentication()
-        {
-            _services
-                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
-        }
-
-        private void AddMvc()
-        {
-            _services.AddMvc(options =>
-            {
-                options.EnableEndpointRouting = false;
-            });
-        }
-
-        private void AddCors()
-        {
-            _services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-            });
-        }
+            options.AddPolicy("CorsPolicy",
+                builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+        });
     }
 }

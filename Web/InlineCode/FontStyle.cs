@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 
-namespace Web.InlineCode
+namespace Web.InlineCode;
+
+public class FontStyle : InlineStyleHtml
 {
-    public class FontStyle : InlineStyleHtml
-    {
-        private static string Source => @"
+    private static string Source => @"
 @font-face {
     font-family: 'FontAwesome';
     src: url('/dist/fonts/fontawesome-webfont.eot?v=3.0.1');
@@ -13,11 +13,10 @@ namespace Web.InlineCode
     font-style: normal;
 }";
 
-        protected override string Content { get; }
+    protected override string Content { get; }
 
-        public FontStyle()
-        {
-            Content = string.Join(" ", Source.Trim().Split("\r\n").Select(o => o.Trim()));
-        }
+    public FontStyle()
+    {
+        Content = string.Join(" ", Source.Trim().Split("\r\n").Select(o => o.Trim()));
     }
 }

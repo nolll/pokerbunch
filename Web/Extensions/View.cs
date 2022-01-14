@@ -1,19 +1,18 @@
 ﻿using JetBrains.Annotations;
 
-namespace Web.Extensions
+namespace Web.Extensions;
+
+public class View
 {
-    public class View
+    private string ViewName { get; }
+
+    public View([AspMvcView] string viewName)
     {
-        private string ViewName { get; }
+        ViewName = viewName;
+    }
 
-        public View([AspMvcView] string viewName)
-        {
-            ViewName = viewName;
-        }
-
-        public static implicit operator string(View view)
-        {
-            return view?.ViewName;
-        }
+    public static implicit operator string(View view)
+    {
+        return view?.ViewName;
     }
 }

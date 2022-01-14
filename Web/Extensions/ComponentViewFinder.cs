@@ -1,19 +1,18 @@
 ﻿using System;
 
-namespace Web.Extensions
+namespace Web.Extensions;
+
+public static class ComponentViewFinder
 {
-    public static class ComponentViewFinder
+    private const string ViewNameFormat = "~/{0}.cshtml";
+
+    public static string GetViewFor(Type t)
     {
-        private const string ViewNameFormat = "~/{0}.cshtml";
+        return GetViewName(t);
+    }
 
-        public static string GetViewFor(Type t)
-        {
-            return GetViewName(t);
-        }
-
-        private static string GetViewName(Type t)
-        {
-            return string.Format(ViewNameFormat, t.FullName.Replace("Web.", "").Replace(".", "/"));
-        }
+    private static string GetViewName(Type t)
+    {
+        return string.Format(ViewNameFormat, t.FullName.Replace("Web.", "").Replace(".", "/"));
     }
 }
