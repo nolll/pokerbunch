@@ -51,7 +51,7 @@
         }
 
         initResizeHandler() {
-            window.addEventListener('resize', debounce(() => {
+            window.addEventListener('resize', debounce((event: Event) => {
                 this.draw();
             }, 150));
         }

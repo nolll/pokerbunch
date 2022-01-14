@@ -3664,10 +3664,10 @@ totalist@^1.0.0:
   resolved "https://registry.yarnpkg.com/totalist/-/totalist-1.1.0.tgz#a4d65a3e546517701e3e5c37a47a70ac97fe56df"
   integrity sha512-gduQwd1rOdDMGxFG1gEvhV88Oirdo2p+KjoYFU7k2g+i7n6AFFbDQ5kMPUsW0pNbfQsB/cwXvT1i4Bue0s9g5g==
 
-ts-debounce@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/ts-debounce/-/ts-debounce-2.1.0.tgz#9a164c794692217d371449fc6572524751d70f19"
-  integrity sha512-jlrN8iK/Iif5pQd+pIsH8uEexj3vvUT+BwqNrJt5xgZB+ucwVfQVAUMC8Dnx0vlk7AktHxoD9ZDYYVYUtxd5wA==
+ts-debounce@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/ts-debounce/-/ts-debounce-4.0.0.tgz#33440ef64fab53793c3d546a8ca6ae539ec15841"
+  integrity sha512-+1iDGY6NmOGidq7i7xZGA4cm8DAa6fqdYcvO5Z6yBevH++Bdo9Qt/mN0TzHUgcCcKv1gmh9+W5dHqz8pMWbCbg==
 
 ts-loader@9.2.6:
   version "9.2.6"
