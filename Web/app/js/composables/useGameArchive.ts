@@ -70,7 +70,7 @@ export default function useGameArchive() {
 
   const loadGames = () => {
     store.dispatch(GameArchiveStoreActions.LoadGames, { slug: route.params.slug });
-    store.dispatch(GameArchiveStoreActions.SelectYear, { year: routeYear });
+    store.dispatch(GameArchiveStoreActions.SelectYear, { year: routeYear.value });
   };
 
   const sortGames = (name: string) => {

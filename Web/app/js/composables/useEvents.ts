@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { EventResponse } from '@/response/EventResponse';
 import { EventStoreActions, EventStoreGetters } from '@/store/helpers/EventStoreHelpers';
 
-export default function useBunch() {
+export default function useEvents() {
   const store = useStore();
   const route = useRoute();
 

@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
 import { CurrentGameStoreActions, CurrentGameStoreGetters } from '@/store/helpers/CurrentGameStoreHelpers';
 
-export default function useBunch() {
+export default function useCurrentGames() {
   const store = useStore();
   const route = useRoute();
 
