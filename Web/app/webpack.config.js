@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -17,11 +17,11 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.less$/,
+                test: /\.s[ac]ss$/i,
                 use: [
                     { loader: MiniCssExtractPlugin.loader },
                     { loader: 'css-loader' },
-                    { loader: 'less-loader' }
+                    { loader: 'sass-loader' }
                 ],
                 exclude: /node_modules/
             },
@@ -72,8 +72,6 @@ module.exports = {
             inject: false
         }),
         new CopyPlugin({
-
-
             patterns: [
                 { from: './fonts/*.*', to: './dist' },
                 { from: './favicon.ico', to: '.' }
@@ -86,12 +84,6 @@ module.exports = {
             '@': path.resolve(__dirname, './js')
         },
         extensions: ['.ts', '.js', '.vue']
-    },
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-            name: 'vendor'
-        }
     },
     stats: { children: false }
 };

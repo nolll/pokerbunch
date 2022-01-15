@@ -51,7 +51,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
     .game-list{
         overflow: auto;
     }

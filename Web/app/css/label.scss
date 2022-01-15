@@ -1,0 +1,6 @@
+@import "mixins";
+
+.label{
+	@include fontsize(12);
+	text-transform: uppercase;
+}

@@ -1,5 +1,5 @@
-@import "mediaqueries.less";
-@import "mixins.less";
+@import "mediaqueries";
+@import "mixins";
 
 .amount{
 	text-align: right;
@@ -13,7 +13,7 @@
 	color:red;
 }
 
-@media @widthXSmall {
+@include widthXSmall {
 	.add-cashgame-button{
 		position:absolute;
 		top:15px;
