@@ -2,10 +2,7 @@
     <router-view></router-view>
 </template>
 
-<script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
-
-    @Component
-    export default class Root extends Vue {
-    }
+<script setup lang="ts">
+    import { ref } from 'vue';
+    const test = ref(0);
 </script>
