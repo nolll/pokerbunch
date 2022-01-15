@@ -72,8 +72,6 @@ module.exports = {
             inject: false
         }),
         new CopyPlugin({
-
-
             patterns: [
                 { from: './fonts/*.*', to: './dist' },
                 { from: './favicon.ico', to: '.' }
@@ -86,12 +84,6 @@ module.exports = {
             '@': path.resolve(__dirname, './js')
         },
         extensions: ['.ts', '.js', '.vue']
-    },
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-            name: 'vendor'
-        }
     },
     stats: { children: false }
 };
