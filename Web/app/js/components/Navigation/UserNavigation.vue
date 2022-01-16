@@ -1,55 +1,74 @@
 ﻿<template>
-    <nav class="user-nav" v-if="$_userReady">
-        <h2>Account</h2>
-        <ul v-if="$_isSignedIn">
-            <li><CustomLink :url="userDetailsUrl"><span>Signed in as {{$_displayName}}</span></CustomLink></li>
-            <li><a href="#" @click.prevent="logOut"><span>Sign Out</span></a></li>
-        </ul>
-        <ul v-else>
-            <li><CustomLink :url="loginUrl"><span>Sign in</span></CustomLink></li>
-            <li><CustomLink :url="registerUrl"><span>Register</span></CustomLink></li>
-            <li><CustomLink :url="resetPasswordUrl"><span>Reset password</span></CustomLink></li>
-        </ul>
-    </nav>
+  <nav class="user-nav" v-if="userReady">
+    <h2>Account</h2>
+    <ul v-if="isSignedIn">
+      <li>
+        <CustomLink :url="userDetailsUrl"
+          ><span>Signed in as {{ displayName }}</span></CustomLink
+        >
+      </li>
+      <li>
+        <a href="#" @click.prevent="logOut"><span>Sign Out</span></a>
+      </li>
+    </ul>
+    <ul v-else>
+      <li>
+        <CustomLink :url="loginUrl"><span>Sign in</span></CustomLink>
+      </li>
+      <li>
+        <CustomLink :url="registerUrl"><span>Register</span></CustomLink>
+      </li>
+      <li>
+        <CustomLink :url="resetPasswordUrl"><span>Reset password</span></CustomLink>
+      </li>
+    </ul>
+  </nav>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Vue } from 'vue-property-decorator';
-    import { UserMixin } from '@/mixins';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import urls from '@/urls';
-    import auth from '@/auth';
-    import api from '@/api';
+<script setup lang="ts">
+import CustomLink from '@/components/Common/CustomLink.vue';
+import urls from '@/urls';
+import auth from '@/auth';
+import api from '@/api';
+import useUsers from '@/composables/useUsers';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            CustomLink
-        }
-    })
-    export default class UserNavigation extends Mixins(UserMixin) {
-        async logOut() {
-            auth.clearToken();
-            this.redirectHome();
-        }
+const users = useUsers();
 
-        get userDetailsUrl() {
-            return urls.user.details(this.$_userName);
-        }
+const logOut = () => {
+  auth.clearToken();
+  redirectHome();
+};
 
-        get registerUrl() {
-            return urls.user.add;
-        }
+const userReady = computed(() => {
+  return users.userReady.value;
+});
 
-        get resetPasswordUrl() {
-            return urls.user.resetPassword;
-        }
+const isSignedIn = computed(() => {
+  return users.isSignedIn.value;
+});
 
-        get loginUrl() {
-            return urls.auth.login;
-        }
-        
-        redirectHome() {
-            window.location.href = urls.home;
-        }
-    }
+const displayName = computed(() => {
+  return users.displayName.value;
+});
+
+const userDetailsUrl = computed(() => {
+  return urls.user.details(users.userName.value);
+});
+
+const registerUrl = computed(() => {
+  return urls.user.add;
+});
+
+const resetPasswordUrl = computed(() => {
+  return urls.user.resetPassword;
+});
+
+const loginUrl = computed(() => {
+  return urls.auth.login;
+});
+
+const redirectHome = () => {
+  window.location.href = urls.home;
+};
 </script>

@@ -1,60 +1,61 @@
 ﻿<template>
-    <div :class="cssClasses">
-        <div v-if="isAside1Enabled" :class="asideCssClasses">
-            <slot name="aside1"></slot>
-        </div>
-        <div :class="mainCssClasses">
-            <slot></slot>
-        </div>
-        <div v-if="isAside2Enabled" :class="asideCssClasses">
-            <slot name="aside2"></slot>
-        </div>
+  <div :class="cssClasses">
+    <div v-if="isAside1Enabled" :class="asideCssClasses">
+      <slot name="aside1"></slot>
     </div>
+    <div :class="mainCssClasses">
+      <slot></slot>
+    </div>
+    <div v-if="isAside2Enabled" :class="asideCssClasses">
+      <slot name="aside2"></slot>
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import { CssClasses } from '@/models/CssClasses';
+<script setup lang="ts">
+import { CssClasses } from '@/models/CssClasses';
+import { computed, useSlots } from 'vue';
 
-    @Component
-    export default class PageSection extends Vue {
-        @Prop({default: false}) readonly isWide!: boolean;
+const props = defineProps<{
+  isWide: boolean;
+}>();
 
-        get isAside1Enabled() {
-            return this.isSlotEnabled('aside1');
-        }
+const slots = useSlots();
 
-        get isAside2Enabled() {
-            return this.isSlotEnabled('aside2');
-        }
-        
-        get hasAside() {
-            return this.isAside1Enabled || this.isAside2Enabled;
-        }
-        
-        get cssClasses(): CssClasses {
-            return {
-                'page-section': true,
-                'page-section--wide': this.isWide
-            }
-        }
-        
-        get asideCssClasses(): CssClasses {
-            return {
-                region: true,
-                aside: true
-            };
-        }
-        
-        get mainCssClasses(): CssClasses {
-            return {
-                region: true,
-                width2: this.hasAside
-            };
-        }
+const isAside1Enabled = computed(() => {
+  return isSlotEnabled('aside1');
+});
 
-        isSlotEnabled(name: string) {
-            return !!this.$slots[name];
-        }
-    }
+const isAside2Enabled = computed(() => {
+  return isSlotEnabled('aside2');
+});
+
+const hasAside = computed(() => {
+  return isAside1Enabled.value || isAside2Enabled.value;
+});
+
+const cssClasses = computed((): CssClasses => {
+  return {
+    'page-section': true,
+    'page-section--wide': props.isWide,
+  };
+});
+
+const asideCssClasses = computed((): CssClasses => {
+  return {
+    region: true,
+    aside: true,
+  };
+});
+
+const mainCssClasses = computed((): CssClasses => {
+  return {
+    region: true,
+    width2: hasAside.value,
+  };
+});
+
+const isSlotEnabled = (name: string) => {
+  return !!slots[name];
+};
 </script>
