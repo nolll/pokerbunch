@@ -59,5 +59,16 @@ export default function useLocations() {
     }
   });
 
-  return {};
+  return {
+    userReady,
+    isSignedIn,
+    usersReady,
+    userName,
+    displayName,
+    isAdmin,
+    users,
+    requireUser,
+    loadCurrentUser,
+    loadUsers,
+  };
 }

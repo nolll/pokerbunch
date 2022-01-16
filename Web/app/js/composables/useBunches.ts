@@ -4,7 +4,7 @@ import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
 import { BunchResponse } from '@/response/BunchResponse';
 
-export default function useBunch() {
+export default function useBunches() {
   const store = useStore();
   const route = useRoute();
 
@@ -103,6 +103,6 @@ export default function useBunch() {
     loadBunch,
     refreshBunch,
     loadUserBunches,
-    loadBunches
-  }
+    loadBunches,
+  };
 }

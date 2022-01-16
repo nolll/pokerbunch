@@ -32,5 +32,12 @@ export default function useLocations() {
     store.dispatch(PlayerStoreActions.DeletePlayer, { player });
   };
 
-  return {};
+  return {
+    playersReady,
+    players,
+    getPlayer,
+    loadPlayers,
+    addPlayer,
+    deletePlayer,
+  };
 }

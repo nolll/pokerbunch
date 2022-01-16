@@ -19,5 +19,9 @@ export default function useLocations() {
     store.dispatch(TimezoneStoreActions.LoadTimezones);
   };
 
-  return {};
+  return {
+    timezonesReady,
+    timezones,
+    loadTimezones,
+  };
 }

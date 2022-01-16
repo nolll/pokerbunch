@@ -29,5 +29,11 @@ export default function useLocations() {
     store.dispatch(LocationStoreActions.AddLocation, { bunchId: route.params.slug, name });
   };
 
-  return {};
+  return {
+    locationsReady,
+    locations,
+    getLocation,
+    loadLocations,
+    addLocation,
+  };
 }
