@@ -1,6 +1,6 @@
 ﻿import urls from '@/urls';
 import { createWebHistory, RouteRecordRaw, RouterOptions } from 'vue-router';
-// import HomePage from '@/components/Pages/HomePage.vue';
+import HomePage from '@/components/Pages/HomePage.vue';
 // import LoginPage from '@/components/Pages/LoginPage.vue';
 // import UserListPage from '@/components/Pages/UserListPage.vue';
 // import UserDetailsPage from '@/components/Pages/UserDetailsPage.vue';
@@ -33,7 +33,7 @@ import { createWebHistory, RouteRecordRaw, RouterOptions } from 'vue-router';
 import ApiDocsPage from '@/components/Pages/ApiDocsPage.vue';
 
 const routes: RouteRecordRaw[] = [
-  // { path: urls.home, component: HomePage },
+  { path: urls.home, component: HomePage },
   // { path: urls.admin.tools, component: AdminToolsPage },
   { path: urls.api.docs, component: ApiDocsPage },
   // { path: '/auth/login', component: LoginPage },
