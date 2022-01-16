@@ -1,15 +1,15 @@
-import useBunch from './useBunch';
+import useBunches from './useBunches';
 import format from '@/format';
 
 export default function useFormatter() {
-  const bunch = useBunch();
+  const bunches = useBunches();
 
   const formatCurrency = (val: number): string => {
-    return format.currency(val, bunch.currencyFormat.value, bunch.thousandSeparator.value);
+    return format.currency(val, bunches.currencyFormat.value, bunches.thousandSeparator.value);
   };
 
   const formatResult = (val: number): string => {
-    return format.result(val, bunch.currencyFormat.value, bunch.thousandSeparator.value);
+    return format.result(val, bunches.currencyFormat.value, bunches.thousandSeparator.value);
   };
 
   const formatResultWithoutCurrency = (val: number): string => {
@@ -17,7 +17,7 @@ export default function useFormatter() {
   };
 
   const formatWinrate = (val: number): string => {
-    return format.winrate(val, bunch.currencyFormat.value, bunch.thousandSeparator.value);
+    return format.winrate(val, bunches.currencyFormat.value, bunches.thousandSeparator.value);
   };
 
   const formatDuration = (val: number): string => {

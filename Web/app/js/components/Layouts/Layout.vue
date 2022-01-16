@@ -2,7 +2,7 @@
   <div>
     <PageSection>
       <div class="page-header">
-        <div class="logo"><CustomLink :url="homeUrl" cssClasses="logo-link">Poker Bunch</CustomLink></div>
+        <div class="logo"><CustomLink :url="homeUrl" :cssClasses="logoCssClasses">Poker Bunch</CustomLink></div>
         <div v-if="isTopNavEnabled">
           <slot name="top-nav"></slot>
         </div>
@@ -32,6 +32,7 @@ import LoadingSpinner from '@/components/Common/LoadingSpinner.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import urls from '@/urls';
 import { computed, useSlots } from 'vue';
+import { CssClasses } from '@/models/CssClasses';
 
 const slots = useSlots();
 defineProps<{
@@ -44,6 +45,12 @@ const isTopNavEnabled = computed(() => {
 
 const homeUrl = computed(() => {
   return urls.home;
+});
+
+const logoCssClasses = computed((): CssClasses => {
+  return {
+    'logo-link': true,
+  };
 });
 
 const isSlotEnabled = (name: string) => {

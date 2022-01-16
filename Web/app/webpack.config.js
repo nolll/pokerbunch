@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
@@ -28,10 +28,7 @@ module.exports = {
             {
                 test: /\.vue$/,
                 use: [{
-                    loader: 'vue-loader',
-                    options: {
-                        appendExtension: true
-                    }
+                    loader: 'vue-loader'
                 }],
                 exclude: /node_modules/
             },

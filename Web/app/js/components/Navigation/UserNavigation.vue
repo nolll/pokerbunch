@@ -29,7 +29,6 @@
 import CustomLink from '@/components/Common/CustomLink.vue';
 import urls from '@/urls';
 import auth from '@/auth';
-import api from '@/api';
 import useUsers from '@/composables/useUsers';
 import { computed } from 'vue';
 
