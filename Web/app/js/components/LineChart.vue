@@ -1,115 +1,106 @@
 ﻿<template>
-    <div ref="container">
-        <div ref="placeholder"></div>
-        <LoadingSpinner v-show="!ready"></LoadingSpinner>
-    </div>
+  <div ref="container">
+    <div ref="placeholder"></div>
+    <LoadingSpinner v-show="!ready"></LoadingSpinner>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-    import { debounce } from 'ts-debounce';
-    import { GoogleCharts } from 'google-charts';
-    import LoadingSpinner from '@/components/Common/LoadingSpinner.vue';
-    import { ChartData } from '@/models/ChartData';
-    import { ChartOptions } from '@/models/ChartOptions';
+<script setup lang="ts">
+import { debounce } from 'ts-debounce';
+import { GoogleCharts } from 'google-charts';
+import LoadingSpinner from '@/components/Common/LoadingSpinner.vue';
+import { ChartData } from '@/models/ChartData';
+import { ChartOptions } from '@/models/ChartOptions';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
-    @Component({
-        components: {
-            LoadingSpinner
-        }
-    })
-    export default class LineChart extends Vue {
-        @Prop() readonly chartData!: ChartData;
-        @Prop() readonly chartOptions!: ChartOptions;
+const props = defineProps<{
+  chartData: ChartData;
+  chartOptions: ChartOptions;
+}>();
 
-        chart: any = null;
-        chartsLoaded = false;
-        
-        get ready() {
-            return this.dataLoaded && this.chartsLoaded;
-        }
+const chart = ref<any>();
+chart.value = null;
+const chartsLoaded = ref(false);
+const container = ref<HTMLElement>();
 
-        get dataLoaded() {
-            return !!this.chartData;
-        }
+const ready = computed(() => {
+  return dataLoaded.value && chartsLoaded.value;
+});
 
-        loadCharts() {
-            GoogleCharts.load(() => {
-                this.createChart();
-            });
-        }
+const dataLoaded = computed(() => {
+  return !!props.chartData;
+});
 
-        createChart() {
-            this.chart = new GoogleCharts.api.visualization.LineChart(this.$refs.container);
-            this.initResizeHandler();
-            this.chartsLoaded = true;
-        }
+const loadCharts = () => {
+  GoogleCharts.load(() => {
+    createChart();
+  });
+};
 
-        draw() {
-            var dataTable = new GoogleCharts.api.visualization.DataTable(this.chartData);
-            this.chart.draw(dataTable, this.getConfig());
-        }
+const createChart = () => {
+  chart.value = new GoogleCharts.api.visualization.LineChart(container.value);
+  initResizeHandler();
+  chartsLoaded.value = true;
+};
 
-        initResizeHandler() {
-            window.addEventListener('resize', debounce((event: Event) => {
-                this.draw();
-            }, 150));
-        }
+const draw = () => {
+  var dataTable = new GoogleCharts.api.visualization.DataTable(props.chartData);
+  chart.value.draw(dataTable, getConfig());
+};
 
-        getConfig() {
-            var conf = {
-                backgroundColor: '#fff',
-                fontSize: 16,
-                fontName: 'arial',
-                interpolateNulls: true,
-                lineWidth: 1,
-                pointSize: 2,
-                theme: 'maximized',
-                seriesType: 'line',
-                width: this.getWidth(),
-                height: this.getHeight()
-            };
+const initResizeHandler = () => {
+  window.addEventListener(
+    'resize',
+    debounce((event: Event) => {
+      draw();
+    }, 150)
+  );
+};
 
-            if (typeof this.chartOptions == 'object') {
-                return Object.assign(conf, this.chartOptions);
-            }
+const getConfig = () => {
+  var conf = {
+    backgroundColor: '#fff',
+    fontSize: 16,
+    fontName: 'arial',
+    interpolateNulls: true,
+    lineWidth: 1,
+    pointSize: 2,
+    theme: 'maximized',
+    seriesType: 'line',
+    width: getWidth(),
+    height: getHeight(),
+  };
 
-            return conf;
-        }
+  if (typeof props.chartOptions == 'object') {
+    return Object.assign(conf, props.chartOptions);
+  }
 
-        getWidth() {
-            if (this.$refs.container)
-                return parseInt(window.getComputedStyle(this.$refs.container as Element).width);
-            return 0;
-        }
+  return conf;
+};
 
-        getHeight() {
-            return this.getWidth() / 2;
-        }
+const getWidth = () => {
+  if (container.value) return parseInt(window.getComputedStyle(container.value).width);
+  return 0;
+};
 
-        created() {
-            this.chart = null;
-        }
+const getHeight = () => {
+  return getWidth() / 2;
+};
 
-        mounted() {
-            var self = this;
-            self.$nextTick(function () {
-                self.loadCharts();
-            });
-        }
+onMounted(async () => {
+  await nextTick();
+  loadCharts();
+});
 
-        @Watch('chartsLoaded')
-        chartsLoadedChanged() {
-            if (this.ready) {
-                this.draw();
-            }
-        }
+watch(chartsLoaded, () => {
+  if (ready.value) {
+    draw();
+  }
+});
 
-        @Watch('chartData')
-        chartDataChanged() {
-            if (this.ready) {
-                this.draw();
-            }
-        }
-    }
+watch(props.chartData, () => {
+  if (ready.value) {
+    draw();
+  }
+});
 </script>
