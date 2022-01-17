@@ -35,7 +35,7 @@ export default function useGameArchive() {
     return store.getters[GameArchiveStoreGetters.PlayerSortOrder];
   });
 
-  const selectedYear = computed((): number | null => {
+  const selectedYear = computed((): number | undefined => {
     return store.getters[GameArchiveStoreGetters.SelectedYear];
   });
 
@@ -55,7 +55,7 @@ export default function useGameArchive() {
     return store.getters[GameArchiveStoreGetters.AllYearsPlayers];
   });
 
-  const currentYear = computed((): number | null => {
+  const currentYear = computed((): number | undefined => {
     return store.getters[GameArchiveStoreGetters.CurrentYear];
   });
 

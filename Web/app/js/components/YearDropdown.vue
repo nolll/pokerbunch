@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  modelValue: string;
+  modelValue?: number;
   years: number[];
 }>();
 

@@ -1,31 +1,34 @@
 ﻿<template>
-    <li><a :href="url" :class="selectedClass" @click.prevent="click">{{text}}</a></li>
+  <li>
+    <a :href="url" :class="selectedClass" @click.prevent="click">{{ text }}</a>
+  </li>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { CssClasses } from '@/models/CssClasses';
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+import { computed } from 'vue';
 
-    @Component
-    export default class CashgameNavigationItem extends Vue {
-        @Prop() readonly url!: string;
-        @Prop() readonly text!: string;
-        @Prop() readonly isSelected!: boolean;
+const props = defineProps<{
+  url: string;
+  text: string;
+  isSelected: boolean;
+}>();
 
-        get selectedClass(): CssClasses {
-            return {
-                'selected': this.isSelected
-            }
-        }
+const emit = defineEmits(['selected']);
 
-        click() {
-            this.$emit('selected', this.url);
-        }
-    }
+const selectedClass = computed((): CssClasses => {
+  return {
+    selected: props.isSelected,
+  };
+});
+
+const click = () => {
+  emit('selected', props.url);
+};
 </script>
 
 <style lang="scss" scoped>
-    li{
-        margin-top: 5px;
-    }
+li {
+  margin-top: 5px;
+}
 </style>
