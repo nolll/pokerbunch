@@ -1,31 +1,30 @@
 ﻿<template>
-    <select :value="value" v-on:input="updateValue">
-        <option value="">Select Location</option>
-        <option
-            v-for="(location) in locations"
-            :value="location.id"
-            v-bind:key="location.id">
-            {{location.name}}
-        </option>
-    </select>
+  <select :value="modelValue" v-on:input="updateValue">
+    <option value="">Select Location</option>
+    <option v-for="location in locationList" :value="location.id" v-bind:key="location.id">
+      {{ location.name }}
+    </option>
+  </select>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Watch } from 'vue-property-decorator';
-    import { LocationMixin } from '@/mixins';
-    
-    @Component
-    export default class LocationDropdown extends Mixins(
-        LocationMixin
-    ) {
-        @Prop() value!: string;
+<script setup lang="ts">
+import useLocations from '@/composables/useLocations';
+import { computed } from 'vue';
 
-        get locations(){
-            return this.$_locations;
-        }
+defineProps<{
+  modelValue: string;
+}>();
 
-        updateValue(event: any){
-            this.$emit('input', event.target.value);
-        }
-    }
+const emit = defineEmits(['update:modelValue']);
+
+const locations = useLocations();
+
+const locationList = computed(() => {
+  return locations.locations.value;
+});
+
+const updateValue = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
+  emit('update:modelValue', value);
+};
 </script>

@@ -1,31 +1,30 @@
 ﻿<template>
-    <select :value="value" v-on:input="updateValue">
-        <option value="">Select timezone</option>
-        <option
-            v-for="(timezone) in timezones"
-            :value="timezone.id"
-            v-bind:key="timezone.id">
-            {{timezone.name}}
-        </option>
-    </select>
+  <select :value="modelValue" v-on:input="updateValue">
+    <option value="">Select timezone</option>
+    <option v-for="timezone in timezoneList" :value="timezone.id" v-bind:key="timezone.id">
+      {{ timezone.name }}
+    </option>
+  </select>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Watch } from 'vue-property-decorator';
-    import { TimezoneMixin } from '@/mixins';
-    
-    @Component
-    export default class TimezoneDropdown extends Mixins(
-        TimezoneMixin
-    ) {
-        @Prop() value!: string;
+<script setup lang="ts">
+import useTimezones from '@/composables/useTimezones';
+import { computed } from 'vue';
 
-        get timezones(){
-            return this.$_timezones;
-        }
+defineProps<{
+  modelValue: string;
+}>();
 
-        updateValue(event: any){
-            this.$emit('input', event.target.value);
-        }
-    }
+const emit = defineEmits(['update:modelValue']);
+
+const timezones = useTimezones();
+
+const timezoneList = computed(() => {
+  return timezones.timezones.value;
+});
+
+const updateValue = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
+  emit('update:modelValue', value);
+};
 </script>
