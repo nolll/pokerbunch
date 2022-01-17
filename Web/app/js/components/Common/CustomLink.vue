@@ -16,7 +16,7 @@ const router = useRouter();
 
 const props = withDefaults(
   defineProps<{
-    url: string;
+    url: string | undefined;
     cssClasses?: CssClasses;
   }>(),
   {
