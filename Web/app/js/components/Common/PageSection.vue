@@ -16,9 +16,14 @@
 import { CssClasses } from '@/models/CssClasses';
 import { computed, useSlots } from 'vue';
 
-const props = defineProps<{
-  isWide: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    isWide?: boolean;
+  }>(),
+  {
+    isWide: false,
+  }
+);
 
 const slots = useSlots();
 
