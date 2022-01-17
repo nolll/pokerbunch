@@ -1,65 +1,52 @@
 ﻿<template>
-    <Layout :ready="ready">
-        <PageSection>
-            
-            <Block>
-                <PageHeading text="Bunches" />
-            </Block>
+  <Layout :ready="ready">
+    <PageSection>
+      <Block>
+        <PageHeading text="Bunches" />
+      </Block>
 
-            <Block v-if="isAdmin">
-                <BunchList />
-            </Block>
+      <Block v-if="isAdmin">
+        <BunchList />
+      </Block>
 
-            <Block v-else>
-                Access denied
-            </Block>
-
-        </PageSection>
-    </Layout>
+      <Block v-else> Access denied </Block>
+    </PageSection>
+  </Layout>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, UserMixin } from '@/mixins';
-    import Layout from '@/components/Layouts/Layout.vue';
-    import Block from '@/components/Common/Block.vue';
-    import PageHeading from '@/components/Common/PageHeading.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
-    import BunchList from '@/components/BunchList/BunchList.vue';
+<script setup lang="ts">
+import Layout from '@/components/Layouts/Layout.vue';
+import Block from '@/components/Common/Block.vue';
+import PageHeading from '@/components/Common/PageHeading.vue';
+import PageSection from '@/components/Common/PageSection.vue';
+import BunchList from '@/components/BunchList/BunchList.vue';
+import useBunches from '@/composables/useBunches';
+import useUsers from '@/composables/useUsers';
+import { computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-    @Component({
-        components: {
-            Layout,
-            Block,
-            PageHeading,
-            PageSection,
-            BunchList
-        }
-    })
-    export default class BunchListPage extends Mixins(
-        BunchMixin,
-        UserMixin
-    ) {
-        get ready() {
-            return this.$_userReady && this.$_bunchesReady;
-        }
+const route = useRoute();
+const users = useUsers();
+const bunches = useBunches();
 
-        get isAdmin(){
-            return this.$_isAdmin;
-        }
+const ready = computed(() => {
+  return users.userReady.value && bunches.bunchesReady.value;
+});
 
-        init() {
-            this.$_requireUser();
-            this.$_loadBunches();
-        }
+const isAdmin = computed(() => {
+  return users.isAdmin.value;
+});
 
-        mounted() {
-            this.init();
-        }
+const init = () => {
+  users.requireUser();
+  bunches.loadBunches();
+};
 
-        @Watch('$route')
-        routeChanged() {
-            this.init();
-        }
-    }
+onMounted(() => {
+  init();
+});
+
+watch(route, () => {
+  init();
+});
 </script>

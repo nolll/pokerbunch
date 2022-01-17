@@ -12,7 +12,7 @@ import useTimezones from '@/composables/useTimezones';
 import { computed } from 'vue';
 
 defineProps<{
-  modelValue: string;
+  modelValue?: string;
 }>();
 
 const emit = defineEmits(['update:modelValue']);
