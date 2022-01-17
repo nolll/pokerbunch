@@ -10,12 +10,12 @@ import { ChartColumnType } from '@/models/ChartColumnType';
 import { ChartData } from '@/models/ChartData';
 import { ChartOptions } from '@/models/ChartOptions';
 import { ChartRow } from '@/models/ChartRow';
-import { DetailedCashgameResponsePlayer } from '@/response/DetailedCashgameResponsePlayer';
+import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed } from 'vue';
 import LineChart from './LineChart.vue';
 
 const props = defineProps<{
-  player: DetailedCashgameResponsePlayer;
+  player: DetailedCashgamePlayer;
 }>();
 
 const chartOptions: ChartOptions = {
