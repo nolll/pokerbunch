@@ -12,7 +12,7 @@ import useEvents from '@/composables/useEvents';
 import { computed } from 'vue';
 
 defineProps<{
-  modelValue: string;
+  modelValue?: string;
 }>();
 
 const emit = defineEmits(['update:modelValue']);

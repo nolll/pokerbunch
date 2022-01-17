@@ -75,7 +75,7 @@ export class DetailedCashgamePlayer {
     this.addAction(DetailedCashgameResponseActionType.Cashout, stack, null);
   }
 
-  private addAction(type: DetailedCashgameResponseActionType, stack: number, added: number | null) {
+  public addAction(type: DetailedCashgameResponseActionType, stack: number, added: number | null) {
     const action = { id: undefined, type, time: dayjs.utc().toDate(), stack, added };
     this.actions.push(action);
   }

@@ -26,9 +26,10 @@
       </Block>
       <Block v-if="hasPlayers">
         <div class="standings">
+          <!-- todo: changed cashgame.players to playersInGame. Check if it is still working -->
           <PlayerTable
-            :players="cashgame.players"
-            :isCashgameRunning="cashgame.isRunning"
+            :players="playersInGame"
+            :isCashgameRunning="isRunning"
             @playerSelected="onSelectPlayer"
             @deleteAction="onDeleteAction"
             @saveAction="onSaveAction"
@@ -120,6 +121,7 @@ import usePlayers from '@/composables/usePlayers';
 import useLocations from '@/composables/useLocations';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 
 const route = useRoute();
 const router = useRouter();
@@ -241,12 +243,12 @@ const eventUrl = computed(() => {
   return urls.event.details(bunches.slug.value, cashgame.value.event.id);
 });
 
-const canEdit = computed(() => {
+const canEdit = computed((): boolean => {
   return bunches.isManager.value;
 });
 
-// todo: I think I've found the bug with the sorted players
-const playersInGame = computed(() => {
+// todo: I think I've found the bug with the sorted players. SortedPlayers is not used
+const playersInGame = computed((): DetailedCashgamePlayer[] => {
   if (!cashgame.value) return [];
   const sortedPlayers = cashgame.value.players.slice().sort((left, right) => right.getWinnings() - left.getWinnings());
   return cashgame.value.players;
