@@ -1,23 +1,22 @@
 ﻿<template>
-    <td class="table-list__cell" :class="cssClasses">
-        <slot></slot>
-    </td>
+  <td class="table-list__cell" :class="cssClasses">
+    <slot></slot>
+  </td>
 </template>
 
-<script lang="ts">
-    import { CssClasses } from '@/models/CssClasses';
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+<script setup lang="ts">
+import { CssClasses } from '@/models/CssClasses';
+import { computed } from 'vue';
 
-    @Component
-    export default class TableListCell extends Vue {
-        @Prop({default: false}) readonly isNumeric!: boolean;
-        @Prop({default: () => {}}) readonly customClasses!: CssClasses;
+const props = defineProps<{
+  isNumeric: boolean;
+  customClasses: CssClasses;
+}>();
 
-        get cssClasses(): CssClasses{
-            return {
-                ...this.customClasses,
-                'table-list__cell--numeric': this.isNumeric
-            }
-        }
-    }
+const cssClasses = computed((): CssClasses => {
+  return {
+    ...props.customClasses,
+    'table-list__cell--numeric': props.isNumeric,
+  };
+});
 </script>
