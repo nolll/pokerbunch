@@ -1,75 +1,77 @@
 ﻿<template>
-    <div class="form">
-        <div class="field">
-            <label class="label" for="buyin-amount">Amount</label>
-            <input class="numberfield" v-model.number="amount" v-on:focus="focus" ref="buyin" id="buyin-amount" type="text" pattern="[0-9]*">
-        </div>
-        <div class="field" v-if="isPlayerInGame">
-            <label class="label" for="buyin-stack">Stack Size</label>
-            <input class="numberfield" v-model.number="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*">
-        </div>
-        <div class="buttons">
-            <CustomButton v-on:click="buyin" type="action" text="Buy In" />
-            <CustomButton v-on:click="cancel" text="Cancel" />
-        </div>
+  <div class="form">
+    <div class="field">
+      <label class="label" for="buyin-amount">Amount</label>
+      <input
+        class="numberfield"
+        v-model.number="amount"
+        v-on:focus="focus"
+        ref="buyin"
+        id="buyin-amount"
+        type="text"
+        pattern="[0-9]*"
+      />
     </div>
+    <div class="field" v-if="isPlayerInGame">
+      <label class="label" for="buyin-stack">Stack Size</label>
+      <input class="numberfield" v-model.number="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*" />
+    </div>
+    <div class="buttons">
+      <CustomButton v-on:click="buyin" type="action" text="Buy In" />
+      <CustomButton v-on:click="cancel" text="Cancel" />
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-    import validate from '@/validate';
-    import forms from '@/forms';
-    import CustomButton from '@/components/Common/CustomButton.vue';
+<script setup lang="ts">
+import validate from '@/validate';
+import forms from '@/forms';
+import CustomButton from '@/components/Common/CustomButton.vue';
+import { computed, onMounted, ref } from 'vue';
 
-    @Component({
-        components: {
-            CustomButton
-        }
-    })
-    export default class BuyinForm extends Vue {
-        @Prop() readonly defaultBuyin!: number;
-        @Prop() readonly isPlayerInGame!: boolean;
+const props = defineProps<{
+  defaultBuyin: number;
+  isPlayerInGame: boolean;
+}>();
 
-        amount = 0;
-        stack = 0;
-        buyinError: string | null = null;
-        stackError: string | null = null;
+const emit = defineEmits(['buyin', 'cancel']);
 
-        get hasErrors() {
-            return this.buyinError === null && this.stackError === null;
-        }
+const amount = ref(0);
+const stack = ref(0);
+const buyinError = ref<string | null>(null);
+const stackError = ref<string | null>(null);
 
-        buyin() {
-            this.validateForm();
-            if (!this.hasErrors) {
-                this.$emit('buyin', this.amount, this.stack);
-            }
-        }
+const hasErrors = computed(() => {
+  return buyinError.value === null && stackError.value === null;
+});
 
-        cancel() {
-            this.$emit('cancel');
-        }
+const buyin = () => {
+  validateForm();
+  if (!hasErrors.value) {
+    emit('buyin', amount.value, stack.value);
+  }
+};
 
-        focus(e: FocusEvent) {
-            if(e.target)
-                forms.selectAll(e.target as HTMLInputElement);
-        }
+const cancel = () => {
+  emit('cancel');
+};
 
-        validateForm() {
-            this.clearErrors();
-            if (validate.intRange(this.amount, 1))
-                this.buyinError = 'Buyin must be greater than zero';
-            if (validate.intRange(this.stack, 0))
-                this.stackError = 'Stack can\'t be negative';
-        }
+const focus = (e: FocusEvent) => {
+  if (e.target) forms.selectAll(e.target as HTMLInputElement);
+};
 
-        clearErrors() {
-            this.buyinError = null;
-            this.stackError = null;
-        }
+const validateForm = () => {
+  clearErrors();
+  if (validate.intRange(amount.value, 1)) buyinError.value = 'Buyin must be greater than zero';
+  if (validate.intRange(stack.value, 0)) stackError.value = "Stack can't be negative";
+};
 
-        mounted() {
-            this.amount = this.defaultBuyin;
-        }
-    }
+const clearErrors = () => {
+  buyinError.value = null;
+  stackError.value = null;
+};
+
+onMounted(() => {
+  amount.value = props.defaultBuyin;
+});
 </script>

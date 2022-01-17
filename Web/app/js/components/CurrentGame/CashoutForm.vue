@@ -1,68 +1,66 @@
 ﻿<template>
-    <div class="form">
-        <div class="field">
-            <label class="label" for="cashout-stack">Stack Size</label>
-            <input class="numberfield" v-model.number="stack" v-on:focus="focus" ref="stack" id="cashout-stack" type="text" pattern="[0-9]*">
-        </div>
-        <div class="buttons">
-            <CustomButton v-on:click="cashout" type="action" text="Cash Out" />
-            <CustomButton v-on:click="cancel" text="Cancel" />
-        </div>
+  <div class="form">
+    <div class="field">
+      <label class="label" for="cashout-stack">Stack Size</label>
+      <input
+        class="numberfield"
+        v-model.number="stack"
+        v-on:focus="focus"
+        ref="stack"
+        id="cashout-stack"
+        type="text"
+        pattern="[0-9]*"
+      />
     </div>
+    <div class="buttons">
+      <CustomButton v-on:click="cashout" type="action" text="Cash Out" />
+      <CustomButton v-on:click="cancel" text="Cancel" />
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-    import validate from '@/validate';
-    import forms from '@/forms';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import CustomButton from '@/components/Common/CustomButton.vue';
-    import Block from '@/components/Common/Block.vue';
-    import PageHeading from '@/components/Common/PageHeading.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
+<script setup lang="ts">
+import validate from '@/validate';
+import forms from '@/forms';
+import CustomButton from '@/components/Common/CustomButton.vue';
+import { computed, onMounted, ref } from 'vue';
 
-    @Component({
-        components: {
-            CustomButton
-        }
-    })
-    export default class CashoutForm extends Vue {
-        @Prop() readonly defaultBuyin!: number;
+const props = defineProps<{
+  defaultBuyin: number;
+}>();
 
-        stack: number = 0;
-        stackError: string | null = null;
+const emit = defineEmits(['cashout', 'cancel']);
 
-        get hasErrors() {
-            return this.stackError === null;
-        }
+const stack = ref(0);
+const stackError = ref<string | null>(null);
 
-        cashout() {
-            this.validateForm();
-            if (!this.hasErrors)
-                this.$emit('cashout', this.stack);
-        }
+const hasErrors = computed(() => {
+  return stackError.value === null;
+});
 
-        cancel() {
-            this.$emit('cancel');
-        }
+const cashout = () => {
+  validateForm();
+  if (!hasErrors.value) emit('cashout', stack.value);
+};
 
-        focus(e: FocusEvent) {
-            if(e.target)
-                forms.selectAll(e.target as HTMLInputElement);
-        }
+const cancel = () => {
+  emit('cancel');
+};
 
-        validateForm() {
-            this.clearErrors();
-            if (validate.intRange(this.stack, 0))
-                this.stackError = 'Stack can\'t be negative';
-        }
+const focus = (e: FocusEvent) => {
+  if (e.target) forms.selectAll(e.target as HTMLInputElement);
+};
 
-        clearErrors() {
-            this.stackError = null;
-        }
+const validateForm = () => {
+  clearErrors();
+  if (validate.intRange(stack.value, 0)) stackError.value = "Stack can't be negative";
+};
 
-        mounted() {
-            this.stack = this.defaultBuyin;
-        }
-    }
+const clearErrors = () => {
+  stackError.value = null;
+};
+
+onMounted(() => {
+  stack.value = props.defaultBuyin;
+});
 </script>

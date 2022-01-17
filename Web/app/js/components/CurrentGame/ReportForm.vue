@@ -1,65 +1,67 @@
 ﻿<template>
-    <div class="form">
-        <div class="field">
-            <label class="label" for="report-stack">Stack Size</label>
-            <input class="numberfield" v-model.number="stack" v-on:focus="focus" ref="stack" id="report-stack" type="text" pattern="[0-9]*">
-        </div>
-        <div class="buttons">
-            <CustomButton v-on:click="report" type="action" text="Report" />
-            <CustomButton v-on:click="cancel" text="Cancel" />
-        </div>
+  <div class="form">
+    <div class="field">
+      <label class="label" for="report-stack">Stack Size</label>
+      <input
+        class="numberfield"
+        v-model.number="stack"
+        v-on:focus="focus"
+        ref="stack"
+        id="report-stack"
+        type="text"
+        pattern="[0-9]*"
+      />
     </div>
+    <div class="buttons">
+      <CustomButton v-on:click="report" type="action" text="Report" />
+      <CustomButton v-on:click="cancel" text="Cancel" />
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-    import validate from '@/validate';
-    import forms from '@/forms';
-    import CustomButton from '@/components/Common/CustomButton.vue';
-    import { BunchMixin } from '@/mixins';
+<script setup lang="ts">
+import validate from '@/validate';
+import forms from '@/forms';
+import CustomButton from '@/components/Common/CustomButton.vue';
+import { computed, onMounted, ref } from 'vue';
 
-    @Component({
-        components: {
-            CustomButton
-        }
-    })
-    export default class ReportForm extends Vue {
-        @Prop() readonly defaultBuyin!: number;
+const props = defineProps<{
+  defaultBuyin: number;
+}>();
 
-        stack = 0;
-        stackError: string | null = null;
+const emit = defineEmits(['report', 'cancel']);
 
-        get hasErrors() {
-            return this.stackError === null;
-        }
+const stack = ref(0);
+const stackError = ref<string | null>(null);
 
-        report() {
-            this.validateForm();
-            if (!this.hasErrors)
-                this.$emit('report', this.stack);
-        }
+const hasErrors = computed(() => {
+  return stackError.value === null;
+});
 
-        cancel() {
-            this.$emit('cancel');
-        }
+const report = () => {
+  validateForm();
+  if (!hasErrors.value) emit('report', stack.value);
+};
 
-        focus(e: Event) {
-            var el = e.target as HTMLInputElement;
-            forms.selectAll(el);
-        }
+const cancel = () => {
+  emit('cancel');
+};
 
-        validateForm() {
-            this.clearErrors();
-            if (validate.intRange(this.stack, 0))
-                this.stackError = 'Stack can\'t be negative';
-        }
+const focus = (e: Event) => {
+  var el = e.target as HTMLInputElement;
+  forms.selectAll(el);
+};
 
-        clearErrors() {
-            this.stackError = null;
-        }
+const validateForm = () => {
+  clearErrors();
+  if (validate.intRange(stack.value, 0)) stackError.value = "Stack can't be negative";
+};
 
-        mounted() {
-            this.stack = this.defaultBuyin;
-        }
-    }
+const clearErrors = () => {
+  stackError.value = null;
+};
+
+onMounted(() => {
+  stack.value = props.defaultBuyin;
+});
 </script>

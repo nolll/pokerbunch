@@ -1,4 +1,1 @@
-export enum ButtonType {
-    Default = 'default',
-    Action = 'action'
-}
+export type ButtonType = 'default' | 'action';

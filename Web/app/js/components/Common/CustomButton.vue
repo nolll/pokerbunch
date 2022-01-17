@@ -9,11 +9,16 @@ import { ButtonType } from '@/models/ButtonType';
 import { CssClasses } from '@/models/CssClasses';
 import { computed } from 'vue';
 
-const props = defineProps<{
-  type: ButtonType;
-  text: string;
-  url?: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    type?: ButtonType;
+    text: string;
+    url?: string;
+  }>(),
+  {
+    type: 'default',
+  }
+);
 
 const emit = defineEmits(['click']);
 
@@ -24,7 +29,7 @@ const hasUrl = computed((): boolean => {
 const cssClasses = computed((): CssClasses => {
   return {
     button: true,
-    'button--action': props.type === ButtonType.Action,
+    'button--action': props.type === 'action',
   };
 });
 
