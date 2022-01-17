@@ -1,52 +1,46 @@
 ﻿<template>
-    <nav>
-        <h1 class="module-heading">Admin</h1>
-        <SimpleList>
-            <SimpleListItem>
-                <CustomLink :url="bunchesUrl"><span>Bunches</span></CustomLink>
-            </SimpleListItem>
-            <SimpleListItem>
-                <CustomLink :url="usersUrl"><span>Users</span></CustomLink>
-            </SimpleListItem>
-            <SimpleListItem>
-                <CustomLink :url="toolsUrl"><span>Tools</span></CustomLink>
-            </SimpleListItem>
-        </SimpleList>
-    </nav>
+  <nav>
+    <h1 class="module-heading">Admin</h1>
+    <SimpleList>
+      <SimpleListItem>
+        <CustomLink :url="bunchesUrl"><span>Bunches</span></CustomLink>
+      </SimpleListItem>
+      <SimpleListItem>
+        <CustomLink :url="usersUrl"><span>Users</span></CustomLink>
+      </SimpleListItem>
+      <SimpleListItem>
+        <CustomLink :url="locationsUrl"><span>Locations</span></CustomLink>
+      </SimpleListItem>
+      <SimpleListItem>
+        <CustomLink :url="toolsUrl"><span>Tools</span></CustomLink>
+      </SimpleListItem>
+    </SimpleList>
+  </nav>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Mixins } from 'vue-property-decorator';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
-    import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-    import urls from '@/urls';
-    import { BunchMixin } from '@/mixins'
+<script setup lang="ts">
+import CustomLink from '@/components/Common/CustomLink.vue';
+import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
+import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
+import useBunches from '@/composables/useBunches';
+import urls from '@/urls';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            SimpleList,
-            SimpleListItem,
-            CustomLink
-        }
-    })
-    export default class AdminNavigation extends Mixins(
-        BunchMixin
-    ) {
-        get bunchesUrl() {
-            return urls.bunch.list;
-        }
+const bunches = useBunches();
 
-        get usersUrl() {
-            return urls.user.list;
-        }
+const bunchesUrl = computed(() => {
+  return urls.bunch.list;
+});
 
-        get toolsUrl() {
-            return urls.admin.tools;
-        }
+const usersUrl = computed(() => {
+  return urls.user.list;
+});
 
-        get locationsUrl() {
-            return urls.location.list(this.$_slug);
-        }
-    }
+const toolsUrl = computed(() => {
+  return urls.admin.tools;
+});
+
+const locationsUrl = computed(() => {
+  return urls.location.list(bunches.slug.value);
+});
 </script>
