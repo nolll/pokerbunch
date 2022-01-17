@@ -1,45 +1,37 @@
 ﻿<template>
-    <SimpleList>
-        <SimpleListItem v-for="location in locations" :key="location.id">
-            <LocationListItem :bunch-id="bunchId" :location="location" />
-        </SimpleListItem>
-    </SimpleList>
+  <SimpleList>
+    <SimpleListItem v-for="location in locationList" :key="location.id">
+      <LocationListItem :bunch-id="bunchId" :location="location" />
+    </SimpleListItem>
+  </SimpleList>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins } from 'vue-property-decorator';
-    import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
-    import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-    import LocationListItem from '@/components/LocationList/LocationListItem.vue';
-    import { BunchMixin, LocationMixin } from '@/mixins';
-    import comparer from '@/comparer';
+<script setup lang="ts">
+import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
+import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
+import LocationListItem from '@/components/LocationList/LocationListItem.vue';
+import comparer from '@/comparer';
 import { LocationResponse } from '@/response/LocationResponse';
+import useBunches from '@/composables/useBunches';
+import useLocations from '@/composables/useLocations';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            SimpleList,
-            SimpleListItem,
-            LocationListItem
-        }
-    })
-    export default class LocationList extends Mixins(
-        BunchMixin,
-        LocationMixin
-    ) {
-        get bunchId(){
-            return this.$_slug;
-        }
+const bunches = useBunches();
+const locations = useLocations();
 
-        get locations(){
-            return this.$_locations.slice().sort(compareBuyin);
-        }
+const bunchId = computed(() => {
+  return bunches.slug.value;
+});
 
-        get ready() {
-            return this.$_locationsReady;
-        }
-    }
+const locationList = computed(() => {
+  return locations.locations.value.slice().sort(compareBuyin);
+});
 
-    function compareBuyin(a: LocationResponse, b: LocationResponse) {
-        return comparer.compare(a.name, b.name);
-    }
+const ready = computed(() => {
+  return locations.locationsReady.value;
+});
+
+const compareBuyin = (a: LocationResponse, b: LocationResponse) => {
+  return comparer.compare(a.name, b.name);
+};
 </script>
