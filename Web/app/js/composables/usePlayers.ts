@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import { PlayerStoreActions, PlayerStoreGetters } from '@/store/helpers/PlayerStoreHelpers';
 import { Player } from '@/models/Player';
 
-export default function useLocations() {
+export default function usePlayers() {
   const store = useStore();
   const route = useRoute();
 

@@ -5,7 +5,7 @@ import { UserStoreActions, UserStoreGetters } from '@/store/helpers/UserStoreHel
 import { User } from '@/models/User';
 import urls from '@/urls';
 
-export default function useLocations() {
+export default function useUsers() {
   const store = useStore();
   const router = useRouter();
 
