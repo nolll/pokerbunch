@@ -1,20 +1,19 @@
 ﻿<template>
-    <button class="button button--icon">
-        <i :class="iconCssClass"></i>
-        {{text}}
-    </button>
+  <button class="button button--icon">
+    <i :class="iconCssClass"></i>
+    {{ text }}
+  </button>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+<script setup lang="ts">
+import { computed } from 'vue';
 
-    @Component
-    export default class GameButton extends Vue {
-        @Prop() readonly text!: string;
-        @Prop() readonly icon!: string;
+const props = defineProps<{
+  text: string;
+  icon: string;
+}>();
 
-        get iconCssClass(){
-            return `icon-${this.icon}`;
-        }
-    }
+const iconCssClass = computed(() => {
+  return `icon-${props.icon}`;
+});
 </script>
