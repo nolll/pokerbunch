@@ -7,10 +7,15 @@ import useFormatter from '@/composables/useFormatter';
 import { CssClasses } from '@/models/CssClasses';
 import { computed } from 'vue';
 
-const props = defineProps<{
-  value: number;
-  showCurrency: boolean;
-}>();
+const props = withDefaults(
+  defineProps<{
+    value: number;
+    showCurrency?: boolean;
+  }>(),
+  {
+    showCurrency: false,
+  }
+);
 
 const formatter = useFormatter();
 
