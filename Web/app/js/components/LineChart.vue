@@ -14,7 +14,7 @@ import { ChartOptions } from '@/models/ChartOptions';
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 const props = defineProps<{
-  chartData: ChartData;
+  chartData: ChartData | null;
   chartOptions: ChartOptions;
 }>();
 
@@ -98,9 +98,13 @@ watch(chartsLoaded, () => {
   }
 });
 
-watch(props.chartData, () => {
-  if (ready.value) {
-    draw();
+// todo: Do we need a function to watch a prop?
+watch(
+  () => props.chartData,
+  () => {
+    if (ready.value) {
+      draw();
+    }
   }
-});
+);
 </script>
