@@ -11,18 +11,22 @@
 import { computed } from 'vue';
 
 const props = defineProps<{
-  modelValue: string;
-  symbol: string;
+  modelValue?: string;
+  symbol?: string;
 }>();
 
 const emit = defineEmits(['update:modelValue']);
+
+const symbol = computed(() => {
+  return props.symbol ?? '$';
+});
 
 const currencyLayouts = computed(() => {
   return ['{SYMBOL} {AMOUNT}', '{SYMBOL}{AMOUNT}', '{AMOUNT}{SYMBOL}', '{AMOUNT} {SYMBOL}'];
 });
 
 const getDisplayName = (layout: string) => {
-  return layout.replace('{SYMBOL}', props.symbol).replace('{AMOUNT}', '123');
+  return layout.replace('{SYMBOL}', symbol.value).replace('{AMOUNT}', '123');
 };
 
 const updateValue = (event: Event) => {

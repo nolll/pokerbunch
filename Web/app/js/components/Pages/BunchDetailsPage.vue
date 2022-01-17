@@ -1,236 +1,239 @@
 ﻿<template>
-    <Layout :ready="ready">
-        <template slot="top-nav">
-            <BunchNavigation />
-        </template>
+  <Layout :ready="ready">
+    <template slot="top-nav">
+      <BunchNavigation />
+    </template>
 
-        <PageSection>
-            <Block>
-                <PageHeading :text="$_bunchName" />
-            </Block>
+    <PageSection>
+      <Block>
+        <PageHeading :text="bunchName" />
+      </Block>
 
-            <template v-if="isEditing">
-                <Block v-if="$_isManager">
-                    <p>
-                        <label class="label" for="description">Description</label>
-                        <input class="textfield" v-model="formDescription" id="description" type="text" >
-                    </p>
-                    <p>
-                        <label class="label" for="houseRules">House Rules</label>
-                        <textarea class="textfield" v-model="formHouseRules" id="houseRules"></textarea>
-                    </p>
-                    <p>
-                        <label class="label" for="defaultBuyin">Default buyin</label>
-                        <input class="textfield" v-model.number="formDefaultBuyin" id="defaultBuyin" type="text">
-                    </p>
-                    <p>
-                        <label class="label" for="timezone">Timezone</label>
-                        <TimezoneDropdown v-model="formTimezone" />
-                    </p>
-                    <p>
-                        <label class="label" for="currencySymbol">Currency Symbol</label>
-                        <input class="textfield" v-model="formCurrencySymbol" id="currencySymbol" type="text">
-                    </p>
-                    <p>
-                        <label class="label" for="currencyLayout">Currency Layout</label>
-                        <CurrencyLayoutDropdown v-model="formCurrencyLayout" :symbol="formCurrencySymbol" />
-                    </p>
-                    <div class="buttons">
-                        <CustomButton @click="save" text="Save" type="action" />
-                        <CustomButton @click="cancel" text="Cancel" />
-                    </div>
-                </Block>
-            </template>
+      <template v-if="isEditing">
+        <Block v-if="isManager">
+          <p>
+            <label class="label" for="description">Description</label>
+            <input class="textfield" v-model="formDescription" id="description" type="text" />
+          </p>
+          <p>
+            <label class="label" for="houseRules">House Rules</label>
+            <textarea class="textfield" v-model="formHouseRules" id="houseRules"></textarea>
+          </p>
+          <p>
+            <label class="label" for="defaultBuyin">Default buyin</label>
+            <input class="textfield" v-model.number="formDefaultBuyin" id="defaultBuyin" type="text" />
+          </p>
+          <p>
+            <label class="label" for="timezone">Timezone</label>
+            <TimezoneDropdown v-model="formTimezone" />
+          </p>
+          <p>
+            <label class="label" for="currencySymbol">Currency Symbol</label>
+            <input class="textfield" v-model="formCurrencySymbol" id="currencySymbol" type="text" />
+          </p>
+          <p>
+            <label class="label" for="currencyLayout">Currency Layout</label>
+            <CurrencyLayoutDropdown v-model="formCurrencyLayout" :symbol="formCurrencySymbol" />
+          </p>
+          <div class="buttons">
+            <CustomButton @click="save" text="Save" type="action" />
+            <CustomButton @click="cancel" text="Cancel" />
+          </div>
+        </Block>
+      </template>
 
-            <template v-else>
-                <Block v-if="hasDescription">
-                    {{$_description}}
-                </Block>
+      <template v-else>
+        <Block v-if="hasDescription">
+          {{ description }}
+        </Block>
 
-                <Block v-if="hasHouseRules"><h2>House Rules</h2></Block>
-                <Block v-if="hasHouseRules">
-                    <p>
-                        {{$_houseRules}}
-                    </p>
-                </Block>
+        <Block v-if="hasHouseRules"><h2>House Rules</h2></Block>
+        <Block v-if="hasHouseRules">
+          <p>
+            {{ houseRules }}
+          </p>
+        </Block>
 
-                <Block><h2>Settings</h2></Block>
-                <Block>
-                    <ValueList>
-                        <ValueListKey>Default Buyin</ValueListKey>
-                        <ValueListValue>{{defaultBuyin}}</ValueListValue>
-                        <ValueListKey>Timezone</ValueListKey>
-                        <ValueListValue>{{timezone}}</ValueListValue>
-                        <ValueListKey>Currency Format</ValueListKey>
-                        <ValueListValue>{{currencyFormat}}</ValueListValue>
-                    </ValueList>
-                </Block>
+        <Block><h2>Settings</h2></Block>
+        <Block>
+          <ValueList>
+            <ValueListKey>Default Buyin</ValueListKey>
+            <ValueListValue>{{ defaultBuyin }}</ValueListValue>
+            <ValueListKey>Timezone</ValueListKey>
+            <ValueListValue>{{ timezone }}</ValueListValue>
+            <ValueListKey>Currency Format</ValueListKey>
+            <ValueListValue>{{ currencyFormat }}</ValueListValue>
+          </ValueList>
+        </Block>
 
-                <Block v-if="$_isManager">
-                    <CustomButton @click="showEditForm" text="Edit Bunch" type="action" />
-                </Block>
-            </template>
-        </PageSection>
-    </Layout>
+        <Block v-if="isManager">
+          <CustomButton @click="showEditForm" text="Edit Bunch" type="action" />
+        </Block>
+      </template>
+    </PageSection>
+  </Layout>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, FormatMixin, TimezoneMixin, UserMixin } from '@/mixins';
-    import urls from '@/urls';
-    import Layout from '@/components/Layouts/Layout.vue';
-    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-    import Block from '@/components/Common/Block.vue';
-    import PageHeading from '@/components/Common/PageHeading.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
-    import CustomButton from '@/components/Common/CustomButton.vue';
-    import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
-    import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
-    import ValueList from '@/components/Common/ValueList/ValueList.vue';
-    import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
-    import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
-    import api from '@/api';
-    import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
-    import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
-    
-    @Component({
-        components: {
-            Layout,
-            BunchNavigation,
-            Block,
-            PageHeading,
-            PageSection,
-            CustomButton,
-            CurrencyLayoutDropdown,
-            TimezoneDropdown,
-            ValueList,
-            ValueListKey,
-            ValueListValue
-        }
-    })
-    export default class BunchDetailsPage extends Mixins(
-        BunchMixin,
-        FormatMixin,
-        TimezoneMixin,
-        UserMixin
-    ) {
-        isEditing = false;
-        errorMessage: string | null = null;
-        formDescription: string | null = null;
-        formHouseRules: string | null = null;
-        formDefaultBuyin: number | null = null;
-        formTimezone: string | null = null;
-        formCurrencySymbol: string | null = null;
-        formCurrencyLayout: string | null = null;
+<script setup lang="ts">
+import urls from '@/urls';
+import Layout from '@/components/Layouts/Layout.vue';
+import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+import Block from '@/components/Common/Block.vue';
+import PageHeading from '@/components/Common/PageHeading.vue';
+import PageSection from '@/components/Common/PageSection.vue';
+import CustomButton from '@/components/Common/CustomButton.vue';
+import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
+import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
+import ValueList from '@/components/Common/ValueList/ValueList.vue';
+import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
+import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
+import api from '@/api';
+import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
+import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import useBunches from '@/composables/useBunches';
+import useTimezones from '@/composables/useTimezones';
+import useUsers from '@/composables/useUsers';
+import useFormatter from '@/composables/useFormatter';
 
-        get hasDescription() {
-            return !!this.$_description;
-        }
+const route = useRoute();
+const users = useUsers();
+const bunches = useBunches();
+const timezones = useTimezones();
+const formatter = useFormatter();
 
-        get hasHouseRules() {
-            return !!this.$_houseRules;
-        }
+const isEditing = ref(false);
+const errorMessage = ref<string | null>(null);
+const formDescription = ref<string>();
+const formHouseRules = ref<string>();
+const formDefaultBuyin = ref<number | null>(null);
+const formTimezone = ref<string>();
+const formCurrencySymbol = ref<string>();
+const formCurrencyLayout = ref<string>();
 
-        get canEdit() {
-            return this.$_isManager;
-        }
+const bunchName = computed(() => {
+  return bunches.bunchName.value;
+});
 
-        get editUrl() {
-            return urls.bunch.edit(this.$_slug);
-        }
+const description = computed(() => {
+  return bunches.description.value;
+});
 
-        get defaultBuyin(){
-            return this.$_bunch?.defaultBuyin;
-        }
+const hasDescription = computed(() => {
+  return !!description.value;
+});
 
-        get timezone(){
-            return this.$_bunch?.timezone;
-        }
+const houseRules = computed(() => {
+  return bunches.houseRules.value;
+});
 
-        get currencyFormat(){
-            return this.$_formatCurrency(123);
-        }
+const hasHouseRules = computed(() => {
+  return !!houseRules.value;
+});
 
-        get currencySymbol(){
-            return this.$_bunch?.currencySymbol;
-        }
+const canEdit = computed(() => {
+  return bunches.isManager.value;
+});
 
-        get currencyLayout(){
-            return this.$_bunch?.currencyLayout;
-        }
+const editUrl = computed(() => {
+  return urls.bunch.edit(bunches.slug.value);
+});
 
-        private showEditForm(){
-            this.formDescription = this.$_bunch.description;
-            this.formHouseRules = this.$_bunch.houseRules;
-            this.formDefaultBuyin = this.$_bunch.defaultBuyin;
-            this.formTimezone = this.$_bunch.timezone;
-            this.formCurrencySymbol = this.$_bunch.currencySymbol;
-            this.formCurrencyLayout = this.$_bunch.currencyLayout;
-            this.isEditing = true;
-        }
+const defaultBuyin = computed(() => {
+  return bunches.bunch.value?.defaultBuyin;
+});
 
-        private hideEditForm(){
-            this.isEditing = false;
-        }
+const timezone = computed(() => {
+  return bunches.bunch.value?.timezone;
+});
 
-        private cancel(){
-            this.hideEditForm();
-        }
+const currencyFormat = computed(() => {
+  return formatter.formatCurrency(123);
+});
 
-        private async save(){
-            this.errorMessage = null;
+const currencySymbol = computed(() => {
+  return bunches.bunch.value?.currencySymbol;
+});
 
-            if(!this.formDefaultBuyin){
-                this.errorMessage = 'Please enter a default buyin';
-                return;
-            }
+const currencyLayout = computed(() => {
+  return bunches.bunch.value?.currencyLayout;
+});
 
-            if(!this.formTimezone){
-                this.errorMessage = 'Please select a timezone';
-                return;
-            }
+const isManager = computed(() => {
+  return bunches.isManager.value;
+});
 
-            if(!this.formCurrencySymbol){
-                this.errorMessage = 'Please enter a currency symbol';
-                return;
-            }
+const showEditForm = () => {
+  formDescription.value = bunches.bunch.value.description;
+  formHouseRules.value = bunches.bunch.value.houseRules;
+  formDefaultBuyin.value = bunches.bunch.value.defaultBuyin;
+  formTimezone.value = bunches.bunch.value.timezone;
+  formCurrencySymbol.value = bunches.bunch.value.currencySymbol;
+  formCurrencyLayout.value = bunches.bunch.value.currencyLayout;
+  isEditing.value = true;
+};
 
-            if(!this.formCurrencyLayout){
-                this.errorMessage = 'Please select a currency layout';
-                return;
-            }
+const hideEditForm = () => {
+  isEditing.value = false;
+};
 
-            const postData: ApiParamsUpdateBunch = {
-                description: this.formDescription,
-                houseRules: this.formHouseRules,
-                defaultBuyin: this.formDefaultBuyin,
-                timezone: this.formTimezone,
-                currencySymbol: this.formCurrencySymbol,
-                currencyLayout: this.formCurrencyLayout
-            };
+const cancel = () => {
+  hideEditForm();
+};
 
-            await api.updateBunch(this.$_bunch.id, postData);
-            this.$_refreshBunch();
-            this.hideEditForm();
-        }
-        
-        get ready() {
-            return this.$_bunchReady && this.$_timezonesReady;
-        }
+const save = async () => {
+  errorMessage.value = null;
 
-        init() {
-            this.$_requireUser();
-            this.$_loadBunch();
-            this.$_loadTimezones();
-        }
+  if (!formDefaultBuyin.value) {
+    errorMessage.value = 'Please enter a default buyin';
+    return;
+  }
 
-        mounted() {
-            this.init();
-        }
+  if (!formTimezone.value) {
+    errorMessage.value = 'Please select a timezone';
+    return;
+  }
 
-        @Watch('$route')
-        routeChanged() {
-            this.init();
-        }
-    }
+  if (!formCurrencySymbol.value) {
+    errorMessage.value = 'Please enter a currency symbol';
+    return;
+  }
+
+  if (!formCurrencyLayout.value) {
+    errorMessage.value = 'Please select a currency layout';
+    return;
+  }
+
+  const postData: ApiParamsUpdateBunch = {
+    description: formDescription.value,
+    houseRules: formHouseRules.value,
+    defaultBuyin: formDefaultBuyin.value,
+    timezone: formTimezone.value,
+    currencySymbol: formCurrencySymbol.value,
+    currencyLayout: formCurrencyLayout.value,
+  };
+
+  await api.updateBunch(bunches.bunch.value.id, postData);
+  bunches.refreshBunch();
+  hideEditForm();
+};
+
+const ready = computed(() => {
+  return bunches.bunchReady.value && timezones.timezonesReady.value;
+});
+
+const init = () => {
+  users.requireUser();
+  bunches.loadBunch();
+  timezones.loadTimezones();
+};
+
+onMounted(() => {
+  init();
+});
+
+watch(route, () => {
+  init();
+});
 </script>

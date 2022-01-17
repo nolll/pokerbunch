@@ -1,8 +1,8 @@
-export interface ApiParamsUpdateBunch{
-    description: string | null;
-    houseRules: string | null;
-    defaultBuyin: number;
-    timezone: string;
-    currencySymbol: string;
-    currencyLayout: string;
+export interface ApiParamsUpdateBunch {
+  description: string | undefined;
+  houseRules: string | undefined;
+  defaultBuyin: number;
+  timezone: string;
+  currencySymbol: string;
+  currencyLayout: string;
 }
