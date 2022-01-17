@@ -8,10 +8,18 @@
 import { CssClasses } from '@/models/CssClasses';
 import { computed } from 'vue';
 
-const props = defineProps<{
-  isNumeric: boolean;
-  customClasses: CssClasses;
-}>();
+const props = withDefaults(
+  defineProps<{
+    isNumeric?: boolean;
+    customClasses?: CssClasses;
+  }>(),
+  {
+    isNumeric: false,
+    customClasses: () => {
+      return {};
+    },
+  }
+);
 
 const cssClasses = computed((): CssClasses => {
   return {
