@@ -1,13 +1,7 @@
 ﻿<template>
-    <dt class="value-list__key">
-        <slot></slot>
-    </dt>
+  <dt class="value-list__key">
+    <slot></slot>
+  </dt>
 </template>
 
-<script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator';
-
-    @Component
-    export default class ValueListKey extends Vue {
-    }
-</script>
+<script setup lang="ts"></script>
