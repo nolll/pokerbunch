@@ -1,7 +1,7 @@
 ﻿<template>
   <SimpleList>
     <SimpleListItem v-for="player in playerList" :key="player.id">
-      <PlayerList-item :id="player.id" :name="player.name" :color="player.color" :bunchId="bunchId" />
+      <PlayerListItem :id="player.id" :name="player.name" :color="player.color" :bunchId="bunchId" />
     </SimpleListItem>
   </SimpleList>
 </template>
@@ -11,6 +11,7 @@ import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
 import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
 import usePlayers from '@/composables/usePlayers';
 import { computed } from 'vue';
+import PlayerListItem from './PlayerListItem.vue';
 
 defineProps<{
   bunchId: string;

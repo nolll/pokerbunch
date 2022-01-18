@@ -12,13 +12,13 @@ import { computed } from 'vue';
 
 const props = defineProps<{
   bunchId: string;
-  id: number;
+  id: string;
   name: string;
   color: string;
 }>();
 
 const url = computed(() => {
-  return urls.player.details(props.bunchId, props.id.toString());
+  return urls.player.details(props.bunchId, props.id);
 });
 
 const colorBoxStyle = computed(() => {
