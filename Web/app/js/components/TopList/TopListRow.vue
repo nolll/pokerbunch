@@ -1,66 +1,56 @@
 ﻿<template>
-    <TableListRow>
-        <TableListCell :is-numeric="true">{{player.rank}}.</TableListCell>
-        <TableListCell><CustomLink :url="url">{{player.name}}</CustomLink></TableListCell>
-        <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
-        <TableListCell :is-numeric="true"><CurrencyText :value="buyin" /></TableListCell>
-        <TableListCell :is-numeric="true"><CurrencyText :value="cashout" /></TableListCell>
-        <TableListCell><DurationText :value="time" /></TableListCell>
-        <TableListCell :is-numeric="true">{{player.gameCount}}</TableListCell>
-        <TableListCell :is-numeric="true"><WinrateText :value="winrate" /></TableListCell>
-    </TableListRow>
+  <TableListRow>
+    <TableListCell :is-numeric="true">{{ player.rank }}.</TableListCell>
+    <TableListCell
+      ><CustomLink :url="url">{{ player.name }}</CustomLink></TableListCell
+    >
+    <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
+    <TableListCell :is-numeric="true"><CurrencyText :value="buyin" /></TableListCell>
+    <TableListCell :is-numeric="true"><CurrencyText :value="cashout" /></TableListCell>
+    <TableListCell><DurationText :value="time" /></TableListCell>
+    <TableListCell :is-numeric="true">{{ player.gameCount }}</TableListCell>
+    <TableListCell :is-numeric="true"><WinrateText :value="winrate" /></TableListCell>
+  </TableListRow>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import urls from '@/urls';
-    import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
-    import { CssClasses } from '@/models/CssClasses';
-    import TableListRow from '@/components/Common/TableList/TableListRow.vue';
-    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-    import WinningsText from '@/components/Common/WinningsText.vue';
-    import WinrateText from '@/components/Common/WinrateText.vue';
-    import CurrencyText from '@/components/Common/CurrencyText.vue';
-    import DurationText from '@/components/Common/DurationText.vue';
+<script setup lang="ts">
+import CustomLink from '@/components/Common/CustomLink.vue';
+import urls from '@/urls';
+import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+import TableListRow from '@/components/Common/TableList/TableListRow.vue';
+import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+import WinningsText from '@/components/Common/WinningsText.vue';
+import WinrateText from '@/components/Common/WinrateText.vue';
+import CurrencyText from '@/components/Common/CurrencyText.vue';
+import DurationText from '@/components/Common/DurationText.vue';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            CurrencyText,
-            CustomLink,
-            DurationText,
-            TableListRow,
-            TableListCell,
-            WinningsText,
-            WinrateText
-        }
-    })
-    export default class TopListRow extends Vue {
-        @Prop() readonly bunchId!: string;
-        @Prop() readonly player!: CashgameListPlayerData;
+const props = defineProps<{
+  bunchId: string;
+  player: CashgameListPlayerData;
+}>();
 
-        get url() {
-            return urls.player.details(this.bunchId, this.player.id);
-        }
-        
-        get winnings() {
-            return this.player.winnings;
-        }
+const url = computed(() => {
+  return urls.player.details(props.bunchId, props.player.id);
+});
 
-        get buyin() {
-            return this.player.buyin;
-        }
+const winnings = computed(() => {
+  return props.player.winnings;
+});
 
-        get cashout() {
-            return this.player.stack;
-        }
+const buyin = computed(() => {
+  return props.player.buyin;
+});
 
-        get winrate() {
-            return this.player.winrate;
-        }
+const cashout = computed(() => {
+  return props.player.stack;
+});
 
-        get time() {
-            return this.player.playedTimeInMinutes;
-        }
-    }
+const winrate = computed(() => {
+  return props.player.winrate;
+});
+
+const time = computed(() => {
+  return props.player.playedTimeInMinutes;
+});
 </script>

@@ -1,60 +1,53 @@
 ﻿<template>
-    <div class="top-list">
-        <TableList>
-            <thead>
-                <tr>
-                    <TableListColumnHeader />
-                    <TableListColumnHeader>Player</TableListColumnHeader>
-                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="winnings">Winnings</TableListColumnHeader>
-                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="buyin">Buyin</TableListColumnHeader>
-                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="stack">Cashout</TableListColumnHeader>
-                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="time">Time</TableListColumnHeader>
-                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="gamecount">Games</TableListColumnHeader>
-                    <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="winrate">Win rate</TableListColumnHeader>
-                </tr>
-            </thead>
-            <tbody class="list">
-                <TopListRow v-for="player in players" :player="player" :key="player.id" :bunchId="bunchId" />
-            </tbody>
-        </TableList>
-    </div>
+  <div class="top-list">
+    <TableList>
+      <thead>
+        <tr>
+          <TableListColumnHeader />
+          <TableListColumnHeader>Player</TableListColumnHeader>
+          <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="winnings">Winnings</TableListColumnHeader>
+          <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="buyin">Buyin</TableListColumnHeader>
+          <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="stack">Cashout</TableListColumnHeader>
+          <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="time">Time</TableListColumnHeader>
+          <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="gamecount">Games</TableListColumnHeader>
+          <TableListColumnHeader :ordered-by="orderedBy" v-on:sort="sort" sort-name="winrate">Win rate</TableListColumnHeader>
+        </tr>
+      </thead>
+      <tbody class="list">
+        <TopListRow v-for="player in players" :player="player" :key="player.id" :bunchId="bunchId" />
+      </tbody>
+    </TableList>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop } from 'vue-property-decorator';
-    import TopListRow from './TopListRow.vue';
-    import { GameArchiveMixin } from '@/mixins';
-    import TableList from '@/components/Common/TableList/TableList.vue';
-    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+<script setup lang="ts">
+import TopListRow from './TopListRow.vue';
+import TableList from '@/components/Common/TableList/TableList.vue';
+import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+import useGameArchive from '@/composables/useGameArchive';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            TopListRow,
-            TableList,
-            TableListColumnHeader
-        }
-    })
-    export default class TopListTable extends Mixins(
-        GameArchiveMixin
-    ) {
-        @Prop() readonly bunchId!: string;
+const gameArchive = useGameArchive();
 
-        get players(){
-            return this.$_sortedPlayers;
-        }
+defineProps<{
+  bunchId: string;
+}>();
 
-        get orderedBy(){
-            return this.$_playerSortOrder;
-        }
+const players = computed(() => {
+  return gameArchive.sortedPlayers.value;
+});
 
-        sort(column: string) {
-            this.$_sortPlayers(column);
-        }
-    }
+const orderedBy = computed(() => {
+  return gameArchive.playerSortOrder.value;
+});
+
+const sort = (column: string) => {
+  gameArchive.sortPlayers(column);
+};
 </script>
 
 <style lang="scss" scoped>
-    .top-list {
-        overflow: auto;
-    }
+.top-list {
+  overflow: auto;
+}
 </style>
