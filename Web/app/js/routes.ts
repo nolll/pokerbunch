@@ -63,7 +63,7 @@ const routes: RouteRecordRaw[] = [
   { path: '/user/add', component: AddUserPage },
   { path: '/user/changepassword', component: ChangePasswordPage },
   { path: '/user/resetpassword', component: ResetPasswordPage },
-  { path: '*', component: NotFoundPage, name: '404' },
+  { path: '/:pathMatch(.*)', component: NotFoundPage, name: '404' },
 ];
 
 const redirects: RouteRecordRaw[] = [

@@ -3,7 +3,7 @@
     <h1 class="module-heading">Your Bunches</h1>
     <SimpleList>
       <SimpleListItem v-for="bunch in userBunches" :key="bunch.id">
-        <UserBunchList-item :id="bunch.id" :name="bunch.name" />
+        <UserBunchListItem :id="bunch.id" :name="bunch.name" />
       </SimpleListItem>
     </SimpleList>
   </div>
@@ -14,6 +14,7 @@ import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
 import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
 import useBunches from '@/composables/useBunches';
 import { computed } from 'vue';
+import UserBunchListItem from './UserBunchListItem.vue';
 
 const bunches = useBunches();
 

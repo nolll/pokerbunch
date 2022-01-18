@@ -1,25 +1,27 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <Block>
-        <PageHeading text="Start Cashgame" />
-      </Block>
+    <template v-slot:default>
+      <PageSection>
+        <Block>
+          <PageHeading text="Start Cashgame" />
+        </Block>
 
-      <Block>
-        <div class="field">
-          <label class="label" for="locationId">Location</label>
-          <LocationDropdown v-model="locationId" />
-        </div>
-        <div class="buttons">
-          <CustomButton v-on:click="add" type="action" text="Start" />
-          <CustomButton v-on:click="cancel" text="Cancel" />
-        </div>
-      </Block>
-    </PageSection>
+        <Block>
+          <div class="field">
+            <label class="label" for="locationId">Location</label>
+            <LocationDropdown v-model="locationId" />
+          </div>
+          <div class="buttons">
+            <CustomButton v-on:click="add" type="action" text="Start" />
+            <CustomButton v-on:click="cancel" text="Cancel" />
+          </div>
+        </Block>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

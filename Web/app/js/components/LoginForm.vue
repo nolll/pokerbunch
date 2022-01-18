@@ -8,7 +8,7 @@
     <fieldset>
       <p>
         <label class="label" for="username">Email or User Name</label>
-        <input type="text" id="username" v-model="username" ref="username" class="textfield" />
+        <input type="text" id="username" v-model="username" class="textfield" />
       </p>
       <p>
         <label class="label" for="password">Password</label>

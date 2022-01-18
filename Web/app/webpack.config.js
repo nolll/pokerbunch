@@ -9,7 +9,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 module.exports = {
     entry: './js/index.ts',
     output: {
-        filename: 'dist/[name]-[contenthash].js',
+        filename: 'dist/[name].js',
         path: path.resolve(__dirname, '../wwwroot'),
         publicPath: '/'
     },
@@ -53,6 +53,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: false,
+            __VUE_PROD_DEVTOOLS__: true
+        }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: 'dist/main-[contenthash].css'

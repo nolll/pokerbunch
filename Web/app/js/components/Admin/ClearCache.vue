@@ -2,7 +2,7 @@
   <div>
     <h2 class="module-heading">Clear cache</h2>
     <p>
-      <CustomButton text="Clear" :type="buttonType" v-on:click="clearCache" />
+      <CustomButton text="Clear" type="action" v-on:click="clearCache" />
     </p>
     <p v-if="hasMessage">
       {{ message }}
@@ -13,11 +13,9 @@
 <script setup lang="ts">
 import api from '@/api';
 import CustomButton from '@/components/Common/CustomButton.vue';
-import { ButtonType } from '@/models/ButtonType';
 import { computed, ref } from 'vue';
 
 const message = ref<string | null>(null);
-const buttonType = ButtonType.Action;
 
 const hasMessage = computed(() => {
   return !!message.value;

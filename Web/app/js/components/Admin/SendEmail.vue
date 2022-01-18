@@ -2,7 +2,7 @@
   <div>
     <h2 class="module-heading">Send test email</h2>
     <p>
-      <CustomButton text="Send" :type="buttonType" v-on:click="sendEmail" />
+      <CustomButton text="Send" type="action" v-on:click="sendEmail" />
     </p>
     <p v-if="hasMessage">
       {{ message }}
@@ -13,11 +13,9 @@
 <script setup lang="ts">
 import api from '@/api';
 import CustomButton from '@/components/Common/CustomButton.vue';
-import { ButtonType } from '@/models/ButtonType';
 import { computed, ref } from 'vue';
 
 const message = ref<string | null>(null);
-const buttonType = ButtonType.Action;
 
 const hasMessage = computed(() => {
   return !!message.value;
