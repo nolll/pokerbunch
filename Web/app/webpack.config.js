@@ -5,11 +5,13 @@ const { VueLoaderPlugin } = require('vue-loader');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
+    mode: getMode(),
     entry: './js/index.ts',
     output: {
-        filename: 'dist/[name].js',
+        filename: getJsFilename(),
         path: path.resolve(__dirname, '../wwwroot'),
         publicPath: '/'
     },
@@ -52,14 +54,44 @@ module.exports = {
             }
         ]
     },
-    plugins: [
+    plugins: getPlugins(),
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, './js')
+        },
+        extensions: ['.ts', '.js', '.vue']
+    },
+    stats: { children: false },
+    optimization: getOptimization()
+};
+
+function getMode(){
+    return isDev()
+        ? 'development'
+        : 'production';
+}
+
+function getJsFilename(){
+    return isDev()
+        ? 'dist/[name].js'
+        : 'dist/[name]-[contenthash].js';
+}
+
+function getCssFilename(){
+    return isDev()
+        ? 'dist/main.css'
+        : 'dist/main-[contenthash].css';
+}
+
+function getPlugins() {
+    const plugins = [
         new webpack.DefinePlugin({
             __VUE_OPTIONS_API__: false,
             __VUE_PROD_DEVTOOLS__: true
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: 'dist/main-[contenthash].css'
+            filename: getCssFilename()
         }),
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
@@ -78,12 +110,34 @@ module.exports = {
                 { from: './favicon.ico', to: '.' }
             ]
         })
-    ],
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './js')
-        },
-        extensions: ['.ts', '.js', '.vue']
-    },
-    stats: { children: false }
-};
+    ];
+
+    if (isAnalyzing()) {
+        const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+        plugins.push(new BundleAnalyzerPlugin());
+    }
+
+    return plugins;
+}
+
+function getOptimization(){
+    return isDev()
+        ? {}
+        : {
+            splitChunks: {
+                chunks: 'all',
+                name: 'vendor'
+            },
+            minimizer: [
+                new CssMinimizerPlugin(),
+            ]
+        }
+}
+
+function isDev(){
+    return process.env.NODE_ENV === 'dev';
+}
+
+function isAnalyzing(){
+    return process.env.ANALYZE_BUNDLE === '1';
+}
