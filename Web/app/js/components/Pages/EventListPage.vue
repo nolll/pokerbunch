@@ -1,77 +1,66 @@
 ﻿<template>
-    <Layout :ready="ready">
-        <template slot="top-nav">
-            <BunchNavigation />
-        </template>
+  <Layout :ready="ready">
+    <template slot="top-nav">
+      <BunchNavigation />
+    </template>
 
-        <PageSection>
-            <template slot="aside1">
-                <Block>
-                    <CustomButton :url="addEventUrl" type="action" text="Add event" />
-                </Block>
-            </template>
+    <PageSection>
+      <template slot="aside1">
+        <Block>
+          <CustomButton :url="addEventUrl" type="action" text="Add event" />
+        </Block>
+      </template>
 
-            <Block>
-                <PageHeading text="Events" />
-            </Block>
+      <Block>
+        <PageHeading text="Events" />
+      </Block>
 
-            <Block>
-                <EventList />
-            </Block>
-        </PageSection>
-    </Layout>
+      <Block>
+        <EventList />
+      </Block>
+    </PageSection>
+  </Layout>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, EventMixin, UserMixin } from '@/mixins';
-    import Layout from '@/components/Layouts/Layout.vue';
-    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-    import EventList from '@/components/EventList/EventList.vue';
-    import Block from '@/components/Common/Block.vue';
-    import CustomButton from '@/components/Common/CustomButton.vue';
-    import PageHeading from '@/components/Common/PageHeading.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
-    import urls from '@/urls';
-    
-    @Component({
-        components: {
-            Layout,
-            BunchNavigation,
-            EventList,
-            CustomButton,
-            Block,
-            PageHeading,
-            PageSection
-        }
-    })
-    export default class EventListPage extends Mixins(
-        BunchMixin,
-        EventMixin,
-        UserMixin
-    ) {
+<script setup lang="ts">
+import Layout from '@/components/Layouts/Layout.vue';
+import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+import EventList from '@/components/EventList/EventList.vue';
+import Block from '@/components/Common/Block.vue';
+import CustomButton from '@/components/Common/CustomButton.vue';
+import PageHeading from '@/components/Common/PageHeading.vue';
+import PageSection from '@/components/Common/PageSection.vue';
+import urls from '@/urls';
+import useUsers from '@/composables/useUsers';
+import useBunches from '@/composables/useBunches';
+import useEvents from '@/composables/useEvents';
+import { computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-        get addEventUrl() {
-            return urls.event.add(this.$_slug);
-        }
+const route = useRoute();
+const users = useUsers();
+const bunches = useBunches();
+const events = useEvents();
 
-        get ready() {
-            return this.$_bunchReady && this.$_eventsReady;
-        }
+const addEventUrl = computed(() => {
+  return urls.event.add(bunches.slug.value);
+});
 
-        init() {
-            this.$_requireUser();
-            this.$_loadBunch();
-            this.$_loadEvents();
-        }
+const ready = computed(() => {
+  return bunches.bunchReady.value && events.eventsReady.value;
+});
 
-        mounted() {
-            this.init();
-        }
+const init = () => {
+  users.requireUser();
+  bunches.loadBunch();
+  events.loadEvents();
+};
 
-        @Watch('$route')
-        routeChanged() {
-            this.init();
-        }
-    }
+onMounted(() => {
+  init();
+});
+
+watch(route, () => {
+  init();
+});
 </script>
