@@ -1,394 +1,348 @@
 ﻿<template>
-    <Layout :ready="ready">
-        <template slot="top-nav">
-            <BunchNavigation />
-        </template>
+  <Layout :ready="ready">
+    <template slot="top-nav">
+      <BunchNavigation />
+    </template>
 
-        <PageSection>
-            <Block>
-                <PageHeading :text="playerName" />
-            </Block>
-            <Block>
-                <h2>Player Facts</h2>
-            </Block>
-            <Block>
-                <ValueList>
-                    <ValueListKey>Total Result</ValueListKey>
-                    <ValueListValue><WinningsText :value="totalResult" /></ValueListValue>
-                    <ValueListKey>Best Result</ValueListKey>
-                    <ValueListValue><WinningsText :value="bestResult" /></ValueListValue>
-                    <ValueListKey>Worst Result</ValueListKey>
-                    <ValueListValue><WinningsText :value="worstResult" /></ValueListValue>
-                    <ValueListKey>Games Played</ValueListKey>
-                    <ValueListValue>{{gamesPlayed}}</ValueListValue>
-                    <ValueListKey>Time Played</ValueListKey>
-                    <ValueListValue><DurationText :value="timePlayed" /></ValueListValue>
-                    <ValueListKey>Total Wins</ValueListKey>
-                    <ValueListValue>{{totalWins}}</ValueListValue>
-                    <ValueListKey>Current Streak</ValueListKey>
-                    <ValueListValue>{{formattedCurrentStreak}}</ValueListValue>
-                    <ValueListKey>Best Winning Streak</ValueListKey>
-                    <ValueListValue>{{formattedWinningStreak}}</ValueListValue>
-                    <ValueListKey>Worst Losing Streak</ValueListKey>
-                    <ValueListValue>{{formattedLosingStreak}}</ValueListValue>
-                </ValueList>
-            </Block>
+    <PageSection>
+      <Block>
+        <PageHeading :text="playerName" />
+      </Block>
+      <Block>
+        <h2>Player Facts</h2>
+      </Block>
+      <Block>
+        <ValueList>
+          <ValueListKey>Total Result</ValueListKey>
+          <ValueListValue><WinningsText :value="totalResult" /></ValueListValue>
+          <ValueListKey>Best Result</ValueListKey>
+          <ValueListValue><WinningsText :value="bestResult" /></ValueListValue>
+          <ValueListKey>Worst Result</ValueListKey>
+          <ValueListValue><WinningsText :value="worstResult" /></ValueListValue>
+          <ValueListKey>Games Played</ValueListKey>
+          <ValueListValue>{{ gamesPlayed }}</ValueListValue>
+          <ValueListKey>Time Played</ValueListKey>
+          <ValueListValue><DurationText :value="timePlayed" /></ValueListValue>
+          <ValueListKey>Total Wins</ValueListKey>
+          <ValueListValue>{{ totalWins }}</ValueListValue>
+          <ValueListKey>Current Streak</ValueListKey>
+          <ValueListValue>{{ formattedCurrentStreak }}</ValueListValue>
+          <ValueListKey>Best Winning Streak</ValueListKey>
+          <ValueListValue>{{ formattedWinningStreak }}</ValueListValue>
+          <ValueListKey>Worst Losing Streak</ValueListKey>
+          <ValueListValue>{{ formattedLosingStreak }}</ValueListValue>
+        </ValueList>
+      </Block>
 
-            <template slot="aside2">
-                <Block>
-                    <h2>User</h2>
-                </Block>
-                <Block v-if="hasUser">
-                    <p>
-                        <img :src="avatarUrl" alt="User avatar">
-                    </p>
-                    <p>
-                        This player is a registered user.
-                    </p>
-                    <p>
-                        <CustomButton :url="userUrl" text="View User Profile" />
-                    </p>
-                </Block>
-                <Block v-else>
-                    <template v-if="isInvitationFormVisible">
-                        <div class="field">
-                            <label class="label" for="inviteEmail">Email</label>
-                            <input class="textfield" v-model="inviteEmail" id="inviteEmail" type="email">
-                        </div>
-                        <div class="buttons">
-                            <CustomButton @click="invitePlayer" text="Invite" type="action" />
-                            <CustomButton @click="cancelInvitation" text="Cancel" />
-                        </div>
-                    </template>
-                    <template v-else>
-                        <p>
-                            {{notRegisteredMessage}}
-                        </p>
-                        <p v-if="!invitationSent">
-                            <CustomButton @click="showInvitationForm" text="Invite Player" type="action" />
-                        </p>
-                    </template>
-                </Block>
-            </template>
-        </PageSection>
+      <template slot="aside2">
+        <Block>
+          <h2>User</h2>
+        </Block>
+        <Block v-if="hasUser">
+          <p>
+            <img :src="avatarUrl" alt="User avatar" />
+          </p>
+          <p>This player is a registered user.</p>
+          <p>
+            <CustomButton :url="userUrl" text="View User Profile" />
+          </p>
+        </Block>
+        <Block v-else>
+          <template v-if="isInvitationFormVisible">
+            <div class="field">
+              <label class="label" for="inviteEmail">Email</label>
+              <input class="textfield" v-model="inviteEmail" id="inviteEmail" type="email" />
+            </div>
+            <div class="buttons">
+              <CustomButton @click="invitePlayer" text="Invite" type="action" />
+              <CustomButton @click="cancelInvitation" text="Cancel" />
+            </div>
+          </template>
+          <template v-else>
+            <p>
+              {{ notRegisteredMessage }}
+            </p>
+            <p v-if="!invitationSent">
+              <CustomButton @click="showInvitationForm" text="Invite Player" type="action" />
+            </p>
+          </template>
+        </Block>
+      </template>
+    </PageSection>
 
-        <PageSection v-if="canDelete">
-            <Block>
-                <h2>Delete Player</h2>
-            </Block>
-            <Block>
-                <p>
-                    <CustomButton @click="deletePlayer" text="Delete Player" type="action" />
-                </p>
-            </Block>
-        </PageSection>
-    </Layout>
+    <PageSection v-if="canDelete">
+      <Block>
+        <h2>Delete Player</h2>
+      </Block>
+      <Block>
+        <p>
+          <CustomButton @click="deletePlayer" text="Delete Player" type="action" />
+        </p>
+      </Block>
+    </PageSection>
+  </Layout>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, GameArchiveMixin, PlayerMixin, UserMixin } from '@/mixins';
-    import urls from '@/urls';
-    import Layout from '@/components/Layouts/Layout.vue';
-    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-    import Block from '@/components/Common/Block.vue';
-    import PageHeading from '@/components/Common/PageHeading.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
-    import CustomButton from '@/components/Common/CustomButton.vue';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import ValueList from '@/components/Common/ValueList/ValueList.vue';
-    import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
-    import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
-    import WinningsText from '@/components/Common/WinningsText.vue';
-    import DurationText from '@/components/Common/DurationText.vue';
-    import { Player } from '@/models/Player';
-    import { ArchiveCashgame } from '@/models/ArchiveCashgame';
-    import api from '@/api';
-    import { User } from '@/models/User';
-    
-    @Component({
-        components: {
-            BunchNavigation,
-            Block,
-            CustomButton,
-            CustomLink,
-            DurationText,
-            Layout,
-            PageHeading,
-            PageSection,
-            ValueList,
-            ValueListKey,
-            ValueListValue,
-            WinningsText
-        }
-    })
-    export default class PlayerDetailsPage extends Mixins(
-        BunchMixin,
-        GameArchiveMixin,
-        PlayerMixin,
-        UserMixin
-    ) {
-        user: User | null = null;
-        isInvitationFormVisible: boolean = false;
-        inviteEmail = '';
-        invitationSent = false;
+<script setup lang="ts">
+import urls from '@/urls';
+import Layout from '@/components/Layouts/Layout.vue';
+import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+import Block from '@/components/Common/Block.vue';
+import PageHeading from '@/components/Common/PageHeading.vue';
+import PageSection from '@/components/Common/PageSection.vue';
+import CustomButton from '@/components/Common/CustomButton.vue';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import ValueList from '@/components/Common/ValueList/ValueList.vue';
+import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
+import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
+import WinningsText from '@/components/Common/WinningsText.vue';
+import DurationText from '@/components/Common/DurationText.vue';
+import { Player } from '@/models/Player';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import api from '@/api';
+import { User } from '@/models/User';
+import useUsers from '@/composables/useUsers';
+import useBunches from '@/composables/useBunches';
+import useGameArchive from '@/composables/useGameArchive';
+import usePlayers from '@/composables/usePlayers';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-        get hasUser(){
-            return !!this.player?.userId;
-        }
+const route = useRoute();
+const router = useRouter();
+const users = useUsers();
+const bunches = useBunches();
+const gameArchive = useGameArchive();
+const players = usePlayers();
 
-        get player(){
-            return this.$_getPlayer(this.$route.params.id);
-        }
+const user = ref<User>();
+const isInvitationFormVisible = ref(false);
+const inviteEmail = ref('');
+const invitationSent = ref(false);
 
-        get playerName(){
-            return this.player?.name;
-        }
+const hasUser = computed(() => {
+  return !!player.value?.userId;
+});
 
-        get inviteUrl(){
-            if(!this.player)
-                return null;
+const player = computed(() => {
+  return players.getPlayer(route.params.id as string);
+});
 
-            return urls.player.invite(this.player.id);
-        }
+const playerName = computed(() => {
+  return player.value?.name;
+});
 
-        get userUrl(){
-            if(this.user)
-                return urls.user.details(this.user.userName);
-        }
+const inviteUrl = computed(() => {
+  if (!player.value) return null;
 
-        get avatarUrl(){
-            return this.user?.avatar;
-        }
+  return urls.player.invite(player.value.id);
+});
 
-        get games(){
-            return this.$_games.filter(g => this.isInGame(g))
-        }
+const userUrl = computed(() => {
+  if (user.value) return urls.user.details(user.value.userName);
+});
 
-        get results(){
-            let results = [];
-            for(const game of this.games){
-                for(const player of game.players){
-                    if(player.id === this.player.id){
-                        results.push(player);
-                        break;
-                    }
-                }
-            }
-            return results;
-        }
+const avatarUrl = computed(() => {
+  return user.value?.avatar;
+});
 
-        get totalResult() {
-            return this.results.reduce((acc, cur) => acc + cur.winnings, 0);
-        }
+const games = computed(() => {
+  return gameArchive.games.value.filter((g) => isInGame(g));
+});
 
-        get bestResult() {
-            let best: number | null = null;
-            for (const result of this.results)
-            {
-                if (best == null || result.winnings > best)
-                    best = result.winnings;
-            }
-            return best ?? 0;
-        }
-
-        get worstResult() {
-            let worst: number | null = null;
-            for (const result of this.results)
-            {
-                if (worst == null || result.winnings < worst)
-                    worst = result.winnings;
-            }
-            return worst ?? 0;
-        }
-
-        get gamesPlayed() {
-            return this.games.length;
-        }
-
-        get timePlayed() {
-            return this.results.reduce((acc, cur) => acc + cur.timePlayed, 0);
-        }
-
-        get totalWins() {
-            let count = 0;
-            for(const game of this.games){
-                if(game.isBestPlayer(this.player.id))
-                    count += 1;
-            }
-            return count;
-        }
-
-        get currentStreak() {
-            let lastStreak = 0;
-            let currentStreak = 0;
-            for (var result of this.results)
-            {
-                if (result.winnings >= 0)
-                {
-                    currentStreak++;
-                }
-                else
-                {
-                    currentStreak--;
-                }
-                if (Math.abs(currentStreak) < Math.abs(lastStreak))
-                {
-                    return lastStreak;
-                }
-                lastStreak = currentStreak;
-            }
-            return lastStreak;
-        }
-
-        get bestWinningStreak() {
-            let bestStreak = 0;
-            let currentStreak = 0;
-            for (const result of this.results)
-            {
-                if (result.winnings >= 0)
-                {
-                    currentStreak++;
-                    if (currentStreak > bestStreak)
-                    {
-                        bestStreak = currentStreak;
-                    }
-                }
-                else
-                {
-                    currentStreak = 0;
-                }
-            }
-            return bestStreak;
-        }
-
-        get formattedCurrentStreak(){
-            if(this.currentStreak === 0)
-                return '-';
-
-            const wonOrLost = this.currentStreak > 0 ? 'Won' : 'Lost';
-            const streak = Math.abs(this.currentStreak);
-            return this.formatStreak(wonOrLost, streak);
-        }
-
-        get formattedWinningStreak(){
-            return this.formatStreak('Won', this.bestWinningStreak);
-        }
-
-        get formattedLosingStreak(){
-            return this.formatStreak('Lost', this.worstLosingStreak);
-        }
-
-        get worstLosingStreak() {
-            let worstStreak = 0;
-            let currentStreak = 0;
-            for (var result of this.results)
-            {
-                if (result.winnings < 0)
-                {
-                    currentStreak++;
-                    if (currentStreak > worstStreak)
-                    {
-                        worstStreak = currentStreak;
-                    }
-                }
-                else
-                {
-                    currentStreak = 0;
-                }
-            }
-            return worstStreak;
-        }
-
-        get ready() {
-            return this.player != null && this.$_gamesReady;
-        }
-
-        get userReady() {
-            return this.user != null;
-        }
-
-        get canDelete(){
-            return this.results.length === 0;
-        }
-
-        private showInvitationForm(){
-            this.isInvitationFormVisible = true;
-        }
-
-        private hideInvitationForm(){
-            this.isInvitationFormVisible = false;
-        }
-
-        private invitePlayer(){
-            api.invitePlayer(this.player.id, { email: this.inviteEmail });
-            this.invitationSent = true;
-            this.hideInvitationForm();
-        }
-
-        private cancelInvitation(){
-            this.hideInvitationForm();
-        }
-
-        private get notRegisteredMessage(){
-            return this.invitationSent
-                ? 'An invitation was sent.'
-                : 'This player is not registered yet.'
-        }
-
-        private deletePlayer(){
-            if (window.confirm('Do you want to delete this player?')) {
-                this.$_deletePlayer(this.player);
-                this.$router.push(urls.player.list(this.$_slug));
-            }
-        }
-
-        private formatStreak(wonOrLost: string, gameCount: number){
-            const gamesText = this.formatStreakGames(gameCount);
-            return `${wonOrLost} in ${gameCount} ${gamesText}`;
-        }
-
-        private formatStreakGames(streak: number){
-            return streak === 1 ? 'game' : 'games';
-        }
-
-        private isInGame(game: ArchiveCashgame){
-            for(const p of game.players){
-                if(p.id === this.player.id)
-                    return true;
-            }
-            return false;
-        }
-
-        private async loadUser(){
-            if(this.player?.userName){
-                const response = await api.getUser(this.player.userName);
-                this.user = response.status === 200
-                    ? response.data
-                    : null;
-            }
-        }
-
-        async init() {
-            this.$_requireUser();
-            this.$_loadBunch();
-            this.$_loadGames();
-            await this.$_loadPlayers();
-        }
-
-        mounted() {
-            this.init();
-        }
-
-        @Watch('player')
-        playerChanged() {
-            if(this.player)
-                this.loadUser();
-        }
-
-        @Watch('$route')
-        routeChanged() {
-            this.init();
-        }
+const results = computed(() => {
+  let results = [];
+  for (const game of games.value) {
+    for (const p of game.players) {
+      if (p.id === player.value.id) {
+        results.push(p);
+        break;
+      }
     }
+  }
+  return results;
+});
+
+const totalResult = computed(() => {
+  return results.value.reduce((acc, cur) => acc + cur.winnings, 0);
+});
+
+const bestResult = computed(() => {
+  let best: number | null = null;
+  for (const result of results.value) {
+    if (best == null || result.winnings > best) best = result.winnings;
+  }
+  return best ?? 0;
+});
+
+const worstResult = computed(() => {
+  let worst: number | null = null;
+  for (const result of results.value) {
+    if (worst == null || result.winnings < worst) worst = result.winnings;
+  }
+  return worst ?? 0;
+});
+
+const gamesPlayed = computed(() => {
+  return games.value.length;
+});
+
+const timePlayed = computed(() => {
+  return results.value.reduce((acc, cur) => acc + cur.timePlayed, 0);
+});
+
+const totalWins = computed(() => {
+  let count = 0;
+  for (const game of games.value) {
+    if (game.isBestPlayer(player.value.id)) count += 1;
+  }
+  return count;
+});
+
+const currentStreak = computed(() => {
+  let lastStreak = 0;
+  let currentStreak = 0;
+  for (var result of results.value) {
+    if (result.winnings >= 0) {
+      currentStreak++;
+    } else {
+      currentStreak--;
+    }
+    if (Math.abs(currentStreak) < Math.abs(lastStreak)) {
+      return lastStreak;
+    }
+    lastStreak = currentStreak;
+  }
+  return lastStreak;
+});
+
+const bestWinningStreak = computed(() => {
+  let bestStreak = 0;
+  let currentStreak = 0;
+  for (const result of results.value) {
+    if (result.winnings >= 0) {
+      currentStreak++;
+      if (currentStreak > bestStreak) {
+        bestStreak = currentStreak;
+      }
+    } else {
+      currentStreak = 0;
+    }
+  }
+  return bestStreak;
+});
+
+const formattedCurrentStreak = computed(() => {
+  if (currentStreak.value === 0) return '-';
+
+  const wonOrLost = currentStreak.value > 0 ? 'Won' : 'Lost';
+  const streak = Math.abs(currentStreak.value);
+  return formatStreak(wonOrLost, streak);
+});
+
+const formattedWinningStreak = computed(() => {
+  return formatStreak('Won', bestWinningStreak.value);
+});
+
+const formattedLosingStreak = computed(() => {
+  return formatStreak('Lost', worstLosingStreak.value);
+});
+
+const worstLosingStreak = computed(() => {
+  let worstStreak = 0;
+  let currentStreak = 0;
+  for (var result of results.value) {
+    if (result.winnings < 0) {
+      currentStreak++;
+      if (currentStreak > worstStreak) {
+        worstStreak = currentStreak;
+      }
+    } else {
+      currentStreak = 0;
+    }
+  }
+  return worstStreak;
+});
+
+const ready = computed(() => {
+  return player.value != null && gameArchive.gamesReady.value;
+});
+
+const userReady = computed(() => {
+  return user.value != null;
+});
+
+const canDelete = computed(() => {
+  return results.value.length === 0;
+});
+
+const showInvitationForm = () => {
+  isInvitationFormVisible.value = true;
+};
+
+const hideInvitationForm = () => {
+  isInvitationFormVisible.value = false;
+};
+
+const invitePlayer = () => {
+  api.invitePlayer(player.value.id, { email: inviteEmail.value });
+  invitationSent.value = true;
+  hideInvitationForm();
+};
+
+const cancelInvitation = () => {
+  hideInvitationForm();
+};
+
+const notRegisteredMessage = computed(() => {
+  return invitationSent.value ? 'An invitation was sent.' : 'This player is not registered yet.';
+});
+
+const deletePlayer = () => {
+  if (window.confirm('Do you want to delete this player?')) {
+    players.deletePlayer(player.value);
+    router.push(urls.player.list(bunches.slug.value));
+  }
+};
+
+const formatStreak = (wonOrLost: string, gameCount: number) => {
+  const gamesText = formatStreakGames(gameCount);
+  return `${wonOrLost} in ${gameCount} ${gamesText}`;
+};
+
+const formatStreakGames = (streak: number) => {
+  return streak === 1 ? 'game' : 'games';
+};
+
+const isInGame = (game: ArchiveCashgame) => {
+  for (const p of game.players) {
+    if (p.id === player.value.id) return true;
+  }
+  return false;
+};
+
+const loadUser = async () => {
+  if (player.value?.userName) {
+    const response = await api.getUser(player.value.userName);
+    user.value = response.status === 200 ? response.data : undefined;
+  }
+};
+
+const init = async () => {
+  users.requireUser();
+  bunches.loadBunch();
+  gameArchive.loadGames();
+  await players.loadPlayers();
+};
+
+watch(player, () => {
+  if (player.value) loadUser();
+});
+
+onMounted(() => {
+  init();
+});
+watch(route, () => {
+  init();
+});
 </script>
