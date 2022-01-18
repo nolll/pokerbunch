@@ -1,31 +1,24 @@
 ﻿<template>
-    <TableListCell :is-numeric="true">
-        <span class="matrix__value" v-if="playedThisYear"><WinningsText :value="winnings" :showCurrency="false" /></span>
-    </TableListCell>
+  <TableListCell :is-numeric="true">
+    <span class="matrix__value" v-if="playedThisYear"><WinningsText :value="winnings" :showCurrency="false" /></span>
+  </TableListCell>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import { CashgamePlayerYearlyResult } from '@/models/CashgamePlayerYearlyResult';
-    import { CssClasses } from '@/models/CssClasses';
-    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-    import WinningsText from '@/components/Common/WinningsText.vue';
+<script setup lang="ts">
+import { CashgamePlayerYearlyResult } from '@/models/CashgamePlayerYearlyResult';
+import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+import WinningsText from '@/components/Common/WinningsText.vue';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            TableListCell,
-            WinningsText
-        }
-    })
-    export default class YearMatrixItem extends Vue {
-        @Prop() readonly year!: CashgamePlayerYearlyResult;
+const props = defineProps<{
+  year: CashgamePlayerYearlyResult;
+}>();
 
-        get winnings() {
-            return this.year.winnings;
-        }
+const winnings = computed(() => {
+  return props.year.winnings;
+});
 
-        get playedThisYear() {
-            return this.year.playedThisYear;
-        }
-    }
+const playedThisYear = computed(() => {
+  return props.year.playedThisYear;
+});
 </script>

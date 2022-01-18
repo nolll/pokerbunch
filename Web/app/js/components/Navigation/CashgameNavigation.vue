@@ -45,64 +45,64 @@ const years = computed(() => {
 });
 
 const selectedPageName = computed(() => {
-  if (props.page === CashgamePage.Matrix) return 'Matrix';
-  if (props.page === CashgamePage.Toplist) return 'Toplist';
-  if (props.page === CashgamePage.Chart) return 'Chart';
-  if (props.page === CashgamePage.List) return 'List';
-  if (props.page === CashgamePage.Facts) return 'Facts';
+  if (props.page === 'matrix') return 'Matrix';
+  if (props.page === 'toplist') return 'Toplist';
+  if (props.page === 'chart') return 'Chart';
+  if (props.page === 'list') return 'List';
+  if (props.page === 'facts') return 'Facts';
   return 'Overview';
 });
 
 const isYearNavEnabled = computed(() => {
-  return props.page !== CashgamePage.Overview;
+  return props.page !== 'index';
 });
 
 const overviewUrl = computed(() => {
-  return urls.cashgame.archive(CashgamePage.Overview, bunches.slug.value);
+  return urls.cashgame.archive('index', bunches.slug.value);
 });
 
 const matrixUrl = computed(() => {
-  return urls.cashgame.archive(CashgamePage.Matrix, bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('matrix', bunches.slug.value, selectedYear.value);
 });
 
 const toplistUrl = computed(() => {
-  return urls.cashgame.archive(CashgamePage.Toplist, bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('toplist', bunches.slug.value, selectedYear.value);
 });
 
 const chartUrl = computed(() => {
-  return urls.cashgame.archive(CashgamePage.Chart, bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('chart', bunches.slug.value, selectedYear.value);
 });
 
 const listUrl = computed(() => {
-  return urls.cashgame.archive(CashgamePage.List, bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('list', bunches.slug.value, selectedYear.value);
 });
 
 const factsUrl = computed(() => {
-  return urls.cashgame.archive(CashgamePage.Facts, bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('facts', bunches.slug.value, selectedYear.value);
 });
 
 const isOverviewSelected = computed(() => {
-  return props.page === CashgamePage.Overview;
+  return props.page === 'index';
 });
 
 const isMatrixSelected = computed(() => {
-  return props.page === CashgamePage.Matrix;
+  return props.page === 'matrix';
 });
 
 const isToplistSelected = computed(() => {
-  return props.page === CashgamePage.Toplist;
+  return props.page === 'toplist';
 });
 
 const isChartSelected = computed(() => {
-  return props.page === CashgamePage.Chart;
+  return props.page === 'chart';
 });
 
 const isListSelected = computed(() => {
-  return props.page === CashgamePage.List;
+  return props.page === 'list';
 });
 
 const isFactsSelected = computed(() => {
-  return props.page === CashgamePage.Facts;
+  return props.page === 'facts';
 });
 
 const onSelected = (url: string) => {
