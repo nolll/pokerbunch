@@ -1,23 +1,18 @@
 ﻿<template>
-    <CustomLink :url="url">{{name}}</CustomLink>
+  <CustomLink :url="url">{{ name }}</CustomLink>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import urls from '@/urls';
-    import CustomLink from '@/components/Common/CustomLink.vue';
+<script setup lang="ts">
+import urls from '@/urls';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            CustomLink
-        }
-    })
-    export default class UserBunchListItem extends Vue {
-        @Prop() readonly id!: string;
-        @Prop() readonly name!: string;
+const props = defineProps<{
+  id: string;
+  name: string;
+}>();
 
-        get url() {
-            return urls.bunch.details(this.id);
-        }
-    }
+const url = computed(() => {
+  return urls.bunch.details(props.id);
+});
 </script>

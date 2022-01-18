@@ -1,41 +1,31 @@
 ﻿<template>
-    <div v-if="ready && hasBunches">
-        <h1 class="module-heading">Your Bunches</h1>
-        <SimpleList>
-            <SimpleListItem v-for="bunch in userBunches" :key="bunch.id">
-                <UserBunchList-item :id="bunch.id" :name="bunch.name" />
-            </SimpleListItem>
-        </SimpleList>
-    </div>
+  <div v-if="ready && hasBunches">
+    <h1 class="module-heading">Your Bunches</h1>
+    <SimpleList>
+      <SimpleListItem v-for="bunch in userBunches" :key="bunch.id">
+        <UserBunchList-item :id="bunch.id" :name="bunch.name" />
+      </SimpleListItem>
+    </SimpleList>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins } from 'vue-property-decorator';
-    import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
-    import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-    import UserBunchListItem from '@/components/UserBunchList/UserBunchListItem.vue';
-    import { BunchMixin } from '@/mixins';
+<script setup lang="ts">
+import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
+import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
+import useBunches from '@/composables/useBunches';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            SimpleList,
-            SimpleListItem,
-            UserBunchListItem
-        }
-    })
-    export default class UserBunchList extends Mixins(
-        BunchMixin
-    ) {
-        get userBunches(){
-            return this.$_userBunches;
-        }
+const bunches = useBunches();
 
-        get hasBunches() {
-            return this.$_userBunches.length > 0;
-        }
+const userBunches = computed(() => {
+  return bunches.userBunches.value;
+});
 
-        get ready() {
-            return this.$_userBunchesReady;
-        }
-    }
+const hasBunches = computed(() => {
+  return bunches.userBunches.value.length > 0;
+});
+
+const ready = computed(() => {
+  return bunches.userBunchesReady.value;
+});
 </script>
