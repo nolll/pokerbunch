@@ -1,80 +1,66 @@
 ﻿<template>
-    <Layout :ready="ready">
-        <template slot="top-nav">
-            <BunchNavigation />
-        </template>
+  <Layout :ready="ready">
+    <template slot="top-nav">
+      <BunchNavigation />
+    </template>
 
-        <PageSection>
-            <Block>
-                <PageHeading :text="name" />
-            </Block>
-        </PageSection>
-    </Layout>
+    <PageSection>
+      <Block>
+        <PageHeading :text="name" />
+      </Block>
+    </PageSection>
+  </Layout>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, LocationMixin, UserMixin } from '@/mixins';
-    import Layout from '@/components/Layouts/Layout.vue';
-    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-    import Block from '@/components/Common/Block.vue';
-    import CustomButton from '@/components/Common/CustomButton.vue';
-    import PageHeading from '@/components/Common/PageHeading.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
-    import urls from '@/urls';
-    
-    @Component({
-        components: {
-            Layout,
-            BunchNavigation,
-            CustomButton,
-            Block,
-            PageHeading,
-            PageSection
-        }
-    })
-    export default class LocationDetailsPage extends Mixins(
-        BunchMixin,
-        LocationMixin,
-        UserMixin
-    ) {
+<script setup lang="ts">
+import Layout from '@/components/Layouts/Layout.vue';
+import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+import Block from '@/components/Common/Block.vue';
+import PageHeading from '@/components/Common/PageHeading.vue';
+import PageSection from '@/components/Common/PageSection.vue';
+import useUsers from '@/composables/useUsers';
+import useBunches from '@/composables/useBunches';
+import useLocations from '@/composables/useLocations';
+import { computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-        get name() {
-            if(this.location)
-                return this.location.name;
-            return '';
-        }
+const route = useRoute();
+const users = useUsers();
+const bunches = useBunches();
+const locations = useLocations();
 
-        get location() {
-            for(let i = 0; i < this.$_locations.length; i++){
-                const location = this.$_locations[i];
-                if(location.id.toString() === this.locationId)
-                    return location;
-            }
-            return null;
-        }
+const name = computed(() => {
+  if (location.value) return location.value.name;
+  return '';
+});
 
-        get locationId() {
-            return this.$route.params.id;
-        }
+const location = computed(() => {
+  for (let i = 0; i < locations.locations.value.length; i++) {
+    const location = locations.locations.value[i];
+    if (location.id.toString() === locationId.value) return location;
+  }
+  return null;
+});
 
-        get ready() {
-            return this.$_bunchReady && this.$_locationsReady;
-        }
+const locationId = computed(() => {
+  return route.params.id as string;
+});
 
-        init() {
-            this.$_requireUser();
-            this.$_loadBunch();
-            this.$_loadLocations();
-        }
+const ready = computed(() => {
+  return bunches.bunchReady.value && locations.locationsReady.value;
+});
 
-        mounted() {
-            this.init();
-        }
+const init = () => {
+  users.requireUser();
+  bunches.loadBunch();
+  locations.loadLocations();
+};
 
-        @Watch('$route')
-        routeChanged() {
-            this.init();
-        }
-    }
+onMounted(() => {
+  init();
+});
+
+watch(route, () => {
+  init();
+});
 </script>
