@@ -1,73 +1,64 @@
 ﻿<template>
-    <Layout :ready="ready">
-        <template slot="top-nav">
-            <BunchNavigation />
-        </template>
+  <Layout :ready="ready">
+    <template slot="top-nav">
+      <BunchNavigation />
+    </template>
 
-        <PageSection>
-            <Block>
-                <CashgameNavigation page="matrix" />
-            </Block>
-        </PageSection>
+    <PageSection>
+      <Block>
+        <CashgameNavigation page="matrix" />
+      </Block>
+    </PageSection>
 
-        <PageSection>
-            <Block>
-                <MatrixTable :slug="slug" :games="games" />
-            </Block>
-        </PageSection>
-    </Layout>
+    <PageSection>
+      <Block>
+        <MatrixTable :slug="slug" :games="games" />
+      </Block>
+    </PageSection>
+  </Layout>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, UserMixin, GameArchiveMixin } from '@/mixins';
-    import Layout from '@/components/Layouts/Layout.vue';
-    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-    import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
-    import MatrixTable from '@/components/Matrix/MatrixTable.vue';
-    import Block from '@/components/Common/Block.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
+<script setup lang="ts">
+import Layout from '@/components/Layouts/Layout.vue';
+import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
+import MatrixTable from '@/components/Matrix/MatrixTable.vue';
+import Block from '@/components/Common/Block.vue';
+import PageSection from '@/components/Common/PageSection.vue';
+import useGameArchive from '@/composables/useGameArchive';
+import useBunches from '@/composables/useBunches';
+import useUsers from '@/composables/useUsers';
+import { computed, onMounted, watch } from 'vue';
+import { useRoute } from 'vue-router';
 
-    @Component({
-        components: {
-            Layout,
-            BunchNavigation,
-            CashgameNavigation,
-            MatrixTable,
-            Block,
-            PageSection
-        }
-    })
-    export default class MatrixPage extends Mixins(
-        BunchMixin,
-        UserMixin,
-        GameArchiveMixin
-    ) {
-        get slug(){
-            return this.$_slug;
-        }
+const route = useRoute();
+const users = useUsers();
+const bunches = useBunches();
+const gameArchive = useGameArchive();
 
-        get games(){
-            return this.$_sortedGames;
-        }
+const slug = computed(() => {
+  return bunches.slug.value;
+});
 
-        get ready() {
-            return this.$_bunchReady && this.$_gamesReady;
-        }
+const games = computed(() => {
+  return gameArchive.sortedGames.value;
+});
 
-        init() {
-            this.$_requireUser();
-            this.$_loadBunch();
-            this.$_loadGames();
-        }
+const ready = computed(() => {
+  return bunches.bunchReady.value && gameArchive.gamesReady.value;
+});
 
-        mounted() {
-            this.init();
-        }
+const init = () => {
+  users.requireUser();
+  bunches.loadBunch();
+  gameArchive.loadGames();
+};
 
-        @Watch('$route')
-        routeChanged() {
-            this.init();
-        }
-    }
+onMounted(() => {
+  init();
+});
+
+watch(route, () => {
+  init();
+});
 </script>
