@@ -1,76 +1,78 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <Block>
-        <PageHeading :text="bunchName" />
-      </Block>
-
-      <template v-if="isEditing">
-        <Block v-if="isManager">
-          <p>
-            <label class="label" for="description">Description</label>
-            <input class="textfield" v-model="formDescription" id="description" type="text" />
-          </p>
-          <p>
-            <label class="label" for="houseRules">House Rules</label>
-            <textarea class="textfield" v-model="formHouseRules" id="houseRules"></textarea>
-          </p>
-          <p>
-            <label class="label" for="defaultBuyin">Default buyin</label>
-            <input class="textfield" v-model.number="formDefaultBuyin" id="defaultBuyin" type="text" />
-          </p>
-          <p>
-            <label class="label" for="timezone">Timezone</label>
-            <TimezoneDropdown v-model="formTimezone" />
-          </p>
-          <p>
-            <label class="label" for="currencySymbol">Currency Symbol</label>
-            <input class="textfield" v-model="formCurrencySymbol" id="currencySymbol" type="text" />
-          </p>
-          <p>
-            <label class="label" for="currencyLayout">Currency Layout</label>
-            <CurrencyLayoutDropdown v-model="formCurrencyLayout" :symbol="formCurrencySymbol" />
-          </p>
-          <div class="buttons">
-            <CustomButton @click="save" text="Save" type="action" />
-            <CustomButton @click="cancel" text="Cancel" />
-          </div>
-        </Block>
-      </template>
-
-      <template v-else>
-        <Block v-if="hasDescription">
-          {{ description }}
-        </Block>
-
-        <Block v-if="hasHouseRules"><h2>House Rules</h2></Block>
-        <Block v-if="hasHouseRules">
-          <p>
-            {{ houseRules }}
-          </p>
-        </Block>
-
-        <Block><h2>Settings</h2></Block>
+    <template v-slot:default>
+      <PageSection>
         <Block>
-          <ValueList>
-            <ValueListKey>Default Buyin</ValueListKey>
-            <ValueListValue>{{ defaultBuyin }}</ValueListValue>
-            <ValueListKey>Timezone</ValueListKey>
-            <ValueListValue>{{ timezone }}</ValueListValue>
-            <ValueListKey>Currency Format</ValueListKey>
-            <ValueListValue>{{ currencyFormat }}</ValueListValue>
-          </ValueList>
+          <PageHeading :text="bunchName" />
         </Block>
 
-        <Block v-if="isManager">
-          <CustomButton @click="showEditForm" text="Edit Bunch" type="action" />
-        </Block>
-      </template>
-    </PageSection>
+        <template v-if="isEditing">
+          <Block v-if="isManager">
+            <p>
+              <label class="label" for="description">Description</label>
+              <input class="textfield" v-model="formDescription" id="description" type="text" />
+            </p>
+            <p>
+              <label class="label" for="houseRules">House Rules</label>
+              <textarea class="textfield" v-model="formHouseRules" id="houseRules"></textarea>
+            </p>
+            <p>
+              <label class="label" for="defaultBuyin">Default buyin</label>
+              <input class="textfield" v-model.number="formDefaultBuyin" id="defaultBuyin" type="text" />
+            </p>
+            <p>
+              <label class="label" for="timezone">Timezone</label>
+              <TimezoneDropdown v-model="formTimezone" />
+            </p>
+            <p>
+              <label class="label" for="currencySymbol">Currency Symbol</label>
+              <input class="textfield" v-model="formCurrencySymbol" id="currencySymbol" type="text" />
+            </p>
+            <p>
+              <label class="label" for="currencyLayout">Currency Layout</label>
+              <CurrencyLayoutDropdown v-model="formCurrencyLayout" :symbol="formCurrencySymbol" />
+            </p>
+            <div class="buttons">
+              <CustomButton @click="save" text="Save" type="action" />
+              <CustomButton @click="cancel" text="Cancel" />
+            </div>
+          </Block>
+        </template>
+
+        <template v-else>
+          <Block v-if="hasDescription">
+            {{ description }}
+          </Block>
+
+          <Block v-if="hasHouseRules"><h2>House Rules</h2></Block>
+          <Block v-if="hasHouseRules">
+            <p>
+              {{ houseRules }}
+            </p>
+          </Block>
+
+          <Block><h2>Settings</h2></Block>
+          <Block>
+            <ValueList>
+              <ValueListKey>Default Buyin</ValueListKey>
+              <ValueListValue>{{ defaultBuyin }}</ValueListValue>
+              <ValueListKey>Timezone</ValueListKey>
+              <ValueListValue>{{ timezone }}</ValueListValue>
+              <ValueListKey>Currency Format</ValueListKey>
+              <ValueListValue>{{ currencyFormat }}</ValueListValue>
+            </ValueList>
+          </Block>
+
+          <Block v-if="isManager">
+            <CustomButton @click="showEditForm" text="Edit Bunch" type="action" />
+          </Block>
+        </template>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

@@ -1,24 +1,28 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <template slot="aside1">
-        <Block>
-          <CustomButton :url="addPlayerUrl" type="action" text="Add player" />
-        </Block>
-      </template>
+    <template v-slot:default>
+      <PageSection>
+        <template v-slot:aside1>
+          <Block>
+            <CustomButton :url="addPlayerUrl" type="action" text="Add player" />
+          </Block>
+        </template>
 
-      <Block>
-        <PageHeading text="Players" />
-      </Block>
+        <template v-slot:default>
+          <Block>
+            <PageHeading text="Players" />
+          </Block>
 
-      <Block>
-        <PlayerList :bunchId="slug" />
-      </Block>
-    </PageSection>
+          <Block>
+            <PlayerList :bunchId="slug" />
+          </Block>
+        </template>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

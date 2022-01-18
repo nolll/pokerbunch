@@ -1,17 +1,19 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <Block>
-        <PageHeading :text="name" />
-      </Block>
-      <Block>
-        <MatrixTable :slug="slug" :games="games" />
-      </Block>
-    </PageSection>
+    <template v-slot:default>
+      <PageSection>
+        <Block>
+          <PageHeading :text="name" />
+        </Block>
+        <Block>
+          <MatrixTable :slug="slug" :games="games" />
+        </Block>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

@@ -1,87 +1,91 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <Block>
-        <PageHeading :text="title" />
-      </Block>
-      <Block class="button-list" v-if="areButtonsVisible">
-        <GameButton text="Report" icon="reorder" v-show="canReport" @click.native="showReportForm" />
-        <GameButton text="Buy In" icon="money" v-show="canBuyin" @click.native="showBuyinForm" />
-        <GameButton text="Cash Out" icon="signout" v-show="canCashout" @click.native="showCashoutForm" />
-      </Block>
-      <Block>
-        <ReportForm v-show="reportFormVisible" :defaultBuyin="defaultBuyin" @report="report" @cancel="hideForms" />
-        <BuyinForm
-          v-show="buyinFormVisible"
-          :defaultBuyin="defaultBuyin"
-          @buyin="buyin"
-          @cancel="hideForms"
-          :isPlayerInGame="isInGame"
-        />
-        <CashoutForm v-show="cashoutFormVisible" :defaultBuyin="defaultBuyin" @cashout="cashout" @cancel="hideForms" />
-      </Block>
-      <Block v-if="hasPlayers">
-        <div class="standings">
-          <!-- todo: changed cashgame.players to playersInGame. Check if it is still working -->
-          <PlayerTable
-            :players="playersInGame"
-            :isCashgameRunning="isRunning"
-            @playerSelected="onSelectPlayer"
-            @deleteAction="onDeleteAction"
-            @saveAction="onSaveAction"
-            :canEdit="canEdit"
-            :bunchId="slug"
-          />
-        </div>
-      </Block>
-      <Block v-else> No one has joined the game yet. </Block>
-      <template slot="aside2">
-        <Block>
-          <ValueList>
-            <ValueListKey v-if="showStartTime">Start Time</ValueListKey>
-            <ValueListValue v-if="showStartTime">{{ formattedStartTime }}</ValueListValue>
-            <ValueListKey v-if="showEndTime">End Time</ValueListKey>
-            <ValueListValue v-if="showEndTime">{{ formattedEndTime }}</ValueListValue>
-            <ValueListKey v-if="showDuration">Duration</ValueListKey>
-            <ValueListValue v-if="showDuration"><DurationText :value="durationMinutes" /></ValueListValue>
-            <ValueListKey>Location</ValueListKey>
-            <ValueListValue>
-              <LocationDropdown v-if="isEditing" v-model="locationId" />
-              <CustomLink v-else :url="locationUrl">{{ locationName }}</CustomLink>
-            </ValueListValue>
-            <ValueListKey v-if="isPartOfEvent || isEditing">Event</ValueListKey>
-            <ValueListValue v-if="isPartOfEvent || isEditing">
-              <EventDropdown v-if="isEditing" v-model="eventId" />
-              <CustomLink v-else :url="eventUrl">{{ eventName }}</CustomLink>
-            </ValueListValue>
-            <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
-            <ValueListValue v-if="isPlayerSelectionEnabled"
-              ><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId"
-            /></ValueListValue>
-          </ValueList>
-        </Block>
-        <Block v-if="canEdit">
-          <template v-if="isEditing">
-            <CustomButton @click="onSave" type="action" text="Save" />
-            <CustomButton @click="onCancelEdit" text="Cancel" />
-          </template>
-          <CustomButton v-else @click="onEdit" type="action" text="Edit Cashgame" />
-        </Block>
-        <Block v-if="isEditing && !hasPlayers">
-          <CustomButton @click="onDelete" type="action" text="Delete" />
-        </Block>
-      </template>
-    </PageSection>
+    <template v-slot:default>
+      <PageSection>
+        <template v-slot:default>
+          <Block>
+            <PageHeading :text="title" />
+          </Block>
+          <Block class="button-list" v-if="areButtonsVisible">
+            <GameButton text="Report" icon="reorder" v-show="canReport" @click.native="showReportForm" />
+            <GameButton text="Buy In" icon="money" v-show="canBuyin" @click.native="showBuyinForm" />
+            <GameButton text="Cash Out" icon="signout" v-show="canCashout" @click.native="showCashoutForm" />
+          </Block>
+          <Block>
+            <ReportForm v-show="reportFormVisible" :defaultBuyin="defaultBuyin" @report="report" @cancel="hideForms" />
+            <BuyinForm
+              v-show="buyinFormVisible"
+              :defaultBuyin="defaultBuyin"
+              @buyin="buyin"
+              @cancel="hideForms"
+              :isPlayerInGame="isInGame"
+            />
+            <CashoutForm v-show="cashoutFormVisible" :defaultBuyin="defaultBuyin" @cashout="cashout" @cancel="hideForms" />
+          </Block>
+          <Block v-if="hasPlayers">
+            <div class="standings">
+              <!-- todo: changed cashgame.players to playersInGame. Check if it is still working -->
+              <PlayerTable
+                :players="playersInGame"
+                :isCashgameRunning="isRunning"
+                @playerSelected="onSelectPlayer"
+                @deleteAction="onDeleteAction"
+                @saveAction="onSaveAction"
+                :canEdit="canEdit"
+                :bunchId="slug"
+              />
+            </div>
+          </Block>
+          <Block v-else> No one has joined the game yet. </Block>
+        </template>
+        <template v-slot:aside2>
+          <Block>
+            <ValueList>
+              <ValueListKey v-if="showStartTime">Start Time</ValueListKey>
+              <ValueListValue v-if="showStartTime">{{ formattedStartTime }}</ValueListValue>
+              <ValueListKey v-if="showEndTime">End Time</ValueListKey>
+              <ValueListValue v-if="showEndTime">{{ formattedEndTime }}</ValueListValue>
+              <ValueListKey v-if="showDuration">Duration</ValueListKey>
+              <ValueListValue v-if="showDuration"><DurationText :value="durationMinutes" /></ValueListValue>
+              <ValueListKey>Location</ValueListKey>
+              <ValueListValue>
+                <LocationDropdown v-if="isEditing" v-model="locationId" />
+                <CustomLink v-else :url="locationUrl">{{ locationName }}</CustomLink>
+              </ValueListValue>
+              <ValueListKey v-if="isPartOfEvent || isEditing">Event</ValueListKey>
+              <ValueListValue v-if="isPartOfEvent || isEditing">
+                <EventDropdown v-if="isEditing" v-model="eventId" />
+                <CustomLink v-else :url="eventUrl">{{ eventName }}</CustomLink>
+              </ValueListValue>
+              <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
+              <ValueListValue v-if="isPlayerSelectionEnabled"
+                ><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId"
+              /></ValueListValue>
+            </ValueList>
+          </Block>
+          <Block v-if="canEdit">
+            <template v-if="isEditing">
+              <CustomButton @click="onSave" type="action" text="Save" />
+              <CustomButton @click="onCancelEdit" text="Cancel" />
+            </template>
+            <CustomButton v-else @click="onEdit" type="action" text="Edit Cashgame" />
+          </Block>
+          <Block v-if="isEditing && !hasPlayers">
+            <CustomButton @click="onDelete" type="action" text="Delete" />
+          </Block>
+        </template>
+      </PageSection>
 
-    <PageSection v-if="hasPlayers">
-      <Block>
-        <GameChart :players="playersInGame" />
-      </Block>
-    </PageSection>
+      <PageSection v-if="hasPlayers">
+        <Block>
+          <GameChart :players="playersInGame" />
+        </Block>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

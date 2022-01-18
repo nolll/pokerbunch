@@ -1,85 +1,89 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <Block>
-        <PageHeading :text="playerName" />
-      </Block>
-      <Block>
-        <h2>Player Facts</h2>
-      </Block>
-      <Block>
-        <ValueList>
-          <ValueListKey>Total Result</ValueListKey>
-          <ValueListValue><WinningsText :value="totalResult" /></ValueListValue>
-          <ValueListKey>Best Result</ValueListKey>
-          <ValueListValue><WinningsText :value="bestResult" /></ValueListValue>
-          <ValueListKey>Worst Result</ValueListKey>
-          <ValueListValue><WinningsText :value="worstResult" /></ValueListValue>
-          <ValueListKey>Games Played</ValueListKey>
-          <ValueListValue>{{ gamesPlayed }}</ValueListValue>
-          <ValueListKey>Time Played</ValueListKey>
-          <ValueListValue><DurationText :value="timePlayed" /></ValueListValue>
-          <ValueListKey>Total Wins</ValueListKey>
-          <ValueListValue>{{ totalWins }}</ValueListValue>
-          <ValueListKey>Current Streak</ValueListKey>
-          <ValueListValue>{{ formattedCurrentStreak }}</ValueListValue>
-          <ValueListKey>Best Winning Streak</ValueListKey>
-          <ValueListValue>{{ formattedWinningStreak }}</ValueListValue>
-          <ValueListKey>Worst Losing Streak</ValueListKey>
-          <ValueListValue>{{ formattedLosingStreak }}</ValueListValue>
-        </ValueList>
-      </Block>
+    <template v-slot:default>
+      <PageSection>
+        <template v-slot:default>
+          <Block>
+            <PageHeading :text="playerName" />
+          </Block>
+          <Block>
+            <h2>Player Facts</h2>
+          </Block>
+          <Block>
+            <ValueList>
+              <ValueListKey>Total Result</ValueListKey>
+              <ValueListValue><WinningsText :value="totalResult" /></ValueListValue>
+              <ValueListKey>Best Result</ValueListKey>
+              <ValueListValue><WinningsText :value="bestResult" /></ValueListValue>
+              <ValueListKey>Worst Result</ValueListKey>
+              <ValueListValue><WinningsText :value="worstResult" /></ValueListValue>
+              <ValueListKey>Games Played</ValueListKey>
+              <ValueListValue>{{ gamesPlayed }}</ValueListValue>
+              <ValueListKey>Time Played</ValueListKey>
+              <ValueListValue><DurationText :value="timePlayed" /></ValueListValue>
+              <ValueListKey>Total Wins</ValueListKey>
+              <ValueListValue>{{ totalWins }}</ValueListValue>
+              <ValueListKey>Current Streak</ValueListKey>
+              <ValueListValue>{{ formattedCurrentStreak }}</ValueListValue>
+              <ValueListKey>Best Winning Streak</ValueListKey>
+              <ValueListValue>{{ formattedWinningStreak }}</ValueListValue>
+              <ValueListKey>Worst Losing Streak</ValueListKey>
+              <ValueListValue>{{ formattedLosingStreak }}</ValueListValue>
+            </ValueList>
+          </Block>
+        </template>
 
-      <template slot="aside2">
-        <Block>
-          <h2>User</h2>
-        </Block>
-        <Block v-if="hasUser">
-          <p>
-            <img :src="avatarUrl" alt="User avatar" />
-          </p>
-          <p>This player is a registered user.</p>
-          <p>
-            <CustomButton :url="userUrl" text="View User Profile" />
-          </p>
-        </Block>
-        <Block v-else>
-          <template v-if="isInvitationFormVisible">
-            <div class="field">
-              <label class="label" for="inviteEmail">Email</label>
-              <input class="textfield" v-model="inviteEmail" id="inviteEmail" type="email" />
-            </div>
-            <div class="buttons">
-              <CustomButton @click="invitePlayer" text="Invite" type="action" />
-              <CustomButton @click="cancelInvitation" text="Cancel" />
-            </div>
-          </template>
-          <template v-else>
+        <template v-slot:aside2>
+          <Block>
+            <h2>User</h2>
+          </Block>
+          <Block v-if="hasUser">
             <p>
-              {{ notRegisteredMessage }}
+              <img :src="avatarUrl" alt="User avatar" />
             </p>
-            <p v-if="!invitationSent">
-              <CustomButton @click="showInvitationForm" text="Invite Player" type="action" />
+            <p>This player is a registered user.</p>
+            <p>
+              <CustomButton :url="userUrl" text="View User Profile" />
             </p>
-          </template>
-        </Block>
-      </template>
-    </PageSection>
+          </Block>
+          <Block v-else>
+            <template v-if="isInvitationFormVisible">
+              <div class="field">
+                <label class="label" for="inviteEmail">Email</label>
+                <input class="textfield" v-model="inviteEmail" id="inviteEmail" type="email" />
+              </div>
+              <div class="buttons">
+                <CustomButton @click="invitePlayer" text="Invite" type="action" />
+                <CustomButton @click="cancelInvitation" text="Cancel" />
+              </div>
+            </template>
+            <template v-else>
+              <p>
+                {{ notRegisteredMessage }}
+              </p>
+              <p v-if="!invitationSent">
+                <CustomButton @click="showInvitationForm" text="Invite Player" type="action" />
+              </p>
+            </template>
+          </Block>
+        </template>
+      </PageSection>
 
-    <PageSection v-if="canDelete">
-      <Block>
-        <h2>Delete Player</h2>
-      </Block>
-      <Block>
-        <p>
-          <CustomButton @click="deletePlayer" text="Delete Player" type="action" />
-        </p>
-      </Block>
-    </PageSection>
+      <PageSection v-if="canDelete">
+        <Block>
+          <h2>Delete Player</h2>
+        </Block>
+        <Block>
+          <p>
+            <CustomButton @click="deletePlayer" text="Delete Player" type="action" />
+          </p>
+        </Block>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

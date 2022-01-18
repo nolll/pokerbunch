@@ -1,30 +1,34 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <Block>
-        <CashgameNavigation page="facts" />
-      </Block>
-    </PageSection>
-
-    <PageSection>
-      <Block>
-        <SingleGameFacts />
-      </Block>
-      <Block>
-        <TotalFacts />
-      </Block>
-      <template slot="aside2">
+    <template v-slot:default>
+      <PageSection>
         <Block>
-          <OverallFacts />
+          <CashgameNavigation page="facts" />
         </Block>
-      </template>
-    </PageSection>
+      </PageSection>
 
-    <template slot="main">
+      <PageSection>
+        <template v-slot:default>
+          <Block>
+            <SingleGameFacts />
+          </Block>
+          <Block>
+            <TotalFacts />
+          </Block>
+        </template>
+        <template v-slot:aside2>
+          <Block>
+            <OverallFacts />
+          </Block>
+        </template>
+      </PageSection>
+    </template>
+
+    <template v-slot:main>
       <PageSection> </PageSection>
     </template>
   </Layout>

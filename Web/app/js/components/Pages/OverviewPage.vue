@@ -1,32 +1,36 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <Block>
-        <CashgameNavigation page="index" />
-      </Block>
-    </PageSection>
+    <template v-slot:default>
+      <PageSection>
+        <Block>
+          <CashgameNavigation page="index" />
+        </Block>
+      </PageSection>
 
-    <PageSection>
-      <template slot="aside1">
-        <OverviewStatus />
-      </template>
-      <Block>
-        <PageHeading text="Current Rankings" />
-        <OverviewTable v-if="hasGames" />
-        <p v-else>The rankings will be displayed here when you have played your first game.</p>
-      </Block>
-    </PageSection>
+      <PageSection>
+        <template v-slot:aside1>
+          <OverviewStatus />
+        </template>
+        <template v-slot:default>
+          <Block>
+            <PageHeading text="Current Rankings" />
+            <OverviewTable v-if="hasGames" />
+            <p v-else>The rankings will be displayed here when you have played your first game.</p>
+          </Block>
+        </template>
+      </PageSection>
 
-    <PageSection :is-wide="false">
-      <Block>
-        <PageHeading text="Yearly Rankings" />
-        <YearMatrixTable v-if="hasGames" />
-      </Block>
-    </PageSection>
+      <PageSection :is-wide="false">
+        <Block>
+          <PageHeading text="Yearly Rankings" />
+          <YearMatrixTable v-if="hasGames" />
+        </Block>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

@@ -1,24 +1,27 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <template slot="aside1">
-        <Block>
-          <CustomButton :url="addEventUrl" type="action" text="Add event" />
-        </Block>
-      </template>
+    <template v-slot:default>
+      <PageSection>
+        <template v-slot:aside1>
+          <Block>
+            <CustomButton :url="addEventUrl" type="action" text="Add event" />
+          </Block>
+        </template>
 
-      <Block>
-        <PageHeading text="Events" />
-      </Block>
-
-      <Block>
-        <EventList />
-      </Block>
-    </PageSection>
+        <template v-slot:default>
+          <Block>
+            <PageHeading text="Events" />
+          </Block>
+          <Block>
+            <EventList />
+          </Block>
+        </template>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

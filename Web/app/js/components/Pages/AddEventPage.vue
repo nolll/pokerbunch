@@ -1,25 +1,27 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <Block>
-        <PageHeading text="Add Event" />
-      </Block>
+    <template v-slot:default>
+      <PageSection>
+        <Block>
+          <PageHeading text="Add Event" />
+        </Block>
 
-      <Block>
-        <div class="field">
-          <label class="label" for="event-name">Name</label>
-          <input class="textfield" v-model="eventName" ref="eventName" id="event-name" type="text" />
-        </div>
-        <div class="buttons">
-          <CustomButton v-on:click="add" type="action" text="Add" />
-          <CustomButton v-on:click="cancel" text="Cancel" />
-        </div>
-      </Block>
-    </PageSection>
+        <Block>
+          <div class="field">
+            <label class="label" for="event-name">Name</label>
+            <input class="textfield" v-model="eventName" ref="eventName" id="event-name" type="text" />
+          </div>
+          <div class="buttons">
+            <CustomButton v-on:click="add" type="action" text="Add" />
+            <CustomButton v-on:click="cancel" text="Cancel" />
+          </div>
+        </Block>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

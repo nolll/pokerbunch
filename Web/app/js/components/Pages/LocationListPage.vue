@@ -1,24 +1,28 @@
 ﻿<template>
   <Layout :ready="ready">
-    <template slot="top-nav">
+    <template v-slot:top-nav>
       <BunchNavigation />
     </template>
 
-    <PageSection>
-      <template slot="aside1">
-        <Block>
-          <CustomButton :url="addLocationUrl" type="action" text="Add location" />
-        </Block>
-      </template>
+    <template v-slot:default>
+      <PageSection>
+        <template v-slot:aside1>
+          <Block>
+            <CustomButton :url="addLocationUrl" type="action" text="Add location" />
+          </Block>
+        </template>
 
-      <Block>
-        <PageHeading text="Locations" />
-      </Block>
+        <template v-slot:default>
+          <Block>
+            <PageHeading text="Locations" />
+          </Block>
 
-      <Block>
-        <LocationList />
-      </Block>
-    </PageSection>
+          <Block>
+            <LocationList />
+          </Block>
+        </template>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 

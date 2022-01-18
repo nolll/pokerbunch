@@ -1,54 +1,56 @@
 ﻿<template>
   <Layout :ready="ready">
     <PageSection>
-      <Block>
-        <PageHeading :text="userName" />
-      </Block>
-
-      <template slot="aside1">
+      <template v-slot:aside1>
         <Block>
           <img :src="avatarUrl" alt="User avatar" />
         </Block>
       </template>
 
-      <Block v-if="isEditing">
-        <p>
-          <label class="label" for="display-name">Display Name</label>
-          <input class="textfield" v-model="displayName" id="display-name" type="text" />
-        </p>
-        <p>
-          <label class="label" for="real-name">Real Name</label>
-          <input class="textfield" v-model="realName" id="real-name" type="text" />
-        </p>
-        <p>
-          <label class="label" for="email">Email</label>
-          <input class="textfield" v-model="email" id="email" type="text" />
-        </p>
-        <p v-if="hasError" class="validation-error">
-          {{ errorMessage }}
-        </p>
-        <p>
-          <CustomButton v-on:click="save" type="action" text="Save" />
-          <CustomButton v-on:click="cancel" text="Cancel" />
-        </p>
-      </Block>
-      <Block v-else>
-        <ValueList>
-          <ValueListKey>Display Name</ValueListKey>
-          <ValueListValue>{{ displayName }}</ValueListValue>
-          <template v-if="canEdit">
-            <ValueListKey>Real Name</ValueListKey>
-            <ValueListValue>{{ realName }}</ValueListValue>
-            <ValueListKey>Email</ValueListKey>
-            <ValueListValue>{{ email }}</ValueListValue>
-          </template>
-        </ValueList>
-      </Block>
+      <template v-slot:default>
+        <Block>
+          <PageHeading :text="userName" />
+        </Block>
 
-      <Block v-if="canEdit && !isEditing">
-        <CustomButton type="action" v-on:click="edit" text="Edit" />
-        <CustomButton type="action" url="/user/changepassword" text="Change Password" v-if="canChangePassword" />
-      </Block>
+        <Block v-if="isEditing">
+          <p>
+            <label class="label" for="display-name">Display Name</label>
+            <input class="textfield" v-model="displayName" id="display-name" type="text" />
+          </p>
+          <p>
+            <label class="label" for="real-name">Real Name</label>
+            <input class="textfield" v-model="realName" id="real-name" type="text" />
+          </p>
+          <p>
+            <label class="label" for="email">Email</label>
+            <input class="textfield" v-model="email" id="email" type="text" />
+          </p>
+          <p v-if="hasError" class="validation-error">
+            {{ errorMessage }}
+          </p>
+          <p>
+            <CustomButton v-on:click="save" type="action" text="Save" />
+            <CustomButton v-on:click="cancel" text="Cancel" />
+          </p>
+        </Block>
+        <Block v-else>
+          <ValueList>
+            <ValueListKey>Display Name</ValueListKey>
+            <ValueListValue>{{ displayName }}</ValueListValue>
+            <template v-if="canEdit">
+              <ValueListKey>Real Name</ValueListKey>
+              <ValueListValue>{{ realName }}</ValueListValue>
+              <ValueListKey>Email</ValueListKey>
+              <ValueListValue>{{ email }}</ValueListValue>
+            </template>
+          </ValueList>
+        </Block>
+
+        <Block v-if="canEdit && !isEditing">
+          <CustomButton type="action" v-on:click="edit" text="Edit" />
+          <CustomButton type="action" url="/user/changepassword" text="Change Password" v-if="canChangePassword" />
+        </Block>
+      </template>
     </PageSection>
   </Layout>
 </template>
