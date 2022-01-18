@@ -1,24 +1,19 @@
 ﻿<template>
-    <div>
-        <CustomLink :url="url">{{userName}}</CustomLink>
-    </div>
+  <div>
+    <CustomLink :url="url">{{ userName }}</CustomLink>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import urls from '@/urls';
-    import CustomLink from '@/components/Common/CustomLink.vue';
+<script setup lang="ts">
+import urls from '@/urls';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            CustomLink
-        }
-    })
-    export default class UserListItem extends Vue {
-        @Prop() readonly userName!: string;
+const props = defineProps<{
+  userName: string;
+}>();
 
-        get url() {
-            return urls.user.details(this.userName);
-        }
-    }
+const url = computed(() => {
+  return urls.user.details(props.userName);
+});
 </script>
