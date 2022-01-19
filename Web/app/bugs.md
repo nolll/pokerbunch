@@ -1,10 +1,11 @@
 # bugs
 
-css file name in dev mode
 loading-spinner is broken
 
 # done
 
+prod build error: v-model.number
+css file name in dev mode
 player list spacing
 PlayerList-item
 slots needs new syntax

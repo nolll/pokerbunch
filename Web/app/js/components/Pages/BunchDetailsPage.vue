@@ -22,7 +22,7 @@
             </p>
             <p>
               <label class="label" for="defaultBuyin">Default buyin</label>
-              <input class="textfield" v-model.number="formDefaultBuyin" id="defaultBuyin" type="text" />
+              <input class="textfield" v-model="formDefaultBuyin" id="defaultBuyin" type="text" />
             </p>
             <p>
               <label class="label" for="timezone">Timezone</label>
