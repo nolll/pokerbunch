@@ -38,10 +38,8 @@ import urls from '@/urls';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import usePlayers from '@/composables/usePlayers';
-import { computed, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, onMounted } from 'vue';
 
-const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const players = usePlayers();
@@ -65,10 +63,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

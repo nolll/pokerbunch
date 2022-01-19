@@ -42,10 +42,7 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsResetPassword } from '@/models/ApiParamsResetPassword';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
+import { computed, onMounted, ref } from 'vue';
 
 const email = ref('');
 const errorMessage = ref('');
@@ -83,9 +80,5 @@ const init = () => {};
 
 onMounted(() => {
   init();
-});
-
-watch(route, () => {
-  init;
 });
 </script>

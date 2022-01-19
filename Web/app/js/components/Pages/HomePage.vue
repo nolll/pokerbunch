@@ -66,11 +66,9 @@ import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed, onMounted, watch } from 'vue';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
-import { useRoute } from 'vue-router';
 
 const users = useUsers();
 const bunches = useBunches();
-const route = useRoute();
 
 const isSignedIn = computed(() => {
   return users.isSignedIn.value;
@@ -106,10 +104,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

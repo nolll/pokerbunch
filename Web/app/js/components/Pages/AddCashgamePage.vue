@@ -42,10 +42,9 @@ import { computed, onMounted, ref, watch } from 'vue';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import useLocations from '@/composables/useLocations';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const locations = useLocations();
@@ -89,10 +88,6 @@ const ready = computed(() => {
 });
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

@@ -57,9 +57,6 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsAddUser } from '@/models/ApiParamsAddUser';
 import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
 
 const userName = ref('');
 const displayName = ref('');
@@ -108,10 +105,6 @@ const back = () => {
 const init = () => {};
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

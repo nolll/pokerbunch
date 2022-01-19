@@ -70,7 +70,7 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import useUsers from '@/composables/useUsers';
 import { useRoute } from 'vue-router';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const route = useRoute();
 const users = useUsers();
@@ -162,10 +162,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

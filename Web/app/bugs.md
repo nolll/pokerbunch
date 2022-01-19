@@ -1,11 +1,11 @@
 # bugs
 
-bunch api request failing when returning to home page
 prod build error: Parameter 'n' implicitly has an 'any' type.
 loading-spinner is broken
 
 # done
 
+bunch api request failing when returning to home page
 redirects are not working
 cashgame navigation url errors
 user list key error

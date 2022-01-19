@@ -21,10 +21,8 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import UserList from '@/components/UserList/UserList.vue';
 import useUsers from '@/composables/useUsers';
-import { computed, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, onMounted } from 'vue';
 
-const route = useRoute();
 const users = useUsers();
 
 const ready = computed(() => {
@@ -41,10 +39,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

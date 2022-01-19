@@ -46,15 +46,13 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
-import { User } from '@/models/User';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsChangePassword } from '@/models/ApiParamsChangePassword';
 import useUsers from '@/composables/useUsers';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-const route = useRoute();
 const router = useRouter();
 const users = useUsers();
 
@@ -103,10 +101,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

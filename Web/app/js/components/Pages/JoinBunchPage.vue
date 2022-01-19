@@ -97,8 +97,4 @@ watch(ready, () => {
 onMounted(() => {
   init();
 });
-
-watch(route, () => {
-  init();
-});
 </script>

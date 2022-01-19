@@ -93,13 +93,11 @@ import api from '@/api';
 import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
 import useBunches from '@/composables/useBunches';
 import useTimezones from '@/composables/useTimezones';
 import useUsers from '@/composables/useUsers';
 import useFormatter from '@/composables/useFormatter';
 
-const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const timezones = useTimezones();
@@ -224,10 +222,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

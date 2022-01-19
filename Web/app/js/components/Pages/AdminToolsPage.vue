@@ -31,10 +31,8 @@ import SendEmail from '@/components/Admin/SendEmail.vue';
 import ClearCache from '@/components/Admin/ClearCache.vue';
 import useUsers from '@/composables/useUsers';
 import { computed, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
 
 const users = useUsers();
-const route = useRoute();
 
 const isAdmin = computed(() => {
   return users.isAdmin.value;
@@ -49,10 +47,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

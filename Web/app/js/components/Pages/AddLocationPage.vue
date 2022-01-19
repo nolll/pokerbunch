@@ -34,12 +34,11 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import useLocations from '@/composables/useLocations';
 
-const route = useRoute();
 const router = useRouter();
 const users = useUsers();
 const bunches = useBunches();
@@ -73,10 +72,6 @@ const ready = computed(() => {
 });
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

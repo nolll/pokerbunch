@@ -499,8 +499,4 @@ const playerId = computed(() => {
 watch(playerId, () => {
   selectedPlayerId.value = playerId.value;
 });
-
-watch(route, () => {
-  init();
-});
 </script>

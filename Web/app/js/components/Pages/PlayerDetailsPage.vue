@@ -346,7 +346,4 @@ watch(player, () => {
 onMounted(() => {
   init();
 });
-watch(route, () => {
-  init();
-});
 </script>

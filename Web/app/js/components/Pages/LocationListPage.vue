@@ -35,13 +35,11 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import { useRoute } from 'vue-router';
 import useLocations from '@/composables/useLocations';
 import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted } from 'vue';
 
-const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const locations = useLocations();
@@ -61,10 +59,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

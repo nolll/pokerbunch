@@ -30,7 +30,7 @@ import useUsers from '@/composables/useUsers';
 import useEvents from '@/composables/useEvents';
 import useBunches from '@/composables/useBunches';
 import { useRoute } from 'vue-router';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const route = useRoute();
 const users = useUsers();
@@ -81,10 +81,6 @@ const loadGames = async () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

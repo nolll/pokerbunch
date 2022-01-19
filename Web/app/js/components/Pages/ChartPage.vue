@@ -30,10 +30,9 @@ import PageSection from '@/components/Common/PageSection.vue';
 import useBunches from '@/composables/useBunches';
 import useGameArchive from '@/composables/useGameArchive';
 import useUsers from '@/composables/useUsers';
-import { computed, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, onMounted } from 'vue';
+import { onBeforeRouteUpdate } from 'vue-router';
 
-const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const gameArchive = useGameArchive();
@@ -52,7 +51,7 @@ onMounted(() => {
   init();
 });
 
-watch(route, () => {
+onBeforeRouteUpdate(() => {
   init();
 });
 </script>

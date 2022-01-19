@@ -62,9 +62,7 @@ import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
 import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
 import useTimezones from '@/composables/useTimezones';
 import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute } from 'vue-router';
 
-const route = useRoute();
 const timezones = useTimezones();
 
 const description = ref('');
@@ -119,10 +117,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>

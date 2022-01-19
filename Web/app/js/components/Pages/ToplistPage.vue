@@ -24,13 +24,12 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import TopListTable from '@/components/TopList/TopListTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted } from 'vue';
 import useBunches from '@/composables/useBunches';
 import useGameArchive from '@/composables/useGameArchive';
 import useUsers from '@/composables/useUsers';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteUpdate } from 'vue-router';
 
-const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const gameArchive = useGameArchive();
@@ -53,7 +52,7 @@ onMounted(() => {
   init();
 });
 
-watch(route, () => {
+onBeforeRouteUpdate(() => {
   init();
 });
 </script>

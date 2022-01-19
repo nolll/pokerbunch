@@ -23,9 +23,7 @@ import BunchList from '@/components/BunchList/BunchList.vue';
 import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
 import { computed, onMounted, watch } from 'vue';
-import { useRoute } from 'vue-router';
 
-const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 
@@ -43,10 +41,6 @@ const init = () => {
 };
 
 onMounted(() => {
-  init();
-});
-
-watch(route, () => {
   init();
 });
 </script>
