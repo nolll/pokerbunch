@@ -1,10 +1,13 @@
 # bugs
 
+bunch api request failing when returning to home page
+redirects are not working
 prod build error: Parameter 'n' implicitly has an 'any' type.
 loading-spinner is broken
 
 # done
 
+cashgame navigation url errors
 user list key error
 prod build error: v-model.number
 css file name in dev mode
