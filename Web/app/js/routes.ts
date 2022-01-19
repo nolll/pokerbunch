@@ -36,7 +36,7 @@ const routes: RouteRecordRaw[] = [
   { path: urls.home, component: HomePage },
   { path: urls.admin.tools, component: AdminToolsPage },
   { path: urls.api.docs, component: ApiDocsPage },
-  { path: '/auth/login', component: LoginPage },
+  { path: urls.auth.login, component: LoginPage },
   { path: '/bunch/add', component: AddBunchPage },
   { path: '/bunches/:slug/cashgames/add', component: AddCashgamePage },
   { path: '/bunches/:slug/cashgames/chart/:year?', component: ChartPage },
@@ -57,27 +57,16 @@ const routes: RouteRecordRaw[] = [
   { path: '/bunches/:slug/locations', component: LocationListPage },
   { path: '/bunches/:slug/join/:code?', component: JoinBunchPage },
   { path: '/bunches/:slug', component: BunchDetailsPage },
-  { path: '/bunches', component: BunchListPage },
+  { path: urls.bunch.list, component: BunchListPage },
   { path: '/users/:userName', component: UserDetailsPage },
-  { path: '/users', component: UserListPage },
+  { path: urls.user.list, component: UserListPage },
   { path: '/user/add', component: AddUserPage },
   { path: '/user/changepassword', component: ChangePasswordPage },
   { path: '/user/resetpassword', component: ResetPasswordPage },
   { path: '/:pathMatch(.*)', component: NotFoundPage, name: '404' },
 ];
 
-const redirects: RouteRecordRaw[] = [
-  { path: '/bunch/details/:slug', redirect: '/bunches/:slug' },
-  { path: '/cashgame/chart/:slug/:year?', redirect: '/bunches/:slug/cashgames/chart/:year?' },
-  { path: '/cashgame/facts/:slug/:year?', redirect: '/bunches/:slug/cashgames/facts/:year?' },
-  { path: '/cashgame/index/:slug', redirect: '/bunches/:slug/cashgames' },
-  { path: '/cashgame/list/:slug/:year?', redirect: '/bunches/:slug/cashgames/list/:year?' },
-  { path: '/cashgame/matrix/:slug/:year?', redirect: '/bunches/:slug/cashgames/matrix/:year?' },
-  { path: '/cashgame/details/:slug/:id', redirect: '/bunches/:slug/cashgames/:id' },
-  { path: '/cashgame/toplist/:slug/:year?', redirect: '/bunches/:slug/cashgames/toplist/:year?' },
-  { path: '/player/list/:slug', redirect: '/bunches/:slug/players' },
-  { path: '/user/list', redirect: '/users' },
-];
+const redirects: RouteRecordRaw[] = [];
 
 const options: RouterOptions = {
   history: createWebHistory(),
