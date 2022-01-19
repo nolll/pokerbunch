@@ -1,6 +1,6 @@
 ﻿<template>
   <SimpleList>
-    <SimpleListItem v-for="user in userList" :key="user.id">
+    <SimpleListItem v-for="user in userList" :key="user.userName">
       <UserListItem :userName="user.userName" />
     </SimpleListItem>
   </SimpleList>
