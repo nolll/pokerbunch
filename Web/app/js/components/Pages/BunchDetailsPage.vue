@@ -134,14 +134,6 @@ const hasHouseRules = computed(() => {
   return !!houseRules.value;
 });
 
-const canEdit = computed(() => {
-  return bunches.isManager.value;
-});
-
-const editUrl = computed(() => {
-  return urls.bunch.edit(bunches.slug.value);
-});
-
 const defaultBuyin = computed(() => {
   return bunches.bunch.value?.defaultBuyin;
 });
