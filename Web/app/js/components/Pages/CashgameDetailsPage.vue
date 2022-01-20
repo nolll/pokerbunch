@@ -322,8 +322,8 @@ const ready = computed(() => {
 
 const setupRefresh = (refreshTimeout: number) => {
   if (isRunning.value) {
-    refreshHandle.value = window.setInterval(() => {
-      refresh();
+    refreshHandle.value = window.setInterval(async () => {
+      await refresh();
     }, refreshTimeout);
   }
 };
@@ -454,8 +454,8 @@ const onSaveAction = async (data: any) => {
   await api.updateAction(cashgame.value.id, data.id, updateData);
 };
 
-onMounted(() => {
-  init();
+onMounted(async () => {
+  await init();
 });
 
 onBeforeUnmount(() => {

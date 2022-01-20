@@ -1,10 +1,11 @@
 # bugs
 
-prod build error: Parameter 'n' implicitly has an 'any' type.
 loading-spinner is broken
 
 # done
 
+inifinite loop on cashgame details
+prod build error: Parameter 'n' implicitly has an 'any' type. (Removed scoped css)
 bunch api request failing when returning to home page
 redirects are not working
 cashgame navigation url errors

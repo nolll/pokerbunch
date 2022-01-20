@@ -44,7 +44,7 @@ public class SecurityHeadersMiddleware
     {
         var fontStyle = new FontStyle();
         var vueConfigScript = new VueConfigScript(appSettings);
-        var apiHost = appSettings.Urls.ApiHost;
+        var apiHost = appSettings.Urls.ApiUri.ToString().TrimEnd('/');
 
         var csp = new ContentSecurityPolicy()
             .AddDirective(

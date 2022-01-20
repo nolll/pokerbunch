@@ -74,13 +74,13 @@ function getMode(){
 function getJsFilename(){
     return isDev()
         ? 'dist/[name].js'
-        : 'dist/[name]-[contenthash].js';
+        : 'dist/[name]-[contenthash:7].js';
 }
 
 function getCssFilename(){
     return isDev()
         ? 'dist/main.css'
-        : 'dist/main-[contenthash].css';
+        : 'dist/main-[contenthash:7].css';
 }
 
 function getPlugins() {
