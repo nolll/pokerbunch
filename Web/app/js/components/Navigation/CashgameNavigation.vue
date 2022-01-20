@@ -58,7 +58,7 @@ const isYearNavEnabled = computed(() => {
 });
 
 const overviewUrl = computed(() => {
-  return urls.cashgame.archive('index', bunches.slug.value);
+  return urls.cashgame.index(bunches.slug.value);
 });
 
 const matrixUrl = computed(() => {
