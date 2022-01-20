@@ -46,7 +46,7 @@ const sort = (column: string) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .top-list {
   overflow: auto;
 }

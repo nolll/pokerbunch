@@ -48,7 +48,7 @@ const sort = (column: string) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .game-list {
   overflow: auto;
 }

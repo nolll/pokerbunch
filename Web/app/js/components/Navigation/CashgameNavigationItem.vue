@@ -1,5 +1,5 @@
 ﻿<template>
-  <li>
+  <li class="cashgame-navigation__item">
     <a :href="url" :class="selectedClass" @click.prevent="click">{{ text }}</a>
   </li>
 </template>
@@ -27,8 +27,8 @@ const click = () => {
 };
 </script>
 
-<style lang="scss" scoped>
-li {
+<style lang="scss">
+.cashgame-navigation__item {
   margin-top: 5px;
 }
 </style>

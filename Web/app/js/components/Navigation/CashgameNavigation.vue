@@ -10,7 +10,7 @@
       <CashgameNavigationItem :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="onSelected" />
     </ul>
     <YearDropdown
-      class="year-dropdown"
+      class="cashgame-navigation__year-dropdown"
       v-model="selectedYear"
       :years="years"
       v-on:input="onSelectedYear"
@@ -118,8 +118,8 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
-.year-dropdown {
+<style lang="scss">
+.cashgame-navigation__year-dropdown {
   margin-top: 10px;
 }
 </style>

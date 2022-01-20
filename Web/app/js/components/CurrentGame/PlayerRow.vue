@@ -1,7 +1,7 @@
 ﻿<template>
   <div class="player-row">
-    <div class="row-wrapper">
-      <div class="name-and-time">
+    <div class="player-row__row-wrapper">
+      <div class="player-row__name-and-time">
         <div>
           <div class="player-color-box" :style="{ backgroundColor: player.color }" @click="onSelected"></div>
           <a href="#" @click="toggle">{{ player.name }}</a>
@@ -11,20 +11,20 @@
           <i title="Last report" class="icon-time"></i> <span>{{ lastReportTime }}</span>
         </div>
       </div>
-      <div class="amounts">
+      <div class="player-row__amounts">
         <div><i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" /></div>
         <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" /></div>
         <div><WinningsText :value="winnings" /></div>
       </div>
     </div>
     <div v-if="showDetails">
-      <div class="chart">
+      <div class="player-row__chart">
         <CashgameActionChart :player="player" />
       </div>
-      <div class="link">
+      <div class="player-row__link">
         <CustomLink :url="url">View player</CustomLink>
       </div>
-      <div class="actions">
+      <div class="player-row__actions">
         <PlayerAction
           v-for="action in player.actions"
           :action="action"
@@ -124,30 +124,30 @@ const click = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .player-row {
   padding: 5px 0;
   border-bottom: 1px solid #eee;
 }
 
-.row-wrapper {
+.player-row__row-wrapper {
   display: flex;
 }
 
-.link {
+.player-row__link {
   padding: 8px;
 }
 
-.name-and-time {
+.player-row__name-and-time {
   flex: 9;
 }
 
-.amounts {
+.player-row__amounts {
   flex: 11;
 }
 
-.chart,
-.actions {
+.player-row__chart,
+.player-row__actions {
   padding: 8px;
 }
 </style>
