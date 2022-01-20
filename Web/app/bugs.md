@@ -1,9 +1,11 @@
 # bugs
 
+navigate from cashgame details crashes
 loading-spinner is broken
 
 # done
 
+cashgame details chart
 inifinite loop on cashgame details
 prod build error: Parameter 'n' implicitly has an 'any' type. (Removed scoped css)
 bunch api request failing when returning to home page

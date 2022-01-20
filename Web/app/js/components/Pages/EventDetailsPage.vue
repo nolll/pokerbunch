@@ -64,11 +64,11 @@ const ready = computed(() => {
   return bunches.bunchReady.value && events.eventsReady.value;
 });
 
-const init = () => {
+const init = async () => {
   users.requireUser();
   bunches.loadBunch();
   events.loadEvents();
-  loadGames();
+  await loadGames();
 };
 
 const loadGames = async () => {
@@ -80,7 +80,7 @@ const loadGames = async () => {
   }
 };
 
-onMounted(() => {
-  init();
+onMounted(async () => {
+  await init();
 });
 </script>

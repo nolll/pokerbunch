@@ -16,7 +16,7 @@ import { ChartColumnPattern } from '@/models/ChartColumnPattern';
 import { ChartRowData } from '@/models/ChartRowData';
 import { ChartOptions } from '@/models/ChartOptions';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
-import { nextTick, ref, watch } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 
 interface ChartPlayerResult {
   time: Date;
@@ -119,12 +119,12 @@ const getRow = (result: ChartPlayerResult, playerId: string) => {
   return { c: values };
 };
 
-const mounted = async () => {
+onMounted(async () => {
   await nextTick();
   if (props.players.length > 0) {
     drawChart();
   }
-};
+});
 
 watch(
   () => props.players,
