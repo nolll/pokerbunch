@@ -1,10 +1,13 @@
 # bugs
 
 spinner or something to indicate progress when logging in
-navigate from cashgame details crashes
+icons are missing (current game)
+adjacent buttons needs spacing
 
 # done
 
+nothing happens when you click the buyin button
+navigate from cashgame details crashes (unable to reproduce)
 loading-spinner is broken
 cashgame details chart
 inifinite loop on cashgame details

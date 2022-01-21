@@ -2,7 +2,7 @@
   <div class="form">
     <div class="field">
       <label class="label" for="buyin-amount">Amount</label>
-      <input class="numberfield" v-model="amount" v-on:focus="focus" ref="buyin" id="buyin-amount" type="text" pattern="[0-9]*" />
+      <input class="numberfield" v-model="amount" v-on:focus="focus" id="buyin-amount" type="text" pattern="[0-9]*" />
     </div>
     <div class="field" v-if="isPlayerInGame">
       <label class="label" for="buyin-stack">Stack Size</label>
