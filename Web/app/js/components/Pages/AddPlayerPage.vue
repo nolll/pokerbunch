@@ -13,7 +13,7 @@
         <Block>
           <div class="field">
             <label class="label" for="player-name">Name</label>
-            <input class="textfield" v-model="playerName" ref="playerName" id="player-name" type="text" />
+            <input class="textfield" v-model="playerName" id="player-name" type="text" />
           </div>
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Add" />

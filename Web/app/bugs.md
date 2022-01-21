@@ -19,5 +19,8 @@ player list spacing
 PlayerList-item
 slots needs new syntax
 no bunches on start page (slots error)
+add event has object in input field
+add player has object in input field
+add location has object in input field
 login form has object in username
 missing space in start page copy

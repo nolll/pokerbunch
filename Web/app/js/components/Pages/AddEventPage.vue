@@ -13,7 +13,7 @@
         <Block>
           <div class="field">
             <label class="label" for="event-name">Name</label>
-            <input class="textfield" v-model="eventName" ref="eventName" id="event-name" type="text" />
+            <input class="textfield" v-model="eventName" id="event-name" type="text" />
           </div>
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Add" />

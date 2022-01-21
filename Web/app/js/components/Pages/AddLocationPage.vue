@@ -13,7 +13,7 @@
         <Block>
           <div class="field">
             <label class="label" for="location-name">Name</label>
-            <input class="textfield" v-model="locationName" ref="locationName" id="location-name" type="text" />
+            <input class="textfield" v-model="locationName" id="location-name" type="text" />
           </div>
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Add" />
