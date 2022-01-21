@@ -1,7 +1,7 @@
 # bugs
 
 spinner or something to indicate progress when logging in
-icons are missing (current game)
+icons are missing (current game). Remember to add csp rules if external resource are used
 chart does not update on action
 
 # done

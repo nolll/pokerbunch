@@ -42,7 +42,6 @@ public class SecurityHeadersMiddleware
 
     private static ContentSecurityPolicy GetCsp(AppSettings appSettings)
     {
-        var fontStyle = new FontStyle();
         var vueConfigScript = new VueConfigScript(appSettings);
         var apiHost = appSettings.Urls.ApiUri.ToString().TrimEnd('/');
         var googleStaticUrl = "https://www.gstatic.com";
@@ -74,7 +73,6 @@ public class SecurityHeadersMiddleware
                     .AddSelf()
                     .AddDomain(googleStaticUrl)
                     .AddDomain(googleApiFontsUrl)
-                    .AddHash(fontStyle.Hash)
             )
             .AddDirective(
                 new ContentSecurityDirective("font-src")

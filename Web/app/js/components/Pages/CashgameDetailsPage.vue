@@ -11,7 +11,6 @@
             <PageHeading :text="title" />
           </Block>
           <Block v-if="areButtonsVisible">
-            <div class="label">Actions</div>
             <GameButton text="Report" icon="reorder" v-if="canReport" @click.native="showReportForm" />
             <GameButton text="Buy In" icon="money" v-if="canBuyin" @click.native="showBuyinForm" />
             <GameButton text="Cash Out" icon="signout" v-if="canCashout" @click.native="showCashoutForm" />

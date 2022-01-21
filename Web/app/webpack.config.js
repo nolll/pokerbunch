@@ -105,7 +105,6 @@ function getPlugins() {
         }),
         new CopyPlugin({
             patterns: [
-                { from: './fonts/*.*', to: './dist' },
                 { from: './favicon.ico', to: '.' }
             ]
         })
