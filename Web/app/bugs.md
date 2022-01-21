@@ -1,5 +1,6 @@
 # bugs
 
+spinner or something to indicate progress when logging in
 navigate from cashgame details crashes
 loading-spinner is broken
 

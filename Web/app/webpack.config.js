@@ -7,16 +7,30 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
-module.exports = {
-    mode: getMode(),
-    entry: './js/index.ts',
-    output: {
+const getMode = () => {
+    return isDev()
+        ? 'development'
+        : 'production';
+}
+
+function getEntry(){
+    return './js/index.ts';
+}
+
+function getOutput(){
+    return {
         filename: getJsFilename(),
         path: path.resolve(__dirname, '../wwwroot'),
         publicPath: '/'
-    },
-    devtool: 'source-map',
-    module: {
+    };
+}
+
+function getDevtool(){
+    return 'source-map';
+}
+
+function getModule(){
+    return {
         rules: [
             {
                 test: /\.s[ac]ss$/i,
@@ -53,22 +67,7 @@ module.exports = {
                 exclude: /node_modules/
             }
         ]
-    },
-    plugins: getPlugins(),
-    resolve: {
-        alias: {
-            '@': path.resolve(__dirname, './js')
-        },
-        extensions: ['.ts', '.js', '.vue']
-    },
-    stats: { children: false },
-    optimization: getOptimization()
-};
-
-function getMode(){
-    return isDev()
-        ? 'development'
-        : 'production';
+    };
 }
 
 function getJsFilename(){
@@ -120,6 +119,19 @@ function getPlugins() {
     return plugins;
 }
 
+function getResolve(){
+    return {
+        alias: {
+            '@': path.resolve(__dirname, './js')
+        },
+        extensions: ['.ts', '.js', '.vue']
+    };
+}
+
+function getStats(){
+    return { children: false };
+}
+
 function getOptimization(){
     return isDev()
         ? {}
@@ -141,3 +153,15 @@ function isDev(){
 function isAnalyzing(){
     return process.env.ANALYZE_BUNDLE === '1';
 }
+
+module.exports = {
+    mode: getMode(),
+    entry: getEntry(),
+    output: getOutput(),
+    devtool: getDevtool(),
+    module: getModule(),
+    plugins: getPlugins(),
+    resolve: getResolve(),
+    stats: getStats(),
+    optimization: getOptimization()
+};
