@@ -2,10 +2,11 @@
 
 spinner or something to indicate progress when logging in
 icons are missing (current game)
-adjacent buttons needs spacing
+chart does not update on action
 
 # done
 
+adjacent buttons needs spacing
 nothing happens when you click the buyin button
 navigate from cashgame details crashes (unable to reproduce)
 loading-spinner is broken
