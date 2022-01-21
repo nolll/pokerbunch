@@ -26,6 +26,7 @@
   display: inline-block;
   -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
   animation: stretchdelay 1.2s infinite ease-in-out;
+  margin: 0 1px;
 }
 
 .rect2 {

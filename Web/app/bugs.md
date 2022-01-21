@@ -2,10 +2,10 @@
 
 spinner or something to indicate progress when logging in
 navigate from cashgame details crashes
-loading-spinner is broken
 
 # done
 
+loading-spinner is broken
 cashgame details chart
 inifinite loop on cashgame details
 prod build error: Parameter 'n' implicitly has an 'any' type. (Removed scoped css)
