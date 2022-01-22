@@ -1,11 +1,11 @@
 # bugs
 
 spinner or something to indicate progress when logging in
-icons are missing (current game). Remember to add csp rules if external resource are used
 chart does not update on action
 
 # done
 
+icons are missing (current game)
 adjacent buttons needs spacing
 nothing happens when you click the buyin button
 navigate from cashgame details crashes (unable to reproduce)

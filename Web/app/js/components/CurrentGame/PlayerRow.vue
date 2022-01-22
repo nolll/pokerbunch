@@ -4,11 +4,11 @@
       <div class="player-row__name-and-time">
         <div>
           <div class="player-color-box" :style="{ backgroundColor: player.color }" @click="onSelected"></div>
-          <a href="#" @click="toggle">{{ player.name }}</a>
-          <CashedOutIcon title="Cashed out" v-if="showCheckmark" />
+          <a class="player-row__name" href="#" @click="toggle">{{ player.name }}</a>
+          <InlineIcon><CashedOutIcon title="Cashed out" v-if="showCheckmark" /></InlineIcon>
         </div>
         <div class="time" v-if="isReportTimeEnabled">
-          <TimeIcon title="Last report" /> <span>{{ lastReportTime }}</span>
+          <InlineIcon><TimeIcon title="Last report" /></InlineIcon> <span>{{ lastReportTime }}</span>
         </div>
       </div>
       <div class="player-row__amounts">
@@ -49,6 +49,7 @@ import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
 import CashedOutIcon from '../Icons/CashedOutIcon.vue';
 import TimeIcon from '../Icons/TimeIcon.vue';
+import InlineIcon from '../Icons/InlineIcon.vue';
 
 const props = defineProps<{
   bunchId: string;
@@ -142,6 +143,10 @@ const click = () => {
 
 .player-row__name-and-time {
   flex: 9;
+}
+
+.player-row__name {
+  margin-right: 0.5rem;
 }
 
 .player-row__amounts {
