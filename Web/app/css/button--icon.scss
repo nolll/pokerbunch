@@ -1,16 +1,22 @@
-@import "mixins";
+@import 'mixins';
 
-.button--icon{
-    border: none;
-    background: transparent;
-	display:inline-block;
-	@include default-font;
-	@include fontsize(10);
-	padding: 4px 9px;
-	text-align: center;
+.button--icon {
+  border: none;
+  background: transparent;
+  display: inline-block;
+  @include default-font;
+  @include fontsize(10);
+  padding: 4px 9px;
+  text-align: center;
 
-	i{
-		display: block;
-		@include fontsize(28, 10);
-	}
+  i {
+    display: block;
+    @include fontsize(28, 10);
+  }
+}
+
+.button__icon {
+  width: 3em;
+  height: 3em;
+  margin: 0 auto;
 }

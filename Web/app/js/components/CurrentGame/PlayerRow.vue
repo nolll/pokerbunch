@@ -5,10 +5,10 @@
         <div>
           <div class="player-color-box" :style="{ backgroundColor: player.color }" @click="onSelected"></div>
           <a href="#" @click="toggle">{{ player.name }}</a>
-          <i title="Cashed out" class="icon-ok-sign" v-if="showCheckmark"></i>
+          <CashedOutIcon title="Cashed out" v-if="showCheckmark" />
         </div>
         <div class="time" v-if="isReportTimeEnabled">
-          <i title="Last report" class="icon-time"></i> <span>{{ lastReportTime }}</span>
+          <TimeIcon title="Last report" /> <span>{{ lastReportTime }}</span>
         </div>
       </div>
       <div class="player-row__amounts">
@@ -47,6 +47,8 @@ import CurrencyText from '@/components/Common/CurrencyText.vue';
 import WinningsText from '@/components/Common/WinningsText.vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
+import CashedOutIcon from '../Icons/CashedOutIcon.vue';
+import TimeIcon from '../Icons/TimeIcon.vue';
 
 const props = defineProps<{
   bunchId: string;

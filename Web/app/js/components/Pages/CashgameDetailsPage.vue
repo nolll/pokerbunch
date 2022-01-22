@@ -11,9 +11,15 @@
             <PageHeading :text="title" />
           </Block>
           <Block v-if="areButtonsVisible">
-            <GameButton text="Report" icon="reorder" v-if="canReport" @click.native="showReportForm" />
-            <GameButton text="Buy In" icon="money" v-if="canBuyin" @click.native="showBuyinForm" />
-            <GameButton text="Cash Out" icon="signout" v-if="canCashout" @click.native="showCashoutForm" />
+            <GameButton text="Report" icon="reorder" v-if="canReport" @click.native="showReportForm">
+              <ReportIcon />
+            </GameButton>
+            <GameButton text="Buy In" icon="money" v-if="canBuyin" @click.native="showBuyinForm">
+              <BuyinIcon />
+            </GameButton>
+            <GameButton text="Cash Out" icon="signout" v-if="canCashout" @click.native="showCashoutForm">
+              <CashoutIcon />
+            </GameButton>
           </Block>
           <Block>
             <ReportForm v-show="reportFormVisible" :defaultBuyin="defaultBuyin" @report="report" @cancel="hideForms" />
@@ -126,6 +132,9 @@ import useLocations from '@/composables/useLocations';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
+import ReportIcon from '../Icons/ReportIcon.vue';
+import BuyinIcon from '../Icons/BuyinIcon.vue';
+import CashoutIcon from '../Icons/CashoutIcon.vue';
 
 const route = useRoute();
 const router = useRouter();
