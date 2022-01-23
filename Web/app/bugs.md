@@ -4,6 +4,7 @@ spinner or something to indicate progress when logging in
 
 # done
 
+cashgame details table bottom icons are missing
 chart does not update on action
 icons are missing (current game)
 adjacent buttons needs spacing

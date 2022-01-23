@@ -15,8 +15,12 @@
     <div class="totals">
       <div class="title">Totals:</div>
       <div class="amounts">
-        <div class="amount"><i title="Total Buy in" class="icon-signin"></i> <CurrencyText :value="totalBuyin" /></div>
-        <div class="amount"><i title="Total Stacks" class="icon-reorder"></i> <CurrencyText :value="totalStacks" /></div>
+        <div class="amount">
+          <InlineIcon><BuyinIcon title="Total Buy in" /></InlineIcon> <CurrencyText :value="totalBuyin" />
+        </div>
+        <div class="amount">
+          <InlineIcon><ReportIcon title="Total Stacks" /></InlineIcon> <CurrencyText :value="totalStacks" />
+        </div>
       </div>
     </div>
   </div>
@@ -28,6 +32,9 @@ import CurrencyText from '@/components/Common/CurrencyText.vue';
 import cashgameHelper from '@/CashgameHelper';
 import { computed } from 'vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
+import BuyinIcon from '../Icons/BuyinIcon.vue';
+import ReportIcon from '../Icons/ReportIcon.vue';
+import InlineIcon from '../Icons/InlineIcon.vue';
 
 const props = defineProps<{
   bunchId: string;
