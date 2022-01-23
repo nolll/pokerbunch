@@ -130,6 +130,7 @@ watch(
   () => props.players,
   () => {
     if (!!props.players) drawChart();
-  }
+  },
+  { deep: true }
 );
 </script>
