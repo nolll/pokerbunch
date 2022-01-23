@@ -4,6 +4,8 @@ spinner or something to indicate progress when logging in
 
 # done
 
+year selection does not read the correct year from route
+year dropdown type error
 cashgame details table bottom icons are missing
 chart does not update on action
 icons are missing (current game)

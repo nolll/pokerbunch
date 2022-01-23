@@ -31,8 +31,9 @@ import useGameArchive from '@/composables/useGameArchive';
 import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
-import { onBeforeRouteUpdate } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 
+const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const gameArchive = useGameArchive();
@@ -49,17 +50,23 @@ const ready = computed(() => {
   return bunches.bunchReady.value && gameArchive.gamesReady.value;
 });
 
-const init = () => {
+const init = (year: number | undefined) => {
   users.requireUser();
   bunches.loadBunch();
   gameArchive.loadGames();
+  gameArchive.selectYear(year);
+};
+
+const getSelectedYear = (s: string | undefined) => {
+  if (!s || s === '') return undefined;
+  return parseInt(s);
 };
 
 onMounted(() => {
-  init();
+  init(getSelectedYear(route.params.year as string));
 });
 
-onBeforeRouteUpdate(() => {
-  init();
+onBeforeRouteUpdate(async (to) => {
+  init(getSelectedYear(to.params.year as string));
 });
 </script>

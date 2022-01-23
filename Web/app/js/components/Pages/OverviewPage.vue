@@ -67,6 +67,7 @@ const init = () => {
   users.requireUser();
   bunches.loadBunch();
   gameArchives.loadGames();
+  gameArchives.selectYear(undefined);
   currentGames.loadCurrentGames();
 };
 

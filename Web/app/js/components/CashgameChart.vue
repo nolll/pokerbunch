@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs';
 import LineChart from './LineChart.vue';
 import { ChartOptions } from '@/models/ChartOptions';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
