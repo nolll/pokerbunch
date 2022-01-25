@@ -18,6 +18,11 @@
   margin-left: 5px;
 }
 
+button[disabled] {
+  opacity: 0.4;
+  cursor: auto;
+}
+
 .button--icon {
   border: none;
   background: transparent;

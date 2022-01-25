@@ -19,7 +19,8 @@
         <input type="checkbox" v-model="rememberMe" id="rememberme" />
       </p>
       <div class="buttons">
-        <button @click="login" class="button button--action">Sign in</button>
+        <button @click="login" class="button button--action" :disabled="isLoggingIn">Sign in</button>
+        <span class="login-form__logging-in" v-if="isLoggingIn">Signing in...</span>
       </div>
     </fieldset>
   </div>
@@ -36,6 +37,7 @@ const username = ref('');
 const password = ref('');
 const rememberMe = ref(false);
 const errorMessage = ref<string | null>(null);
+const isLoggingIn = ref(false);
 
 const isErrorVisible = computed(() => {
   return errorMessage.value !== null;
@@ -51,13 +53,16 @@ const login = async () => {
     };
 
     try {
+      isLoggingIn.value = true;
       const response = await api.getToken(data);
       saveToken(response.data);
       redirect();
     } catch {
+      isLoggingIn.value = false;
       showError('There was something wrong with your username or password. Please try again.');
     }
   } else {
+    isLoggingIn.value = false;
     showError('Please enter your username (or email) and password');
   }
 };
@@ -86,3 +91,9 @@ const redirect = () => {
   window.location.href = redirectUrl;
 };
 </script>
+
+<style lang="scss">
+.login-form__logging-in {
+  margin-left: 1rem;
+}
+</style>
