@@ -44,9 +44,10 @@ public class SecurityHeadersMiddleware
     {
         var vueConfigScript = new VueConfigScript(appSettings);
         var apiHost = appSettings.Urls.ApiUri.ToString().TrimEnd('/');
-        var googleStaticUrl = "https://www.gstatic.com";
-        var googleStaticFontsUrl = "https://fonts.gstatic.com";
-        var googleApiFontsUrl = "https://fonts.googleapis.com";
+        const string googleStaticUrl = "https://www.gstatic.com";
+        const string googleStaticFontsUrl = "https://fonts.gstatic.com";
+        const string googleApiFontsUrl = "https://fonts.googleapis.com";
+        const string gravatarUrl = "https://gravatar.com";
 
         var csp = new ContentSecurityPolicy()
             .AddDirective(
@@ -62,6 +63,7 @@ public class SecurityHeadersMiddleware
             .AddDirective(
                 new ContentSecurityDirective("img-src")
                     .AddSelf()
+                    .AddDomain(gravatarUrl)
             )
             .AddDirective(
                 new ContentSecurityDirective("connect-src")

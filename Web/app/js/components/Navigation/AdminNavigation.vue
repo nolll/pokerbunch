@@ -9,9 +9,6 @@
         <CustomLink :url="usersUrl"><span>Users</span></CustomLink>
       </SimpleListItem>
       <SimpleListItem>
-        <CustomLink :url="locationsUrl"><span>Locations</span></CustomLink>
-      </SimpleListItem>
-      <SimpleListItem>
         <CustomLink :url="toolsUrl"><span>Tools</span></CustomLink>
       </SimpleListItem>
     </SimpleList>
@@ -22,11 +19,8 @@
 import CustomLink from '@/components/Common/CustomLink.vue';
 import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
 import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-import useBunches from '@/composables/useBunches';
 import urls from '@/urls';
 import { computed } from 'vue';
-
-const bunches = useBunches();
 
 const bunchesUrl = computed(() => {
   return urls.bunch.list;
@@ -38,9 +32,5 @@ const usersUrl = computed(() => {
 
 const toolsUrl = computed(() => {
   return urls.admin.tools;
-});
-
-const locationsUrl = computed(() => {
-  return urls.location.list(bunches.slug.value);
 });
 </script>

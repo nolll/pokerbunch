@@ -1,7 +1,12 @@
 # bugs
 
+spinner two rows
+event sort order when adding event
+
 # done
 
+user avatar
+location list not found (removed admin locations. Locations belong to a bunch)
 start page spacing
 spinner or something to indicate progress when logging in
 year selection does not read the correct year from route
