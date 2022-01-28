@@ -34,8 +34,8 @@
           </Block>
           <Block>
             <p>
-              <CustomLink :url="loginUrl">Sign in</CustomLink>if you already have an account, or
-              <CustomLink :url="registerUrl">register</CustomLink>to create a bunch and begin inviting players.
+              <CustomLink :url="loginUrl">Sign in</CustomLink> if you already have an account, or
+              <CustomLink :url="registerUrl">register</CustomLink> to create a bunch and begin inviting players.
             </p>
           </Block>
         </div>
