@@ -2,6 +2,11 @@
 
 spinner two rows
 event sort order when adding event
+buyin - numbers treated as text before refresh
+cashout - numbers treated as text before refresh (sum below table)
+edit buyin - NaN when emptying field
+edit report - NaN when emptying field
+edit cashout - NaN when emptying field
 
 # done
 

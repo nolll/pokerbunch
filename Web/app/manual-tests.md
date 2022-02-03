@@ -10,24 +10,24 @@
   edit user
 - admin - bunch list
 - admin - user list
-  admin - clear cache
+- admin - clear cache
   admin - send email
-  bunch details
-  edit bunch
-  cashgame overview
-  start cashgame
-  cashgame navigation
-  cashgame matrix
-  cashgame toplist
-  cashgame chart
-  cashgame list
-  cashgame facts
-  cashgame details
-  cashgame details - buyin
-  cashgame details - report
-  cashgame details - cashout
-  cashgame details - add and remove actions
-  edit cashgame
+- bunch details
+- edit bunch
+- cashgame overview
+- start cashgame
+- cashgame navigation
+- cashgame matrix
+- cashgame toplist
+- cashgame chart
+- cashgame list
+- cashgame facts
+- cashgame details
+- cashgame details - buyin
+- cashgame details - report
+- cashgame details - cashout
+- cashgame details - add and remove actions
+- edit cashgame
   delete cashgame
   player list
   add player
