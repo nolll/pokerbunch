@@ -1,52 +1,43 @@
 ﻿<template>
-    <TableListRow>
-        <TableListCell :is-numeric="true">{{rank}}.</TableListCell>
-        <TableListCell>
-            <CustomLink :url="url">{{name}}</CustomLink>
-        </TableListCell>
-        <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
-        <MatrixItem v-for="game in player.gameResults" :game="game" :key="game.gameId" />
-    </TableListRow>
+  <TableListRow>
+    <TableListCell :is-numeric="true">{{ rank }}.</TableListCell>
+    <TableListCell>
+      <CustomLink :url="url">{{ name }}</CustomLink>
+    </TableListCell>
+    <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
+    <MatrixItem v-for="game in player.gameResults" :game="game" :key="game.gameId" />
+  </TableListRow>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import urls from '@/urls';
-    import MatrixItem from './MatrixItem.vue';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import TableListRow from '@/components/Common/TableList/TableListRow.vue';
-    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-    import WinningsText from '@/components/Common/WinningsText.vue';
-    import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+<script setup lang="ts">
+import urls from '@/urls';
+import MatrixItem from './MatrixItem.vue';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import TableListRow from '@/components/Common/TableList/TableListRow.vue';
+import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+import WinningsText from '@/components/Common/WinningsText.vue';
+import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            MatrixItem,
-            CustomLink,
-            TableListRow,
-            TableListCell,
-            WinningsText
-        }
-    })
-    export default class MatrixRow extends Vue {
-        @Prop() readonly bunchId!: string;
-        @Prop() readonly player!: CashgameListPlayerData;
-        @Prop() readonly index!: number;
+const props = defineProps<{
+  bunchId: string;
+  player: CashgameListPlayerData;
+  index: number;
+}>();
 
-        get url() {
-            return urls.player.details(this.bunchId, this.player.id);
-        }
+const url = computed(() => {
+  return urls.player.details(props.bunchId, props.player.id);
+});
 
-        get name() {
-            return this.player.name;
-        }
+const name = computed(() => {
+  return props.player.name;
+});
 
-        get rank() {
-            return this.index + 1;
-        }
+const rank = computed(() => {
+  return props.index + 1;
+});
 
-        get winnings() {
-            return this.player.winnings;
-        }
-    }
+const winnings = computed(() => {
+  return props.player.winnings;
+});
 </script>

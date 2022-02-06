@@ -1,31 +1,30 @@
 ﻿<template>
-    <select :value="value" v-on:input="updateValue">
-        <option value="">Select Event</option>
-        <option
-            v-for="(event) in events"
-            :value="event.id"
-            v-bind:key="event.id">
-            {{event.name}}
-        </option>
-    </select>
+  <select :value="modelValue" v-on:input="updateValue">
+    <option value="">Select Event</option>
+    <option v-for="event in eventList" :value="event.id" v-bind:key="event.id">
+      {{ event.name }}
+    </option>
+  </select>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Watch } from 'vue-property-decorator';
-    import { EventMixin } from '@/mixins';
-    
-    @Component
-    export default class EventDropdown extends Mixins(
-        EventMixin
-    ) {
-        @Prop() value!: string;
+<script setup lang="ts">
+import useEvents from '@/composables/useEvents';
+import { computed } from 'vue';
 
-        get events(){
-            return this.$_events;
-        }
+defineProps<{
+  modelValue?: string;
+}>();
 
-        updateValue(event: any){
-            this.$emit('input', event.target.value);
-        }
-    }
+const emit = defineEmits(['update:modelValue']);
+
+const events = useEvents();
+
+const eventList = computed(() => {
+  return events.events.value;
+});
+
+const updateValue = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
+  emit('update:modelValue', value);
+};
 </script>

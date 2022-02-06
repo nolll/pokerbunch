@@ -1,31 +1,33 @@
 ﻿<template>
-    <span :class="cssClasses">{{formattedValue}}</span>
+  <span :class="cssClasses">{{ formattedValue }}</span>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Vue } from 'vue-property-decorator';
-    import { CssClasses } from '@/models/CssClasses';
-    import { BunchMixin, FormatMixin } from '@/mixins';
+<script setup lang="ts">
+import useFormatter from '@/composables/useFormatter';
+import { CssClasses } from '@/models/CssClasses';
+import { computed } from 'vue';
 
-    @Component
-    export default class WinningsText extends Mixins(
-        BunchMixin,
-        FormatMixin
-    ) {
-        @Prop() readonly value!: number;
-        @Prop({default: true}) readonly showCurrency!: boolean;
+const props = withDefaults(
+  defineProps<{
+    value: number;
+    showCurrency?: boolean;
+  }>(),
+  {
+    showCurrency: false,
+  }
+);
 
-        get formattedValue() {
-            if(this.showCurrency)
-                return this.$_formatResult(this.value);
-            return this.$_formatResultWithoutCurrency(this.value);
-        }
-            
-        get cssClasses(): CssClasses {
-            return {
-                'pos-result': this.value > 0,
-                'neg-result': this.value < 0
-            };
-        }
-    }
+const formatter = useFormatter();
+
+const formattedValue = computed(() => {
+  if (props.showCurrency) return formatter.formatResult(props.value);
+  return formatter.formatResultWithoutCurrency(props.value);
+});
+
+const cssClasses = computed((): CssClasses => {
+  return {
+    'pos-result': props.value > 0,
+    'neg-result': props.value < 0,
+  };
+});
 </script>

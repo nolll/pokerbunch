@@ -1,4 +1,5 @@
-export interface CashgamePlayerYearlyResult{
-    winnings: number;
-    playedThisYear: boolean;
+export interface CashgamePlayerYearlyResult {
+  year: number;
+  winnings: number;
+  playedThisYear: boolean;
 }

@@ -1,34 +1,25 @@
 ﻿<template>
-    <SimpleList>
-        <SimpleListItem v-for="event in events" :key="event.id">
-            <EventListItem :event="event" />
-        </SimpleListItem>
-    </SimpleList>
+  <SimpleList>
+    <SimpleListItem v-for="event in eventList" :key="event.id">
+      <EventListItem :event="event" />
+    </SimpleListItem>
+  </SimpleList>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins } from 'vue-property-decorator';
-    import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
-    import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-    import EventListItem from '@/components/EventList/EventListItem.vue';
-    import { EventMixin } from '@/mixins';
+<script setup lang="ts">
+import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
+import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
+import EventListItem from '@/components/EventList/EventListItem.vue';
+import useEvents from '@/composables/useEvents';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            SimpleList,
-            SimpleListItem,
-            EventListItem
-        }
-    })
-    export default class EventList extends Mixins(
-        EventMixin
-    ) {
-        get events(){
-            return this.$_events;
-        }
+const events = useEvents();
 
-        get ready() {
-            return this.$_eventsReady;
-        }
-    }
+const eventList = computed(() => {
+  return events.events.value;
+});
+
+const ready = computed(() => {
+  return events.eventsReady;
+});
 </script>

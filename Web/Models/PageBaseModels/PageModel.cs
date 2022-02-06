@@ -15,7 +15,6 @@ public abstract class PageModel : IViewModel
     public abstract string BrowserTitle { get; }
     public static string StyleView => "~/Views/Generated/Style.cshtml";
     public static string ScriptView => "~/Views/Generated/Script.cshtml";
-    public string FontStyleHtml { get; }
 
     protected PageModel(AppSettings appSettings)
     {
@@ -23,7 +22,6 @@ public abstract class PageModel : IViewModel
 
         Version = appSettings.Version;
         VueConfigScriptHtml = vueConfigScript.Html;
-        FontStyleHtml = new FontStyle().Html;
     }
 
     public abstract View GetView();

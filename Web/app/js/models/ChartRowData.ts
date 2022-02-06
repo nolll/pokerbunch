@@ -1,4 +1,4 @@
-export interface ChartRowData{
-    v: Date | string | null;
-    f: null;
+export interface ChartRowData {
+  v: Date | number | string | null;
+  f: null;
 }

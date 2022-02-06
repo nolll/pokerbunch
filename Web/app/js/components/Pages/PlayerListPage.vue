@@ -1,81 +1,68 @@
 ﻿<template>
-    <Layout :ready="ready">
-        <template slot="top-nav">
-            <BunchNavigation />
+  <Layout :ready="ready">
+    <template v-slot:top-nav>
+      <BunchNavigation />
+    </template>
+
+    <template v-slot:default>
+      <PageSection>
+        <template v-slot:aside1>
+          <Block>
+            <CustomButton :url="addPlayerUrl" type="action" text="Add player" />
+          </Block>
         </template>
 
-        <PageSection>
-            <template slot="aside1">
-                <Block>
-                    <CustomButton :url="addPlayerUrl" type="action" text="Add player" />
-                </Block>
-            </template>
+        <template v-slot:default>
+          <Block>
+            <PageHeading text="Players" />
+          </Block>
 
-            <Block>
-                <PageHeading text="Players" />
-            </Block>
-
-            <Block>
-                <PlayerList :bunchId="slug" />
-            </Block>
-        </PageSection>
-    </Layout>
+          <Block>
+            <PlayerList :bunchId="slug" />
+          </Block>
+        </template>
+      </PageSection>
+    </template>
+  </Layout>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, PlayerMixin, UserMixin } from '@/mixins';
-    import Layout from '@/components/Layouts/Layout.vue';
-    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-    import PlayerList from '@/components/PlayerList/PlayerList.vue';
-    import Block from '@/components/Common/Block.vue';
-    import CustomButton from '@/components/Common/CustomButton.vue';
-    import PageHeading from '@/components/Common/PageHeading.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
-    import urls from '@/urls';
-    
-    @Component({
-        components: {
-            Layout,
-            BunchNavigation,
-            PlayerList,
-            CustomButton,
-            Block,
-            PageHeading,
-            PageSection
-        }
-    })
-    export default class PlayerListPage extends Mixins(
-        BunchMixin,
-        PlayerMixin,
-        UserMixin
-    ) {
+<script setup lang="ts">
+import Layout from '@/components/Layouts/Layout.vue';
+import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+import PlayerList from '@/components/PlayerList/PlayerList.vue';
+import Block from '@/components/Common/Block.vue';
+import CustomButton from '@/components/Common/CustomButton.vue';
+import PageHeading from '@/components/Common/PageHeading.vue';
+import PageSection from '@/components/Common/PageSection.vue';
+import urls from '@/urls';
+import useUsers from '@/composables/useUsers';
+import useBunches from '@/composables/useBunches';
+import usePlayers from '@/composables/usePlayers';
+import { computed, onMounted } from 'vue';
 
-        get addPlayerUrl() {
-            return urls.player.add(this.slug);
-        }
+const users = useUsers();
+const bunches = useBunches();
+const players = usePlayers();
 
-        get slug(){
-            return this.$_slug;
-        }
+const addPlayerUrl = computed(() => {
+  return urls.player.add(slug.value);
+});
 
-        get ready() {
-            return this.$_bunchReady && this.$_playersReady;
-        }
+const slug = computed(() => {
+  return bunches.slug.value;
+});
 
-        init() {
-            this.$_requireUser();
-            this.$_loadBunch();
-            this.$_loadPlayers();
-        }
+const ready = computed(() => {
+  return bunches.bunchReady.value && players.playersReady.value;
+});
 
-        mounted() {
-            this.init();
-        }
+const init = () => {
+  users.requireUser();
+  bunches.loadBunch();
+  players.loadPlayers();
+};
 
-        @Watch('$route')
-        routeChanged() {
-            this.init();
-        }
-    }
+onMounted(() => {
+  init();
+});
 </script>

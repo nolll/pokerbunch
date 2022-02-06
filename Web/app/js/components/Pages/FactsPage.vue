@@ -1,82 +1,80 @@
 ﻿<template>
-    <Layout :ready="ready">
-        <template slot="top-nav">
-            <BunchNavigation />
+  <Layout :ready="ready">
+    <template v-slot:top-nav>
+      <BunchNavigation />
+    </template>
+
+    <template v-slot:default>
+      <PageSection>
+        <Block>
+          <CashgameNavigation page="facts" />
+        </Block>
+      </PageSection>
+
+      <PageSection>
+        <template v-slot:default>
+          <Block>
+            <SingleGameFacts />
+          </Block>
+          <Block>
+            <TotalFacts />
+          </Block>
         </template>
-
-        <PageSection>
-            <Block>
-                <CashgameNavigation page="facts" />
-            </Block>
-        </PageSection>
-
-        <PageSection>
-            <Block>
-                <SingleGameFacts />
-            </Block>
-            <Block>
-                <TotalFacts />
-            </Block>
-            <template slot="aside2">
-                <Block>
-                    <OverallFacts />
-                </Block>
-            </template>
-        </PageSection>
-
-        <template slot="main">
-            <PageSection>
-            </PageSection>
+        <template v-slot:aside2>
+          <Block>
+            <OverallFacts />
+          </Block>
         </template>
-    </Layout>
+      </PageSection>
+    </template>
+
+    <template v-slot:main>
+      <PageSection> </PageSection>
+    </template>
+  </Layout>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Watch } from 'vue-property-decorator';
-    import { BunchMixin, UserMixin, GameArchiveMixin } from '@/mixins';
-    import Layout from '@/components/Layouts/Layout.vue';
-    import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-    import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
-    import SingleGameFacts from '@/components/Facts/SingleGameFacts.vue';
-    import TotalFacts from '@/components/Facts/TotalFacts.vue';
-    import OverallFacts from '@/components/Facts/OverallFacts.vue';
-    import Block from '@/components/Common/Block.vue';
-    import PageSection from '@/components/Common/PageSection.vue';
+<script setup lang="ts">
+import Layout from '@/components/Layouts/Layout.vue';
+import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
+import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
+import SingleGameFacts from '@/components/Facts/SingleGameFacts.vue';
+import TotalFacts from '@/components/Facts/TotalFacts.vue';
+import OverallFacts from '@/components/Facts/OverallFacts.vue';
+import Block from '@/components/Common/Block.vue';
+import PageSection from '@/components/Common/PageSection.vue';
+import useUsers from '@/composables/useUsers';
+import useBunches from '@/composables/useBunches';
+import useGameArchive from '@/composables/useGameArchive';
+import { computed, onMounted } from 'vue';
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 
-    @Component({
-        components: {
-            Layout,
-            BunchNavigation,
-            CashgameNavigation,
-            SingleGameFacts,
-            TotalFacts,
-            OverallFacts,
-            Block,
-            PageSection
-        }
-    })
-    export default class FactsPage extends Mixins(
-        BunchMixin,
-        UserMixin,
-        GameArchiveMixin
-    ) {
-        get ready() {
-            return this.$_bunchReady && this.$_gamesReady;
-        }
+const route = useRoute();
+const users = useUsers();
+const bunches = useBunches();
+const gameArchive = useGameArchive();
 
-        init() {
-            this.$_requireUser();
-            this.$_loadBunch();
-            this.$_loadGames();
-        }
+const ready = computed(() => {
+  return bunches.bunchReady.value && gameArchive.gamesReady.value;
+});
 
-        mounted() {
-            this.init();
-        }
+const init = (year: number | undefined) => {
+  users.requireUser();
+  bunches.loadBunch();
+  gameArchive.loadGames();
+  gameArchive.selectYear(year);
+};
 
-        @Watch('$route')
-        routeChanged() {
-            this.init();
-        }
-    }
+const getSelectedYear = (s: string | undefined) => {
+  if (!s || s === '') return undefined;
+  return parseInt(s);
+};
+
+onMounted(() => {
+  init(getSelectedYear(route.params.year as string));
+});
+
+onBeforeRouteUpdate(async (to) => {
+  init(getSelectedYear(to.params.year as string));
+});
 </script>

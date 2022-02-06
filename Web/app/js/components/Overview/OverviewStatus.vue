@@ -1,61 +1,52 @@
 ﻿<template>
-    <div>
-        <Block>
-            <h1 class="module-heading">Current Game</h1>
-            <p>{{description}}</p>
-        </Block>
-        <Block>
-            <CustomLink :url="url" cssClasses="button button--action">{{linkText}}</CustomLink>
-        </Block>
-    </div>
+  <div>
+    <Block>
+      <h1 class="module-heading">Current Game</h1>
+      <p>{{ description }}</p>
+    </Block>
+    <Block>
+      <CustomButton :url="url" :text="linkText" type="action" />
+    </Block>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins } from 'vue-property-decorator';
-    import urls from '@/urls';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import Block from '@/components/Common/Block.vue';
+<script setup lang="ts">
+import urls from '@/urls';
+import Block from '@/components/Common/Block.vue';
+import useBunches from '@/composables/useBunches';
+import useCurrentGames from '@/composables/useCurrentGames';
+import { computed } from 'vue';
+import CustomButton from '../Common/CustomButton.vue';
 
-    import { BunchMixin, CurrentGameMixin } from '@/mixins';
+const bunches = useBunches();
+const currentGames = useCurrentGames();
 
-    @Component({
-        components: {
-            CustomLink,
-            Block
-        }
-    })
-    export default class OverviewStatus extends Mixins(
-        BunchMixin,
-        CurrentGameMixin
-    ) {
-        get url() {
-            return this.gameIsRunning ? this.runningGameUrl : this.addGameUrl;
-        }
+const url = computed(() => {
+  return gameIsRunning.value ? runningGameUrl.value : addGameUrl.value;
+});
 
-        get addGameUrl() {
-            return urls.cashgame.add(this.$_slug);
-        }
+const addGameUrl = computed(() => {
+  return urls.cashgame.add(bunches.slug.value);
+});
 
-        get runningGameUrl() {
-            return urls.cashgame.details(this.$_slug, this.runningGameId);
-        }
+const runningGameUrl = computed(() => {
+  return urls.cashgame.details(bunches.slug.value, runningGameId.value);
+});
 
-        get runningGameId() {
-            if (this.$_currentGames.length === 0)
-                return '0';
-            return this.$_currentGames[0].id;
-        }
+const runningGameId = computed(() => {
+  if (currentGames.currentGames.value.length === 0) return '0';
+  return currentGames.currentGames.value[0].id;
+});
 
-        get gameIsRunning() {
-            return this.$_currentGames.length > 0;
-        }
+const gameIsRunning = computed(() => {
+  return currentGames.currentGames.value.length > 0;
+});
 
-        get linkText(): string {
-            return this.gameIsRunning ? 'Go to game' : 'Start a game';
-        }
+const linkText = computed((): string => {
+  return gameIsRunning.value ? 'Go to game' : 'Start a game';
+});
 
-        get description(): string {
-            return this.gameIsRunning ? 'There is a game running' : 'No game is running at the moment';
-        }
-    }
+const description = computed((): string => {
+  return gameIsRunning.value ? 'There is a game running' : 'No game is running at the moment';
+});
 </script>

@@ -1,38 +1,36 @@
 ﻿<template>
-    <select :value="value" v-on:input="updateValue">
-        <option value="">Select layout</option>
-        <option 
-            v-for="currencyLayout in currencyLayouts"
-            :value="currencyLayout"
-            v-bind:key="currencyLayout">
-            {{getDisplayName(currencyLayout)}}
-        </option>
-    </select>
+  <select :value="modelValue" v-on:input="updateValue">
+    <option value="">Select layout</option>
+    <option v-for="currencyLayout in currencyLayouts" :value="currencyLayout" v-bind:key="currencyLayout">
+      {{ getDisplayName(currencyLayout) }}
+    </option>
+  </select>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Vue } from 'vue-property-decorator';
-    
-    @Component
-    export default class CurrencyLayoutDropdown extends Vue {
-        @Prop() value!: string;
-        @Prop({default: '$'}) readonly symbol!: string;
+<script setup lang="ts">
+import { computed } from 'vue';
 
-        get currencyLayouts(){
-            return [
-                '{SYMBOL} {AMOUNT}',
-                '{SYMBOL}{AMOUNT}',
-                '{AMOUNT}{SYMBOL}',
-                '{AMOUNT} {SYMBOL}'
-            ];
-        }
+const props = defineProps<{
+  modelValue?: string;
+  symbol?: string;
+}>();
 
-        getDisplayName(layout: string){
-            return layout.replace('{SYMBOL}', this.symbol).replace('{AMOUNT}', '123');
-        }
+const emit = defineEmits(['update:modelValue']);
 
-        updateValue(event: any){
-            this.$emit('input', event.target.value);
-        }
-    }
+const symbol = computed(() => {
+  return props.symbol ?? '$';
+});
+
+const currencyLayouts = computed(() => {
+  return ['{SYMBOL} {AMOUNT}', '{SYMBOL}{AMOUNT}', '{AMOUNT}{SYMBOL}', '{AMOUNT} {SYMBOL}'];
+});
+
+const getDisplayName = (layout: string) => {
+  return layout.replace('{SYMBOL}', symbol.value).replace('{AMOUNT}', '123');
+};
+
+const updateValue = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
+  emit('update:modelValue', value);
+};
 </script>

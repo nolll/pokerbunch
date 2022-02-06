@@ -1,155 +1,160 @@
 ﻿<template>
-    <div class="player-row">
-        <div class="row-wrapper">
-            <div class="name-and-time">
-                <div>
-                    <div class="player-color-box" :style="{backgroundColor: player.color}" @click="onSelected"></div>
-                    <a href="#" @click="toggle">{{player.name}}</a>
-                    <i title="Cashed out" class="icon-ok-sign" v-if="showCheckmark"></i>
-                </div>
-                <div class="time" v-if="isReportTimeEnabled"><i title="Last report" class="icon-time"></i> <span>{{lastReportTime}}</span></div>
-            </div>
-            <div class="amounts">
-                <div><i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" /></div>
-                <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" /></div>
-                <div><WinningsText :value="winnings" /></div>
-            </div>
+  <div class="player-row">
+    <div class="player-row__row-wrapper">
+      <div class="player-row__name-and-time">
+        <div>
+          <div class="player-color-box" :style="{ backgroundColor: player.color }" @click="onSelected"></div>
+          <a class="player-row__name" href="#" @click="toggle">{{ player.name }}</a>
+          <InlineIcon><CashedOutIcon title="Cashed out" v-if="showCheckmark" /></InlineIcon>
         </div>
-        <div v-if="showDetails">
-            <div class="chart">
-                <CashgameActionChart :player="player" />
-            </div>
-            <div class="link">
-                <CustomLink :url="url">View player</CustomLink>
-            </div>
-            <div class="actions">
-                <PlayerAction v-for="action in player.actions" :action="action" :key="action.id" @deleteAction="onDeleteAction" @saveAction="onSaveAction" :canEdit="canEdit" />
-            </div>
+        <div class="time" v-if="isReportTimeEnabled">
+          <InlineIcon><TimeIcon title="Last report" /></InlineIcon> <span>{{ lastReportTime }}</span>
         </div>
+      </div>
+      <div class="player-row__amounts">
+        <div><i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" /></div>
+        <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" /></div>
+        <div><WinningsText :value="winnings" /></div>
+      </div>
     </div>
+    <div v-if="showDetails">
+      <div class="player-row__chart">
+        <CashgameActionChart :player="player" />
+      </div>
+      <div class="player-row__link">
+        <CustomLink :url="url">View player</CustomLink>
+      </div>
+      <div class="player-row__actions">
+        <PlayerAction
+          v-for="action in player.actions"
+          :action="action"
+          :key="action.id"
+          @deleteAction="onDeleteAction"
+          @saveAction="onSaveAction"
+          :canEdit="canEdit"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Mixins } from 'vue-property-decorator';
-    import { FormatMixin } from '@/mixins';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import PlayerAction from './PlayerAction.vue';
-    import urls from '@/urls';
-    import CashgameActionChart from '@/components/CashgameActionChart.vue';
-    import CurrencyText from '@/components/Common/CurrencyText.vue';
-    import WinningsText from '@/components/Common/WinningsText.vue';
-    import { CssClasses } from '@/models/CssClasses';
-    import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
+<script setup lang="ts">
+import CustomLink from '@/components/Common/CustomLink.vue';
+import PlayerAction from './PlayerAction.vue';
+import urls from '@/urls';
+import CashgameActionChart from '@/components/CashgameActionChart.vue';
+import CurrencyText from '@/components/Common/CurrencyText.vue';
+import WinningsText from '@/components/Common/WinningsText.vue';
+import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
+import { computed, ref } from 'vue';
+import CashedOutIcon from '../Icons/CashedOutIcon.vue';
+import TimeIcon from '../Icons/TimeIcon.vue';
+import InlineIcon from '../Icons/InlineIcon.vue';
 
-    @Component({
-        components: {
-            CashgameActionChart,
-            CurrencyText,
-            CustomLink,
-            PlayerAction,
-            WinningsText
-        }
-    })
-    export default class PlayerRow extends Mixins(
-        FormatMixin
-    ) {
-        @Prop() readonly bunchId!: string;
-        @Prop() readonly player!: DetailedCashgamePlayer;
-        @Prop() readonly isCashgameRunning!: boolean;
-        @Prop({default: false}) readonly canEdit!: boolean;
+const props = defineProps<{
+  bunchId: string;
+  player: DetailedCashgamePlayer;
+  isCashgameRunning: boolean;
+  canEdit: boolean;
+}>();
 
-        isExpanded = false;
+const emit = defineEmits(['selected', 'deleteAction', 'saveAction']);
 
-        get hasCashedOut() {
-            return this.player.hasCashedOut();
-        }
+const isExpanded = ref(false);
 
-        get showCheckmark() {
-            return this.isCashgameRunning && this.hasCashedOut;
-        }
+const hasCashedOut = computed(() => {
+  return props.player.hasCashedOut();
+});
 
-        get isReportTimeEnabled(){
-            return this.isCashgameRunning;
-        }
+const showCheckmark = computed(() => {
+  return props.isCashgameRunning && hasCashedOut.value;
+});
 
-        get lastReportTime() {
-            return this.player.getLastReportTime();
-        }
+const isReportTimeEnabled = computed(() => {
+  return props.isCashgameRunning;
+});
 
-        get calculatedBuyin() {
-            return this.player.getBuyin();
-        }
+const lastReportTime = computed(() => {
+  return props.player.getLastReportTime();
+});
 
-        get stack() {
-            return this.player.getStack();
-        }
+const calculatedBuyin = computed(() => {
+  return props.player.getBuyin();
+});
 
-        get winnings() {
-            return this.player.getWinnings();
-        }
+const stack = computed(() => {
+  return props.player.getStack();
+});
 
-        get url() {
-            return urls.player.details(this.bunchId, this.player.id);
-        }
+const winnings = computed(() => {
+  return props.player.getWinnings();
+});
 
-        get showDetails() {
-            return this.isExpanded;
-        }
+const url = computed(() => {
+  return urls.player.details(props.bunchId, props.player.id);
+});
 
-        expand() {
-            this.isExpanded = true;
-        }
+const showDetails = computed(() => {
+  return isExpanded.value;
+});
 
-        collapse() {
-            this.isExpanded = false;
-        }
+const expand = () => {
+  isExpanded.value = true;
+};
 
-        toggle() {
-            this.isExpanded = !this.isExpanded;
-        }
+const collapse = () => {
+  isExpanded.value = false;
+};
 
-        onSelected(){
-            this.$emit('selected', this.player.id);
-        }
+const toggle = () => {
+  isExpanded.value = !isExpanded.value;
+};
 
-        onDeleteAction(id: string){
-            this.$emit('deleteAction', id);
-        }
+const onSelected = () => {
+  emit('selected', props.player.id);
+};
 
-        onSaveAction(data: any){
-            this.$emit('saveAction', data);
-        }
+const onDeleteAction = (id: string) => {
+  emit('deleteAction', id);
+};
 
-        click() {
-            this.toggle();
-        }
-    }
+const onSaveAction = (data: any) => {
+  emit('saveAction', data);
+};
+
+const click = () => {
+  toggle();
+};
 </script>
 
-<style lang="scss" scoped>
-    .player-row {
-        padding: 5px 0;
-        border-bottom: 1px solid #eee;
-    }
+<style lang="scss">
+.player-row {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
 
-    .row-wrapper{
-        display: flex;
-    }
+.player-row__row-wrapper {
+  display: flex;
+}
 
-    .link{
-        padding: 8px;
-    }
+.player-row__link {
+  padding: 8px;
+}
 
-    .name-and-time {
-        flex: 9;
-    }
+.player-row__name-and-time {
+  flex: 9;
+}
 
-    .amounts {
-        flex: 11;
-    }
+.player-row__name {
+  margin-right: 0.5rem;
+}
 
-    .chart,
-    .actions{
-        padding: 8px;
-    }
+.player-row__amounts {
+  flex: 11;
+}
+
+.player-row__chart,
+.player-row__actions {
+  padding: 8px;
+}
 </style>

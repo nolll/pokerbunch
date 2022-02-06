@@ -1,28 +1,23 @@
 ﻿<template>
-    <CustomLink :url="url">{{name}}</CustomLink>
+  <CustomLink :url="url">{{ name }}</CustomLink>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import urls from '@/urls';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import { LocationResponse } from '@/response/LocationResponse'
+<script setup lang="ts">
+import urls from '@/urls';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import { LocationResponse } from '@/response/LocationResponse';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            CustomLink
-        }
-    })
-    export default class LocationListItem extends Vue {
-        @Prop() readonly location!: LocationResponse;
-        @Prop() readonly bunchId!: string;
+const props = defineProps<{
+  location: LocationResponse;
+  bunchId: string;
+}>();
 
-        get name(){
-            return this.location.name;
-        }
+const name = computed(() => {
+  return props.location.name;
+});
 
-        get url() {
-            return urls.location.details(this.bunchId, this.location.id.toString());
-        }
-    }
+const url = computed(() => {
+  return urls.location.details(props.bunchId, props.location.id.toString());
+});
 </script>

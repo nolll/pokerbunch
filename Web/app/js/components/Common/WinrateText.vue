@@ -1,28 +1,26 @@
 ﻿<template>
-    <span :class="cssClasses">{{formattedValue}}</span>
+  <span :class="cssClasses">{{ formattedValue }}</span>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Vue } from 'vue-property-decorator';
-    import { CssClasses } from '@/models/CssClasses';
-    import { BunchMixin, FormatMixin } from '@/mixins';
+<script setup lang="ts">
+import useFormatter from '@/composables/useFormatter';
+import { CssClasses } from '@/models/CssClasses';
+import { computed } from 'vue';
 
-    @Component
-    export default class WinrateText extends Mixins(
-        BunchMixin,
-        FormatMixin
-    ) {
-        @Prop() readonly value!: number;
+const props = defineProps<{
+  value: number;
+}>();
 
-        get formattedValue() {
-            return this.$_formatWinrate(this.value);
-        }
-            
-        get cssClasses(): CssClasses {
-            return {
-                'pos-result': this.value > 0,
-                'neg-result': this.value < 0
-            };
-        }
-    }
+const formatter = useFormatter();
+
+const formattedValue = computed(() => {
+  return formatter.formatWinrate(props.value);
+});
+
+const cssClasses = computed((): CssClasses => {
+  return {
+    'pos-result': props.value > 0,
+    'neg-result': props.value < 0,
+  };
+});
 </script>

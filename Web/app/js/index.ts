@@ -1,18 +1,19 @@
 import browser from './browser';
-import app from './app';
+import { createApp } from 'vue';
+import { createStore } from 'vuex';
+import { createRouter } from 'vue-router';
+import rootStore from './store/RootStore';
+import routes from './routes';
+import Root from './components/Root.vue';
 import './styles';
 
 if (!browser.isCapable()) {
-    alert('PokerBunch requires a better browser');
+  alert('PokerBunch requires a better browser');
 }
 
-function domReady(callback: () => void) {
-    const isDone = document.readyState === 'interactive' || document.readyState === 'complete';
-    isDone
-        ? callback()
-        : document.addEventListener('DOMContentLoaded', callback);
-}
-
-domReady(() => {
-    app.init();
-});
+const store = createStore(rootStore);
+const router = createRouter(routes);
+const app = createApp(Root);
+app.use(store);
+app.use(router);
+app.mount('#app');

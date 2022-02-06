@@ -1,131 +1,125 @@
 ﻿<template>
-    <nav class="heading-nav">
-        <h1 class="page-heading">{{selectedPageName}}</h1>
-        <ul>
-            <CashgameNavigationItem :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="onSelected" />
-            <CashgameNavigationItem :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="onSelected" />
-            <CashgameNavigationItem :url="toplistUrl" text="Toplist" :isSelected="isToplistSelected" v-on:selected="onSelected" />
-            <CashgameNavigationItem :url="chartUrl" text="Chart" :isSelected="isChartSelected" v-on:selected="onSelected" />
-            <CashgameNavigationItem :url="listUrl" text="List" :isSelected="isListSelected" v-on:selected="onSelected" />
-            <CashgameNavigationItem :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="onSelected" />
-        </ul>
-        <YearDropdown class="year-dropdown" v-model="selectedYear" :years="years" v-on:input="onSelectedYear" v-if="isYearNavEnabled" />
-    </nav>
+  <nav class="heading-nav">
+    <h1 class="page-heading">{{ selectedPageName }}</h1>
+    <ul>
+      <CashgameNavigationItem :url="overviewUrl" text="Overview" :isSelected="isOverviewSelected" v-on:selected="onSelected" />
+      <CashgameNavigationItem :url="matrixUrl" text="Matrix" :isSelected="isMatrixSelected" v-on:selected="onSelected" />
+      <CashgameNavigationItem :url="toplistUrl" text="Toplist" :isSelected="isToplistSelected" v-on:selected="onSelected" />
+      <CashgameNavigationItem :url="chartUrl" text="Chart" :isSelected="isChartSelected" v-on:selected="onSelected" />
+      <CashgameNavigationItem :url="listUrl" text="List" :isSelected="isListSelected" v-on:selected="onSelected" />
+      <CashgameNavigationItem :url="factsUrl" text="Facts" :isSelected="isFactsSelected" v-on:selected="onSelected" />
+    </ul>
+    <YearDropdown
+      class="cashgame-navigation__year-dropdown"
+      v-model="selectedYear"
+      :years="years"
+      v-on:input="onSelectedYear"
+      v-if="isYearNavEnabled"
+    />
+  </nav>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Mixins, Watch } from 'vue-property-decorator';
-    import CashgameNavigationItem from './CashgameNavigationItem.vue';
-    import { BunchMixin, GameArchiveMixin } from '@/mixins';
-    import { CashgamePage } from '@/models/CashgamePage';
-    import YearDropdown from '@/components/YearDropdown.vue';
-    import urls from '@/urls';
+<script setup lang="ts">
+import CashgameNavigationItem from './CashgameNavigationItem.vue';
+import { CashgamePage } from '@/models/CashgamePage';
+import YearDropdown from '@/components/YearDropdown.vue';
+import urls from '@/urls';
+import { computed, onMounted, ref } from 'vue';
+import useGameArchive from '@/composables/useGameArchive';
+import useBunches from '@/composables/useBunches';
+import { useRoute, useRouter } from 'vue-router';
 
-    @Component({
-        components: {
-            CashgameNavigationItem,
-            YearDropdown
-        }
-    })
-    export default class CashgameNavigation extends Mixins(
-        BunchMixin,
-        GameArchiveMixin
-    ) {
-        selectedYear: number | null | undefined = null;
+const props = defineProps<{
+  page: CashgamePage;
+}>();
 
-        @Prop() readonly page!: CashgamePage;
+const bunches = useBunches();
+const gameArchive = useGameArchive();
+const route = useRoute();
+const router = useRouter();
 
-        get years(){
-            return this.$_years;
-        }
+const selectedYear = ref<number>();
 
-        get selectedPageName() {
-            if (this.page === CashgamePage.Matrix)
-                return 'Matrix';
-            if (this.page === CashgamePage.Toplist)
-                return 'Toplist';
-            if (this.page === CashgamePage.Chart)
-                return 'Chart';
-            if (this.page === CashgamePage.List)
-                return 'List';
-            if (this.page === CashgamePage.Facts)
-                return 'Facts';
-            return 'Overview'
-        }
+const years = computed(() => {
+  return gameArchive.years.value;
+});
 
-        get isYearNavEnabled() {
-            return this.page !== CashgamePage.Overview
-        }
+const selectedPageName = computed(() => {
+  if (props.page === 'matrix') return 'Matrix';
+  if (props.page === 'toplist') return 'Toplist';
+  if (props.page === 'chart') return 'Chart';
+  if (props.page === 'list') return 'List';
+  if (props.page === 'facts') return 'Facts';
+  return 'Overview';
+});
 
-        get overviewUrl() {
-            return urls.cashgame.archive(CashgamePage.Overview, this.$_slug);
-        }
+const isYearNavEnabled = computed(() => {
+  return props.page !== 'index';
+});
 
-        get matrixUrl() {
-            return urls.cashgame.archive(CashgamePage.Matrix, this.$_slug, this.selectedYear);
-        }
+const overviewUrl = computed(() => {
+  return urls.cashgame.index(bunches.slug.value);
+});
 
-        get toplistUrl() {
-            return urls.cashgame.archive(CashgamePage.Toplist, this.$_slug, this.selectedYear);
-        }
+const matrixUrl = computed(() => {
+  return urls.cashgame.archive('matrix', bunches.slug.value, selectedYear.value);
+});
 
-        get chartUrl() {
-            return urls.cashgame.archive(CashgamePage.Chart, this.$_slug, this.selectedYear);
-        }
+const toplistUrl = computed(() => {
+  return urls.cashgame.archive('toplist', bunches.slug.value, selectedYear.value);
+});
 
-        get listUrl() {
-            return urls.cashgame.archive(CashgamePage.List, this.$_slug, this.selectedYear);
-        }
+const chartUrl = computed(() => {
+  return urls.cashgame.archive('chart', bunches.slug.value, selectedYear.value);
+});
 
-        get factsUrl() {
-            return urls.cashgame.archive(CashgamePage.Facts, this.$_slug, this.selectedYear);
-        }
+const listUrl = computed(() => {
+  return urls.cashgame.archive('list', bunches.slug.value, selectedYear.value);
+});
 
-        get isOverviewSelected() {
-            return this.page === CashgamePage.Overview;
-        }
+const factsUrl = computed(() => {
+  return urls.cashgame.archive('facts', bunches.slug.value, selectedYear.value);
+});
 
-        get isMatrixSelected() {
-            return this.page === CashgamePage.Matrix;
-        }
+const isOverviewSelected = computed(() => {
+  return props.page === 'index';
+});
 
-        get isToplistSelected() {
-            return this.page === CashgamePage.Toplist;
-        }
+const isMatrixSelected = computed(() => {
+  return props.page === 'matrix';
+});
 
-        get isChartSelected() {
-            return this.page === CashgamePage.Chart;
-        }
+const isToplistSelected = computed(() => {
+  return props.page === 'toplist';
+});
 
-        get isListSelected() {
-            return this.page === CashgamePage.List;
-        }
+const isChartSelected = computed(() => {
+  return props.page === 'chart';
+});
 
-        get isFactsSelected() {
-            return this.page === CashgamePage.Facts;
-        }
+const isListSelected = computed(() => {
+  return props.page === 'list';
+});
 
-        getUrl(year?: number) {
-            return urls.cashgame.archive(this.page, this.$_slug, year)
-        }
+const isFactsSelected = computed(() => {
+  return props.page === 'facts';
+});
 
-        onSelected(url: string) {
-            if(this.$router.currentRoute.fullPath !== url)
-                this.$router.push(url);
-        }
+const onSelected = (url: string) => {
+  if (route.fullPath !== url) router.push(url);
+};
 
-        mounted(){
-            this.selectedYear = this.$_selectedYear || this.$_currentYear;
-        }
+const onSelectedYear = () => {
+  router.push(urls.cashgame.archive(props.page, bunches.slug.value, selectedYear.value));
+};
 
-        onSelectedYear(){
-            this.$router.push(urls.cashgame.archive(this.page, this.$_slug, this.selectedYear));
-        }
-    }
+onMounted(() => {
+  selectedYear.value = gameArchive.selectedYear.value || gameArchive.currentYear.value;
+});
 </script>
 
-<style lang="scss" scoped>
-    .year-dropdown{
-        margin-top: 10px;
-    }
+<style lang="scss">
+.cashgame-navigation__year-dropdown {
+  margin-top: 10px;
+}
 </style>

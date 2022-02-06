@@ -1,94 +1,99 @@
 ﻿<template>
-    <div>
-        <div class="errors" v-if="isErrorVisible">
-            <p class="validation-error">
-                {{errorMessage}}
-            </p>
-        </div>
-        <fieldset>
-            <p>
-                <label class="label" for="username">Email or User Name</label>
-                <input type="text" id="username" v-model="username" ref="username" class="textfield">
-            </p>
-            <p>
-                <label class="label" for="password">Password</label>
-                <input type="password" id="password" v-model="password" class="textfield">
-            </p>
-            <p class="checkbox-layout">
-                <label class="checkbox-label" for="rememberme">Keep me signed in</label>
-                <input type="checkbox" v-model="rememberMe" id="rememberme">
-            </p>
-            <div class="buttons">
-                <button @click="login" class="button button--action">Sign in</button>
-            </div>
-        </fieldset>
+  <div>
+    <div class="errors" v-if="isErrorVisible">
+      <p class="validation-error">
+        {{ errorMessage }}
+      </p>
     </div>
+    <fieldset>
+      <p>
+        <label class="label" for="username">Email or User Name</label>
+        <input type="text" id="username" v-model="username" class="textfield" />
+      </p>
+      <p>
+        <label class="label" for="password">Password</label>
+        <input type="password" id="password" v-model="password" class="textfield" />
+      </p>
+      <p class="checkbox-layout">
+        <label class="checkbox-label" for="rememberme">Keep me signed in</label>
+        <input type="checkbox" v-model="rememberMe" id="rememberme" />
+      </p>
+      <div class="buttons">
+        <button @click="login" class="button button--action" :disabled="isLoggingIn">Sign in</button>
+        <span class="login-form__logging-in" v-if="isLoggingIn">Signing in...</span>
+      </div>
+    </fieldset>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import querystring from '@/querystring';
-    import api from '@/api';
-    import auth from '@/auth'
-    import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
+<script setup lang="ts">
+import querystring from '@/querystring';
+import api from '@/api';
+import auth from '@/auth';
+import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
+import { computed, ref } from 'vue';
 
-    @Component
-    export default class LoginForm extends Vue {
-        @Prop() readonly text!: string;
+const username = ref('');
+const password = ref('');
+const rememberMe = ref(false);
+const errorMessage = ref<string | null>(null);
+const isLoggingIn = ref(false);
 
-        username = '';
-        password = '';
-        rememberMe = false;
-        errorMessage: string | null = null;
+const isErrorVisible = computed(() => {
+  return errorMessage.value !== null;
+});
 
-        get isErrorVisible() {
-            return this.errorMessage !== null;
-        }
+const login = async () => {
+  clearError();
 
-        async login() {
-            this.clearError();
+  if (validateForm()) {
+    var data: ApiParamsGetToken = {
+      username: username.value,
+      password: password.value,
+    };
 
-            if (this.validateForm()) {
-                var data: ApiParamsGetToken = {
-                    username: this.username,
-                    password: this.password
-                }
-
-                try{
-                    const response = await api.getToken(data);
-                    this.saveToken(response.data);
-                    this.redirect();
-                } catch {
-                    this.showError('There was something wrong with your username or password. Please try again.');
-                }
-            } else {
-                this.showError('Please enter your username (or email) and password');
-            }
-        }
-
-        validateForm() {
-            this.clearError();
-            if (this.username === '' || this.password === '')
-                return false;
-            return true;
-        }
-
-        clearError() {
-            this.errorMessage = null;
-        }
-
-        showError(message: string) {
-            this.errorMessage = message;
-        }
-
-        saveToken(token: string) {
-            auth.setToken(token, this.rememberMe);
-        }
-
-        redirect() {
-            const returnUrl = querystring.get('returnurl');
-            const redirectUrl = returnUrl || '/';
-            window.location.href = redirectUrl;
-        }
+    try {
+      isLoggingIn.value = true;
+      const response = await api.getToken(data);
+      saveToken(response.data);
+      redirect();
+    } catch {
+      isLoggingIn.value = false;
+      showError('There was something wrong with your username or password. Please try again.');
     }
+  } else {
+    isLoggingIn.value = false;
+    showError('Please enter your username (or email) and password');
+  }
+};
+
+const validateForm = () => {
+  clearError();
+  if (username.value === '' || password.value === '') return false;
+  return true;
+};
+
+const clearError = () => {
+  errorMessage.value = null;
+};
+
+const showError = (message: string) => {
+  errorMessage.value = message;
+};
+
+const saveToken = (token: string) => {
+  auth.setToken(token, rememberMe.value);
+};
+
+const redirect = () => {
+  const returnUrl = querystring.get('returnurl');
+  const redirectUrl = returnUrl || '/';
+  window.location.href = redirectUrl;
+};
 </script>
+
+<style lang="scss">
+.login-form__logging-in {
+  margin-left: 1rem;
+}
+</style>

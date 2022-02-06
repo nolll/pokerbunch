@@ -2,20 +2,17 @@
     <span>{{formattedValue}}</span>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Vue } from 'vue-property-decorator';
-    import { CssClasses } from '@/models/CssClasses';
-    import { BunchMixin, FormatMixin } from '@/mixins';
+<script setup lang="ts">
+    import useFormatter from '@/composables/useFormatter';
+    import { computed } from 'vue';
 
-    @Component
-    export default class CurrencyText extends Mixins(
-        BunchMixin,
-        FormatMixin
-    ) {
-        @Prop() readonly value!: number;
+    const props = defineProps<{
+        value: number
+    }>();
 
-        get formattedValue() {
-            return this.$_formatCurrency(this.value);
-        }
-    }
+    var formatter = useFormatter();
+
+    const formattedValue = computed(() => {
+        return formatter.formatCurrency(props.value);
+    });
 </script>

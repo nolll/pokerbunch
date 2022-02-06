@@ -1,32 +1,27 @@
 ﻿<template>
-    <div>
-        <span class="player-color-box" :style="colorBoxStyle"></span>
-        <CustomLink :url="url">{{name}}</CustomLink>
-    </div>
+  <div>
+    <span class="player-color-box" :style="colorBoxStyle"></span>
+    <CustomLink :url="url">{{ name }}</CustomLink>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import urls from '@/urls';
-    import CustomLink from '@/components/Common/CustomLink.vue';
+<script setup lang="ts">
+import urls from '@/urls';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            CustomLink
-        }
-    })
-    export default class PlayerListItem extends Vue {
-        @Prop() readonly bunchId!: string;
-        @Prop() readonly id!: number;
-        @Prop() readonly name!: string;
-        @Prop() readonly color!: string;
+const props = defineProps<{
+  bunchId: string;
+  id: string;
+  name: string;
+  color: string;
+}>();
 
-        get url() {
-            return urls.player.details(this.bunchId, this.id.toString());
-        }
+const url = computed(() => {
+  return urls.player.details(props.bunchId, props.id);
+});
 
-        get colorBoxStyle() {
-            return `background-color: ${this.color}`;
-        }
-    }
+const colorBoxStyle = computed(() => {
+  return `background-color: ${props.color}`;
+});
 </script>

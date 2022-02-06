@@ -42,9 +42,12 @@ public class SecurityHeadersMiddleware
 
     private static ContentSecurityPolicy GetCsp(AppSettings appSettings)
     {
-        var fontStyle = new FontStyle();
         var vueConfigScript = new VueConfigScript(appSettings);
-        var apiHost = appSettings.Urls.ApiHost;
+        var apiHost = appSettings.Urls.ApiUri.ToString().TrimEnd('/');
+        const string googleStaticUrl = "https://www.gstatic.com";
+        const string googleStaticFontsUrl = "https://fonts.gstatic.com";
+        const string googleApiFontsUrl = "https://fonts.googleapis.com";
+        const string gravatarUrl = "https://gravatar.com";
 
         var csp = new ContentSecurityPolicy()
             .AddDirective(
@@ -54,12 +57,13 @@ public class SecurityHeadersMiddleware
             .AddDirective(
                 new ContentSecurityDirective("script-src")
                     .AddSelf()
-                    .AddDomain("www.gstatic.com")
+                    .AddDomain(googleStaticUrl)
                     .AddHash(vueConfigScript.Hash)
             )
             .AddDirective(
                 new ContentSecurityDirective("img-src")
                     .AddSelf()
+                    .AddDomain(gravatarUrl)
             )
             .AddDirective(
                 new ContentSecurityDirective("connect-src")
@@ -69,14 +73,13 @@ public class SecurityHeadersMiddleware
             .AddDirective(
                 new ContentSecurityDirective("style-src")
                     .AddSelf()
-                    .AddDomain("www.gstatic.com")
-                    .AddDomain("fonts.googleapis.com")
-                    .AddHash(fontStyle.Hash)
+                    .AddDomain(googleStaticUrl)
+                    .AddDomain(googleApiFontsUrl)
             )
             .AddDirective(
                 new ContentSecurityDirective("font-src")
                     .AddSelf()
-                    .AddDomain("fonts.gstatic.com")
+                    .AddDomain(googleStaticFontsUrl)
             );
 
         return csp;

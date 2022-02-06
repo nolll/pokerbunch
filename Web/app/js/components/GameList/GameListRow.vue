@@ -1,58 +1,51 @@
 ﻿<template>
-    <TableListRow>
-        <TableListCell><CustomLink :url="url">{{displayDate}}</CustomLink></TableListCell>
-        <TableListCell :is-numeric="true">{{game.playerCount}}</TableListCell>
-        <TableListCell>{{game.location.name}}</TableListCell>
-        <TableListCell>{{duration}}</TableListCell>
-        <TableListCell :is-numeric="true">{{formattedTurnover}}</TableListCell>
-        <TableListCell :is-numeric="true">{{formattedAverageBuyin}}</TableListCell>
-    </TableListRow>
+  <TableListRow>
+    <TableListCell>
+      <CustomLink :url="url">{{ displayDate }}</CustomLink>
+    </TableListCell>
+    <TableListCell :is-numeric="true">{{ game.playerCount }}</TableListCell>
+    <TableListCell>{{ game.location.name }}</TableListCell>
+    <TableListCell>{{ duration }}</TableListCell>
+    <TableListCell :is-numeric="true">{{ formattedTurnover }}</TableListCell>
+    <TableListCell :is-numeric="true">{{ formattedAverageBuyin }}</TableListCell>
+  </TableListRow>
 </template>
 
-<script lang="ts">
-    import dayjs from 'dayjs';
-    import urls from '@/urls';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import { BunchMixin, FormatMixin, GameArchiveMixin } from '@/mixins';
-    import { Component, Mixins, Prop } from 'vue-property-decorator';
-    import { ArchiveCashgame } from '@/models/ArchiveCashgame';
-    import { CashgameSortOrder } from '@/models/CashgameSortOrder';
-    import format from '@/format';
-    import TableListRow from '@/components/Common/TableList/TableListRow.vue';
-    import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+<script setup lang="ts">
+import urls from '@/urls';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import format from '@/format';
+import TableListRow from '@/components/Common/TableList/TableListRow.vue';
+import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+import { computed } from 'vue';
+import useBunches from '@/composables/useBunches';
+import useFormatter from '@/composables/useFormatter';
 
-    @Component({
-        components: {
-            CustomLink,
-            TableListRow,
-            TableListCell
-        }
-    })
-    export default class GameListRow extends Mixins(
-        BunchMixin,
-        FormatMixin,
-        GameArchiveMixin
-    ){
-        @Prop() readonly game!: ArchiveCashgame;
+const props = defineProps<{
+  game: ArchiveCashgame;
+}>();
 
-        get url() {
-            return urls.cashgame.details(this.$_slug, this.game.id);
-        }
+const bunches = useBunches();
+const formatter = useFormatter();
 
-        get displayDate() {
-            return format.monthDay(this.game.date);
-        }
+const url = computed(() => {
+  return urls.cashgame.details(bunches.slug.value, props.game.id);
+});
 
-        get duration() {
-            return this.$_formatDuration(this.game.duration);
-        }
+const displayDate = computed(() => {
+  return format.monthDay(props.game.date);
+});
 
-        get formattedAverageBuyin() {
-            return this.$_formatCurrency(this.game.averageBuyin);
-        }
+const duration = computed(() => {
+  return formatter.formatDuration(props.game.duration);
+});
 
-        get formattedTurnover() {
-            return this.$_formatCurrency(this.game.turnover);
-        }
-    }
+const formattedAverageBuyin = computed(() => {
+  return formatter.formatCurrency(props.game.averageBuyin);
+});
+
+const formattedTurnover = computed(() => {
+  return formatter.formatCurrency(props.game.turnover);
+});
 </script>

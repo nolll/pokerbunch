@@ -1,48 +1,42 @@
 ﻿<template>
-    <div>
-        <CustomLink :url="url">{{name}}</CustomLink>,
-        {{details}}
-    </div>
+  <div>
+    <CustomLink :url="url">{{ name }}</CustomLink
+    >,
+    {{ details }}
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Prop, Vue } from 'vue-property-decorator';
-    import urls from '@/urls';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import { EventResponse } from '@/response/EventResponse'
+<script setup lang="ts">
+import urls from '@/urls';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import { EventResponse } from '@/response/EventResponse';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            CustomLink
-        }
-    })
-    export default class EventListItem extends Vue {
-        @Prop() readonly event!: EventResponse;
+const props = defineProps<{
+  event: EventResponse;
+}>();
 
-        get name(){
-            return this.event.name;
-        }
+const name = computed(() => {
+  return props.event.name;
+});
 
-        get location(){
-            return this.event.location.name;
-        }
+const location = computed(() => {
+  return props.event.location.name;
+});
 
-        get date(){
-            return this.event.startDate;
-        }
+const date = computed(() => {
+  return props.event.startDate;
+});
 
-        get url() {
-            return urls.event.details(this.event.bunchId, this.event.id.toString());
-        }
+const url = computed(() => {
+  return urls.event.details(props.event.bunchId, props.event.id.toString());
+});
 
-        get details(){
-            return this.hasGames
-                ? `${this.location}, ${this.date}`
-                : 'No games';
-        }
+const details = computed(() => {
+  return hasGames.value ? `${location.value}, ${date.value}` : 'No games';
+});
 
-        get hasGames(){
-            return !!this.event.location && !!this.event.startDate;
-        }
-    }
+const hasGames = computed(() => {
+  return !!props.event.location && !!props.event.startDate;
+});
 </script>

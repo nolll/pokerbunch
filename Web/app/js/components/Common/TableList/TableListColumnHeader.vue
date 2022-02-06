@@ -1,42 +1,44 @@
 ﻿<template>
-    <th class="table-list__column-header" :class="cssClasses">
-        <span class="table-list__column-header__content" v-if="hasContent" v-on:click="onClick">
-            <slot></slot>
-        </span>
-    </th>
+  <th class="table-list__column-header" :class="cssClasses">
+    <span class="table-list__column-header__content" v-if="hasContent" v-on:click="onClick">
+      <slot></slot>
+    </span>
+  </th>
 </template>
 
-<script lang="ts">
-    import { CssClasses } from '@/models/CssClasses';
-    import { Component, Prop, Vue } from 'vue-property-decorator';
+<script setup lang="ts">
+import { CssClasses } from '@/models/CssClasses';
+import { computed, useSlots } from 'vue';
 
-    @Component
-    export default class TableListColumnHeader extends Vue {
-        @Prop() readonly sortName?: string | null;
-        @Prop() readonly orderedBy?: string | null;
+const props = defineProps<{
+  sortName?: string;
+  orderedBy?: string;
+}>();
 
-        get hasContent() {
-            return !!this.$slots.default
-        }
+const emit = defineEmits(['sort']);
 
-        get isSelected(){
-            return this.sortName === this.orderedBy;
-        }
+const slots = useSlots();
 
-        get isSortable(){
-            return !!this.sortName;
-        }
+const hasContent = computed(() => {
+  return !!slots.default;
+});
 
-        get cssClasses(): CssClasses {
-            return {
-                'table-list__column-header--sortable': this.isSortable,
-                'table-list__column-header--selected': this.isSortable && this.isSelected
-            }
-        }
+const isSelected = computed(() => {
+  return props.sortName === props.orderedBy;
+});
 
-        onClick(){
-            if(this.isSortable)
-                this.$emit('sort', this.sortName);
-        }
-    }
+const isSortable = computed(() => {
+  return !!props.sortName;
+});
+
+const cssClasses = computed((): CssClasses => {
+  return {
+    'table-list__column-header--sortable': isSortable.value,
+    'table-list__column-header--selected': isSortable.value && isSelected.value,
+  };
+});
+
+const onClick = () => {
+  if (isSortable.value) emit('sort', props.sortName);
+};
 </script>

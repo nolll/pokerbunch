@@ -1,62 +1,53 @@
 ﻿<template>
-    <div class="matrix" v-if="ready">
-        <TableList>
-            <thead>
-                <tr>
-                    <TableListColumnHeader />
-                    <TableListColumnHeader>Player</TableListColumnHeader>
-                    <TableListColumnHeader>Total</TableListColumnHeader>
-                    <TableListColumnHeader>
-                        <CustomLink :url="url">Last game</CustomLink>
-                    </TableListColumnHeader>
-                </tr>
-            </thead>
-            <tbody>
-                <OverviewRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" :bunchId="slug" />
-            </tbody>
-        </TableList>
-    </div>
+  <div class="matrix" v-if="ready">
+    <TableList>
+      <thead>
+        <tr>
+          <TableListColumnHeader />
+          <TableListColumnHeader>Player</TableListColumnHeader>
+          <TableListColumnHeader>Total</TableListColumnHeader>
+          <TableListColumnHeader>
+            <CustomLink :url="url">Last game</CustomLink>
+          </TableListColumnHeader>
+        </tr>
+      </thead>
+      <tbody>
+        <OverviewRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" :bunchId="slug" />
+      </tbody>
+    </TableList>
+  </div>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins } from 'vue-property-decorator';
-    import urls from '@/urls';
-    import OverviewRow from '@/components/Overview/OverviewRow.vue';
-    import CustomLink from '@/components/Common/CustomLink.vue';
-    import { BunchMixin, GameArchiveMixin } from '@/mixins';
-    import TableList from '@/components/Common/TableList/TableList.vue';
-    import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+<script setup lang="ts">
+import urls from '@/urls';
+import OverviewRow from '@/components/Overview/OverviewRow.vue';
+import CustomLink from '@/components/Common/CustomLink.vue';
+import TableList from '@/components/Common/TableList/TableList.vue';
+import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+import useBunches from '@/composables/useBunches';
+import useGameArchive from '@/composables/useGameArchive';
+import { computed } from 'vue';
 
-    @Component({
-        components: {
-            OverviewRow,
-            CustomLink,
-            TableList,
-            TableListColumnHeader
-        }
-    })
-    export default class OverviewTable extends Mixins(
-        BunchMixin,
-        GameArchiveMixin
-    ) {
-        get players(){
-            return this.$_currentYearPlayers;
-        }
+const bunches = useBunches();
+const gameArchive = useGameArchive();
 
-        get url() {
-            return urls.cashgame.details(this.slug, this.lastGame.id);
-        }
+const players = computed(() => {
+  return gameArchive.currentYearPlayers.value;
+});
 
-        get lastGame() {
-            return this.$_currentYearGames[0];
-        }
+const url = computed(() => {
+  return urls.cashgame.details(slug.value, lastGame.value.id);
+});
 
-        get slug(){
-            return this.$_slug;
-        }
+const lastGame = computed(() => {
+  return gameArchive.currentYearGames.value[0];
+});
 
-        get ready() {
-            return this.$_bunchReady && this.$_currentYearPlayers.length > 0;
-        }
-    }
+const slug = computed(() => {
+  return bunches.slug.value;
+});
+
+const ready = computed(() => {
+  return bunches.bunchReady.value && gameArchive.currentYearPlayers.value.length > 0;
+});
 </script>

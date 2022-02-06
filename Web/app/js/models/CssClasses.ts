@@ -1,3 +1,1 @@
-export interface CssClasses extends Record<string, boolean>{
-    
-}
+export interface CssClasses extends Record<string, boolean> {}

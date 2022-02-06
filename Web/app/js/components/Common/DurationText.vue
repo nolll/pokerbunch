@@ -1,20 +1,18 @@
 ﻿<template>
-    <span>{{formattedValue}}</span>
+  <span>{{ formattedValue }}</span>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop, Vue } from 'vue-property-decorator';
-    import { CssClasses } from '@/models/CssClasses';
-    import { FormatMixin } from '@/mixins';
+<script setup lang="ts">
+import useFormatter from '@/composables/useFormatter';
+import { computed } from 'vue';
 
-    @Component
-    export default class DurationText extends Mixins(
-        FormatMixin
-    ) {
-        @Prop() readonly value!: number;
+const props = defineProps<{
+  value: number;
+}>();
 
-        get formattedValue() {
-            return this.$_formatDuration(this.value);
-        }
-    }
+var formatter = useFormatter();
+
+const formattedValue = computed(() => {
+  return formatter.formatDuration(props.value);
+});
 </script>

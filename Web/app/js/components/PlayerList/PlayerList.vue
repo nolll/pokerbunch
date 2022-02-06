@@ -1,36 +1,29 @@
 ﻿<template>
-    <SimpleList>
-        <SimpleListItem v-for="player in players" :key="player.id">
-            <PlayerList-item :id="player.id" :name="player.name" :color="player.color" :bunchId="bunchId" />
-        </SimpleListItem>
-    </SimpleList>
+  <SimpleList>
+    <SimpleListItem v-for="player in playerList" :key="player.id">
+      <PlayerListItem :id="player.id" :name="player.name" :color="player.color" :bunchId="bunchId" />
+    </SimpleListItem>
+  </SimpleList>
 </template>
 
-<script lang="ts">
-    import { Component, Mixins, Prop } from 'vue-property-decorator';
-    import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
-    import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-    import PlayerListItem from '@/components/PlayerList/PlayerListItem.vue';
-    import { PlayerMixin } from '@/mixins';
+<script setup lang="ts">
+import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
+import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
+import usePlayers from '@/composables/usePlayers';
+import { computed } from 'vue';
+import PlayerListItem from './PlayerListItem.vue';
 
-    @Component({
-        components: {
-            SimpleList,
-            SimpleListItem,
-            PlayerListItem
-        }
-    })
-    export default class PlayerList extends Mixins(
-        PlayerMixin
-    ) {
-        @Prop() readonly bunchId!: string;
+defineProps<{
+  bunchId: string;
+}>();
 
-        get players(){
-            return this.$_players;
-        }
+const players = usePlayers();
 
-        get ready() {
-            return this.$_playersReady;
-        }
-    }
+const playerList = computed(() => {
+  return players.players.value;
+});
+
+const ready = computed(() => {
+  return players.playersReady.value;
+});
 </script>

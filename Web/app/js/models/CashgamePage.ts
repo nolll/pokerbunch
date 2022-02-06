@@ -1,8 +1,1 @@
-export enum CashgamePage {
-    Overview = 'index',
-    Matrix = 'matrix',
-    Toplist = 'toplist',
-    Chart = 'chart',
-    List = 'list',
-    Facts = 'facts'
-}
+export type CashgamePage = 'index' | 'matrix' | 'toplist' | 'chart' | 'list' | 'facts';

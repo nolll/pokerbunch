@@ -1,5 +1,5 @@
 ﻿import urls from '@/urls';
-import { RouteConfig, RouterOptions } from 'vue-router';
+import { createWebHistory, RouteRecordRaw, RouterOptions } from 'vue-router';
 import HomePage from '@/components/Pages/HomePage.vue';
 import LoginPage from '@/components/Pages/LoginPage.vue';
 import UserListPage from '@/components/Pages/UserListPage.vue';
@@ -32,54 +32,45 @@ import JoinBunchPage from '@/components/Pages/JoinBunchPage.vue';
 import AdminToolsPage from '@/components/Pages/AdminToolsPage.vue';
 import ApiDocsPage from '@/components/Pages/ApiDocsPage.vue';
 
-const routes: RouteConfig[] = [
-    { path: urls.home, component: HomePage },
-    { path: urls.admin.tools, component: AdminToolsPage },
-    { path: urls.api.docs, component: ApiDocsPage },
-    { path: '/auth/login', component: LoginPage },
-    { path: '/bunch/add', component: AddBunchPage },
-    { path: '/bunches/:slug/cashgames/add', component: AddCashgamePage },
-    { path: '/bunches/:slug/cashgames/chart/:year?', component: ChartPage },
-    { path: '/bunches/:slug/cashgames/facts/:year?', component: FactsPage },
-    { path: '/bunches/:slug/cashgames/list/:year?', component: ListPage },
-    { path: '/bunches/:slug/cashgames/matrix/:year?', component: MatrixPage },
-    { path: '/bunches/:slug/cashgames/toplist/:year?', component: ToplistPage },
-    { path: '/bunches/:slug/cashgames/:id', component: CashgameDetailsPage },
-    { path: '/bunches/:slug/cashgames', component: OverviewPage },
-    { path: '/bunches/:slug/players/add', component: AddPlayerPage },
-    { path: '/bunches/:slug/players/:id', component: PlayerDetailsPage },
-    { path: '/bunches/:slug/players', component: PlayerListPage },
-    { path: '/bunches/:slug/events/add', component: AddEventPage },
-    { path: '/bunches/:slug/events/:id', component: EventDetailsPage },
-    { path: '/bunches/:slug/events', component: EventListPage },
-    { path: '/bunches/:slug/locations/add', component: AddLocationPage },
-    { path: '/bunches/:slug/locations/:id', component: LocationDetailsPage },
-    { path: '/bunches/:slug/locations', component: LocationListPage },
-    { path: '/bunches/:slug/join/:code?', component: JoinBunchPage },
-    { path: '/bunches/:slug', component: BunchDetailsPage },
-    { path: '/bunches', component: BunchListPage },
-    { path: '/users/:userName', component: UserDetailsPage },
-    { path: '/users', component: UserListPage },
-    { path: '/user/add', component: AddUserPage },
-    { path: '/user/changepassword', component: ChangePasswordPage },
-    { path: '/user/resetpassword', component: ResetPasswordPage },
-    { path: '*', component: NotFoundPage, name: '404' }
+const routes: RouteRecordRaw[] = [
+  { path: urls.home, component: HomePage },
+  { path: urls.admin.tools, component: AdminToolsPage },
+  { path: urls.api.docs, component: ApiDocsPage },
+  { path: urls.auth.login, component: LoginPage },
+  { path: '/bunch/add', component: AddBunchPage },
+  { path: '/bunches/:slug/cashgames/add', component: AddCashgamePage },
+  { path: '/bunches/:slug/cashgames/chart/:year?', component: ChartPage },
+  { path: '/bunches/:slug/cashgames/facts/:year?', component: FactsPage },
+  { path: '/bunches/:slug/cashgames/list/:year?', component: ListPage },
+  { path: '/bunches/:slug/cashgames/matrix/:year?', component: MatrixPage },
+  { path: '/bunches/:slug/cashgames/toplist/:year?', component: ToplistPage },
+  { path: '/bunches/:slug/cashgames/:id', component: CashgameDetailsPage },
+  { path: '/bunches/:slug/cashgames', component: OverviewPage },
+  { path: '/bunches/:slug/players/add', component: AddPlayerPage },
+  { path: '/bunches/:slug/players/:id', component: PlayerDetailsPage },
+  { path: '/bunches/:slug/players', component: PlayerListPage },
+  { path: '/bunches/:slug/events/add', component: AddEventPage },
+  { path: '/bunches/:slug/events/:id', component: EventDetailsPage },
+  { path: '/bunches/:slug/events', component: EventListPage },
+  { path: '/bunches/:slug/locations/add', component: AddLocationPage },
+  { path: '/bunches/:slug/locations/:id', component: LocationDetailsPage },
+  { path: '/bunches/:slug/locations', component: LocationListPage },
+  { path: '/bunches/:slug/join/:code?', component: JoinBunchPage },
+  { path: '/bunches/:slug', component: BunchDetailsPage },
+  { path: urls.bunch.list, component: BunchListPage },
+  { path: '/users/:userName', component: UserDetailsPage },
+  { path: urls.user.list, component: UserListPage },
+  { path: '/user/add', component: AddUserPage },
+  { path: '/user/changepassword', component: ChangePasswordPage },
+  { path: '/user/resetpassword', component: ResetPasswordPage },
+  { path: '/:pathMatch(.*)', component: NotFoundPage, name: '404' },
 ];
 
-const redirects: RouteConfig[] = [
-    { path: '/bunch/details/:slug', redirect: '/bunches/:slug' },
-    { path: '/cashgame/chart/:slug/:year?', redirect: '/bunches/:slug/cashgames/chart/:year?' },
-    { path: '/cashgame/facts/:slug/:year?', redirect: '/bunches/:slug/cashgames/facts/:year?' },
-    { path: '/cashgame/index/:slug', redirect: '/bunches/:slug/cashgames' },
-    { path: '/cashgame/list/:slug/:year?', redirect: '/bunches/:slug/cashgames/list/:year?' },
-    { path: '/cashgame/matrix/:slug/:year?', redirect: '/bunches/:slug/cashgames/matrix/:year?' },
-    { path: '/cashgame/details/:slug/:id', redirect: '/bunches/:slug/cashgames/:id' },
-    { path: '/cashgame/toplist/:slug/:year?', redirect: '/bunches/:slug/cashgames/toplist/:year?' },
-    { path: '/player/list/:slug', redirect: '/bunches/:slug/players' },
-    { path: '/user/list', redirect: '/users' }
-];
+const redirects: RouteRecordRaw[] = [];
 
-export default {
-    mode: 'history',
-    routes: routes.concat(redirects)
-} as RouterOptions;
+const options: RouterOptions = {
+  history: createWebHistory(),
+  routes: routes.concat(redirects),
+};
+
+export default options;

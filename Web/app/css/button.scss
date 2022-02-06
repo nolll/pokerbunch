@@ -1,38 +1,47 @@
-@import "mixins";
+@import 'mixins';
 
-.button{
-    border: 1px solid #ccc;
-    color: #000;
-    background: #fff;
-    display:inline-block;
-    @include default-font;
-    font-weight: normal;
-    padding: 6px 10px;
-	text-decoration: none;
-	white-space: nowrap;
-	@include fontsize(12);
-	text-transform: uppercase;
+.button {
+  border: 1px solid #ccc;
+  color: #000;
+  background: #fff;
+  display: inline-block;
+  @include default-font;
+  font-weight: normal;
+  padding: 6px 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  @include fontsize(12);
+  text-transform: uppercase;
 }
 
-.button--icon{
-    border: none;
-    background: transparent;
-	display:inline-block;
-	@include default-font;
-	@include fontsize(10);
-	padding: 4px 9px;
-	text-align: center;
-
-	i{
-		display: block;
-		@include fontsize(28, 10);
-	}
+.button + .button {
+  margin-left: 5px;
 }
 
-.button--action{
-    border: 1px solid #bcb;
-    background: #f6f4ef;
+button[disabled] {
+  opacity: 0.4;
+  cursor: auto;
 }
 
-.button--warning{
+.button--icon {
+  border: none;
+  background: transparent;
+  display: inline-block;
+  @include default-font;
+  @include fontsize(10);
+  padding: 4px 9px;
+  text-align: center;
+
+  i {
+    display: block;
+    @include fontsize(28, 10);
+  }
+}
+
+.button--action {
+  border: 1px solid #bcb;
+  background: #f6f4ef;
+}
+
+.button--warning {
 }
