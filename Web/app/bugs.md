@@ -1,15 +1,15 @@
 # bugs
 
-spinner two rows
+spinner two rows (can't reproduce now)
 event sort order when adding event
-buyin - numbers treated as text before refresh
-cashout - numbers treated as text before refresh (sum below table)
 edit buyin - NaN when emptying field
 edit report - NaN when emptying field
 edit cashout - NaN when emptying field
 
 # done
 
+buyin - numbers treated as text before refresh
+cashout - numbers treated as text before refresh (sum below table)
 user avatar
 location list not found (removed admin locations. Locations belong to a bunch)
 start page spacing

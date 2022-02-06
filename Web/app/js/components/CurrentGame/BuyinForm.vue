@@ -2,11 +2,11 @@
   <div class="form">
     <div class="field">
       <label class="label" for="buyin-amount">Amount</label>
-      <input class="numberfield" v-model="amount" v-on:focus="focus" id="buyin-amount" type="text" pattern="[0-9]*" />
+      <input class="numberfield" v-model.number="amount" v-on:focus="focus" id="buyin-amount" type="text" pattern="[0-9]*" />
     </div>
     <div class="field" v-if="isPlayerInGame">
       <label class="label" for="buyin-stack">Stack Size</label>
-      <input class="numberfield" v-model="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*" />
+      <input class="numberfield" v-model.number="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*" />
     </div>
     <div class="buttons">
       <CustomButton v-on:click="buyin" type="action" text="Buy In" />
