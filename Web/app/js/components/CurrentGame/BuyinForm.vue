@@ -2,11 +2,27 @@
   <div class="form">
     <div class="field">
       <label class="label" for="buyin-amount">Amount</label>
-      <input class="numberfield" v-model="amount" v-on:focus="focus" id="buyin-amount" type="text" pattern="[0-9]*" />
+      <input
+        class="numberfield"
+        v-model="strAmount"
+        v-on:focus="focus"
+        id="buyin-amount"
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+      />
     </div>
     <div class="field" v-if="isPlayerInGame">
       <label class="label" for="buyin-stack">Stack Size</label>
-      <input class="numberfield" v-model="stack" v-on:focus="focus" id="buyin-stack" type="text" pattern="[0-9]*" />
+      <input
+        class="numberfield"
+        v-model="strStack"
+        v-on:focus="focus"
+        id="buyin-stack"
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+      />
     </div>
     <div class="buttons">
       <CustomButton v-on:click="buyin" type="action" text="Buy In" />
@@ -28,13 +44,21 @@ const props = defineProps<{
 
 const emit = defineEmits(['buyin', 'cancel']);
 
-const amount = ref(0);
-const stack = ref(0);
+const strAmount = ref('0');
+const strStack = ref('0');
 const buyinError = ref<string | null>(null);
 const stackError = ref<string | null>(null);
 
 const hasErrors = computed(() => {
   return buyinError.value === null && stackError.value === null;
+});
+
+const amount = computed(() => {
+  return forms.parseInt(strAmount.value);
+});
+
+const stack = computed(() => {
+  return forms.parseInt(strStack.value);
 });
 
 const buyin = () => {
@@ -64,6 +88,6 @@ const clearErrors = () => {
 };
 
 onMounted(() => {
-  amount.value = props.defaultBuyin;
+  strAmount.value = props.defaultBuyin.toString();
 });
 </script>

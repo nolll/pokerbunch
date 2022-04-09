@@ -2,7 +2,15 @@
   <div class="form">
     <div class="field">
       <label class="label" for="report-stack">Stack Size</label>
-      <input class="numberfield" v-model="stack" v-on:focus="focus" id="report-stack" type="text" pattern="[0-9]*" />
+      <input
+        class="numberfield"
+        v-model="strStack"
+        v-on:focus="focus"
+        id="report-stack"
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+      />
     </div>
     <div class="buttons">
       <CustomButton v-on:click="report" type="action" text="Report" />
@@ -23,11 +31,15 @@ const props = defineProps<{
 
 const emit = defineEmits(['report', 'cancel']);
 
-const stack = ref(0);
+const strStack = ref('0');
 const stackError = ref<string | null>(null);
 
 const hasErrors = computed(() => {
   return stackError.value === null;
+});
+
+const stack = computed(() => {
+  return forms.parseInt(strStack.value);
 });
 
 const report = () => {
@@ -54,6 +66,6 @@ const clearErrors = () => {
 };
 
 onMounted(() => {
-  stack.value = props.defaultBuyin;
+  strStack.value = props.defaultBuyin.toString();
 });
 </script>
