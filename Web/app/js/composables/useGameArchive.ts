@@ -82,7 +82,7 @@ export default function useGameArchive() {
 
   const loadGames = async () => {
     const slug = route.params.slug as string;
-    if (slug !== store.state._slug) {
+    if (slug !== store.state.gameArchive._slug) {
       store.commit(GameArchiveStoreMutations.SetSlug, slug);
       const response = await api.getGames(slug);
       const games = response.data.map((o) => ArchiveCashgame.fromResponse(o));
