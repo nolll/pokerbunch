@@ -1,4 +1,3 @@
-import { BunchStoreActions, BunchStoreGetters } from '@/store/helpers/BunchStoreHelpers';
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 import { useRoute } from 'vue-router';
