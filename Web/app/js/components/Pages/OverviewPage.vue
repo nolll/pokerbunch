@@ -52,26 +52,26 @@ import { computed, onMounted } from 'vue';
 
 const users = useUsers();
 const bunches = useBunches();
-const gameArchives = useGameArchive();
+const gameArchive = useGameArchive();
 const currentGames = useCurrentGames();
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchives.gamesReady.value && currentGames.currentGamesReady.value;
+  return bunches.bunchReady.value && gameArchive.gamesReady.value && currentGames.currentGamesReady.value;
 });
 
 const hasGames = computed(() => {
-  return gameArchives.hasGames.value;
+  return gameArchive.hasGames.value;
 });
 
-const init = () => {
+const init = async () => {
   users.requireUser();
   bunches.loadBunch();
-  gameArchives.loadGames();
-  gameArchives.selectYear(undefined);
+  gameArchive.loadGames();
+  gameArchive.selectYear(undefined);
   currentGames.loadCurrentGames();
 };
 
-onMounted(() => {
+onMounted(async () => {
   init();
 });
 </script>

@@ -25,12 +25,12 @@ export default function useGameArchive() {
   });
 
   const sortedGames = computed((): ArchiveCashgame[] => {
-    const selectedGames = getSelectedGames(store.state.gameArchive._games, store.state.gameArchive._selectedYear);
-    return gameSorter.sort(selectedGames, store.state.gameArchive._gameSortOrder);
+    const selectedGames = getSelectedGames(games.value, selectedYear.value);
+    return gameSorter.sort(selectedGames, gameSortOrder.value);
   });
 
   const sortedPlayers = computed((): CashgameListPlayerData[] => {
-    return playerSorter.sort(archiveHelper.getPlayers(sortedGames.value), store.state.gameArchive._playerSortOrder);
+    return playerSorter.sort(archiveHelper.getPlayers(sortedGames.value), playerSortOrder.value);
   });
 
   const gameSortOrder = computed((): CashgameSortOrder => {
@@ -46,11 +46,11 @@ export default function useGameArchive() {
   });
 
   const years = computed((): number[] => {
-    return getYears(store.state.gameArchive._games);
+    return getYears(games.value);
   });
 
   const currentYearGames = computed((): ArchiveCashgame[] => {
-    const selectedGames = getSelectedGames(store.state.gameArchive._games, currentYear.value);
+    const selectedGames = getSelectedGames(games.value, currentYear.value);
     return gameSorter.sort(selectedGames, CashgameSortOrder.Date);
   });
 
@@ -59,20 +59,19 @@ export default function useGameArchive() {
   });
 
   const allYearsPlayers = computed((): CashgameListPlayerData[] => {
-    return playerSorter.sort(archiveHelper.getPlayers(store.state.gameArchive._games), CashgamePlayerSortOrder.Winnings);
+    return playerSorter.sort(archiveHelper.getPlayers(games.value), CashgamePlayerSortOrder.Winnings);
   });
 
   const currentYear = computed((): number | undefined => {
-    const games = store.state.gameArchive._games;
-    if (games > 0) {
-      const latestGame = games[0];
+    if (games.value.length > 0) {
+      const latestGame = games.value[0];
       return dayjs(latestGame.startTime).year();
     }
     return undefined;
   });
 
   const hasGames = computed((): boolean => {
-    return store.state.gameArchive._games.length > 0;
+    return games.value.length > 0;
   });
 
   const routeYear = computed(() => {
