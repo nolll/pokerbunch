@@ -97,7 +97,7 @@ export default function useBunches() {
   };
 
   const loadBunches = async () => {
-    if (store.state._bunches.length === 0) {
+    if (store.state.bunch._bunches.length === 0) {
       try {
         const response = await api.getBunches();
         store.commit(BunchStoreMutations.SetBunchesData, response.data);
