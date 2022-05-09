@@ -11,7 +11,7 @@ export default function usePlayers() {
   const route = useRoute();
 
   const playersReady = computed((): boolean => {
-    return store.state.players._playersReady;
+    return store.state.player._playersReady;
   });
 
   const players = computed((): Player[] => {
@@ -31,7 +31,7 @@ export default function usePlayers() {
 
   const loadPlayers = async () => {
     const slug = route.params.slug as string;
-    if (slug !== store.state.state.player._slug) {
+    if (slug !== store.state.player._slug) {
       store.commit(PlayerStoreMutations.SetSlug, slug);
       const response = await api.getPlayers(slug);
       const players = response.data.map((o) => mapPlayer(o));
