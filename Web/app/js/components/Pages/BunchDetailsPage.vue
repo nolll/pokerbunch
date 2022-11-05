@@ -77,7 +77,6 @@
 </template>
 
 <script setup lang="ts">
-import urls from '@/urls';
 import Layout from '@/components/Layouts/Layout.vue';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import Block from '@/components/Common/Block.vue';
@@ -90,9 +89,8 @@ import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import api from '@/api';
-import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import useBunches from '@/composables/useBunches';
 import useTimezones from '@/composables/useTimezones';
 import useUsers from '@/composables/useUsers';
@@ -100,7 +98,7 @@ import useFormatter from '@/composables/useFormatter';
 
 const users = useUsers();
 const bunches = useBunches();
-const timezones = useTimezones();
+const timezones = useTimezones().getTimezones();
 const formatter = useFormatter();
 
 const isEditing = ref(false);
@@ -212,13 +210,12 @@ const save = async () => {
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && timezones.timezonesReady.value;
+  return bunches.bunchReady.value;
 });
 
 const init = () => {
   users.requireUser();
   bunches.loadBunch();
-  timezones.loadTimezones();
 };
 
 onMounted(() => {

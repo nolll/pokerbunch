@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Create Bunch" />
@@ -64,12 +64,13 @@ import useTimezones from '@/composables/useTimezones';
 import { computed, onMounted, ref, watch } from 'vue';
 
 const timezones = useTimezones();
+const defaultTimezone = timezones.getDefaultTimezone();
 
 const description = ref('');
 const name = ref('');
 const currencySymbol = ref('$');
 const currencyLayout = ref('');
-const timezone = ref('');
+const timezone = ref(defaultTimezone);
 const errorMessage = ref('');
 const isSaving = ref(false);
 const savedSlug = ref('');
@@ -107,16 +108,4 @@ const save = async () => {
 const back = () => {
   history.back();
 };
-
-const ready = computed(() => {
-  return timezones.timezonesReady.value;
-});
-
-const init = () => {
-  timezones.loadTimezones();
-};
-
-onMounted(() => {
-  init();
-});
 </script>

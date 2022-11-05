@@ -20,7 +20,7 @@ const emit = defineEmits(['update:modelValue']);
 const timezones = useTimezones();
 
 const timezoneList = computed(() => {
-  return timezones.timezones.value;
+  return timezones.getTimezones();
 });
 
 const updateValue = (event: Event) => {

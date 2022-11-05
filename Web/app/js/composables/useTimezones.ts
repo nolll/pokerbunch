@@ -1,30 +1,29 @@
-import { computed } from 'vue';
-import { useStore } from 'vuex';
-import { TimezoneStoreMutations } from '@/store/helpers/TimezoneStoreHelpers';
 import { Timezone } from '@/models/Timezone';
-import api from '@/api';
 
 export default function useTimezones() {
-  const store = useStore();
+  const fallbackTimezone = '';
 
-  const timezonesReady = computed((): boolean => {
-    return store.state.timezone._timezonesReady;
-  });
+  const getTimezones = (): Timezone[] => {
+    const ids = (Intl as any).supportedValuesOf('timeZone') as string[];
+    return ids.map((id: string) => {
+      return {
+        id: id,
+        name: id,
+      };
+    });
+  };
 
-  const timezones = computed((): Timezone[] => {
-    return store.state.timezone._timezones;
-  });
-
-  const loadTimezones = async () => {
-    if (store.state.timezone._timezones.length === 0) {
-      const response = await api.getTimezones();
-      store.commit(TimezoneStoreMutations.SetTimezonesData, response.data);
+  const getDefaultTimezone = () => {
+    try {
+      const clientTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      return !!clientTimezone ? clientTimezone : fallbackTimezone;
+    } catch {
+      return fallbackTimezone;
     }
   };
 
   return {
-    timezonesReady,
-    timezones,
-    loadTimezones,
+    getTimezones,
+    getDefaultTimezone,
   };
 }

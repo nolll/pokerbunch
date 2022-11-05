@@ -7,18 +7,16 @@ import GameArchiveStore from './GameArchiveStore';
 import LocationStore from './LocationStore';
 import PlayerStore from './PlayerStore';
 import UserStore from './UserStore';
-import TimezoneStore from './TimezoneStore';
 
 export default {
-    strict: true,
-    modules: {
-        bunch: BunchStore,
-        currentGame: CurrentGameStore,
-        event: EventStore,
-        location: LocationStore,
-        gameArchive: GameArchiveStore,
-        player: PlayerStore,
-        timezone: TimezoneStore,
-        user: UserStore
-    }
+  strict: true,
+  modules: {
+    bunch: BunchStore,
+    currentGame: CurrentGameStore,
+    event: EventStore,
+    location: LocationStore,
+    gameArchive: GameArchiveStore,
+    player: PlayerStore,
+    user: UserStore,
+  },
 } as StoreOptions<RootStoreState>;
