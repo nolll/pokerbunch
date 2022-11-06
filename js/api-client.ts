@@ -24,5 +24,5 @@ function getApiHeaders() {
 }
 
 function getApiUrl(url: string) {
-  return `/api/${url}`;
+  return url.startsWith('/') ? `/api${url}` : `/api/${url}`;
 }

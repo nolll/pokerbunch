@@ -149,9 +149,9 @@ function getDevServer(){
         https: true,
         proxy: {
             '/api': {
-                target: 'http://localhost:8080',
-                router: () => 'https://pokerbunch-api.herokuapp.com',
-                logLevel: 'debug',
+                //target: 'https://pokerbunch-api.herokuapp.com',
+                target: 'https://localhost:44315',
+                pathRewrite: { '^/api': '' },
                 secure: false,
                 changeOrigin: true
             }
