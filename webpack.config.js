@@ -20,7 +20,7 @@ function getEntry(){
 function getOutput(){
     return {
         filename: getJsFilename(),
-        path: path.resolve(__dirname, '../wwwroot'),
+        path: path.resolve(__dirname, './dist'),
         publicPath: '/'
     };
 }
@@ -93,21 +93,14 @@ function getPlugins() {
             filename: getCssFilename()
         }),
         new VueLoaderPlugin(),
-        new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, '../Views/Generated/Script.cshtml'),
-            template: path.resolve(__dirname, './templates/ScriptTemplate.txt'),
-            inject: false
-        }),
-        new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, '../Views/Generated/Style.cshtml'),
-            template: path.resolve(__dirname, './templates/StyleTemplate.txt'),
-            inject: false
-        }),
         new CopyPlugin({
             patterns: [
                 { from: './favicon.ico', to: '.' }
             ]
-        })
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, './index.html')
+        }),
     ];
 
     if (isAnalyzing()) {
@@ -145,6 +138,28 @@ function getOptimization(){
         }
 }
 
+function getDevServer(){
+    return isDev()
+        ? {
+        static: {
+            directory: path.join(__dirname, 'dist'),
+        },
+        compress: true,
+        port: 9000,
+        https: true,
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8080',
+                router: () => 'https://pokerbunch-api.herokuapp.com',
+                logLevel: 'debug',
+                secure: false,
+                changeOrigin: true
+            }
+         }
+    }
+    : {}
+}
+
 function isDev(){
     return process.env.NODE_ENV === 'dev';
 }
@@ -162,5 +177,6 @@ module.exports = {
     plugins: getPlugins(),
     resolve: getResolve(),
     stats: getStats(),
-    optimization: getOptimization()
+    optimization: getOptimization(),
+    devServer: getDevServer()
 };

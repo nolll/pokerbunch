@@ -43,10 +43,9 @@ import Layout from '@/components/Layouts/Layout.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
-import settings from '@/settings';
 import { computed } from 'vue';
 
 const swaggerUrl = computed(() => {
-  return `${settings.apiUrl}/swagger`;
+  return `/api/swagger`;
 });
 </script>

@@ -23,11 +23,13 @@
     "vue-loader": "17.0.0",
     "webpack": "5.74.0",
     "webpack-bundle-analyzer": "4.6.1",
-    "webpack-cli": "4.10.0"
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "^4.11.1"
   },
   "scripts": {
     "prod": "webpack",
     "dev": "cross-env NODE_ENV=dev webpack",
+    "serve": "cross-env NODE_ENV=dev webpack serve",
     "watch": "cross-env NODE_ENV=dev webpack --watch",
     "analyze": "cross-env ANALYZE_BUNDLE=1 webpack"
   },
