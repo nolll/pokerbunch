@@ -141,23 +141,23 @@ function getOptimization(){
 function getDevServer(){
     return isDev()
         ? {
-        static: {
-            directory: path.join(__dirname, 'dist'),
-        },
-        compress: true,
-        port: 9000,
-        https: true,
-        proxy: {
-            '/api': {
-                //target: 'https://pokerbunch-api.herokuapp.com',
-                target: 'https://localhost:44315',
-                pathRewrite: { '^/api': '' },
-                secure: false,
-                changeOrigin: true
+            static: {
+                directory: path.join(__dirname, 'dist'),
+            },
+            compress: true,
+            port: 9000,
+            https: true,
+            proxy: {
+                '/api': {
+                    //target: 'https://pokerbunch-api.herokuapp.com',
+                    target: 'https://localhost:44315',
+                    pathRewrite: { '^/api': '' },
+                    secure: false,
+                    changeOrigin: true
+                }
             }
-         }
-    }
-    : {}
+        }
+        : {}
 }
 
 function isDev(){

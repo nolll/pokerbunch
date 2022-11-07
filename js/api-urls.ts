@@ -4,7 +4,7 @@ export default {
     sendEmail: '/admin/sendemail',
   },
   auth: {
-    token: '/token',
+    login: '/login',
   },
   bunch: {
     get: (slug: string) => `/bunches/${slug}`,

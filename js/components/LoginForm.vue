@@ -30,7 +30,7 @@
 import querystring from '@/querystring';
 import api from '@/api';
 import auth from '@/auth';
-import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
+import { ApiParamsLogin } from '@/models/ApiParamsLogin';
 import { computed, ref } from 'vue';
 
 const username = ref('');
@@ -47,14 +47,14 @@ const login = async () => {
   clearError();
 
   if (validateForm()) {
-    var data: ApiParamsGetToken = {
+    var data: ApiParamsLogin = {
       username: username.value,
       password: password.value,
     };
 
     try {
       isLoggingIn.value = true;
-      const response = await api.getToken(data);
+      const response = await api.login(data);
       saveToken(response.data);
       redirect();
     } catch {

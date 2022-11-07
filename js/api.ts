@@ -6,21 +6,20 @@ import { ArchiveCashgameResponse } from '@/response/ArchiveCashgameResponse';
 import { DetailedCashgameResponse } from '@/response/DetailedCashgameResponse';
 import { PlayerResponse } from '@/response/PlayerResponse';
 import { BunchResponse } from '@/response/BunchResponse';
-import { ApiParamsGetToken } from '@/models/ApiParamsGetToken';
+import { ApiParamsLogin } from '@/models/ApiParamsLogin';
 import { EventResponse } from './response/EventResponse';
 import { LocationResponse } from './response/LocationResponse';
 import { MessageResponse } from './response/MessageResponse';
 import { ApiParamsChangePassword } from '@/models/ApiParamsChangePassword';
 import { ApiParamsResetPassword } from './models/ApiParamsResetPassword';
 import { ApiParamsAddUser } from './models/ApiParamsAddUser';
-import { Timezone } from './models/Timezone';
 import { ApiParamsAddBunch } from './models/ApiParamsAddBunch';
 import { ApiParamsInvitePlayer } from './models/ApiParamsInvitePlayer';
 import { ApiParamsJoinBunch } from './models/ApiParamsJoinBunch copy';
 import { ApiParamsUpdateBunch } from './models/ApiParamsUpdateBunch';
 
 export default {
-  getToken: (data: ApiParamsGetToken) => apiClient.post(apiUrls.auth.token, data),
+  login: (data: ApiParamsLogin) => apiClient.post(apiUrls.auth.login, data),
   getCashgame: (id: string) => apiClient.get<DetailedCashgameResponse>(apiUrls.cashgame.get(id)),
   addCashgame: (slug: string, data: object) => apiClient.post<DetailedCashgameResponse>(apiUrls.cashgame.list(slug), data),
   updateCashgame: (id: string, data: object) => apiClient.put(apiUrls.cashgame.get(id), data),
