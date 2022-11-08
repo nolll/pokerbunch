@@ -148,14 +148,15 @@ function getDevServer(){
             port: 9000,
             https: true,
             proxy: {
-                '/api': {
+                '/api/': {
                     //target: 'https://pokerbunch-api.herokuapp.com',
                     target: 'https://localhost:44315',
                     pathRewrite: { '^/api': '' },
                     secure: false,
                     changeOrigin: true
                 }
-            }
+            },
+            historyApiFallback: true
         }
         : {}
 }
