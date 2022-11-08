@@ -26,7 +26,7 @@
 
       <PageSection :is-wide="false">
         <Block>
-          <PageHeading text="Yearly Rankings" />
+          <PageHeading v-if="hasGames" text="Yearly Rankings" />
           <YearMatrixTable v-if="hasGames" />
         </Block>
       </PageSection>

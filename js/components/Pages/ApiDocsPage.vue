@@ -21,12 +21,13 @@
         <h2 class="module-heading">Authentication</h2>
 
         <p>To authenticate, your application needs to post a request to</p>
-        <pre><code>POST token</code></pre>
+        <pre><code>POST login</code></pre>
 
-        <p>Send the following parameters in the body:</p>
-        <pre><code>grant_type = password
-username = {your user's username}
-password = {your user's password}</code></pre>
+        <p>Post the username and password as json:</p>
+        <pre><code>{
+  "username": "[username]",
+  "password": "[password]"
+}</code></pre>
 
         <p>If your credentials are valid, the response will include a token, for example</p>
         <pre><code>ABCDE</code></pre>
