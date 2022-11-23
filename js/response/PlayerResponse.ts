@@ -1,7 +1,7 @@
 export interface PlayerResponse {
-    id: number;
-    name: string;
-    color: string;
-    userId: string | null;
-    userName: string | null;
+  id: string;
+  name: string;
+  color: string;
+  userId: string | null;
+  userName: string | null;
 }
