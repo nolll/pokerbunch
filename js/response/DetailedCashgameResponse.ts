@@ -4,12 +4,12 @@ import { DetailedCashgameResponseLocation } from './DetailedCashgameResponseLoca
 import { DetailedCashgameResponsePlayer } from './DetailedCashgameResponsePlayer';
 
 export interface DetailedCashgameResponse {
-    isRunning: boolean;
-    id: string;
-    bunch: DetailedCashgameResponseBunch;
-    location: DetailedCashgameResponseLocation;
-    startTime: string;
-    updatedTime: string;
-    players: DetailedCashgameResponsePlayer[];
-    event: DetailedCashgameResponseEvent | null;
+  isRunning: boolean;
+  id: string;
+  bunch: DetailedCashgameResponseBunch;
+  location: DetailedCashgameResponseLocation;
+  startTime: string;
+  updatedTime: string;
+  players: DetailedCashgameResponsePlayer[];
+  event: DetailedCashgameResponseEvent | null;
 }
