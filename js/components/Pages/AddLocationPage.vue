@@ -34,27 +34,27 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import { computed, onMounted, ref, watch } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
-import useLocations from '@/composables/useLocations';
+import { useAddLocationMutation } from '@/composables/useAddLocationMutation';
 
 const router = useRouter();
+const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
-const locations = useLocations();
+const { mutate: addLocation } = useAddLocationMutation(route.params.slug as string);
 
 const locationName = ref('');
 
 const init = () => {
   users.requireUser();
   bunches.loadBunch();
-  locations.loadLocations();
 };
 
 const add = () => {
   if (locationName.value.length > 0) {
-    locations.addLocation(locationName.value);
+    addLocation({ name: locationName.value });
     redirect();
   }
 };
@@ -68,7 +68,7 @@ const redirect = () => {
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locations.locationsReady.value;
+  return bunches.bunchReady.value;
 });
 
 onMounted(() => {

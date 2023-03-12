@@ -53,6 +53,7 @@ export default {
     apiClient.put(apiUrls.cashgame.action(cashgameId, actionId), data),
   getEvents: (slug: string) => apiClient.get<EventResponse[]>(apiUrls.event.list(slug)),
   addEvent: (slug: string, data: object) => apiClient.post<EventResponse>(apiUrls.event.list(slug), data),
+  getLocation: (slug: string, id: string) => apiClient.get<LocationResponse>(apiUrls.location.get(slug, id)),
   getLocations: (slug: string) => apiClient.get<LocationResponse[]>(apiUrls.location.list(slug)),
   addLocation: (slug: string, data: object) => apiClient.post<LocationResponse>(apiUrls.location.list(slug), data),
   sendEmail: () => apiClient.post<MessageResponse>(apiUrls.admin.sendEmail),

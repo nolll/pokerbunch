@@ -22,14 +22,14 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
-import useLocations from '@/composables/useLocations';
 import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { useLocationQuery } from '@/composables/useLocationQuery';
 
 const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
-const locations = useLocations();
+const locationQuery = useLocationQuery(route.params.slug as string, route.params.id as string);
 
 const name = computed(() => {
   if (location.value) return location.value.name;
@@ -37,25 +37,16 @@ const name = computed(() => {
 });
 
 const location = computed(() => {
-  for (let i = 0; i < locations.locations.value.length; i++) {
-    const location = locations.locations.value[i];
-    if (location.id.toString() === locationId.value) return location;
-  }
-  return null;
-});
-
-const locationId = computed(() => {
-  return route.params.id as string;
+  return locationQuery.data.value;
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locations.locationsReady.value;
+  return bunches.bunchReady.value && locationQuery.isSuccess.value;
 });
 
 const init = () => {
   users.requireUser();
   bunches.loadBunch();
-  locations.loadLocations();
 };
 
 onMounted(() => {

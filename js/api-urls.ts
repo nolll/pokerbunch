@@ -24,6 +24,7 @@ export default {
     list: (slug: string) => `/bunches/${slug}/events`,
   },
   location: {
+    get: (slug: string, id: string) => `/bunches/${slug}/locations${id}`,
     list: (slug: string) => `/bunches/${slug}/locations`,
   },
   player: {
