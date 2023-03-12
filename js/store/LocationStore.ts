@@ -10,8 +10,8 @@ export default {
     _locationsReady: false,
   },
   mutations: {
-    [LocationStoreMutations.SetLocationsData](state, players: LocationResponse[]) {
-      state._locations = players;
+    [LocationStoreMutations.SetLocationsData](state, locations: LocationResponse[]) {
+      state._locations = locations;
       state._locationsReady = true;
     },
     [LocationStoreMutations.SetSlug](state, slug: string) {

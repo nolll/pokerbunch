@@ -13,7 +13,7 @@
         <Block>
           <div class="field">
             <label class="label" for="locationId">Location</label>
-            <LocationDropdown v-model="locationId" />
+            <LocationDropdown :locations="locations" v-model="locationId" />
           </div>
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Start" />
@@ -41,13 +41,14 @@ import LocationDropdown from '@/components/LocationDropdown.vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
-import useLocations from '@/composables/useLocations';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import { useLocationsQuery } from '@/composables/useLocationsQuery';
 
 const router = useRouter();
 const users = useUsers();
 const bunches = useBunches();
-const locations = useLocations();
+const route = useRoute();
+const locationsQuery = useLocationsQuery(route.params.slug as string);
 
 const locationId = ref('');
 const errorMessage = ref('');
@@ -55,8 +56,11 @@ const errorMessage = ref('');
 const init = () => {
   users.requireUser();
   bunches.loadBunch();
-  locations.loadLocations();
 };
+
+const locations = computed(() => {
+  return locationsQuery.data.value ?? [];
+});
 
 const add = async () => {
   errorMessage.value = '';
@@ -84,7 +88,7 @@ const redirectToGame = (id: string) => {
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locations.locationsReady.value;
+  return bunches.bunchReady.value && locationsQuery.isSuccess.value;
 });
 
 onMounted(() => {

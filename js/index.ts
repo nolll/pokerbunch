@@ -14,4 +14,5 @@ if (!browser.isCapable()) {
 
 const store = createStore(rootStore);
 const router = createRouter(routes);
+
 createApp(Root).use(store).use(router).use(VueQueryPlugin).mount('#app');
