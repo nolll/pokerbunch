@@ -42,7 +42,7 @@ import { computed, onMounted, ref, watch } from 'vue';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import { useRouter, useRoute } from 'vue-router';
-import { useLocationsQuery } from '@/composables/useLocationsQuery';
+import { useLocationsQuery } from '@/composables/locationQueries';
 
 const router = useRouter();
 const users = useUsers();

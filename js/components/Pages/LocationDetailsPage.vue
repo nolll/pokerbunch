@@ -24,7 +24,7 @@ import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useLocationQuery } from '@/composables/useLocationQuery';
+import { useLocationQuery } from '@/composables/locationQueries';
 
 const route = useRoute();
 const users = useUsers();

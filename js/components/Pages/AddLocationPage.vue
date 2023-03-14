@@ -37,13 +37,20 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
-import { useAddLocationMutation } from '@/composables/useAddLocationMutation';
+import { useAddLocationMutation, locationsQueryKey } from '@/composables/locationQueries';
+import { useQueryClient } from 'vue-query';
 
 const router = useRouter();
 const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
-const { mutate: addLocation } = useAddLocationMutation(route.params.slug as string);
+const queryClient = useQueryClient();
+
+const onAddSuccess = () => {
+  queryClient.invalidateQueries(locationsQueryKey(route.params.slug as string));
+};
+
+const { mutate: addLocation } = useAddLocationMutation(route.params.slug as string, onAddSuccess);
 
 const locationName = ref('');
 

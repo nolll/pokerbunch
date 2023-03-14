@@ -38,7 +38,7 @@ import urls from '@/urls';
 import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
-import { useLocationsQuery } from '@/composables/useLocationsQuery';
+import { useLocationsQuery } from '@/composables/locationQueries';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
