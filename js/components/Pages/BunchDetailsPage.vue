@@ -45,7 +45,7 @@
 
         <template v-else>
           <Block v-if="hasDescription">
-            {{ description }}
+            {{ bunch.description }}
           </Block>
 
           <Block v-if="hasHouseRules"><h2>House Rules</h2></Block>
@@ -88,18 +88,28 @@ import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
-import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref } from 'vue';
 import useBunches from '@/composables/useBunches';
-import useTimezones from '@/composables/useTimezones';
 import useUsers from '@/composables/useUsers';
 import useFormatter from '@/composables/useFormatter';
+import { useBunchQuery, useUpdateBunchMutation, bunchQueryKey } from '@/composables/bunchQueries';
+import { useRoute } from 'vue-router';
+import roles from '@/roles';
+import { useQueryClient } from 'vue-query';
 
 const users = useUsers();
 const bunches = useBunches();
-const timezones = useTimezones().getTimezones();
 const formatter = useFormatter();
+const route = useRoute();
+const bunchQuery = useBunchQuery(route.params.slug as string);
+const queryClient = useQueryClient();
+
+const onUpdateSuccess = () => {
+  queryClient.invalidateQueries(bunchQueryKey(route.params.slug as string));
+};
+
+const { mutate: updateBunch } = useUpdateBunchMutation(route.params.slug as string, onUpdateSuccess);
 
 const isEditing = ref(false);
 const errorMessage = ref<string | null>(null);
@@ -110,12 +120,16 @@ const formTimezone = ref<string>();
 const formCurrencySymbol = ref<string>();
 const formCurrencyLayout = ref<string>();
 
+const bunch = computed(() => {
+  return bunchQuery.data.value!;
+});
+
 const bunchName = computed(() => {
-  return bunches.bunchName.value;
+  return bunch.value.name;
 });
 
 const description = computed(() => {
-  return bunches.description.value;
+  return bunch.value.description;
 });
 
 const hasDescription = computed(() => {
@@ -123,7 +137,7 @@ const hasDescription = computed(() => {
 });
 
 const houseRules = computed(() => {
-  return bunches.houseRules.value;
+  return bunch.value.houseRules;
 });
 
 const hasHouseRules = computed(() => {
@@ -131,11 +145,11 @@ const hasHouseRules = computed(() => {
 });
 
 const defaultBuyin = computed(() => {
-  return bunches.bunch.value?.defaultBuyin;
+  return bunch.value.defaultBuyin;
 });
 
 const timezone = computed(() => {
-  return bunches.bunch.value?.timezone;
+  return bunch.value.timezone;
 });
 
 const currencyFormat = computed(() => {
@@ -143,24 +157,24 @@ const currencyFormat = computed(() => {
 });
 
 const currencySymbol = computed(() => {
-  return bunches.bunch.value?.currencySymbol;
+  return bunch.value.currencySymbol;
 });
 
 const currencyLayout = computed(() => {
-  return bunches.bunch.value?.currencyLayout;
+  return bunch.value.currencyLayout;
 });
 
-const isManager = computed(() => {
-  return bunches.isManager.value;
+const isManager = computed((): boolean => {
+  return bunch.value.role === roles.manager || bunch.value.role === roles.admin;
 });
 
 const showEditForm = () => {
-  formDescription.value = bunches.bunch.value.description;
-  formHouseRules.value = bunches.bunch.value.houseRules;
-  formDefaultBuyin.value = bunches.bunch.value.defaultBuyin;
-  formTimezone.value = bunches.bunch.value.timezone;
-  formCurrencySymbol.value = bunches.bunch.value.currencySymbol;
-  formCurrencyLayout.value = bunches.bunch.value.currencyLayout;
+  formDescription.value = description.value;
+  formHouseRules.value = houseRules.value;
+  formDefaultBuyin.value = defaultBuyin.value;
+  formTimezone.value = timezone.value;
+  formCurrencySymbol.value = currencySymbol.value;
+  formCurrencyLayout.value = currencyLayout.value;
   isEditing.value = true;
 };
 
@@ -204,13 +218,12 @@ const save = async () => {
     currencyLayout: formCurrencyLayout.value,
   };
 
-  await api.updateBunch(bunches.bunch.value.id, postData);
-  bunches.refreshBunch();
+  updateBunch(postData);
   hideEditForm();
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value;
+  return bunchQuery.isSuccess.value;
 });
 
 const init = () => {
