@@ -90,17 +90,14 @@ import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref } from 'vue';
-import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
 import useFormatter from '@/composables/useFormatter';
 import { useBunchQuery, useUpdateBunchMutation, bunchQueryKey } from '@/composables/bunchQueries';
-import roles from '@/roles';
 import { useQueryClient } from 'vue-query';
 import useParams from '@/composables/useParams';
 import accessControl from '@/access-control';
 
 const users = useUsers();
-const bunches = useBunches();
 const formatter = useFormatter();
 const params = useParams();
 const bunchQuery = useBunchQuery(params.slug.value);
@@ -229,7 +226,6 @@ const ready = computed(() => {
 
 const init = () => {
   users.requireUser();
-  bunches.loadBunch();
 };
 
 onMounted(() => {

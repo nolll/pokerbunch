@@ -25,17 +25,21 @@ import CustomLink from '@/components/Common/CustomLink.vue';
 import useBunches from '@/composables/useBunches';
 import urls from '@/urls';
 import { computed } from 'vue';
+import { useBunchQuery } from '@/composables/bunchQueries';
+import useParams from '@/composables/useParams';
 
 const bunches = useBunches();
+const params = useParams();
+const bunchQuery = useBunchQuery(params.slug.value);
 
 const slug = computed(() => {
-  if (bunches.slug.value && bunches.slug.value.length > 0) return bunches.slug.value;
+  if (params.slug.value && params.slug.value.length > 0) return params.slug.value;
   if (bunches.userBunches.value.length > 0) return bunches.userBunches.value[0].id;
   return '';
 });
 
 const bunchName = computed(() => {
-  if (bunches.bunchName.value && bunches.bunchName.value.length > 0) return bunches.bunchName.value;
+  if (bunchQuery.data.value?.name && bunchQuery.data.value?.name.length > 0) return bunchQuery.data.value?.name;
   if (bunches.userBunches.value.length > 0) return bunches.userBunches.value[0].name;
   return '';
 });

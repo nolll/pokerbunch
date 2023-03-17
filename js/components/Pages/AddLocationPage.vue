@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :ready="true">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -36,14 +36,12 @@ import urls from '@/urls';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
 import { useAddLocationMutation, locationsQueryKey } from '@/composables/locationQueries';
 import { useQueryClient } from 'vue-query';
 import useParams from '@/composables/useParams';
 
 const router = useRouter();
 const users = useUsers();
-const bunches = useBunches();
 const queryClient = useQueryClient();
 const params = useParams();
 
@@ -57,7 +55,6 @@ const locationName = ref('');
 
 const init = () => {
   users.requireUser();
-  bunches.loadBunch();
 };
 
 const add = () => {
@@ -72,12 +69,8 @@ const cancel = () => {
 };
 
 const redirect = () => {
-  router.push(urls.location.list(bunches.slug.value));
+  router.push(urls.location.list(params.slug.value));
 };
-
-const ready = computed(() => {
-  return bunches.bunchReady.value;
-});
 
 onMounted(() => {
   init();
