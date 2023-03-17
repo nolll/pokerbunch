@@ -34,23 +34,24 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import { useAddLocationMutation, locationsQueryKey } from '@/composables/locationQueries';
 import { useQueryClient } from 'vue-query';
+import useParams from '@/composables/useParams';
 
 const router = useRouter();
-const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const queryClient = useQueryClient();
+const params = useParams();
 
 const onAddSuccess = () => {
-  queryClient.invalidateQueries(locationsQueryKey(route.params.slug as string));
+  queryClient.invalidateQueries(locationsQueryKey(params.slug.value));
 };
 
-const { mutate: addLocation } = useAddLocationMutation(route.params.slug as string, onAddSuccess);
+const { mutate: addLocation } = useAddLocationMutation(params.slug.value, onAddSuccess);
 
 const locationName = ref('');
 

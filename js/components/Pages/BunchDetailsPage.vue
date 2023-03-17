@@ -11,7 +11,7 @@
         </Block>
 
         <template v-if="isEditing">
-          <Block v-if="isManager">
+          <Block v-if="canEdit">
             <p>
               <label class="label" for="description">Description</label>
               <input class="textfield" v-model="formDescription" id="description" type="text" />
@@ -67,7 +67,7 @@
             </ValueList>
           </Block>
 
-          <Block v-if="isManager">
+          <Block v-if="canEdit">
             <CustomButton @click="showEditForm" text="Edit Bunch" type="action" />
           </Block>
         </template>
@@ -94,22 +94,23 @@ import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
 import useFormatter from '@/composables/useFormatter';
 import { useBunchQuery, useUpdateBunchMutation, bunchQueryKey } from '@/composables/bunchQueries';
-import { useRoute } from 'vue-router';
 import roles from '@/roles';
 import { useQueryClient } from 'vue-query';
+import useParams from '@/composables/useParams';
+import accessControl from '@/access-control';
 
 const users = useUsers();
 const bunches = useBunches();
 const formatter = useFormatter();
-const route = useRoute();
-const bunchQuery = useBunchQuery(route.params.slug as string);
+const params = useParams();
+const bunchQuery = useBunchQuery(params.slug.value);
 const queryClient = useQueryClient();
 
 const onUpdateSuccess = () => {
-  queryClient.invalidateQueries(bunchQueryKey(route.params.slug as string));
+  queryClient.invalidateQueries(bunchQueryKey(params.slug.value));
 };
 
-const { mutate: updateBunch } = useUpdateBunchMutation(route.params.slug as string, onUpdateSuccess);
+const { mutate: updateBunch } = useUpdateBunchMutation(params.slug.value, onUpdateSuccess);
 
 const isEditing = ref(false);
 const errorMessage = ref<string | null>(null);
@@ -164,8 +165,8 @@ const currencyLayout = computed(() => {
   return bunch.value.currencyLayout;
 });
 
-const isManager = computed((): boolean => {
-  return bunch.value.role === roles.manager || bunch.value.role === roles.admin;
+const canEdit = computed((): boolean => {
+  return accessControl.canEditBunch(bunch.value.role);
 });
 
 const showEditForm = () => {
