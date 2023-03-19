@@ -91,14 +91,13 @@ import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref } from 'vue';
 import useUsers from '@/composables/useUsers';
-import useFormatter from '@/composables/useFormatter';
 import { useBunchQuery, useUpdateBunchMutation, bunchQueryKey } from '@/composables/bunchQueries';
 import { useQueryClient } from 'vue-query';
 import useParams from '@/composables/useParams';
 import accessControl from '@/access-control';
+import format from '@/format';
 
 const users = useUsers();
-const formatter = useFormatter();
 const params = useParams();
 const bunchQuery = useBunchQuery(params.slug.value);
 const queryClient = useQueryClient();
@@ -151,7 +150,7 @@ const timezone = computed(() => {
 });
 
 const currencyFormat = computed(() => {
-  return formatter.formatCurrency(123);
+  return format.currency(123, bunch.value.currencyFormat, bunch.value.thousandSeparator);
 });
 
 const currencySymbol = computed(() => {

@@ -5,4 +5,7 @@ export default {
   canEditBunch: (role: Role) => {
     return role === roles.manager || role === roles.admin;
   },
+  canListBunches: (role: Role) => {
+    return role === roles.admin;
+  },
 };

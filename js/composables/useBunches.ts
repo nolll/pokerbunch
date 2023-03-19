@@ -50,10 +50,6 @@ export default function useBunches() {
     return store.state.bunch._bunches;
   });
 
-  const bunchesReady = computed((): boolean => {
-    return store.state.bunch._bunchesReady;
-  });
-
   const description = computed((): string | null => {
     const d = store.state.bunch._description;
     return d && d.length > 0 ? d : null;
@@ -86,28 +82,6 @@ export default function useBunches() {
     await loadBunch(true);
   };
 
-  const loadUserBunches = async () => {
-    try {
-      const response = await api.getUserBunches();
-      store.commit(BunchStoreMutations.SetUserBunchesData, response.data);
-    } catch {
-      store.commit(BunchStoreMutations.SetUserBunchesError);
-    }
-    store.commit(BunchStoreMutations.SetUserBunchesReady, true);
-  };
-
-  const loadBunches = async () => {
-    if (store.state.bunch._bunches.length === 0) {
-      try {
-        const response = await api.getBunches();
-        store.commit(BunchStoreMutations.SetBunchesData, response.data);
-      } catch {
-        store.commit(BunchStoreMutations.SetBunchesError);
-      }
-      store.commit(BunchStoreMutations.SetBunchesReady, true);
-    }
-  };
-
   return {
     bunchReady,
     defaultBuyin,
@@ -119,14 +93,11 @@ export default function useBunches() {
     userBunches,
     userBunchesReady,
     bunches,
-    bunchesReady,
     description,
     houseRules,
     currencyFormat,
     thousandSeparator,
     loadBunch,
     refreshBunch,
-    loadUserBunches,
-    loadBunches,
   };
 }

@@ -65,10 +65,10 @@ import CustomLink from '@/components/Common/CustomLink.vue';
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed, onMounted, watch } from 'vue';
 import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
+import { useUserBunchesQuery } from '@/composables/bunchQueries';
 
 const users = useUsers();
-const bunches = useBunches();
+const userBunchesQuery = useUserBunchesQuery();
 
 const isSignedIn = computed(() => {
   return users.isSignedIn.value;
@@ -95,12 +95,11 @@ const apiDocsUrl = computed(() => {
 });
 
 const ready = computed(() => {
-  return users.userReady.value && bunches.userBunchesReady.value;
+  return !!users.userReady.value && userBunchesQuery.isSuccess.value;
 });
 
 const init = () => {
   users.loadCurrentUser();
-  bunches.loadUserBunches();
 };
 
 onMounted(() => {

@@ -7,6 +7,7 @@ import urls from '@/urls';
 import roles from '@/roles';
 import auth from '@/auth';
 import api from '@/api';
+import { Role } from '@/models/Role';
 
 export default function useUsers() {
   const store = useStore();
@@ -36,6 +37,10 @@ export default function useUsers() {
 
   const isAdmin = computed((): boolean => {
     return store.state.user._role === roles.admin;
+  });
+
+  const role = computed((): Role => {
+    return store.state.user._role;
   });
 
   const users = computed((): User[] => {
@@ -88,6 +93,7 @@ export default function useUsers() {
     usersReady,
     userName,
     displayName,
+    role,
     isAdmin,
     users,
     requireUser,

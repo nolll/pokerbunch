@@ -5,8 +5,8 @@
         <PageHeading text="Bunches" />
       </Block>
 
-      <Block v-if="isAdmin">
-        <BunchList />
+      <Block v-if="canListBunches">
+        <BunchList :bunches="bunches" />
       </Block>
 
       <Block v-else> Access denied </Block>
@@ -20,24 +20,26 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import BunchList from '@/components/BunchList/BunchList.vue';
-import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useBunchesQuery } from '@/composables/bunchQueries';
+import accessControl from '@/access-control';
 
 const users = useUsers();
-const bunches = useBunches();
+const bunchesQuery = useBunchesQuery();
+
+const bunches = computed(() => bunchesQuery.data.value ?? []);
 
 const ready = computed(() => {
-  return users.userReady.value && bunches.bunchesReady.value;
+  return users.userReady.value && bunchesQuery.isSuccess.value;
 });
 
-const isAdmin = computed(() => {
-  return users.isAdmin.value;
+const canListBunches = computed(() => {
+  return accessControl.canListBunches(users.role.value);
 });
 
 const init = () => {
   users.requireUser();
-  bunches.loadBunches();
 };
 
 onMounted(() => {
