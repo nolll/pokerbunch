@@ -21,15 +21,13 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
 import { computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { useLocationQuery } from '@/composables/locationQueries';
+import { useLocationQuery } from '@/queries/locationQueries';
+import useParams from '@/helpers/useParams';
 
-const route = useRoute();
 const users = useUsers();
-const bunches = useBunches();
-const locationQuery = useLocationQuery(route.params.slug as string, route.params.id as string);
+const params = useParams();
+const locationQuery = useLocationQuery(params.id.value);
 
 const name = computed(() => {
   if (location.value) return location.value.name;
@@ -41,12 +39,11 @@ const location = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locationQuery.isSuccess.value;
+  return locationQuery.isSuccess.value;
 });
 
 const init = () => {
   users.requireUser();
-  bunches.loadBunch();
 };
 
 onMounted(() => {

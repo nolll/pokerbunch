@@ -45,7 +45,7 @@
         <Block>
           <UserBunchList />
         </Block>
-        <Block v-if="isAdmin">
+        <Block v-if="canSeeAdminMenu">
           <AdminNavigation />
         </Block>
       </template>
@@ -65,17 +65,21 @@ import CustomLink from '@/components/Common/CustomLink.vue';
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed, onMounted, watch } from 'vue';
 import useUsers from '@/composables/useUsers';
-import { useUserBunchesQuery } from '@/composables/bunchQueries';
+import { useUserBunchesQuery } from '@/queries/bunchQueries';
+import auth from '@/auth';
+import { useCurrentUserQuery } from '@/queries/userQueries';
+import accessControl from '@/access-control';
 
 const users = useUsers();
+const currentUserQuery = useCurrentUserQuery();
 const userBunchesQuery = useUserBunchesQuery();
 
 const isSignedIn = computed(() => {
-  return users.isSignedIn.value;
+  return auth.isLoggedIn();
 });
 
-const isAdmin = computed(() => {
-  return users.isAdmin.value;
+const canSeeAdminMenu = computed(() => {
+  return accessControl.canSeeAdminMenu(currentUserQuery.data.value?.role);
 });
 
 const loginUrl = computed(() => {
@@ -95,14 +99,6 @@ const apiDocsUrl = computed(() => {
 });
 
 const ready = computed(() => {
-  return !!users.userReady.value && userBunchesQuery.isSuccess.value;
-});
-
-const init = () => {
-  users.loadCurrentUser();
-};
-
-onMounted(() => {
-  init();
+  return currentUserQuery.isSuccess.value && userBunchesQuery.isSuccess.value;
 });
 </script>

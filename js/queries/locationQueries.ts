@@ -1,16 +1,16 @@
 import api from '@/api';
 import { useQuery, useMutation } from 'vue-query';
 
-function locationQueryKey(slug: string, id: string) {
-  return ['location', slug, id];
+function locationQueryKey(id: string) {
+  return ['location', id];
 }
 
 export function locationsQueryKey(slug: string) {
   return ['locations', slug];
 }
 
-export function useLocationQuery(slug: string, id: string) {
-  return useQuery(locationQueryKey(slug, id), () => api.getLocation(slug, id), {
+export function useLocationQuery(id: string) {
+  return useQuery(locationQueryKey(id), () => api.getLocation(id), {
     select: (response) => response.data,
   });
 }

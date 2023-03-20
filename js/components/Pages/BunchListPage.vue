@@ -22,7 +22,7 @@ import PageSection from '@/components/Common/PageSection.vue';
 import BunchList from '@/components/BunchList/BunchList.vue';
 import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
-import { useBunchesQuery } from '@/composables/bunchQueries';
+import { useBunchesQuery } from '@/queries/bunchQueries';
 import accessControl from '@/access-control';
 
 const users = useUsers();

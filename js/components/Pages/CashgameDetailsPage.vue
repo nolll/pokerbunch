@@ -134,7 +134,7 @@ import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import ReportIcon from '../Icons/ReportIcon.vue';
 import BuyinIcon from '../Icons/BuyinIcon.vue';
 import CashoutIcon from '../Icons/CashoutIcon.vue';
-import { useLocationsQuery } from '@/composables/locationQueries';
+import { useLocationsQuery } from '@/queries/locationQueries';
 
 const route = useRoute();
 const router = useRouter();

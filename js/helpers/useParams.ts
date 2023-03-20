@@ -8,5 +8,8 @@ export default function useParams() {
     slug: computed(() => {
       return route.params.slug as string;
     }),
+    id: computed(() => {
+      return route.params.id as string;
+    }),
   };
 }

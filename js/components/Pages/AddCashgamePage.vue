@@ -41,8 +41,8 @@ import LocationDropdown from '@/components/LocationDropdown.vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import useUsers from '@/composables/useUsers';
 import { useRouter } from 'vue-router';
-import { useLocationsQuery } from '@/composables/locationQueries';
-import useParams from '@/composables/useParams';
+import { useLocationsQuery } from '@/queries/locationQueries';
+import useParams from '@/helpers/useParams';
 
 const router = useRouter();
 const users = useUsers();

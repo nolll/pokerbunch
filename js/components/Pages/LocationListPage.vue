@@ -18,7 +18,7 @@
           </Block>
 
           <Block>
-            <LocationList :bunch-id="bunches.slug.value" :locations="locations" />
+            <LocationList :bunch-id="params.slug.value" :locations="locations" />
           </Block>
         </template>
       </PageSection>
@@ -35,19 +35,17 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
-import { useLocationsQuery } from '@/composables/locationQueries';
-import { useRoute } from 'vue-router';
+import { useLocationsQuery } from '@/queries/locationQueries';
+import useParams from '@/helpers/useParams';
 
-const route = useRoute();
 const users = useUsers();
-const bunches = useBunches();
-const locationsQuery = useLocationsQuery(route.params.slug as string);
+const params = useParams();
+const locationsQuery = useLocationsQuery(params.slug.value);
 
 const addLocationUrl = computed(() => {
-  return urls.location.add(bunches.slug.value);
+  return urls.location.add(params.slug.value);
 });
 
 const locations = computed(() => {
@@ -55,12 +53,11 @@ const locations = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locationsQuery.isSuccess.value;
+  return locationsQuery.isSuccess.value;
 });
 
 const init = () => {
   users.requireUser();
-  bunches.loadBunch();
 };
 
 onMounted(() => {

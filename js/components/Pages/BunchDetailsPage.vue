@@ -91,9 +91,9 @@ import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref } from 'vue';
 import useUsers from '@/composables/useUsers';
-import { useBunchQuery, useUpdateBunchMutation, bunchQueryKey } from '@/composables/bunchQueries';
+import { useBunchQuery, useUpdateBunchMutation, bunchQueryKey } from '@/queries/bunchQueries';
 import { useQueryClient } from 'vue-query';
-import useParams from '@/composables/useParams';
+import useParams from '@/helpers/useParams';
 import accessControl from '@/access-control';
 import format from '@/format';
 

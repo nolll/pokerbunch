@@ -24,8 +24,8 @@
 import CustomLink from '@/components/Common/CustomLink.vue';
 import urls from '@/urls';
 import { computed } from 'vue';
-import { useBunchQuery, useUserBunchesQuery } from '@/composables/bunchQueries';
-import useParams from '@/composables/useParams';
+import { useBunchQuery, useUserBunchesQuery } from '@/queries/bunchQueries';
+import useParams from '@/helpers/useParams';
 
 const params = useParams();
 const selectedSlug = computed(() => params.slug.value);

@@ -36,9 +36,9 @@ import urls from '@/urls';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import useUsers from '@/composables/useUsers';
-import { useAddLocationMutation, locationsQueryKey } from '@/composables/locationQueries';
+import { useAddLocationMutation, locationsQueryKey } from '@/queries/locationQueries';
 import { useQueryClient } from 'vue-query';
-import useParams from '@/composables/useParams';
+import useParams from '@/helpers/useParams';
 
 const router = useRouter();
 const users = useUsers();

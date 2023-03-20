@@ -8,4 +8,7 @@ export default {
   canListBunches: (role: Role) => {
     return role === roles.admin;
   },
+  canSeeAdminMenu: (role: Role | null | undefined) => {
+    return role === roles.admin;
+  },
 };
