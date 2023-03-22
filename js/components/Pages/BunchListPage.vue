@@ -20,29 +20,24 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import BunchList from '@/components/BunchList/BunchList.vue';
-import useUsers from '@/composables/useUsers';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useBunchesQuery } from '@/queries/bunchQueries';
 import accessControl from '@/access-control';
+import auth from '@/auth';
+import { useCurrentUserQuery } from '@/queries/userQueries';
 
-const users = useUsers();
+auth.requireUser();
+
+const currentUserQuery = useCurrentUserQuery(auth.isLoggedIn());
 const bunchesQuery = useBunchesQuery();
 
 const bunches = computed(() => bunchesQuery.data.value ?? []);
 
 const ready = computed(() => {
-  return users.userReady.value && bunchesQuery.isSuccess.value;
+  return currentUserQuery.isSuccess.value && bunchesQuery.isSuccess.value;
 });
 
 const canListBunches = computed(() => {
-  return accessControl.canListBunches(users.role.value);
-});
-
-const init = () => {
-  users.requireUser();
-};
-
-onMounted(() => {
-  init();
+  return accessControl.canListBunches(currentUserQuery.data.value?.role);
 });
 </script>

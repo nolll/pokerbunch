@@ -2,40 +2,33 @@ import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { useQuery, useMutation } from 'vue-query';
 
-export function bunchQueryKey(slug: string) {
-  return ['bunch', slug];
-}
+export const bunchQueryKey = (slug: string) => ['bunch', slug];
+export const bunchesQueryKey = () => ['bunches'];
+export const userBunchesQueryKey = () => ['userbunches'];
 
-export function bunchesQueryKey() {
-  return ['bunches'];
-}
-
-export function userBunchesQueryKey() {
-  return ['userbunches'];
-}
-
-export function useBunchQuery(slug: string) {
+export const useBunchQuery = (slug: string) => {
   return useQuery(bunchQueryKey(slug), () => api.getBunch(slug), {
     select: (response) => response.data,
     enabled: !!slug,
   });
-}
+};
 
-export function useBunchesQuery() {
+export const useBunchesQuery = () => {
   return useQuery(bunchesQueryKey(), () => api.getBunches(), {
     select: (response) => response.data,
   });
-}
+};
 
-export function useUserBunchesQuery() {
+export const useUserBunchesQuery = (isSignedIn: boolean) => {
   return useQuery(userBunchesQueryKey(), () => api.getUserBunches(), {
     select: (response) => response.data,
+    enabled: isSignedIn,
   });
-}
+};
 
-export function useUpdateBunchMutation(id: string, onSuccess: () => void | Promise<unknown>) {
+export const useUpdateBunchMutation = (id: string, onSuccess: () => void | Promise<unknown>) => {
   return useMutation({
     mutationFn: (bunch: ApiParamsUpdateBunch) => api.updateBunch(id, bunch),
     onSuccess: () => onSuccess(),
   });
-}
+};

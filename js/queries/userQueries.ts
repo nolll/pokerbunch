@@ -1,12 +1,11 @@
 import api from '@/api';
 import { useQuery } from 'vue-query';
 
-export function currentUserQueryKey() {
-  return ['currentUser'];
-}
+export const currentUserQueryKey = () => ['currentUser'];
 
-export function useCurrentUserQuery() {
+export const useCurrentUserQuery = (isSignedIn: boolean) => {
   return useQuery(currentUserQueryKey(), () => api.getCurrentUser(), {
     select: (response) => response.data,
+    enabled: isSignedIn,
   });
-}
+};

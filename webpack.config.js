@@ -26,7 +26,10 @@ function getOutput(){
 }
 
 function getDevtool(){
-    return 'source-map';
+    return false;
+    // return isDev()
+    //     ? 'inline-source-map'
+    //     : 'source-map'
 }
 
 function getModule(){

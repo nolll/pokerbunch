@@ -1,4 +1,5 @@
 import storage from './storage';
+import urls from './urls';
 
 const tokenKey = 'token';
 
@@ -14,5 +15,8 @@ export default {
   },
   isLoggedIn() {
     return !!this.getToken();
+  },
+  requireUser() {
+    if (!this.isLoggedIn()) window.location.href = urls.home;
   },
 };

@@ -63,42 +63,26 @@ import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
-import { computed, onMounted, watch } from 'vue';
-import useUsers from '@/composables/useUsers';
+import { computed } from 'vue';
 import { useUserBunchesQuery } from '@/queries/bunchQueries';
 import auth from '@/auth';
 import { useCurrentUserQuery } from '@/queries/userQueries';
 import accessControl from '@/access-control';
 
-const users = useUsers();
-const currentUserQuery = useCurrentUserQuery();
-const userBunchesQuery = useUserBunchesQuery();
-
-const isSignedIn = computed(() => {
-  return auth.isLoggedIn();
-});
+const isSignedIn = computed(() => auth.isLoggedIn());
+const currentUserQuery = useCurrentUserQuery(isSignedIn.value);
+const userBunchesQuery = useUserBunchesQuery(isSignedIn.value);
 
 const canSeeAdminMenu = computed(() => {
   return accessControl.canSeeAdminMenu(currentUserQuery.data.value?.role);
 });
 
-const loginUrl = computed(() => {
-  return urls.auth.login;
-});
-
-const registerUrl = computed(() => {
-  return urls.user.add;
-});
-
-const addBunchUrl = computed(() => {
-  return urls.bunch.add;
-});
-
-const apiDocsUrl = computed(() => {
-  return urls.api.docs;
-});
+const loginUrl = computed(() => urls.auth.login);
+const registerUrl = computed(() => urls.user.add);
+const addBunchUrl = computed(() => urls.bunch.add);
+const apiDocsUrl = computed(() => urls.api.docs);
 
 const ready = computed(() => {
-  return currentUserQuery.isSuccess.value && userBunchesQuery.isSuccess.value;
+  return !isSignedIn.value || (isSignedIn.value && currentUserQuery.isSuccess.value && userBunchesQuery.isSuccess.value);
 });
 </script>

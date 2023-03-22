@@ -26,6 +26,7 @@ import urls from '@/urls';
 import { computed } from 'vue';
 import { useBunchQuery, useUserBunchesQuery } from '@/queries/bunchQueries';
 import useParams from '@/helpers/useParams';
+import auth from '@/auth';
 
 const params = useParams();
 const selectedSlug = computed(() => params.slug.value);
@@ -37,18 +38,22 @@ const playersUrl = computed(() => urls.player.list(slug.value));
 const eventsUrl = computed(() => urls.event.list(slug.value));
 const locationsUrl = computed(() => urls.location.list(slug.value));
 const bunchQuery = useBunchQuery(selectedSlug.value);
-const userBunchesQuery = useUserBunchesQuery();
+
+const isSignedIn = computed(() => auth.isLoggedIn());
+const userBunchesQuery = useUserBunchesQuery(isSignedIn.value);
 
 const slug = computed(() => {
   if (hasSelectedSlug.value) return selectedSlug.value;
-  if (userBunchesQuery.data.value && userBunchesQuery.data.value.length > 0) return userBunchesQuery.data.value[0].id;
+  if (isSignedIn.value && userBunchesQuery.data.value && userBunchesQuery.data.value.length > 0)
+    return userBunchesQuery.data.value[0].id;
   return '';
 });
 
 const bunchName = computed(() => {
   if (params.slug.value && bunchQuery.data.value?.name && bunchQuery.data.value?.name.length > 0)
     return bunchQuery.data.value?.name;
-  if (userBunchesQuery.data.value && userBunchesQuery.data.value.length > 0) return userBunchesQuery.data.value[0].name;
+  if (isSignedIn.value && userBunchesQuery.data.value && userBunchesQuery.data.value.length > 0)
+    return userBunchesQuery.data.value[0].name;
   return '';
 });
 </script>

@@ -33,11 +33,10 @@ import { computed } from 'vue';
 import { useCurrentUserQuery, currentUserQueryKey } from '@/queries/userQueries';
 import { useQueryClient } from 'vue-query';
 
-const currentUserQuery = useCurrentUserQuery();
 const queryClient = useQueryClient();
-
-const userReady = computed(() => currentUserQuery.isSuccess.value);
 const isSignedIn = computed(() => auth.isLoggedIn());
+const currentUserQuery = useCurrentUserQuery(isSignedIn.value);
+const userReady = computed(() => currentUserQuery.isSuccess.value);
 const displayName = computed(() => user.value.displayName);
 const registerUrl = computed(() => urls.user.add);
 const resetPasswordUrl = computed(() => urls.user.resetPassword);
