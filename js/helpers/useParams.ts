@@ -5,11 +5,12 @@ export default function useParams() {
   const route = useRoute();
 
   return {
-    slug: computed(() => {
-      return route.params.slug as string;
-    }),
-    id: computed(() => {
-      return route.params.id as string;
+    slug: computed(() => route.params.slug as string),
+    id: computed(() => route.params.id as string),
+    year: computed(() => {
+      const s = route.params.year as string;
+      if (!s || s === '') return undefined;
+      return parseInt(s);
     }),
   };
 }

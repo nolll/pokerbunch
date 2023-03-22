@@ -11,6 +11,7 @@ import playerSorter from '@/PlayerSorter';
 import archiveHelper from '@/ArchiveHelper';
 import api from '@/api';
 import dayjs from 'dayjs';
+import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
 
 export default function useGameArchive() {
   const store = useStore();
@@ -25,7 +26,7 @@ export default function useGameArchive() {
   });
 
   const sortedGames = computed((): ArchiveCashgame[] => {
-    const selectedGames = getSelectedGames(games.value, selectedYear.value);
+    const selectedGames = filterGames(games.value, selectedYear.value);
     return gameSorter.sort(selectedGames, gameSortOrder.value);
   });
 
@@ -50,7 +51,7 @@ export default function useGameArchive() {
   });
 
   const currentYearGames = computed((): ArchiveCashgame[] => {
-    const selectedGames = getSelectedGames(games.value, currentYear.value);
+    const selectedGames = filterGames(games.value, currentYear.value);
     return gameSorter.sort(selectedGames, CashgameSortOrder.Date);
   });
 
@@ -100,29 +101,6 @@ export default function useGameArchive() {
   const sortPlayers = (name: string) => {
     store.commit(GameArchiveStoreMutations.SetPlayerSortorder, name);
   };
-
-  function getSelectedGames(games: ArchiveCashgame[], selectedYear?: number | null) {
-    if (!selectedYear) return games;
-    const selectedGames = [];
-    for (const game of games) {
-      const year = dayjs(game.startTime).year();
-      if (year === selectedYear) {
-        selectedGames.push(game);
-      }
-    }
-    return selectedGames;
-  }
-
-  function getYears(games: ArchiveCashgame[]) {
-    const years: number[] = [];
-    for (const game of games) {
-      const year = dayjs(game.startTime).year();
-      if (!years.includes(year)) {
-        years.push(year);
-      }
-    }
-    return years;
-  }
 
   return {
     games,
