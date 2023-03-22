@@ -42,19 +42,14 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsResetPassword } from '@/models/ApiParamsResetPassword';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const email = ref('');
 const errorMessage = ref('');
 const isSaving = ref(false);
 
-const hasError = computed(() => {
-  return !!errorMessage.value;
-});
-
-const loginUrl = computed(() => {
-  return urls.auth.login;
-});
+const hasError = computed(() => !!errorMessage.value);
+const loginUrl = computed(() => urls.auth.login);
 
 const send = async () => {
   errorMessage.value = '';
@@ -75,10 +70,4 @@ const send = async () => {
 const back = () => {
   history.back();
 };
-
-const init = () => {};
-
-onMounted(() => {
-  init();
-});
 </script>

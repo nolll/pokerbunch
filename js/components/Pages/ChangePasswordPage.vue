@@ -49,12 +49,15 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsChangePassword } from '@/models/ApiParamsChangePassword';
-import useUsers from '@/composables/useUsers';
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useCurrentUserQuery } from '@/queries/userQueries';
+import auth from '@/auth';
 
+auth.requireUser();
 const router = useRouter();
-const users = useUsers();
+const currentUserQuery = useCurrentUserQuery(auth.isLoggedIn());
+const user = computed(() => currentUserQuery.data.value!);
 
 const oldPassword = ref('');
 const newPassword = ref('');
@@ -62,13 +65,8 @@ const repeat = ref('');
 const errorMessage = ref('');
 const isSaving = ref(false);
 
-const ready = computed(() => {
-  return users.userReady.value;
-});
-
-const hasError = computed(() => {
-  return !!errorMessage.value;
-});
+const ready = computed(() => currentUserQuery.isSuccess.value);
+const hasError = computed(() => !!errorMessage.value);
 
 const save = async () => {
   errorMessage.value = '';
@@ -93,14 +91,6 @@ const save = async () => {
 };
 
 const back = () => {
-  router.push(urls.user.details(users.userName.value));
+  router.push(urls.user.details(user.value.userName));
 };
-
-const init = () => {
-  users.requireUser();
-};
-
-onMounted(() => {
-  init();
-});
 </script>

@@ -32,11 +32,16 @@ import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
+import useParams from '@/helpers/useParams';
 
 const route = useRoute();
 const users = useUsers();
 const bunches = useBunches();
 const gameArchive = useGameArchive();
+
+var params = useParams();
+//const gameArchiveQuery = useGameArchiveQuery(params.slug.value);
 
 const slug = computed(() => {
   return bunches.slug.value;

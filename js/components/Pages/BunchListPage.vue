@@ -32,12 +32,13 @@ const currentUserQuery = useCurrentUserQuery(auth.isLoggedIn());
 const bunchesQuery = useBunchesQuery();
 
 const bunches = computed(() => bunchesQuery.data.value ?? []);
+const user = computed(() => currentUserQuery.data.value!);
 
 const ready = computed(() => {
   return currentUserQuery.isSuccess.value && bunchesQuery.isSuccess.value;
 });
 
 const canListBunches = computed(() => {
-  return accessControl.canListBunches(currentUserQuery.data.value?.role);
+  return accessControl.canListBunches(user.value.role);
 });
 </script>
