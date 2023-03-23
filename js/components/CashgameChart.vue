@@ -16,6 +16,16 @@ import format from '@/format';
 import useBunches from '@/composables/useBunches';
 import useGameArchive from '@/composables/useGameArchive';
 import { computed } from 'vue';
+import { CashgameSortOrder } from '@/models/CashgameSortOrder';
+import archiveHelper from '@/ArchiveHelper';
+import playerSorter from '@/PlayerSorter';
+import gameSorter from '@/GameSorter';
+import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
+
+const props = defineProps<{
+  slug: string;
+  games: ArchiveCashgame[];
+}>();
 
 const bunches = useBunches();
 const gameArchive = useGameArchive();
@@ -31,7 +41,15 @@ const chartData = computed(() => {
   if (!ready.value) {
     return null;
   }
-  return getChartData(gameArchive.sortedGames.value, gameArchive.sortedPlayers.value);
+  return getChartData(sortedGames.value, players.value);
+});
+
+const sortedGames = computed((): ArchiveCashgame[] => {
+  return gameSorter.sort(props.games, CashgameSortOrder.Date);
+});
+
+const players = computed((): CashgameListPlayerData[] => {
+  return playerSorter.sort(archiveHelper.getPlayers(sortedGames.value), CashgamePlayerSortOrder.Winnings);
 });
 
 const ready = computed(() => {

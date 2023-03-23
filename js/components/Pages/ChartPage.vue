@@ -7,13 +7,13 @@
     <template v-slot:default>
       <PageSection>
         <Block>
-          <CashgameNavigation page="chart" />
+          <CashgameNavigation :years="years" :slug="slug" :year="year" page="chart" />
         </Block>
       </PageSection>
 
       <PageSection>
         <Block>
-          <CashgameChart />
+          <CashgameChart :slug="slug" :games="games" />
         </Block>
       </PageSection>
     </template>
@@ -27,40 +27,25 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import CashgameChart from '@/components/CashgameChart.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
-import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import auth from '@/auth';
+import useParams from '@/helpers/useParams';
+import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
+import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
 
-const route = useRoute();
-const users = useUsers();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const params = useParams();
+const slug = computed(() => params.slug.value);
+const year = computed(() => params.year.value);
+const gameArchiveQuery = useGameArchiveQuery(slug.value);
+const years = computed(() => getYears(allGames.value));
+const allGames = computed(() => gameArchiveQuery.data.value ?? []);
+
+const games = computed(() => {
+  return filterGames(allGames.value, params.year.value);
+});
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
-});
-
-const init = (year: number | undefined) => {
-  users.requireUser();
-  bunches.loadBunch();
-  gameArchive.loadGames();
-  gameArchive.selectYear(year);
-};
-
-const getSelectedYear = (s: string | undefined) => {
-  if (!s || s === '') return undefined;
-  return parseInt(s);
-};
-
-onMounted(() => {
-  init(getSelectedYear(route.params.year as string));
-});
-
-onBeforeRouteUpdate(async (to) => {
-  init(getSelectedYear(to.params.year as string));
+  return gameArchiveQuery.isSuccess.value;
 });
 
 onMounted(() => auth.requireUser());

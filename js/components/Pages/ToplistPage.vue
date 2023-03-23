@@ -10,7 +10,7 @@
           <CashgameNavigation :year="year" :slug="slug" :years="years" page="toplist" />
         </Block>
         <Block>
-          <TopListTable :slug="slug" :games="allGames" />
+          <TopListTable :slug="slug" :games="games" />
         </Block>
       </PageSection>
     </template>
@@ -27,7 +27,8 @@ import PageSection from '@/components/Common/PageSection.vue';
 import { computed, onMounted } from 'vue';
 import useParams from '@/helpers/useParams';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
-import { getYears } from '@/helpers/gameArchiveHelpers';
+import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
+import auth from '@/auth';
 
 var params = useParams();
 const gameArchiveQuery = useGameArchiveQuery(params.slug.value);
@@ -36,7 +37,13 @@ const allGames = computed(() => gameArchiveQuery.data.value ?? []);
 const slug = computed(() => params.slug.value);
 const year = computed(() => params.year.value);
 
+const games = computed(() => {
+  return filterGames(allGames.value, params.year.value);
+});
+
 const ready = computed(() => {
   return gameArchiveQuery.isSuccess.value;
 });
+
+onMounted(() => auth.requireUser());
 </script>
