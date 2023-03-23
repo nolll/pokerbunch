@@ -31,8 +31,6 @@ import { computed } from 'vue';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
 import useParams from '@/helpers/useParams';
 import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
-import gameSorter from '@/GameSorter';
-import { CashgameSortOrder } from '@/models/CashgameSortOrder';
 import auth from '@/auth';
 
 auth.requireUser();
@@ -46,7 +44,7 @@ const years = computed(() => getYears(allGames.value));
 const allGames = computed(() => gameArchiveQuery.data.value ?? []);
 
 const games = computed(() => {
-  return gameSorter.sort(filterGames(allGames.value, params.year.value), CashgameSortOrder.Date);
+  return filterGames(allGames.value, params.year.value);
 });
 
 const ready = computed(() => {

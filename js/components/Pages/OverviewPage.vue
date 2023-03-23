@@ -18,7 +18,7 @@
         <template v-slot:default>
           <Block>
             <PageHeading text="Current Rankings" />
-            <OverviewTable :year="latestYear" :slug="slug" v-if="hasGames" :games="allGames" />
+            <OverviewTable :year="latestYear" :slug="slug" v-if="hasGames" :games="latestYearGames" />
             <p v-else>The rankings will be displayed here when you have played your first game.</p>
           </Block>
         </template>
@@ -51,7 +51,7 @@ import useCurrentGames from '@/composables/useCurrentGames';
 import { computed, onMounted } from 'vue';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
 import useParams from '@/helpers/useParams';
-import { getYears } from '@/helpers/gameArchiveHelpers';
+import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
 import auth from '@/auth';
 
 auth.requireUser();
@@ -67,6 +67,7 @@ const gameArchiveQuery = useGameArchiveQuery(slug.value);
 const years = computed(() => getYears(allGames.value));
 const latestYear = computed(() => years.value[0]);
 
+const latestYearGames = computed(() => filterGames(allGames.value, latestYear.value));
 const allGames = computed(() => gameArchiveQuery.data.value ?? []);
 
 const ready = computed(() => {

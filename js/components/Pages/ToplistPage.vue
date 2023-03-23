@@ -7,10 +7,10 @@
     <template v-slot:default>
       <PageSection>
         <Block>
-          <CashgameNavigation page="toplist" />
+          <CashgameNavigation :slug="slug" :years="years" page="toplist" />
         </Block>
         <Block>
-          <TopListTable :bunchId="bunchId" />
+          <TopListTable :slug="slug" :games="allGames" />
         </Block>
       </PageSection>
     </template>
@@ -25,41 +25,20 @@ import TopListTable from '@/components/TopList/TopListTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import { computed, onMounted } from 'vue';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
-import useUsers from '@/composables/useUsers';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import useParams from '@/helpers/useParams';
+import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
+import { getYears } from '@/helpers/gameArchiveHelpers';
 
-const route = useRoute();
-const users = useUsers();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+var params = useParams();
+const gameArchiveQuery = useGameArchiveQuery(params.slug.value);
+const years = computed(() => getYears(allGames.value));
+const allGames = computed(() => gameArchiveQuery.data.value ?? []);
 
-const bunchId = computed(() => {
-  return bunches.slug.value;
+const slug = computed(() => {
+  return params.slug.value;
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
-});
-
-const init = (year: number | undefined) => {
-  users.requireUser();
-  bunches.loadBunch();
-  gameArchive.loadGames();
-  gameArchive.selectYear(year);
-};
-
-const getSelectedYear = (s: string | undefined) => {
-  if (!s || s === '') return undefined;
-  return parseInt(s);
-};
-
-onMounted(() => {
-  init(getSelectedYear(route.params.year as string));
-});
-
-onBeforeRouteUpdate(async (to) => {
-  init(getSelectedYear(to.params.year as string));
+  return gameArchiveQuery.isSuccess.value;
 });
 </script>

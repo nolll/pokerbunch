@@ -6,7 +6,7 @@
           <TableListColumnHeader />
           <TableListColumnHeader>Player</TableListColumnHeader>
           <TableListColumnHeader>Winnings</TableListColumnHeader>
-          <MatrixColumn v-for="game in games" :game="game" :slug="slug" :key="game.id" />
+          <MatrixColumn v-for="game in sortedGames" :game="game" :slug="slug" :key="game.id" />
         </tr>
       </thead>
       <tbody>
@@ -25,17 +25,23 @@ import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import archiveHelper from '@/ArchiveHelper';
 import playerSorter from '@/PlayerSorter';
 import { computed } from 'vue';
+import gameSorter from '@/GameSorter';
+import { CashgameSortOrder } from '@/models/CashgameSortOrder';
 
 const props = defineProps<{
   slug: string;
   games: ArchiveCashgame[];
 }>();
 
+const sortedGames = computed(() => {
+  return gameSorter.sort(props.games, CashgameSortOrder.Date);
+});
+
 const hasGames = computed(() => {
   return props.games.length > 0;
 });
 
 const players = computed(() => {
-  return playerSorter.sort(archiveHelper.getPlayers(props.games));
+  return playerSorter.sort(archiveHelper.getPlayers(sortedGames.value));
 });
 </script>

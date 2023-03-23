@@ -30,7 +30,6 @@ import gameSorter from '@/GameSorter';
 import { computed } from 'vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
-import { filterGames } from '@/helpers/gameArchiveHelpers';
 import { CashgameSortOrder } from '@/models/CashgameSortOrder';
 import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
 
@@ -40,32 +39,22 @@ const props = defineProps<{
   slug: string;
 }>();
 
-const players = computed(() => {
-  return currentYearPlayers.value;
+const games = computed((): ArchiveCashgame[] => {
+  return gameSorter.sort(props.games, CashgameSortOrder.Date);
 });
 
-const currentYearGames = computed((): ArchiveCashgame[] => {
-  const selectedGames = filterGames(props.games, props.year);
-  return gameSorter.sort(selectedGames, CashgameSortOrder.Date);
-});
-
-const currentYearPlayers = computed((): CashgameListPlayerData[] => {
-  return playerSorter.sort(archiveHelper.getPlayers(currentYearGames.value), CashgamePlayerSortOrder.Winnings);
+const players = computed((): CashgameListPlayerData[] => {
+  return playerSorter.sort(archiveHelper.getPlayers(games.value), CashgamePlayerSortOrder.Winnings);
 });
 
 const url = computed(() => {
   return urls.cashgame.details(slug.value, lastGame.value.id);
 });
 
-const lastGame = computed(() => {
-  return currentYearGames.value[0];
-});
-
-const slug = computed(() => {
-  return props.slug;
-});
+const lastGame = computed(() => games.value[0]);
+const slug = computed(() => props.slug);
 
 const ready = computed(() => {
-  return currentYearPlayers.value.length > 0;
+  return players.value.length > 0;
 });
 </script>
