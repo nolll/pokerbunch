@@ -25,24 +25,19 @@ import { CashgamePage } from '@/models/CashgamePage';
 import YearDropdown from '@/components/YearDropdown.vue';
 import urls from '@/urls';
 import { computed, onMounted, ref } from 'vue';
-import useGameArchive from '@/composables/useGameArchive';
-import useBunches from '@/composables/useBunches';
 import { useRoute, useRouter } from 'vue-router';
 
 const props = defineProps<{
+  year?: number;
+  slug: string;
   page: CashgamePage;
+  years: number[];
 }>();
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
 const route = useRoute();
 const router = useRouter();
 
 const selectedYear = ref<number>();
-
-const years = computed(() => {
-  return gameArchive.years.value;
-});
 
 const selectedPageName = computed(() => {
   if (props.page === 'matrix') return 'Matrix';
@@ -53,68 +48,46 @@ const selectedPageName = computed(() => {
   return 'Overview';
 });
 
-const isYearNavEnabled = computed(() => {
-  return props.page !== 'index';
-});
-
-const overviewUrl = computed(() => {
-  return urls.cashgame.index(bunches.slug.value);
-});
+const isYearNavEnabled = computed(() => props.page !== 'index');
+const overviewUrl = computed(() => urls.cashgame.index(props.slug));
 
 const matrixUrl = computed(() => {
-  return urls.cashgame.archive('matrix', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('matrix', props.slug, props.year);
 });
 
 const toplistUrl = computed(() => {
-  return urls.cashgame.archive('toplist', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('toplist', props.slug, props.year);
 });
 
 const chartUrl = computed(() => {
-  return urls.cashgame.archive('chart', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('chart', props.slug, props.year);
 });
 
 const listUrl = computed(() => {
-  return urls.cashgame.archive('list', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('list', props.slug, props.year);
 });
 
 const factsUrl = computed(() => {
-  return urls.cashgame.archive('facts', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('facts', props.slug, props.year);
 });
 
-const isOverviewSelected = computed(() => {
-  return props.page === 'index';
-});
-
-const isMatrixSelected = computed(() => {
-  return props.page === 'matrix';
-});
-
-const isToplistSelected = computed(() => {
-  return props.page === 'toplist';
-});
-
-const isChartSelected = computed(() => {
-  return props.page === 'chart';
-});
-
-const isListSelected = computed(() => {
-  return props.page === 'list';
-});
-
-const isFactsSelected = computed(() => {
-  return props.page === 'facts';
-});
+const isOverviewSelected = computed(() => props.page === 'index');
+const isMatrixSelected = computed(() => props.page === 'matrix');
+const isToplistSelected = computed(() => props.page === 'toplist');
+const isChartSelected = computed(() => props.page === 'chart');
+const isListSelected = computed(() => props.page === 'list');
+const isFactsSelected = computed(() => props.page === 'facts');
 
 const onSelected = (url: string) => {
   if (route.fullPath !== url) router.push(url);
 };
 
 const onSelectedYear = () => {
-  router.push(urls.cashgame.archive(props.page, bunches.slug.value, selectedYear.value));
+  router.push(urls.cashgame.archive(props.page, props.slug, selectedYear.value));
 };
 
 onMounted(() => {
-  selectedYear.value = gameArchive.selectedYear.value || gameArchive.currentYear.value;
+  selectedYear.value = props.year;
 });
 </script>
 

@@ -24,15 +24,33 @@ import OverviewRow from '@/components/Overview/OverviewRow.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
+import playerSorter from '@/PlayerSorter';
+import archiveHelper from '@/ArchiveHelper';
+import gameSorter from '@/GameSorter';
 import { computed } from 'vue';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+import { filterGames } from '@/helpers/gameArchiveHelpers';
+import { CashgameSortOrder } from '@/models/CashgameSortOrder';
+import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const props = defineProps<{
+  games: ArchiveCashgame[];
+  year: number;
+  slug: string;
+}>();
 
 const players = computed(() => {
-  return gameArchive.currentYearPlayers.value;
+  return currentYearPlayers.value;
+});
+
+const currentYearGames = computed((): ArchiveCashgame[] => {
+  const selectedGames = filterGames(props.games, props.year);
+  return gameSorter.sort(selectedGames, CashgameSortOrder.Date);
+});
+
+const currentYearPlayers = computed((): CashgameListPlayerData[] => {
+  return playerSorter.sort(archiveHelper.getPlayers(currentYearGames.value), CashgamePlayerSortOrder.Winnings);
 });
 
 const url = computed(() => {
@@ -40,14 +58,14 @@ const url = computed(() => {
 });
 
 const lastGame = computed(() => {
-  return gameArchive.currentYearGames.value[0];
+  return currentYearGames.value[0];
 });
 
 const slug = computed(() => {
-  return bunches.slug.value;
+  return props.slug;
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.currentYearPlayers.value.length > 0;
+  return currentYearPlayers.value.length > 0;
 });
 </script>
