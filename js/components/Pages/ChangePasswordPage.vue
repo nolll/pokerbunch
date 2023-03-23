@@ -49,12 +49,11 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsChangePassword } from '@/models/ApiParamsChangePassword';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useCurrentUserQuery } from '@/queries/userQueries';
 import auth from '@/auth';
 
-auth.requireUser();
 const router = useRouter();
 const currentUserQuery = useCurrentUserQuery(auth.isLoggedIn());
 const user = computed(() => currentUserQuery.data.value!);
@@ -93,4 +92,6 @@ const save = async () => {
 const back = () => {
   router.push(urls.user.details(user.value.userName));
 };
+
+onMounted(() => auth.requireUser());
 </script>

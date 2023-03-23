@@ -7,7 +7,7 @@
     <template v-slot:default>
       <PageSection>
         <Block>
-          <CashgameNavigation :slug="slug" :years="years" page="toplist" />
+          <CashgameNavigation :year="year" :slug="slug" :years="years" page="toplist" />
         </Block>
         <Block>
           <TopListTable :slug="slug" :games="allGames" />
@@ -33,10 +33,8 @@ var params = useParams();
 const gameArchiveQuery = useGameArchiveQuery(params.slug.value);
 const years = computed(() => getYears(allGames.value));
 const allGames = computed(() => gameArchiveQuery.data.value ?? []);
-
-const slug = computed(() => {
-  return params.slug.value;
-});
+const slug = computed(() => params.slug.value);
+const year = computed(() => params.year.value);
 
 const ready = computed(() => {
   return gameArchiveQuery.isSuccess.value;

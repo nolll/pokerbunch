@@ -13,7 +13,7 @@
 
       <PageSection>
         <template v-slot:aside1>
-          <OverviewStatus />
+          <OverviewStatus :games="currentGames" />
         </template>
         <template v-slot:default>
           <Block>
@@ -44,49 +44,29 @@ import YearMatrixTable from '@/components/YearMatrix/YearMatrixTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useBunches from '@/composables/useBunches';
-import useUsers from '@/composables/useUsers';
-import useGameArchive from '@/composables/useGameArchive';
-import useCurrentGames from '@/composables/useCurrentGames';
 import { computed, onMounted } from 'vue';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
 import useParams from '@/helpers/useParams';
 import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
 import auth from '@/auth';
-
-auth.requireUser();
+import { useCurrentGamesQuery } from '@/queries/currentGameQueries';
 
 const params = useParams();
-const users = useUsers();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
-const currentGames = useCurrentGames();
-
 const slug = computed(() => params.slug.value);
+const currentGamesQuery = useCurrentGamesQuery(slug.value);
 const gameArchiveQuery = useGameArchiveQuery(slug.value);
 const years = computed(() => getYears(allGames.value));
 const latestYear = computed(() => years.value[0]);
 
 const latestYearGames = computed(() => filterGames(allGames.value, latestYear.value));
 const allGames = computed(() => gameArchiveQuery.data.value ?? []);
+const currentGames = computed(() => currentGamesQuery.data.value ?? []);
 
 const ready = computed(() => {
-  return gameArchiveQuery.isSuccess.value && currentGames.currentGamesReady.value;
+  return gameArchiveQuery.isSuccess.value && currentGamesQuery.isSuccess.value;
 });
 
-const hasGames = computed(() => {
-  return allGames.value.length > 0;
-});
+const hasGames = computed(() => allGames.value.length > 0);
 
-const init = async () => {
-  users.requireUser();
-  bunches.loadBunch();
-  gameArchive.loadGames();
-  gameArchive.selectYear(undefined);
-  currentGames.loadCurrentGames();
-};
-
-onMounted(async () => {
-  init();
-});
+onMounted(() => auth.requireUser());
 </script>

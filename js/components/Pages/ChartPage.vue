@@ -32,6 +32,7 @@ import useGameArchive from '@/composables/useGameArchive';
 import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import auth from '@/auth';
 
 const route = useRoute();
 const users = useUsers();
@@ -61,4 +62,6 @@ onMounted(() => {
 onBeforeRouteUpdate(async (to) => {
   init(getSelectedYear(to.params.year as string));
 });
+
+onMounted(() => auth.requireUser());
 </script>

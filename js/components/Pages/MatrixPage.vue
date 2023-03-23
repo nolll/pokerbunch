@@ -27,13 +27,11 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
 import useParams from '@/helpers/useParams';
 import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
 import auth from '@/auth';
-
-auth.requireUser();
 
 const params = useParams();
 const gameArchiveQuery = useGameArchiveQuery(params.slug.value);
@@ -50,4 +48,6 @@ const games = computed(() => {
 const ready = computed(() => {
   return gameArchiveQuery.isSuccess.value;
 });
+
+onMounted(() => auth.requireUser());
 </script>
