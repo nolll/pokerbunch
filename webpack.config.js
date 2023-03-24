@@ -25,11 +25,10 @@ function getOutput(){
     };
 }
 
-function getDevtool(){
-    return false;
-    // return isDev()
-    //     ? 'inline-source-map'
-    //     : 'source-map'
+function getDevTool(){
+    return isDev()
+        ? 'eval-source-map'
+        : 'source-map'
 }
 
 function getModule(){
@@ -149,7 +148,7 @@ function getDevServer(){
             },
             compress: true,
             port: 9000,
-            https: true,
+            server: 'https',
             proxy: {
                 '/api/': {
                     target: 'https://pokerbunch-api.herokuapp.com',
@@ -176,7 +175,7 @@ module.exports = {
     mode: getMode(),
     entry: getEntry(),
     output: getOutput(),
-    devtool: getDevtool(),
+    devtool: getDevTool(),
     module: getModule(),
     plugins: getPlugins(),
     resolve: getResolve(),
