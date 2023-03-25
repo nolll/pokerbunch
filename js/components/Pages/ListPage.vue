@@ -28,6 +28,7 @@ import { computed, onMounted } from 'vue';
 import useParams from '@/helpers/useParams';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
 import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
+import auth from '@/auth';
 
 const params = useParams();
 const slug = computed(() => params.slug.value);
@@ -43,4 +44,6 @@ const games = computed(() => {
 const ready = computed(() => {
   return gameArchiveQuery.isSuccess.value;
 });
+
+onMounted(() => auth.requireUser());
 </script>

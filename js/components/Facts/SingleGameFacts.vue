@@ -1,5 +1,5 @@
 ﻿<template>
-  <div v-if="ready">
+  <div>
     <h2 class="h2">Single Game</h2>
     <DefinitionList>
       <DefinitionTerm>Best Result</DefinitionTerm>
@@ -24,18 +24,20 @@ import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { SingleGameFactCollection } from '@/models/SingleGameFactCollection';
 import { PlayerWinningsFact } from '@/models/PlayerWinningsFact';
 import { computed } from 'vue';
-import useGameArchive from '@/composables/useGameArchive';
-import useBunches from '@/composables/useBunches';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import archiveHelper from '@/ArchiveHelper';
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const props = defineProps<{
+  slug: string;
+  games: ArchiveCashgame[];
+}>();
 
-const facts = computed(() => {
-  return getFacts(gameArchive.sortedPlayers.value);
+const players = computed(() => {
+  return archiveHelper.getPlayers(props.games);
 });
 
-const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
+const facts = computed(() => {
+  return getFacts(players.value);
 });
 
 const getFacts = (players: CashgameListPlayerData[]): SingleGameFactCollection => {
