@@ -95,28 +95,28 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import WinningsText from '@/components/Common/WinningsText.vue';
 import DurationText from '@/components/Common/DurationText.vue';
-import { Player } from '@/models/Player';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
+import useParams from '@/helpers/useParams';
 
 const route = useRoute();
 const router = useRouter();
 const users = useUsers();
 const bunches = useBunches();
-const gameArchive = useGameArchive();
+const params = useParams();
+const gameArchiveQuery = useGameArchiveQuery(params.slug.value);
 const players = usePlayers();
 
 const user = ref<User>();
@@ -150,8 +150,12 @@ const avatarUrl = computed(() => {
   return user.value?.avatar;
 });
 
+const allGames = computed(() => {
+  return gameArchiveQuery.data.value || [];
+});
+
 const games = computed(() => {
-  return gameArchive.games.value.filter((g) => isInGame(g));
+  return allGames.value.filter((g) => isInGame(g));
 });
 
 const results = computed(() => {
@@ -269,7 +273,7 @@ const worstLosingStreak = computed(() => {
 });
 
 const ready = computed(() => {
-  return player.value != null && gameArchive.gamesReady.value;
+  return player.value != null && gameArchiveQuery.isSuccess.value;
 });
 
 const userReady = computed(() => {
@@ -335,7 +339,6 @@ const loadUser = async () => {
 const init = async () => {
   users.requireUser();
   bunches.loadBunch();
-  gameArchive.loadGames();
   await players.loadPlayers();
 };
 
