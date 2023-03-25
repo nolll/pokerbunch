@@ -1,7 +1,5 @@
 ﻿<template>
-  <div v-if="ready">
-    <LineChart :chart-data="chartData" :chart-options="chartOptions" />
-  </div>
+  <LineChart :chart-data="chartData" :chart-options="chartOptions" />
 </template>
 
 <script setup lang="ts">
@@ -13,8 +11,6 @@ import { ChartColumnType } from '@/models/ChartColumnType';
 import { ChartRowData } from '@/models/ChartRowData';
 import { ChartRow } from '@/models/ChartRow';
 import format from '@/format';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
 import { computed } from 'vue';
 import { CashgameSortOrder } from '@/models/CashgameSortOrder';
 import archiveHelper from '@/ArchiveHelper';
@@ -27,9 +23,6 @@ const props = defineProps<{
   games: ArchiveCashgame[];
 }>();
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
-
 const chartOptions: ChartOptions = {
   pointSize: 0,
   legend: {
@@ -38,9 +31,6 @@ const chartOptions: ChartOptions = {
 };
 
 const chartData = computed(() => {
-  if (!ready.value) {
-    return null;
-  }
   return getChartData(sortedGames.value, players.value);
 });
 
@@ -50,10 +40,6 @@ const sortedGames = computed((): ArchiveCashgame[] => {
 
 const players = computed((): CashgameListPlayerData[] => {
   return playerSorter.sort(archiveHelper.getPlayers(sortedGames.value), CashgamePlayerSortOrder.Winnings);
-});
-
-const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
 });
 
 const getChartData = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
