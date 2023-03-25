@@ -38,23 +38,18 @@ import api from '@/api';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import LocationDropdown from '@/components/LocationDropdown.vue';
-import { computed, onMounted, ref, watch } from 'vue';
-import useUsers from '@/composables/useUsers';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLocationsQuery } from '@/queries/locationQueries';
 import useParams from '@/helpers/useParams';
+import auth from '@/auth';
 
 const router = useRouter();
-const users = useUsers();
 const params = useParams();
 const locationsQuery = useLocationsQuery(params.slug.value);
 
 const locationId = ref('');
 const errorMessage = ref('');
-
-const init = () => {
-  users.requireUser();
-};
 
 const locations = computed(() => {
   return locationsQuery.data.value ?? [];
@@ -89,7 +84,5 @@ const ready = computed(() => {
   return locationsQuery.isSuccess.value;
 });
 
-onMounted(() => {
-  init();
-});
+onMounted(() => auth.requireUser());
 </script>

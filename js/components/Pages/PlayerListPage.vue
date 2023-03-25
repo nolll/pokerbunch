@@ -18,7 +18,7 @@
           </Block>
 
           <Block>
-            <PlayerList :bunchId="slug" />
+            <PlayerList :players="players" :slug="slug" />
           </Block>
         </template>
       </PageSection>
@@ -35,34 +35,21 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import usePlayers from '@/composables/usePlayers';
 import { computed, onMounted } from 'vue';
+import useParams from '@/helpers/useParams';
+import auth from '@/auth';
+import { usePlayersQuery } from '@/queries/playerQueries';
 
-const users = useUsers();
-const bunches = useBunches();
-const players = usePlayers();
+const params = useParams();
+const slug = computed(() => params.slug.value);
+const playersQuery = usePlayersQuery(slug.value);
+const addPlayerUrl = computed(() => urls.player.add(slug.value));
 
-const addPlayerUrl = computed(() => {
-  return urls.player.add(slug.value);
-});
-
-const slug = computed(() => {
-  return bunches.slug.value;
-});
+const players = computed(() => playersQuery.data.value!);
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && players.playersReady.value;
+  return playersQuery.isSuccess.value;
 });
 
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-  players.loadPlayers();
-};
-
-onMounted(() => {
-  init();
-});
+onMounted(() => auth.requireUser());
 </script>

@@ -1,7 +1,7 @@
 ﻿<template>
   <SimpleList>
-    <SimpleListItem v-for="player in playerList" :key="player.id">
-      <PlayerListItem :id="player.id" :name="player.name" :color="player.color" :bunchId="bunchId" />
+    <SimpleListItem v-for="player in players" :key="player.id">
+      <PlayerListItem :id="player.id" :name="player.name" :color="player.color" :bunchId="slug" />
     </SimpleListItem>
   </SimpleList>
 </template>
@@ -9,21 +9,11 @@
 <script setup lang="ts">
 import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
 import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-import usePlayers from '@/composables/usePlayers';
-import { computed } from 'vue';
+import { PlayerResponse } from '@/response/PlayerResponse';
 import PlayerListItem from './PlayerListItem.vue';
 
 defineProps<{
-  bunchId: string;
+  slug: string;
+  players: PlayerResponse[];
 }>();
-
-const players = usePlayers();
-
-const playerList = computed(() => {
-  return players.players.value;
-});
-
-const ready = computed(() => {
-  return players.playersReady.value;
-});
 </script>

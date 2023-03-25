@@ -81,12 +81,6 @@ export default function useUsers() {
     store.commit(UserStoreMutations.SetUsersReady, true);
   };
 
-  watch(userReady, (isUserReady: boolean) => {
-    if (isUserReady && isUserRequired.value && !isSignedIn.value) {
-      router.push(urls.auth.login);
-    }
-  });
-
   return {
     userReady,
     isSignedIn,

@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import useTimezones from '@/composables/useTimezones';
+import { getTimezones } from '@/helpers/timezones';
 import { computed } from 'vue';
 
 defineProps<{
@@ -17,10 +17,8 @@ defineProps<{
 
 const emit = defineEmits(['update:modelValue']);
 
-const timezones = useTimezones();
-
 const timezoneList = computed(() => {
-  return timezones.getTimezones();
+  return getTimezones();
 });
 
 const updateValue = (event: Event) => {
