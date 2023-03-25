@@ -34,30 +34,22 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import useEvents from '@/composables/useEvents';
 import { computed, onMounted } from 'vue';
+import useParams from '@/helpers/useParams';
+import auth from '@/auth';
+import { useEventsQuery } from '@/queries/eventQueries';
 
-const users = useUsers();
-const bunches = useBunches();
-const events = useEvents();
+const params = useParams();
+const slug = computed(() => params.slug.value);
+const eventsQuery = useEventsQuery(slug.value);
 
 const addEventUrl = computed(() => {
-  return urls.event.add(bunches.slug.value);
+  return urls.event.add(slug.value);
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && events.eventsReady.value;
+  return eventsQuery.isSuccess.value;
 });
 
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-  events.loadEvents();
-};
-
-onMounted(() => {
-  init();
-});
+onMounted(() => auth.requireUser());
 </script>
