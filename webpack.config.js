@@ -7,6 +7,9 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
+//const apiUrl = 'https://api.pokerbunch.com';
+const apiUrl = 'https://localhost:44315';
+
 const getMode = () => {
     return isDev()
         ? 'development'
@@ -171,8 +174,7 @@ function getDevServer(){
             server: 'https',
             proxy: {
                 '/api/': {
-                    target: 'https://api.pokerbunch.com',
-                    //target: 'https://localhost:44315',
+                    target: apiUrl,
                     pathRewrite: { '^/api': '' },
                     secure: false,
                     changeOrigin: true

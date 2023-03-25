@@ -33,23 +33,19 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useUsers from '@/composables/useUsers';
-import { useAddLocationMutation, locationsQueryKey } from '@/queries/locationQueries';
+import { locationsQueryKey } from '@/queries/locationQueries';
 import { useQueryClient } from 'vue-query';
 import useParams from '@/helpers/useParams';
+import api from '@/api';
 
 const router = useRouter();
 const users = useUsers();
 const queryClient = useQueryClient();
 const params = useParams();
-
-const onAddSuccess = () => {
-  queryClient.invalidateQueries(locationsQueryKey(params.slug.value));
-};
-
-const { mutate: addLocation } = useAddLocationMutation(params.slug.value, onAddSuccess);
+const slug = computed(() => params.slug.value);
 
 const locationName = ref('');
 
@@ -57,9 +53,10 @@ const init = () => {
   users.requireUser();
 };
 
-const add = () => {
+const add = async () => {
   if (locationName.value.length > 0) {
-    addLocation({ name: locationName.value });
+    await api.addLocation(slug.value, { name: locationName.value });
+    queryClient.invalidateQueries(locationsQueryKey(slug.value));
     redirect();
   }
 };

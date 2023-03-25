@@ -91,11 +91,12 @@ import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref } from 'vue';
 import useUsers from '@/composables/useUsers';
-import { useBunchQuery, useUpdateBunchMutation, bunchQueryKey } from '@/queries/bunchQueries';
+import { useBunchQuery, bunchQueryKey } from '@/queries/bunchQueries';
 import { useQueryClient } from 'vue-query';
 import useParams from '@/helpers/useParams';
 import accessControl from '@/access-control';
 import format from '@/format';
+import api from '@/api';
 
 const users = useUsers();
 const params = useParams();
@@ -105,8 +106,6 @@ const queryClient = useQueryClient();
 const onUpdateSuccess = () => {
   queryClient.invalidateQueries(bunchQueryKey(params.slug.value));
 };
-
-const { mutate: updateBunch } = useUpdateBunchMutation(params.slug.value, onUpdateSuccess);
 
 const isEditing = ref(false);
 const errorMessage = ref<string | null>(null);
@@ -215,7 +214,7 @@ const save = async () => {
     currencyLayout: formCurrencyLayout.value,
   };
 
-  updateBunch(postData);
+  await api.updateBunch(params.slug.value, postData);
   hideEditForm();
 };
 

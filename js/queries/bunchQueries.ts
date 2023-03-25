@@ -1,6 +1,5 @@
 import api from '@/api';
-import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
-import { useQuery, useMutation } from 'vue-query';
+import { useQuery } from 'vue-query';
 
 export const bunchQueryKey = (slug: string) => ['bunch', slug];
 export const bunchesQueryKey = () => ['bunches'];
@@ -23,12 +22,5 @@ export const useUserBunchesQuery = (isSignedIn: boolean) => {
   return useQuery(userBunchesQueryKey(), () => api.getUserBunches(), {
     select: (response) => response.data,
     enabled: isSignedIn,
-  });
-};
-
-export const useUpdateBunchMutation = (id: string, onSuccess: () => void | Promise<unknown>) => {
-  return useMutation({
-    mutationFn: (bunch: ApiParamsUpdateBunch) => api.updateBunch(id, bunch),
-    onSuccess: () => onSuccess(),
   });
 };
