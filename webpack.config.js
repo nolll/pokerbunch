@@ -18,6 +18,15 @@ function getEntry(){
 }
 
 function getOutput(){
+    if(isDev()){
+        return {
+            path: path.resolve(__dirname, './dist'),
+            publicPath: '/',
+            devtoolModuleFilenameTemplate: getModuleFilenameTemplate(),
+            devtoolFallbackModuleFilenameTemplate: getFallbackModuleFilenameTemplate()
+        };    
+    }
+
     return {
         filename: getJsFilename(),
         path: path.resolve(__dirname, './dist'),
@@ -28,7 +37,18 @@ function getOutput(){
 function getDevTool(){
     return isDev()
         ? 'eval-source-map'
-        : 'source-map'
+        : 'source-map';
+}
+
+function getModuleFilenameTemplate(){
+    return info =>
+        info.resourcePath.match(/\.vue$/) && !info.identifier.match(/type=script/)
+            ? `webpack-generated:///${info.resourcePath}?${info.hash}`
+            : `webpack-yourCode:///${info.resourcePath}`;
+}
+
+function getFallbackModuleFilenameTemplate(){
+    return 'webpack:///[resource-path]?[hash]';
 }
 
 function getModule(){
@@ -151,7 +171,7 @@ function getDevServer(){
             server: 'https',
             proxy: {
                 '/api/': {
-                    target: 'https://pokerbunch-api.herokuapp.com',
+                    target: 'https://api.pokerbunch.com',
                     //target: 'https://localhost:44315',
                     pathRewrite: { '^/api': '' },
                     secure: false,
