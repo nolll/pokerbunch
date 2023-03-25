@@ -17,7 +17,7 @@
             <PageHeading text="Events" />
           </Block>
           <Block>
-            <EventList />
+            <EventList :events="events" />
           </Block>
         </template>
       </PageSection>
@@ -42,6 +42,7 @@ import { useEventsQuery } from '@/queries/eventQueries';
 const params = useParams();
 const slug = computed(() => params.slug.value);
 const eventsQuery = useEventsQuery(slug.value);
+const events = computed(() => eventsQuery.data.value ?? []);
 
 const addEventUrl = computed(() => {
   return urls.event.add(slug.value);

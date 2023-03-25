@@ -33,28 +33,26 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import useEvents from '@/composables/useEvents';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import useParams from '@/helpers/useParams';
+import auth from '@/auth';
+import api from '@/api';
+import { useQueryClient } from 'vue-query';
+import { eventsQueryKey } from '@/queries/eventQueries';
 
+const params = useParams();
 const router = useRouter();
-const users = useUsers();
-const bunches = useBunches();
-const events = useEvents();
+const queryClient = useQueryClient();
 
 const eventName = ref('');
 
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-  events.loadEvents();
-};
+const slug = computed(() => params.slug.value);
 
-const add = () => {
+const add = async () => {
   if (eventName.value.length > 0) {
-    events.addEvent(eventName.value);
+    await api.addEvent(slug.value, { name: eventName.value });
+    queryClient.invalidateQueries(eventsQueryKey(slug.value));
     redirect();
   }
 };
@@ -64,14 +62,8 @@ const cancel = () => {
 };
 
 const redirect = () => {
-  router.push(urls.event.list(bunches.slug.value));
+  router.push(urls.event.list(slug.value));
 };
 
-const ready = computed(() => {
-  return bunches.bunchReady.value && events.eventsReady.value;
-});
-
-onMounted(() => {
-  init();
-});
+onMounted(() => auth.requireUser());
 </script>
