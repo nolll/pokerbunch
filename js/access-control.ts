@@ -11,4 +11,10 @@ export default {
   canSeeAdminMenu: (role: Role | null | undefined) => {
     return role === roles.admin;
   },
+  canSelectPlayer: (role: Role) => {
+    return role === roles.manager || role === roles.admin;
+  },
+  canEditCashgame: (role: Role) => {
+    return role === roles.manager || role === roles.admin;
+  },
 };

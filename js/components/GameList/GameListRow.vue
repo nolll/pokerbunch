@@ -5,9 +5,9 @@
     </TableListCell>
     <TableListCell :is-numeric="true">{{ game.playerCount }}</TableListCell>
     <TableListCell>{{ game.location.name }}</TableListCell>
-    <TableListCell>{{ duration }}</TableListCell>
-    <TableListCell :is-numeric="true">{{ formattedTurnover }}</TableListCell>
-    <TableListCell :is-numeric="true">{{ formattedAverageBuyin }}</TableListCell>
+    <TableListCell><DurationText :value="duration" /></TableListCell>
+    <TableListCell :is-numeric="true"><CurrencyText :value="turnover" /></TableListCell>
+    <TableListCell :is-numeric="true"><CurrencyText :value="averageBuyin" /></TableListCell>
   </TableListRow>
 </template>
 
@@ -19,32 +19,17 @@ import format from '@/format';
 import TableListRow from '@/components/Common/TableList/TableListRow.vue';
 import TableListCell from '@/components/Common/TableList/TableListCell.vue';
 import { computed } from 'vue';
-import useFormatter from '@/composables/useFormatter';
+import CurrencyText from '../Common/CurrencyText.vue';
+import DurationText from '../Common/DurationText.vue';
 
 const props = defineProps<{
   game: ArchiveCashgame;
   slug: string;
 }>();
 
-const formatter = useFormatter();
-
-const url = computed(() => {
-  return urls.cashgame.details(props.slug, props.game.id);
-});
-
-const displayDate = computed(() => {
-  return format.monthDay(props.game.date);
-});
-
-const duration = computed(() => {
-  return formatter.formatDuration(props.game.duration);
-});
-
-const formattedAverageBuyin = computed(() => {
-  return formatter.formatCurrency(props.game.averageBuyin);
-});
-
-const formattedTurnover = computed(() => {
-  return formatter.formatCurrency(props.game.turnover);
-});
+const url = computed(() => urls.cashgame.details(props.slug, props.game.id));
+const displayDate = computed(() => format.monthDay(props.game.date));
+const duration = computed(() => props.game.duration);
+const averageBuyin = computed(() => props.game.averageBuyin);
+const turnover = computed(() => props.game.turnover);
 </script>

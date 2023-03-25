@@ -3,9 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import useFormatter from '@/composables/useFormatter';
+import format from '@/format';
+import { bunchKey } from '@/helpers/injectionKeys';
 import { CssClasses } from '@/models/CssClasses';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -17,11 +18,11 @@ const props = withDefaults(
   }
 );
 
-const formatter = useFormatter();
+const bunch = inject(bunchKey);
 
 const formattedValue = computed(() => {
-  if (props.showCurrency) return formatter.formatResult(props.value);
-  return formatter.formatResultWithoutCurrency(props.value);
+  if (props.showCurrency) return format.result(props.value, bunch?.value.currencyFormat, bunch?.value.thousandSeparator);
+  return format.resultWithoutCurrency(props.value);
 });
 
 const cssClasses = computed((): CssClasses => {

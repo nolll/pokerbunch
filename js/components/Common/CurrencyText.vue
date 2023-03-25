@@ -1,18 +1,19 @@
 ﻿<template>
-    <span>{{formattedValue}}</span>
+  <span>{{ formattedValue }}</span>
 </template>
 
 <script setup lang="ts">
-    import useFormatter from '@/composables/useFormatter';
-    import { computed } from 'vue';
+import format from '@/format';
+import { bunchKey } from '@/helpers/injectionKeys';
+import { computed, inject } from 'vue';
 
-    const props = defineProps<{
-        value: number
-    }>();
+const props = defineProps<{
+  value: number;
+}>();
 
-    var formatter = useFormatter();
+const bunch = inject(bunchKey);
 
-    const formattedValue = computed(() => {
-        return formatter.formatCurrency(props.value);
-    });
+const formattedValue = computed(() => {
+  return format.currency(props.value, bunch?.value?.currencyFormat, bunch?.value?.thousandSeparator);
+});
 </script>

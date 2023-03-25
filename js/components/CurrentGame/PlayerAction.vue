@@ -11,7 +11,8 @@
       </div>
     </div>
     <div v-else>
-      {{ formattedTime }} {{ typeName }}: {{ formattedAmount }}
+      <!-- todo: Fix spacing and button styling -->
+      {{ formattedTime }} {{ typeName }}: <CurrencyText :value="amount" />
       <button @click="clickEdit" v-if="canEdit">Edit</button>
       <button @click="clickDelete" v-if="canEdit">Delete</button>
     </div>
@@ -23,7 +24,7 @@ import { DetailedCashgameResponseAction } from '@/response/DetailedCashgameRespo
 import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 import format from '@/format';
 import { computed, ref } from 'vue';
-import useFormatter from '@/composables/useFormatter';
+import CurrencyText from '../Common/CurrencyText.vue';
 
 const props = defineProps<{
   action: DetailedCashgameResponseAction;
@@ -31,8 +32,6 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(['saveAction', 'deleteAction']);
-
-const formatter = useFormatter();
 
 const isFormVisible = ref(false);
 const changedTime = ref<string | null>(null);
@@ -56,10 +55,6 @@ const formAdded = computed(() => {
 
 const formattedTime = computed(() => {
   return format.hourMinute(props.action.time);
-});
-
-const formattedAmount = computed(() => {
-  return formatter.formatCurrency(amount.value);
 });
 
 const amount = computed(() => {

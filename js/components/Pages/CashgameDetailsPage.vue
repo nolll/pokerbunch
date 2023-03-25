@@ -23,18 +23,11 @@
           </Block>
           <Block>
             <ReportForm v-show="reportFormVisible" :defaultBuyin="defaultBuyin" @report="report" @cancel="hideForms" />
-            <BuyinForm
-              v-show="buyinFormVisible"
-              :defaultBuyin="defaultBuyin"
-              @buyin="buyin"
-              @cancel="hideForms"
-              :isPlayerInGame="isInGame"
-            />
+            <BuyinForm v-show="buyinFormVisible" :defaultBuyin="defaultBuyin" @buyin="buyin" @cancel="hideForms" :isPlayerInGame="isInGame" />
             <CashoutForm v-show="cashoutFormVisible" :defaultBuyin="defaultBuyin" @cashout="cashout" @cancel="hideForms" />
           </Block>
           <Block v-if="hasPlayers">
             <div class="standings">
-              <!-- todo: changed cashgame.players to playersInGame. Check if it is still working -->
               <PlayerTable
                 :players="playersInGame"
                 :isCashgameRunning="isRunning"
@@ -68,9 +61,7 @@
                 <CustomLink v-else :url="eventUrl">{{ eventName }}</CustomLink>
               </ValueListValue>
               <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
-              <ValueListValue v-if="isPlayerSelectionEnabled"
-                ><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId"
-              /></ValueListValue>
+              <ValueListValue v-if="isPlayerSelectionEnabled"><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId" /></ValueListValue>
             </ValueList>
           </Block>
           <Block v-if="canEdit">
@@ -128,18 +119,23 @@ import useBunches from '@/composables/useBunches';
 import useEvents from '@/composables/useEvents';
 import useUsers from '@/composables/useUsers';
 import usePlayers from '@/composables/usePlayers';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import ReportIcon from '../Icons/ReportIcon.vue';
 import BuyinIcon from '../Icons/BuyinIcon.vue';
 import CashoutIcon from '../Icons/CashoutIcon.vue';
 import { useLocationsQuery } from '@/queries/locationQueries';
+import useParams from '@/helpers/useParams';
+import { useBunchQuery } from '@/queries/bunchQueries';
+import { bunchKey } from '@/helpers/injectionKeys';
 
+const params = useParams();
 const route = useRoute();
 const router = useRouter();
 const users = useUsers();
 const bunches = useBunches();
+const bunchQuery = useBunchQuery(params.slug.value);
 const events = useEvents();
 const players = usePlayers();
 const locationsQuery = useLocationsQuery(route.params.slug as string);
@@ -264,11 +260,10 @@ const canEdit = computed((): boolean => {
   return bunches.isManager.value;
 });
 
-// todo: I think I've found the bug with the sorted players. SortedPlayers is not used
 const playersInGame = computed((): DetailedCashgamePlayer[] => {
   if (!cashgame.value) return [];
   const sortedPlayers = cashgame.value.players.slice().sort((left, right) => right.getWinnings() - left.getWinnings());
-  return cashgame.value.players;
+  return sortedPlayers;
 });
 
 const allPlayers = computed(() => {
@@ -465,6 +460,10 @@ const onSaveAction = async (data: any) => {
   };
   await api.updateAction(cashgame.value.id, data.id, updateData);
 };
+
+const bunch = computed(() => bunchQuery.data.value!);
+
+provide(bunchKey, bunch);
 
 onMounted(async () => {
   await init();

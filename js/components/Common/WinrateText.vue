@@ -3,18 +3,19 @@
 </template>
 
 <script setup lang="ts">
-import useFormatter from '@/composables/useFormatter';
+import format from '@/format';
+import { bunchKey } from '@/helpers/injectionKeys';
 import { CssClasses } from '@/models/CssClasses';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
 const props = defineProps<{
   value: number;
 }>();
 
-const formatter = useFormatter();
+const bunch = inject(bunchKey);
 
 const formattedValue = computed(() => {
-  return formatter.formatWinrate(props.value);
+  return format.winrate(props.value, bunch?.value.currencyFormat, bunch?.value.thousandSeparator);
 });
 
 const cssClasses = computed((): CssClasses => {
