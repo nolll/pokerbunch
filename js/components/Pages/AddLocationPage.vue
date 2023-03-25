@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -68,6 +68,8 @@ const cancel = () => {
 const redirect = () => {
   router.push(urls.location.list(params.slug.value));
 };
+
+const ready = computed(() => true);
 
 onMounted(() => {
   init();

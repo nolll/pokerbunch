@@ -1,15 +1,12 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Api" />
       </Block>
 
       <Block>
-        <p>
-          You can build your own applications that interact with Poker Bunch, by using the Poker Bunch API. You'll find everything
-          you need to know right here.
-        </p>
+        <p>You can build your own applications that interact with Poker Bunch, by using the Poker Bunch API. You'll find everything you need to know right here.</p>
       </Block>
 
       <Block>
@@ -49,4 +46,6 @@ import { computed } from 'vue';
 const swaggerUrl = computed(() => {
   return `/api/swagger`;
 });
+
+const ready = computed(() => true);
 </script>

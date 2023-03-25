@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Register" />
@@ -103,6 +103,8 @@ const back = () => {
 };
 
 const init = () => {};
+
+const ready = computed(() => true);
 
 onMounted(() => {
   init();

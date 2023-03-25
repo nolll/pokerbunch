@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Create Bunch" />
@@ -107,5 +107,6 @@ const back = () => {
   history.back();
 };
 
+const ready = computed(() => true);
 onMounted(() => auth.requireUser());
 </script>

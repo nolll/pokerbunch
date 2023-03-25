@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Reset Password" />
@@ -70,4 +70,6 @@ const send = async () => {
 const back = () => {
   history.back();
 };
+
+const ready = computed(() => true);
 </script>

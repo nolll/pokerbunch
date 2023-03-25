@@ -65,5 +65,6 @@ const redirect = () => {
   router.push(urls.event.list(slug.value));
 };
 
+const ready = computed(() => true);
 onMounted(() => auth.requireUser());
 </script>

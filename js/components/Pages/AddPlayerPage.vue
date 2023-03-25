@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -64,5 +64,6 @@ const redirect = () => {
   router.push(urls.player.list(slug.value));
 };
 
+const ready = computed(() => true);
 onMounted(() => auth.requireUser());
 </script>

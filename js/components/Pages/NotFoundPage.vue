@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Page not found" />
@@ -24,4 +24,6 @@ import { computed } from 'vue';
 const homeUrl = computed(() => {
   return urls.home;
 });
+
+const ready = computed(() => true);
 </script>
