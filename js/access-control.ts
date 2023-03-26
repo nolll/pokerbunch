@@ -1,20 +1,16 @@
 import { Role } from './models/Role';
 import roles from './roles';
 
+const isManager = (role: Role | null | undefined) => role === roles.manager;
+const isAdmin = (role: Role | null | undefined) => role === roles.admin;
+const isAdminOrManager = (role: Role | null | undefined) => isAdmin(role) || isManager(role);
+
 export default {
-  canEditBunch: (role: Role) => {
-    return role === roles.manager || role === roles.admin;
-  },
-  canListBunches: (role: Role | null | undefined) => {
-    return role === roles.admin;
-  },
-  canSeeAdminMenu: (role: Role | null | undefined) => {
-    return role === roles.admin;
-  },
-  canSelectPlayer: (role: Role) => {
-    return role === roles.manager || role === roles.admin;
-  },
-  canEditCashgame: (role: Role) => {
-    return role === roles.manager || role === roles.admin;
-  },
+  canEditBunch: (role: Role) => isAdminOrManager(role),
+  canListBunches: (role: Role | null | undefined) => isAdmin(role),
+  canSeeAdminMenu: (role: Role | null | undefined) => isAdmin(role),
+  canSelectPlayer: (role: Role) => isAdminOrManager(role),
+  canEditCashgame: (role: Role) => isAdminOrManager(role),
+  canClearCache: (role: Role | null | undefined) => isAdmin(role),
+  canSendTestEmail: (role: Role | null | undefined) => isAdmin(role),
 };
