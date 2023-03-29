@@ -44,29 +44,35 @@ import YearMatrixTable from '@/components/YearMatrix/YearMatrixTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, provide } from 'vue';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
 import useParams from '@/helpers/useParams';
 import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
 import auth from '@/auth';
 import { useCurrentGamesQuery } from '@/queries/currentGameQueries';
+import { useBunchQuery } from '@/queries/bunchQueries';
+import { bunchKey } from '@/helpers/injectionKeys';
 
 const params = useParams();
 const slug = computed(() => params.slug.value);
 const currentGamesQuery = useCurrentGamesQuery(slug.value);
 const gameArchiveQuery = useGameArchiveQuery(slug.value);
+const bunchQuery = useBunchQuery(slug.value);
 const years = computed(() => getYears(allGames.value));
 const latestYear = computed(() => years.value[0]);
 
+const bunch = computed(() => bunchQuery.data.value!);
 const latestYearGames = computed(() => filterGames(allGames.value, latestYear.value));
 const allGames = computed(() => gameArchiveQuery.data.value ?? []);
 const currentGames = computed(() => currentGamesQuery.data.value ?? []);
 
 const ready = computed(() => {
-  return gameArchiveQuery.isSuccess.value && currentGamesQuery.isSuccess.value;
+  return bunchQuery.isSuccess.value && gameArchiveQuery.isSuccess.value && currentGamesQuery.isSuccess.value;
 });
 
 const hasGames = computed(() => allGames.value.length > 0);
+
+provide(bunchKey, bunch);
 
 onMounted(() => auth.requireUser());
 </script>

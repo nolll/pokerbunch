@@ -27,16 +27,18 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, provide } from 'vue';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
 import useParams from '@/helpers/useParams';
 import { filterGames, getYears } from '@/helpers/gameArchiveHelpers';
 import auth from '@/auth';
+import { useBunchQuery } from '@/queries/bunchQueries';
+import { bunchKey } from '@/helpers/injectionKeys';
 
 const params = useParams();
-const gameArchiveQuery = useGameArchiveQuery(params.slug.value);
-
 const slug = computed(() => params.slug.value);
+const gameArchiveQuery = useGameArchiveQuery(slug.value);
+const bunchQuery = useBunchQuery(slug.value);
 const year = computed(() => params.year.value);
 const years = computed(() => getYears(allGames.value));
 const allGames = computed(() => gameArchiveQuery.data.value ?? []);
@@ -45,9 +47,13 @@ const games = computed(() => {
   return filterGames(allGames.value, params.year.value);
 });
 
+const bunch = computed(() => bunchQuery.data.value!);
+
 const ready = computed(() => {
-  return gameArchiveQuery.isSuccess.value;
+  return bunchQuery.isSuccess.value && gameArchiveQuery.isSuccess.value;
 });
+
+provide(bunchKey, bunch);
 
 onMounted(() => auth.requireUser());
 </script>

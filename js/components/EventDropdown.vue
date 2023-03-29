@@ -8,19 +8,18 @@
 </template>
 
 <script setup lang="ts">
-import useEvents from '@/composables/useEvents';
+import { EventResponse } from '@/response/EventResponse';
 import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   modelValue?: string;
+  events: EventResponse[];
 }>();
 
 const emit = defineEmits(['update:modelValue']);
 
-const events = useEvents();
-
 const eventList = computed(() => {
-  return events.events.value;
+  return props.events;
 });
 
 const updateValue = (event: Event) => {

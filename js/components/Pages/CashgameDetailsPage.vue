@@ -57,7 +57,7 @@
               </ValueListValue>
               <ValueListKey v-if="isPartOfEvent || isEditing">Event</ValueListKey>
               <ValueListValue v-if="isPartOfEvent || isEditing">
-                <EventDropdown v-if="isEditing" v-model="eventId" />
+                <EventDropdown :events="events" v-if="isEditing" v-model="eventId" />
                 <CustomLink v-else :url="eventUrl">{{ eventName }}</CustomLink>
               </ValueListValue>
               <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
@@ -116,7 +116,6 @@ import api from '@/api';
 import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
 import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 import useBunches from '@/composables/useBunches';
-import useEvents from '@/composables/useEvents';
 import useUsers from '@/composables/useUsers';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
@@ -129,6 +128,7 @@ import { useLocationsQuery } from '@/queries/locationQueries';
 import useParams from '@/helpers/useParams';
 import { useBunchQuery } from '@/queries/bunchQueries';
 import { bunchKey } from '@/helpers/injectionKeys';
+import { useEventsQuery } from '@/queries/eventQueries';
 
 const params = useParams();
 const route = useRoute();
@@ -136,9 +136,9 @@ const router = useRouter();
 const users = useUsers();
 const bunches = useBunches();
 const bunchQuery = useBunchQuery(params.slug.value);
-const events = useEvents();
+const eventsQuery = useEventsQuery(params.slug.value);
 const players = usePlayers();
-const locationsQuery = useLocationsQuery(route.params.slug as string);
+const locationsQuery = useLocationsQuery(params.slug.value);
 
 const longRefresh = 30000;
 
@@ -320,12 +320,14 @@ const updatedTime = computed(() => {
   return cashgame.value?.updatedTime || null;
 });
 
+const events = computed(() => eventsQuery.data.value ?? []);
+
 const slug = computed(() => {
   return bunches.slug.value;
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && cashgameReady.value && players.playersReady.value;
+  return bunches.bunchReady.value && cashgameReady.value && players.playersReady.value && eventsQuery.isSuccess.value;
 });
 
 const setupRefresh = (refreshTimeout: number) => {
@@ -416,9 +418,9 @@ const onSave = async () => {
 
   let cashgameEvent: DetailedCashgameEvent | null = null;
   if (eventId.value) {
-    const event = events.getEvent(eventId.value);
+    const event = events.value.find((x) => x.id === eventId.value);
     if (event) {
-      cashgameEvent = new DetailedCashgameEvent(event.id.toString(), event.name);
+      cashgameEvent = new DetailedCashgameEvent(event.id, event.name);
     }
   }
 
@@ -497,7 +499,6 @@ const init = async () => {
   users.requireUser();
   bunches.loadBunch();
   players.loadPlayers();
-  events.loadEvents();
   await loadCashgame();
   setupRefresh(longRefresh);
 };

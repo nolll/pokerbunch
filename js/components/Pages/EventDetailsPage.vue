@@ -23,64 +23,32 @@ import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import api from '@/api';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
-import { ArchiveCashgame } from '@/models/ArchiveCashgame';
-import useUsers from '@/composables/useUsers';
-import useEvents from '@/composables/useEvents';
-import useBunches from '@/composables/useBunches';
-import { useRoute } from 'vue-router';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, provide, ref } from 'vue';
+import useParams from '@/helpers/useParams';
+import { useEventsQuery } from '@/queries/eventQueries';
+import { useEventGamesQuery } from '@/queries/gameArchiveQueries';
+import auth from '@/auth';
+import { useBunchQuery } from '@/queries/bunchQueries';
+import { bunchKey } from '@/helpers/injectionKeys';
 
-const route = useRoute();
-const users = useUsers();
-const bunches = useBunches();
-const events = useEvents();
-
-const games = ref<ArchiveCashgame[]>([]);
-
-const name = computed(() => {
-  if (event.value) return event.value.name;
-  return '';
-});
-
-const slug = computed(() => {
-  return bunches.slug.value;
-});
-
-const event = computed(() => {
-  for (let i = 0; i < events.events.value.length; i++) {
-    const event = events.events.value[i];
-    if (event.id.toString() === eventId.value) return event;
-  }
-  return null;
-});
-
-const eventId = computed(() => {
-  return route.params.id as string;
-});
+const params = useParams();
+const eventsQuery = useEventsQuery(params.slug.value);
+const eventId = computed(() => params.id.value);
+const eventGamesQuery = useEventGamesQuery(params.slug.value, eventId.value);
+const bunchQuery = useBunchQuery(params.slug.value);
+const bunch = computed(() => bunchQuery.data.value!);
+const name = computed(() => (event.value ? event.value.name : ''));
+const slug = computed(() => params.slug.value);
+const event = computed(() => events.value.find((o) => o.id === eventId.value));
+const events = computed(() => eventsQuery.data.value ?? []);
+const games = computed(() => eventGamesQuery.data.value ?? []);
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && events.eventsReady.value;
+  return bunchQuery.isSuccess.value && eventsQuery.isSuccess.value && eventGamesQuery.isSuccess.value;
 });
 
-const init = async () => {
-  users.requireUser();
-  bunches.loadBunch();
-  events.loadEvents();
-  await loadGames();
-};
+provide(bunchKey, bunch);
 
-const loadGames = async () => {
-  try {
-    const response = await api.getEventGames(bunches.slug.value, eventId.value);
-    games.value = response.data.map((o) => ArchiveCashgame.fromResponse(o));
-  } catch {
-    games.value = [];
-  }
-};
-
-onMounted(async () => {
-  await init();
-});
+onMounted(async () => auth.requireUser());
 </script>
