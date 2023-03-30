@@ -37,43 +37,44 @@ import urls from '@/urls';
 import api from '@/api';
 import { ApiError } from '@/models/ApiError';
 import { AxiosError } from 'axios';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import usePlayers from '@/composables/usePlayers';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import useParams from '@/helpers/useParams';
+import auth from '@/auth';
+import { useBunchQuery } from '@/queries/bunchQueries';
+import { useQueryClient } from 'vue-query';
+import { playersQueryKey } from '@/queries/playerQueries';
 
+const params = useParams();
 const route = useRoute();
 const router = useRouter();
-const users = useUsers();
-const bunches = useBunches();
-const players = usePlayers();
+const bunchQuery = useBunchQuery(params.slug.value);
+const queryClient = useQueryClient();
 
 const code = ref('');
 const errorMessage = ref<string>();
 
 const routeCode = computed((): string | undefined => {
-  return route.params.code as string;
+  return route.params.code as string | undefined;
 });
 
-const bunchName = computed(() => {
-  return bunches.bunchName.value;
-});
+const bunch = computed(() => bunchQuery.data.value!);
+const bunchName = computed(() => bunch.value);
 
 const ready = computed(() => {
-  return bunches.bunchReady.value;
+  return bunchQuery.isSuccess.value;
 });
 
 const joinClicked = () => {
-  join(bunches.slug.value, code.value);
+  join(bunch.value.id, code.value);
 };
 
 const join = async (bunchId: string, code: string) => {
   if (code.length > 0) {
     try {
       await api.joinBunch(bunchId, { code });
-      players.loadPlayers();
-      router.push(urls.bunch.details(bunches.slug.value));
+      queryClient.invalidateQueries(playersQueryKey(bunchId));
+      router.push(urls.bunch.details(bunch.value.id));
     } catch (err) {
       const error = err as AxiosError<ApiError>;
       errorMessage.value = error.response?.data.message || 'Unknown Error';
@@ -85,16 +86,9 @@ const cancel = () => {
   router.push(urls.home);
 };
 
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-};
-
 watch(ready, () => {
-  if (ready.value && routeCode.value) join(bunches.slug.value, routeCode.value);
+  if (ready.value && routeCode.value) join(bunch.value.id, routeCode.value);
 });
 
-onMounted(() => {
-  init();
-});
+onMounted(() => auth.requireUser());
 </script>
