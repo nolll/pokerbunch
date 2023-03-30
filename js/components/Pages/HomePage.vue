@@ -22,8 +22,7 @@
             <h2 class="module-heading">Api</h2>
             <p>
               The
-              <CustomLink :url="apiDocsUrl">api</CustomLink> makes it possible to create your own apps that interact with Poker
-              Bunch.
+              <CustomLink :url="apiDocsUrl">api</CustomLink> makes it possible to create your own apps that interact with Poker Bunch.
             </p>
           </Block>
         </div>
@@ -34,8 +33,8 @@
           </Block>
           <Block>
             <p>
-              <CustomLink :url="loginUrl">Sign in</CustomLink> if you already have an account, or
-              <CustomLink :url="registerUrl">register</CustomLink> to create a bunch and begin inviting players.
+              <CustomLink :url="loginUrl">Sign in</CustomLink> if you already have an account, or <CustomLink :url="registerUrl">register</CustomLink> to create a bunch and
+              begin inviting players.
             </p>
           </Block>
         </div>
@@ -43,7 +42,7 @@
 
       <template v-slot:aside2>
         <Block>
-          <UserBunchList />
+          <UserBunchList :bunches="bunches" />
         </Block>
         <Block v-if="canSeeAdminMenu">
           <AdminNavigation />
@@ -81,6 +80,8 @@ const loginUrl = computed(() => urls.auth.login);
 const registerUrl = computed(() => urls.user.add);
 const addBunchUrl = computed(() => urls.bunch.add);
 const apiDocsUrl = computed(() => urls.api.docs);
+
+const bunches = computed(() => userBunchesQuery.data.value ?? []);
 
 const ready = computed(() => {
   return !isSignedIn.value || (isSignedIn.value && currentUserQuery.isSuccess.value && userBunchesQuery.isSuccess.value);
