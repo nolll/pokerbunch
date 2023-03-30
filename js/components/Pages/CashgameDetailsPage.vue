@@ -115,7 +115,6 @@ import { DetailedCashgame } from '@/models/DetailedCashgame';
 import api from '@/api';
 import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
 import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
-import useBunches from '@/composables/useBunches';
 import useUsers from '@/composables/useUsers';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue';
@@ -129,12 +128,13 @@ import useParams from '@/helpers/useParams';
 import { useBunchQuery } from '@/queries/bunchQueries';
 import { bunchKey } from '@/helpers/injectionKeys';
 import { useEventsQuery } from '@/queries/eventQueries';
+import accessControl from '@/access-control';
+import { access } from 'fs';
 
 const params = useParams();
 const route = useRoute();
 const router = useRouter();
 const users = useUsers();
-const bunches = useBunches();
 const bunchQuery = useBunchQuery(params.slug.value);
 const eventsQuery = useEventsQuery(params.slug.value);
 const players = usePlayers();
@@ -146,7 +146,7 @@ const cashgame = ref<DetailedCashgame | null>(null);
 const reportFormVisible = ref(false);
 const buyinFormVisible = ref(false);
 const cashoutFormVisible = ref(false);
-const selectedPlayerId = ref('');
+const selectedPlayerId = ref<string | null>(null);
 const isEditing = ref(false);
 const locationId = ref<string>();
 const eventId = ref<string>();
@@ -224,8 +224,10 @@ const isAnyFormVisible = computed(() => {
 });
 
 const isPlayerSelectionEnabled = computed(() => {
-  return isRunning.value && bunches.isManager.value && !isEditing.value;
+  return isRunning.value && canSelectPlayer.value && !isEditing.value;
 });
+
+const canSelectPlayer = computed(() => accessControl.canSelectPlayer(bunch.value.role));
 
 const locationName = computed(() => {
   return cashgame.value?.location.name || '';
@@ -233,31 +235,21 @@ const locationName = computed(() => {
 
 const locationUrl = computed(() => {
   if (!cashgame.value) return '';
-  return urls.location.details(bunches.slug.value, cashgame.value.location.id);
+  return urls.location.details(params.slug.value, cashgame.value.location.id);
 });
 
-const locations = computed(() => {
-  return locationsQuery.data.value ?? [];
-});
-
-const isPartOfEvent = computed(() => {
-  return !!cashgame.value?.event;
-});
-
-const eventName = computed(() => {
-  return cashgame.value?.event?.name || '';
-});
+const locations = computed(() => locationsQuery.data.value ?? []);
+const isPartOfEvent = computed(() => !!cashgame.value?.event);
+const eventName = computed(() => cashgame.value?.event?.name || '');
 
 const eventUrl = computed(() => {
   if (!cashgame.value) return '';
-
   if (!cashgame.value.event) return '';
-
-  return urls.event.details(bunches.slug.value, cashgame.value.event.id);
+  return urls.event.details(params.slug.value, cashgame.value.event.id);
 });
 
 const canEdit = computed((): boolean => {
-  return bunches.isManager.value;
+  return accessControl.canEditCashgame(bunch.value.role);
 });
 
 const playersInGame = computed((): DetailedCashgamePlayer[] => {
@@ -266,37 +258,15 @@ const playersInGame = computed((): DetailedCashgamePlayer[] => {
   return sortedPlayers;
 });
 
-const allPlayers = computed(() => {
-  return players.players.value;
-});
-
-const hasPlayers = computed(() => {
-  return !!playersInGame.value.length;
-});
-
-const userPlayer = computed(() => {
-  return players.getPlayer(bunches.playerId.value);
-});
-
-const playerName = computed(() => {
-  return player.value?.name || '';
-});
-
-const playerColor = computed(() => {
-  return player.value?.color || '#9e9e9e';
-});
-
-const defaultBuyin = computed(() => {
-  return bunches.defaultBuyin.value;
-});
-
-const player = computed(() => {
-  return players.getPlayer(selectedPlayerId.value);
-});
-
-const playerInGame = computed(() => {
-  return getPlayerInGame(selectedPlayerId.value);
-});
+const allPlayers = computed(() => players.players.value);
+const hasPlayers = computed(() => !!playersInGame.value.length);
+const playerName = computed(() => player.value?.name || '');
+const playerColor = computed(() => player.value?.color || '#9e9e9e');
+const defaultBuyin = computed(() => bunch.value.defaultBuyin);
+const player = computed(() => players.getPlayer(playerId.value));
+const playerInGame = computed(() => getPlayerInGame(playerId.value));
+const loggedInPlayerId = computed(() => bunch.value.player.id);
+const playerId = computed(() => selectedPlayerId.value ?? loggedInPlayerId.value);
 
 const startTime = computed(() => {
   let first;
@@ -321,13 +291,10 @@ const updatedTime = computed(() => {
 });
 
 const events = computed(() => eventsQuery.data.value ?? []);
-
-const slug = computed(() => {
-  return bunches.slug.value;
-});
+const slug = computed(() => params.slug.value);
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && cashgameReady.value && players.playersReady.value && eventsQuery.isSuccess.value;
+  return bunchQuery.isSuccess.value && cashgameReady.value && players.playersReady.value && eventsQuery.isSuccess.value;
 });
 
 const setupRefresh = (refreshTimeout: number) => {
@@ -341,7 +308,7 @@ const setupRefresh = (refreshTimeout: number) => {
 const report = async (stack: number) => {
   if (!cashgame.value) return;
 
-  cashgame.value.report(selectedPlayerId.value, stack);
+  cashgame.value.report(playerId.value, stack);
   const reportData = { type: 'report', playerId: selectedPlayerId.value, stack: stack };
   resetSelectedPlayerId();
   hideForms();
@@ -352,10 +319,10 @@ const buyin = async (amount: number, stack: number) => {
   if (!cashgame.value) return;
 
   if (!isInGame.value) {
-    const player = cashgame.value.addPlayer(selectedPlayerId.value, playerName.value, playerColor.value);
+    const player = cashgame.value.addPlayer(playerId.value, playerName.value, playerColor.value);
   }
 
-  cashgame.value.buyin(selectedPlayerId.value, amount, stack);
+  cashgame.value.buyin(playerId.value, amount, stack);
   const buyinData = { type: 'buyin', playerId: selectedPlayerId.value, stack: stack, added: amount };
   resetSelectedPlayerId();
   hideForms();
@@ -365,7 +332,7 @@ const buyin = async (amount: number, stack: number) => {
 const cashout = async (stack: number) => {
   if (!cashgame.value) return;
 
-  cashgame.value.cashout(selectedPlayerId.value, stack);
+  cashgame.value.cashout(playerId.value, stack);
   const cashoutData = { type: 'cashout', playerId: selectedPlayerId.value, stack: stack };
   resetSelectedPlayerId();
   hideForms();
@@ -391,7 +358,7 @@ const hideForms = () => {
 };
 
 const resetSelectedPlayerId = () => {
-  selectedPlayerId.value = bunches.playerId.value;
+  selectedPlayerId.value = null;
 };
 
 const getPlayerInGame = (id: string) => {
@@ -476,7 +443,7 @@ onBeforeUnmount(() => {
 });
 
 const redirect = () => {
-  router.push(urls.cashgame.index(bunches.slug.value));
+  router.push(urls.cashgame.index(params.slug.value));
 };
 
 const loadCashgame = async () => {
@@ -495,19 +462,9 @@ const cashgameReady = computed(() => {
 });
 
 const init = async () => {
-  selectedPlayerId.value = bunches.playerId.value;
   users.requireUser();
-  bunches.loadBunch();
   players.loadPlayers();
   await loadCashgame();
   setupRefresh(longRefresh);
 };
-
-const playerId = computed(() => {
-  return bunches.playerId.value;
-});
-
-watch(playerId, () => {
-  selectedPlayerId.value = playerId.value;
-});
 </script>
