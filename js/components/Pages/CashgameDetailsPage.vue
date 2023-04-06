@@ -61,7 +61,9 @@
                 <CustomLink v-else :url="eventUrl">{{ eventName }}</CustomLink>
               </ValueListValue>
               <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
-              <ValueListValue v-if="isPlayerSelectionEnabled"><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId" /></ValueListValue>
+              <ValueListValue v-if="isPlayerSelectionEnabled"
+                ><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId" :defaultPlayerId="loggedInPlayerId"
+              /></ValueListValue>
             </ValueList>
           </Block>
           <Block v-if="canEdit">
@@ -129,7 +131,6 @@ import { useBunchQuery } from '@/queries/bunchQueries';
 import { bunchKey } from '@/helpers/injectionKeys';
 import { useEventsQuery } from '@/queries/eventQueries';
 import accessControl from '@/access-control';
-import { access } from 'fs';
 
 const params = useParams();
 const route = useRoute();
@@ -146,7 +147,7 @@ const cashgame = ref<DetailedCashgame | null>(null);
 const reportFormVisible = ref(false);
 const buyinFormVisible = ref(false);
 const cashoutFormVisible = ref(false);
-const selectedPlayerId = ref<string | null>(null);
+const selectedPlayerId = ref<string>('');
 const isEditing = ref(false);
 const locationId = ref<string>();
 const eventId = ref<string>();
@@ -266,7 +267,7 @@ const defaultBuyin = computed(() => bunch.value.defaultBuyin);
 const player = computed(() => players.getPlayer(playerId.value));
 const playerInGame = computed(() => getPlayerInGame(playerId.value));
 const loggedInPlayerId = computed(() => bunch.value.player.id);
-const playerId = computed(() => selectedPlayerId.value ?? loggedInPlayerId.value);
+const playerId = computed(() => (selectedPlayerId.value.length ? selectedPlayerId.value : loggedInPlayerId.value));
 
 const startTime = computed(() => {
   let first;
@@ -358,7 +359,7 @@ const hideForms = () => {
 };
 
 const resetSelectedPlayerId = () => {
-  selectedPlayerId.value = null;
+  selectedPlayerId.value = '';
 };
 
 const getPlayerInGame = (id: string) => {
