@@ -14,13 +14,7 @@ export class ArchiveCashgame {
   averageBuyin: number;
   duration: number;
 
-  constructor(
-    id: string,
-    startTime: Date,
-    updatedTime: Date,
-    location: ArchiveCashgameLocation,
-    players: ArchiveCashgamePlayer[]
-  ) {
+  constructor(id: string, startTime: Date, updatedTime: Date, location: ArchiveCashgameLocation, players: ArchiveCashgamePlayer[]) {
     this.id = id;
     this.startTime = startTime;
     this.updatedTime = updatedTime;
@@ -39,7 +33,7 @@ export class ArchiveCashgame {
     return this.players.length;
   }
 
-  public isBestPlayer(playerId: string) {
+  public isBestPlayer(playerId: string | undefined) {
     if (this.players.length === 0) return false;
 
     return this.players[0].id === playerId;

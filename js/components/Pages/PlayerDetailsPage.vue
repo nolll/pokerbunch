@@ -105,19 +105,25 @@ import api from '@/api';
 import { User } from '@/models/User';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
-import usePlayers from '@/composables/usePlayers';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, provide, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useGameArchiveQuery } from '@/queries/gameArchiveQueries';
 import useParams from '@/helpers/useParams';
+import { playersQueryKey, usePlayersQuery } from '@/queries/playerQueries';
+import { getPlayer } from '@/helpers/playerHelpers';
+import { useQueryClient } from 'vue-query';
+import { useBunchQuery } from '@/queries/bunchQueries';
+import { bunchKey } from '@/helpers/injectionKeys';
 
+const queryClient = useQueryClient();
 const route = useRoute();
 const router = useRouter();
 const users = useUsers();
 const bunches = useBunches();
 const params = useParams();
+const bunchQuery = useBunchQuery(params.slug.value);
 const gameArchiveQuery = useGameArchiveQuery(params.slug.value);
-const players = usePlayers();
+const playersQuery = usePlayersQuery(params.slug.value);
 
 const user = ref<User>();
 const isInvitationFormVisible = ref(false);
@@ -128,12 +134,16 @@ const hasUser = computed(() => {
   return !!player.value?.userId;
 });
 
+const allPlayers = computed(() => {
+  return playersQuery.data.value || [];
+});
+
 const player = computed(() => {
-  return players.getPlayer(route.params.id as string);
+  return getPlayer(allPlayers.value, route.params.id as string);
 });
 
 const playerName = computed(() => {
-  return player.value?.name;
+  return player.value?.name ?? '';
 });
 
 const inviteUrl = computed(() => {
@@ -162,7 +172,7 @@ const results = computed(() => {
   let results = [];
   for (const game of games.value) {
     for (const p of game.players) {
-      if (p.id === player.value.id) {
+      if (p.id === player.value?.id) {
         results.push(p);
         break;
       }
@@ -202,7 +212,7 @@ const timePlayed = computed(() => {
 const totalWins = computed(() => {
   let count = 0;
   for (const game of games.value) {
-    if (game.isBestPlayer(player.value.id)) count += 1;
+    if (game.isBestPlayer(player.value?.id)) count += 1;
   }
   return count;
 });
@@ -273,7 +283,7 @@ const worstLosingStreak = computed(() => {
 });
 
 const ready = computed(() => {
-  return player.value != null && gameArchiveQuery.isSuccess.value;
+  return bunchQuery.isSuccess.value && playersQuery.isSuccess.value && player.value != null && gameArchiveQuery.isSuccess.value;
 });
 
 const userReady = computed(() => {
@@ -292,10 +302,14 @@ const hideInvitationForm = () => {
   isInvitationFormVisible.value = false;
 };
 
+const bunch = computed(() => bunchQuery.data.value!);
+
 const invitePlayer = () => {
-  api.invitePlayer(player.value.id, { email: inviteEmail.value });
-  invitationSent.value = true;
-  hideInvitationForm();
+  if (player.value) {
+    api.invitePlayer(player.value.id, { email: inviteEmail.value });
+    invitationSent.value = true;
+    hideInvitationForm();
+  }
 };
 
 const cancelInvitation = () => {
@@ -307,8 +321,9 @@ const notRegisteredMessage = computed(() => {
 });
 
 const deletePlayer = () => {
-  if (window.confirm('Do you want to delete this player?')) {
-    players.deletePlayer(player.value);
+  if (player.value && window.confirm('Do you want to delete this player?')) {
+    api.deletePlayer(player.value.id);
+    queryClient.invalidateQueries(playersQueryKey(bunches.slug.value));
     router.push(urls.player.list(bunches.slug.value));
   }
 };
@@ -324,7 +339,7 @@ const formatStreakGames = (streak: number) => {
 
 const isInGame = (game: ArchiveCashgame) => {
   for (const p of game.players) {
-    if (p.id === player.value.id) return true;
+    if (p.id === player.value?.id) return true;
   }
   return false;
 };
@@ -339,12 +354,13 @@ const loadUser = async () => {
 const init = async () => {
   users.requireUser();
   bunches.loadBunch();
-  await players.loadPlayers();
 };
 
 watch(player, () => {
   if (player.value) loadUser();
 });
+
+provide(bunchKey, bunch);
 
 onMounted(() => {
   init();

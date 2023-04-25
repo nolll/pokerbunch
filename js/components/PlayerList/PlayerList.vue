@@ -9,11 +9,11 @@
 <script setup lang="ts">
 import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
 import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
-import { PlayerResponse } from '@/response/PlayerResponse';
 import PlayerListItem from './PlayerListItem.vue';
+import { Player } from '@/models/Player';
 
 defineProps<{
   slug: string;
-  players: PlayerResponse[];
+  players: Player[];
 }>();
 </script>
