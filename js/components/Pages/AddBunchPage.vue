@@ -108,5 +108,6 @@ const back = () => {
 };
 
 const ready = computed(() => true);
+
 onMounted(() => auth.requireUser());
 </script>

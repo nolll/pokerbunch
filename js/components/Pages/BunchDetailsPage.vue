@@ -116,53 +116,18 @@ const formTimezone = ref<string>();
 const formCurrencySymbol = ref<string>();
 const formCurrencyLayout = ref<string>();
 
-const bunch = computed(() => {
-  return bunchQuery.data.value!;
-});
-
-const bunchName = computed(() => {
-  return bunch.value.name;
-});
-
-const description = computed(() => {
-  return bunch.value.description;
-});
-
-const hasDescription = computed(() => {
-  return !!description.value;
-});
-
-const houseRules = computed(() => {
-  return bunch.value.houseRules;
-});
-
-const hasHouseRules = computed(() => {
-  return !!houseRules.value;
-});
-
-const defaultBuyin = computed(() => {
-  return bunch.value.defaultBuyin;
-});
-
-const timezone = computed(() => {
-  return bunch.value.timezone;
-});
-
-const currencyFormat = computed(() => {
-  return format.currency(123, bunch.value.currencyFormat, bunch.value.thousandSeparator);
-});
-
-const currencySymbol = computed(() => {
-  return bunch.value.currencySymbol;
-});
-
-const currencyLayout = computed(() => {
-  return bunch.value.currencyLayout;
-});
-
-const canEdit = computed((): boolean => {
-  return accessControl.canEditBunch(bunch.value.role);
-});
+const bunch = computed(() => bunchQuery.data.value!);
+const bunchName = computed(() => bunch.value.name);
+const description = computed(() => bunch.value.description);
+const hasDescription = computed(() => !!description.value);
+const houseRules = computed(() => bunch.value.houseRules);
+const hasHouseRules = computed(() => !!houseRules.value);
+const defaultBuyin = computed(() => bunch.value.defaultBuyin);
+const timezone = computed(() => bunch.value.timezone);
+const currencyFormat = computed(() => format.currency(123, bunch.value.currencyFormat, bunch.value.thousandSeparator));
+const currencySymbol = computed(() => bunch.value.currencySymbol);
+const currencyLayout = computed(() => bunch.value.currencyLayout);
+const canEdit = computed(() => accessControl.canEditBunch(bunch.value.role));
 
 const showEditForm = () => {
   formDescription.value = description.value;

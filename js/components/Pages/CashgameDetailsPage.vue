@@ -176,37 +176,14 @@ const durationMinutes = computed(() => {
   return timeFunctions.diffInMinutes(startTime.value, cashgame.value.updatedTime);
 });
 
-const showStartTime = computed(() => {
-  return hasPlayers.value;
-});
-
-const showEndTime = computed(() => {
-  return isEnded.value;
-});
-
-const showDuration = computed(() => {
-  return isEnded.value;
-});
-
-const isRunning = computed(() => {
-  return !!cashgame.value?.isRunning;
-});
-
-const isInGame = computed(() => {
-  return !!playerInGame.value;
-});
-
-const canReport = computed(() => {
-  return isInGame.value && !hasCachedOut.value;
-});
-
-const canBuyin = computed(() => {
-  return !hasCachedOut.value;
-});
-
-const canCashout = computed(() => {
-  return isInGame.value;
-});
+const showStartTime = computed(() => hasPlayers.value);
+const showEndTime = computed(() => isEnded.value);
+const showDuration = computed(() => isEnded.value);
+const isRunning = computed(() => !!cashgame.value?.isRunning);
+const isInGame = computed(() => !!playerInGame.value);
+const canReport = computed(() => isInGame.value && !hasCachedOut.value);
+const canBuyin = computed(() => !hasCachedOut.value);
+const canCashout = computed(() => isInGame.value);
 
 const hasCachedOut = computed(() => {
   if (!playerInGame.value) return false;
