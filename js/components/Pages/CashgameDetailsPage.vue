@@ -311,7 +311,7 @@ const report = async (stack: number) => {
   if (!cashgame.value) return;
 
   cashgame.value.report(playerId.value, stack);
-  const reportData = { type: 'report', playerId: selectedPlayerId.value, stack: stack };
+  const reportData = { type: 'report', playerId: playerId.value, stack: stack };
   resetSelectedPlayerId();
   hideForms();
   await api.report(cashgame.value.id, reportData);
@@ -325,7 +325,7 @@ const buyin = async (amount: number, stack: number) => {
   }
 
   cashgame.value.buyin(playerId.value, amount, stack);
-  const buyinData = { type: 'buyin', playerId: selectedPlayerId.value, stack: stack, added: amount };
+  const buyinData = { type: 'buyin', playerId: playerId.value, stack: stack, added: amount };
   resetSelectedPlayerId();
   hideForms();
   await api.buyin(cashgame.value.id, buyinData);
@@ -335,7 +335,7 @@ const cashout = async (stack: number) => {
   if (!cashgame.value) return;
 
   cashgame.value.cashout(playerId.value, stack);
-  const cashoutData = { type: 'cashout', playerId: selectedPlayerId.value, stack: stack };
+  const cashoutData = { type: 'cashout', playerId: playerId.value, stack: stack };
   resetSelectedPlayerId();
   hideForms();
   await api.cashout(cashgame.value.id, cashoutData);
