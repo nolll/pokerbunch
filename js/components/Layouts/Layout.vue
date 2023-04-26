@@ -35,9 +35,16 @@ import { computed, useSlots } from 'vue';
 import { CssClasses } from '@/models/CssClasses';
 
 const slots = useSlots();
-defineProps<{
-  ready: boolean;
-}>();
+
+withDefaults(
+  defineProps<{
+    ready: boolean;
+    requireUser?: boolean;
+  }>(),
+  {
+    requireUser: true,
+  }
+);
 
 const isTopNavEnabled = computed(() => {
   return isSlotEnabled('top-nav');
@@ -54,6 +61,6 @@ const logoCssClasses = computed((): CssClasses => {
 });
 
 const isSlotEnabled = (name: string) => {
-  return !!slots[name]; // todo: this probably won't work in vue 3
+  return !!slots[name];
 };
 </script>

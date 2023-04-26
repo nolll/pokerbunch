@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="false" :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Reset Password" />
