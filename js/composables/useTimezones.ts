@@ -4,8 +4,8 @@ export default function useTimezones() {
   const fallbackTimezone = '';
 
   const getTimezones = (): Timezone[] => {
-    const ids = (Intl as any).supportedValuesOf('timeZone') as string[];
-    return ids.map((id: string) => {
+    const ids = Intl.supportedValuesOf('timeZone');
+    return ids.map((id) => {
       return {
         id: id,
         name: id,
