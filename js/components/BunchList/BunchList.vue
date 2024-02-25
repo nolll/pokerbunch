@@ -1,6 +1,6 @@
 ﻿<template>
   <SimpleList>
-    <SimpleListItem v-for="bunch in bunchList" :key="bunch.id">
+    <SimpleListItem v-for="bunch in bunches" :key="bunch.id">
       <BunchListItem :id="bunch.id" :name="bunch.name" />
     </SimpleListItem>
   </SimpleList>
@@ -10,12 +10,9 @@
 import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
 import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
 import BunchListItem from '@/components/BunchList/BunchListItem.vue';
-import useBunches from '@/composables/useBunches';
-import { computed } from 'vue';
+import { BunchResponse } from '@/response/BunchResponse';
 
-const bunches = useBunches();
-
-const bunchList = computed(() => {
-  return bunches.bunches.value;
-});
+defineProps<{
+  bunches: BunchResponse[];
+}>();
 </script>
