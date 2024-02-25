@@ -18,7 +18,7 @@
           </Block>
 
           <Block>
-            <PlayerList :bunchId="slug" />
+            <PlayerList :bunchId="slug" :players="players" />
           </Block>
         </template>
       </PageSection>
@@ -37,29 +37,30 @@ import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
-import usePlayers from '@/composables/usePlayers';
 import { computed, onMounted } from 'vue';
+import useParams from '@/composables/useParams';
+import usePlayerList from '@/composables/usePlayerList';
 
 const users = useUsers();
 const bunches = useBunches();
-const players = usePlayers();
+const params = useParams();
+const { players, playersReady } = usePlayerList(params.slug.value);
 
 const addPlayerUrl = computed(() => {
   return urls.player.add(slug.value);
 });
 
 const slug = computed(() => {
-  return bunches.slug.value;
+  return params.slug.value;
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && players.playersReady.value;
+  return bunches.bunchReady.value && playersReady.value;
 });
 
 const init = () => {
   users.requireUser();
   bunches.loadBunch();
-  players.loadPlayers();
 };
 
 onMounted(() => {

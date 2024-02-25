@@ -95,13 +95,11 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import WinningsText from '@/components/Common/WinningsText.vue';
 import DurationText from '@/components/Common/DurationText.vue';
-import { Player } from '@/models/Player';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';
@@ -111,13 +109,15 @@ import useGameArchive from '@/composables/useGameArchive';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import usePlayerList from '@/composables/usePlayerList';
 
 const route = useRoute();
 const router = useRouter();
 const users = useUsers();
 const bunches = useBunches();
 const gameArchive = useGameArchive();
-const players = usePlayers();
+const playersOld = usePlayers();
+const { getPlayer, playersReady } = usePlayerList(route.params.slug as string);
 
 const user = ref<User>();
 const isInvitationFormVisible = ref(false);
@@ -129,7 +129,7 @@ const hasUser = computed(() => {
 });
 
 const player = computed(() => {
-  return players.getPlayer(route.params.id as string);
+  return getPlayer(route.params.id as string);
 });
 
 const playerName = computed(() => {
@@ -269,7 +269,7 @@ const worstLosingStreak = computed(() => {
 });
 
 const ready = computed(() => {
-  return player.value != null && gameArchive.gamesReady.value;
+  return playersReady && gameArchive.gamesReady.value;
 });
 
 const userReady = computed(() => {
@@ -304,7 +304,7 @@ const notRegisteredMessage = computed(() => {
 
 const deletePlayer = () => {
   if (window.confirm('Do you want to delete this player?')) {
-    players.deletePlayer(player.value);
+    playersOld.deletePlayer(player.value);
     router.push(urls.player.list(bunches.slug.value));
   }
 };
@@ -319,6 +319,7 @@ const formatStreakGames = (streak: number) => {
 };
 
 const isInGame = (game: ArchiveCashgame) => {
+  if (!playersReady) return false;
   for (const p of game.players) {
     if (p.id === player.value.id) return true;
   }
@@ -336,12 +337,11 @@ const init = async () => {
   users.requireUser();
   bunches.loadBunch();
   gameArchive.loadGames();
-  await players.loadPlayers();
 };
 
-watch(player, () => {
-  if (player.value) loadUser();
-});
+// watch(player, () => {
+//   if (player.value) loadUser();
+// });
 
 onMounted(() => {
   init();
