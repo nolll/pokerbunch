@@ -25,19 +25,8 @@ const props = defineProps<{
   index: number;
 }>();
 
-const url = computed(() => {
-  return urls.player.details(props.bunchId, props.player.id);
-});
-
-const name = computed(() => {
-  return props.player.name;
-});
-
-const rank = computed(() => {
-  return props.index + 1;
-});
-
-const winnings = computed(() => {
-  return props.player.winnings;
-});
+const url = computed(() => urls.player.details(props.bunchId, props.player.id));
+const name = computed(() => props.player.name);
+const rank = computed(() => props.index + 1);
+const winnings = computed(() => props.player.winnings);
 </script>

@@ -19,17 +19,9 @@ const emit = defineEmits(['sort']);
 
 const slots = useSlots();
 
-const hasContent = computed(() => {
-  return !!slots.default;
-});
-
-const isSelected = computed(() => {
-  return props.sortName === props.orderedBy;
-});
-
-const isSortable = computed(() => {
-  return !!props.sortName;
-});
+const hasContent = computed(() => !!slots.default);
+const isSelected = computed(() => props.sortName === props.orderedBy);
+const isSortable = computed(() => !!props.sortName);
 
 const cssClasses = computed((): CssClasses => {
   return {

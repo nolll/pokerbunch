@@ -31,11 +31,6 @@ const props = defineProps<{
   games: ArchiveCashgame[];
 }>();
 
-const hasGames = computed(() => {
-  return props.games.length > 0;
-});
-
-const players = computed(() => {
-  return playerSorter.sort(archiveHelper.getPlayers(props.games));
-});
+const hasGames = computed(() => props.games.length > 0);
+const players = computed(() => playerSorter.sort(archiveHelper.getPlayers(props.games)));
 </script>
