@@ -1,6 +1,7 @@
 import api from '@/api';
 import { useQuery } from '@tanstack/vue-query';
 import { BunchResponse } from '@/response/BunchResponse';
+import auth from '@/auth';
 
 const fetchBunches = async (): Promise<BunchResponse[]> => {
   const response = await api.getBunches();
@@ -8,11 +9,13 @@ const fetchBunches = async (): Promise<BunchResponse[]> => {
 };
 
 const fetchUserBunches = async (): Promise<BunchResponse[]> => {
+  if (!auth.isLoggedIn()) return [];
   const response = await api.getUserBunches();
   return response.data;
 };
 
-const fetchBunch = async (slug: string): Promise<BunchResponse> => {
+const fetchBunch = async (slug: string): Promise<BunchResponse | null> => {
+  if (!slug) return null;
   const response = await api.getBunch(slug);
   return response.data;
 };

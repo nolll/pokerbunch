@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Bunches" />

@@ -40,8 +40,8 @@ const logOut = () => {
 };
 
 const userReady = computed(() => currentUserReady.value);
-const displayName = computed(() => currentUser.value.displayName);
-const userDetailsUrl = computed(() => urls.user.details(currentUser.value.userName));
+const displayName = computed(() => currentUser.value?.displayName);
+const userDetailsUrl = computed(() => (currentUser.value ? urls.user.details(currentUser.value.userName) : ''));
 const registerUrl = computed(() => urls.user.add);
 const resetPasswordUrl = computed(() => urls.user.resetPassword);
 const loginUrl = computed(() => urls.auth.login);

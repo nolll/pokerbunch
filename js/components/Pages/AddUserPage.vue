@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :require-user="false" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Register" />

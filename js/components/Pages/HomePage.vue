@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="false" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>

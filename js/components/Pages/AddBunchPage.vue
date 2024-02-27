@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :require-user="false" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Create Bunch" />
@@ -61,7 +61,7 @@ import { ApiParamsAddBunch } from '@/models/ApiParamsAddBunch';
 import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
 import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
 import useTimezones from '@/composables/useTimezones';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 
 const timezones = useTimezones();
 const defaultTimezone = timezones.getDefaultTimezone();
