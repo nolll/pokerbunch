@@ -25,24 +25,20 @@ import { CashgamePage } from '@/models/CashgamePage';
 import YearDropdown from '@/components/YearDropdown.vue';
 import urls from '@/urls';
 import { computed, onMounted, ref } from 'vue';
-import useGameArchive from '@/composables/useGameArchive';
-import useBunches from '@/composables/useBunches';
 import { useRoute, useRouter } from 'vue-router';
+import useGameList from '@/composables/useGameList';
+import useParams from '@/composables/useParams';
 
 const props = defineProps<{
   page: CashgamePage;
 }>();
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const params = useParams();
 const route = useRoute();
 const router = useRouter();
 
 const selectedYear = ref<number>();
-
-const years = computed(() => {
-  return gameArchive.years.value;
-});
+const { years, currentYear } = useGameList();
 
 const selectedPageName = computed(() => {
   if (props.page === 'matrix') return 'Matrix';
@@ -58,27 +54,27 @@ const isYearNavEnabled = computed(() => {
 });
 
 const overviewUrl = computed(() => {
-  return urls.cashgame.index(bunches.slug.value);
+  return urls.cashgame.index(params.slug.value);
 });
 
 const matrixUrl = computed(() => {
-  return urls.cashgame.archive('matrix', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('matrix', params.slug.value, selectedYear.value);
 });
 
 const toplistUrl = computed(() => {
-  return urls.cashgame.archive('toplist', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('toplist', params.slug.value, selectedYear.value);
 });
 
 const chartUrl = computed(() => {
-  return urls.cashgame.archive('chart', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('chart', params.slug.value, selectedYear.value);
 });
 
 const listUrl = computed(() => {
-  return urls.cashgame.archive('list', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('list', params.slug.value, selectedYear.value);
 });
 
 const factsUrl = computed(() => {
-  return urls.cashgame.archive('facts', bunches.slug.value, selectedYear.value);
+  return urls.cashgame.archive('facts', params.slug.value, selectedYear.value);
 });
 
 const isOverviewSelected = computed(() => {
@@ -110,11 +106,11 @@ const onSelected = (url: string) => {
 };
 
 const onSelectedYear = () => {
-  router.push(urls.cashgame.archive(props.page, bunches.slug.value, selectedYear.value));
+  router.push(urls.cashgame.archive(props.page, params.slug.value, selectedYear.value));
 };
 
 onMounted(() => {
-  selectedYear.value = gameArchive.selectedYear.value || gameArchive.currentYear.value;
+  selectedYear.value = params.year.value || currentYear.value;
 });
 </script>
 

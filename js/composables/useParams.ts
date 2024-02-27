@@ -12,8 +12,15 @@ export default function useParams() {
     return route.params.id as string;
   });
 
+  const year = computed(() => {
+    var s = route.params.year as string | undefined;
+    if (!s || s === '') return undefined;
+    return parseInt(s);
+  });
+
   return {
     slug,
     playerId,
+    year,
   };
 }
