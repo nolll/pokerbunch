@@ -29,43 +29,22 @@
 import CustomLink from '@/components/Common/CustomLink.vue';
 import urls from '@/urls';
 import auth from '@/auth';
-import useUsers from '@/composables/useUsers';
 import { computed } from 'vue';
+import useCurrentUser from '@/composables/useCurrentUser';
 
-const users = useUsers();
+const { isSignedIn, currentUser, currentUserReady } = useCurrentUser();
 
 const logOut = () => {
   auth.clearToken();
   redirectHome();
 };
 
-const userReady = computed(() => {
-  return users.userReady.value;
-});
-
-const isSignedIn = computed(() => {
-  return users.isSignedIn.value;
-});
-
-const displayName = computed(() => {
-  return users.displayName.value;
-});
-
-const userDetailsUrl = computed(() => {
-  return urls.user.details(users.userName.value);
-});
-
-const registerUrl = computed(() => {
-  return urls.user.add;
-});
-
-const resetPasswordUrl = computed(() => {
-  return urls.user.resetPassword;
-});
-
-const loginUrl = computed(() => {
-  return urls.auth.login;
-});
+const userReady = computed(() => currentUserReady.value);
+const displayName = computed(() => currentUser.value.displayName);
+const userDetailsUrl = computed(() => urls.user.details(currentUser.value.userName));
+const registerUrl = computed(() => urls.user.add);
+const resetPasswordUrl = computed(() => urls.user.resetPassword);
+const loginUrl = computed(() => urls.auth.login);
 
 const redirectHome = () => {
   window.location.href = urls.home;

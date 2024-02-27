@@ -43,7 +43,7 @@
 
       <template v-slot:aside2>
         <Block>
-          <UserBunchList />
+          <UserBunchList :bunches="userBunches" />
         </Block>
         <Block v-if="isAdmin">
           <AdminNavigation />
@@ -64,46 +64,18 @@ import urls from '@/urls';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed, onMounted, watch } from 'vue';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
+import useUserBunchList from '@/composables/useUserBunchList';
+import useCurrentUser from '@/composables/useCurrentUser';
 
-const users = useUsers();
-const bunches = useBunches();
+const { userBunchesReady, userBunches } = useUserBunchList();
+const { isSignedIn, isAdmin, currentUserReady } = useCurrentUser();
 
-const isSignedIn = computed(() => {
-  return users.isSignedIn.value;
-});
-
-const isAdmin = computed(() => {
-  return users.isAdmin.value;
-});
-
-const loginUrl = computed(() => {
-  return urls.auth.login;
-});
-
-const registerUrl = computed(() => {
-  return urls.user.add;
-});
-
-const addBunchUrl = computed(() => {
-  return urls.bunch.add;
-});
-
-const apiDocsUrl = computed(() => {
-  return urls.api.docs;
-});
+const loginUrl = computed(() => urls.auth.login);
+const registerUrl = computed(() => urls.user.add);
+const addBunchUrl = computed(() => urls.bunch.add);
+const apiDocsUrl = computed(() => urls.api.docs);
 
 const ready = computed(() => {
-  return users.userReady.value && bunches.userBunchesReady.value;
-});
-
-const init = () => {
-  users.loadCurrentUser();
-  bunches.loadUserBunches();
-};
-
-onMounted(() => {
-  init();
+  return currentUserReady.value && userBunchesReady.value;
 });
 </script>

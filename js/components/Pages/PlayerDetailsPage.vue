@@ -42,9 +42,9 @@
             <h2>User</h2>
           </Block>
           <Block v-if="hasUser">
-            <p>
+            <!-- <p>
               <img :src="avatarUrl" alt="User avatar" />
-            </p>
+            </p> -->
             <p>This player is a registered user.</p>
             <p>
               <CustomButton :url="userUrl" text="View User Profile" />
