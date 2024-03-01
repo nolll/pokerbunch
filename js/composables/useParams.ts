@@ -12,6 +12,10 @@ export default function useParams() {
     return route.params.id as string;
   });
 
+  const userName = computed(() => {
+    return route.params.userName as string;
+  });
+
   const year = computed(() => {
     var s = route.params.year as string | undefined;
     if (!s || s === '') return undefined;
@@ -21,6 +25,7 @@ export default function useParams() {
   return {
     slug,
     playerId,
+    userName,
     year,
   };
 }

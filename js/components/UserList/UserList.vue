@@ -1,6 +1,6 @@
 ﻿<template>
   <SimpleList>
-    <SimpleListItem v-for="user in userList" :key="user.userName">
+    <SimpleListItem v-for="user in users" :key="user.userName">
       <UserListItem :userName="user.userName" />
     </SimpleListItem>
   </SimpleList>
@@ -10,12 +10,9 @@
 import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
 import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
 import UserListItem from '@/components/UserList/UserListItem.vue';
-import useUsers from '@/composables/useUsers';
-import { computed } from 'vue';
+import { User } from '@/models/User';
 
-const users = useUsers();
-
-const userList = computed(() => {
-  return users.users.value;
-});
+defineProps<{
+  users: User[];
+}>();
 </script>

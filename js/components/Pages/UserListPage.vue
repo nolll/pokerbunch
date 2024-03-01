@@ -6,7 +6,7 @@
       </Block>
 
       <Block v-if="isAdmin">
-        <UserList />
+        <UserList :users="users" />
       </Block>
 
       <Block v-else> Access denied </Block>
@@ -20,25 +20,14 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import UserList from '@/components/UserList/UserList.vue';
-import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
+import useUserList from '@/composables/useUserList';
+import useCurrentUser from '@/composables/useCurrentUser';
 
-const users = useUsers();
+const { users, usersReady } = useUserList();
+const { isAdmin, currentUserReady } = useCurrentUser();
 
 const ready = computed(() => {
-  return users.userReady.value && users.usersReady.value;
-});
-
-const isAdmin = computed(() => {
-  return users.isAdmin.value;
-});
-
-const init = () => {
-  users.requireUser();
-  users.loadUsers();
-};
-
-onMounted(() => {
-  init();
+  return currentUserReady.value, usersReady.value;
 });
 </script>

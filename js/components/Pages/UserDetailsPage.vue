@@ -29,7 +29,7 @@
             {{ errorMessage }}
           </p>
           <p>
-            <CustomButton v-on:click="save" type="action" text="Save" />
+            <CustomButton v-on:click="saveMutation.mutate" type="action" text="Save" />
             <CustomButton v-on:click="cancel" text="Cancel" />
           </p>
         </Block>
@@ -66,17 +66,16 @@ import { User } from '@/models/User';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
-import { AxiosError } from 'axios';
-import { ApiError } from '@/models/ApiError';
-import useUsers from '@/composables/useUsers';
-import { useRoute } from 'vue-router';
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import useParams from '@/composables/useParams';
+import useUser from '@/composables/useUser';
+import useCurrentUser from '@/composables/useCurrentUser';
+import { useMutation } from '@tanstack/vue-query';
 
-const route = useRoute();
-const users = useUsers();
+const params = useParams();
+const { user, userReady } = useUser(params.userName.value);
+const { currentUser, isAdmin, currentUserReady } = useCurrentUser();
 
-const user = ref<User>();
-const userReady = ref(false);
 const displayName = ref('');
 const realName = ref('');
 const email = ref('');
@@ -84,11 +83,11 @@ const isEditing = ref(false);
 const errorMessage = ref('');
 
 const canEdit = computed(() => {
-  return users.isAdmin.value || isCurrentUser.value;
+  return isAdmin.value || isCurrentUser.value;
 });
 
 const isCurrentUser = computed(() => {
-  return users.userName.value == user.value?.userName;
+  return currentUser.value?.userName == user.value?.userName;
 });
 
 const canChangePassword = computed(() => {
@@ -96,7 +95,7 @@ const canChangePassword = computed(() => {
 });
 
 const ready = computed(() => {
-  return users.userReady.value && userReady.value;
+  return currentUserReady.value && userReady.value;
 });
 
 const userName = computed(() => {
@@ -111,35 +110,28 @@ const hasError = computed(() => {
   return !!errorMessage.value;
 });
 
-const loadUser = async () => {
-  const response = await api.getUser(route.params.userName as string);
-  user.value = response.data;
-  if (user.value) {
-    setMembers(user.value);
-  }
-  userReady.value = true;
-};
-
 const save = async () => {
   errorMessage.value = '';
 
-  if (!user.value) {
-    isEditing.value = false;
-    return;
-  }
+  var userToSave = {
+    ...user.value,
+    displayName: displayName.value,
+    realName: realName.value,
+    email: email.value,
+  };
 
-  user.value.displayName = displayName.value;
-  user.value.realName = realName.value;
-  user.value.email = email.value;
-  try {
-    const response = await api.updateUser(user.value);
-    isEditing.value = false;
-  } catch (err) {
-    const error = err as AxiosError<ApiError>;
-    const message = error.response?.data.message || 'Unknown Error';
-    errorMessage.value = message;
-  }
+  await api.updateUser(userToSave);
 };
+
+const saveMutation = useMutation({
+  mutationFn: save,
+  onSuccess: () => {
+    isEditing.value = false;
+  },
+  onError: (error) => {
+    errorMessage.value = error.message;
+  },
+});
 
 const cancel = () => {
   if (user.value) setMembers(user.value);
@@ -156,12 +148,11 @@ const edit = () => {
   isEditing.value = true;
 };
 
-const init = () => {
-  users.requireUser();
-  loadUser();
-};
+watch(user, (u) => {
+  setMembers(u);
+});
 
 onMounted(() => {
-  init();
+  if (user.value) setMembers(user.value);
 });
 </script>
