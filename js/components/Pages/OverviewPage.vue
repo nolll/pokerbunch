@@ -45,12 +45,10 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import useBunches from '@/composables/useBunches';
-import useUsers from '@/composables/useUsers';
 import useGameArchive from '@/composables/useGameArchive';
 import useCurrentGames from '@/composables/useCurrentGames';
 import { computed, onMounted } from 'vue';
 
-const users = useUsers();
 const bunches = useBunches();
 const gameArchive = useGameArchive();
 const currentGames = useCurrentGames();
@@ -64,7 +62,6 @@ const hasGames = computed(() => {
 });
 
 const init = async () => {
-  users.requireUser();
   bunches.loadBunch();
   gameArchive.loadGames();
   gameArchive.selectYear(undefined);

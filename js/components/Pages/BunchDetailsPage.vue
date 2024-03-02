@@ -92,13 +92,9 @@ import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref } from 'vue';
 import useBunches from '@/composables/useBunches';
-import useTimezones from '@/composables/useTimezones';
-import useUsers from '@/composables/useUsers';
 import useFormatter from '@/composables/useFormatter';
 
-const users = useUsers();
 const bunches = useBunches();
-const timezones = useTimezones().getTimezones();
 const formatter = useFormatter();
 
 const isEditing = ref(false);
@@ -214,7 +210,6 @@ const ready = computed(() => {
 });
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
 };
 

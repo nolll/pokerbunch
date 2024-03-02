@@ -126,7 +126,6 @@ import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
 import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 import useBunches from '@/composables/useBunches';
 import useEvents from '@/composables/useEvents';
-import useUsers from '@/composables/useUsers';
 import usePlayers from '@/composables/usePlayers';
 import useLocations from '@/composables/useLocations';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
@@ -138,7 +137,6 @@ import CashoutIcon from '../Icons/CashoutIcon.vue';
 
 const route = useRoute();
 const router = useRouter();
-const users = useUsers();
 const bunches = useBunches();
 const events = useEvents();
 const players = usePlayers();
@@ -492,7 +490,6 @@ const cashgameReady = computed(() => {
 
 const init = async () => {
   selectedPlayerId.value = bunches.playerId.value;
-  users.requireUser();
   bunches.loadBunch();
   players.loadPlayers();
   locations.loadLocations();

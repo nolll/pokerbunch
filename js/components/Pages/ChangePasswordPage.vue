@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :require-user="true" :ready="ready">
+  <Layout :require-user="true" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Change Password" />
@@ -49,22 +49,13 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsChangePassword } from '@/models/ApiParamsChangePassword';
-import useUsers from '@/composables/useUsers';
-import { computed, onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-const users = useUsers();
+import { computed, ref } from 'vue';
 
 const oldPassword = ref('');
 const newPassword = ref('');
 const repeat = ref('');
 const errorMessage = ref('');
 const isSaving = ref(false);
-
-const ready = computed(() => {
-  return users.userReady.value;
-});
 
 const hasError = computed(() => {
   return !!errorMessage.value;
@@ -93,14 +84,6 @@ const save = async () => {
 };
 
 const back = () => {
-  router.push(urls.user.details(users.userName.value));
+  history.back();
 };
-
-const init = () => {
-  users.requireUser();
-};
-
-onMounted(() => {
-  init();
-});
 </script>

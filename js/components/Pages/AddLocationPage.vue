@@ -35,19 +35,16 @@ import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import useLocations from '@/composables/useLocations';
 
 const router = useRouter();
-const users = useUsers();
 const bunches = useBunches();
 const locations = useLocations();
 
 const locationName = ref('');
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
   locations.loadLocations();
 };

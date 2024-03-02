@@ -26,14 +26,12 @@ import PageSection from '@/components/Common/PageSection.vue';
 import api from '@/api';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
-import useUsers from '@/composables/useUsers';
 import useEvents from '@/composables/useEvents';
 import useBunches from '@/composables/useBunches';
 import { useRoute } from 'vue-router';
 import { computed, onMounted, ref } from 'vue';
 
 const route = useRoute();
-const users = useUsers();
 const bunches = useBunches();
 const events = useEvents();
 
@@ -65,7 +63,6 @@ const ready = computed(() => {
 });
 
 const init = async () => {
-  users.requireUser();
   bunches.loadBunch();
   events.loadEvents();
   await loadGames();

@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :require-user="false" :ready="ready">
+  <Layout :require-user="false" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Sign in" />
@@ -19,12 +19,11 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useUsers from '@/composables/useUsers';
-import { computed, onMounted, watch } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import auth from '@/auth';
 
 const router = useRouter();
-const users = useUsers();
 
 const resetPasswordUrl = computed(() => {
   return urls.user.resetPassword;
@@ -34,26 +33,13 @@ const registerUrl = computed(() => {
   return urls.user.add;
 });
 
-const ready = computed(() => {
-  return users.userReady.value;
-});
-
 const redirectIfSignedIn = () => {
-  if (ready.value && users.isSignedIn.value) {
+  if (auth.isLoggedIn()) {
     router.push(urls.home);
   }
 };
 
-const init = () => {
-  users.requireUser();
-};
-
 onMounted(() => {
-  init();
-  redirectIfSignedIn();
-});
-
-watch(ready, () => {
   redirectIfSignedIn();
 });
 </script>

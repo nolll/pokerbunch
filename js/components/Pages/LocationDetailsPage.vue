@@ -20,14 +20,12 @@ import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import useLocations from '@/composables/useLocations';
 import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const users = useUsers();
 const bunches = useBunches();
 const locations = useLocations();
 
@@ -53,7 +51,6 @@ const ready = computed(() => {
 });
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
   locations.loadLocations();
 };

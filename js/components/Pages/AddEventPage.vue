@@ -33,21 +33,18 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import useEvents from '@/composables/useEvents';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const users = useUsers();
 const bunches = useBunches();
 const events = useEvents();
 
 const eventName = ref('');
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
   events.loadEvents();
 };

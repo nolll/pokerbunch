@@ -6,7 +6,6 @@ import EventStore from './EventStore';
 import GameArchiveStore from './GameArchiveStore';
 import LocationStore from './LocationStore';
 import PlayerStore from './PlayerStore';
-import UserStore from './UserStore';
 
 export default {
   strict: true,
@@ -17,6 +16,5 @@ export default {
     location: LocationStore,
     gameArchive: GameArchiveStore,
     player: PlayerStore,
-    user: UserStore,
   },
 } as StoreOptions<RootStoreState>;

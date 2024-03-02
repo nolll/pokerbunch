@@ -39,13 +39,11 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import LocationDropdown from '@/components/LocationDropdown.vue';
 import { computed, onMounted, ref, watch } from 'vue';
-import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import useLocations from '@/composables/useLocations';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const users = useUsers();
 const bunches = useBunches();
 const locations = useLocations();
 
@@ -53,7 +51,6 @@ const locationId = ref('');
 const errorMessage = ref('');
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
   locations.loadLocations();
 };
@@ -76,7 +73,7 @@ const add = async () => {
 };
 
 const cancel = () => {
-  window.history.back();
+  history.back();
 };
 
 const redirectToGame = (id: string) => {

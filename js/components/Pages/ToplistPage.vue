@@ -27,11 +27,9 @@ import PageSection from '@/components/Common/PageSection.vue';
 import { computed, onMounted } from 'vue';
 import useBunches from '@/composables/useBunches';
 import useGameArchive from '@/composables/useGameArchive';
-import useUsers from '@/composables/useUsers';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 
 const route = useRoute();
-const users = useUsers();
 const bunches = useBunches();
 const gameArchive = useGameArchive();
 
@@ -44,7 +42,6 @@ const ready = computed(() => {
 });
 
 const init = (year: number | undefined) => {
-  users.requireUser();
   bunches.loadBunch();
   gameArchive.loadGames();
   gameArchive.selectYear(year);

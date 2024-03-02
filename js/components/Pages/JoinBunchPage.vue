@@ -37,7 +37,6 @@ import urls from '@/urls';
 import api from '@/api';
 import { ApiError } from '@/models/ApiError';
 import { AxiosError } from 'axios';
-import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onMounted, ref, watch } from 'vue';
@@ -45,7 +44,6 @@ import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
-const users = useUsers();
 const bunches = useBunches();
 const players = usePlayers();
 
@@ -86,7 +84,6 @@ const cancel = () => {
 };
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
 };
 

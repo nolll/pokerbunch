@@ -35,13 +35,11 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import { computed, onMounted } from 'vue';
 import useParams from '@/composables/useParams';
 import usePlayerList from '@/composables/usePlayerList';
 
-const users = useUsers();
 const bunches = useBunches();
 const params = useParams();
 const { players, playersReady } = usePlayerList(params.slug.value);
@@ -59,7 +57,6 @@ const ready = computed(() => {
 });
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
 };
 

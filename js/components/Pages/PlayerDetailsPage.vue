@@ -103,7 +103,6 @@ import DurationText from '@/components/Common/DurationText.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';
-import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import useGameArchive from '@/composables/useGameArchive';
 import usePlayers from '@/composables/usePlayers';
@@ -113,7 +112,6 @@ import usePlayerList from '@/composables/usePlayerList';
 
 const route = useRoute();
 const router = useRouter();
-const users = useUsers();
 const bunches = useBunches();
 const gameArchive = useGameArchive();
 const playersOld = usePlayers();
@@ -334,7 +332,6 @@ const loadUser = async () => {
 };
 
 const init = async () => {
-  users.requireUser();
   bunches.loadBunch();
   gameArchive.loadGames();
 };

@@ -34,20 +34,17 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import useBunches from '@/composables/useBunches';
-import useUsers from '@/composables/useUsers';
 import usePlayers from '@/composables/usePlayers';
 import { useRouter } from 'vue-router';
 import { computed, onMounted, ref, watch } from 'vue';
 
 const router = useRouter();
-const users = useUsers();
 const bunches = useBunches();
 const players = usePlayers();
 
 const playerName = ref('');
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
   players.loadPlayers();
 };

@@ -34,12 +34,10 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useUsers from '@/composables/useUsers';
 import useBunches from '@/composables/useBunches';
 import useEvents from '@/composables/useEvents';
 import { computed, onMounted } from 'vue';
 
-const users = useUsers();
 const bunches = useBunches();
 const events = useEvents();
 
@@ -52,7 +50,6 @@ const ready = computed(() => {
 });
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
   events.loadEvents();
 };

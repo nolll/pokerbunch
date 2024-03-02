@@ -37,10 +37,8 @@ import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import useLocations from '@/composables/useLocations';
 import useBunches from '@/composables/useBunches';
-import useUsers from '@/composables/useUsers';
 import { computed, onMounted } from 'vue';
 
-const users = useUsers();
 const bunches = useBunches();
 const locations = useLocations();
 
@@ -53,7 +51,6 @@ const ready = computed(() => {
 });
 
 const init = () => {
-  users.requireUser();
   bunches.loadBunch();
   locations.loadLocations();
 };
