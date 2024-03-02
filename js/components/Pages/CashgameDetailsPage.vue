@@ -59,7 +59,7 @@
               <ValueListValue v-if="showDuration"><DurationText :value="durationMinutes" /></ValueListValue>
               <ValueListKey>Location</ValueListKey>
               <ValueListValue>
-                <LocationDropdown v-if="isEditing" v-model="locationId" />
+                <LocationDropdown v-if="isEditing" :locations="locations" v-model="locationId" />
                 <CustomLink v-else :url="locationUrl">{{ locationName }}</CustomLink>
               </ValueListValue>
               <ValueListKey v-if="isPartOfEvent || isEditing">Event</ValueListKey>
@@ -127,20 +127,22 @@ import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 import useBunches from '@/composables/useBunches';
 import useEvents from '@/composables/useEvents';
 import usePlayers from '@/composables/usePlayers';
-import useLocations from '@/composables/useLocations';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import ReportIcon from '../Icons/ReportIcon.vue';
 import BuyinIcon from '../Icons/BuyinIcon.vue';
 import CashoutIcon from '../Icons/CashoutIcon.vue';
+import useParams from '@/composables/useParams';
+import useLocationList from '@/composables/useLocationList';
 
+const params = useParams();
 const route = useRoute();
 const router = useRouter();
 const bunches = useBunches();
 const events = useEvents();
 const players = usePlayers();
-const locations = useLocations();
+const { locations, getLocation, locationsReady } = useLocationList(params.slug.value);
 
 const longRefresh = 30000;
 
@@ -324,7 +326,7 @@ const slug = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && cashgameReady.value && players.playersReady.value;
+  return bunches.bunchReady.value && cashgameReady.value && players.playersReady.value && locationsReady.value;
 });
 
 const setupRefresh = (refreshTimeout: number) => {
@@ -409,7 +411,7 @@ const onSave = async () => {
 
   if (!locationId.value) return;
 
-  const location = locations.getLocation(locationId.value);
+  const location = getLocation(locationId.value);
   if (!location) return;
 
   const cashgameLocation = new DetailedCashgameLocation(location.id, location.name);
@@ -492,7 +494,6 @@ const init = async () => {
   selectedPlayerId.value = bunches.playerId.value;
   bunches.loadBunch();
   players.loadPlayers();
-  locations.loadLocations();
   events.loadEvents();
   await loadCashgame();
   setupRefresh(longRefresh);

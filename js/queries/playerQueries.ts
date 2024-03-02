@@ -2,6 +2,7 @@ import { Player } from '@/models/Player';
 import api from '@/api';
 import { useQuery } from '@tanstack/vue-query';
 import { mapPlayer } from '@/mappers/responseMappers';
+import { playerListKey } from './queryKeys';
 
 const fetchPlayers = async (slug: string): Promise<Player[]> => {
   const response = await api.getPlayers(slug);
@@ -9,5 +10,5 @@ const fetchPlayers = async (slug: string): Promise<Player[]> => {
 };
 
 export const usePlayerListQuery = (slug: string) => {
-  return useQuery({ queryKey: [`players-${slug}`], queryFn: () => fetchPlayers(slug) });
+  return useQuery({ queryKey: playerListKey(slug), queryFn: () => fetchPlayers(slug) });
 };

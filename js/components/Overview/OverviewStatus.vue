@@ -13,12 +13,12 @@
 <script setup lang="ts">
 import urls from '@/urls';
 import Block from '@/components/Common/Block.vue';
-import useBunches from '@/composables/useBunches';
 import useCurrentGames from '@/composables/useCurrentGames';
 import { computed } from 'vue';
 import CustomButton from '../Common/CustomButton.vue';
+import useParams from '@/composables/useParams';
 
-const bunches = useBunches();
+const params = useParams();
 const currentGames = useCurrentGames();
 
 const url = computed(() => {
@@ -26,11 +26,11 @@ const url = computed(() => {
 });
 
 const addGameUrl = computed(() => {
-  return urls.cashgame.add(bunches.slug.value);
+  return urls.cashgame.add(params.slug.value);
 });
 
 const runningGameUrl = computed(() => {
-  return urls.cashgame.details(bunches.slug.value, runningGameId.value);
+  return urls.cashgame.details(params.slug.value, runningGameId.value);
 });
 
 const runningGameId = computed(() => {

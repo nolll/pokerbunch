@@ -12,6 +12,10 @@ export default function useParams() {
     return route.params.id as string;
   });
 
+  const locationId = computed(() => {
+    return route.params.id as string;
+  });
+
   const userName = computed(() => {
     return route.params.userName as string;
   });

@@ -70,11 +70,13 @@ import { computed, onMounted, ref, watch } from 'vue';
 import useParams from '@/composables/useParams';
 import useUser from '@/composables/useUser';
 import useCurrentUser from '@/composables/useCurrentUser';
-import { useMutation } from '@tanstack/vue-query';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { userKey, userListKey } from '@/queries/queryKeys';
 
 const params = useParams();
 const { user, userReady } = useUser(params.userName.value);
 const { currentUser, isAdmin, currentUserReady } = useCurrentUser();
+const queryClient = useQueryClient();
 
 const displayName = ref('');
 const realName = ref('');
@@ -126,6 +128,8 @@ const save = async () => {
 const saveMutation = useMutation({
   mutationFn: save,
   onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: userListKey() });
+    queryClient.invalidateQueries({ queryKey: userKey(user.value.userName) });
     isEditing.value = false;
   },
   onError: (error) => {

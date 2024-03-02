@@ -1,6 +1,7 @@
 import api from '@/api';
 import { useQuery } from '@tanstack/vue-query';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import { gameListKey } from './queryKeys';
 
 const fetchGames = async (slug: string): Promise<ArchiveCashgame[]> => {
   const response = await api.getGames(slug);
@@ -8,5 +9,5 @@ const fetchGames = async (slug: string): Promise<ArchiveCashgame[]> => {
 };
 
 export const useGameListQuery = (slug: string) => {
-  return useQuery({ queryKey: ['games'], queryFn: () => fetchGames(slug) });
+  return useQuery({ queryKey: gameListKey(slug), queryFn: () => fetchGames(slug) });
 };

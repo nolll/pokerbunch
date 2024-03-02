@@ -13,7 +13,7 @@
         <Block>
           <div class="field">
             <label class="label" for="locationId">Location</label>
-            <LocationDropdown v-model="locationId" />
+            <LocationDropdown :locations="locations" v-model="locationId" />
           </div>
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Start" />
@@ -40,19 +40,20 @@ import { ApiError } from '@/models/ApiError';
 import LocationDropdown from '@/components/LocationDropdown.vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import useBunches from '@/composables/useBunches';
-import useLocations from '@/composables/useLocations';
 import { useRouter } from 'vue-router';
+import useLocationList from '@/composables/useLocationList';
+import useParams from '@/composables/useParams';
 
+const params = useParams();
 const router = useRouter();
 const bunches = useBunches();
-const locations = useLocations();
+const { locations, locationsReady } = useLocationList(params.slug.value);
 
 const locationId = ref('');
 const errorMessage = ref('');
 
 const init = () => {
   bunches.loadBunch();
-  locations.loadLocations();
 };
 
 const add = async () => {
@@ -81,7 +82,7 @@ const redirectToGame = (id: string) => {
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locations.locationsReady.value;
+  return bunches.bunchReady.value && locationsReady.value;
 });
 
 onMounted(() => {

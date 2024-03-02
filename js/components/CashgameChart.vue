@@ -13,11 +13,9 @@ import { ChartColumnType } from '@/models/ChartColumnType';
 import { ChartRowData } from '@/models/ChartRowData';
 import { ChartRow } from '@/models/ChartRow';
 import format from '@/format';
-import useBunches from '@/composables/useBunches';
 import useGameArchive from '@/composables/useGameArchive';
 import { computed } from 'vue';
 
-const bunches = useBunches();
 const gameArchive = useGameArchive();
 
 const chartOptions: ChartOptions = {
@@ -35,7 +33,7 @@ const chartData = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
+  return gameArchive.gamesReady.value;
 });
 
 const getChartData = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {

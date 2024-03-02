@@ -2,6 +2,7 @@ import api from '@/api';
 import { useQuery } from '@tanstack/vue-query';
 import { User } from '@/models/User';
 import auth from '@/auth';
+import { currentUserKey, userKey, userListKey } from './queryKeys';
 
 const fetchCurrentUser = async (): Promise<User | null> => {
   if (!auth.isLoggedIn()) return null;
@@ -20,13 +21,13 @@ const fetchUser = async (userName: string): Promise<User> => {
 };
 
 export const useCurrentUserQuery = () => {
-  return useQuery({ queryKey: ['current-user'], queryFn: () => fetchCurrentUser() });
+  return useQuery({ queryKey: currentUserKey(), queryFn: () => fetchCurrentUser() });
 };
 
 export const useUserListQuery = () => {
-  return useQuery({ queryKey: ['users'], queryFn: () => fetchUsers() });
+  return useQuery({ queryKey: userListKey(), queryFn: () => fetchUsers() });
 };
 
 export const useUserQuery = (userName: string) => {
-  return useQuery({ queryKey: ['user', userName], queryFn: () => fetchUser(userName) });
+  return useQuery({ queryKey: userKey(userName), queryFn: () => fetchUser(userName) });
 };

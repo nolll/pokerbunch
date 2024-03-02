@@ -2,6 +2,7 @@ import api from '@/api';
 import { useQuery } from '@tanstack/vue-query';
 import { BunchResponse } from '@/response/BunchResponse';
 import auth from '@/auth';
+import { bunchKey, bunchListKey, userBunchListKey } from './queryKeys';
 
 const fetchBunches = async (): Promise<BunchResponse[]> => {
   const response = await api.getBunches();
@@ -21,13 +22,13 @@ const fetchBunch = async (slug: string): Promise<BunchResponse | null> => {
 };
 
 export const useBunchListQuery = () => {
-  return useQuery({ queryKey: ['bunches'], queryFn: () => fetchBunches() });
+  return useQuery({ queryKey: bunchListKey(), queryFn: () => fetchBunches() });
 };
 
 export const useUserBunchListQuery = () => {
-  return useQuery({ queryKey: ['current-user', 'bunches'], queryFn: () => fetchUserBunches() });
+  return useQuery({ queryKey: userBunchListKey(), queryFn: () => fetchUserBunches() });
 };
 
 export const useBunchQuery = (slug: string) => {
-  return useQuery({ queryKey: [`bunch-${slug}`], queryFn: () => fetchBunch(slug) });
+  return useQuery({ queryKey: bunchKey(slug), queryFn: () => fetchBunch(slug) });
 };

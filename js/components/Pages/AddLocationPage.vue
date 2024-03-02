@@ -36,22 +36,37 @@ import urls from '@/urls';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import useBunches from '@/composables/useBunches';
-import useLocations from '@/composables/useLocations';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import useParams from '@/composables/useParams';
+import api from '@/api';
+import { locationListKey } from '@/queries/queryKeys';
 
+const params = useParams();
 const router = useRouter();
 const bunches = useBunches();
-const locations = useLocations();
+const queryClient = useQueryClient();
 
 const locationName = ref('');
 
 const init = () => {
   bunches.loadBunch();
-  locations.loadLocations();
 };
+
+const addLocation = async () => {
+  await api.addLocation(params.slug.value, { name: locationName.value });
+};
+
+const addMutation = useMutation({
+  mutationFn: addLocation,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: locationListKey(params.slug.value) });
+    redirect();
+  },
+});
 
 const add = () => {
   if (locationName.value.length > 0) {
-    locations.addLocation(locationName.value);
+    addMutation.mutate();
     redirect();
   }
 };
@@ -65,7 +80,7 @@ const redirect = () => {
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locations.locationsReady.value;
+  return bunches.bunchReady.value;
 });
 
 onMounted(() => {
