@@ -18,7 +18,7 @@
         <template v-slot:default>
           <Block>
             <PageHeading text="Current Rankings" />
-            <OverviewTable v-if="hasGames" :games="allGames" />
+            <OverviewTable v-if="hasGames" :bunch="bunch" :games="currentYearGames" />
             <p v-else>The rankings will be displayed here when you have played your first game.</p>
           </Block>
         </template>
@@ -27,7 +27,7 @@
       <PageSection :is-wide="false">
         <Block>
           <PageHeading v-if="hasGames" text="Yearly Rankings" />
-          <YearMatrixTable v-if="hasGames" :games="allGames" />
+          <YearMatrixTable v-if="hasGames" :bunch="bunch" :games="allGames" />
         </Block>
       </PageSection>
     </template>
@@ -49,14 +49,27 @@ import { computed, onMounted } from 'vue';
 import useParams from '@/composables/useParams';
 import useBunch from '@/composables/useBunch';
 import useGameList from '@/composables/useGameList';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import archiveHelper from '@/ArchiveHelper';
+import gameSorter from '@/GameSorter';
+import { CashgameSortOrder } from '@/models/CashgameSortOrder';
 
 const { slug } = useParams();
 const { bunch, bunchReady } = useBunch(slug.value);
-const { allGames, hasGames, gamesReady } = useGameList(slug.value);
+const { allGames, getSelectedGames, hasGames, gamesReady } = useGameList(slug.value);
 const currentGames = useCurrentGames();
 
 const ready = computed(() => {
   return bunchReady.value && gamesReady.value && currentGames.currentGamesReady.value;
+});
+
+const currentYearGames = computed((): ArchiveCashgame[] => {
+  const selectedGames = getSelectedGames(currentYear.value);
+  return gameSorter.sort(selectedGames, CashgameSortOrder.Date);
+});
+
+const currentYear = computed(() => {
+  return archiveHelper.getCurrentYear(allGames.value);
 });
 
 const init = async () => {

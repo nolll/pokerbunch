@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="matrix" v-if="ready">
+  <div class="matrix">
     <TableList>
       <thead>
         <tr>
@@ -24,31 +24,33 @@ import OverviewRow from '@/components/Overview/OverviewRow.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
-import useGameArchive from '@/composables/old/useGameArchive';
 import { computed } from 'vue';
 import useParams from '@/composables/useParams';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import archiveHelper from '@/ArchiveHelper';
+import playerSorter from '@/PlayerSorter';
+import { BunchResponse } from '@/response/BunchResponse';
+import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
 
 const props = defineProps<{
+  bunch: BunchResponse;
   games: ArchiveCashgame[];
 }>();
 
 const { slug } = useParams();
-const gameArchive = useGameArchive();
-
-const players = computed(() => {
-  return gameArchive.currentYearPlayers.value;
-});
 
 const url = computed(() => {
   return urls.cashgame.details(slug.value, lastGame.value.id);
 });
 
 const lastGame = computed(() => {
-  return gameArchive.currentYearGames.value[0];
+  return props.games[0];
 });
 
-const ready = computed(() => {
-  return gameArchive.currentYearPlayers.value.length > 0;
+const players = computed((): CashgameListPlayerData[] => {
+  return playerSorter.sort(archiveHelper.getPlayers(props.games), CashgamePlayerSortOrder.Winnings);
 });
 </script>
+import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder'; import { CashgamePlayerSortOrder } from
+'@/models/CashgamePlayerSortOrder';

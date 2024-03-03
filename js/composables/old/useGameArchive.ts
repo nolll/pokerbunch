@@ -11,6 +11,7 @@ import playerSorter from '@/PlayerSorter';
 import archiveHelper from '@/ArchiveHelper';
 import api from '@/api';
 import dayjs from 'dayjs';
+import ArchiveHelper from '@/ArchiveHelper';
 
 export default function useGameArchive() {
   const store = useStore();
@@ -63,11 +64,7 @@ export default function useGameArchive() {
   });
 
   const currentYear = computed((): number | undefined => {
-    if (games.value.length > 0) {
-      const latestGame = games.value[0];
-      return dayjs(latestGame.startTime).year();
-    }
-    return undefined;
+    return ArchiveHelper.getCurrentYear(games.value);
   });
 
   const hasGames = computed((): boolean => {
@@ -114,14 +111,7 @@ export default function useGameArchive() {
   }
 
   function getYears(games: ArchiveCashgame[]) {
-    const years: number[] = [];
-    for (const game of games) {
-      const year = dayjs(game.startTime).year();
-      if (!years.includes(year)) {
-        years.push(year);
-      }
-    }
-    return years;
+    return ArchiveHelper.getYears(games);
   }
 
   return {
