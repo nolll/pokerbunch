@@ -24,11 +24,11 @@ import OverviewRow from '@/components/Overview/OverviewRow.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
-import useBunches from '@/composables/useBunches';
 import useGameArchive from '@/composables/useGameArchive';
 import { computed } from 'vue';
+import useParams from '@/composables/useParams';
 
-const bunches = useBunches();
+const params = useParams();
 const gameArchive = useGameArchive();
 
 const players = computed(() => {
@@ -44,10 +44,10 @@ const lastGame = computed(() => {
 });
 
 const slug = computed(() => {
-  return bunches.slug.value;
+  return params.slug.value;
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.currentYearPlayers.value.length > 0;
+  return gameArchive.currentYearPlayers.value.length > 0;
 });
 </script>

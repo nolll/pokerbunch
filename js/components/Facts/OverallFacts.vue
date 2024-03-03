@@ -1,5 +1,5 @@
 ﻿<template>
-  <div v-if="ready">
+  <div>
     <h2 class="h2">Overall</h2>
     <DefinitionList>
       <DefinitionTerm>Number of games</DefinitionTerm>
@@ -23,26 +23,21 @@ import CurrencyText from '@/components/Common/CurrencyText.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import { OverallFactCollection } from '@/models/OverallFactCollection';
 import { computed } from 'vue';
-import useGameArchive from '@/composables/useGameArchive';
-import useBunches from '@/composables/useBunches';
 
-const gameArchive = useGameArchive();
-const bunches = useBunches();
+const props = defineProps<{
+  games: ArchiveCashgame[];
+}>();
 
 const facts = computed(() => {
-  return getFacts(gameArchive.sortedGames.value);
+  return getFacts(props.games);
 });
 
 const gameCount = computed(() => {
-  return gameArchive.sortedGames.value.length;
+  return props.games.length;
 });
 
 const turnover = computed(() => {
   return facts.value.turnover;
-});
-
-const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
 });
 
 const getFacts = (games: ArchiveCashgame[]): OverallFactCollection => {

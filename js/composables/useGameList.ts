@@ -1,12 +1,10 @@
 import { computed } from 'vue';
 import { useGameListQuery } from '@/queries/gameQueries';
-import useParams from './useParams';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import dayjs from 'dayjs';
 
-export default function useGameList() {
-  const params = useParams();
-  const { data, isPending } = useGameListQuery(params.slug.value);
+export default function useGameList(slug: string) {
+  const { data, isPending } = useGameListQuery(slug);
 
   const allGames = computed((): ArchiveCashgame[] => {
     return data.value ?? [];

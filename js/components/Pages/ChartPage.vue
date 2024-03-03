@@ -13,7 +13,7 @@
 
       <PageSection>
         <Block>
-          <CashgameChart />
+          <CashgameChart :games="games" />
         </Block>
       </PageSection>
     </template>
@@ -27,35 +27,16 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import CashgameChart from '@/components/CashgameChart.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
-import { computed, onMounted } from 'vue';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import { computed } from 'vue';
+import useParams from '@/composables/useParams';
+import useGameList from '@/composables/useGameList';
 
-const route = useRoute();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const params = useParams();
+const { getSelectedGames, gamesReady } = useGameList(params.slug.value);
+
+const games = computed(() => getSelectedGames(params.year.value));
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
-});
-
-const init = (year: number | undefined) => {
-  bunches.loadBunch();
-  gameArchive.loadGames();
-  gameArchive.selectYear(year);
-};
-
-const getSelectedYear = (s: string | undefined) => {
-  if (!s || s === '') return undefined;
-  return parseInt(s);
-};
-
-onMounted(() => {
-  init(getSelectedYear(route.params.year as string));
-});
-
-onBeforeRouteUpdate(async (to) => {
-  init(getSelectedYear(to.params.year as string));
+  return gamesReady.value;
 });
 </script>

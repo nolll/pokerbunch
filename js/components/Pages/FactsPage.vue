@@ -17,12 +17,12 @@
             <SingleGameFacts />
           </Block>
           <Block>
-            <TotalFacts />
+            <TotalFacts :games="games" />
           </Block>
         </template>
         <template v-slot:aside2>
           <Block>
-            <OverallFacts />
+            <OverallFacts :games="games" />
           </Block>
         </template>
       </PageSection>
@@ -43,35 +43,18 @@ import TotalFacts from '@/components/Facts/TotalFacts.vue';
 import OverallFacts from '@/components/Facts/OverallFacts.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
-import { computed, onMounted } from 'vue';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import { computed } from 'vue';
+import useGameList from '@/composables/useGameList';
+import useParams from '@/composables/useParams';
 
-const route = useRoute();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const params = useParams();
+const { getSelectedGames, gamesReady } = useGameList(params.slug.value);
+
+const games = computed(() => {
+  return getSelectedGames(params.year.value);
+});
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
-});
-
-const init = (year: number | undefined) => {
-  bunches.loadBunch();
-  gameArchive.loadGames();
-  gameArchive.selectYear(year);
-};
-
-const getSelectedYear = (s: string | undefined) => {
-  if (!s || s === '') return undefined;
-  return parseInt(s);
-};
-
-onMounted(() => {
-  init(getSelectedYear(route.params.year as string));
-});
-
-onBeforeRouteUpdate(async (to) => {
-  init(getSelectedYear(to.params.year as string));
+  return gamesReady.value;
 });
 </script>

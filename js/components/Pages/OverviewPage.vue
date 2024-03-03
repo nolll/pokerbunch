@@ -18,7 +18,7 @@
         <template v-slot:default>
           <Block>
             <PageHeading text="Current Rankings" />
-            <OverviewTable v-if="hasGames" />
+            <OverviewTable v-if="hasGames" :games="games" />
             <p v-else>The rankings will be displayed here when you have played your first game.</p>
           </Block>
         </template>

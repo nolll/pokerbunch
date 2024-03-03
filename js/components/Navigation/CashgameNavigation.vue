@@ -38,7 +38,7 @@ const route = useRoute();
 const router = useRouter();
 
 const selectedYear = ref<number>();
-const { years, currentYear } = useGameList();
+const { years, currentYear } = useGameList(params.slug.value);
 
 const selectedPageName = computed(() => {
   if (props.page === 'matrix') return 'Matrix';

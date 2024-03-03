@@ -27,16 +27,14 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useBunches from '@/composables/useBunches';
 import { computed } from 'vue';
 import useGameList from '@/composables/useGameList';
 import useParams from '@/composables/useParams';
 
 const params = useParams();
-const bunches = useBunches();
-const { getSelectedGames, gamesReady } = useGameList();
+const { getSelectedGames, gamesReady } = useGameList(params.slug.value);
 
-const slug = computed(() => bunches.slug.value);
+const slug = computed(() => params.slug.value);
 const games = computed(() => getSelectedGames(params.year.value));
 const ready = computed(() => gamesReady.value);
 </script>
