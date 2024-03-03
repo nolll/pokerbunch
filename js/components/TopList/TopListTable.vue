@@ -24,7 +24,7 @@
 import TopListRow from './TopListRow.vue';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
-import useGameArchive from '@/composables/useGameArchive';
+import useGameArchive from '@/composables/old/useGameArchive';
 import { computed } from 'vue';
 
 const gameArchive = useGameArchive();

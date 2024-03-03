@@ -24,7 +24,7 @@ import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { SingleGameFactCollection } from '@/models/SingleGameFactCollection';
 import { PlayerWinningsFact } from '@/models/PlayerWinningsFact';
 import { computed } from 'vue';
-import useGameArchive from '@/composables/useGameArchive';
+import useGameArchive from '@/composables/old/useGameArchive';
 import useBunches from '@/composables/useBunches';
 
 const bunches = useBunches();

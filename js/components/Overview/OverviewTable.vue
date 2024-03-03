@@ -24,7 +24,7 @@ import OverviewRow from '@/components/Overview/OverviewRow.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
-import useGameArchive from '@/composables/useGameArchive';
+import useGameArchive from '@/composables/old/useGameArchive';
 import { computed } from 'vue';
 import useParams from '@/composables/useParams';
 

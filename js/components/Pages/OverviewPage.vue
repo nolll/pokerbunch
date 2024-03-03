@@ -45,7 +45,7 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
+import useGameArchive from '@/composables/old/useGameArchive';
 import useCurrentGames from '@/composables/useCurrentGames';
 import { computed, onMounted } from 'vue';
 

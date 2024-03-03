@@ -104,7 +104,7 @@ import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';
 import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
+import useGameArchive from '@/composables/old/useGameArchive';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';

@@ -26,7 +26,7 @@ import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 import { computed } from 'vue';
 import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
+import useGameArchive from '@/composables/old/useGameArchive';
 
 const bunches = useBunches();
 const gameArchive = useGameArchive();

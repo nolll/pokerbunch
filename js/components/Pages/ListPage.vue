@@ -25,7 +25,7 @@ import GameListTable from '@/components/GameList/GameListTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
+import useGameArchive from '@/composables/old/useGameArchive';
 import { computed, onMounted } from 'vue';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 

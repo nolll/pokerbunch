@@ -26,7 +26,7 @@ import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import { computed, onMounted } from 'vue';
 import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
+import useGameArchive from '@/composables/old/useGameArchive';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 
 const route = useRoute();
