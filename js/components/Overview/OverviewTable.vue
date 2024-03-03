@@ -27,8 +27,13 @@ import TableListColumnHeader from '@/components/Common/TableList/TableListColumn
 import useGameArchive from '@/composables/old/useGameArchive';
 import { computed } from 'vue';
 import useParams from '@/composables/useParams';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 
-const params = useParams();
+const props = defineProps<{
+  games: ArchiveCashgame[];
+}>();
+
+const { slug } = useParams();
 const gameArchive = useGameArchive();
 
 const players = computed(() => {
@@ -41,10 +46,6 @@ const url = computed(() => {
 
 const lastGame = computed(() => {
   return gameArchive.currentYearGames.value[0];
-});
-
-const slug = computed(() => {
-  return params.slug.value;
 });
 
 const ready = computed(() => {

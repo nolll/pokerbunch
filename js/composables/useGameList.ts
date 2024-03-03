@@ -2,12 +2,22 @@ import { computed } from 'vue';
 import { useGameListQuery } from '@/queries/gameQueries';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import dayjs from 'dayjs';
+import gameSorter from '@/GameSorter';
+import playerSorter from '@/PlayerSorter';
+import archiveHelper from '@/ArchiveHelper';
+import { CashgameSortOrder } from '@/models/CashgameSortOrder';
+import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
 
 export default function useGameList(slug: string) {
   const { data, isPending } = useGameListQuery(slug);
 
   const allGames = computed((): ArchiveCashgame[] => {
     return data.value ?? [];
+  });
+
+  const hasGames = computed(() => {
+    return allGames.value.length > 0;
   });
 
   const gamesReady = computed((): boolean => {
@@ -47,6 +57,7 @@ export default function useGameList(slug: string) {
 
   return {
     allGames,
+    hasGames,
     gamesReady,
     getSelectedGames,
     years,

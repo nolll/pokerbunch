@@ -14,7 +14,7 @@
       <PageSection>
         <template v-slot:default>
           <Block>
-            <SingleGameFacts />
+            <SingleGameFacts :games="games" />
           </Block>
           <Block>
             <TotalFacts :games="games" />

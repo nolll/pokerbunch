@@ -1,8 +1,10 @@
 import useBunch from './useBunch';
 import format from '@/format';
+import useParams from './useParams';
 
 export default function useFormatter() {
-  const { bunch, bunchReady } = useBunch();
+  const params = useParams();
+  const { bunch, bunchReady } = useBunch(params.slug.value);
 
   const formatCurrency = (val: number): string => {
     return bunchReady.value ? format.currency(val, bunch.value.currencyFormat, bunch.value.thousandSeparator) : val.toString();

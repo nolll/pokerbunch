@@ -19,18 +19,18 @@ import format from '@/format';
 import TableListRow from '@/components/Common/TableList/TableListRow.vue';
 import TableListCell from '@/components/Common/TableList/TableListCell.vue';
 import { computed } from 'vue';
-import useBunches from '@/composables/useBunches';
 import useFormatter from '@/composables/useFormatter';
+import { BunchResponse } from '@/response/BunchResponse';
 
 const props = defineProps<{
+  bunch: BunchResponse;
   game: ArchiveCashgame;
 }>();
 
-const bunches = useBunches();
 const formatter = useFormatter();
 
 const url = computed(() => {
-  return urls.cashgame.details(bunches.slug.value, props.game.id);
+  return urls.cashgame.details(props.bunch.id, props.game.id);
 });
 
 const displayDate = computed(() => {

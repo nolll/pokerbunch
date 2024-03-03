@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody class="list">
-        <GameListRow v-for="game in sortedGames" :game="game" :key="game.id" />
+        <GameListRow v-for="game in sortedGames" :game="game" :bunch="bunch" :key="game.id" />
       </tbody>
     </TableList>
   </div>
@@ -24,27 +24,25 @@
 import GameListRow from './GameListRow.vue';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
-import { computed } from 'vue';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/old/useGameArchive';
+import { computed, ref } from 'vue';
+import { BunchResponse } from '@/response/BunchResponse';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import gameSorter from '@/GameSorter';
+import { CashgameSortOrder } from '@/models/CashgameSortOrder';
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const props = defineProps<{
+  bunch: BunchResponse;
+  games: ArchiveCashgame[];
+}>();
 
-const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.sortedGames.value.length > 0;
-});
+const orderedBy = ref(CashgameSortOrder.Date);
 
 const sortedGames = computed(() => {
-  return gameArchive.sortedGames.value;
+  return gameSorter.sort(props.games, orderedBy.value);
 });
 
-const orderedBy = computed(() => {
-  return gameArchive.gameSortOrder.value;
-});
-
-const sort = (column: string) => {
-  gameArchive.sortGames(column);
+const sort = (column: CashgameSortOrder) => {
+  orderedBy.value = column;
 };
 </script>
 

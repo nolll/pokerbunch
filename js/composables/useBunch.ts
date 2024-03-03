@@ -1,11 +1,9 @@
 import { computed } from 'vue';
 import { useBunchQuery } from '@/queries/bunchQueries';
 import { BunchResponse } from '@/response/BunchResponse';
-import useParams from './useParams';
 
-export default function useBunch() {
-  const params = useParams();
-  const bunchQuery = useBunchQuery(params.slug.value);
+export default function useBunch(slug: string) {
+  const bunchQuery = useBunchQuery(slug);
 
   const bunch = computed((): BunchResponse => {
     return bunchQuery.data.value!;

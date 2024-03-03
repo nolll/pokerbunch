@@ -29,7 +29,7 @@ import urls from '@/urls';
 import { computed } from 'vue';
 
 const params = useParams();
-const { bunch, bunchReady } = useBunch();
+const { bunch, bunchReady } = useBunch(params.slug.value);
 const { userBunches, userBunchesReady } = useUserBunchList();
 
 const slug = computed(() => {
