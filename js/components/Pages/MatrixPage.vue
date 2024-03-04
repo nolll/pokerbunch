@@ -13,7 +13,7 @@
 
       <PageSection>
         <Block>
-          <MatrixTable :slug="slug" :games="games" />
+          <MatrixTable :slug="slug" :games="games" :localization="localization" />
         </Block>
       </PageSection>
     </template>
@@ -30,11 +30,12 @@ import PageSection from '@/components/Common/PageSection.vue';
 import { computed } from 'vue';
 import useGameList from '@/composables/useGameList';
 import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
 
-const params = useParams();
-const { getSelectedGames, gamesReady } = useGameList(params.slug.value);
+const { slug, year } = useParams();
+const { localization, bunchReady } = useBunch(slug.value);
+const { getSelectedGames, gamesReady } = useGameList(slug.value);
 
-const slug = computed(() => params.slug.value);
-const games = computed(() => getSelectedGames(params.year.value));
+const games = computed(() => getSelectedGames(year.value));
 const ready = computed(() => gamesReady.value);
 </script>

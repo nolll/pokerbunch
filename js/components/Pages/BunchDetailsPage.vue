@@ -93,7 +93,12 @@ import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref } from 'vue';
 import useBunches from '@/composables/useBunches';
 import useFormatter from '@/composables/useFormatter';
+import useBunch from '@/composables/useBunch';
+import useParams from '@/composables/useParams';
+import format from '@/format';
 
+const { slug } = useParams();
+const { localization, bunchReady } = useBunch(slug.value);
 const bunches = useBunches();
 const formatter = useFormatter();
 
@@ -135,7 +140,7 @@ const timezone = computed(() => {
 });
 
 const currencyFormat = computed(() => {
-  return formatter.formatCurrency(123);
+  return format.currency(123, localization.value);
 });
 
 const currencySymbol = computed(() => {
@@ -206,7 +211,7 @@ const save = async () => {
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value;
+  return bunchReady.value && bunches.bunchReady.value;
 });
 
 const init = () => {

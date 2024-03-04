@@ -10,7 +10,7 @@
           <CashgameNavigation page="toplist" />
         </Block>
         <Block>
-          <TopListTable :games="games" :bunchId="slug" />
+          <TopListTable :games="games" :bunchId="slug" :localization="localization" />
         </Block>
       </PageSection>
     </template>
@@ -25,12 +25,12 @@ import TopListTable from '@/components/TopList/TopListTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import { computed, onMounted } from 'vue';
-import useBunches from '@/composables/useBunches';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import useGameList from '@/composables/useGameList';
 import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
 
 const { slug, year } = useParams();
+const { localization, bunchReady } = useBunch(slug.value);
 const { getSelectedGames, gamesReady } = useGameList(slug.value);
 
 const games = computed(() => {
@@ -38,6 +38,6 @@ const games = computed(() => {
 });
 
 const ready = computed(() => {
-  return gamesReady.value;
+  return bunchReady.value && gamesReady.value;
 });
 </script>

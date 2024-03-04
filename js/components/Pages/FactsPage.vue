@@ -14,15 +14,15 @@
       <PageSection>
         <template v-slot:default>
           <Block>
-            <SingleGameFacts :games="games" />
+            <SingleGameFacts :games="games" :localization="localization" />
           </Block>
           <Block>
-            <TotalFacts :games="games" />
+            <TotalFacts :games="games" :localization="localization" />
           </Block>
         </template>
         <template v-slot:aside2>
           <Block>
-            <OverallFacts :games="games" />
+            <OverallFacts :games="games" :localization="localization" />
           </Block>
         </template>
       </PageSection>
@@ -46,15 +46,17 @@ import PageSection from '@/components/Common/PageSection.vue';
 import { computed } from 'vue';
 import useGameList from '@/composables/useGameList';
 import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
 
-const params = useParams();
-const { getSelectedGames, gamesReady } = useGameList(params.slug.value);
+const { slug, year } = useParams();
+const { localization, bunchReady } = useBunch(slug.value);
+const { getSelectedGames, gamesReady } = useGameList(slug.value);
 
 const games = computed(() => {
-  return getSelectedGames(params.year.value);
+  return getSelectedGames(year.value);
 });
 
 const ready = computed(() => {
-  return gamesReady.value;
+  return bunchReady.value && gamesReady.value;
 });
 </script>

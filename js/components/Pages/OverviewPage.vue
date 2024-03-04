@@ -18,7 +18,7 @@
         <template v-slot:default>
           <Block>
             <PageHeading text="Current Rankings" />
-            <OverviewTable v-if="hasGames" :bunch="bunch" :games="currentYearGames" />
+            <OverviewTable v-if="hasGames" :bunch="bunch" :games="currentYearGames" :localization="localization" />
             <p v-else>The rankings will be displayed here when you have played your first game.</p>
           </Block>
         </template>
@@ -27,7 +27,7 @@
       <PageSection :is-wide="false">
         <Block>
           <PageHeading v-if="hasGames" text="Yearly Rankings" />
-          <YearMatrixTable v-if="hasGames" :bunch="bunch" :games="allGames" />
+          <YearMatrixTable v-if="hasGames" :bunch="bunch" :games="allGames" :localization="localization" />
         </Block>
       </PageSection>
     </template>
@@ -55,7 +55,7 @@ import gameSorter from '@/GameSorter';
 import { CashgameSortOrder } from '@/models/CashgameSortOrder';
 
 const { slug } = useParams();
-const { bunch, bunchReady } = useBunch(slug.value);
+const { bunch, localization, bunchReady } = useBunch(slug.value);
 const { allGames, getSelectedGames, hasGames, gamesReady } = useGameList(slug.value);
 const currentGames = useCurrentGames();
 

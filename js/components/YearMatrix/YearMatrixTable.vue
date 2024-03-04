@@ -16,6 +16,7 @@
           :index="index"
           :key="player.id"
           :bunchId="bunchId"
+          :localization="localization"
         />
       </tbody>
     </TableList>
@@ -34,10 +35,12 @@ import { computed } from 'vue';
 import { BunchResponse } from '@/response/BunchResponse';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import ArchiveHelper from '@/ArchiveHelper';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunch: BunchResponse;
   games: ArchiveCashgame[];
+  localization: Localization;
 }>();
 
 const bunchId = computed(() => {

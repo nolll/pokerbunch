@@ -3,10 +3,10 @@
     <h2 class="h2">Single Game</h2>
     <DefinitionList>
       <DefinitionTerm>Best Result</DefinitionTerm>
-      <PlayerResultFact :name="facts.bestResult.name" :amount="facts.bestResult.amount" />
+      <PlayerResultFact :name="facts.bestResult.name" :amount="facts.bestResult.amount" :localization="localization" />
 
       <DefinitionTerm>Worst Result</DefinitionTerm>
-      <PlayerResultFact :name="facts.worstResult.name" :amount="facts.worstResult.amount" />
+      <PlayerResultFact :name="facts.worstResult.name" :amount="facts.worstResult.amount" :localization="localization" />
     </DefinitionList>
   </div>
 </template>
@@ -26,9 +26,11 @@ import { PlayerWinningsFact } from '@/models/PlayerWinningsFact';
 import { computed } from 'vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import ArchiveHelper from '@/ArchiveHelper';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   games: ArchiveCashgame[];
+  localization: Localization;
 }>();
 
 const facts = computed(() => {

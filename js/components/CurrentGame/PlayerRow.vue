@@ -12,9 +12,11 @@
         </div>
       </div>
       <div class="player-row__amounts">
-        <div><i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" /></div>
-        <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" /></div>
-        <div><WinningsText :value="winnings" /></div>
+        <div>
+          <i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" :localization="localization" />
+        </div>
+        <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" :localization="localization" /></div>
+        <div><WinningsText :value="winnings" :localization="localization" /></div>
       </div>
     </div>
     <div v-if="showDetails">
@@ -50,12 +52,14 @@ import { computed, ref } from 'vue';
 import CashedOutIcon from '../Icons/CashedOutIcon.vue';
 import TimeIcon from '../Icons/TimeIcon.vue';
 import InlineIcon from '../Icons/InlineIcon.vue';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunchId: string;
   player: DetailedCashgamePlayer;
   isCashgameRunning: boolean;
   canEdit: boolean;
+  localization: Localization;
 }>();
 
 const emit = defineEmits(['selected', 'deleteAction', 'saveAction']);

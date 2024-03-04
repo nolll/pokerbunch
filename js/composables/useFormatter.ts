@@ -3,15 +3,15 @@ import format from '@/format';
 import useParams from './useParams';
 
 export default function useFormatter() {
-  const params = useParams();
-  const { bunch, bunchReady } = useBunch(params.slug.value);
+  const { slug } = useParams();
+  const { localization, bunchReady } = useBunch(slug.value);
 
   const formatCurrency = (val: number): string => {
-    return bunchReady.value ? format.currency(val, bunch.value.currencyFormat, bunch.value.thousandSeparator) : val.toString();
+    return bunchReady.value ? format.currency(val, localization.value) : val.toString();
   };
 
   const formatResult = (val: number): string => {
-    return bunchReady.value ? format.result(val, bunch.value.currencyFormat, bunch.value.thousandSeparator) : val.toString();
+    return bunchReady.value ? format.result(val, localization.value) : val.toString();
   };
 
   const formatResultWithoutCurrency = (val: number): string => {
@@ -19,7 +19,7 @@ export default function useFormatter() {
   };
 
   const formatWinrate = (val: number): string => {
-    return bunchReady.value ? format.winrate(val, bunch.value.currencyFormat, bunch.value.thousandSeparator) : val.toString();
+    return bunchReady.value ? format.winrate(val, localization.value) : val.toString();
   };
 
   const formatDuration = (val: number): string => {

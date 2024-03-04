@@ -9,7 +9,7 @@
       <DefinitionData><DurationText :value="facts.duration" /></DefinitionData>
 
       <DefinitionTerm>Total Turnover</DefinitionTerm>
-      <DefinitionData><CurrencyText :value="turnover" /></DefinitionData>
+      <DefinitionData><CurrencyText :value="turnover" :localization="localization" /></DefinitionData>
     </DefinitionList>
   </div>
 </template>
@@ -23,9 +23,11 @@ import CurrencyText from '@/components/Common/CurrencyText.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import { OverallFactCollection } from '@/models/OverallFactCollection';
 import { computed } from 'vue';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   games: ArchiveCashgame[];
+  localization: Localization;
 }>();
 
 const facts = computed(() => {

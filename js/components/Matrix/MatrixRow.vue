@@ -4,8 +4,10 @@
     <TableListCell>
       <CustomLink :url="url">{{ name }}</CustomLink>
     </TableListCell>
-    <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
-    <MatrixItem v-for="game in player.gameResults" :game="game" :key="game.gameId" />
+    <TableListCell :is-numeric="true"
+      ><WinningsText :value="winnings" :show-currency="true" :localization="localization"
+    /></TableListCell>
+    <MatrixItem v-for="game in player.gameResults" :game="game" :localization="localization" :key="game.gameId" />
   </TableListRow>
 </template>
 
@@ -18,11 +20,13 @@ import TableListCell from '@/components/Common/TableList/TableListCell.vue';
 import WinningsText from '@/components/Common/WinningsText.vue';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { computed } from 'vue';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunchId: string;
   player: CashgameListPlayerData;
   index: number;
+  localization: Localization;
 }>();
 
 const url = computed(() => urls.player.details(props.bunchId, props.player.id));

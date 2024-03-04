@@ -10,16 +10,19 @@
         @saveAction="onSaveAction"
         :canEdit="canEdit"
         :bunchId="bunchId"
+        :localization="localization"
       />
     </div>
     <div class="totals">
       <div class="title">Totals:</div>
       <div class="amounts">
         <div class="amount">
-          <InlineIcon><BuyinIcon title="Total Buy in" /></InlineIcon> <CurrencyText :value="totalBuyin" />
+          <InlineIcon><BuyinIcon title="Total Buy in" /></InlineIcon>
+          <CurrencyText :value="totalBuyin" :localization="localization" />
         </div>
         <div class="amount">
-          <InlineIcon><ReportIcon title="Total Stacks" /></InlineIcon> <CurrencyText :value="totalStacks" />
+          <InlineIcon><ReportIcon title="Total Stacks" /></InlineIcon>
+          <CurrencyText :value="totalStacks" :localization="localization" />
         </div>
       </div>
     </div>
@@ -35,12 +38,14 @@ import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import BuyinIcon from '../Icons/BuyinIcon.vue';
 import ReportIcon from '../Icons/ReportIcon.vue';
 import InlineIcon from '../Icons/InlineIcon.vue';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunchId: string;
   players: DetailedCashgamePlayer[];
   isCashgameRunning: boolean;
   canEdit: boolean;
+  localization: Localization;
 }>();
 
 const emit = defineEmits(['playerSelected', 'deleteAction', 'saveAction']);

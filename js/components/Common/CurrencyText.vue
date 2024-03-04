@@ -3,16 +3,16 @@
 </template>
 
 <script setup lang="ts">
-import useFormatter from '@/composables/useFormatter';
+import format from '@/format';
+import { Localization } from '@/models/Localization';
 import { computed } from 'vue';
 
 const props = defineProps<{
   value: number;
+  localization: Localization;
 }>();
 
-var formatter = useFormatter();
-
 const formattedValue = computed(() => {
-  return formatter.formatCurrency(props.value);
+  return format.currency(props.value, props.localization);
 });
 </script>

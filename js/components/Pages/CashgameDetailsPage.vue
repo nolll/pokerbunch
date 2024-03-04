@@ -43,6 +43,7 @@
                 @saveAction="onSaveAction"
                 :canEdit="canEdit"
                 :bunchId="slug"
+                :localization="localization"
               />
             </div>
           </Block>
@@ -135,14 +136,16 @@ import BuyinIcon from '../Icons/BuyinIcon.vue';
 import CashoutIcon from '../Icons/CashoutIcon.vue';
 import useParams from '@/composables/useParams';
 import useLocationList from '@/composables/useLocationList';
+import useBunch from '@/composables/useBunch';
 
-const params = useParams();
+const { slug } = useParams();
 const route = useRoute();
 const router = useRouter();
 const bunches = useBunches();
 const events = useEvents();
 const players = usePlayers();
-const { locations, getLocation, locationsReady } = useLocationList(params.slug.value);
+const { localization, bunchReady } = useBunch(slug.value);
+const { locations, getLocation, locationsReady } = useLocationList(slug.value);
 
 const longRefresh = 30000;
 
@@ -321,12 +324,10 @@ const updatedTime = computed(() => {
   return cashgame.value?.updatedTime || null;
 });
 
-const slug = computed(() => {
-  return bunches.slug.value;
-});
-
 const ready = computed(() => {
-  return bunches.bunchReady.value && cashgameReady.value && players.playersReady.value && locationsReady.value;
+  return (
+    bunchReady.value && bunches.bunchReady.value && cashgameReady.value && players.playersReady.value && locationsReady.value
+  );
 });
 
 const setupRefresh = (refreshTimeout: number) => {
@@ -472,7 +473,7 @@ onBeforeUnmount(() => {
 });
 
 const redirect = () => {
-  router.push(urls.cashgame.index(bunches.slug.value));
+  router.push(urls.cashgame.index(slug.value));
 };
 
 const loadCashgame = async () => {

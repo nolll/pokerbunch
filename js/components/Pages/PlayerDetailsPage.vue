@@ -16,11 +16,17 @@
           <Block>
             <ValueList>
               <ValueListKey>Total Result</ValueListKey>
-              <ValueListValue><WinningsText :value="totalResult" /></ValueListValue>
+              <ValueListValue
+                ><WinningsText :value="totalResult" :show-currency="true" :localization="localization"
+              /></ValueListValue>
               <ValueListKey>Best Result</ValueListKey>
-              <ValueListValue><WinningsText :value="bestResult" /></ValueListValue>
+              <ValueListValue
+                ><WinningsText :value="bestResult" :show-currency="true" :localization="localization"
+              /></ValueListValue>
               <ValueListKey>Worst Result</ValueListKey>
-              <ValueListValue><WinningsText :value="worstResult" /></ValueListValue>
+              <ValueListValue
+                ><WinningsText :value="worstResult" :show-currency="true" :localization="localization"
+              /></ValueListValue>
               <ValueListKey>Games Played</ValueListKey>
               <ValueListValue>{{ gamesPlayed }}</ValueListValue>
               <ValueListKey>Time Played</ValueListKey>
@@ -109,12 +115,14 @@ import { useRouter } from 'vue-router';
 import usePlayerList from '@/composables/usePlayerList';
 import useGameList from '@/composables/useGameList';
 import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
 
-const params = useParams();
+const { slug, playerId } = useParams();
 const router = useRouter();
 const playersOld = usePlayers();
-const { getPlayer, playersReady } = usePlayerList(params.slug.value);
-const { allGames, gamesReady } = useGameList(params.slug.value);
+const { localization, bunchReady } = useBunch(slug.value);
+const { getPlayer, playersReady } = usePlayerList(slug.value);
+const { allGames, gamesReady } = useGameList(slug.value);
 
 const user = ref<User>();
 const isInvitationFormVisible = ref(false);
@@ -126,7 +134,7 @@ const hasUser = computed(() => {
 });
 
 const player = computed(() => {
-  return getPlayer(params.playerId.value);
+  return getPlayer(playerId.value);
 });
 
 const playerName = computed(() => {
@@ -266,7 +274,7 @@ const worstLosingStreak = computed(() => {
 });
 
 const ready = computed(() => {
-  return playersReady && gamesReady.value;
+  return bunchReady.value && playersReady.value && gamesReady.value;
 });
 
 const userReady = computed(() => {
@@ -302,7 +310,7 @@ const notRegisteredMessage = computed(() => {
 const deletePlayer = () => {
   if (window.confirm('Do you want to delete this player?')) {
     playersOld.deletePlayer(player.value);
-    router.push(urls.player.list(params.slug.value));
+    router.push(urls.player.list(slug.value));
   }
 };
 

@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody class="list">
-        <TopListRow v-for="player in players" :player="player" :key="player.id" :bunchId="bunchId" />
+        <TopListRow v-for="player in players" :player="player" :key="player.id" :bunchId="bunchId" :localization="localization" />
       </tbody>
     </TableList>
   </div>
@@ -29,10 +29,12 @@ import playerSorter from '@/PlayerSorter';
 import archiveHelper from '@/ArchiveHelper';
 import { computed, ref } from 'vue';
 import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunchId: string;
   games: ArchiveCashgame[];
+  localization: Localization;
 }>();
 
 const players = computed(() => {

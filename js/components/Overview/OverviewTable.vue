@@ -12,7 +12,14 @@
         </tr>
       </thead>
       <tbody>
-        <OverviewRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" :bunchId="slug" />
+        <OverviewRow
+          v-for="(player, index) in players"
+          :player="player"
+          :index="index"
+          :bunchId="slug"
+          :localization="localization"
+          :key="player.id"
+        />
       </tbody>
     </TableList>
   </div>
@@ -32,10 +39,12 @@ import playerSorter from '@/PlayerSorter';
 import { BunchResponse } from '@/response/BunchResponse';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunch: BunchResponse;
   games: ArchiveCashgame[];
+  localization: Localization;
 }>();
 
 const { slug } = useParams();
