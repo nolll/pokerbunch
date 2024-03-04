@@ -103,19 +103,18 @@ import DurationText from '@/components/Common/DurationText.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/old/useGameArchive';
 import usePlayers from '@/composables/usePlayers';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
 import usePlayerList from '@/composables/usePlayerList';
+import useGameList from '@/composables/useGameList';
+import useParams from '@/composables/useParams';
 
-const route = useRoute();
+const params = useParams();
 const router = useRouter();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
 const playersOld = usePlayers();
-const { getPlayer, playersReady } = usePlayerList(route.params.slug as string);
+const { getPlayer, playersReady } = usePlayerList(params.slug.value);
+const { allGames, gamesReady } = useGameList(params.slug.value);
 
 const user = ref<User>();
 const isInvitationFormVisible = ref(false);
@@ -127,7 +126,7 @@ const hasUser = computed(() => {
 });
 
 const player = computed(() => {
-  return getPlayer(route.params.id as string);
+  return getPlayer(params.playerId.value);
 });
 
 const playerName = computed(() => {
@@ -149,7 +148,7 @@ const avatarUrl = computed(() => {
 });
 
 const games = computed(() => {
-  return gameArchive.games.value.filter((g) => isInGame(g));
+  return allGames.value.filter((g) => isInGame(g));
 });
 
 const results = computed(() => {
@@ -267,7 +266,7 @@ const worstLosingStreak = computed(() => {
 });
 
 const ready = computed(() => {
-  return playersReady && gameArchive.gamesReady.value;
+  return playersReady && gamesReady.value;
 });
 
 const userReady = computed(() => {
@@ -303,7 +302,7 @@ const notRegisteredMessage = computed(() => {
 const deletePlayer = () => {
   if (window.confirm('Do you want to delete this player?')) {
     playersOld.deletePlayer(player.value);
-    router.push(urls.player.list(bunches.slug.value));
+    router.push(urls.player.list(params.slug.value));
   }
 };
 
@@ -324,23 +323,10 @@ const isInGame = (game: ArchiveCashgame) => {
   return false;
 };
 
-const loadUser = async () => {
-  if (player.value?.userName) {
-    const response = await api.getUser(player.value.userName);
-    user.value = response.status === 200 ? response.data : undefined;
-  }
-};
-
-const init = async () => {
-  bunches.loadBunch();
-  gameArchive.loadGames();
-};
-
-// watch(player, () => {
-//   if (player.value) loadUser();
-// });
-
-onMounted(() => {
-  init();
-});
+// const loadUser = async () => {
+//   if (player.value?.userName) {
+//     const response = await api.getUser(player.value.userName);
+//     user.value = response.status === 200 ? response.data : undefined;
+//   }
+// };
 </script>
