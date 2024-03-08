@@ -1,7 +1,7 @@
 ﻿<template>
   <SimpleList>
     <SimpleListItem v-for="location in locationList" :key="location.id">
-      <LocationListItem :bunch-id="bunchId" :location="location" />
+      <LocationListItem :bunch-id="slug" :location="location" />
     </SimpleListItem>
   </SimpleList>
 </template>
@@ -12,18 +12,12 @@ import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
 import LocationListItem from '@/components/LocationList/LocationListItem.vue';
 import comparer from '@/comparer';
 import { LocationResponse } from '@/response/LocationResponse';
-import useBunches from '@/composables/useBunches';
 import { computed } from 'vue';
 
 const props = defineProps<{
+  slug: string;
   locations: LocationResponse[];
 }>();
-
-const bunches = useBunches();
-
-const bunchId = computed(() => {
-  return bunches.slug.value;
-});
 
 const locationList = computed(() => {
   return props.locations.slice().sort(compareLocation);

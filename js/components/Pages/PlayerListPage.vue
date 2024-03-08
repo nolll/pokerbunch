@@ -35,32 +35,18 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useBunches from '@/composables/useBunches';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import useParams from '@/composables/useParams';
 import usePlayerList from '@/composables/usePlayerList';
 
-const bunches = useBunches();
-const params = useParams();
-const { players, playersReady } = usePlayerList(params.slug.value);
+const { slug } = useParams();
+const { players, playersReady } = usePlayerList(slug.value);
 
 const addPlayerUrl = computed(() => {
   return urls.player.add(slug.value);
 });
 
-const slug = computed(() => {
-  return params.slug.value;
-});
-
 const ready = computed(() => {
-  return bunches.bunchReady.value && playersReady.value;
-});
-
-const init = () => {
-  bunches.loadBunch();
-};
-
-onMounted(() => {
-  init();
+  return playersReady.value;
 });
 </script>

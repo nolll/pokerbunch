@@ -20,16 +20,14 @@ import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useBunches from '@/composables/useBunches';
 import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import useParams from '@/composables/useParams';
 import useLocationList from '@/composables/useLocationList';
 
-const params = useParams();
+const { slug } = useParams();
 const route = useRoute();
-const bunches = useBunches();
-const { getLocation, locationsReady } = useLocationList(params.slug.value);
+const { getLocation, locationsReady } = useLocationList(slug.value);
 
 const name = computed(() => {
   if (location.value) return location.value.name;
@@ -45,14 +43,6 @@ const locationId = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locationsReady.value;
-});
-
-const init = () => {
-  bunches.loadBunch();
-};
-
-onMounted(() => {
-  init();
+  return locationsReady.value;
 });
 </script>

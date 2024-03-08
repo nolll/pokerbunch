@@ -34,23 +34,22 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useBunches from '@/composables/useBunches';
 import useEvents from '@/composables/useEvents';
 import { computed, onMounted } from 'vue';
+import useParams from '@/composables/useParams';
 
-const bunches = useBunches();
+const { slug } = useParams();
 const events = useEvents();
 
 const addEventUrl = computed(() => {
-  return urls.event.add(bunches.slug.value);
+  return urls.event.add(slug.value);
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && events.eventsReady.value;
+  return events.eventsReady.value;
 });
 
 const init = () => {
-  bunches.loadBunch();
   events.loadEvents();
 };
 

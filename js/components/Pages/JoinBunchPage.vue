@@ -41,7 +41,9 @@ import useBunches from '@/composables/useBunches';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import useParams from '@/composables/useParams';
 
+const { slug } = useParams();
 const route = useRoute();
 const router = useRouter();
 const bunches = useBunches();
@@ -63,7 +65,7 @@ const ready = computed(() => {
 });
 
 const joinClicked = () => {
-  join(bunches.slug.value, code.value);
+  join(slug.value, code.value);
 };
 
 const join = async (bunchId: string, code: string) => {
@@ -71,7 +73,7 @@ const join = async (bunchId: string, code: string) => {
     try {
       await api.joinBunch(bunchId, { code });
       players.loadPlayers();
-      router.push(urls.bunch.details(bunches.slug.value));
+      router.push(urls.bunch.details(slug.value));
     } catch (err) {
       const error = err as AxiosError<ApiError>;
       errorMessage.value = error.response?.data.message || 'Unknown Error';

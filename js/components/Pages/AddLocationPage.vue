@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :require-user="true" :ready="ready">
+  <Layout :require-user="true" :ready="true">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -33,33 +33,27 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import { computed, onMounted, ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import useBunches from '@/composables/useBunches';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import useParams from '@/composables/useParams';
 import api from '@/api';
 import { locationListKey } from '@/queries/queryKeys';
 
-const params = useParams();
+const { slug } = useParams();
 const router = useRouter();
-const bunches = useBunches();
 const queryClient = useQueryClient();
 
 const locationName = ref('');
 
-const init = () => {
-  bunches.loadBunch();
-};
-
 const addLocation = async () => {
-  await api.addLocation(params.slug.value, { name: locationName.value });
+  await api.addLocation(slug.value, { name: locationName.value });
 };
 
 const addMutation = useMutation({
   mutationFn: addLocation,
   onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: locationListKey(params.slug.value) });
+    queryClient.invalidateQueries({ queryKey: locationListKey(slug.value) });
     redirect();
   },
 });
@@ -76,14 +70,6 @@ const cancel = () => {
 };
 
 const redirect = () => {
-  router.push(urls.location.list(bunches.slug.value));
+  router.push(urls.location.list(slug.value));
 };
-
-const ready = computed(() => {
-  return bunches.bunchReady.value;
-});
-
-onMounted(() => {
-  init();
-});
 </script>

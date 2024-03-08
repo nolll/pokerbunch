@@ -18,7 +18,7 @@
           </Block>
 
           <Block>
-            <LocationList :locations="locations" />
+            <LocationList :slug="slug" :locations="locations" />
           </Block>
         </template>
       </PageSection>
@@ -35,28 +35,18 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useBunches from '@/composables/useBunches';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import useLocationList from '@/composables/useLocationList';
 import useParams from '@/composables/useParams';
 
-const params = useParams();
-const bunches = useBunches();
-const { locations, locationsReady } = useLocationList(params.slug.value);
+const { slug } = useParams();
+const { locations, locationsReady } = useLocationList(slug.value);
 
 const addLocationUrl = computed(() => {
-  return urls.location.add(bunches.slug.value);
+  return urls.location.add(slug.value);
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locationsReady.value;
-});
-
-const init = () => {
-  bunches.loadBunch();
-};
-
-onMounted(() => {
-  init();
+  return locationsReady.value;
 });
 </script>

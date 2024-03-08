@@ -33,19 +33,18 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useBunches from '@/composables/useBunches';
 import useEvents from '@/composables/useEvents';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import useParams from '@/composables/useParams';
 
+const { slug } = useParams();
 const router = useRouter();
-const bunches = useBunches();
 const events = useEvents();
 
 const eventName = ref('');
 
 const init = () => {
-  bunches.loadBunch();
   events.loadEvents();
 };
 
@@ -61,11 +60,11 @@ const cancel = () => {
 };
 
 const redirect = () => {
-  router.push(urls.event.list(bunches.slug.value));
+  router.push(urls.event.list(slug.value));
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && events.eventsReady.value;
+  return events.eventsReady.value;
 });
 
 onMounted(() => {

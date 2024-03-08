@@ -38,23 +38,17 @@ import api from '@/api';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import LocationDropdown from '@/components/LocationDropdown.vue';
-import { computed, onMounted, ref, watch } from 'vue';
-import useBunches from '@/composables/useBunches';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useLocationList from '@/composables/useLocationList';
 import useParams from '@/composables/useParams';
 
-const params = useParams();
+const { slug } = useParams();
 const router = useRouter();
-const bunches = useBunches();
-const { locations, locationsReady } = useLocationList(params.slug.value);
+const { locations, locationsReady } = useLocationList(slug.value);
 
 const locationId = ref('');
 const errorMessage = ref('');
-
-const init = () => {
-  bunches.loadBunch();
-};
 
 const add = async () => {
   errorMessage.value = '';
@@ -64,7 +58,7 @@ const add = async () => {
       locationId: locationId.value,
     };
 
-    const response = await api.addCashgame(bunches.slug.value, params);
+    const response = await api.addCashgame(slug.value, params);
     redirectToGame(response.data.id);
   } catch (err) {
     const error = err as AxiosError<ApiError>;
@@ -78,14 +72,10 @@ const cancel = () => {
 };
 
 const redirectToGame = (id: string) => {
-  router.push(urls.cashgame.details(bunches.slug.value, id));
+  router.push(urls.cashgame.details(slug.value, id));
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locationsReady.value;
-});
-
-onMounted(() => {
-  init();
+  return locationsReady.value;
 });
 </script>

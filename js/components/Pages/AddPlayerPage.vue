@@ -33,19 +33,18 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useBunches from '@/composables/useBunches';
 import usePlayers from '@/composables/usePlayers';
 import { useRouter } from 'vue-router';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
+import useParams from '@/composables/useParams';
 
+const { slug } = useParams();
 const router = useRouter();
-const bunches = useBunches();
 const players = usePlayers();
 
 const playerName = ref('');
 
 const init = () => {
-  bunches.loadBunch();
   players.loadPlayers();
 };
 
@@ -61,11 +60,11 @@ const cancel = () => {
 };
 
 const redirect = () => {
-  router.push(urls.player.list(bunches.slug.value));
+  router.push(urls.player.list(slug.value));
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && players.playersReady.value;
+  return players.playersReady.value;
 });
 
 onMounted(() => {
