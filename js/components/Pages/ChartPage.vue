@@ -31,10 +31,10 @@ import { computed } from 'vue';
 import useParams from '@/composables/useParams';
 import useGameList from '@/composables/useGameList';
 
-const params = useParams();
-const { getSelectedGames, gamesReady } = useGameList(params.slug.value);
+const { slug, year } = useParams();
+const { getSelectedGames, gamesReady } = useGameList(slug.value);
 
-const games = computed(() => getSelectedGames(params.year.value));
+const games = computed(() => getSelectedGames(year.value));
 
 const ready = computed(() => {
   return gamesReady.value;

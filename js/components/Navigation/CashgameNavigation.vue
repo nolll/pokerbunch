@@ -33,12 +33,12 @@ const props = defineProps<{
   page: CashgamePage;
 }>();
 
-const params = useParams();
+const { slug, year } = useParams();
 const route = useRoute();
 const router = useRouter();
 
 const selectedYear = ref<number>();
-const { years, currentYear } = useGameList(params.slug.value);
+const { years, currentYear } = useGameList(slug.value);
 
 const selectedPageName = computed(() => {
   if (props.page === 'matrix') return 'Matrix';
@@ -54,27 +54,27 @@ const isYearNavEnabled = computed(() => {
 });
 
 const overviewUrl = computed(() => {
-  return urls.cashgame.index(params.slug.value);
+  return urls.cashgame.index(slug.value);
 });
 
 const matrixUrl = computed(() => {
-  return urls.cashgame.archive('matrix', params.slug.value, selectedYear.value);
+  return urls.cashgame.archive('matrix', slug.value, selectedYear.value);
 });
 
 const toplistUrl = computed(() => {
-  return urls.cashgame.archive('toplist', params.slug.value, selectedYear.value);
+  return urls.cashgame.archive('toplist', slug.value, selectedYear.value);
 });
 
 const chartUrl = computed(() => {
-  return urls.cashgame.archive('chart', params.slug.value, selectedYear.value);
+  return urls.cashgame.archive('chart', slug.value, selectedYear.value);
 });
 
 const listUrl = computed(() => {
-  return urls.cashgame.archive('list', params.slug.value, selectedYear.value);
+  return urls.cashgame.archive('list', slug.value, selectedYear.value);
 });
 
 const factsUrl = computed(() => {
-  return urls.cashgame.archive('facts', params.slug.value, selectedYear.value);
+  return urls.cashgame.archive('facts', slug.value, selectedYear.value);
 });
 
 const isOverviewSelected = computed(() => {
@@ -106,11 +106,11 @@ const onSelected = (url: string) => {
 };
 
 const onSelectedYear = () => {
-  router.push(urls.cashgame.archive(props.page, params.slug.value, selectedYear.value));
+  router.push(urls.cashgame.archive(props.page, slug.value, selectedYear.value));
 };
 
 onMounted(() => {
-  selectedYear.value = params.year.value || currentYear.value;
+  selectedYear.value = year.value || currentYear.value;
 });
 </script>
 

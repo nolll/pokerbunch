@@ -18,7 +18,7 @@ import { computed } from 'vue';
 import CustomButton from '../Common/CustomButton.vue';
 import useParams from '@/composables/useParams';
 
-const params = useParams();
+const { slug } = useParams();
 const currentGames = useCurrentGames();
 
 const url = computed(() => {
@@ -26,11 +26,11 @@ const url = computed(() => {
 });
 
 const addGameUrl = computed(() => {
-  return urls.cashgame.add(params.slug.value);
+  return urls.cashgame.add(slug.value);
 });
 
 const runningGameUrl = computed(() => {
-  return urls.cashgame.details(params.slug.value, runningGameId.value);
+  return urls.cashgame.details(slug.value, runningGameId.value);
 });
 
 const runningGameId = computed(() => {

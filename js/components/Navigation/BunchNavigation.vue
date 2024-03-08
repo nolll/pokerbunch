@@ -28,29 +28,29 @@ import useUserBunchList from '@/composables/useUserBunchList';
 import urls from '@/urls';
 import { computed } from 'vue';
 
-const params = useParams();
-const { bunch, bunchReady } = useBunch(params.slug.value);
+const { slug } = useParams();
+const { bunch, bunchReady } = useBunch(slug.value);
 const { userBunches, userBunchesReady } = useUserBunchList();
 
-const slug = computed(() => {
-  if (params.slug.value) return params.slug.value;
+const calculatedSlug = computed(() => {
+  if (slug.value) return slug.value;
   if (userBunchesReady.value && userBunches.value.length > 0) return userBunches.value[0].id;
   return '';
 });
 
 const bunchName = computed(() => {
-  if (params.slug.value && bunchReady.value && bunch.value.name.length > 0) return bunch.value.name;
+  if (slug.value && bunchReady.value && bunch.value.name.length > 0) return bunch.value.name;
   if (userBunchesReady.value && userBunches.value.length > 0) return userBunches.value[0].name;
   return '';
 });
 
 const hasSlug = computed(() => {
-  return !!slug.value;
+  return !!calculatedSlug.value;
 });
 
-const bunchDetailsUrl = computed(() => urls.bunch.details(slug.value));
-const cashgamesUrl = computed(() => urls.cashgame.index(slug.value));
-const playersUrl = computed(() => urls.player.list(slug.value));
-const eventsUrl = computed(() => urls.event.list(slug.value));
-const locationsUrl = computed(() => urls.location.list(slug.value));
+const bunchDetailsUrl = computed(() => urls.bunch.details(calculatedSlug.value));
+const cashgamesUrl = computed(() => urls.cashgame.index(calculatedSlug.value));
+const playersUrl = computed(() => urls.player.list(calculatedSlug.value));
+const eventsUrl = computed(() => urls.event.list(calculatedSlug.value));
+const locationsUrl = computed(() => urls.location.list(calculatedSlug.value));
 </script>

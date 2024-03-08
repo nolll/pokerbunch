@@ -73,8 +73,8 @@ import useCurrentUser from '@/composables/useCurrentUser';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { userKey, userListKey } from '@/queries/queryKeys';
 
-const params = useParams();
-const { user, userReady } = useUser(params.userName.value);
+const { userName } = useParams();
+const { user, userReady } = useUser(userName.value);
 const { currentUser, isAdmin, currentUserReady } = useCurrentUser();
 const queryClient = useQueryClient();
 
@@ -98,10 +98,6 @@ const canChangePassword = computed(() => {
 
 const ready = computed(() => {
   return currentUserReady.value && userReady.value;
-});
-
-const userName = computed(() => {
-  return user.value?.userName ?? '';
 });
 
 const avatarUrl = computed(() => {
