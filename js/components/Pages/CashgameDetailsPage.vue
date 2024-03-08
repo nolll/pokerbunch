@@ -125,7 +125,6 @@ import { DetailedCashgame } from '@/models/DetailedCashgame';
 import api from '@/api';
 import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
 import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
-import useBunches from '@/composables/useBunches';
 import useEvents from '@/composables/useEvents';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
@@ -141,10 +140,9 @@ import useBunch from '@/composables/useBunch';
 const { slug } = useParams();
 const route = useRoute();
 const router = useRouter();
-const bunches = useBunches();
 const events = useEvents();
 const players = usePlayers();
-const { localization, bunchReady } = useBunch(slug.value);
+const { bunch, localization, isManager, bunchReady } = useBunch(slug.value);
 const { locations, getLocation, locationsReady } = useLocationList(slug.value);
 
 const longRefresh = 30000;
@@ -231,7 +229,7 @@ const isAnyFormVisible = computed(() => {
 });
 
 const isPlayerSelectionEnabled = computed(() => {
-  return isRunning.value && bunches.isManager.value && !isEditing.value;
+  return isRunning.value && isManager.value && !isEditing.value;
 });
 
 const locationName = computed(() => {
@@ -240,7 +238,7 @@ const locationName = computed(() => {
 
 const locationUrl = computed(() => {
   if (!cashgame.value) return '';
-  return urls.location.details(bunches.slug.value, cashgame.value.location.id);
+  return urls.location.details(slug.value, cashgame.value.location.id);
 });
 
 const isPartOfEvent = computed(() => {
@@ -256,11 +254,11 @@ const eventUrl = computed(() => {
 
   if (!cashgame.value.event) return '';
 
-  return urls.event.details(bunches.slug.value, cashgame.value.event.id);
+  return urls.event.details(slug.value, cashgame.value.event.id);
 });
 
 const canEdit = computed((): boolean => {
-  return bunches.isManager.value;
+  return isManager.value;
 });
 
 // todo: I think I've found the bug with the sorted players. SortedPlayers is not used
@@ -279,7 +277,7 @@ const hasPlayers = computed(() => {
 });
 
 const userPlayer = computed(() => {
-  return players.getPlayer(bunches.playerId.value);
+  return players.getPlayer(bunch.value.player.id);
 });
 
 const playerName = computed(() => {
@@ -291,7 +289,7 @@ const playerColor = computed(() => {
 });
 
 const defaultBuyin = computed(() => {
-  return bunches.defaultBuyin.value;
+  return bunch.value.defaultBuyin;
 });
 
 const player = computed(() => {
@@ -325,9 +323,7 @@ const updatedTime = computed(() => {
 });
 
 const ready = computed(() => {
-  return (
-    bunchReady.value && bunches.bunchReady.value && cashgameReady.value && players.playersReady.value && locationsReady.value
-  );
+  return bunchReady.value && cashgameReady.value && players.playersReady.value && locationsReady.value;
 });
 
 const setupRefresh = (refreshTimeout: number) => {
@@ -391,7 +387,7 @@ const hideForms = () => {
 };
 
 const resetSelectedPlayerId = () => {
-  selectedPlayerId.value = bunches.playerId.value;
+  selectedPlayerId.value = bunch.value.player.id;
 };
 
 const getPlayerInGame = (id: string) => {
@@ -492,8 +488,7 @@ const cashgameReady = computed(() => {
 });
 
 const init = async () => {
-  selectedPlayerId.value = bunches.playerId.value;
-  bunches.loadBunch();
+  selectedPlayerId.value = bunch.value.player.id;
   players.loadPlayers();
   events.loadEvents();
   await loadCashgame();
@@ -501,7 +496,7 @@ const init = async () => {
 };
 
 const playerId = computed(() => {
-  return bunches.playerId.value;
+  return bunch.value.player.id;
 });
 
 watch(playerId, () => {

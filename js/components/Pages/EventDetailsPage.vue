@@ -10,7 +10,7 @@
           <PageHeading :text="name" />
         </Block>
         <Block>
-          <MatrixTable :slug="slug" :games="games" />
+          <MatrixTable :slug="slug" :games="games" :localization="localization" />
         </Block>
       </PageSection>
     </template>
@@ -27,23 +27,21 @@ import api from '@/api';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import useEvents from '@/composables/useEvents';
-import useBunches from '@/composables/useBunches';
 import { useRoute } from 'vue-router';
 import { computed, onMounted, ref } from 'vue';
+import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
 
+const { slug } = useParams();
 const route = useRoute();
-const bunches = useBunches();
 const events = useEvents();
+const { localization, bunchReady } = useBunch(slug.value);
 
 const games = ref<ArchiveCashgame[]>([]);
 
 const name = computed(() => {
   if (event.value) return event.value.name;
   return '';
-});
-
-const slug = computed(() => {
-  return bunches.slug.value;
 });
 
 const event = computed(() => {
@@ -59,18 +57,17 @@ const eventId = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && events.eventsReady.value;
+  return bunchReady.value && events.eventsReady.value;
 });
 
 const init = async () => {
-  bunches.loadBunch();
   events.loadEvents();
   await loadGames();
 };
 
 const loadGames = async () => {
   try {
-    const response = await api.getEventGames(bunches.slug.value, eventId.value);
+    const response = await api.getEventGames(slug.value, eventId.value);
     games.value = response.data.map((o) => ArchiveCashgame.fromResponse(o));
   } catch {
     games.value = [];
