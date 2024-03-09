@@ -90,15 +90,16 @@ import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
-import { computed, onMounted, ref } from 'vue';
-import useBunches from '@/composables/useBunches';
+import { computed, ref } from 'vue';
 import useBunch from '@/composables/useBunch';
 import useParams from '@/composables/useParams';
 import format from '@/format';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { bunchKey, bunchListKey, userBunchListKey } from '@/queries/queryKeys';
 
 const { slug } = useParams();
-const { localization, bunchReady } = useBunch(slug.value);
-const bunches = useBunches();
+const { bunch, isManager, localization, bunchReady } = useBunch(slug.value);
+const queryClient = useQueryClient();
 
 const isEditing = ref(false);
 const errorMessage = ref<string | null>(null);
@@ -110,11 +111,11 @@ const formCurrencySymbol = ref<string>();
 const formCurrencyLayout = ref<string>();
 
 const bunchName = computed(() => {
-  return bunches.bunchName.value;
+  return bunch.value.name;
 });
 
 const description = computed(() => {
-  return bunches.description.value;
+  return bunch.value.description;
 });
 
 const hasDescription = computed(() => {
@@ -122,7 +123,7 @@ const hasDescription = computed(() => {
 });
 
 const houseRules = computed(() => {
-  return bunches.houseRules.value;
+  return bunch.value.houseRules;
 });
 
 const hasHouseRules = computed(() => {
@@ -130,36 +131,24 @@ const hasHouseRules = computed(() => {
 });
 
 const defaultBuyin = computed(() => {
-  return bunches.bunch.value?.defaultBuyin;
+  return bunch.value.defaultBuyin;
 });
 
 const timezone = computed(() => {
-  return bunches.bunch.value?.timezone;
+  return bunch.value.timezone;
 });
 
 const currencyFormat = computed(() => {
   return format.currency(123, localization.value);
 });
 
-const currencySymbol = computed(() => {
-  return bunches.bunch.value?.currencySymbol;
-});
-
-const currencyLayout = computed(() => {
-  return bunches.bunch.value?.currencyLayout;
-});
-
-const isManager = computed(() => {
-  return bunches.isManager.value;
-});
-
 const showEditForm = () => {
-  formDescription.value = bunches.bunch.value.description;
-  formHouseRules.value = bunches.bunch.value.houseRules;
-  formDefaultBuyin.value = bunches.bunch.value.defaultBuyin;
-  formTimezone.value = bunches.bunch.value.timezone;
-  formCurrencySymbol.value = bunches.bunch.value.currencySymbol;
-  formCurrencyLayout.value = bunches.bunch.value.currencyLayout;
+  formDescription.value = bunch.value.description;
+  formHouseRules.value = bunch.value.houseRules;
+  formDefaultBuyin.value = bunch.value.defaultBuyin;
+  formTimezone.value = bunch.value.timezone;
+  formCurrencySymbol.value = bunch.value.currencySymbol;
+  formCurrencyLayout.value = bunch.value.currencyLayout;
   isEditing.value = true;
 };
 
@@ -171,7 +160,30 @@ const cancel = () => {
   hideEditForm();
 };
 
-const save = async () => {
+const saveBunch = async () => {
+  const postData: ApiParamsUpdateBunch = {
+    description: formDescription.value,
+    houseRules: formHouseRules.value,
+    defaultBuyin: formDefaultBuyin.value,
+    timezone: formTimezone.value,
+    currencySymbol: formCurrencySymbol.value,
+    currencyLayout: formCurrencyLayout.value,
+  };
+
+  await api.updateBunch(bunch.value.id, postData);
+};
+
+const saveMutation = useMutation({
+  mutationFn: saveBunch,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: userBunchListKey() });
+    queryClient.invalidateQueries({ queryKey: bunchListKey() });
+    queryClient.invalidateQueries({ queryKey: bunchKey(slug.value) });
+    hideEditForm();
+  },
+});
+
+const save = () => {
   errorMessage.value = null;
 
   if (!formDefaultBuyin.value) {
@@ -194,29 +206,10 @@ const save = async () => {
     return;
   }
 
-  const postData: ApiParamsUpdateBunch = {
-    description: formDescription.value,
-    houseRules: formHouseRules.value,
-    defaultBuyin: formDefaultBuyin.value,
-    timezone: formTimezone.value,
-    currencySymbol: formCurrencySymbol.value,
-    currencyLayout: formCurrencyLayout.value,
-  };
-
-  await api.updateBunch(bunches.bunch.value.id, postData);
-  bunches.refreshBunch();
-  hideEditForm();
+  saveMutation.mutate();
 };
 
 const ready = computed(() => {
-  return bunchReady.value && bunches.bunchReady.value;
-});
-
-const init = () => {
-  bunches.loadBunch();
-};
-
-onMounted(() => {
-  init();
+  return bunchReady.value;
 });
 </script>
