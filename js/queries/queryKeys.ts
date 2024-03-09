@@ -2,6 +2,7 @@ export const bunchListKey = () => ['bunches'];
 export const userBunchListKey = () => ['current-user', 'bunches'];
 export const bunchKey = (slug: string) => ['bunch', slug];
 export const gameListKey = (slug: string) => ['games', slug];
+export const eventGameListKey = (slug: string, eventId: string) => ['event-games', slug, eventId];
 export const playerListKey = (slug: string) => ['players', slug];
 export const eventListKey = (slug: string) => ['events', slug];
 export const locationListKey = (slug: string) => ['location', slug];

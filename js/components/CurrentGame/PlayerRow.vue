@@ -31,6 +31,7 @@
           v-for="action in player.actions"
           :action="action"
           :key="action.id"
+          :localization="localization"
           @deleteAction="onDeleteAction"
           @saveAction="onSaveAction"
           :canEdit="canEdit"

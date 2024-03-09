@@ -2,7 +2,6 @@
 import { RootStoreState } from './helpers/RootStoreHelpers';
 import BunchStore from './BunchStore';
 import CurrentGameStore from './CurrentGameStore';
-import EventStore from './EventStore';
 import PlayerStore from './PlayerStore';
 
 export default {
@@ -10,7 +9,6 @@ export default {
   modules: {
     bunch: BunchStore,
     currentGame: CurrentGameStore,
-    event: EventStore,
     player: PlayerStore,
   },
 } as StoreOptions<RootStoreState>;

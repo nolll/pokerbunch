@@ -19,15 +19,14 @@ import format from '@/format';
 import TableListRow from '@/components/Common/TableList/TableListRow.vue';
 import TableListCell from '@/components/Common/TableList/TableListCell.vue';
 import { computed } from 'vue';
-import useFormatter from '@/composables/useFormatter';
 import { BunchResponse } from '@/response/BunchResponse';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunch: BunchResponse;
   game: ArchiveCashgame;
+  localization: Localization;
 }>();
-
-const formatter = useFormatter();
 
 const url = computed(() => {
   return urls.cashgame.details(props.bunch.id, props.game.id);
@@ -38,14 +37,14 @@ const displayDate = computed(() => {
 });
 
 const duration = computed(() => {
-  return formatter.formatDuration(props.game.duration);
+  return format.duration(props.game.duration);
 });
 
 const formattedAverageBuyin = computed(() => {
-  return formatter.formatCurrency(props.game.averageBuyin);
+  return format.currency(props.game.averageBuyin, props.localization);
 });
 
 const formattedTurnover = computed(() => {
-  return formatter.formatCurrency(props.game.turnover);
+  return format.currency(props.game.turnover, props.localization);
 });
 </script>

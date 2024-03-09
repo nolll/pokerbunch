@@ -16,8 +16,16 @@ export default function useParams() {
     return route.params.id as string;
   });
 
+  const eventId = computed(() => {
+    return route.params.id as string;
+  });
+
   const userName = computed(() => {
     return route.params.userName as string;
+  });
+
+  const code = computed(() => {
+    return route.params.code as string;
   });
 
   const year = computed(() => {
@@ -29,7 +37,10 @@ export default function useParams() {
   return {
     slug,
     playerId,
+    locationId,
+    eventId,
     userName,
+    code,
     year,
   };
 }

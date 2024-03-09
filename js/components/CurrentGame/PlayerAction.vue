@@ -23,16 +23,15 @@ import { DetailedCashgameResponseAction } from '@/response/DetailedCashgameRespo
 import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 import format from '@/format';
 import { computed, ref } from 'vue';
-import useFormatter from '@/composables/useFormatter';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   action: DetailedCashgameResponseAction;
+  localization: Localization;
   canEdit: boolean;
 }>();
 
 const emit = defineEmits(['saveAction', 'deleteAction']);
-
-const formatter = useFormatter();
 
 const isFormVisible = ref(false);
 const changedTime = ref<string | null>(null);
@@ -59,7 +58,7 @@ const formattedTime = computed(() => {
 });
 
 const formattedAmount = computed(() => {
-  return formatter.formatCurrency(amount.value);
+  return format.currency(amount.value, props.localization);
 });
 
 const amount = computed(() => {

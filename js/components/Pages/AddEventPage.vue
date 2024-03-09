@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :require-user="true" :ready="ready">
+  <Layout :require-user="true" :ready="true">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -33,24 +33,34 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useEvents from '@/composables/useEvents';
-import { computed, onMounted, ref, watch } from 'vue';
+import { ref } from 'vue';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { useRouter } from 'vue-router';
 import useParams from '@/composables/useParams';
+import api from '@/api';
+import { eventListKey } from '@/queries/queryKeys';
 
 const { slug } = useParams();
 const router = useRouter();
-const events = useEvents();
+const queryClient = useQueryClient();
 
 const eventName = ref('');
 
-const init = () => {
-  events.loadEvents();
+const addEvent = async () => {
+  await api.addEvent(slug.value, { name: eventName.value });
 };
+
+const addMutation = useMutation({
+  mutationFn: addEvent,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: eventListKey(slug.value) });
+    redirect();
+  },
+});
 
 const add = () => {
   if (eventName.value.length > 0) {
-    events.addEvent(eventName.value);
+    addMutation.mutate();
     redirect();
   }
 };
@@ -62,12 +72,4 @@ const cancel = () => {
 const redirect = () => {
   router.push(urls.event.list(slug.value));
 };
-
-const ready = computed(() => {
-  return events.eventsReady.value;
-});
-
-onMounted(() => {
-  init();
-});
 </script>

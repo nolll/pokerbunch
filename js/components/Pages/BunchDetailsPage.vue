@@ -92,7 +92,6 @@ import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, onMounted, ref } from 'vue';
 import useBunches from '@/composables/useBunches';
-import useFormatter from '@/composables/useFormatter';
 import useBunch from '@/composables/useBunch';
 import useParams from '@/composables/useParams';
 import format from '@/format';
@@ -100,7 +99,6 @@ import format from '@/format';
 const { slug } = useParams();
 const { localization, bunchReady } = useBunch(slug.value);
 const bunches = useBunches();
-const formatter = useFormatter();
 
 const isEditing = ref(false);
 const errorMessage = ref<string | null>(null);

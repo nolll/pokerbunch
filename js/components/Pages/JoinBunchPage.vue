@@ -16,7 +16,7 @@
       <Block>
         <div class="field">
           <label class="label" for="invitationCode">Invitation Code</label>
-          <input class="longfield" v-model="code" id="invitationCode" type="text" />
+          <input class="longfield" v-model="inputCode" id="invitationCode" type="text" />
         </div>
         <div class="buttons">
           <CustomButton @click="joinClicked" type="action" text="Join" />
@@ -37,42 +37,34 @@ import urls from '@/urls';
 import api from '@/api';
 import { ApiError } from '@/models/ApiError';
 import { AxiosError } from 'axios';
-import useBunches from '@/composables/useBunches';
-import usePlayers from '@/composables/usePlayers';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
 
-const { slug } = useParams();
-const route = useRoute();
+const { slug, code } = useParams();
 const router = useRouter();
-const bunches = useBunches();
-const players = usePlayers();
+const { bunch, bunchReady } = useBunch(slug.value);
 
-const code = ref('');
+const inputCode = ref('');
 const errorMessage = ref<string>();
 
-const routeCode = computed((): string | undefined => {
-  return route.params.code as string;
-});
-
 const bunchName = computed(() => {
-  return bunches.bunchName.value;
+  return bunch.value.name;
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value;
+  return bunchReady.value;
 });
 
 const joinClicked = () => {
-  join(slug.value, code.value);
+  join(slug.value, inputCode.value);
 };
 
 const join = async (bunchId: string, code: string) => {
   if (code.length > 0) {
     try {
       await api.joinBunch(bunchId, { code });
-      players.loadPlayers();
       router.push(urls.bunch.details(slug.value));
     } catch (err) {
       const error = err as AxiosError<ApiError>;
@@ -85,15 +77,7 @@ const cancel = () => {
   router.push(urls.home);
 };
 
-const init = () => {
-  bunches.loadBunch();
-};
-
 watch(ready, () => {
-  if (ready.value && routeCode.value) join(bunches.slug.value, routeCode.value);
-});
-
-onMounted(() => {
-  init();
+  if (ready.value && code.value) join(slug.value, code.value);
 });
 </script>

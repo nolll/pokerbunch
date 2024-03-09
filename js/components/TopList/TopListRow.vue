@@ -11,7 +11,7 @@
     <TableListCell :is-numeric="true"><CurrencyText :value="cashout" :localization="localization" /></TableListCell>
     <TableListCell><DurationText :value="time" /></TableListCell>
     <TableListCell :is-numeric="true">{{ player.gameCount }}</TableListCell>
-    <TableListCell :is-numeric="true"><WinrateText :value="winrate" /></TableListCell>
+    <TableListCell :is-numeric="true"><WinrateText :value="winrate" :localization="localization" /></TableListCell>
   </TableListRow>
 </template>
 
