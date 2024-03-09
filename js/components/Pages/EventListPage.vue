@@ -17,7 +17,7 @@
             <PageHeading text="Events" />
           </Block>
           <Block>
-            <EventList />
+            <EventList :events="events" />
           </Block>
         </template>
       </PageSection>
@@ -34,26 +34,18 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useEvents from '@/composables/useEvents';
 import { computed, onMounted } from 'vue';
 import useParams from '@/composables/useParams';
+import useEventList from '@/composables/useEventList';
 
 const { slug } = useParams();
-const events = useEvents();
+const { events, eventsReady } = useEventList(slug.value);
 
 const addEventUrl = computed(() => {
   return urls.event.add(slug.value);
 });
 
 const ready = computed(() => {
-  return events.eventsReady.value;
-});
-
-const init = () => {
-  events.loadEvents();
-};
-
-onMounted(() => {
-  init();
+  return eventsReady.value;
 });
 </script>

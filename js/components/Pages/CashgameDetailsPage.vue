@@ -65,7 +65,7 @@
               </ValueListValue>
               <ValueListKey v-if="isPartOfEvent || isEditing">Event</ValueListKey>
               <ValueListValue v-if="isPartOfEvent || isEditing">
-                <EventDropdown v-if="isEditing" v-model="eventId" />
+                <EventDropdown v-if="isEditing" :events="events" v-model="eventId" />
                 <CustomLink v-else :url="eventUrl">{{ eventName }}</CustomLink>
               </ValueListValue>
               <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
@@ -125,7 +125,6 @@ import { DetailedCashgame } from '@/models/DetailedCashgame';
 import api from '@/api';
 import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
 import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
-import useEvents from '@/composables/useEvents';
 import usePlayers from '@/composables/usePlayers';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
@@ -136,14 +135,15 @@ import CashoutIcon from '../Icons/CashoutIcon.vue';
 import useParams from '@/composables/useParams';
 import useLocationList from '@/composables/useLocationList';
 import useBunch from '@/composables/useBunch';
+import useEventList from '@/composables/useEventList';
 
 const { slug } = useParams();
 const route = useRoute();
 const router = useRouter();
-const events = useEvents();
 const players = usePlayers();
 const { bunch, localization, isManager, bunchReady } = useBunch(slug.value);
 const { locations, getLocation, locationsReady } = useLocationList(slug.value);
+const { events, getEvent, eventsReady } = useEventList(slug.value);
 
 const longRefresh = 30000;
 
@@ -323,7 +323,7 @@ const updatedTime = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunchReady.value && cashgameReady.value && players.playersReady.value && locationsReady.value;
+  return bunchReady.value && cashgameReady.value && players.playersReady.value && locationsReady.value && eventsReady.value;
 });
 
 const setupRefresh = (refreshTimeout: number) => {
@@ -415,7 +415,7 @@ const onSave = async () => {
 
   let cashgameEvent: DetailedCashgameEvent | null = null;
   if (eventId.value) {
-    const event = events.getEvent(eventId.value);
+    const event = getEvent(eventId.value);
     if (event) {
       cashgameEvent = new DetailedCashgameEvent(event.id.toString(), event.name);
     }
@@ -490,7 +490,6 @@ const cashgameReady = computed(() => {
 const init = async () => {
   selectedPlayerId.value = bunch.value.player.id;
   players.loadPlayers();
-  events.loadEvents();
   await loadCashgame();
   setupRefresh(longRefresh);
 };
