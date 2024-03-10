@@ -40,8 +40,7 @@
     "google-charts": "2.0.0",
     "ts-debounce": "4.0.0",
     "vue": "3.4.19",
-    "vue-router": "4.3.0",
-    "vuex": "4.1.0"
+    "vue-router": "4.3.0"
   },
   "browserslist": [
     "last 2 versions",
