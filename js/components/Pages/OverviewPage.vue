@@ -13,7 +13,7 @@
 
       <PageSection>
         <template v-slot:aside1>
-          <OverviewStatus />
+          <OverviewStatus :games="currentGames" />
         </template>
         <template v-slot:default>
           <Block>
@@ -44,8 +44,7 @@ import YearMatrixTable from '@/components/YearMatrix/YearMatrixTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useCurrentGames from '@/composables/useCurrentGames';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import useParams from '@/composables/useParams';
 import useBunch from '@/composables/useBunch';
 import useGameList from '@/composables/useGameList';
@@ -53,14 +52,15 @@ import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import archiveHelper from '@/ArchiveHelper';
 import gameSorter from '@/GameSorter';
 import { CashgameSortOrder } from '@/models/CashgameSortOrder';
+import useCurrentGameList from '@/composables/useCurrentGameList';
 
 const { slug } = useParams();
 const { bunch, localization, bunchReady } = useBunch(slug.value);
 const { allGames, getSelectedGames, hasGames, gamesReady } = useGameList(slug.value);
-const currentGames = useCurrentGames();
+const { currentGames, currentGamesReady } = useCurrentGameList(slug.value);
 
 const ready = computed(() => {
-  return bunchReady.value && gamesReady.value && currentGames.currentGamesReady.value;
+  return bunchReady.value && gamesReady.value && currentGamesReady.value;
 });
 
 const currentYearGames = computed((): ArchiveCashgame[] => {
@@ -70,13 +70,5 @@ const currentYearGames = computed((): ArchiveCashgame[] => {
 
 const currentYear = computed(() => {
   return archiveHelper.getCurrentYear(allGames.value);
-});
-
-const init = async () => {
-  currentGames.loadCurrentGames();
-};
-
-onMounted(async () => {
-  init();
 });
 </script>

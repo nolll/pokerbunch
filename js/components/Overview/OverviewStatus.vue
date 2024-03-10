@@ -13,13 +13,16 @@
 <script setup lang="ts">
 import urls from '@/urls';
 import Block from '@/components/Common/Block.vue';
-import useCurrentGames from '@/composables/useCurrentGames';
 import { computed } from 'vue';
 import CustomButton from '../Common/CustomButton.vue';
 import useParams from '@/composables/useParams';
+import { CurrentGameResponse } from '@/response/CurrentGameResponse';
+
+const props = defineProps<{
+  games: CurrentGameResponse[];
+}>();
 
 const { slug } = useParams();
-const currentGames = useCurrentGames();
 
 const url = computed(() => {
   return gameIsRunning.value ? runningGameUrl.value : addGameUrl.value;
@@ -34,12 +37,12 @@ const runningGameUrl = computed(() => {
 });
 
 const runningGameId = computed(() => {
-  if (currentGames.currentGames.value.length === 0) return '0';
-  return currentGames.currentGames.value[0].id;
+  if (props.games.length === 0) return '0';
+  return props.games[0].id;
 });
 
 const gameIsRunning = computed(() => {
-  return currentGames.currentGames.value.length > 0;
+  return props.games.length > 0;
 });
 
 const linkText = computed((): string => {

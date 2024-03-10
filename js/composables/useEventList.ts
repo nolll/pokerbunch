@@ -2,7 +2,7 @@ import { computed } from 'vue';
 import { useEventListQuery } from '@/queries/eventQueries';
 import { EventResponse } from '@/response/EventResponse';
 
-export default function usePlayerList(slug: string) {
+export default function useEventList(slug: string) {
   const eventListQuery = useEventListQuery(slug);
 
   const events = computed((): EventResponse[] => {

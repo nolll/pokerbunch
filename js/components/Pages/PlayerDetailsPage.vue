@@ -109,20 +109,21 @@ import DurationText from '@/components/Common/DurationText.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';
-import usePlayers from '@/composables/usePlayers';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import usePlayerList from '@/composables/usePlayerList';
 import useGameList from '@/composables/useGameList';
 import useParams from '@/composables/useParams';
 import useBunch from '@/composables/useBunch';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { playerListKey } from '@/queries/queryKeys';
 
 const { slug, playerId } = useParams();
 const router = useRouter();
-const playersOld = usePlayers();
 const { localization, bunchReady } = useBunch(slug.value);
 const { getPlayer, playersReady } = usePlayerList(slug.value);
 const { allGames, gamesReady } = useGameList(slug.value);
+const queryClient = useQueryClient();
 
 const user = ref<User>();
 const isInvitationFormVisible = ref(false);
@@ -307,10 +308,21 @@ const notRegisteredMessage = computed(() => {
   return invitationSent.value ? 'An invitation was sent.' : 'This player is not registered yet.';
 });
 
+const addPlayer = async () => {
+  await api.addPlayer(slug.value, { name: playerName.value });
+};
+
+const deleteMutation = useMutation({
+  mutationFn: addPlayer,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: playerListKey(slug.value) });
+    router.push(urls.player.list(slug.value));
+  },
+});
+
 const deletePlayer = () => {
   if (window.confirm('Do you want to delete this player?')) {
-    playersOld.deletePlayer(player.value);
-    router.push(urls.player.list(slug.value));
+    deleteMutation.mutate();
   }
 };
 

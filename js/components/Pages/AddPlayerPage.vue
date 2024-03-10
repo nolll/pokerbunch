@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :require-user="true" :ready="ready">
+  <Layout :require-user="true" :ready="true">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -33,25 +33,34 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import usePlayers from '@/composables/usePlayers';
 import { useRouter } from 'vue-router';
-import { computed, onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import useParams from '@/composables/useParams';
+import api from '@/api';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { playerListKey } from '@/queries/queryKeys';
 
 const { slug } = useParams();
 const router = useRouter();
-const players = usePlayers();
+const queryClient = useQueryClient();
 
 const playerName = ref('');
 
-const init = () => {
-  players.loadPlayers();
+const addPlayer = async () => {
+  await api.addPlayer(slug.value, { name: playerName.value });
 };
+
+const addMutation = useMutation({
+  mutationFn: addPlayer,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: playerListKey(slug.value) });
+    redirect();
+  },
+});
 
 const add = () => {
   if (playerName.value.length > 0) {
-    players.addPlayer(playerName.value);
-    redirect();
+    addMutation.mutate();
   }
 };
 
@@ -62,12 +71,4 @@ const cancel = () => {
 const redirect = () => {
   router.push(urls.player.list(slug.value));
 };
-
-const ready = computed(() => {
-  return players.playersReady.value;
-});
-
-onMounted(() => {
-  init();
-});
 </script>

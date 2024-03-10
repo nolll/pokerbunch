@@ -125,7 +125,6 @@ import { DetailedCashgame } from '@/models/DetailedCashgame';
 import api from '@/api';
 import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
 import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
-import usePlayers from '@/composables/usePlayers';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
@@ -135,13 +134,14 @@ import CashoutIcon from '../Icons/CashoutIcon.vue';
 import useParams from '@/composables/useParams';
 import useLocationList from '@/composables/useLocationList';
 import useBunch from '@/composables/useBunch';
+import usePlayerList from '@/composables/usePlayerList';
 import useEventList from '@/composables/useEventList';
 
 const { slug } = useParams();
 const route = useRoute();
 const router = useRouter();
-const players = usePlayers();
 const { bunch, localization, isManager, bunchReady } = useBunch(slug.value);
+const { players, getPlayer, playersReady } = usePlayerList(slug.value);
 const { locations, getLocation, locationsReady } = useLocationList(slug.value);
 const { events, getEvent, eventsReady } = useEventList(slug.value);
 
@@ -269,7 +269,7 @@ const playersInGame = computed((): DetailedCashgamePlayer[] => {
 });
 
 const allPlayers = computed(() => {
-  return players.players.value;
+  return players.value;
 });
 
 const hasPlayers = computed(() => {
@@ -277,7 +277,7 @@ const hasPlayers = computed(() => {
 });
 
 const userPlayer = computed(() => {
-  return players.getPlayer(bunch.value.player.id);
+  return getPlayer(bunch.value.player.id);
 });
 
 const playerName = computed(() => {
@@ -293,7 +293,7 @@ const defaultBuyin = computed(() => {
 });
 
 const player = computed(() => {
-  return players.getPlayer(selectedPlayerId.value);
+  return getPlayer(selectedPlayerId.value);
 });
 
 const playerInGame = computed(() => {
@@ -323,7 +323,7 @@ const updatedTime = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunchReady.value && cashgameReady.value && players.playersReady.value && locationsReady.value && eventsReady.value;
+  return bunchReady.value && cashgameReady.value && playersReady.value && locationsReady.value && eventsReady.value;
 });
 
 const setupRefresh = (refreshTimeout: number) => {
@@ -489,7 +489,6 @@ const cashgameReady = computed(() => {
 
 const init = async () => {
   selectedPlayerId.value = bunch.value.player.id;
-  players.loadPlayers();
   await loadCashgame();
   setupRefresh(longRefresh);
 };
