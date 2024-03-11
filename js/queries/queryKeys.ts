@@ -9,4 +9,4 @@ export const eventListKey = (slug: string) => ['events', slug];
 export const locationListKey = (slug: string) => ['location', slug];
 export const currentUserKey = () => ['current-user'];
 export const userListKey = () => ['users'];
-export const userKey = (userName: string) => ['user', userName];
+export const userKey = (userName: string | null) => ['user', userName];

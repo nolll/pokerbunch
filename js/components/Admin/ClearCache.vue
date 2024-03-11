@@ -13,7 +13,15 @@
 <script setup lang="ts">
 import api from '@/api';
 import CustomButton from '@/components/Common/CustomButton.vue';
+import { useClearCacheMutation } from '@/mutations/clearCacheMutation';
 import { computed, ref } from 'vue';
+
+const onClearSuccess = () => {
+  message.value = responseMessage.value?.message ?? '';
+  setTimeout(clearMessage, 3000);
+};
+
+const { data: responseMessage } = useClearCacheMutation(onClearSuccess);
 
 const message = ref<string | null>(null);
 
