@@ -11,23 +11,18 @@
 </template>
 
 <script setup lang="ts">
-import api from '@/api';
 import CustomButton from '@/components/Common/CustomButton.vue';
+import { useSendTestEmailMutation } from '@/mutations/sendTestEmailMutation';
+import { MessageResponse } from '@/response/MessageResponse';
 import { computed, ref } from 'vue';
 
-const message = ref<string | null>(null);
-
-const hasMessage = computed(() => {
-  return !!message.value;
-});
-
-const sendEmail = async () => {
-  var response = await api.sendEmail();
-  message.value = response.data.message;
+const onComplete = (response: MessageResponse) => {
+  message.value = response.message;
   setTimeout(clearMessage, 3000);
 };
 
-const clearMessage = () => {
-  message.value = null;
-};
+const { mutateAsync: sendEmail } = useSendTestEmailMutation(onComplete, onComplete);
+const message = ref<string | null>(null);
+const hasMessage = computed(() => !!message.value);
+const clearMessage = () => (message.value = null);
 </script>

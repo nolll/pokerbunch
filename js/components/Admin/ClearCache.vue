@@ -11,31 +11,18 @@
 </template>
 
 <script setup lang="ts">
-import api from '@/api';
 import CustomButton from '@/components/Common/CustomButton.vue';
 import { useClearCacheMutation } from '@/mutations/clearCacheMutation';
+import { MessageResponse } from '@/response/MessageResponse';
 import { computed, ref } from 'vue';
 
-const onClearSuccess = () => {
-  message.value = responseMessage.value?.message ?? '';
+const onComplete = (response: MessageResponse) => {
+  message.value = response.message;
   setTimeout(clearMessage, 3000);
 };
 
-const { data: responseMessage } = useClearCacheMutation(onClearSuccess);
-
+const { mutateAsync: clearCache } = useClearCacheMutation(onComplete, onComplete);
 const message = ref<string | null>(null);
-
-const hasMessage = computed(() => {
-  return !!message.value;
-});
-
-const clearCache = async () => {
-  var response = await api.clearCache();
-  message.value = response.data.message;
-  setTimeout(clearMessage, 3000);
-};
-
-const clearMessage = () => {
-  message.value = null;
-};
+const hasMessage = computed(() => !!message.value);
+const clearMessage = () => (message.value = null);
 </script>
