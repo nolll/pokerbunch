@@ -16,12 +16,13 @@ import { useSendTestEmailMutation } from '@/mutations/sendTestEmailMutation';
 import { MessageResponse } from '@/response/MessageResponse';
 import { computed, ref } from 'vue';
 
-const onComplete = (response: MessageResponse) => {
-  message.value = response.message;
+const showMessage = (m: string) => {
+  message.value = m;
   setTimeout(clearMessage, 3000);
 };
 
-const { mutateAsync: sendEmail } = useSendTestEmailMutation(onComplete, onComplete);
+const onComplete = (response: MessageResponse) => showMessage(response.message);
+const { mutateAsync: sendEmail } = useSendTestEmailMutation(onComplete);
 const message = ref<string | null>(null);
 const hasMessage = computed(() => !!message.value);
 const clearMessage = () => (message.value = null);

@@ -7,13 +7,10 @@ const clearCache = async (): Promise<MessageResponse> => {
   return response.data;
 };
 
-export const useClearCacheMutation = (
-  onSuccess?: (response: MessageResponse) => void,
-  onError?: (response: MessageResponse) => void
-) => {
+export const useClearCacheMutation = (onComplete?: (response: MessageResponse) => void) => {
   return useMutation({
     mutationFn: clearCache,
-    onSuccess: onSuccess,
-    onError: onError,
+    onSuccess: onComplete,
+    onError: onComplete,
   });
 };

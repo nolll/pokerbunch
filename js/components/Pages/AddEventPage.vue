@@ -15,6 +15,11 @@
             <label class="label" for="event-name">Name</label>
             <input class="textfield" v-model="eventName" id="event-name" type="text" />
           </div>
+          <div class="errors" v-if="isErrorVisible">
+            <p class="validation-error">
+              {{ errorMessage }}
+            </p>
+          </div>
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Add" />
             <CustomButton v-on:click="cancel" text="Cancel" />
@@ -33,43 +38,48 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import { ref } from 'vue';
-import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useParams from '@/composables/useParams';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import api from '@/api';
 import { eventListKey } from '@/queries/queryKeys';
 
+const queryClient = useQueryClient();
 const { slug } = useParams();
 const router = useRouter();
-const queryClient = useQueryClient();
-
 const eventName = ref('');
+const errorMessage = ref('');
 
-const addEvent = async () => {
-  await api.addEvent(slug.value, { name: eventName.value });
+const redirect = () => {
+  router.push(urls.event.list(slug.value));
 };
 
-const addMutation = useMutation({
-  mutationFn: addEvent,
+const addEventMutation = useMutation({
+  mutationFn: async () => {
+    const response = await api.addEvent(slug.value, {
+      name: eventName.value ?? '',
+    });
+    return response.data;
+  },
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: eventListKey(slug.value) });
     redirect();
+  },
+  onError: () => {
+    errorMessage.value = 'Server error';
   },
 });
 
 const add = () => {
   if (eventName.value.length > 0) {
-    addMutation.mutate();
-    redirect();
+    addEventMutation.mutateAsync();
+  } else {
+    errorMessage.value = "Name can't be empty";
   }
 };
 
-const cancel = () => {
-  redirect();
-};
+const isErrorVisible = computed(() => Boolean(errorMessage.value));
 
-const redirect = () => {
-  router.push(urls.event.list(slug.value));
-};
+const cancel = () => redirect();
 </script>

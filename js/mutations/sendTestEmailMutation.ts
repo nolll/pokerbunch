@@ -7,13 +7,9 @@ const sendTestEmail = async (): Promise<MessageResponse> => {
   return response.data;
 };
 
-export const useSendTestEmailMutation = (
-  onSuccess?: (response: MessageResponse) => void,
-  onError?: (response: MessageResponse) => void
-) => {
+export const useSendTestEmailMutation = (onComplete?: (response: MessageResponse) => void) => {
   return useMutation({
     mutationFn: sendTestEmail,
-    onSuccess: onSuccess,
-    onError: onError,
+    onSuccess: onComplete,
   });
 };
