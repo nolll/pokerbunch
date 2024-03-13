@@ -19,9 +19,14 @@ export default function usePlayerList(slug: string) {
     return p;
   };
 
+  const tryGetPlayer = (id: string): Player | undefined => {
+    return players.value.find((o) => o.id === id);
+  };
+
   return {
-    playersReady: playersReady,
-    players: players,
-    getPlayer: getPlayer,
+    playersReady,
+    players,
+    getPlayer,
+    tryGetPlayer,
   };
 }

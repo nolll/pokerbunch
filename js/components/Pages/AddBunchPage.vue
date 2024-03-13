@@ -5,7 +5,7 @@
         <PageHeading text="Create Bunch" />
       </Block>
 
-      <template v-if="isSaving">
+      <template v-if="bunchAdded">
         <Block>
           <p>Your bunch has been created.</p>
           <p>
@@ -34,9 +34,7 @@
           <label class="label" for="timezone">Timezone</label>
           <TimezoneDropdown v-model="timezone" />
         </p>
-        <p v-if="hasError" class="validation-error">
-          {{ errorMessage }}
-        </p>
+        <ErrorMessage :message="errorMessage" />
         <p>
           <CustomButton v-on:click="save" type="action" text="Save" />
           <CustomButton v-on:click="back" text="Cancel" />
@@ -55,6 +53,7 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsAddBunch } from '@/models/ApiParamsAddBunch';
@@ -62,9 +61,13 @@ import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
 import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
 import useTimezones from '@/composables/useTimezones';
 import { computed, ref } from 'vue';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { bunchListKey, userBunchListKey } from '@/queries/queryKeys';
+import { BunchResponse } from '@/response/BunchResponse';
 
 const timezones = useTimezones();
 const defaultTimezone = timezones.getDefaultTimezone();
+const queryClient = useQueryClient();
 
 const description = ref('');
 const name = ref('');
@@ -72,7 +75,7 @@ const currencySymbol = ref('$');
 const currencyLayout = ref('');
 const timezone = ref(defaultTimezone);
 const errorMessage = ref('');
-const isSaving = ref(false);
+const bunchAdded = ref(false);
 const savedSlug = ref('');
 
 const hasError = computed(() => {
@@ -84,9 +87,13 @@ const bunchUrl = computed(() => {
 });
 
 const save = async () => {
-  errorMessage.value = '';
+  addBunchMutation.mutate();
+};
 
-  try {
+const addBunchMutation = useMutation({
+  mutationFn: async () => {
+    errorMessage.value = '';
+
     const params: ApiParamsAddBunch = {
       name: name.value,
       description: description.value,
@@ -96,14 +103,19 @@ const save = async () => {
     };
 
     const response = await api.addBunch(params);
-    savedSlug.value = response.data.id;
-    isSaving.value = true;
-  } catch (err) {
+    return response.data;
+  },
+  onSuccess: (response: BunchResponse) => {
+    queryClient.invalidateQueries({ queryKey: bunchListKey() });
+    queryClient.invalidateQueries({ queryKey: userBunchListKey() });
+    savedSlug.value = response.id;
+    bunchAdded.value = true;
+  },
+  onError: (err) => {
     const error = err as AxiosError<ApiError>;
-    const message = error.response?.data.message || 'Unknown Error';
-    errorMessage.value = message;
-  }
-};
+    errorMessage.value = error.response?.data.message || 'Unknown Error';
+  },
+});
 
 const back = () => {
   history.back();

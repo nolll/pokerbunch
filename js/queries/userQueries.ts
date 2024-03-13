@@ -28,6 +28,6 @@ export const useUserListQuery = () => {
   return useQuery({ queryKey: userListKey(), queryFn: () => fetchUsers() });
 };
 
-export const useUserQuery = (userName: string) => {
-  return useQuery({ queryKey: userKey(userName), queryFn: () => fetchUser(userName) });
+export const useUserQuery = (userName: string, isEnabled: boolean) => {
+  return useQuery({ queryKey: userKey(userName), queryFn: () => fetchUser(userName), enabled: isEnabled });
 };

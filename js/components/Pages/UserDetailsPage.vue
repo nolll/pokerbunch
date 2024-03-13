@@ -64,7 +64,7 @@ import { User } from '@/models/User';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
-import ErrorMessage from '@/components/Common/ValueList/ErrorMessage.vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import useParams from '@/composables/useParams';
 import useUser from '@/composables/useUser';

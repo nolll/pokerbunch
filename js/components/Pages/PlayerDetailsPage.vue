@@ -119,35 +119,35 @@ import useParams from '@/composables/useParams';
 import useBunch from '@/composables/useBunch';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { playerListKey } from '@/queries/queryKeys';
+import useUser from '@/composables/useUser';
 
 const { slug, playerId } = useParams();
 const router = useRouter();
 const { localization, bunchReady } = useBunch(slug.value);
-const { getPlayer, playersReady } = usePlayerList(slug.value);
+const { getPlayer, tryGetPlayer, playersReady } = usePlayerList(slug.value);
 const { allGames, gamesReady } = useGameList(slug.value);
 const queryClient = useQueryClient();
 
-const user = ref<User>();
 const isInvitationFormVisible = ref(false);
 const inviteEmail = ref('');
 const invitationSent = ref(false);
 const errorMessage = ref('');
 
 const hasUser = computed(() => {
-  return !!player.value?.userId;
+  return Boolean(tryGetPlayer(playerId.value)?.userId);
 });
 
 const player = computed(() => {
   return getPlayer(playerId.value);
 });
 
+const { user, userReady } = useUser(player.value.userName ?? '', hasUser.value);
+
 const playerName = computed(() => {
-  return player.value?.name;
+  return player.value.name;
 });
 
 const inviteUrl = computed(() => {
-  if (!player.value) return null;
-
   return urls.player.invite(player.value.id);
 });
 
@@ -278,11 +278,7 @@ const worstLosingStreak = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunchReady.value && playersReady.value && gamesReady.value;
-});
-
-const userReady = computed(() => {
-  return user.value != null;
+  return bunchReady.value && playersReady.value && gamesReady.value && (userReady.value || !hasUser.value);
 });
 
 const canDelete = computed(() => {
