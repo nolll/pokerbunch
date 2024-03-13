@@ -1,10 +1,6 @@
 ﻿<template>
   <div>
-    <div class="errors" v-if="isErrorVisible">
-      <p class="validation-error">
-        {{ errorMessage }}
-      </p>
-    </div>
+    <ErrorMessage :message="errorMessage" />
     <fieldset>
       <p>
         <label class="label" for="username">Email or User Name</label>
@@ -31,17 +27,14 @@ import querystring from '@/querystring';
 import api from '@/api';
 import auth from '@/auth';
 import { ApiParamsLogin } from '@/models/ApiParamsLogin';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 
 const username = ref('');
 const password = ref('');
 const rememberMe = ref(false);
 const errorMessage = ref<string | null>(null);
 const isLoggingIn = ref(false);
-
-const isErrorVisible = computed(() => {
-  return errorMessage.value !== null;
-});
 
 const login = async () => {
   clearError();

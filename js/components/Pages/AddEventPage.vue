@@ -15,11 +15,7 @@
             <label class="label" for="event-name">Name</label>
             <input class="textfield" v-model="eventName" id="event-name" type="text" />
           </div>
-          <div class="errors" v-if="isErrorVisible">
-            <p class="validation-error">
-              {{ errorMessage }}
-            </p>
-          </div>
+          <ErrorMessage :message="errorMessage" />
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Add" />
             <CustomButton v-on:click="cancel" text="Cancel" />
@@ -37,6 +33,7 @@ import Block from '@/components/Common/Block.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import urls from '@/urls';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -78,8 +75,6 @@ const add = () => {
     errorMessage.value = "Name can't be empty";
   }
 };
-
-const isErrorVisible = computed(() => Boolean(errorMessage.value));
 
 const cancel = () => redirect();
 </script>
