@@ -84,6 +84,7 @@
           <h2>Delete Player</h2>
         </Block>
         <Block>
+          <ErrorMessage :message="errorMessage" />
           <p>
             <CustomButton @click="deletePlayer" text="Delete Player" type="action" />
           </p>
@@ -106,6 +107,7 @@ import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import WinningsText from '@/components/Common/WinningsText.vue';
 import DurationText from '@/components/Common/DurationText.vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';
@@ -129,6 +131,7 @@ const user = ref<User>();
 const isInvitationFormVisible = ref(false);
 const inviteEmail = ref('');
 const invitationSent = ref(false);
+const errorMessage = ref('');
 
 const hasUser = computed(() => {
   return !!player.value?.userId;
@@ -308,15 +311,16 @@ const notRegisteredMessage = computed(() => {
   return invitationSent.value ? 'An invitation was sent.' : 'This player is not registered yet.';
 });
 
-const addPlayer = async () => {
-  await api.addPlayer(slug.value, { name: playerName.value });
-};
-
 const deleteMutation = useMutation({
-  mutationFn: addPlayer,
+  mutationFn: async () => {
+    await api.deletePlayer(playerId.value);
+  },
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: playerListKey(slug.value) });
     router.push(urls.player.list(slug.value));
+  },
+  onError: () => {
+    errorMessage.value = 'Server error';
   },
 });
 

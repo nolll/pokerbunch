@@ -35,7 +35,7 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import urls from '@/urls';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import useParams from '@/composables/useParams';

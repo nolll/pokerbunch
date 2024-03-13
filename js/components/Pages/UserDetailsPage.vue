@@ -25,9 +25,7 @@
             <label class="label" for="email">Email</label>
             <input class="textfield" v-model="email" id="email" type="text" />
           </p>
-          <p v-if="hasError" class="validation-error">
-            {{ errorMessage }}
-          </p>
+          <ErrorMessage :message="errorMessage" />
           <p>
             <CustomButton v-on:click="saveMutation.mutate" type="action" text="Save" />
             <CustomButton v-on:click="cancel" text="Cancel" />
@@ -66,6 +64,7 @@ import { User } from '@/models/User';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
+import ErrorMessage from '@/components/Common/ValueList/ErrorMessage.vue';
 import { computed, onMounted, ref, watch } from 'vue';
 import useParams from '@/composables/useParams';
 import useUser from '@/composables/useUser';
@@ -108,28 +107,26 @@ const hasError = computed(() => {
   return !!errorMessage.value;
 });
 
-const save = async () => {
-  errorMessage.value = '';
-
-  var userToSave = {
-    ...user.value,
-    displayName: displayName.value,
-    realName: realName.value,
-    email: email.value,
-  };
-
-  await api.updateUser(userToSave);
-};
-
 const saveMutation = useMutation({
-  mutationFn: save,
+  mutationFn: async () => {
+    errorMessage.value = '';
+
+    var userToSave = {
+      ...user.value,
+      displayName: displayName.value,
+      realName: realName.value,
+      email: email.value,
+    };
+
+    await api.updateUser(userToSave);
+  },
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: userListKey() });
     queryClient.invalidateQueries({ queryKey: userKey(user.value.userName) });
     isEditing.value = false;
   },
-  onError: (error) => {
-    errorMessage.value = error.message;
+  onError: () => {
+    errorMessage.value = 'Server error';
   },
 });
 

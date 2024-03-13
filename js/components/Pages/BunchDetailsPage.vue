@@ -36,6 +36,7 @@
               <label class="label" for="currencyLayout">Currency Layout</label>
               <CurrencyLayoutDropdown v-model="formCurrencyLayout" :symbol="formCurrencySymbol" />
             </p>
+            <ErrorMessage :message="errorMessage"></ErrorMessage>
             <div class="buttons">
               <CustomButton @click="save" text="Save" type="action" />
               <CustomButton @click="cancel" text="Cancel" />
@@ -83,6 +84,7 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
 import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
@@ -160,26 +162,27 @@ const cancel = () => {
   hideEditForm();
 };
 
-const saveBunch = async () => {
-  const postData: ApiParamsUpdateBunch = {
-    description: formDescription.value,
-    houseRules: formHouseRules.value,
-    defaultBuyin: formDefaultBuyin.value,
-    timezone: formTimezone.value,
-    currencySymbol: formCurrencySymbol.value,
-    currencyLayout: formCurrencyLayout.value,
-  };
-
-  await api.updateBunch(bunch.value.id, postData);
-};
-
 const saveMutation = useMutation({
-  mutationFn: saveBunch,
+  mutationFn: async () => {
+    const postData: ApiParamsUpdateBunch = {
+      description: formDescription.value,
+      houseRules: formHouseRules.value,
+      defaultBuyin: formDefaultBuyin.value,
+      timezone: formTimezone.value,
+      currencySymbol: formCurrencySymbol.value,
+      currencyLayout: formCurrencyLayout.value,
+    };
+
+    await api.updateBunch(bunch.value.id, postData);
+  },
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: userBunchListKey() });
     queryClient.invalidateQueries({ queryKey: bunchListKey() });
     queryClient.invalidateQueries({ queryKey: bunchKey(slug.value) });
     hideEditForm();
+  },
+  onError: () => {
+    errorMessage.value = 'Server error';
   },
 });
 
