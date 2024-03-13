@@ -11,9 +11,10 @@
 </template>
 
 <script setup lang="ts">
+import api from '@/api';
 import CustomButton from '@/components/Common/CustomButton.vue';
-import { useSendTestEmailMutation } from '@/mutations/sendTestEmailMutation';
 import { MessageResponse } from '@/response/MessageResponse';
+import { useMutation } from '@tanstack/vue-query';
 import { computed, ref } from 'vue';
 
 const showMessage = (m: string) => {
@@ -22,8 +23,16 @@ const showMessage = (m: string) => {
 };
 
 const onComplete = (response: MessageResponse) => showMessage(response.message);
-const { mutateAsync: sendEmail } = useSendTestEmailMutation(onComplete);
 const message = ref<string | null>(null);
 const hasMessage = computed(() => !!message.value);
 const clearMessage = () => (message.value = null);
+
+const { mutateAsync: sendEmail } = useMutation({
+  mutationFn: async (): Promise<MessageResponse> => {
+    var response = await api.clearCache();
+    return response.data;
+  },
+  onSuccess: onComplete,
+  onError: onComplete,
+});
 </script>
