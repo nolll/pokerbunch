@@ -51,7 +51,8 @@ const errorMessage = ref('');
 
 const addMutation = useMutation({
   mutationFn: async () => {
-    await api.addLocation(slug.value, { name: locationName.value });
+    const response = await api.addLocation(slug.value, { name: locationName.value });
+    return response.data;
   },
   onSuccess: () => {
     queryClient.invalidateQueries({ queryKey: locationListKey(slug.value) });
