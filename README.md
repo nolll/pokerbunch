@@ -12,3 +12,6 @@ Frontend for pokerbunch.com
 - `npm run watch`
 - Head to `https://localhost:9000`
 - Login with a user: `admin`, `manager` or `player`. The password is `abcd`
+
+Some actions sends emails. For that to work, install smtp4dev
+`dotnet tool install -g Rnwood.Smtp4dev` and run it with `smtp4dev`
