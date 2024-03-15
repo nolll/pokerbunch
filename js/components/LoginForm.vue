@@ -47,7 +47,7 @@ const login = async () => {
 
     try {
       isLoggingIn.value = true;
-      const response = await api.login(data);
+      const response = /*mutate*/ await api.login(data);
       saveToken(response.data);
       redirect();
     } catch {

@@ -29,7 +29,7 @@ const clearMessage = () => (message.value = null);
 
 const { mutateAsync: sendEmail } = useMutation({
   mutationFn: async (): Promise<MessageResponse> => {
-    var response = await api.clearCache();
+    var response = await api.sendEmail();
     return response.data;
   },
   onSuccess: onComplete,

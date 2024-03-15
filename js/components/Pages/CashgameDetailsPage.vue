@@ -341,7 +341,7 @@ const report = async (stack: number) => {
   const reportData = { type: 'report', playerId: selectedPlayerId.value, stack: stack };
   resetSelectedPlayerId();
   hideForms();
-  await api.report(cashgame.value.id, reportData);
+  /*mutate*/ await api.report(cashgame.value.id, reportData);
 };
 
 const buyin = async (amount: number, stack: number) => {
@@ -355,7 +355,7 @@ const buyin = async (amount: number, stack: number) => {
   const buyinData = { type: 'buyin', playerId: selectedPlayerId.value, stack: stack, added: amount };
   resetSelectedPlayerId();
   hideForms();
-  await api.buyin(cashgame.value.id, buyinData);
+  /*mutate*/ await api.buyin(cashgame.value.id, buyinData);
 };
 
 const cashout = async (stack: number) => {
@@ -365,7 +365,7 @@ const cashout = async (stack: number) => {
   const cashoutData = { type: 'cashout', playerId: selectedPlayerId.value, stack: stack };
   resetSelectedPlayerId();
   hideForms();
-  await api.cashout(cashgame.value.id, cashoutData);
+  /*mutate*/ await api.cashout(cashgame.value.id, cashoutData);
 };
 
 const showReportForm = () => {
@@ -424,7 +424,7 @@ const onSave = async () => {
   cashgame.value.update(cashgameLocation, cashgameEvent);
   isEditing.value = false;
 
-  await api.updateCashgame(cashgame.value.id, {
+  /*mutate*/ await api.updateCashgame(cashgame.value.id, {
     locationId: cashgameLocation.id,
     eventId: cashgameEvent?.id,
   });
@@ -433,7 +433,7 @@ const onSave = async () => {
 const onDelete = async () => {
   if (!cashgame.value || hasPlayers.value) return;
 
-  await api.deleteCashgame(cashgame.value.id);
+  /*mutate*/ await api.deleteCashgame(cashgame.value.id);
   redirect();
 };
 
@@ -445,7 +445,7 @@ const onDeleteAction = async (id: string) => {
   if (!cashgame.value) return;
 
   cashgame.value.deleteAction(id);
-  await api.deleteAction(cashgame.value.id, id);
+  /*mutate*/ await api.deleteAction(cashgame.value.id, id);
 };
 
 const onSaveAction = async (data: any) => {
@@ -457,7 +457,7 @@ const onSaveAction = async (data: any) => {
     stack: data.stack,
     timestamp: data.time,
   };
-  await api.updateAction(cashgame.value.id, data.id, updateData);
+  /*mutate*/ await api.updateAction(cashgame.value.id, data.id, updateData);
 };
 
 onMounted(async () => {
@@ -473,7 +473,7 @@ const redirect = () => {
 };
 
 const loadCashgame = async () => {
-  const response = await api.getCashgame(route.params.id as string);
+  const response = /*mutate*/ await api.getCashgame(route.params.id as string);
   cashgame.value = response.status === 200 ? new DetailedCashgame(response.data) : null;
   locationId.value = cashgame.value?.location.id || undefined;
   eventId.value = cashgame.value?.event?.id || undefined;

@@ -63,7 +63,7 @@ const send = async () => {
     const params: ApiParamsResetPassword = {
       email: email.value,
     };
-    const response = await api.resetPassword(params);
+    const response = /*mutate*/ await api.resetPassword(params);
     isSaving.value = true;
   } catch (err) {
     const error = err as AxiosError<ApiError>;

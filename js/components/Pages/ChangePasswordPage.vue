@@ -74,7 +74,7 @@ const save = async () => {
       oldPassword: oldPassword.value,
       newPassword: newPassword.value,
     };
-    const response = await api.changePassword(params);
+    const response = /*mutate*/ await api.changePassword(params);
     isSaving.value = true;
   } catch (err) {
     const error = err as AxiosError<ApiError>;

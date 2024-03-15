@@ -64,7 +64,7 @@ const joinClicked = () => {
 const join = async (bunchId: string, code: string) => {
   if (code.length > 0) {
     try {
-      await api.joinBunch(bunchId, { code });
+      /*mutate*/ await api.joinBunch(bunchId, { code });
       router.push(urls.bunch.details(slug.value));
     } catch (err) {
       const error = err as AxiosError<ApiError>;

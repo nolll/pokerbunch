@@ -342,11 +342,4 @@ const isInGame = (game: ArchiveCashgame) => {
   }
   return false;
 };
-
-// const loadUser = async () => {
-//   if (player.value?.userName) {
-//     const response = await api.getUser(player.value.userName);
-//     user.value = response.status === 200 ? response.data : undefined;
-//   }
-// };
 </script>

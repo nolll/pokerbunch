@@ -58,7 +58,7 @@ const add = async () => {
       locationId: locationId.value,
     };
 
-    const response = await api.addCashgame(slug.value, params);
+    const response = /*mutate*/ await api.addCashgame(slug.value, params);
     redirectToGame(response.data.id);
   } catch (err) {
     const error = err as AxiosError<ApiError>;
