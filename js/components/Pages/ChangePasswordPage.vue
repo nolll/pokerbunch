@@ -5,7 +5,7 @@
         <PageHeading text="Change Password" />
       </Block>
 
-      <template v-if="isSaving">
+      <template v-if="passwordWasSaved">
         <Block>
           <p>Your password was changed</p>
         </Block>
@@ -39,7 +39,6 @@
 </template>
 
 <script setup lang="ts">
-import urls from '@/urls';
 import api from '@/api';
 import Layout from '@/components/Layouts/Layout.vue';
 import Block from '@/components/Common/Block.vue';
@@ -50,12 +49,14 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsChangePassword } from '@/models/ApiParamsChangePassword';
 import { computed, ref } from 'vue';
+import { useMutation } from '@tanstack/vue-query';
+import { MessageResponse } from '@/response/MessageResponse';
 
 const oldPassword = ref('');
 const newPassword = ref('');
 const repeat = ref('');
 const errorMessage = ref('');
-const isSaving = ref(false);
+const passwordWasSaved = ref(false);
 
 const hasError = computed(() => {
   return !!errorMessage.value;
@@ -69,19 +70,27 @@ const save = async () => {
     return;
   }
 
-  try {
+  resetPasswordMutation.mutate();
+};
+
+const resetPasswordMutation = useMutation({
+  mutationFn: async (): Promise<MessageResponse> => {
     const params: ApiParamsChangePassword = {
       oldPassword: oldPassword.value,
       newPassword: newPassword.value,
     };
-    const response = /*mutate*/ await api.changePassword(params);
-    isSaving.value = true;
-  } catch (err) {
-    const error = err as AxiosError<ApiError>;
+
+    const response = await api.changePassword(params);
+    return response.data;
+  },
+  onSuccess: () => {
+    passwordWasSaved.value = true;
+  },
+  onError: (error: AxiosError<ApiError>) => {
     const message = error.response?.data.message || 'Unknown Error';
     errorMessage.value = message;
-  }
-};
+  },
+});
 
 const back = () => {
   history.back();
