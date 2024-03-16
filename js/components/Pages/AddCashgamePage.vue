@@ -15,6 +15,7 @@
             <label class="label" for="locationId">Location</label>
             <LocationDropdown :locations="locations" v-model="locationId" />
           </div>
+          <ErrorMessage :message="errorMessage" />
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Start" />
             <CustomButton v-on:click="cancel" text="Cancel" />
@@ -32,6 +33,7 @@ import Block from '@/components/Common/Block.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import { ApiParamsAddCashgame } from '@/models/ApiParamsAddCashgame';
 import urls from '@/urls';
 import api from '@/api';
@@ -42,6 +44,8 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import useLocationList from '@/composables/useLocationList';
 import useParams from '@/composables/useParams';
+import { useMutation } from '@tanstack/vue-query';
+import { DetailedCashgameResponse } from '@/response/DetailedCashgameResponse';
 
 const { slug } = useParams();
 const router = useRouter();
@@ -53,19 +57,31 @@ const errorMessage = ref('');
 const add = async () => {
   errorMessage.value = '';
 
-  try {
+  if (locationId.value === '') {
+    errorMessage.value = 'Please select a location.';
+    return;
+  }
+
+  addMutation.mutate();
+};
+
+const addMutation = useMutation({
+  mutationFn: async () => {
     const params: ApiParamsAddCashgame = {
       locationId: locationId.value,
     };
 
-    const response = /*mutate*/ await api.addCashgame(slug.value, params);
-    redirectToGame(response.data.id);
-  } catch (err) {
-    const error = err as AxiosError<ApiError>;
+    const response = await api.addCashgame(slug.value, params);
+    return response.data;
+  },
+  onSuccess: (data: DetailedCashgameResponse) => {
+    redirectToGame(data.id);
+  },
+  onError: (error: AxiosError<ApiError>) => {
     const message = error.response?.data.message || 'Unknown Error';
     errorMessage.value = message;
-  }
-};
+  },
+});
 
 const cancel = () => {
   history.back();
@@ -75,7 +91,5 @@ const redirectToGame = (id: string) => {
   router.push(urls.cashgame.details(slug.value, id));
 };
 
-const ready = computed(() => {
-  return locationsReady.value;
-});
+const ready = computed(() => locationsReady.value);
 </script>
