@@ -19,7 +19,7 @@
           <input class="longfield" v-model="inputCode" id="invitationCode" type="text" />
         </div>
         <div class="buttons">
-          <CustomButton @click="joinClicked" type="action" text="Join" />
+          <CustomButton @click="join" type="action" text="Join" />
           <CustomButton @click="cancel" text="Cancel" />
         </div>
       </Block>
@@ -41,6 +41,8 @@ import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import useParams from '@/composables/useParams';
 import useBunch from '@/composables/useBunch';
+import { useMutation } from '@tanstack/vue-query';
+import { MessageResponse } from '@/response/MessageResponse';
 
 const { slug, code } = useParams();
 const router = useRouter();
@@ -57,27 +59,33 @@ const ready = computed(() => {
   return bunchReady.value;
 });
 
-const joinClicked = () => {
-  join(slug.value, inputCode.value);
+const join = () => {
+  joinBunchMutation.mutate();
 };
 
-const join = async (bunchId: string, code: string) => {
-  if (code.length > 0) {
-    try {
-      /*mutate*/ await api.joinBunch(bunchId, { code });
-      router.push(urls.bunch.details(slug.value));
-    } catch (err) {
-      const error = err as AxiosError<ApiError>;
-      errorMessage.value = error.response?.data.message || 'Unknown Error';
-    }
-  }
-};
+const joinBunchMutation = useMutation({
+  mutationFn: async (): Promise<MessageResponse> => {
+    const data = {
+      code: code.value ?? inputCode.value,
+    };
+
+    const response = await api.joinBunch(slug.value, data);
+    return response.data;
+  },
+  onSuccess: () => {
+    router.push(urls.bunch.details(slug.value));
+  },
+  onError: (error: AxiosError<ApiError>) => {
+    const message = error.response?.data.message || 'Unknown Error';
+    errorMessage.value = message;
+  },
+});
 
 const cancel = () => {
   router.push(urls.home);
 };
 
 watch(ready, () => {
-  if (ready.value && code.value) join(slug.value, code.value);
+  if (ready.value && code.value) join();
 });
 </script>
