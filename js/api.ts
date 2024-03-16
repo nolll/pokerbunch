@@ -22,7 +22,7 @@ import { ApiParamsAddLocation } from './models/ApiParamsAddLocation';
 import { ApiParamsAddPlayer } from './models/ApiParamsAddPlayer';
 
 export default {
-  login: (data: ApiParamsLogin) => apiClient.post(apiUrls.auth.login, data),
+  login: (data: ApiParamsLogin) => apiClient.post<string>(apiUrls.auth.login, data),
   getCashgame: (id: string) => apiClient.get<DetailedCashgameResponse>(apiUrls.cashgame.get(id)),
   addCashgame: (slug: string, data: object) => apiClient.post<DetailedCashgameResponse>(apiUrls.cashgame.list(slug), data),
   updateCashgame: (id: string, data: object) => apiClient.put(apiUrls.cashgame.get(id), data),
@@ -46,7 +46,7 @@ export default {
   cashout: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
   getCurrentUser: () => apiClient.get<User>(apiUrls.user.current),
   changePassword: (data: ApiParamsChangePassword) => apiClient.put(apiUrls.user.password, data),
-  resetPassword: (data: ApiParamsResetPassword) => apiClient.post(apiUrls.user.password, data),
+  resetPassword: (data: ApiParamsResetPassword) => apiClient.post<MessageResponse>(apiUrls.user.password, data),
   getUser: (userName: string) => apiClient.get<User>(apiUrls.user.get(userName)),
   addUser: (data: ApiParamsAddUser) => apiClient.post(apiUrls.user.list, data),
   updateUser: (data: User) => apiClient.put(apiUrls.user.get(data.userName), data),
