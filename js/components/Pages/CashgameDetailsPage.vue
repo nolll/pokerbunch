@@ -137,7 +137,8 @@ import usePlayerList from '@/composables/usePlayerList';
 import useEventList from '@/composables/useEventList';
 import useGame from '@/composables/useGame';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
-import { gameKey } from '@/queries/queryKeys';
+import { gameKey, gameListKey } from '@/queries/queryKeys';
+import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
 const { slug, cashgameId } = useParams();
 const router = useRouter();
@@ -421,61 +422,72 @@ const onEdit = () => {
 };
 
 const onSave = async () => {
-  if (!cashgame.value) return;
-
-  if (!locationId.value) return;
-
-  const location = getLocation(locationId.value);
-  if (!location) return;
-
-  const cashgameLocation = new DetailedCashgameLocation(location.id, location.name);
-
-  let cashgameEvent: DetailedCashgameEvent | null = null;
-  if (eventId.value) {
-    const event = getEvent(eventId.value);
-    if (event) {
-      cashgameEvent = new DetailedCashgameEvent(event.id.toString(), event.name);
-    }
-  }
-
-  cashgame.value.update(cashgameLocation, cashgameEvent);
-  isEditing.value = false;
-
-  /*mutate*/ await api.updateCashgame(cashgame.value.id, {
-    locationId: cashgameLocation.id,
-    eventId: cashgameEvent?.id,
-  });
+  if (!cashgame.value || !locationId.value) return;
+  saveMutation.mutate();
 };
+
+const saveMutation = useMutation({
+  mutationFn: async () => {
+    await api.updateCashgame(cashgameId.value, {
+      locationId: locationId.value,
+      eventId: eventId.value,
+    });
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: gameKey(cashgameId.value) });
+    isEditing.value = false;
+  },
+});
 
 const onDelete = async () => {
   if (!cashgame.value || hasPlayers.value) return;
-
-  /*mutate*/ await api.deleteCashgame(cashgame.value.id);
-  redirect();
+  deleteMutation.mutate();
 };
+
+const deleteMutation = useMutation({
+  mutationFn: async () => {
+    await api.deleteCashgame(cashgameId.value);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: gameListKey(cashgameId.value) });
+    redirect();
+  },
+});
 
 const onCancelEdit = () => {
   isEditing.value = false;
 };
 
 const onDeleteAction = async (id: string) => {
-  if (!cashgame.value) return;
-
-  cashgame.value.deleteAction(id);
-  /*mutate*/ await api.deleteAction(cashgame.value.id, id);
+  deleteActionMutation.mutate({ id });
 };
 
-const onSaveAction = async (data: any) => {
-  if (!cashgame.value) return;
+const deleteActionMutation = useMutation({
+  mutationFn: async (params: { id: string }) => {
+    await api.deleteAction(cashgame.value.id, params.id);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: gameKey(cashgameId.value) });
+  },
+});
 
-  cashgame.value.updateAction(data.id, data);
-  const updateData = {
-    added: data.added,
-    stack: data.stack,
-    timestamp: data.time,
-  };
-  /*mutate*/ await api.updateAction(cashgame.value.id, data.id, updateData);
+const onSaveAction = async (data: SaveActionEmitData) => {
+  updateActionMutation.mutate(data);
 };
+
+const updateActionMutation = useMutation({
+  mutationFn: async (data: SaveActionEmitData) => {
+    const updateData = {
+      added: data.added,
+      stack: data.stack,
+      timestamp: data.time,
+    };
+    await api.updateAction(cashgame.value.id, data.id, updateData);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: gameKey(cashgameId.value) });
+  },
+});
 
 onMounted(async () => {
   setupRefresh(longRefresh);

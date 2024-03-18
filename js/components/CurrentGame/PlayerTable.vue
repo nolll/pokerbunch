@@ -48,7 +48,11 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const emit = defineEmits(['playerSelected', 'deleteAction', 'saveAction']);
+const emit = defineEmits<{
+  playerSelected: [data: string];
+  saveAction: [data: SaveActionEmitData];
+  deleteAction: [data: string];
+}>();
 
 const totalBuyin = computed(() => {
   return cashgameHelper.getTotalBuyin(props.players);
@@ -66,7 +70,7 @@ const onDeleteAction = (id: string) => {
   emit('deleteAction', id);
 };
 
-const onSaveAction = (data: any) => {
+const onSaveAction = (data: SaveActionEmitData) => {
   emit('saveAction', data);
 };
 </script>

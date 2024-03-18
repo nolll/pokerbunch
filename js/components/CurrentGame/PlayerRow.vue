@@ -63,7 +63,11 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const emit = defineEmits(['selected', 'deleteAction', 'saveAction']);
+const emit = defineEmits<{
+  selected: [data: string];
+  saveAction: [data: SaveActionEmitData];
+  deleteAction: [data: string];
+}>();
 
 const isExpanded = ref(false);
 
@@ -123,7 +127,7 @@ const onDeleteAction = (id: string) => {
   emit('deleteAction', id);
 };
 
-const onSaveAction = (data: any) => {
+const onSaveAction = (data: SaveActionEmitData) => {
   emit('saveAction', data);
 };
 

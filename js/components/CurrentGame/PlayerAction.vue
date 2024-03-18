@@ -19,19 +19,23 @@
 </template>
 
 <script setup lang="ts">
-import { DetailedCashgameResponseAction } from '@/response/DetailedCashgameResponseAction';
 import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 import format from '@/format';
 import { computed, ref } from 'vue';
 import { Localization } from '@/models/Localization';
+import { DetailedCashgameAction } from '@/models/DetailedCashgameAction';
+import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
 const props = defineProps<{
-  action: DetailedCashgameResponseAction;
+  action: DetailedCashgameAction;
   localization: Localization;
   canEdit: boolean;
 }>();
 
-const emit = defineEmits(['saveAction', 'deleteAction']);
+const emit = defineEmits<{
+  saveAction: [data: SaveActionEmitData];
+  deleteAction: [data: string];
+}>();
 
 const isFormVisible = ref(false);
 const changedTime = ref<string | null>(null);
@@ -91,7 +95,7 @@ const clickCancel = () => {
 };
 
 const clickSave = () => {
-  const data = {
+  const data: SaveActionEmitData = {
     id: props.action.id,
     time: formTime.value,
     stack: formStack.value,

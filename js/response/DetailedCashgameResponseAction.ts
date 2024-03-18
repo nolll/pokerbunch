@@ -1,7 +1,7 @@
 import { DetailedCashgameResponseActionType } from './DetailedCashgameResponseActionType';
 
 export interface DetailedCashgameResponseAction {
-  id: string | undefined;
+  id: string;
   type: DetailedCashgameResponseActionType;
   time: Date;
   stack: number;
