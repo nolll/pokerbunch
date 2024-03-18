@@ -12,6 +12,10 @@ export default function useParams() {
     return route.params.id as string;
   });
 
+  const cashgameId = computed(() => {
+    return route.params.id as string;
+  });
+
   const locationId = computed(() => {
     return route.params.id as string;
   });
@@ -37,6 +41,7 @@ export default function useParams() {
   return {
     slug,
     playerId,
+    cashgameId,
     locationId,
     eventId,
     userName,

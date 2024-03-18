@@ -121,12 +121,11 @@ import LocationDropdown from '@/components/LocationDropdown.vue';
 import EventDropdown from '@/components/EventDropdown.vue';
 import format from '@/format';
 import dayjs from 'dayjs';
-import { DetailedCashgame } from '@/models/DetailedCashgame';
 import api from '@/api';
 import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
 import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import ReportIcon from '../Icons/ReportIcon.vue';
 import BuyinIcon from '../Icons/BuyinIcon.vue';
@@ -136,9 +135,11 @@ import useLocationList from '@/composables/useLocationList';
 import useBunch from '@/composables/useBunch';
 import usePlayerList from '@/composables/usePlayerList';
 import useEventList from '@/composables/useEventList';
+import useGame from '@/composables/useGame';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { gameKey } from '@/queries/queryKeys';
 
-const { slug } = useParams();
-const route = useRoute();
+const { slug, cashgameId } = useParams();
 const router = useRouter();
 const { bunch, localization, isManager, bunchReady } = useBunch(slug.value);
 const { players, getPlayer, playersReady } = usePlayerList(slug.value);
@@ -147,7 +148,6 @@ const { events, getEvent, eventsReady } = useEventList(slug.value);
 
 const longRefresh = 30000;
 
-const cashgame = ref<DetailedCashgame | null>(null);
 const reportFormVisible = ref(false);
 const buyinFormVisible = ref(false);
 const cashoutFormVisible = ref(false);
@@ -156,6 +156,9 @@ const isEditing = ref(false);
 const locationId = ref<string>();
 const eventId = ref<string>();
 const refreshHandle = ref(0);
+
+const { game: cashgame, gameReady } = useGame(cashgameId.value);
+const queryClient = useQueryClient();
 
 const title = computed(() => {
   return `Cashgame ${formattedDate.value}`;
@@ -323,7 +326,7 @@ const updatedTime = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunchReady.value && cashgameReady.value && playersReady.value && locationsReady.value && eventsReady.value;
+  return bunchReady.value && gameReady.value && playersReady.value && locationsReady.value && eventsReady.value;
 });
 
 const setupRefresh = (refreshTimeout: number) => {
@@ -335,38 +338,52 @@ const setupRefresh = (refreshTimeout: number) => {
 };
 
 const report = async (stack: number) => {
-  if (!cashgame.value) return;
-
-  cashgame.value.report(selectedPlayerId.value, stack);
-  const reportData = { type: 'report', playerId: selectedPlayerId.value, stack: stack };
-  resetSelectedPlayerId();
-  hideForms();
-  /*mutate*/ await api.report(cashgame.value.id, reportData);
+  reportMutation.mutate({ stack });
 };
+
+const reportMutation = useMutation({
+  mutationFn: async (params: { stack: number }) => {
+    const reportData = { type: 'report', playerId: selectedPlayerId.value, stack: params.stack };
+    await api.report(cashgame.value.id, reportData);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: gameKey(cashgameId.value) });
+    resetSelectedPlayerId();
+    hideForms();
+  },
+});
 
 const buyin = async (amount: number, stack: number) => {
-  if (!cashgame.value) return;
-
-  if (!isInGame.value) {
-    const player = cashgame.value.addPlayer(selectedPlayerId.value, playerName.value, playerColor.value);
-  }
-
-  cashgame.value.buyin(selectedPlayerId.value, amount, stack);
-  const buyinData = { type: 'buyin', playerId: selectedPlayerId.value, stack: stack, added: amount };
-  resetSelectedPlayerId();
-  hideForms();
-  /*mutate*/ await api.buyin(cashgame.value.id, buyinData);
+  buyinMutation.mutate({ stack: stack, added: amount });
 };
+
+const buyinMutation = useMutation({
+  mutationFn: async (params: { stack: number; added: number }) => {
+    const buyinData = { type: 'buyin', playerId: selectedPlayerId.value, stack: params.stack, added: params.added };
+    await api.buyin(cashgame.value.id, buyinData);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: gameKey(cashgameId.value) });
+    resetSelectedPlayerId();
+    hideForms();
+  },
+});
 
 const cashout = async (stack: number) => {
-  if (!cashgame.value) return;
-
-  cashgame.value.cashout(selectedPlayerId.value, stack);
-  const cashoutData = { type: 'cashout', playerId: selectedPlayerId.value, stack: stack };
-  resetSelectedPlayerId();
-  hideForms();
-  /*mutate*/ await api.cashout(cashgame.value.id, cashoutData);
+  cashoutMutation.mutate({ stack });
 };
+
+const cashoutMutation = useMutation({
+  mutationFn: async (params: { stack: number }) => {
+    const cashoutData = { type: 'cashout', playerId: selectedPlayerId.value, stack: params.stack };
+    await api.cashout(cashgame.value.id, cashoutData);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: gameKey(cashgameId.value) });
+    resetSelectedPlayerId();
+    hideForms();
+  },
+});
 
 const showReportForm = () => {
   reportFormVisible.value = true;
@@ -461,7 +478,7 @@ const onSaveAction = async (data: any) => {
 };
 
 onMounted(async () => {
-  await init();
+  setupRefresh(longRefresh);
 });
 
 onBeforeUnmount(() => {
@@ -472,32 +489,21 @@ const redirect = () => {
   router.push(urls.cashgame.index(slug.value));
 };
 
-const loadCashgame = async () => {
-  const response = /*mutate*/ await api.getCashgame(route.params.id as string);
-  cashgame.value = response.status === 200 ? new DetailedCashgame(response.data) : null;
-  locationId.value = cashgame.value?.location.id || undefined;
-  eventId.value = cashgame.value?.event?.id || undefined;
-};
-
 const refresh = async () => {
-  await loadCashgame();
-};
-
-const cashgameReady = computed(() => {
-  return !!cashgame.value;
-});
-
-const init = async () => {
-  selectedPlayerId.value = bunch.value.player.id;
-  await loadCashgame();
-  setupRefresh(longRefresh);
+  queryClient.invalidateQueries({ queryKey: gameKey(cashgameId.value) });
 };
 
 const playerId = computed(() => {
   return bunch.value.player.id;
 });
 
-watch(playerId, () => {
+watch(cashgame, () => {
+  locationId.value = cashgame.value?.location.id || undefined;
+  eventId.value = cashgame.value?.event?.id || undefined;
   selectedPlayerId.value = playerId.value;
+});
+
+watch(bunch, () => {
+  selectedPlayerId.value = bunch.value.player.id;
 });
 </script>

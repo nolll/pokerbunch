@@ -1,32 +1,46 @@
 import api from '@/api';
 import { useQuery } from '@tanstack/vue-query';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
-import { currentGameListKey, eventGameListKey, gameListKey } from './queryKeys';
+import { currentGameListKey, eventGameListKey, gameKey, gameListKey } from './queryKeys';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
-
-const fetchGames = async (slug: string): Promise<ArchiveCashgame[]> => {
-  const response = await api.getGames(slug);
-  return response.data.map((o) => ArchiveCashgame.fromResponse(o));
-};
-
-const fetchEventGames = async (slug: string, eventId: string): Promise<ArchiveCashgame[]> => {
-  const response = await api.getEventGames(slug, eventId);
-  return response.data.map((o) => ArchiveCashgame.fromResponse(o));
-};
-
-const fetchCurrentGames = async (slug: string): Promise<CurrentGameResponse[]> => {
-  const response = await api.getCurrentGames(slug);
-  return response.data;
-};
+import { DetailedCashgame } from '@/models/DetailedCashgame';
 
 export const useGameListQuery = (slug: string) => {
-  return useQuery({ queryKey: gameListKey(slug), queryFn: () => fetchGames(slug) });
+  return useQuery({
+    queryKey: gameListKey(slug),
+    queryFn: async (): Promise<ArchiveCashgame[]> => {
+      const response = await api.getGames(slug);
+      return response.data.map((o) => ArchiveCashgame.fromResponse(o));
+    },
+  });
 };
 
 export const useEventGameListQuery = (slug: string, eventId: string) => {
-  return useQuery({ queryKey: eventGameListKey(slug, eventId), queryFn: () => fetchEventGames(slug, eventId) });
+  return useQuery({
+    queryKey: eventGameListKey(slug, eventId),
+    queryFn: async (): Promise<ArchiveCashgame[]> => {
+      const response = await api.getEventGames(slug, eventId);
+      return response.data.map((o) => ArchiveCashgame.fromResponse(o));
+    },
+  });
 };
 
 export const useCurrentGameListQuery = (slug: string) => {
-  return useQuery({ queryKey: currentGameListKey(slug), queryFn: () => fetchCurrentGames(slug) });
+  return useQuery({
+    queryKey: currentGameListKey(slug),
+    queryFn: async (): Promise<CurrentGameResponse[]> => {
+      const response = await api.getCurrentGames(slug);
+      return response.data;
+    },
+  });
+};
+
+export const useGameQuery = (id: string) => {
+  return useQuery({
+    queryKey: gameKey(id),
+    queryFn: async () => {
+      const response = await api.getCashgame(id);
+      return new DetailedCashgame(response.data);
+    },
+  });
 };
