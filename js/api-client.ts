@@ -1,5 +1,4 @@
 import auth from '@/auth';
-import { AxiosResponseHeaders } from 'axios';
 import httpClient from './http-client';
 
 export default {
