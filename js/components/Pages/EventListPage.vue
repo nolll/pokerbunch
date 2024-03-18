@@ -34,7 +34,7 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import useParams from '@/composables/useParams';
 import useEventList from '@/composables/useEventList';
 

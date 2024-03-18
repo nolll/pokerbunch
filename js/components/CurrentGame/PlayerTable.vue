@@ -39,6 +39,7 @@ import BuyinIcon from '../Icons/BuyinIcon.vue';
 import ReportIcon from '../Icons/ReportIcon.vue';
 import InlineIcon from '../Icons/InlineIcon.vue';
 import { Localization } from '@/models/Localization';
+import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
 const props = defineProps<{
   bunchId: string;
@@ -54,23 +55,9 @@ const emit = defineEmits<{
   deleteAction: [data: string];
 }>();
 
-const totalBuyin = computed(() => {
-  return cashgameHelper.getTotalBuyin(props.players);
-});
-
-const totalStacks = computed(() => {
-  return cashgameHelper.getTotalStacks(props.players);
-});
-
-const onSelected = (id: string) => {
-  emit('playerSelected', id);
-};
-
-const onDeleteAction = (id: string) => {
-  emit('deleteAction', id);
-};
-
-const onSaveAction = (data: SaveActionEmitData) => {
-  emit('saveAction', data);
-};
+const totalBuyin = computed(() => cashgameHelper.getTotalBuyin(props.players));
+const totalStacks = computed(() => cashgameHelper.getTotalStacks(props.players));
+const onSelected = (id: string) => emit('playerSelected', id);
+const onDeleteAction = (id: string) => emit('deleteAction', id);
+const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
 </script>

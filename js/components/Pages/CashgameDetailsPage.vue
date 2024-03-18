@@ -122,8 +122,6 @@ import EventDropdown from '@/components/EventDropdown.vue';
 import format from '@/format';
 import dayjs from 'dayjs';
 import api from '@/api';
-import { DetailedCashgameLocation } from '@/models/DetailedCashgameLocation';
-import { DetailedCashgameEvent } from '@/models/DetailedCashgameEvent';
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
@@ -144,8 +142,8 @@ const { slug, cashgameId } = useParams();
 const router = useRouter();
 const { bunch, localization, isManager, bunchReady } = useBunch(slug.value);
 const { players, getPlayer, playersReady } = usePlayerList(slug.value);
-const { locations, getLocation, locationsReady } = useLocationList(slug.value);
-const { events, getEvent, eventsReady } = useEventList(slug.value);
+const { locations, locationsReady } = useLocationList(slug.value);
+const { events, eventsReady } = useEventList(slug.value);
 
 const longRefresh = 30000;
 
@@ -280,24 +278,8 @@ const hasPlayers = computed(() => {
   return !!playersInGame.value.length;
 });
 
-const userPlayer = computed(() => {
-  return getPlayer(bunch.value.player.id);
-});
-
-const playerName = computed(() => {
-  return player.value?.name || '';
-});
-
-const playerColor = computed(() => {
-  return player.value?.color || '#9e9e9e';
-});
-
 const defaultBuyin = computed(() => {
   return bunch.value.defaultBuyin;
-});
-
-const player = computed(() => {
-  return getPlayer(selectedPlayerId.value);
 });
 
 const playerInGame = computed(() => {
@@ -430,7 +412,7 @@ const saveMutation = useMutation({
   mutationFn: async () => {
     await api.updateCashgame(cashgameId.value, {
       locationId: locationId.value,
-      eventId: eventId.value,
+      eventId: eventId.value !== '' ? eventId.value : null,
     });
   },
   onSuccess: () => {

@@ -54,6 +54,7 @@ import CashedOutIcon from '../Icons/CashedOutIcon.vue';
 import TimeIcon from '../Icons/TimeIcon.vue';
 import InlineIcon from '../Icons/InlineIcon.vue';
 import { Localization } from '@/models/Localization';
+import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
 const props = defineProps<{
   bunchId: string;
@@ -70,70 +71,22 @@ const emit = defineEmits<{
 }>();
 
 const isExpanded = ref(false);
-
-const hasCashedOut = computed(() => {
-  return props.player.hasCashedOut();
-});
-
-const showCheckmark = computed(() => {
-  return props.isCashgameRunning && hasCashedOut.value;
-});
-
-const isReportTimeEnabled = computed(() => {
-  return props.isCashgameRunning;
-});
-
-const lastReportTime = computed(() => {
-  return props.player.getLastReportTime();
-});
-
-const calculatedBuyin = computed(() => {
-  return props.player.getBuyin();
-});
-
-const stack = computed(() => {
-  return props.player.getStack();
-});
-
-const winnings = computed(() => {
-  return props.player.getWinnings();
-});
-
-const url = computed(() => {
-  return urls.player.details(props.bunchId, props.player.id);
-});
-
-const showDetails = computed(() => {
-  return isExpanded.value;
-});
-
-const expand = () => {
-  isExpanded.value = true;
-};
-
-const collapse = () => {
-  isExpanded.value = false;
-};
-
-const toggle = () => {
-  isExpanded.value = !isExpanded.value;
-};
-
-const onSelected = () => {
-  emit('selected', props.player.id);
-};
-
-const onDeleteAction = (id: string) => {
-  emit('deleteAction', id);
-};
-
-const onSaveAction = (data: SaveActionEmitData) => {
-  emit('saveAction', data);
-};
-
-const click = () => {
-  toggle();
-};
+const hasCashedOut = computed(() => props.player.hasCashedOut());
+const showCheckmark = computed(() => props.isCashgameRunning && hasCashedOut.value);
+const isReportTimeEnabled = computed(() => props.isCashgameRunning);
+const lastReportTime = computed(() => props.player.getLastReportTime());
+const calculatedBuyin = computed(() => props.player.getBuyin());
+const stack = computed(() => props.player.getStack());
+const winnings = computed(() => props.player.getWinnings());
+const url = computed(() => urls.player.details(props.bunchId, props.player.id));
+const showDetails = computed(() => isExpanded.value);
+const expand = () => (isExpanded.value = true);
+const collapse = () => (isExpanded.value = false);
+const toggle = () => (isExpanded.value = !isExpanded.value);
+const onSelected = () => emit('selected', props.player.id);
+const onDeleteAction = (id: string) => emit('deleteAction', id);
+const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
+const click = () => toggle();
 </script>
 
 <style lang="scss">
