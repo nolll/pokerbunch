@@ -48,6 +48,10 @@ function formatMonthDayYear(date: Date) {
   return dayjs(date).format('MMM D YYYY');
 }
 
+function formatIsoTime(date: Date) {
+  return dayjs(date).toISOString();
+}
+
 export default {
   currency: formatCurrency,
   result: formatResult,
@@ -57,4 +61,5 @@ export default {
   monthDay: formatMonthDay,
   hourMinute: formatHourMinute,
   monthDayYear: formatMonthDayYear,
+  isoTime: formatIsoTime,
 };

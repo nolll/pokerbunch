@@ -44,7 +44,7 @@ const changedAdded = ref<number | null>(null);
 
 const formTime = computed(() => {
   if (changedTime.value !== null) return changedTime.value;
-  return props.action.time;
+  return format.isoTime(props.action.time);
 });
 
 const formStack = computed(() => {
