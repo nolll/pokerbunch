@@ -10,7 +10,7 @@
           <CashgameNavigation page="list" />
         </Block>
         <Block>
-          <GameListTable :bunch="bunch" :games="games" />
+          <GameListTable :bunch="bunch" :games="games" :localization="localization" />
         </Block>
       </PageSection>
     </template>
@@ -30,7 +30,7 @@ import useBunch from '@/composables/useBunch';
 import useGameList from '@/composables/useGameList';
 
 const { slug, year } = useParams();
-const { bunch, bunchReady } = useBunch(slug.value);
+const { bunch, localization, bunchReady } = useBunch(slug.value);
 const { getSelectedGames, gamesReady } = useGameList(slug.value);
 
 const games = computed(() => {

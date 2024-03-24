@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody class="list">
-        <GameListRow v-for="game in sortedGames" :game="game" :bunch="bunch" :key="game.id" />
+        <GameListRow v-for="game in sortedGames" :game="game" :bunch="bunch" :localization="localization" :key="game.id" />
       </tbody>
     </TableList>
   </div>
@@ -29,10 +29,12 @@ import { BunchResponse } from '@/response/BunchResponse';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import gameSorter from '@/GameSorter';
 import { CashgameSortOrder } from '@/models/CashgameSortOrder';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunch: BunchResponse;
   games: ArchiveCashgame[];
+  localization: Localization;
 }>();
 
 const orderedBy = ref(CashgameSortOrder.Date);
