@@ -61,5 +61,3 @@ const players = computed((): CashgameListPlayerData[] => {
   return playerSorter.sort(archiveHelper.getPlayers(props.games), CashgamePlayerSortOrder.Winnings);
 });
 </script>
-import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder'; import { CashgamePlayerSortOrder } from
-'@/models/CashgamePlayerSortOrder';

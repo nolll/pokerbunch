@@ -4,6 +4,7 @@ import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import { currentGameListKey, eventGameListKey, gameKey, gameListKey } from './queryKeys';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
 import { DetailedCashgame } from '@/models/DetailedCashgame';
+import { fifteenSecondsRefreshInterval, thirtySecondsRefreshInterval, thirtySecondsStaleTime } from './staleTimes';
 
 export const useGameListQuery = (slug: string) => {
   return useQuery({
@@ -12,6 +13,7 @@ export const useGameListQuery = (slug: string) => {
       const response = await api.getGames(slug);
       return response.data.map((o) => ArchiveCashgame.fromResponse(o));
     },
+    staleTime: thirtySecondsStaleTime,
   });
 };
 
@@ -22,6 +24,7 @@ export const useEventGameListQuery = (slug: string, eventId: string) => {
       const response = await api.getEventGames(slug, eventId);
       return response.data.map((o) => ArchiveCashgame.fromResponse(o));
     },
+    staleTime: thirtySecondsStaleTime,
   });
 };
 
@@ -32,6 +35,8 @@ export const useCurrentGameListQuery = (slug: string) => {
       const response = await api.getCurrentGames(slug);
       return response.data;
     },
+    staleTime: thirtySecondsStaleTime,
+    refetchInterval: thirtySecondsRefreshInterval,
   });
 };
 
@@ -42,5 +47,7 @@ export const useGameQuery = (id: string) => {
       const response = await api.getCashgame(id);
       return new DetailedCashgame(response.data);
     },
+    staleTime: thirtySecondsStaleTime,
+    refetchInterval: fifteenSecondsRefreshInterval,
   });
 };

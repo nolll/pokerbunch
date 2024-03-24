@@ -141,7 +141,7 @@ import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 const { slug, cashgameId } = useParams();
 const router = useRouter();
 const { bunch, localization, isManager, bunchReady } = useBunch(slug.value);
-const { players, getPlayer, playersReady } = usePlayerList(slug.value);
+const { players, playersReady } = usePlayerList(slug.value);
 const { locations, locationsReady } = useLocationList(slug.value);
 const { events, eventsReady } = useEventList(slug.value);
 
@@ -158,6 +158,10 @@ const refreshHandle = ref(0);
 
 const { game: cashgame, gameReady } = useGame(cashgameId.value);
 const queryClient = useQueryClient();
+
+const isRefreshEnabled = computed(() => {
+  return isRunning.value && !isEditing.value;
+});
 
 const title = computed(() => {
   return `Cashgame ${formattedDate.value}`;
@@ -194,11 +198,11 @@ const showDuration = computed(() => {
 });
 
 const isRunning = computed(() => {
-  return !!cashgame.value?.isRunning;
+  return !!cashgame.value?.isRunning ?? false;
 });
 
 const isInGame = computed(() => {
-  return !!playerInGame.value;
+  return !!playerInGame.value ?? false;
 });
 
 const canReport = computed(() => {
@@ -472,7 +476,7 @@ const updateActionMutation = useMutation({
 });
 
 onMounted(async () => {
-  setupRefresh(longRefresh);
+  //setupRefresh(longRefresh);
 });
 
 onBeforeUnmount(() => {
