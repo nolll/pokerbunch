@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -10,7 +10,7 @@
           <CashgameNavigation page="list" />
         </Block>
         <Block>
-          <GameListTable />
+          <GameListTable :bunch="bunch" :games="games" :localization="localization" />
         </Block>
       </PageSection>
     </template>
@@ -24,38 +24,20 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import GameListTable from '@/components/GameList/GameListTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
-import { computed, onMounted } from 'vue';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import { computed } from 'vue';
+import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
+import useGameList from '@/composables/useGameList';
 
-const route = useRoute();
-const users = useUsers();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const { slug, year } = useParams();
+const { bunch, localization, bunchReady } = useBunch(slug.value);
+const { getSelectedGames, gamesReady } = useGameList(slug.value);
+
+const games = computed(() => {
+  return getSelectedGames(year.value);
+});
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
-});
-
-const init = (year: number | undefined) => {
-  users.requireUser();
-  bunches.loadBunch();
-  gameArchive.loadGames();
-  gameArchive.selectYear(year);
-};
-
-const getSelectedYear = (s: string | undefined) => {
-  if (!s || s === '') return undefined;
-  return parseInt(s);
-};
-
-onMounted(() => {
-  init(getSelectedYear(route.params.year as string));
-});
-
-onBeforeRouteUpdate(async (to) => {
-  init(getSelectedYear(to.params.year as string));
+  return bunchReady.value && gamesReady.value;
 });
 </script>

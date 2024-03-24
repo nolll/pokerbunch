@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Admin Tools" />
@@ -29,24 +29,12 @@ import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import SendEmail from '@/components/Admin/SendEmail.vue';
 import ClearCache from '@/components/Admin/ClearCache.vue';
-import useUsers from '@/composables/useUsers';
-import { computed, onMounted, watch } from 'vue';
+import { computed } from 'vue';
+import useCurrentUser from '@/composables/useCurrentUser';
 
-const users = useUsers();
-
-const isAdmin = computed(() => {
-  return users.isAdmin.value;
-});
+const { isAdmin, currentUserReady } = useCurrentUser();
 
 const ready = computed(() => {
-  return users.userReady.value;
-});
-
-const init = () => {
-  users.loadCurrentUser();
-};
-
-onMounted(() => {
-  init();
+  return currentUserReady.value;
 });
 </script>

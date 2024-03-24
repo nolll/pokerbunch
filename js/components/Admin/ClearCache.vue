@@ -13,21 +13,25 @@
 <script setup lang="ts">
 import api from '@/api';
 import CustomButton from '@/components/Common/CustomButton.vue';
+import { MessageResponse } from '@/response/MessageResponse';
+import { useMutation } from '@tanstack/vue-query';
 import { computed, ref } from 'vue';
 
-const message = ref<string | null>(null);
-
-const hasMessage = computed(() => {
-  return !!message.value;
-});
-
-const clearCache = async () => {
-  var response = await api.clearCache();
-  message.value = response.data.message;
+const showMessage = (m: string) => {
+  message.value = m;
   setTimeout(clearMessage, 3000);
 };
+const onComplete = (response: MessageResponse) => showMessage(response.message);
+const message = ref<string | null>(null);
+const hasMessage = computed(() => !!message.value);
+const clearMessage = () => (message.value = null);
 
-const clearMessage = () => {
-  message.value = null;
-};
+const { mutateAsync: clearCache } = useMutation({
+  mutationFn: async (): Promise<MessageResponse> => {
+    var response = await api.clearCache();
+    return response.data;
+  },
+  onSuccess: onComplete,
+  onError: onComplete,
+});
 </script>

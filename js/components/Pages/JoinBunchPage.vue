@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Join Bunch" />
@@ -16,10 +16,10 @@
       <Block>
         <div class="field">
           <label class="label" for="invitationCode">Invitation Code</label>
-          <input class="longfield" v-model="code" id="invitationCode" type="text" />
+          <input class="longfield" v-model="inputCode" id="invitationCode" type="text" />
         </div>
         <div class="buttons">
-          <CustomButton @click="joinClicked" type="action" text="Join" />
+          <CustomButton @click="join" type="action" text="Join" />
           <CustomButton @click="cancel" text="Cancel" />
         </div>
       </Block>
@@ -37,64 +37,55 @@ import urls from '@/urls';
 import api from '@/api';
 import { ApiError } from '@/models/ApiError';
 import { AxiosError } from 'axios';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import usePlayers from '@/composables/usePlayers';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
+import { useMutation } from '@tanstack/vue-query';
+import { MessageResponse } from '@/response/MessageResponse';
 
-const route = useRoute();
+const { slug, code } = useParams();
 const router = useRouter();
-const users = useUsers();
-const bunches = useBunches();
-const players = usePlayers();
+const { bunch, bunchReady } = useBunch(slug.value);
 
-const code = ref('');
+const inputCode = ref('');
 const errorMessage = ref<string>();
 
-const routeCode = computed((): string | undefined => {
-  return route.params.code as string;
-});
-
 const bunchName = computed(() => {
-  return bunches.bunchName.value;
+  return bunch.value.name;
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value;
+  return bunchReady.value;
 });
 
-const joinClicked = () => {
-  join(bunches.slug.value, code.value);
+const join = () => {
+  joinBunchMutation.mutate();
 };
 
-const join = async (bunchId: string, code: string) => {
-  if (code.length > 0) {
-    try {
-      await api.joinBunch(bunchId, { code });
-      players.loadPlayers();
-      router.push(urls.bunch.details(bunches.slug.value));
-    } catch (err) {
-      const error = err as AxiosError<ApiError>;
-      errorMessage.value = error.response?.data.message || 'Unknown Error';
-    }
-  }
-};
+const joinBunchMutation = useMutation({
+  mutationFn: async (): Promise<MessageResponse> => {
+    const data = {
+      code: code.value ?? inputCode.value,
+    };
+
+    const response = await api.joinBunch(slug.value, data);
+    return response.data;
+  },
+  onSuccess: () => {
+    router.push(urls.bunch.details(slug.value));
+  },
+  onError: (error: AxiosError<ApiError>) => {
+    const message = error.response?.data.message || 'Unknown Error';
+    errorMessage.value = message;
+  },
+});
 
 const cancel = () => {
   router.push(urls.home);
 };
 
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-};
-
 watch(ready, () => {
-  if (ready.value && routeCode.value) join(bunches.slug.value, routeCode.value);
-});
-
-onMounted(() => {
-  init();
+  if (ready.value && code.value) join();
 });
 </script>

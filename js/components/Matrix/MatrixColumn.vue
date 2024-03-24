@@ -17,11 +17,6 @@ const props = defineProps<{
   slug: string;
 }>();
 
-const url = computed(() => {
-  return urls.cashgame.details(props.slug, props.game.id);
-});
-
-const displayDate = computed(() => {
-  return format.monthDay(props.game.startTime);
-});
+const url = computed(() => urls.cashgame.details(props.slug, props.game.id));
+const displayDate = computed(() => format.monthDay(props.game.startTime));
 </script>

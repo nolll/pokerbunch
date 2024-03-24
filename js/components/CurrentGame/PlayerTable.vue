@@ -10,16 +10,19 @@
         @saveAction="onSaveAction"
         :canEdit="canEdit"
         :bunchId="bunchId"
+        :localization="localization"
       />
     </div>
     <div class="totals">
       <div class="title">Totals:</div>
       <div class="amounts">
         <div class="amount">
-          <InlineIcon><BuyinIcon title="Total Buy in" /></InlineIcon> <CurrencyText :value="totalBuyin" />
+          <InlineIcon><BuyinIcon title="Total Buy in" /></InlineIcon>
+          <CurrencyText :value="totalBuyin" :localization="localization" />
         </div>
         <div class="amount">
-          <InlineIcon><ReportIcon title="Total Stacks" /></InlineIcon> <CurrencyText :value="totalStacks" />
+          <InlineIcon><ReportIcon title="Total Stacks" /></InlineIcon>
+          <CurrencyText :value="totalStacks" :localization="localization" />
         </div>
       </div>
     </div>
@@ -35,33 +38,26 @@ import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import BuyinIcon from '../Icons/BuyinIcon.vue';
 import ReportIcon from '../Icons/ReportIcon.vue';
 import InlineIcon from '../Icons/InlineIcon.vue';
+import { Localization } from '@/models/Localization';
+import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
 const props = defineProps<{
   bunchId: string;
   players: DetailedCashgamePlayer[];
   isCashgameRunning: boolean;
   canEdit: boolean;
+  localization: Localization;
 }>();
 
-const emit = defineEmits(['playerSelected', 'deleteAction', 'saveAction']);
+const emit = defineEmits<{
+  playerSelected: [data: string];
+  saveAction: [data: SaveActionEmitData];
+  deleteAction: [data: string];
+}>();
 
-const totalBuyin = computed(() => {
-  return cashgameHelper.getTotalBuyin(props.players);
-});
-
-const totalStacks = computed(() => {
-  return cashgameHelper.getTotalStacks(props.players);
-});
-
-const onSelected = (id: string) => {
-  emit('playerSelected', id);
-};
-
-const onDeleteAction = (id: string) => {
-  emit('deleteAction', id);
-};
-
-const onSaveAction = (data: any) => {
-  emit('saveAction', data);
-};
+const totalBuyin = computed(() => cashgameHelper.getTotalBuyin(props.players));
+const totalStacks = computed(() => cashgameHelper.getTotalStacks(props.players));
+const onSelected = (id: string) => emit('playerSelected', id);
+const onDeleteAction = (id: string) => emit('deleteAction', id);
+const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
 </script>

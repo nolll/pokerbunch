@@ -1,12 +1,12 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <PageSection>
       <Block>
         <PageHeading text="Bunches" />
       </Block>
 
       <Block v-if="isAdmin">
-        <BunchList />
+        <BunchList :bunches="bunches" />
       </Block>
 
       <Block v-else> Access denied </Block>
@@ -20,27 +20,14 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import BunchList from '@/components/BunchList/BunchList.vue';
-import useBunches from '@/composables/useBunches';
-import useUsers from '@/composables/useUsers';
-import { computed, onMounted, watch } from 'vue';
+import { computed } from 'vue';
+import useBunchList from '@/composables/useBunchList';
+import useCurrentUser from '@/composables/useCurrentUser';
 
-const users = useUsers();
-const bunches = useBunches();
+const { bunches, bunchesReady } = useBunchList();
+const { isAdmin, currentUserReady } = useCurrentUser();
 
 const ready = computed(() => {
-  return users.userReady.value && bunches.bunchesReady.value;
-});
-
-const isAdmin = computed(() => {
-  return users.isAdmin.value;
-});
-
-const init = () => {
-  users.requireUser();
-  bunches.loadBunches();
-};
-
-onMounted(() => {
-  init();
+  return currentUserReady.value && bunchesReady.value;
 });
 </script>

@@ -33,11 +33,20 @@ import CustomLink from '@/components/Common/CustomLink.vue';
 import urls from '@/urls';
 import { computed, useSlots } from 'vue';
 import { CssClasses } from '@/models/CssClasses';
+import auth from '@/auth';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const props = defineProps<{
+  ready: boolean;
+  requireUser: boolean;
+}>();
+
+if (props.requireUser && !auth.isLoggedIn()) {
+  window.location.href = `${urls.auth.login}?returnurl=${route.fullPath}`;
+}
 
 const slots = useSlots();
-defineProps<{
-  ready: boolean;
-}>();
 
 const isTopNavEnabled = computed(() => {
   return isSlotEnabled('top-nav');

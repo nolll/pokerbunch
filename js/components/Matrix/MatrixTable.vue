@@ -10,7 +10,14 @@
         </tr>
       </thead>
       <tbody>
-        <MatrixRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" :bunchId="slug" />
+        <MatrixRow
+          v-for="(player, index) in players"
+          :player="player"
+          :index="index"
+          :bunchId="slug"
+          :localization="localization"
+          :key="player.id"
+        />
       </tbody>
     </TableList>
   </div>
@@ -25,17 +32,14 @@ import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import archiveHelper from '@/ArchiveHelper';
 import playerSorter from '@/PlayerSorter';
 import { computed } from 'vue';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   slug: string;
   games: ArchiveCashgame[];
+  localization: Localization;
 }>();
 
-const hasGames = computed(() => {
-  return props.games.length > 0;
-});
-
-const players = computed(() => {
-  return playerSorter.sort(archiveHelper.getPlayers(props.games));
-});
+const hasGames = computed(() => props.games.length > 0);
+const players = computed(() => playerSorter.sort(archiveHelper.getPlayers(props.games)));
 </script>

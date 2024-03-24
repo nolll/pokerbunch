@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <PageSection>
       <template v-slot:aside1>
         <Block>
@@ -25,11 +25,9 @@
             <label class="label" for="email">Email</label>
             <input class="textfield" v-model="email" id="email" type="text" />
           </p>
-          <p v-if="hasError" class="validation-error">
-            {{ errorMessage }}
-          </p>
+          <ErrorMessage :message="errorMessage" />
           <p>
-            <CustomButton v-on:click="save" type="action" text="Save" />
+            <CustomButton v-on:click="saveMutation.mutate" type="action" text="Save" />
             <CustomButton v-on:click="cancel" text="Cancel" />
           </p>
         </Block>
@@ -66,17 +64,19 @@ import { User } from '@/models/User';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
-import { AxiosError } from 'axios';
-import { ApiError } from '@/models/ApiError';
-import useUsers from '@/composables/useUsers';
-import { useRoute } from 'vue-router';
-import { computed, onMounted, ref } from 'vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import useParams from '@/composables/useParams';
+import useUser from '@/composables/useUser';
+import useCurrentUser from '@/composables/useCurrentUser';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { userKey, userListKey } from '@/queries/queryKeys';
 
-const route = useRoute();
-const users = useUsers();
+const { userName } = useParams();
+const { user, userReady } = useUser(userName.value);
+const { currentUser, isAdmin, currentUserReady } = useCurrentUser();
+const queryClient = useQueryClient();
 
-const user = ref<User>();
-const userReady = ref(false);
 const displayName = ref('');
 const realName = ref('');
 const email = ref('');
@@ -84,11 +84,11 @@ const isEditing = ref(false);
 const errorMessage = ref('');
 
 const canEdit = computed(() => {
-  return users.isAdmin.value || isCurrentUser.value;
+  return isAdmin.value || isCurrentUser.value;
 });
 
 const isCurrentUser = computed(() => {
-  return users.userName.value == user.value?.userName;
+  return currentUser.value?.userName == user.value?.userName;
 });
 
 const canChangePassword = computed(() => {
@@ -96,11 +96,7 @@ const canChangePassword = computed(() => {
 });
 
 const ready = computed(() => {
-  return users.userReady.value && userReady.value;
-});
-
-const userName = computed(() => {
-  return user.value?.userName ?? '';
+  return currentUserReady.value && userReady.value;
 });
 
 const avatarUrl = computed(() => {
@@ -111,35 +107,28 @@ const hasError = computed(() => {
   return !!errorMessage.value;
 });
 
-const loadUser = async () => {
-  const response = await api.getUser(route.params.userName as string);
-  user.value = response.data;
-  if (user.value) {
-    setMembers(user.value);
-  }
-  userReady.value = true;
-};
+const saveMutation = useMutation({
+  mutationFn: async () => {
+    errorMessage.value = '';
 
-const save = async () => {
-  errorMessage.value = '';
+    var userToSave = {
+      ...user.value,
+      displayName: displayName.value,
+      realName: realName.value,
+      email: email.value,
+    };
 
-  if (!user.value) {
+    await api.updateUser(userToSave);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: userListKey() });
+    queryClient.invalidateQueries({ queryKey: userKey(user.value.userName) });
     isEditing.value = false;
-    return;
-  }
-
-  user.value.displayName = displayName.value;
-  user.value.realName = realName.value;
-  user.value.email = email.value;
-  try {
-    const response = await api.updateUser(user.value);
-    isEditing.value = false;
-  } catch (err) {
-    const error = err as AxiosError<ApiError>;
-    const message = error.response?.data.message || 'Unknown Error';
-    errorMessage.value = message;
-  }
-};
+  },
+  onError: () => {
+    errorMessage.value = 'Server error';
+  },
+});
 
 const cancel = () => {
   if (user.value) setMembers(user.value);
@@ -156,12 +145,11 @@ const edit = () => {
   isEditing.value = true;
 };
 
-const init = () => {
-  users.requireUser();
-  loadUser();
-};
+watch(user, (u) => {
+  setMembers(u);
+});
 
 onMounted(() => {
-  init();
+  if (user.value) setMembers(user.value);
 });
 </script>

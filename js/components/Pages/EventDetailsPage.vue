@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -10,7 +10,7 @@
           <PageHeading :text="name" />
         </Block>
         <Block>
-          <MatrixTable :slug="slug" :games="games" />
+          <MatrixTable :slug="slug" :games="eventGames" :localization="localization" />
         </Block>
       </PageSection>
     </template>
@@ -23,64 +23,28 @@ import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import api from '@/api';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
-import { ArchiveCashgame } from '@/models/ArchiveCashgame';
-import useUsers from '@/composables/useUsers';
-import useEvents from '@/composables/useEvents';
-import useBunches from '@/composables/useBunches';
-import { useRoute } from 'vue-router';
-import { computed, onMounted, ref } from 'vue';
+import { computed } from 'vue';
+import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
+import useEventList from '@/composables/useEventList';
+import useEventGameList from '@/composables/useEventGameList';
 
-const route = useRoute();
-const users = useUsers();
-const bunches = useBunches();
-const events = useEvents();
-
-const games = ref<ArchiveCashgame[]>([]);
+const { slug, eventId } = useParams();
+const { getEvent, eventsReady } = useEventList(slug.value);
+const { localization, bunchReady } = useBunch(slug.value);
+const { eventGames, eventGamesReady } = useEventGameList(slug.value, eventId.value);
 
 const name = computed(() => {
   if (event.value) return event.value.name;
   return '';
 });
 
-const slug = computed(() => {
-  return bunches.slug.value;
-});
-
 const event = computed(() => {
-  for (let i = 0; i < events.events.value.length; i++) {
-    const event = events.events.value[i];
-    if (event.id.toString() === eventId.value) return event;
-  }
-  return null;
-});
-
-const eventId = computed(() => {
-  return route.params.id as string;
+  return getEvent(eventId.value);
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && events.eventsReady.value;
-});
-
-const init = async () => {
-  users.requireUser();
-  bunches.loadBunch();
-  events.loadEvents();
-  await loadGames();
-};
-
-const loadGames = async () => {
-  try {
-    const response = await api.getEventGames(bunches.slug.value, eventId.value);
-    games.value = response.data.map((o) => ArchiveCashgame.fromResponse(o));
-  } catch {
-    games.value = [];
-  }
-};
-
-onMounted(async () => {
-  await init();
+  return bunchReady.value && eventsReady.value && eventGamesReady.value;
 });
 </script>

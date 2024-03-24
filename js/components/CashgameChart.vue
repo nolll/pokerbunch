@@ -1,5 +1,5 @@
 ﻿<template>
-  <div v-if="ready">
+  <div>
     <LineChart :chart-data="chartData" :chart-options="chartOptions" />
   </div>
 </template>
@@ -13,12 +13,13 @@ import { ChartColumnType } from '@/models/ChartColumnType';
 import { ChartRowData } from '@/models/ChartRowData';
 import { ChartRow } from '@/models/ChartRow';
 import format from '@/format';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
 import { computed } from 'vue';
+import archiveHelper from '@/ArchiveHelper';
+import playerSorter from '@/PlayerSorter';
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const props = defineProps<{
+  games: ArchiveCashgame[];
+}>();
 
 const chartOptions: ChartOptions = {
   pointSize: 0,
@@ -28,15 +29,10 @@ const chartOptions: ChartOptions = {
 };
 
 const chartData = computed(() => {
-  if (!ready.value) {
-    return null;
-  }
-  return getChartData(gameArchive.sortedGames.value, gameArchive.sortedPlayers.value);
+  return getChartData(props.games, players.value);
 });
 
-const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
-});
+const players = computed(() => playerSorter.sort(archiveHelper.getPlayers(props.games)));
 
 const getChartData = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
   return {

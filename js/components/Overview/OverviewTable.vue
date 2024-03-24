@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="matrix" v-if="ready">
+  <div class="matrix">
     <TableList>
       <thead>
         <tr>
@@ -12,7 +12,14 @@
         </tr>
       </thead>
       <tbody>
-        <OverviewRow v-for="(player, index) in players" :player="player" :index="index" :key="player.id" :bunchId="slug" />
+        <OverviewRow
+          v-for="(player, index) in players"
+          :player="player"
+          :index="index"
+          :bunchId="slug"
+          :localization="localization"
+          :key="player.id"
+        />
       </tbody>
     </TableList>
   </div>
@@ -24,30 +31,33 @@ import OverviewRow from '@/components/Overview/OverviewRow.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
 import { computed } from 'vue';
+import useParams from '@/composables/useParams';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import archiveHelper from '@/ArchiveHelper';
+import playerSorter from '@/PlayerSorter';
+import { BunchResponse } from '@/response/BunchResponse';
+import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
+import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
+import { Localization } from '@/models/Localization';
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const props = defineProps<{
+  bunch: BunchResponse;
+  games: ArchiveCashgame[];
+  localization: Localization;
+}>();
 
-const players = computed(() => {
-  return gameArchive.currentYearPlayers.value;
-});
+const { slug } = useParams();
 
 const url = computed(() => {
   return urls.cashgame.details(slug.value, lastGame.value.id);
 });
 
 const lastGame = computed(() => {
-  return gameArchive.currentYearGames.value[0];
+  return props.games[0];
 });
 
-const slug = computed(() => {
-  return bunches.slug.value;
-});
-
-const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.currentYearPlayers.value.length > 0;
+const players = computed((): CashgameListPlayerData[] => {
+  return playerSorter.sort(archiveHelper.getPlayers(props.games), CashgamePlayerSortOrder.Winnings);
 });
 </script>

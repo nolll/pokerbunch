@@ -3,7 +3,7 @@ import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameR
 import dayjs from 'dayjs';
 
 export class DetailedCashgameAction {
-  id: string | undefined;
+  id: string;
   type: DetailedCashgameResponseActionType;
   time: Date;
   stack: number;

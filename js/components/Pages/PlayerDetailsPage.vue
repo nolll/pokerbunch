@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -16,11 +16,17 @@
           <Block>
             <ValueList>
               <ValueListKey>Total Result</ValueListKey>
-              <ValueListValue><WinningsText :value="totalResult" /></ValueListValue>
+              <ValueListValue
+                ><WinningsText :value="totalResult" :show-currency="true" :localization="localization"
+              /></ValueListValue>
               <ValueListKey>Best Result</ValueListKey>
-              <ValueListValue><WinningsText :value="bestResult" /></ValueListValue>
+              <ValueListValue
+                ><WinningsText :value="bestResult" :show-currency="true" :localization="localization"
+              /></ValueListValue>
               <ValueListKey>Worst Result</ValueListKey>
-              <ValueListValue><WinningsText :value="worstResult" /></ValueListValue>
+              <ValueListValue
+                ><WinningsText :value="worstResult" :show-currency="true" :localization="localization"
+              /></ValueListValue>
               <ValueListKey>Games Played</ValueListKey>
               <ValueListValue>{{ gamesPlayed }}</ValueListValue>
               <ValueListKey>Time Played</ValueListKey>
@@ -42,9 +48,9 @@
             <h2>User</h2>
           </Block>
           <Block v-if="hasUser">
-            <p>
+            <!-- <p>
               <img :src="avatarUrl" alt="User avatar" />
-            </p>
+            </p> -->
             <p>This player is a registered user.</p>
             <p>
               <CustomButton :url="userUrl" text="View User Profile" />
@@ -78,6 +84,7 @@
           <h2>Delete Player</h2>
         </Block>
         <Block>
+          <ErrorMessage :message="errorMessage" />
           <p>
             <CustomButton @click="deletePlayer" text="Delete Player" type="action" />
           </p>
@@ -95,50 +102,52 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import WinningsText from '@/components/Common/WinningsText.vue';
 import DurationText from '@/components/Common/DurationText.vue';
-import { Player } from '@/models/Player';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import useGameArchive from '@/composables/useGameArchive';
-import usePlayers from '@/composables/usePlayers';
-import { computed, onMounted, ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import usePlayerList from '@/composables/usePlayerList';
+import useGameList from '@/composables/useGameList';
+import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { playerListKey } from '@/queries/queryKeys';
+import useUser from '@/composables/useUser';
 
-const route = useRoute();
+const { slug, playerId } = useParams();
 const router = useRouter();
-const users = useUsers();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
-const players = usePlayers();
+const { localization, bunchReady } = useBunch(slug.value);
+const { getPlayer, tryGetPlayer, playersReady } = usePlayerList(slug.value);
+const { allGames, gamesReady } = useGameList(slug.value);
+const queryClient = useQueryClient();
 
-const user = ref<User>();
 const isInvitationFormVisible = ref(false);
 const inviteEmail = ref('');
 const invitationSent = ref(false);
+const errorMessage = ref('');
 
 const hasUser = computed(() => {
-  return !!player.value?.userId;
+  return Boolean(tryGetPlayer(playerId.value)?.userId);
 });
 
 const player = computed(() => {
-  return players.getPlayer(route.params.id as string);
+  return getPlayer(playerId.value);
 });
 
+const { user, userReady } = useUser(player.value.userName ?? '', hasUser.value);
+
 const playerName = computed(() => {
-  return player.value?.name;
+  return player.value.name;
 });
 
 const inviteUrl = computed(() => {
-  if (!player.value) return null;
-
   return urls.player.invite(player.value.id);
 });
 
@@ -151,7 +160,7 @@ const avatarUrl = computed(() => {
 });
 
 const games = computed(() => {
-  return gameArchive.games.value.filter((g) => isInGame(g));
+  return allGames.value.filter((g) => isInGame(g));
 });
 
 const results = computed(() => {
@@ -269,11 +278,7 @@ const worstLosingStreak = computed(() => {
 });
 
 const ready = computed(() => {
-  return player.value != null && gameArchive.gamesReady.value;
-});
-
-const userReady = computed(() => {
-  return user.value != null;
+  return bunchReady.value && playersReady.value && gamesReady.value && (userReady.value || !hasUser.value);
 });
 
 const canDelete = computed(() => {
@@ -302,10 +307,22 @@ const notRegisteredMessage = computed(() => {
   return invitationSent.value ? 'An invitation was sent.' : 'This player is not registered yet.';
 });
 
+const deleteMutation = useMutation({
+  mutationFn: async () => {
+    await api.deletePlayer(playerId.value);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: playerListKey(slug.value) });
+    router.push(urls.player.list(slug.value));
+  },
+  onError: () => {
+    errorMessage.value = 'Server error';
+  },
+});
+
 const deletePlayer = () => {
   if (window.confirm('Do you want to delete this player?')) {
-    players.deletePlayer(player.value);
-    router.push(urls.player.list(bunches.slug.value));
+    deleteMutation.mutate();
   }
 };
 
@@ -319,31 +336,10 @@ const formatStreakGames = (streak: number) => {
 };
 
 const isInGame = (game: ArchiveCashgame) => {
+  if (!playersReady) return false;
   for (const p of game.players) {
     if (p.id === player.value.id) return true;
   }
   return false;
 };
-
-const loadUser = async () => {
-  if (player.value?.userName) {
-    const response = await api.getUser(player.value.userName);
-    user.value = response.status === 200 ? response.data : undefined;
-  }
-};
-
-const init = async () => {
-  users.requireUser();
-  bunches.loadBunch();
-  gameArchive.loadGames();
-  await players.loadPlayers();
-};
-
-watch(player, () => {
-  if (player.value) loadUser();
-});
-
-onMounted(() => {
-  init();
-});
 </script>

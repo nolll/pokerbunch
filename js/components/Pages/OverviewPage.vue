@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -13,12 +13,12 @@
 
       <PageSection>
         <template v-slot:aside1>
-          <OverviewStatus />
+          <OverviewStatus :games="currentGames" />
         </template>
         <template v-slot:default>
           <Block>
             <PageHeading text="Current Rankings" />
-            <OverviewTable v-if="hasGames" />
+            <OverviewTable v-if="hasGames" :bunch="bunch" :games="currentYearGames" :localization="localization" />
             <p v-else>The rankings will be displayed here when you have played your first game.</p>
           </Block>
         </template>
@@ -27,7 +27,7 @@
       <PageSection :is-wide="false">
         <Block>
           <PageHeading v-if="hasGames" text="Yearly Rankings" />
-          <YearMatrixTable v-if="hasGames" />
+          <YearMatrixTable v-if="hasGames" :bunch="bunch" :games="allGames" :localization="localization" />
         </Block>
       </PageSection>
     </template>
@@ -44,34 +44,31 @@ import YearMatrixTable from '@/components/YearMatrix/YearMatrixTable.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useBunches from '@/composables/useBunches';
-import useUsers from '@/composables/useUsers';
-import useGameArchive from '@/composables/useGameArchive';
-import useCurrentGames from '@/composables/useCurrentGames';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
+import useParams from '@/composables/useParams';
+import useBunch from '@/composables/useBunch';
+import useGameList from '@/composables/useGameList';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import archiveHelper from '@/ArchiveHelper';
+import gameSorter from '@/GameSorter';
+import { CashgameSortOrder } from '@/models/CashgameSortOrder';
+import useCurrentGameList from '@/composables/useCurrentGameList';
 
-const users = useUsers();
-const bunches = useBunches();
-const gameArchive = useGameArchive();
-const currentGames = useCurrentGames();
+const { slug } = useParams();
+const { bunch, localization, bunchReady } = useBunch(slug.value);
+const { allGames, getSelectedGames, hasGames, gamesReady } = useGameList(slug.value);
+const { currentGames, currentGamesReady } = useCurrentGameList(slug.value);
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value && currentGames.currentGamesReady.value;
+  return bunchReady.value && gamesReady.value && currentGamesReady.value;
 });
 
-const hasGames = computed(() => {
-  return gameArchive.hasGames.value;
+const currentYearGames = computed((): ArchiveCashgame[] => {
+  const selectedGames = getSelectedGames(currentYear.value);
+  return gameSorter.sort(selectedGames, CashgameSortOrder.Date);
 });
 
-const init = async () => {
-  users.requireUser();
-  bunches.loadBunch();
-  gameArchive.loadGames();
-  gameArchive.selectYear(undefined);
-  currentGames.loadCurrentGames();
-};
-
-onMounted(async () => {
-  init();
+const currentYear = computed(() => {
+  return archiveHelper.getCurrentYear(allGames.value);
 });
 </script>

@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -18,7 +18,7 @@
           </Block>
 
           <Block>
-            <LocationList />
+            <LocationList :slug="slug" :locations="locations" />
           </Block>
         </template>
       </PageSection>
@@ -35,30 +35,18 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useLocations from '@/composables/useLocations';
-import useBunches from '@/composables/useBunches';
-import useUsers from '@/composables/useUsers';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
+import useLocationList from '@/composables/useLocationList';
+import useParams from '@/composables/useParams';
 
-const users = useUsers();
-const bunches = useBunches();
-const locations = useLocations();
+const { slug } = useParams();
+const { locations, locationsReady } = useLocationList(slug.value);
 
 const addLocationUrl = computed(() => {
-  return urls.location.add(bunches.slug.value);
+  return urls.location.add(slug.value);
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locations.locationsReady.value;
-});
-
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-  locations.loadLocations();
-};
-
-onMounted(() => {
-  init();
+  return locationsReady.value;
 });
 </script>

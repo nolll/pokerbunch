@@ -1,0 +1,13 @@
+export const bunchListKey = () => ['bunches'];
+export const userBunchListKey = () => ['current-user', 'bunches'];
+export const bunchKey = (slug: string) => ['bunch', slug];
+export const gameKey = (id: string) => ['game', id];
+export const gameListKey = (slug: string) => ['games', slug];
+export const eventGameListKey = (slug: string, eventId: string) => ['event-games', slug, eventId];
+export const currentGameListKey = (slug: string) => ['current-games', slug];
+export const playerListKey = (slug: string) => ['players', slug];
+export const eventListKey = (slug: string) => ['events', slug];
+export const locationListKey = (slug: string) => ['location', slug];
+export const currentUserKey = () => ['current-user'];
+export const userListKey = () => ['users'];
+export const userKey = (userName: string | null) => ['user', userName];

@@ -3,25 +3,25 @@
 </template>
 
 <script setup lang="ts">
-import useFormatter from '@/composables/useFormatter';
+import format from '@/format';
 import { CssClasses } from '@/models/CssClasses';
+import { Localization } from '@/models/Localization';
 import { computed } from 'vue';
 
 const props = withDefaults(
   defineProps<{
     value: number;
     showCurrency?: boolean;
+    localization?: Localization;
   }>(),
   {
     showCurrency: false,
   }
 );
 
-const formatter = useFormatter();
-
 const formattedValue = computed(() => {
-  if (props.showCurrency) return formatter.formatResult(props.value);
-  return formatter.formatResultWithoutCurrency(props.value);
+  if (props.showCurrency && props.localization) return format.result(props.value, props.localization);
+  return format.resultWithoutCurrency(props.value);
 });
 
 const cssClasses = computed((): CssClasses => {

@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -20,16 +20,14 @@ import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import useLocations from '@/composables/useLocations';
 import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import useParams from '@/composables/useParams';
+import useLocationList from '@/composables/useLocationList';
 
+const { slug } = useParams();
 const route = useRoute();
-const users = useUsers();
-const bunches = useBunches();
-const locations = useLocations();
+const { getLocation, locationsReady } = useLocationList(slug.value);
 
 const name = computed(() => {
   if (location.value) return location.value.name;
@@ -37,11 +35,7 @@ const name = computed(() => {
 });
 
 const location = computed(() => {
-  for (let i = 0; i < locations.locations.value.length; i++) {
-    const location = locations.locations.value[i];
-    if (location.id.toString() === locationId.value) return location;
-  }
-  return null;
+  return getLocation(locationId.value);
 });
 
 const locationId = computed(() => {
@@ -49,16 +43,6 @@ const locationId = computed(() => {
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && locations.locationsReady.value;
-});
-
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-  locations.loadLocations();
-};
-
-onMounted(() => {
-  init();
+  return locationsReady.value;
 });
 </script>

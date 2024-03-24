@@ -14,7 +14,7 @@ import { ChartOptions } from '@/models/ChartOptions';
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 
 const props = defineProps<{
-  chartData: ChartData | null;
+  chartData?: ChartData | undefined | null;
   chartOptions: ChartOptions;
 }>();
 

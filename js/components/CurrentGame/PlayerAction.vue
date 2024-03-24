@@ -19,20 +19,23 @@
 </template>
 
 <script setup lang="ts">
-import { DetailedCashgameResponseAction } from '@/response/DetailedCashgameResponseAction';
 import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 import format from '@/format';
 import { computed, ref } from 'vue';
-import useFormatter from '@/composables/useFormatter';
+import { Localization } from '@/models/Localization';
+import { DetailedCashgameAction } from '@/models/DetailedCashgameAction';
+import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
 const props = defineProps<{
-  action: DetailedCashgameResponseAction;
+  action: DetailedCashgameAction;
+  localization: Localization;
   canEdit: boolean;
 }>();
 
-const emit = defineEmits(['saveAction', 'deleteAction']);
-
-const formatter = useFormatter();
+const emit = defineEmits<{
+  saveAction: [data: SaveActionEmitData];
+  deleteAction: [data: string];
+}>();
 
 const isFormVisible = ref(false);
 const changedTime = ref<string | null>(null);
@@ -41,7 +44,7 @@ const changedAdded = ref<number | null>(null);
 
 const formTime = computed(() => {
   if (changedTime.value !== null) return changedTime.value;
-  return props.action.time;
+  return format.isoTime(props.action.time);
 });
 
 const formStack = computed(() => {
@@ -59,7 +62,7 @@ const formattedTime = computed(() => {
 });
 
 const formattedAmount = computed(() => {
-  return formatter.formatCurrency(amount.value);
+  return format.currency(amount.value, props.localization);
 });
 
 const amount = computed(() => {
@@ -92,7 +95,7 @@ const clickCancel = () => {
 };
 
 const clickSave = () => {
-  const data = {
+  const data: SaveActionEmitData = {
     id: props.action.id,
     time: formTime.value,
     stack: formStack.value,

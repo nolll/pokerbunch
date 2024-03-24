@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -36,6 +36,7 @@
               <label class="label" for="currencyLayout">Currency Layout</label>
               <CurrencyLayoutDropdown v-model="formCurrencyLayout" :symbol="formCurrencySymbol" />
             </p>
+            <ErrorMessage :message="errorMessage"></ErrorMessage>
             <div class="buttons">
               <CustomButton @click="save" text="Save" type="action" />
               <CustomButton @click="cancel" text="Cancel" />
@@ -83,6 +84,7 @@ import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
 import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
@@ -90,16 +92,16 @@ import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
 import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
-import { computed, onMounted, ref } from 'vue';
-import useBunches from '@/composables/useBunches';
-import useTimezones from '@/composables/useTimezones';
-import useUsers from '@/composables/useUsers';
-import useFormatter from '@/composables/useFormatter';
+import { computed, ref } from 'vue';
+import useBunch from '@/composables/useBunch';
+import useParams from '@/composables/useParams';
+import format from '@/format';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { bunchKey, bunchListKey, userBunchListKey } from '@/queries/queryKeys';
 
-const users = useUsers();
-const bunches = useBunches();
-const timezones = useTimezones().getTimezones();
-const formatter = useFormatter();
+const { slug } = useParams();
+const { bunch, isManager, localization, bunchReady } = useBunch(slug.value);
+const queryClient = useQueryClient();
 
 const isEditing = ref(false);
 const errorMessage = ref<string | null>(null);
@@ -111,11 +113,11 @@ const formCurrencySymbol = ref<string>();
 const formCurrencyLayout = ref<string>();
 
 const bunchName = computed(() => {
-  return bunches.bunchName.value;
+  return bunch.value.name;
 });
 
 const description = computed(() => {
-  return bunches.description.value;
+  return bunch.value.description;
 });
 
 const hasDescription = computed(() => {
@@ -123,7 +125,7 @@ const hasDescription = computed(() => {
 });
 
 const houseRules = computed(() => {
-  return bunches.houseRules.value;
+  return bunch.value.houseRules;
 });
 
 const hasHouseRules = computed(() => {
@@ -131,36 +133,24 @@ const hasHouseRules = computed(() => {
 });
 
 const defaultBuyin = computed(() => {
-  return bunches.bunch.value?.defaultBuyin;
+  return bunch.value.defaultBuyin;
 });
 
 const timezone = computed(() => {
-  return bunches.bunch.value?.timezone;
+  return bunch.value.timezone;
 });
 
 const currencyFormat = computed(() => {
-  return formatter.formatCurrency(123);
-});
-
-const currencySymbol = computed(() => {
-  return bunches.bunch.value?.currencySymbol;
-});
-
-const currencyLayout = computed(() => {
-  return bunches.bunch.value?.currencyLayout;
-});
-
-const isManager = computed(() => {
-  return bunches.isManager.value;
+  return format.currency(123, localization.value);
 });
 
 const showEditForm = () => {
-  formDescription.value = bunches.bunch.value.description;
-  formHouseRules.value = bunches.bunch.value.houseRules;
-  formDefaultBuyin.value = bunches.bunch.value.defaultBuyin;
-  formTimezone.value = bunches.bunch.value.timezone;
-  formCurrencySymbol.value = bunches.bunch.value.currencySymbol;
-  formCurrencyLayout.value = bunches.bunch.value.currencyLayout;
+  formDescription.value = bunch.value.description;
+  formHouseRules.value = bunch.value.houseRules;
+  formDefaultBuyin.value = bunch.value.defaultBuyin;
+  formTimezone.value = bunch.value.timezone;
+  formCurrencySymbol.value = bunch.value.currencySymbol;
+  formCurrencyLayout.value = bunch.value.currencyLayout;
   isEditing.value = true;
 };
 
@@ -172,7 +162,31 @@ const cancel = () => {
   hideEditForm();
 };
 
-const save = async () => {
+const saveMutation = useMutation({
+  mutationFn: async () => {
+    const postData: ApiParamsUpdateBunch = {
+      description: formDescription.value,
+      houseRules: formHouseRules.value,
+      defaultBuyin: formDefaultBuyin.value,
+      timezone: formTimezone.value,
+      currencySymbol: formCurrencySymbol.value,
+      currencyLayout: formCurrencyLayout.value,
+    };
+
+    await api.updateBunch(bunch.value.id, postData);
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: userBunchListKey() });
+    queryClient.invalidateQueries({ queryKey: bunchListKey() });
+    queryClient.invalidateQueries({ queryKey: bunchKey(slug.value) });
+    hideEditForm();
+  },
+  onError: () => {
+    errorMessage.value = 'Server error';
+  },
+});
+
+const save = () => {
   errorMessage.value = null;
 
   if (!formDefaultBuyin.value) {
@@ -195,30 +209,10 @@ const save = async () => {
     return;
   }
 
-  const postData: ApiParamsUpdateBunch = {
-    description: formDescription.value,
-    houseRules: formHouseRules.value,
-    defaultBuyin: formDefaultBuyin.value,
-    timezone: formTimezone.value,
-    currencySymbol: formCurrencySymbol.value,
-    currencyLayout: formCurrencyLayout.value,
-  };
-
-  await api.updateBunch(bunches.bunch.value.id, postData);
-  bunches.refreshBunch();
-  hideEditForm();
+  saveMutation.mutate();
 };
 
 const ready = computed(() => {
-  return bunches.bunchReady.value;
-});
-
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-};
-
-onMounted(() => {
-  init();
+  return bunchReady.value;
 });
 </script>

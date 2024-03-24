@@ -12,9 +12,11 @@
         </div>
       </div>
       <div class="player-row__amounts">
-        <div><i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" /></div>
-        <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" /></div>
-        <div><WinningsText :value="winnings" /></div>
+        <div>
+          <i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" :localization="localization" />
+        </div>
+        <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" :localization="localization" /></div>
+        <div><WinningsText :value="winnings" :localization="localization" /></div>
       </div>
     </div>
     <div v-if="showDetails">
@@ -29,6 +31,7 @@
           v-for="action in player.actions"
           :action="action"
           :key="action.id"
+          :localization="localization"
           @deleteAction="onDeleteAction"
           @saveAction="onSaveAction"
           :canEdit="canEdit"
@@ -50,81 +53,40 @@ import { computed, ref } from 'vue';
 import CashedOutIcon from '../Icons/CashedOutIcon.vue';
 import TimeIcon from '../Icons/TimeIcon.vue';
 import InlineIcon from '../Icons/InlineIcon.vue';
+import { Localization } from '@/models/Localization';
+import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
 const props = defineProps<{
   bunchId: string;
   player: DetailedCashgamePlayer;
   isCashgameRunning: boolean;
   canEdit: boolean;
+  localization: Localization;
 }>();
 
-const emit = defineEmits(['selected', 'deleteAction', 'saveAction']);
+const emit = defineEmits<{
+  selected: [data: string];
+  saveAction: [data: SaveActionEmitData];
+  deleteAction: [data: string];
+}>();
 
 const isExpanded = ref(false);
-
-const hasCashedOut = computed(() => {
-  return props.player.hasCashedOut();
-});
-
-const showCheckmark = computed(() => {
-  return props.isCashgameRunning && hasCashedOut.value;
-});
-
-const isReportTimeEnabled = computed(() => {
-  return props.isCashgameRunning;
-});
-
-const lastReportTime = computed(() => {
-  return props.player.getLastReportTime();
-});
-
-const calculatedBuyin = computed(() => {
-  return props.player.getBuyin();
-});
-
-const stack = computed(() => {
-  return props.player.getStack();
-});
-
-const winnings = computed(() => {
-  return props.player.getWinnings();
-});
-
-const url = computed(() => {
-  return urls.player.details(props.bunchId, props.player.id);
-});
-
-const showDetails = computed(() => {
-  return isExpanded.value;
-});
-
-const expand = () => {
-  isExpanded.value = true;
-};
-
-const collapse = () => {
-  isExpanded.value = false;
-};
-
-const toggle = () => {
-  isExpanded.value = !isExpanded.value;
-};
-
-const onSelected = () => {
-  emit('selected', props.player.id);
-};
-
-const onDeleteAction = (id: string) => {
-  emit('deleteAction', id);
-};
-
-const onSaveAction = (data: any) => {
-  emit('saveAction', data);
-};
-
-const click = () => {
-  toggle();
-};
+const hasCashedOut = computed(() => props.player.hasCashedOut());
+const showCheckmark = computed(() => props.isCashgameRunning && hasCashedOut.value);
+const isReportTimeEnabled = computed(() => props.isCashgameRunning);
+const lastReportTime = computed(() => props.player.getLastReportTime());
+const calculatedBuyin = computed(() => props.player.getBuyin());
+const stack = computed(() => props.player.getStack());
+const winnings = computed(() => props.player.getWinnings());
+const url = computed(() => urls.player.details(props.bunchId, props.player.id));
+const showDetails = computed(() => isExpanded.value);
+const expand = () => (isExpanded.value = true);
+const collapse = () => (isExpanded.value = false);
+const toggle = () => (isExpanded.value = !isExpanded.value);
+const onSelected = () => emit('selected', props.player.id);
+const onDeleteAction = (id: string) => emit('deleteAction', id);
+const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
+const click = () => toggle();
 </script>
 
 <style lang="scss">

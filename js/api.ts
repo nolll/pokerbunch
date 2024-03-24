@@ -17,9 +17,12 @@ import { ApiParamsAddBunch } from './models/ApiParamsAddBunch';
 import { ApiParamsInvitePlayer } from './models/ApiParamsInvitePlayer';
 import { ApiParamsJoinBunch } from './models/ApiParamsJoinBunch copy';
 import { ApiParamsUpdateBunch } from './models/ApiParamsUpdateBunch';
+import { ApiParamsAddEvent } from './models/ApiParamsAddEvent';
+import { ApiParamsAddLocation } from './models/ApiParamsAddLocation';
+import { ApiParamsAddPlayer } from './models/ApiParamsAddPlayer';
 
 export default {
-  login: (data: ApiParamsLogin) => apiClient.post(apiUrls.auth.login, data),
+  login: (data: ApiParamsLogin) => apiClient.post<string>(apiUrls.auth.login, data),
   getCashgame: (id: string) => apiClient.get<DetailedCashgameResponse>(apiUrls.cashgame.get(id)),
   addCashgame: (slug: string, data: object) => apiClient.post<DetailedCashgameResponse>(apiUrls.cashgame.list(slug), data),
   updateCashgame: (id: string, data: object) => apiClient.put(apiUrls.cashgame.get(id), data),
@@ -32,7 +35,7 @@ export default {
   updateBunch: (id: string, data: ApiParamsUpdateBunch) => apiClient.put(apiUrls.bunch.get(id), data),
   joinBunch: (slug: string, data: ApiParamsJoinBunch) => apiClient.post(apiUrls.bunch.join(slug), data),
   getPlayers: (slug: string) => apiClient.get<PlayerResponse[]>(apiUrls.player.list(slug)),
-  addPlayer: (slug: string, data: object) => apiClient.post<PlayerResponse>(apiUrls.player.list(slug), data),
+  addPlayer: (slug: string, data: ApiParamsAddPlayer) => apiClient.post<PlayerResponse>(apiUrls.player.list(slug), data),
   deletePlayer: (id: string) => apiClient.delete(apiUrls.player.get(id)),
   invitePlayer: (id: string, data: ApiParamsInvitePlayer) => apiClient.post(apiUrls.player.invite(id), data),
   getGames: (slug: string, year?: number) => apiClient.get<ArchiveCashgameResponse[]>(apiUrls.cashgame.list(slug, year)),
@@ -43,7 +46,7 @@ export default {
   cashout: (id: string, data: object) => apiClient.post(apiUrls.cashgame.actions(id), data),
   getCurrentUser: () => apiClient.get<User>(apiUrls.user.current),
   changePassword: (data: ApiParamsChangePassword) => apiClient.put(apiUrls.user.password, data),
-  resetPassword: (data: ApiParamsResetPassword) => apiClient.post(apiUrls.user.password, data),
+  resetPassword: (data: ApiParamsResetPassword) => apiClient.post<MessageResponse>(apiUrls.user.password, data),
   getUser: (userName: string) => apiClient.get<User>(apiUrls.user.get(userName)),
   addUser: (data: ApiParamsAddUser) => apiClient.post(apiUrls.user.list, data),
   updateUser: (data: User) => apiClient.put(apiUrls.user.get(data.userName), data),
@@ -52,9 +55,9 @@ export default {
   updateAction: (cashgameId: string, actionId: string, data: object) =>
     apiClient.put(apiUrls.cashgame.action(cashgameId, actionId), data),
   getEvents: (slug: string) => apiClient.get<EventResponse[]>(apiUrls.event.list(slug)),
-  addEvent: (slug: string, data: object) => apiClient.post<EventResponse>(apiUrls.event.list(slug), data),
+  addEvent: (slug: string, data: ApiParamsAddEvent) => apiClient.post<EventResponse>(apiUrls.event.list(slug), data),
   getLocations: (slug: string) => apiClient.get<LocationResponse[]>(apiUrls.location.list(slug)),
-  addLocation: (slug: string, data: object) => apiClient.post<LocationResponse>(apiUrls.location.list(slug), data),
+  addLocation: (slug: string, data: ApiParamsAddLocation) => apiClient.post<LocationResponse>(apiUrls.location.list(slug), data),
   sendEmail: () => apiClient.post<MessageResponse>(apiUrls.admin.sendEmail),
   clearCache: () => apiClient.post<MessageResponse>(apiUrls.admin.clearCache),
 };

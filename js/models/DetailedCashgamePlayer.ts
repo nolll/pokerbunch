@@ -62,21 +62,4 @@ export class DetailedCashgamePlayer {
   public hasCashedOut() {
     return !!this.actions.find((a) => a.type === DetailedCashgameResponseActionType.Cashout);
   }
-
-  public addReport(stack: number) {
-    this.addAction(DetailedCashgameResponseActionType.Report, stack, null);
-  }
-
-  public addBuyin(added: number, stack: number) {
-    this.addAction(DetailedCashgameResponseActionType.Buyin, stack, added);
-  }
-
-  public addCashout(stack: number) {
-    this.addAction(DetailedCashgameResponseActionType.Cashout, stack, null);
-  }
-
-  public addAction(type: DetailedCashgameResponseActionType, stack: number, added: number | null) {
-    const action = { id: undefined, type, time: dayjs.utc().toDate(), stack, added };
-    this.actions.push(action);
-  }
 }

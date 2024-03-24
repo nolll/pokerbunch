@@ -4,12 +4,14 @@
     <TableListCell
       ><CustomLink :url="url">{{ player.name }}</CustomLink></TableListCell
     >
-    <TableListCell :is-numeric="true"><WinningsText :value="winnings" /></TableListCell>
-    <TableListCell :is-numeric="true"><CurrencyText :value="buyin" /></TableListCell>
-    <TableListCell :is-numeric="true"><CurrencyText :value="cashout" /></TableListCell>
+    <TableListCell :is-numeric="true"
+      ><WinningsText :value="winnings" :show-currency="true" :localization="localization"
+    /></TableListCell>
+    <TableListCell :is-numeric="true"><CurrencyText :value="buyin" :localization="localization" /></TableListCell>
+    <TableListCell :is-numeric="true"><CurrencyText :value="cashout" :localization="localization" /></TableListCell>
     <TableListCell><DurationText :value="time" /></TableListCell>
     <TableListCell :is-numeric="true">{{ player.gameCount }}</TableListCell>
-    <TableListCell :is-numeric="true"><WinrateText :value="winrate" /></TableListCell>
+    <TableListCell :is-numeric="true"><WinrateText :value="winrate" :localization="localization" /></TableListCell>
   </TableListRow>
 </template>
 
@@ -24,10 +26,12 @@ import WinrateText from '@/components/Common/WinrateText.vue';
 import CurrencyText from '@/components/Common/CurrencyText.vue';
 import DurationText from '@/components/Common/DurationText.vue';
 import { computed } from 'vue';
+import { Localization } from '@/models/Localization';
 
 const props = defineProps<{
   bunchId: string;
   player: CashgameListPlayerData;
+  localization: Localization;
 }>();
 
 const url = computed(() => {

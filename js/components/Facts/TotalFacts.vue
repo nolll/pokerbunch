@@ -1,21 +1,21 @@
 ﻿<template>
-  <div v-if="ready">
+  <div>
     <h2 class="h2">Totals</h2>
     <DefinitionList>
       <DefinitionTerm>Most Time Played</DefinitionTerm>
       <PlayerTimeFact :name="facts.mostTime.name" :minutes="facts.mostTime.minutes" />
 
       <DefinitionTerm>Best Total Result</DefinitionTerm>
-      <PlayerResultFact :name="facts.bestTotal.name" :amount="facts.bestTotal.amount" />
+      <PlayerResultFact :name="facts.bestTotal.name" :amount="facts.bestTotal.amount" :localization="localization" />
 
       <DefinitionTerm>Worst Total Result</DefinitionTerm>
-      <PlayerResultFact :name="facts.worstTotal.name" :amount="facts.worstTotal.amount" />
+      <PlayerResultFact :name="facts.worstTotal.name" :amount="facts.worstTotal.amount" :localization="localization" />
 
       <DefinitionTerm>Biggest Total Buyin</DefinitionTerm>
-      <PlayerResultFact :name="facts.biggestBuyin.name" :amount="facts.biggestBuyin.amount" />
+      <PlayerAmountFact :name="facts.biggestBuyin.name" :amount="facts.biggestBuyin.amount" :localization="localization" />
 
       <DefinitionTerm>Biggest Total Cashout</DefinitionTerm>
-      <PlayerResultFact :name="facts.biggestCashout.name" :amount="facts.biggestCashout.amount" />
+      <PlayerAmountFact :name="facts.biggestCashout.name" :amount="facts.biggestCashout.amount" :localization="localization" />
     </DefinitionList>
   </div>
 </template>
@@ -26,25 +26,25 @@
 //HighestWinrate
 
 import PlayerResultFact from './PlayerResultFact.vue';
+import PlayerAmountFact from './PlayerAmountFact.vue';
 import PlayerTimeFact from './PlayerTimeFact.vue';
 import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
 import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { TotalFactCollection } from '@/models/TotalFactCollection';
 import { computed } from 'vue';
-import useGameArchive from '@/composables/useGameArchive';
-import useBunches from '@/composables/useBunches';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import archiveHelper from '@/ArchiveHelper';
+import playerSorter from '@/PlayerSorter';
+import { Localization } from '@/models/Localization';
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const props = defineProps<{
+  games: ArchiveCashgame[];
+  localization: Localization;
+}>();
 
-const facts = computed(() => {
-  return getFacts(gameArchive.sortedPlayers.value);
-});
-
-const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.sortedGames.value.length > 0;
-});
+const facts = computed(() => getFacts(players.value));
+const players = computed(() => playerSorter.sort(archiveHelper.getPlayers(props.games)));
 
 const getFacts = (players: CashgameListPlayerData[]): TotalFactCollection => {
   var mostTime = { name: '', id: '0', minutes: 0 };

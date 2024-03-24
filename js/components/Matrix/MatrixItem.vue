@@ -19,25 +19,14 @@ const props = defineProps<{
   game: CashgamePlayerData;
 }>();
 
-const buyin = computed(() => {
-  return props.game.buyin;
-});
-
-const stack = computed(() => {
-  return props.game.stack;
-});
-
-const winnings = computed(() => {
-  return props.game.winnings;
-});
+const buyin = computed(() => props.game.buyin);
+const stack = computed(() => props.game.stack);
+const winnings = computed(() => props.game.winnings);
+const isInGame = computed(() => props.game.playedThisGame);
 
 const winnerClass = computed((): CssClasses => {
   return {
     matrix__winner: props.game.isWinner,
   };
-});
-
-const isInGame = computed(() => {
-  return props.game.playedThisGame;
 });
 </script>

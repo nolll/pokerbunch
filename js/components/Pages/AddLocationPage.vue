@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="true">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -15,6 +15,7 @@
             <label class="label" for="location-name">Name</label>
             <input class="textfield" v-model="locationName" id="location-name" type="text" />
           </div>
+          <ErrorMessage :message="errorMessage" />
           <div class="buttons">
             <CustomButton v-on:click="add" type="action" text="Add" />
             <CustomButton v-on:click="cancel" text="Cancel" />
@@ -32,30 +33,42 @@ import Block from '@/components/Common/Block.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
+import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import urls from '@/urls';
-import { computed, onMounted, ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import useLocations from '@/composables/useLocations';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import useParams from '@/composables/useParams';
+import api from '@/api';
+import { locationListKey } from '@/queries/queryKeys';
 
+const { slug } = useParams();
 const router = useRouter();
-const users = useUsers();
-const bunches = useBunches();
-const locations = useLocations();
+const queryClient = useQueryClient();
 
 const locationName = ref('');
+const errorMessage = ref('');
 
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-  locations.loadLocations();
-};
+const addMutation = useMutation({
+  mutationFn: async () => {
+    const response = await api.addLocation(slug.value, { name: locationName.value });
+    return response.data;
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: locationListKey(slug.value) });
+    redirect();
+  },
+  onError: () => {
+    errorMessage.value = 'Server error';
+  },
+});
 
 const add = () => {
   if (locationName.value.length > 0) {
-    locations.addLocation(locationName.value);
+    addMutation.mutate();
     redirect();
+  } else {
+    errorMessage.value = "Name can't be empty";
   }
 };
 
@@ -64,14 +77,6 @@ const cancel = () => {
 };
 
 const redirect = () => {
-  router.push(urls.location.list(bunches.slug.value));
+  router.push(urls.location.list(slug.value));
 };
-
-const ready = computed(() => {
-  return bunches.bunchReady.value && locations.locationsReady.value;
-});
-
-onMounted(() => {
-  init();
-});
 </script>

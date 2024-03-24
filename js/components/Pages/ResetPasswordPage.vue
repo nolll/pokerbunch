@@ -1,11 +1,11 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :require-user="false" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Reset Password" />
       </Block>
 
-      <template v-if="isSaving">
+      <template v-if="emailWasSent">
         <Block>
           <p>An email was sent.</p>
         </Block>
@@ -43,10 +43,12 @@ import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsResetPassword } from '@/models/ApiParamsResetPassword';
 import { computed, onMounted, ref } from 'vue';
+import { useMutation } from '@tanstack/vue-query';
+import { MessageResponse } from '@/response/MessageResponse';
 
 const email = ref('');
 const errorMessage = ref('');
-const isSaving = ref(false);
+const emailWasSent = ref(false);
 
 const hasError = computed(() => {
   return !!errorMessage.value;
@@ -59,18 +61,26 @@ const loginUrl = computed(() => {
 const send = async () => {
   errorMessage.value = '';
 
-  try {
+  resetPasswordMutation.mutate();
+};
+
+const resetPasswordMutation = useMutation({
+  mutationFn: async (): Promise<MessageResponse> => {
     const params: ApiParamsResetPassword = {
       email: email.value,
     };
+
     const response = await api.resetPassword(params);
-    isSaving.value = true;
-  } catch (err) {
-    const error = err as AxiosError<ApiError>;
+    return response.data;
+  },
+  onSuccess: () => {
+    emailWasSent.value = true;
+  },
+  onError: (error: AxiosError<ApiError>) => {
     const message = error.response?.data.message || 'Unknown Error';
     errorMessage.value = message;
-  }
-};
+  },
+});
 
 const back = () => {
   history.back();

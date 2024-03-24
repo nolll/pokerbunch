@@ -14,7 +14,7 @@
         </tr>
       </thead>
       <tbody class="list">
-        <TopListRow v-for="player in players" :player="player" :key="player.id" :bunchId="bunchId" />
+        <TopListRow v-for="player in players" :player="player" :key="player.id" :bunchId="bunchId" :localization="localization" />
       </tbody>
     </TableList>
   </div>
@@ -24,25 +24,27 @@
 import TopListRow from './TopListRow.vue';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
-import useGameArchive from '@/composables/useGameArchive';
-import { computed } from 'vue';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import playerSorter from '@/PlayerSorter';
+import archiveHelper from '@/ArchiveHelper';
+import { computed, ref } from 'vue';
+import { CashgamePlayerSortOrder } from '@/models/CashgamePlayerSortOrder';
+import { Localization } from '@/models/Localization';
 
-const gameArchive = useGameArchive();
-
-defineProps<{
+const props = defineProps<{
   bunchId: string;
+  games: ArchiveCashgame[];
+  localization: Localization;
 }>();
 
 const players = computed(() => {
-  return gameArchive.sortedPlayers.value;
+  return playerSorter.sort(archiveHelper.getPlayers(props.games), orderedBy.value);
 });
 
-const orderedBy = computed(() => {
-  return gameArchive.playerSortOrder.value;
-});
+const orderedBy = ref(CashgamePlayerSortOrder.Winnings);
 
-const sort = (column: string) => {
-  gameArchive.sortPlayers(column);
+const sort = (column: CashgamePlayerSortOrder) => {
+  orderedBy.value = column;
 };
 </script>
 

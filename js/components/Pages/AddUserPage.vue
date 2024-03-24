@@ -1,11 +1,11 @@
 ﻿<template>
-  <Layout :ready="true">
+  <Layout :require-user="false" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Register" />
       </Block>
 
-      <template v-if="isSaving">
+      <template v-if="userAdded">
         <Block>
           <p>Welcome to Poker Bunch!</p>
           <p><CustomLink :url="loginUrl">Sign in here!</CustomLink> GL!</p>
@@ -56,7 +56,11 @@ import CustomLink from '@/components/Common/CustomLink.vue';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsAddUser } from '@/models/ApiParamsAddUser';
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
+import { userListKey } from '@/queries/queryKeys';
+
+const queryClient = useQueryClient();
 
 const userName = ref('');
 const displayName = ref('');
@@ -64,7 +68,7 @@ const email = ref('');
 const password = ref('');
 const repeatPassword = ref('');
 const errorMessage = ref('');
-const isSaving = ref(false);
+const userAdded = ref(false);
 
 const hasError = computed(() => {
   return !!errorMessage.value;
@@ -75,36 +79,39 @@ const loginUrl = computed(() => {
 });
 
 const save = async () => {
-  errorMessage.value = '';
-
   if (repeatPassword.value !== password.value) {
     errorMessage.value = "Passwords doesn't match";
     return;
   }
 
-  try {
+  addUserMutation.mutate();
+};
+
+const addUserMutation = useMutation({
+  mutationFn: async () => {
+    errorMessage.value = '';
+
     const params: ApiParamsAddUser = {
       userName: userName.value,
       displayName: displayName.value,
       email: email.value,
       password: password.value,
     };
+
     const response = await api.addUser(params);
-    isSaving.value = true;
-  } catch (err) {
+    return response.data;
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: userListKey() });
+    userAdded.value = true;
+  },
+  onError: (err) => {
     const error = err as AxiosError<ApiError>;
-    const message = error.response?.data.message || 'Unknown Error';
-    errorMessage.value = message;
-  }
-};
+    errorMessage.value = error.response?.data.message || 'Unknown Error';
+  },
+});
 
 const back = () => {
   history.back();
 };
-
-const init = () => {};
-
-onMounted(() => {
-  init();
-});
 </script>

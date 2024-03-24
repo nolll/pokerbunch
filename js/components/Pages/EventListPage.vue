@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :ready="ready">
+  <Layout :require-user="true" :ready="ready">
     <template v-slot:top-nav>
       <BunchNavigation />
     </template>
@@ -17,7 +17,7 @@
             <PageHeading text="Events" />
           </Block>
           <Block>
-            <EventList />
+            <EventList :events="events" />
           </Block>
         </template>
       </PageSection>
@@ -34,30 +34,18 @@ import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import useUsers from '@/composables/useUsers';
-import useBunches from '@/composables/useBunches';
-import useEvents from '@/composables/useEvents';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
+import useParams from '@/composables/useParams';
+import useEventList from '@/composables/useEventList';
 
-const users = useUsers();
-const bunches = useBunches();
-const events = useEvents();
+const { slug } = useParams();
+const { events, eventsReady } = useEventList(slug.value);
 
 const addEventUrl = computed(() => {
-  return urls.event.add(bunches.slug.value);
+  return urls.event.add(slug.value);
 });
 
 const ready = computed(() => {
-  return bunches.bunchReady.value && events.eventsReady.value;
-});
-
-const init = () => {
-  users.requireUser();
-  bunches.loadBunch();
-  events.loadEvents();
-};
-
-onMounted(() => {
-  init();
+  return eventsReady.value;
 });
 </script>

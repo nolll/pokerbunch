@@ -1,12 +1,12 @@
 ﻿<template>
-  <div v-if="ready">
+  <div>
     <h2 class="h2">Single Game</h2>
     <DefinitionList>
       <DefinitionTerm>Best Result</DefinitionTerm>
-      <PlayerResultFact :name="facts.bestResult.name" :amount="facts.bestResult.amount" />
+      <PlayerResultFact :name="facts.bestResult.name" :amount="facts.bestResult.amount" :localization="localization" />
 
       <DefinitionTerm>Worst Result</DefinitionTerm>
-      <PlayerResultFact :name="facts.worstResult.name" :amount="facts.worstResult.amount" />
+      <PlayerResultFact :name="facts.worstResult.name" :amount="facts.worstResult.amount" :localization="localization" />
     </DefinitionList>
   </div>
 </template>
@@ -24,18 +24,21 @@ import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { SingleGameFactCollection } from '@/models/SingleGameFactCollection';
 import { PlayerWinningsFact } from '@/models/PlayerWinningsFact';
 import { computed } from 'vue';
-import useGameArchive from '@/composables/useGameArchive';
-import useBunches from '@/composables/useBunches';
+import { ArchiveCashgame } from '@/models/ArchiveCashgame';
+import ArchiveHelper from '@/ArchiveHelper';
+import { Localization } from '@/models/Localization';
 
-const bunches = useBunches();
-const gameArchive = useGameArchive();
+const props = defineProps<{
+  games: ArchiveCashgame[];
+  localization: Localization;
+}>();
 
 const facts = computed(() => {
-  return getFacts(gameArchive.sortedPlayers.value);
+  return getFacts(players.value);
 });
 
-const ready = computed(() => {
-  return bunches.bunchReady.value && gameArchive.gamesReady.value;
+const players = computed(() => {
+  return ArchiveHelper.getPlayers(props.games);
 });
 
 const getFacts = (players: CashgameListPlayerData[]): SingleGameFactCollection => {

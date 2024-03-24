@@ -22,45 +22,35 @@
 
 <script setup lang="ts">
 import CustomLink from '@/components/Common/CustomLink.vue';
-import useBunches from '@/composables/useBunches';
+import useBunch from '@/composables/useBunch';
+import useParams from '@/composables/useParams';
+import useUserBunchList from '@/composables/useUserBunchList';
 import urls from '@/urls';
 import { computed } from 'vue';
 
-const bunches = useBunches();
+const { slug } = useParams();
+const { bunch, bunchReady } = useBunch(slug.value);
+const { userBunches, userBunchesReady } = useUserBunchList();
 
-const slug = computed(() => {
-  if (bunches.slug.value && bunches.slug.value.length > 0) return bunches.slug.value;
-  if (bunches.userBunches.value.length > 0) return bunches.userBunches.value[0].id;
+const calculatedSlug = computed(() => {
+  if (slug.value) return slug.value;
+  if (userBunchesReady.value && userBunches.value.length > 0) return userBunches.value[0].id;
   return '';
 });
 
 const bunchName = computed(() => {
-  if (bunches.bunchName.value && bunches.bunchName.value.length > 0) return bunches.bunchName.value;
-  if (bunches.userBunches.value.length > 0) return bunches.userBunches.value[0].name;
+  if (slug.value && bunchReady.value && bunch.value.name.length > 0) return bunch.value.name;
+  if (userBunchesReady.value && userBunches.value.length > 0) return userBunches.value[0].name;
   return '';
 });
 
 const hasSlug = computed(() => {
-  return !!slug.value;
+  return !!calculatedSlug.value;
 });
 
-const bunchDetailsUrl = computed(() => {
-  return urls.bunch.details(slug.value);
-});
-
-const cashgamesUrl = computed(() => {
-  return urls.cashgame.index(slug.value);
-});
-
-const playersUrl = computed(() => {
-  return urls.player.list(slug.value);
-});
-
-const eventsUrl = computed(() => {
-  return urls.event.list(slug.value);
-});
-
-const locationsUrl = computed(() => {
-  return urls.location.list(slug.value);
-});
+const bunchDetailsUrl = computed(() => urls.bunch.details(calculatedSlug.value));
+const cashgamesUrl = computed(() => urls.cashgame.index(calculatedSlug.value));
+const playersUrl = computed(() => urls.player.list(calculatedSlug.value));
+const eventsUrl = computed(() => urls.event.list(calculatedSlug.value));
+const locationsUrl = computed(() => urls.location.list(calculatedSlug.value));
 </script>
