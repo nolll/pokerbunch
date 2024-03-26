@@ -31,10 +31,10 @@ import PageSection from '@/components/Common/PageSection.vue';
 import LoadingSpinner from '@/components/Common/LoadingSpinner.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import urls from '@/urls';
-import { computed, useSlots } from 'vue';
+import { computed, useSlots, watch } from 'vue';
 import { CssClasses } from '@/models/CssClasses';
-import auth from '@/auth';
 import { useRoute } from 'vue-router';
+import useCurrentUser from '@/composables/useCurrentUser';
 
 const route = useRoute();
 const props = defineProps<{
@@ -42,9 +42,7 @@ const props = defineProps<{
   requireUser: boolean;
 }>();
 
-if (props.requireUser && !auth.isLoggedIn()) {
-  window.location.href = `${urls.auth.login}?returnurl=${route.fullPath}`;
-}
+const { isSignedIn, currentUserReady } = useCurrentUser();
 
 const slots = useSlots();
 
@@ -63,6 +61,15 @@ const logoCssClasses = computed((): CssClasses => {
 });
 
 const isSlotEnabled = (name: string) => {
-  return !!slots[name]; // todo: this probably won't work in vue 3
+  return !!slots[name];
 };
+
+const redirectIfSignedOut = () => {
+  if (props.requireUser && currentUserReady.value && !isSignedIn.value)
+    window.location.href = `${urls.auth.login}?returnurl=${route.fullPath}`;
+};
+
+watch(isSignedIn, redirectIfSignedOut);
+watch(currentUserReady, redirectIfSignedOut);
+watch(() => props.requireUser, redirectIfSignedOut);
 </script>

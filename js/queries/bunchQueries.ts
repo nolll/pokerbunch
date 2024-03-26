@@ -16,11 +16,11 @@ export const useBunchListQuery = () => {
   });
 };
 
-export const useUserBunchListQuery = () => {
+export const useUserBunchListQuery = (isSignedIn: boolean) => {
   return useQuery({
-    queryKey: userBunchListKey(),
+    queryKey: userBunchListKey(isSignedIn),
     queryFn: async (): Promise<BunchResponse[]> => {
-      if (!auth.isLoggedIn()) return [];
+      if (!isSignedIn) return [];
       const response = await api.getUserBunches();
       return response.data;
     },

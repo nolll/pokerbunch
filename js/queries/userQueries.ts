@@ -4,16 +4,23 @@ import { User } from '@/models/User';
 import auth from '@/auth';
 import { currentUserKey, userKey, userListKey } from './queryKeys';
 import { fiveMinuteStaleTime } from './staleTimes';
+import { AxiosError } from 'axios';
 
 export const useCurrentUserQuery = () => {
   return useQuery({
     queryKey: currentUserKey(),
     queryFn: async (): Promise<User | null> => {
-      if (!auth.isLoggedIn()) return null;
-      const response = await api.getCurrentUser();
-      return response.data;
+      if (!auth.hasToken()) return null;
+      try {
+        const response = await api.getCurrentUser();
+        return response.data;
+      } catch (error: any) {
+        if (error.response.status === 401 || error.response.status === 404) {
+          return null;
+        }
+        throw error;
+      }
     },
-    staleTime: fiveMinuteStaleTime,
   });
 };
 

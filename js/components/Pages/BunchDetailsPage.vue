@@ -176,7 +176,7 @@ const saveMutation = useMutation({
     await api.updateBunch(bunch.value.id, postData);
   },
   onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: userBunchListKey() });
+    queryClient.invalidateQueries({ queryKey: userBunchListKey(true) });
     queryClient.invalidateQueries({ queryKey: bunchListKey() });
     queryClient.invalidateQueries({ queryKey: bunchKey(slug.value) });
     hideEditForm();

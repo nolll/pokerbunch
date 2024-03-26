@@ -63,12 +63,12 @@ import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
-import { computed, onMounted, watch } from 'vue';
+import { computed } from 'vue';
 import useUserBunchList from '@/composables/useUserBunchList';
 import useCurrentUser from '@/composables/useCurrentUser';
 
-const { userBunchesReady, userBunches } = useUserBunchList();
 const { isSignedIn, isAdmin, currentUserReady } = useCurrentUser();
+const { userBunchesReady, userBunches } = useUserBunchList(isSignedIn.value);
 
 const loginUrl = computed(() => urls.auth.login);
 const registerUrl = computed(() => urls.user.add);

@@ -30,7 +30,7 @@ import { computed } from 'vue';
 
 const { slug } = useParams();
 const { bunch, bunchReady } = useBunch(slug.value);
-const { userBunches, userBunchesReady } = useUserBunchList();
+const { userBunches, userBunchesReady } = useUserBunchList(true);
 
 const calculatedSlug = computed(() => {
   if (slug.value) return slug.value;

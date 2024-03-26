@@ -1,5 +1,5 @@
 export const bunchListKey = () => ['bunches'];
-export const userBunchListKey = () => ['current-user', 'bunches'];
+export const userBunchListKey = (isSignedIn: boolean) => ['current-user', 'bunches', isSignedIn];
 export const bunchKey = (slug: string) => ['bunch', slug];
 export const gameKey = (id: string) => ['game', id];
 export const gameListKey = (slug: string) => ['games', slug];

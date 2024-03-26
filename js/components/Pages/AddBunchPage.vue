@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :require-user="false" :ready="true">
+  <Layout :require-user="true" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Create Bunch" />
@@ -107,7 +107,7 @@ const addBunchMutation = useMutation({
   },
   onSuccess: (response: BunchResponse) => {
     queryClient.invalidateQueries({ queryKey: bunchListKey() });
-    queryClient.invalidateQueries({ queryKey: userBunchListKey() });
+    queryClient.invalidateQueries({ queryKey: userBunchListKey(true) });
     savedSlug.value = response.id;
     bunchAdded.value = true;
   },
