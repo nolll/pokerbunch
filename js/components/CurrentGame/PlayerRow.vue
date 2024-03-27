@@ -50,9 +50,7 @@ import CurrencyText from '@/components/Common/CurrencyText.vue';
 import WinningsText from '@/components/Common/WinningsText.vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
-import CashedOutIcon from '../Icons/CashedOutIcon.vue';
-import TimeIcon from '../Icons/TimeIcon.vue';
-import InlineIcon from '../Icons/InlineIcon.vue';
+import { CashedOutIcon, InlineIcon, TimeIcon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 

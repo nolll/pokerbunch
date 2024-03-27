@@ -122,12 +122,10 @@ import EventDropdown from '@/components/EventDropdown.vue';
 import format from '@/format';
 import dayjs from 'dayjs';
 import api from '@/api';
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
-import ReportIcon from '../Icons/ReportIcon.vue';
-import BuyinIcon from '../Icons/BuyinIcon.vue';
-import CashoutIcon from '../Icons/CashoutIcon.vue';
+import { BuyinIcon, CashoutIcon, ReportIcon } from '../Icons';
 import useParams from '@/composables/useParams';
 import useLocationList from '@/composables/useLocationList';
 import useBunch from '@/composables/useBunch';
@@ -145,8 +143,6 @@ const { players, playersReady } = usePlayerList(slug.value);
 const { locations, locationsReady } = useLocationList(slug.value);
 const { events, eventsReady } = useEventList(slug.value);
 
-const longRefresh = 30000;
-
 const reportFormVisible = ref(false);
 const buyinFormVisible = ref(false);
 const cashoutFormVisible = ref(false);
@@ -154,14 +150,9 @@ const selectedPlayerId = ref('');
 const isEditing = ref(false);
 const locationId = ref<string>();
 const eventId = ref<string>();
-const refreshHandle = ref(0);
 
 const { game: cashgame, gameReady } = useGame(cashgameId.value);
 const queryClient = useQueryClient();
-
-const isRefreshEnabled = computed(() => {
-  return isRunning.value && !isEditing.value;
-});
 
 const title = computed(() => {
   return `Cashgame ${formattedDate.value}`;
@@ -316,14 +307,6 @@ const ready = computed(() => {
   return bunchReady.value && gameReady.value && playersReady.value && locationsReady.value && eventsReady.value;
 });
 
-const setupRefresh = (refreshTimeout: number) => {
-  if (isRunning.value) {
-    refreshHandle.value = window.setInterval(async () => {
-      await refresh();
-    }, refreshTimeout);
-  }
-};
-
 const report = async (stack: number) => {
   reportMutation.mutate({ stack });
 };
@@ -475,20 +458,8 @@ const updateActionMutation = useMutation({
   },
 });
 
-onMounted(async () => {
-  //setupRefresh(longRefresh);
-});
-
-onBeforeUnmount(() => {
-  if (refreshHandle.value) window.clearInterval(refreshHandle.value);
-});
-
 const redirect = () => {
   router.push(urls.cashgame.index(slug.value));
-};
-
-const refresh = async () => {
-  queryClient.invalidateQueries({ queryKey: gameKey(cashgameId.value) });
 };
 
 const playerId = computed(() => {

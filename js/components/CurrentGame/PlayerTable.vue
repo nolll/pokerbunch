@@ -35,9 +35,7 @@ import CurrencyText from '@/components/Common/CurrencyText.vue';
 import cashgameHelper from '@/CashgameHelper';
 import { computed } from 'vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
-import BuyinIcon from '../Icons/BuyinIcon.vue';
-import ReportIcon from '../Icons/ReportIcon.vue';
-import InlineIcon from '../Icons/InlineIcon.vue';
+import { BuyinIcon, InlineIcon, ReportIcon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
