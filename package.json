@@ -34,7 +34,7 @@
     "analyze": "cross-env ANALYZE_BUNDLE=1 webpack"
   },
   "dependencies": {
-    "@tanstack/vue-query": "^5.28.8",
+    "@tanstack/vue-query": "^5.28.9",
     "axios": "1.6.8",
     "dayjs": "1.11.10",
     "google-charts": "2.0.0",
