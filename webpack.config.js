@@ -135,7 +135,7 @@ function getDevServer() {
         compress: true,
         port: 9000,
         server: {
-          type: 'spdy',
+          type: 'https',
         },
         proxy: [
           {
