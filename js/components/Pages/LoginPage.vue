@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/Layouts/Layout.vue';
+import { Layout } from '@/components/Layouts';
 import LoginForm from '@/components/LoginForm.vue';
 import CustomLink from '@/components/Common/CustomLink.vue';
 import Block from '@/components/Common/Block.vue';

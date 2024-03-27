@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/Layouts/Layout.vue';
+import { Layout } from '@/components/Layouts';
 import Block from '@/components/Common/Block.vue';
 import CustomButton from '@/components/Common/CustomButton.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';

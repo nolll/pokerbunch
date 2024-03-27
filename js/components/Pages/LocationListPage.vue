@@ -27,7 +27,7 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/Layouts/Layout.vue';
+import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import LocationList from '@/components/LocationList/LocationList.vue';
 import Block from '@/components/Common/Block.vue';

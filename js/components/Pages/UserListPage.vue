@@ -15,12 +15,12 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/Layouts/Layout.vue';
+import { Layout } from '@/components/Layouts';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
 import PageSection from '@/components/Common/PageSection.vue';
 import UserList from '@/components/UserList/UserList.vue';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import useUserList from '@/composables/useUserList';
 import useCurrentUser from '@/composables/useCurrentUser';
 

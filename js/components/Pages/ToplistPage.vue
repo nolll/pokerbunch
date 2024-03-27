@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/Layouts/Layout.vue';
+import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import TopListTable from '@/components/TopList/TopListTable.vue';

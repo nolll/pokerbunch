@@ -78,7 +78,7 @@
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/Layouts/Layout.vue';
+import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import Block from '@/components/Common/Block.vue';
 import PageHeading from '@/components/Common/PageHeading.vue';
