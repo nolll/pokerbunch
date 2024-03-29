@@ -24,9 +24,7 @@
 
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
+import { Block, PageHeading, PageSection } from '@/components/Common';
 import SendEmail from '@/components/Admin/SendEmail.vue';
 import ClearCache from '@/components/Admin/ClearCache.vue';
 import { computed } from 'vue';

@@ -41,9 +41,7 @@
 
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
-import Block from '@/components/Common/Block.vue';
-import PageSection from '@/components/Common/PageSection.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
+import { Block, PageHeading, PageSection } from '@/components/Common';
 import { computed } from 'vue';
 
 const swaggerUrl = computed(() => {

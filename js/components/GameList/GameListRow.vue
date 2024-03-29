@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import urls from '@/urls';
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import format from '@/format';
 import TableListRow from '@/components/Common/TableList/TableListRow.vue';

@@ -12,9 +12,8 @@
 
 <script setup lang="ts">
 import urls from '@/urls';
-import Block from '@/components/Common/Block.vue';
 import { computed } from 'vue';
-import CustomButton from '../Common/CustomButton.vue';
+import { Block, CustomButton } from '../Common';
 import useParams from '@/composables/useParams';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
 

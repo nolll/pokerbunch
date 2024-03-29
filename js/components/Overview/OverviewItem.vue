@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { CashgamePlayerData } from '@/models/CashgamePlayerData';
 import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-import WinningsText from '@/components/Common/WinningsText.vue';
+import { WinningsText } from '@/components/Common';
 import { computed } from 'vue';
 
 const props = defineProps<{

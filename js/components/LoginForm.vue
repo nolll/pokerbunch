@@ -28,7 +28,7 @@ import api from '@/api';
 import auth from '@/auth';
 import { ApiParamsLogin } from '@/models/ApiParamsLogin';
 import { computed, ref } from 'vue';
-import ErrorMessage from '@/components/Common/ErrorMessage.vue';
+import { ErrorMessage } from '@/components/Common';
 import { useMutation } from '@tanstack/vue-query';
 
 const username = ref('');

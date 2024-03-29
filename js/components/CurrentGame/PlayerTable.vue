@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import PlayerRow from './PlayerRow.vue';
-import CurrencyText from '@/components/Common/CurrencyText.vue';
+import { CurrencyText } from '@/components/Common';
 import cashgameHelper from '@/CashgameHelper';
 import { computed } from 'vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';

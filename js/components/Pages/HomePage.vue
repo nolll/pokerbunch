@@ -57,11 +57,8 @@
 import { Layout } from '@/components/Layouts';
 import AdminNavigation from '@/components/Navigation/AdminNavigation.vue';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
 import urls from '@/urls';
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { Block, CustomLink, PageHeading, PageSection } from '@/components/Common';
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed } from 'vue';
 import useUserBunchList from '@/composables/useUserBunchList';

@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import useBunch from '@/composables/useBunch';
 import useParams from '@/composables/useParams';
 import useUserBunchList from '@/composables/useUserBunchList';

@@ -16,15 +16,12 @@
 </template>
 
 <script setup lang="ts">
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import urls from '@/urls';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import TableListRow from '@/components/Common/TableList/TableListRow.vue';
 import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-import WinningsText from '@/components/Common/WinningsText.vue';
-import WinrateText from '@/components/Common/WinrateText.vue';
-import CurrencyText from '@/components/Common/CurrencyText.vue';
-import DurationText from '@/components/Common/DurationText.vue';
+import { CurrencyText, DurationText, WinningsText, WinrateText } from '@/components/Common';
 import { computed } from 'vue';
 import { Localization } from '@/models/Localization';
 

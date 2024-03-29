@@ -12,7 +12,7 @@
 import { CashgamePlayerData } from '@/models/CashgamePlayerData';
 import { CssClasses } from '@/models/CssClasses';
 import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-import WinningsText from '@/components/Common/WinningsText.vue';
+import { WinningsText } from '@/components/Common';
 import { computed } from 'vue';
 
 const props = defineProps<{

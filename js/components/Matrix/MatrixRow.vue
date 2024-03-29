@@ -14,10 +14,10 @@
 <script setup lang="ts">
 import urls from '@/urls';
 import MatrixItem from './MatrixItem.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import TableListRow from '@/components/Common/TableList/TableListRow.vue';
 import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-import WinningsText from '@/components/Common/WinningsText.vue';
+import { WinningsText } from '@/components/Common';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { computed } from 'vue';
 import { Localization } from '@/models/Localization';

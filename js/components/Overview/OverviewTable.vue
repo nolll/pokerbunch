@@ -28,7 +28,7 @@
 <script setup lang="ts">
 import urls from '@/urls';
 import OverviewRow from '@/components/Overview/OverviewRow.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import TableList from '@/components/Common/TableList/TableList.vue';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 import { computed } from 'vue';

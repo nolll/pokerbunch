@@ -28,11 +28,7 @@
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-import Block from '@/components/Common/Block.vue';
-import CustomButton from '@/components/Common/CustomButton.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
-import ErrorMessage from '@/components/Common/ErrorMessage.vue';
+import { Block, CustomButton, PageHeading, PageSection, ErrorMessage } from '@/components/Common';
 import urls from '@/urls';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';

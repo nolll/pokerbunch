@@ -8,7 +8,7 @@
 <script setup lang="ts">
 import { debounce } from 'ts-debounce';
 import { GoogleCharts } from 'google-charts';
-import LoadingSpinner from '@/components/Common/LoadingSpinner.vue';
+import { LoadingSpinner } from '@/components/Common';
 import { ChartData } from '@/models/ChartData';
 import { ChartOptions } from '@/models/ChartOptions';
 import { computed, nextTick, onMounted, ref, watch } from 'vue';

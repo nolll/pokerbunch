@@ -29,10 +29,7 @@
 
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
-import Block from '@/components/Common/Block.vue';
-import CustomButton from '@/components/Common/CustomButton.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
+import { Block, CustomButton, PageHeading, PageSection } from '@/components/Common';
 import urls from '@/urls';
 import api from '@/api';
 import { ApiError } from '@/models/ApiError';

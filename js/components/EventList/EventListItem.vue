@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import urls from '@/urls';
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import { EventResponse } from '@/response/EventResponse';
 import { computed } from 'vue';
 

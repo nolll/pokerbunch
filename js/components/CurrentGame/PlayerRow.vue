@@ -42,12 +42,10 @@
 </template>
 
 <script setup lang="ts">
-import CustomLink from '@/components/Common/CustomLink.vue';
 import PlayerAction from './PlayerAction.vue';
 import urls from '@/urls';
 import CashgameActionChart from '@/components/CashgameActionChart.vue';
-import CurrencyText from '@/components/Common/CurrencyText.vue';
-import WinningsText from '@/components/Common/WinningsText.vue';
+import { CurrencyText, CustomLink, WinningsText } from '@/components/Common';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
 import { CashedOutIcon, InlineIcon, TimeIcon } from '../Icons';

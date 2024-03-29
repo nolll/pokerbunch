@@ -18,8 +18,7 @@
 import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
 import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
 import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
-import DurationText from '@/components/Common/DurationText.vue';
-import CurrencyText from '@/components/Common/CurrencyText.vue';
+import { CurrencyText, DurationText } from '@/components/Common';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import { OverallFactCollection } from '@/models/OverallFactCollection';
 import { computed } from 'vue';

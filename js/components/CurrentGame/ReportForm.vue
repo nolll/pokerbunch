@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import validate from '@/validate';
 import forms from '@/forms';
-import CustomButton from '@/components/Common/CustomButton.vue';
+import { CustomButton } from '@/components/Common';
 import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps<{

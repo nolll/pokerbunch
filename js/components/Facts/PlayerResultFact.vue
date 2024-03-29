@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
-import WinningsText from '@/components/Common/WinningsText.vue';
+import { WinningsText } from '@/components/Common';
 import { Localization } from '@/models/Localization';
 
 defineProps<{

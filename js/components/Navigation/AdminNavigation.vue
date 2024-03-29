@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
 import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
 import urls from '@/urls';

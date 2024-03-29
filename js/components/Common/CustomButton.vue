@@ -4,7 +4,7 @@
 </template>
 
 <script setup lang="ts">
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import { ButtonType } from '@/models/ButtonType';
 import { CssClasses } from '@/models/CssClasses';
 import { computed } from 'vue';

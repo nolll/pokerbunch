@@ -16,9 +16,7 @@
 
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
+import { Block, PageHeading, PageSection } from '@/components/Common';
 import UserList from '@/components/UserList/UserList.vue';
 import { computed } from 'vue';
 import useUserList from '@/composables/useUserList';

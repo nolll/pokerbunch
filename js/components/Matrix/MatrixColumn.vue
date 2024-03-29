@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
 import urls from '@/urls';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';

@@ -17,10 +17,8 @@
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
-import { computed, onMounted } from 'vue';
+import { Block, PageHeading, PageSection } from '@/components/Common';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import useParams from '@/composables/useParams';
 import useLocationList from '@/composables/useLocationList';

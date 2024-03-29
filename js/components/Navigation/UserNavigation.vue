@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import urls from '@/urls';
 import auth from '@/auth';
 import { computed } from 'vue';

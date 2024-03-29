@@ -13,12 +13,11 @@
 
 <script setup lang="ts">
 import YearMatrixItem from './YearMatrixItem.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink, WinningsText } from '@/components/Common';
 import urls from '@/urls';
 import { CashgamePlayerYearlyResultCollection } from '@/models/CashgamePlayerYearlyResultCollection';
 import TableListRow from '@/components/Common/TableList/TableListRow.vue';
 import TableListCell from '@/components/Common/TableList/TableListCell.vue';
-import WinningsText from '@/components/Common/WinningsText.vue';
 import { computed } from 'vue';
 import { Localization } from '@/models/Localization';
 

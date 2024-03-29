@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import urls from '@/urls';
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink } from '@/components/Common';
 import { LocationResponse } from '@/response/LocationResponse';
 import { computed } from 'vue';
 

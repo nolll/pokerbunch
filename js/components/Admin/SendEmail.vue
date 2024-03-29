@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import api from '@/api';
-import CustomButton from '@/components/Common/CustomButton.vue';
+import { CustomButton } from '@/components/Common';
 import { MessageResponse } from '@/response/MessageResponse';
 import { useMutation } from '@tanstack/vue-query';
 import { computed, ref } from 'vue';

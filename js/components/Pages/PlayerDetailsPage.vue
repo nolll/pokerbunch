@@ -98,16 +98,10 @@
 import urls from '@/urls';
 import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
-import CustomButton from '@/components/Common/CustomButton.vue';
+import { Block, CustomButton, DurationText, ErrorMessage, PageHeading, PageSection, WinningsText } from '@/components/Common';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';
 import ValueListKey from '@/components/Common/ValueList/ValueListKey.vue';
 import ValueListValue from '@/components/Common/ValueList/ValueListValue.vue';
-import WinningsText from '@/components/Common/WinningsText.vue';
-import DurationText from '@/components/Common/DurationText.vue';
-import ErrorMessage from '@/components/Common/ErrorMessage.vue';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { User } from '@/models/User';

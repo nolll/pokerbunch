@@ -14,10 +14,7 @@
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
 import LoginForm from '@/components/LoginForm.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
+import { Block, CustomLink, PageHeading, PageSection } from '@/components/Common';
 import urls from '@/urls';
 import { computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';

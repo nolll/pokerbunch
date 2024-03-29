@@ -48,12 +48,7 @@
 import urls from '@/urls';
 import api from '@/api';
 import { Layout } from '@/components/Layouts';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
-import CustomButton from '@/components/Common/CustomButton.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
-import ErrorMessage from '@/components/Common/ErrorMessage.vue';
+import { Block, CustomButton, CustomLink, ErrorMessage, PageHeading, PageSection } from '@/components/Common';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsAddBunch } from '@/models/ApiParamsAddBunch';

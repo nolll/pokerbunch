@@ -35,10 +35,7 @@
 import urls from '@/urls';
 import api from '@/api';
 import { Layout } from '@/components/Layouts';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
-import CustomButton from '@/components/Common/CustomButton.vue';
+import { Block, CustomButton, PageHeading, PageSection } from '@/components/Common';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { ApiParamsResetPassword } from '@/models/ApiParamsResetPassword';

@@ -80,11 +80,7 @@
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-import Block from '@/components/Common/Block.vue';
-import PageHeading from '@/components/Common/PageHeading.vue';
-import PageSection from '@/components/Common/PageSection.vue';
-import CustomButton from '@/components/Common/CustomButton.vue';
-import ErrorMessage from '@/components/Common/ErrorMessage.vue';
+import { Block, CustomButton, PageHeading, PageSection, ErrorMessage } from '@/components/Common';
 import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
 import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
 import ValueList from '@/components/Common/ValueList/ValueList.vue';

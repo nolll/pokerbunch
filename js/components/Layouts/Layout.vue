@@ -27,9 +27,7 @@
 
 <script setup lang="ts">
 import UserNavigation from '@/components/Navigation/UserNavigation.vue';
-import PageSection from '@/components/Common/PageSection.vue';
-import LoadingSpinner from '@/components/Common/LoadingSpinner.vue';
-import CustomLink from '@/components/Common/CustomLink.vue';
+import { CustomLink, LoadingSpinner, PageSection } from '@/components/Common';
 import urls from '@/urls';
 import { computed, useSlots, watch } from 'vue';
 import { CssClasses } from '@/models/CssClasses';
