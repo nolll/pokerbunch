@@ -22,8 +22,7 @@
 
 <script setup lang="ts">
 import GameListRow from './GameListRow.vue';
-import TableList from '@/components/Common/TableList/TableList.vue';
-import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+import { TableList, TableListColumnHeader } from '@/components/Common/TableList';
 import { computed, ref } from 'vue';
 import { BunchResponse } from '@/response/BunchResponse';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';

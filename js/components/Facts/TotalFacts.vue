@@ -28,8 +28,7 @@
 import PlayerResultFact from './PlayerResultFact.vue';
 import PlayerAmountFact from './PlayerAmountFact.vue';
 import PlayerTimeFact from './PlayerTimeFact.vue';
-import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
-import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
+import { DefinitionList, DefinitionTerm } from '@/components/Common/DefinitionList';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { TotalFactCollection } from '@/models/TotalFactCollection';
 import { computed } from 'vue';

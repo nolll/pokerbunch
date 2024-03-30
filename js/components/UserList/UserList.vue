@@ -7,8 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
-import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
+import { SimpleList, SimpleListItem } from '@/components/Common/SimpleList';
 import UserListItem from '@/components/UserList/UserListItem.vue';
 import { User } from '@/models/User';
 

@@ -19,8 +19,7 @@
 import { CustomLink } from '@/components/Common';
 import urls from '@/urls';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
-import TableListRow from '@/components/Common/TableList/TableListRow.vue';
-import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+import { TableListCell, TableListRow } from '@/components/Common/TableList';
 import { CurrencyText, DurationText, WinningsText, WinrateText } from '@/components/Common';
 import { computed } from 'vue';
 import { Localization } from '@/models/Localization';

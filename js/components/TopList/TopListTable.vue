@@ -22,8 +22,7 @@
 
 <script setup lang="ts">
 import TopListRow from './TopListRow.vue';
-import TableList from '@/components/Common/TableList/TableList.vue';
-import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+import { TableList, TableListColumnHeader } from '@/components/Common/TableList';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import playerSorter from '@/PlayerSorter';
 import archiveHelper from '@/ArchiveHelper';

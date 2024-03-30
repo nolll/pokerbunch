@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
+import { DefinitionData } from '@/components/Common/DefinitionList';
 import { DurationText } from '@/components/Common';
 
 defineProps<{

@@ -26,8 +26,7 @@
 <script setup lang="ts">
 import MatrixColumn from './MatrixColumn.vue';
 import MatrixRow from './MatrixRow.vue';
-import TableList from '@/components/Common/TableList/TableList.vue';
-import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+import { TableList, TableListColumnHeader } from '@/components/Common/TableList';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import archiveHelper from '@/ArchiveHelper';
 import playerSorter from '@/PlayerSorter';

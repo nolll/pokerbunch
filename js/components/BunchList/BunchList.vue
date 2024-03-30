@@ -7,8 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
-import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
+import { SimpleList, SimpleListItem } from '@/components/Common/SimpleList';
 import BunchListItem from '@/components/BunchList/BunchListItem.vue';
 import { BunchResponse } from '@/response/BunchResponse';
 

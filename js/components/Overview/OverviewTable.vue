@@ -29,8 +29,7 @@
 import urls from '@/urls';
 import OverviewRow from '@/components/Overview/OverviewRow.vue';
 import { CustomLink } from '@/components/Common';
-import TableList from '@/components/Common/TableList/TableList.vue';
-import TableListColumnHeader from '@/components/Common/TableList/TableListColumnHeader.vue';
+import { TableList, TableListColumnHeader } from '@/components/Common/TableList';
 import { computed } from 'vue';
 import useParams from '@/composables/useParams';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';

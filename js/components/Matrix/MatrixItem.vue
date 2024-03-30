@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { CashgamePlayerData } from '@/models/CashgamePlayerData';
 import { CssClasses } from '@/models/CssClasses';
-import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+import { TableListCell } from '@/components/Common/TableList';
 import { WinningsText } from '@/components/Common';
 import { computed } from 'vue';
 

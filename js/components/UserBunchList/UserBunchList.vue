@@ -10,8 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import SimpleList from '@/components/Common/SimpleList/SimpleList.vue';
-import SimpleListItem from '@/components/Common/SimpleList/SimpleListItem.vue';
+import { SimpleList, SimpleListItem } from '@/components/Common/SimpleList';
 import { computed } from 'vue';
 import UserBunchListItem from './UserBunchListItem.vue';
 import { BunchResponse } from '@/response/BunchResponse';

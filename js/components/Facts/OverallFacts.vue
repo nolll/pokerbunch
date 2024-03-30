@@ -15,9 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
-import DefinitionData from '@/components/DefinitionList/DefinitionData.vue';
-import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
+import { DefinitionList, DefinitionData, DefinitionTerm } from '@/components/Common/DefinitionList';
 import { CurrencyText, DurationText } from '@/components/Common';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import { OverallFactCollection } from '@/models/OverallFactCollection';

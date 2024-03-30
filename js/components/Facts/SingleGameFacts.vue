@@ -18,8 +18,7 @@
 //BiggestComeback
 
 import PlayerResultFact from './PlayerResultFact.vue';
-import DefinitionList from '@/components/DefinitionList/DefinitionList.vue';
-import DefinitionTerm from '@/components/DefinitionList/DefinitionTerm.vue';
+import { DefinitionList, DefinitionTerm } from '@/components/Common/DefinitionList';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { SingleGameFactCollection } from '@/models/SingleGameFactCollection';
 import { PlayerWinningsFact } from '@/models/PlayerWinningsFact';

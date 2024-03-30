@@ -15,8 +15,7 @@
 import urls from '@/urls';
 import MatrixItem from './MatrixItem.vue';
 import { CustomLink } from '@/components/Common';
-import TableListRow from '@/components/Common/TableList/TableListRow.vue';
-import TableListCell from '@/components/Common/TableList/TableListCell.vue';
+import { TableListCell, TableListRow } from '@/components/Common/TableList';
 import { WinningsText } from '@/components/Common';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { computed } from 'vue';
