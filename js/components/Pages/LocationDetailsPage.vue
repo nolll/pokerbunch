@@ -20,8 +20,7 @@ import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import useParams from '@/composables/useParams';
-import useLocationList from '@/composables/useLocationList';
+import { useParams, useLocationList } from '@/composables';
 
 const { slug } = useParams();
 const route = useRoute();

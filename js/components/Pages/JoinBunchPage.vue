@@ -36,8 +36,7 @@ import { ApiError } from '@/models/ApiError';
 import { AxiosError } from 'axios';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import useParams from '@/composables/useParams';
-import useBunch from '@/composables/useBunch';
+import { useParams, useBunch } from '@/composables';
 import { useMutation } from '@tanstack/vue-query';
 import { MessageResponse } from '@/response/MessageResponse';
 

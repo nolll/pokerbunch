@@ -32,8 +32,7 @@ import EventList from '@/components/EventList/EventList.vue';
 import { Block, CustomButton, PageHeading, PageSection } from '@/components/Common';
 import urls from '@/urls';
 import { computed } from 'vue';
-import useParams from '@/composables/useParams';
-import useEventList from '@/composables/useEventList';
+import { useParams, useEventList } from '@/composables';
 
 const { slug } = useParams();
 const { events, eventsReady } = useEventList(slug.value);

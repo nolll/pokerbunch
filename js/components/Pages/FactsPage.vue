@@ -43,9 +43,7 @@ import TotalFacts from '@/components/Facts/TotalFacts.vue';
 import OverallFacts from '@/components/Facts/OverallFacts.vue';
 import { Block, PageSection } from '@/components/Common';
 import { computed } from 'vue';
-import useGameList from '@/composables/useGameList';
-import useParams from '@/composables/useParams';
-import useBunch from '@/composables/useBunch';
+import { useGameList, useParams, useBunch } from '@/composables';
 
 const { slug, year } = useParams();
 const { localization, bunchReady } = useBunch(slug.value);

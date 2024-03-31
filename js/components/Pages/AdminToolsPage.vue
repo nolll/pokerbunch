@@ -28,7 +28,7 @@ import { Block, PageHeading, PageSection } from '@/components/Common';
 import SendEmail from '@/components/Admin/SendEmail.vue';
 import ClearCache from '@/components/Admin/ClearCache.vue';
 import { computed } from 'vue';
-import useCurrentUser from '@/composables/useCurrentUser';
+import { useCurrentUser } from '@/composables';
 
 const { isAdmin, currentUserReady } = useCurrentUser();
 

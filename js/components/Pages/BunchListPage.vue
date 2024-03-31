@@ -19,8 +19,7 @@ import { Layout } from '@/components/Layouts';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import BunchList from '@/components/BunchList/BunchList.vue';
 import { computed } from 'vue';
-import useBunchList from '@/composables/useBunchList';
-import useCurrentUser from '@/composables/useCurrentUser';
+import { useBunchList, useCurrentUser } from '@/composables';
 
 const { bunches, bunchesReady } = useBunchList();
 const { isAdmin, currentUserReady } = useCurrentUser();

@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import useTimezones from '@/composables/useTimezones';
+import { useTimezones } from '@/composables';
 import { computed } from 'vue';
 
 defineProps<{

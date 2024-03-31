@@ -32,7 +32,7 @@ import { Block, CustomButton, PageHeading, PageSection, ErrorMessage } from '@/c
 import urls from '@/urls';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-import useParams from '@/composables/useParams';
+import { useParams } from '@/composables';
 import api from '@/api';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { playerListKey } from '@/queries/queryKeys';

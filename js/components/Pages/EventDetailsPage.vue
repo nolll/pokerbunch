@@ -23,10 +23,7 @@ import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
 import { computed } from 'vue';
-import useParams from '@/composables/useParams';
-import useBunch from '@/composables/useBunch';
-import useEventList from '@/composables/useEventList';
-import useEventGameList from '@/composables/useEventGameList';
+import { useParams, useBunch, useEventList, useEventGameList } from '@/composables';
 
 const { slug, eventId } = useParams();
 const { getEvent, eventsReady } = useEventList(slug.value);

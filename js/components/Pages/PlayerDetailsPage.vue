@@ -104,13 +104,9 @@ import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import usePlayerList from '@/composables/usePlayerList';
-import useGameList from '@/composables/useGameList';
-import useParams from '@/composables/useParams';
-import useBunch from '@/composables/useBunch';
+import { usePlayerList, useGameList, useParams, useBunch, useUser } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { playerListKey } from '@/queries/queryKeys';
-import useUser from '@/composables/useUser';
 
 const { slug, playerId } = useParams();
 const router = useRouter();

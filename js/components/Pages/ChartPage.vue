@@ -27,8 +27,7 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import CashgameChart from '@/components/CashgameChart.vue';
 import { Block, PageSection } from '@/components/Common';
 import { computed } from 'vue';
-import useParams from '@/composables/useParams';
-import useGameList from '@/composables/useGameList';
+import { useParams, useGameList } from '@/composables';
 
 const { slug, year } = useParams();
 const { getSelectedGames, gamesReady } = useGameList(slug.value);

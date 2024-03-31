@@ -22,9 +22,7 @@
 
 <script setup lang="ts">
 import { CustomLink } from '@/components/Common';
-import useBunch from '@/composables/useBunch';
-import useParams from '@/composables/useParams';
-import useUserBunchList from '@/composables/useUserBunchList';
+import { useBunch, useParams, useUserBunchList } from '@/composables';
 import urls from '@/urls';
 import { computed } from 'vue';
 

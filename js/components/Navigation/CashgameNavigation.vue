@@ -26,8 +26,7 @@ import YearDropdown from '@/components/YearDropdown.vue';
 import urls from '@/urls';
 import { computed, onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import useGameList from '@/composables/useGameList';
-import useParams from '@/composables/useParams';
+import { useGameList, useParams } from '@/composables';
 
 const props = defineProps<{
   page: CashgamePage;

@@ -34,7 +34,7 @@ import urls from '@/urls';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
-import useParams from '@/composables/useParams';
+import { useParams } from '@/composables';
 import api from '@/api';
 import { locationListKey } from '@/queries/queryKeys';
 

@@ -38,8 +38,7 @@ import { ApiError } from '@/models/ApiError';
 import LocationDropdown from '@/components/LocationDropdown.vue';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import useLocationList from '@/composables/useLocationList';
-import useParams from '@/composables/useParams';
+import { useLocationList, useParams } from '@/composables';
 import { useMutation } from '@tanstack/vue-query';
 import { DetailedCashgameResponse } from '@/response/DetailedCashgameResponse';
 

@@ -43,14 +43,11 @@ import OverviewStatus from '@/components/Overview/OverviewStatus.vue';
 import YearMatrixTable from '@/components/YearMatrix/YearMatrixTable.vue';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import { computed } from 'vue';
-import useParams from '@/composables/useParams';
-import useBunch from '@/composables/useBunch';
-import useGameList from '@/composables/useGameList';
+import { useParams, useBunch, useGameList, useCurrentGameList } from '@/composables';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import archiveHelper from '@/ArchiveHelper';
 import gameSorter from '@/GameSorter';
 import { CashgameSortOrder } from '@/models/CashgameSortOrder';
-import useCurrentGameList from '@/composables/useCurrentGameList';
 
 const { slug } = useParams();
 const { bunch, localization, bunchReady } = useBunch(slug.value);

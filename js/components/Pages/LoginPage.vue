@@ -18,7 +18,7 @@ import { Block, CustomLink, PageHeading, PageSection } from '@/components/Common
 import urls from '@/urls';
 import { computed, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import useCurrentUser from '@/composables/useCurrentUser';
+import { useCurrentUser } from '@/composables';
 
 const router = useRouter();
 

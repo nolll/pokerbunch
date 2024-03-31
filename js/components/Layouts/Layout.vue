@@ -32,7 +32,7 @@ import urls from '@/urls';
 import { computed, useSlots, watch } from 'vue';
 import { CssClasses } from '@/models/CssClasses';
 import { useRoute } from 'vue-router';
-import useCurrentUser from '@/composables/useCurrentUser';
+import { useCurrentUser } from '@/composables';
 
 const route = useRoute();
 const props = defineProps<{

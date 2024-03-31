@@ -54,7 +54,7 @@ import { ApiError } from '@/models/ApiError';
 import { ApiParamsAddBunch } from '@/models/ApiParamsAddBunch';
 import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
 import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
-import useTimezones from '@/composables/useTimezones';
+import { useTimezones } from '@/composables';
 import { computed, ref } from 'vue';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { bunchListKey, userBunchListKey } from '@/queries/queryKeys';

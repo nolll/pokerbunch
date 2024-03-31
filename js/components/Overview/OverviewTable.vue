@@ -31,7 +31,7 @@ import OverviewRow from '@/components/Overview/OverviewRow.vue';
 import { CustomLink } from '@/components/Common';
 import { TableList, TableListColumnHeader } from '@/components/Common/TableList';
 import { computed } from 'vue';
-import useParams from '@/composables/useParams';
+import { useParams } from '@/composables';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import archiveHelper from '@/ArchiveHelper';
 import playerSorter from '@/PlayerSorter';

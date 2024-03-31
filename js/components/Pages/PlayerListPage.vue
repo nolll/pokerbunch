@@ -33,8 +33,7 @@ import PlayerList from '@/components/PlayerList/PlayerList.vue';
 import { Block, CustomButton, PageHeading, PageSection } from '@/components/Common';
 import urls from '@/urls';
 import { computed } from 'vue';
-import useParams from '@/composables/useParams';
-import usePlayerList from '@/composables/usePlayerList';
+import { useParams, usePlayerList } from '@/composables';
 
 const { slug } = useParams();
 const { players, playersReady } = usePlayerList(slug.value);

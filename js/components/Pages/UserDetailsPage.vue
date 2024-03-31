@@ -60,9 +60,7 @@ import { Block, CustomButton, ErrorMessage, PageHeading, PageSection } from '@/c
 import { User } from '@/models/User';
 import { ValueList, ValueListKey, ValueListValue } from '@/components/Common/ValueList';
 import { computed, onMounted, ref, watch } from 'vue';
-import useParams from '@/composables/useParams';
-import useUser from '@/composables/useUser';
-import useCurrentUser from '@/composables/useCurrentUser';
+import { useParams, useUser, useCurrentUser } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { userKey, userListKey } from '@/queries/queryKeys';
 

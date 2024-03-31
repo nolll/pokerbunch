@@ -87,8 +87,7 @@ import { ValueList, ValueListKey, ValueListValue } from '@/components/Common/Val
 import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, ref } from 'vue';
-import useBunch from '@/composables/useBunch';
-import useParams from '@/composables/useParams';
+import { useBunch, useParams } from '@/composables';
 import format from '@/format';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { bunchKey, bunchListKey, userBunchListKey } from '@/queries/queryKeys';

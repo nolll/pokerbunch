@@ -33,8 +33,7 @@ import LocationList from '@/components/LocationList/LocationList.vue';
 import { Block, CustomButton, PageHeading, PageSection } from '@/components/Common';
 import urls from '@/urls';
 import { computed } from 'vue';
-import useLocationList from '@/composables/useLocationList';
-import useParams from '@/composables/useParams';
+import { useLocationList, useParams } from '@/composables';
 
 const { slug } = useParams();
 const { locations, locationsReady } = useLocationList(slug.value);

@@ -61,8 +61,7 @@ import urls from '@/urls';
 import { Block, CustomLink, PageHeading, PageSection } from '@/components/Common';
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed } from 'vue';
-import useUserBunchList from '@/composables/useUserBunchList';
-import useCurrentUser from '@/composables/useCurrentUser';
+import { useUserBunchList, useCurrentUser } from '@/composables';
 
 const { isSignedIn, isAdmin, currentUserReady } = useCurrentUser();
 const { userBunchesReady, userBunches } = useUserBunchList(isSignedIn.value);

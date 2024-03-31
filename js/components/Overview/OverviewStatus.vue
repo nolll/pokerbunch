@@ -14,7 +14,7 @@
 import urls from '@/urls';
 import { computed } from 'vue';
 import { Block, CustomButton } from '../Common';
-import useParams from '@/composables/useParams';
+import { useParams } from '@/composables';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
 
 const props = defineProps<{

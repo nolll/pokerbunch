@@ -30,7 +30,7 @@ import { CustomLink } from '@/components/Common';
 import urls from '@/urls';
 import auth from '@/auth';
 import { computed } from 'vue';
-import useCurrentUser from '@/composables/useCurrentUser';
+import { useCurrentUser } from '@/composables';
 
 const { isSignedIn, currentUser, currentUserReady } = useCurrentUser();
 

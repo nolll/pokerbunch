@@ -24,9 +24,7 @@ import CashgameNavigation from '@/components/Navigation/CashgameNavigation.vue';
 import GameListTable from '@/components/GameList/GameListTable.vue';
 import { Block, PageSection } from '@/components/Common';
 import { computed } from 'vue';
-import useParams from '@/composables/useParams';
-import useBunch from '@/composables/useBunch';
-import useGameList from '@/composables/useGameList';
+import { useParams, useBunch, useGameList } from '@/composables';
 
 const { slug, year } = useParams();
 const { bunch, localization, bunchReady } = useBunch(slug.value);

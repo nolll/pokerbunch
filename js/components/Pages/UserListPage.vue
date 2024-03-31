@@ -19,8 +19,7 @@ import { Layout } from '@/components/Layouts';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import UserList from '@/components/UserList/UserList.vue';
 import { computed } from 'vue';
-import useUserList from '@/composables/useUserList';
-import useCurrentUser from '@/composables/useCurrentUser';
+import { useUserList, useCurrentUser } from '@/composables';
 
 const { users, usersReady } = useUserList();
 const { isAdmin, currentUserReady } = useCurrentUser();
