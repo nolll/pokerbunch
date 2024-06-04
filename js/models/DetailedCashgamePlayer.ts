@@ -60,6 +60,18 @@ export class DetailedCashgamePlayer {
   }
 
   public hasCashedOut() {
-    return !!this.actions.find((a) => a.type === DetailedCashgameResponseActionType.Cashout);
+    return this.cashouts().length > 0;
+  }
+
+  public buyins() {
+    return this.actions.filter((o) => o.type === DetailedCashgameResponseActionType.Buyin);
+  }
+
+  public reports() {
+    return this.actions.filter((o) => o.type === DetailedCashgameResponseActionType.Report);
+  }
+
+  public cashouts() {
+    return this.actions.filter((o) => o.type === DetailedCashgameResponseActionType.Cashout);
   }
 }

@@ -22,15 +22,15 @@
             </GameButton>
           </Block>
           <Block>
-            <ReportForm v-show="reportFormVisible" :defaultBuyin="defaultBuyin" @report="report" @cancel="hideForms" />
+            <ReportForm v-if="reportFormVisible" :suggestedReport="suggestedReport" @report="report" @cancel="hideForms" />
             <BuyinForm
-              v-show="buyinFormVisible"
-              :defaultBuyin="defaultBuyin"
+              v-if="buyinFormVisible"
+              :suggestedBuyin="suggestedBuyin"
               @buyin="buyin"
               @cancel="hideForms"
               :isPlayerInGame="isInGame"
             />
-            <CashoutForm v-show="cashoutFormVisible" :defaultBuyin="defaultBuyin" @cashout="cashout" @cancel="hideForms" />
+            <CashoutForm v-if="cashoutFormVisible" :suggestedCashout="suggestedCashout" @cashout="cashout" @cancel="hideForms" />
           </Block>
           <Block v-if="hasPlayers">
             <div class="standings">
@@ -123,6 +123,7 @@ import { useParams, useLocationList, useBunch, usePlayerList, useEventList, useG
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { gameKey, gameListKey } from '@/queries/queryKeys';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
+import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 
 const { slug, cashgameId } = useParams();
 const router = useRouter();
@@ -227,7 +228,7 @@ const locationUrl = computed(() => {
 });
 
 const isPartOfEvent = computed(() => {
-  return !!cashgame.value?.event;
+  return Boolean(cashgame.value?.event);
 });
 
 const eventName = computed(() => {
@@ -246,11 +247,9 @@ const canEdit = computed((): boolean => {
   return isManager.value;
 });
 
-// todo: I think I've found the bug with the sorted players. SortedPlayers is not used
 const playersInGame = computed((): DetailedCashgamePlayer[] => {
   if (!cashgame.value) return [];
-  const sortedPlayers = cashgame.value.players.slice().sort((left, right) => right.getWinnings() - left.getWinnings());
-  return cashgame.value.players;
+  return cashgame.value.players.slice().sort((left, right) => right.getWinnings() - left.getWinnings());
 });
 
 const allPlayers = computed(() => {
@@ -258,11 +257,37 @@ const allPlayers = computed(() => {
 });
 
 const hasPlayers = computed(() => {
-  return !!playersInGame.value.length;
+  return Boolean(playersInGame.value.length);
 });
 
-const defaultBuyin = computed(() => {
-  return bunch.value.defaultBuyin;
+const suggestedBuyin = computed(() => {
+  var p = playerInGame.value;
+  if (p === null) return bunch.value.defaultBuyin;
+
+  var buyins = p.buyins();
+  if (buyins.length === 0) return bunch.value.defaultBuyin;
+
+  return buyins[buyins.length - 1].added ?? 0;
+});
+
+const suggestedReport = computed(() => {
+  var p = playerInGame.value;
+  if (p === null) return 0;
+
+  var reports = p.reports();
+  if (reports.length === 0) return suggestedBuyin.value;
+
+  return reports[reports.length - 1].stack;
+});
+
+const suggestedCashout = computed(() => {
+  var p = playerInGame.value;
+  if (p === null) return 0;
+
+  var cashouts = p.cashouts();
+  if (cashouts.length === 0) return suggestedReport.value;
+
+  return cashouts[cashouts.length - 1].stack;
 });
 
 const playerInGame = computed(() => {

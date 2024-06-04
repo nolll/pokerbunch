@@ -26,7 +26,7 @@ import { CustomButton } from '@/components/Common';
 import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps<{
-  defaultBuyin: number;
+  suggestedReport: number;
 }>();
 
 const emit = defineEmits(['report', 'cancel']);
@@ -66,6 +66,6 @@ const clearErrors = () => {
 };
 
 onMounted(() => {
-  strStack.value = props.defaultBuyin.toString();
+  strStack.value = props.suggestedReport.toString();
 });
 </script>

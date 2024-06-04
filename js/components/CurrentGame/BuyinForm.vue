@@ -16,7 +16,7 @@
       <label class="label" for="buyin-stack">Stack Size</label>
       <input
         class="numberfield"
-        v-model="strStack"
+        :bind="suggestedBuyin"
         v-on:focus="focus"
         id="buyin-stack"
         type="text"
@@ -38,7 +38,7 @@ import { CustomButton } from '@/components/Common';
 import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps<{
-  defaultBuyin: number;
+  suggestedBuyin: number;
   isPlayerInGame: boolean;
 }>();
 
@@ -88,6 +88,6 @@ const clearErrors = () => {
 };
 
 onMounted(() => {
-  strAmount.value = props.defaultBuyin.toString();
+  strAmount.value = props.suggestedBuyin.toString();
 });
 </script>
