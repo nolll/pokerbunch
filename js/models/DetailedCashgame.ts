@@ -20,8 +20,8 @@ export class DetailedCashgame {
     this.location = DetailedCashgameLocation.fromResponse(response.location);
     this.startTime = dayjs(response.startTime).toDate();
     this.updatedTime = dayjs(response.updatedTime).toDate();
-    (this.players = response.players.map((o) => DetailedCashgamePlayer.fromResponse(o))),
-      (this.event = !!response.event ? DetailedCashgameEvent.fromResponse(response.event) : null);
+    this.players = response.players.map((o) => DetailedCashgamePlayer.fromResponse(o));
+    this.event = !!response.event ? DetailedCashgameEvent.fromResponse(response.event) : null;
   }
 
   public get isRunning() {
