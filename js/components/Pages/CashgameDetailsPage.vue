@@ -178,11 +178,11 @@ const showDuration = computed(() => {
 });
 
 const isRunning = computed(() => {
-  return !!cashgame.value?.isRunning ?? false;
+  return !!(cashgame.value?.isRunning ?? false);
 });
 
 const isInGame = computed(() => {
-  return !!playerInGame.value ?? false;
+  return !!(playerInGame.value ?? false);
 });
 
 const canReport = computed(() => {
