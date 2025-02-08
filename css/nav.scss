@@ -1,8 +1,8 @@
-@import "mediaqueries";
-@import "mixins";
+@use "mediaqueries";
+@use "mixins";
 
 nav{
-    @include default-font;
+    @include mixins.default-font;
     overflow: hidden;
 
 	ul{
@@ -87,7 +87,7 @@ nav{
 
 .heading-nav {
     ul {
-        @include fontsize(16);
+        @include mixins.fontsize(16);
 		margin-top: 10px;
 		display: flex;
 		justify-content: start;

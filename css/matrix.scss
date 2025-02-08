@@ -1,4 +1,4 @@
-@import "mixins";
+@use "mixins";
 
 .matrix{
     overflow:auto;
@@ -9,7 +9,7 @@
 }
 
 .matrix__transaction{
-	@include fontsize(12);
+	@include mixins.fontsize(12);
     display:block;
 }
 

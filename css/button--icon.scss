@@ -1,17 +1,17 @@
-@import 'mixins';
+@use 'mixins';
 
 .button--icon {
   border: none;
   background: transparent;
   display: inline-block;
-  @include default-font;
-  @include fontsize(10);
+  @include mixins.default-font;
+  @include mixins.fontsize(10);
   padding: 4px 9px;
   text-align: center;
 
   i {
     display: block;
-    @include fontsize(28, 10);
+    @include mixins.fontsize(28, 10);
   }
 }
 

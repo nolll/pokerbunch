@@ -1,4 +1,4 @@
-@import "mediaqueries";
+@use "mediaqueries";
 
 .standings{
 	.totals{
@@ -50,7 +50,7 @@
 
 }
 
-@include widthXSmall {
+@include mediaqueries.widthXSmall {
 	.standings{
 		.amounts{
 			div{

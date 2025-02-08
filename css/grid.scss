@@ -1,4 +1,4 @@
-@import "mediaqueries";
+@use "mediaqueries";
 
 .page-section {
     max-width: 981px;
@@ -15,7 +15,7 @@
 	margin-top: 15px;
 }
 
-@include widthSmall {
+@include mediaqueries.widthSmall {
     .page-section{
         display: flex;
         justify-content: space-between;
