@@ -66,13 +66,8 @@ const repeatPassword = ref('');
 const errorMessage = ref('');
 const userAdded = ref(false);
 
-const hasError = computed(() => {
-  return !!errorMessage.value;
-});
-
-const loginUrl = computed(() => {
-  return urls.auth.login;
-});
+const hasError = computed(() => !!errorMessage.value);
+const loginUrl = computed(() => urls.auth.login);
 
 const save = async () => {
   if (repeatPassword.value !== password.value) {

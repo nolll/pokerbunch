@@ -30,11 +30,6 @@ const { slug, year } = useParams();
 const { bunch, localization, bunchReady } = useBunch(slug.value);
 const { getSelectedGames, gamesReady } = useGameList(slug.value);
 
-const games = computed(() => {
-  return getSelectedGames(year.value);
-});
-
-const ready = computed(() => {
-  return bunchReady.value && gamesReady.value;
-});
+const games = computed(() => getSelectedGames(year.value));
+const ready = computed(() => bunchReady.value && gamesReady.value);
 </script>

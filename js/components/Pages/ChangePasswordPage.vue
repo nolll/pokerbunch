@@ -55,9 +55,7 @@ const repeat = ref('');
 const errorMessage = ref('');
 const passwordWasSaved = ref(false);
 
-const hasError = computed(() => {
-  return !!errorMessage.value;
-});
+const hasError = computed(() => !!errorMessage.value);
 
 const save = async () => {
   errorMessage.value = '';

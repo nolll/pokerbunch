@@ -143,18 +143,9 @@ const eventId = ref<string>();
 const { game: cashgame, gameReady } = useGame(cashgameId.value);
 const queryClient = useQueryClient();
 
-const title = computed(() => {
-  return `Cashgame ${formattedDate.value}`;
-});
-
-const formattedDate = computed(() => {
-  return format.monthDayYear(startTime.value);
-});
-
-const formattedStartTime = computed(() => {
-  return format.hourMinute(startTime.value);
-});
-
+const title = computed(() => `Cashgame ${formattedDate.value}`);
+const formattedDate = computed(() => format.monthDayYear(startTime.value));
+const formattedStartTime = computed(() => format.hourMinute(startTime.value));
 const formattedEndTime = computed(() => {
   if (!cashgame.value) return '';
   return format.hourMinute(cashgame.value.updatedTime);
@@ -165,75 +156,35 @@ const durationMinutes = computed(() => {
   return timeFunctions.diffInMinutes(startTime.value, cashgame.value.updatedTime);
 });
 
-const showStartTime = computed(() => {
-  return hasPlayers.value;
-});
-
-const showEndTime = computed(() => {
-  return isEnded.value;
-});
-
-const showDuration = computed(() => {
-  return isEnded.value;
-});
-
-const isRunning = computed(() => {
-  return !!(cashgame.value?.isRunning ?? false);
-});
-
-const isInGame = computed(() => {
-  return !!(playerInGame.value ?? false);
-});
-
-const canReport = computed(() => {
-  return isInGame.value && !hasCachedOut.value;
-});
-
-const canBuyin = computed(() => {
-  return !hasCachedOut.value;
-});
-
-const canCashout = computed(() => {
-  return isInGame.value;
-});
+const showStartTime = computed(() => hasPlayers.value);
+const showEndTime = computed(() => isEnded.value);
+const showDuration = computed(() => isEnded.value);
+const isRunning = computed(() => !!(cashgame.value?.isRunning ?? false));
+const isInGame = computed(() => !!(playerInGame.value ?? false));
+const canReport = computed(() => isInGame.value && !hasCachedOut.value);
+const canBuyin = computed(() => !hasCachedOut.value);
+const canCashout = computed(() => isInGame.value);
 
 const hasCachedOut = computed(() => {
   if (!playerInGame.value) return false;
   return playerInGame.value.hasCashedOut();
 });
 
-const isEnded = computed(() => {
-  return hasPlayers.value && !isRunning.value;
-});
-
-const areButtonsVisible = computed(() => {
-  return isRunning.value && !isAnyFormVisible.value;
-});
-
-const isAnyFormVisible = computed(() => {
-  return (isRunning.value && reportFormVisible.value) || buyinFormVisible.value || cashoutFormVisible.value;
-});
-
-const isPlayerSelectionEnabled = computed(() => {
-  return isRunning.value && isManager.value && !isEditing.value;
-});
-
-const locationName = computed(() => {
-  return cashgame.value?.location.name || '';
-});
+const isEnded = computed(() => hasPlayers.value && !isRunning.value);
+const areButtonsVisible = computed(() => isRunning.value && !isAnyFormVisible.value);
+const isAnyFormVisible = computed(
+  () => (isRunning.value && reportFormVisible.value) || buyinFormVisible.value || cashoutFormVisible.value
+);
+const isPlayerSelectionEnabled = computed(() => isRunning.value && isManager.value && !isEditing.value);
+const locationName = computed(() => cashgame.value?.location.name || '');
 
 const locationUrl = computed(() => {
   if (!cashgame.value) return '';
   return urls.location.details(slug.value, cashgame.value.location.id);
 });
 
-const isPartOfEvent = computed(() => {
-  return Boolean(cashgame.value?.event);
-});
-
-const eventName = computed(() => {
-  return cashgame.value?.event?.name || '';
-});
+const isPartOfEvent = computed(() => Boolean(cashgame.value?.event));
+const eventName = computed(() => cashgame.value?.event?.name || '');
 
 const eventUrl = computed(() => {
   if (!cashgame.value) return '';
@@ -243,22 +194,15 @@ const eventUrl = computed(() => {
   return urls.event.details(slug.value, cashgame.value.event.id);
 });
 
-const canEdit = computed((): boolean => {
-  return isManager.value;
-});
+const canEdit = computed((): boolean => isManager.value);
 
 const playersInGame = computed((): DetailedCashgamePlayer[] => {
   if (!cashgame.value) return [];
   return cashgame.value.players.slice().sort((left, right) => right.getWinnings() - left.getWinnings());
 });
 
-const allPlayers = computed(() => {
-  return players.value;
-});
-
-const hasPlayers = computed(() => {
-  return Boolean(playersInGame.value.length);
-});
+const allPlayers = computed(() => players.value);
+const hasPlayers = computed(() => Boolean(playersInGame.value.length));
 
 const suggestedBuyin = computed(() => {
   var p = playerInGame.value;
@@ -290,9 +234,7 @@ const suggestedCashout = computed(() => {
   return cashouts[cashouts.length - 1].stack;
 });
 
-const playerInGame = computed(() => {
-  return getPlayerInGame(selectedPlayerId.value);
-});
+const playerInGame = computed(() => getPlayerInGame(selectedPlayerId.value));
 
 const startTime = computed(() => {
   let first;
@@ -312,13 +254,10 @@ const startTime = computed(() => {
   return t.toDate();
 });
 
-const updatedTime = computed(() => {
-  return cashgame.value?.updatedTime || null;
-});
-
-const ready = computed(() => {
-  return bunchReady.value && gameReady.value && playersReady.value && locationsReady.value && eventsReady.value;
-});
+const updatedTime = computed(() => cashgame.value?.updatedTime || null);
+const ready = computed(
+  () => bunchReady.value && gameReady.value && playersReady.value && locationsReady.value && eventsReady.value
+);
 
 const report = async (stack: number) => {
   reportMutation.mutate({ stack });
@@ -475,9 +414,7 @@ const redirect = () => {
   router.push(urls.cashgame.index(slug.value));
 };
 
-const playerId = computed(() => {
-  return bunch.value.player.id;
-});
+const playerId = computed(() => bunch.value.player.id);
 
 watch(cashgame, () => {
   locationId.value = cashgame.value?.location.id || undefined;

@@ -73,13 +73,8 @@ const errorMessage = ref('');
 const bunchAdded = ref(false);
 const savedSlug = ref('');
 
-const hasError = computed(() => {
-  return !!errorMessage.value;
-});
-
-const bunchUrl = computed(() => {
-  return urls.bunch.details(savedSlug.value);
-});
+const hasError = computed(() => !!errorMessage.value);
+const bunchUrl = computed(() => urls.bunch.details(savedSlug.value));
 
 const save = async () => {
   addBunchMutation.mutate();

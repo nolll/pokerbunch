@@ -33,8 +33,5 @@ const { slug, year } = useParams();
 const { getSelectedGames, gamesReady } = useGameList(slug.value);
 
 const games = computed(() => getSelectedGames(year.value));
-
-const ready = computed(() => {
-  return gamesReady.value;
-});
+const ready = computed(() => gamesReady.value);
 </script>

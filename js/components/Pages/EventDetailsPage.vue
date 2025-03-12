@@ -35,11 +35,6 @@ const name = computed(() => {
   return '';
 });
 
-const event = computed(() => {
-  return getEvent(eventId.value);
-});
-
-const ready = computed(() => {
-  return bunchReady.value && eventsReady.value && eventGamesReady.value;
-});
+const event = computed(() => getEvent(eventId.value));
+const ready = computed(() => bunchReady.value && eventsReady.value && eventGamesReady.value);
 </script>

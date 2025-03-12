@@ -63,7 +63,5 @@ const currentYearGames = computed((): ArchiveCashgame[] => {
   return gameSorter.sort(selectedGames, CashgameSortOrder.Date);
 });
 
-const currentYear = computed(() => {
-  return archiveHelper.getCurrentYear(allGames.value);
-});
+const currentYear = computed(() => archiveHelper.getCurrentYear(allGames.value));
 </script>

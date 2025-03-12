@@ -31,15 +31,7 @@ const name = computed(() => {
   return '';
 });
 
-const location = computed(() => {
-  return getLocation(locationId.value);
-});
-
-const locationId = computed(() => {
-  return route.params.id as string;
-});
-
-const ready = computed(() => {
-  return locationsReady.value;
-});
+const location = computed(() => getLocation(locationId.value));
+const locationId = computed(() => route.params.id as string);
+const ready = computed(() => locationsReady.value);
 </script>

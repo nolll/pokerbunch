@@ -71,7 +71,5 @@ const registerUrl = computed(() => urls.user.add);
 const addBunchUrl = computed(() => urls.bunch.add);
 const apiDocsUrl = computed(() => urls.api.docs);
 
-const ready = computed(() => {
-  return currentUserReady.value && userBunchesReady.value;
-});
+const ready = computed(() => currentUserReady.value && userBunchesReady.value);
 </script>

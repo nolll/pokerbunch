@@ -24,7 +24,5 @@ import { useUserList, useCurrentUser } from '@/composables';
 const { users, usersReady } = useUserList();
 const { isAdmin, currentUserReady } = useCurrentUser();
 
-const ready = computed(() => {
-  return currentUserReady.value, usersReady.value;
-});
+const ready = computed(() => (currentUserReady.value, usersReady.value));
 </script>

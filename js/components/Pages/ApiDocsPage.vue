@@ -44,7 +44,5 @@ import { Layout } from '@/components/Layouts';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import { computed } from 'vue';
 
-const swaggerUrl = computed(() => {
-  return `/api/swagger`;
-});
+const swaggerUrl = computed(() => `/api/swagger`);
 </script>

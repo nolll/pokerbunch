@@ -32,7 +32,5 @@ import { useCurrentUser } from '@/composables';
 
 const { isAdmin, currentUserReady } = useCurrentUser();
 
-const ready = computed(() => {
-  return currentUserReady.value;
-});
+const ready = computed(() => currentUserReady.value);
 </script>

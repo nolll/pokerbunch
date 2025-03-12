@@ -18,7 +18,5 @@ import { Layout } from '@/components/Layouts';
 import { Block, CustomLink, PageHeading, PageSection } from '@/components/Common';
 import { computed } from 'vue';
 
-const homeUrl = computed(() => {
-  return urls.home;
-});
+const homeUrl = computed(() => urls.home);
 </script>

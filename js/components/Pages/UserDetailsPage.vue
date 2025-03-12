@@ -75,29 +75,12 @@ const email = ref('');
 const isEditing = ref(false);
 const errorMessage = ref('');
 
-const canEdit = computed(() => {
-  return isAdmin.value || isCurrentUser.value;
-});
-
-const isCurrentUser = computed(() => {
-  return currentUser.value?.userName == user.value?.userName;
-});
-
-const canChangePassword = computed(() => {
-  return isCurrentUser.value;
-});
-
-const ready = computed(() => {
-  return currentUserReady.value && userReady.value;
-});
-
-const avatarUrl = computed(() => {
-  return user.value?.avatar;
-});
-
-const hasError = computed(() => {
-  return !!errorMessage.value;
-});
+const canEdit = computed(() => isAdmin.value || isCurrentUser.value);
+const isCurrentUser = computed(() => currentUser.value?.userName == user.value?.userName);
+const canChangePassword = computed(() => isCurrentUser.value);
+const ready = computed(() => currentUserReady.value && userReady.value);
+const avatarUrl = computed(() => user.value?.avatar);
+const hasError = computed(() => !!errorMessage.value);
 
 const saveMutation = useMutation({
   mutationFn: async () => {

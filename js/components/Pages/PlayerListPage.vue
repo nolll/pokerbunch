@@ -38,11 +38,6 @@ import { useParams, usePlayerList } from '@/composables';
 const { slug } = useParams();
 const { players, playersReady } = usePlayerList(slug.value);
 
-const addPlayerUrl = computed(() => {
-  return urls.player.add(slug.value);
-});
-
-const ready = computed(() => {
-  return playersReady.value;
-});
+const addPlayerUrl = computed(() => urls.player.add(slug.value));
+const ready = computed(() => playersReady.value);
 </script>

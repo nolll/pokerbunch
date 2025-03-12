@@ -47,13 +47,8 @@ const email = ref('');
 const errorMessage = ref('');
 const emailWasSent = ref(false);
 
-const hasError = computed(() => {
-  return !!errorMessage.value;
-});
-
-const loginUrl = computed(() => {
-  return urls.auth.login;
-});
+const hasError = computed(() => !!errorMessage.value);
+const loginUrl = computed(() => urls.auth.login);
 
 const send = async () => {
   errorMessage.value = '';

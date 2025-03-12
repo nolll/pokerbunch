@@ -38,11 +38,6 @@ import { useLocationList, useParams } from '@/composables';
 const { slug } = useParams();
 const { locations, locationsReady } = useLocationList(slug.value);
 
-const addLocationUrl = computed(() => {
-  return urls.location.add(slug.value);
-});
-
-const ready = computed(() => {
-  return locationsReady.value;
-});
+const addLocationUrl = computed(() => urls.location.add(slug.value));
+const ready = computed(() => locationsReady.value);
 </script>

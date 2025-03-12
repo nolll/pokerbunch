@@ -45,7 +45,5 @@ onMounted(() => {
 watch(isSignedIn, redirectIfSignedIn);
 watch(currentUserReady, redirectIfSignedIn);
 
-const ready = computed(() => {
-  return currentUserReady.value;
-});
+const ready = computed(() => currentUserReady.value);
 </script>

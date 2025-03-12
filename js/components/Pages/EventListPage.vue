@@ -37,11 +37,6 @@ import { useParams, useEventList } from '@/composables';
 const { slug } = useParams();
 const { events, eventsReady } = useEventList(slug.value);
 
-const addEventUrl = computed(() => {
-  return urls.event.add(slug.value);
-});
-
-const ready = computed(() => {
-  return eventsReady.value;
-});
+const addEventUrl = computed(() => urls.event.add(slug.value));
+const ready = computed(() => eventsReady.value);
 </script>

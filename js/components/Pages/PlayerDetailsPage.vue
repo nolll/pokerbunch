@@ -120,35 +120,20 @@ const inviteEmail = ref('');
 const invitationSent = ref(false);
 const errorMessage = ref('');
 
-const hasUser = computed(() => {
-  return Boolean(tryGetPlayer(playerId.value)?.userId);
-});
-
-const player = computed(() => {
-  return getPlayer(playerId.value);
-});
+const hasUser = computed(() => Boolean(tryGetPlayer(playerId.value)?.userId));
+const player = computed(() => getPlayer(playerId.value));
 
 const { user, userReady } = useUser(player.value.userName ?? '', hasUser.value);
 
-const playerName = computed(() => {
-  return player.value.name;
-});
-
-const inviteUrl = computed(() => {
-  return urls.player.invite(player.value.id);
-});
+const playerName = computed(() => player.value.name);
+const inviteUrl = computed(() => urls.player.invite(player.value.id));
 
 const userUrl = computed(() => {
   if (user.value) return urls.user.details(user.value.userName);
 });
 
-const avatarUrl = computed(() => {
-  return user.value?.avatar;
-});
-
-const games = computed(() => {
-  return allGames.value.filter((g) => isInGame(g));
-});
+const avatarUrl = computed(() => user.value?.avatar);
+const games = computed(() => allGames.value.filter((g) => isInGame(g)));
 
 const results = computed(() => {
   let results = [];
@@ -163,9 +148,7 @@ const results = computed(() => {
   return results;
 });
 
-const totalResult = computed(() => {
-  return results.value.reduce((acc, cur) => acc + cur.winnings, 0);
-});
+const totalResult = computed(() => results.value.reduce((acc, cur) => acc + cur.winnings, 0));
 
 const bestResult = computed(() => {
   let best: number | null = null;
@@ -183,9 +166,7 @@ const worstResult = computed(() => {
   return worst ?? 0;
 });
 
-const gamesPlayed = computed(() => {
-  return games.value.length;
-});
+const gamesPlayed = computed(() => games.value.length);
 
 const timePlayed = computed(() => {
   return results.value.reduce((acc, cur) => acc + cur.timePlayed, 0);
@@ -240,13 +221,8 @@ const formattedCurrentStreak = computed(() => {
   return formatStreak(wonOrLost, streak);
 });
 
-const formattedWinningStreak = computed(() => {
-  return formatStreak('Won', bestWinningStreak.value);
-});
-
-const formattedLosingStreak = computed(() => {
-  return formatStreak('Lost', worstLosingStreak.value);
-});
+const formattedWinningStreak = computed(() => formatStreak('Won', bestWinningStreak.value));
+const formattedLosingStreak = computed(() => formatStreak('Lost', worstLosingStreak.value));
 
 const worstLosingStreak = computed(() => {
   let worstStreak = 0;
@@ -264,13 +240,8 @@ const worstLosingStreak = computed(() => {
   return worstStreak;
 });
 
-const ready = computed(() => {
-  return bunchReady.value && playersReady.value && gamesReady.value && (userReady.value || !hasUser.value);
-});
-
-const canDelete = computed(() => {
-  return results.value.length === 0;
-});
+const ready = computed(() => bunchReady.value && playersReady.value && gamesReady.value && (userReady.value || !hasUser.value));
+const canDelete = computed(() => results.value.length === 0);
 
 const showInvitationForm = () => {
   isInvitationFormVisible.value = true;
@@ -318,9 +289,7 @@ const formatStreak = (wonOrLost: string, gameCount: number) => {
   return `${wonOrLost} in ${gameCount} ${gamesText}`;
 };
 
-const formatStreakGames = (streak: number) => {
-  return streak === 1 ? 'game' : 'games';
-};
+const formatStreakGames = (streak: number) => (streak === 1 ? 'game' : 'games');
 
 const isInGame = (game: ArchiveCashgame) => {
   if (!playersReady) return false;

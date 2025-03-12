@@ -24,7 +24,5 @@ import { useBunchList, useCurrentUser } from '@/composables';
 const { bunches, bunchesReady } = useBunchList();
 const { isAdmin, currentUserReady } = useCurrentUser();
 
-const ready = computed(() => {
-  return currentUserReady.value && bunchesReady.value;
-});
+const ready = computed(() => currentUserReady.value && bunchesReady.value);
 </script>

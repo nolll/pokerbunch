@@ -47,13 +47,8 @@ const { bunch, bunchReady } = useBunch(slug.value);
 const inputCode = ref('');
 const errorMessage = ref<string>();
 
-const bunchName = computed(() => {
-  return bunch.value.name;
-});
-
-const ready = computed(() => {
-  return bunchReady.value;
-});
+const bunchName = computed(() => bunch.value.name);
+const ready = computed(() => bunchReady.value);
 
 const join = () => {
   joinBunchMutation.mutate();

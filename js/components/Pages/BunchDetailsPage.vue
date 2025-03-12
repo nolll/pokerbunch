@@ -105,37 +105,14 @@ const formTimezone = ref<string>();
 const formCurrencySymbol = ref<string>();
 const formCurrencyLayout = ref<string>();
 
-const bunchName = computed(() => {
-  return bunch.value.name;
-});
-
-const description = computed(() => {
-  return bunch.value.description;
-});
-
-const hasDescription = computed(() => {
-  return !!description.value;
-});
-
-const houseRules = computed(() => {
-  return bunch.value.houseRules;
-});
-
-const hasHouseRules = computed(() => {
-  return !!houseRules.value;
-});
-
-const defaultBuyin = computed(() => {
-  return bunch.value.defaultBuyin;
-});
-
-const timezone = computed(() => {
-  return bunch.value.timezone;
-});
-
-const currencyFormat = computed(() => {
-  return format.currency(123, localization.value);
-});
+const bunchName = computed(() => bunch.value.name);
+const description = computed(() => bunch.value.description);
+const hasDescription = computed(() => !!description.value);
+const houseRules = computed(() => bunch.value.houseRules);
+const hasHouseRules = computed(() => !!houseRules.value);
+const defaultBuyin = computed(() => bunch.value.defaultBuyin);
+const timezone = computed(() => bunch.value.timezone);
+const currencyFormat = computed(() => format.currency(123, localization.value));
 
 const showEditForm = () => {
   formDescription.value = bunch.value.description;
