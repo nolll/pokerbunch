@@ -10,6 +10,15 @@
           <PageHeading :text="name" />
         </Block>
         <Block>
+          <DefinitionList>
+            <DefinitionTerm>Location</DefinitionTerm>
+            <DefinitionData>{{ location }}</DefinitionData>
+
+            <DefinitionTerm>Total Time Played</DefinitionTerm>
+            <DefinitionData><DurationText :value="duration" /></DefinitionData>
+          </DefinitionList>
+        </Block>
+        <Block>
           <MatrixTable :slug="slug" :games="eventGames" :localization="localization" />
         </Block>
       </PageSection>
@@ -20,7 +29,8 @@
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-import { Block, PageHeading, PageSection } from '@/components/Common';
+import { DefinitionList, DefinitionData, DefinitionTerm } from '@/components/Common/DefinitionList';
+import { Block, PageHeading, PageSection, DurationText } from '@/components/Common';
 import MatrixTable from '@/components/Matrix/MatrixTable.vue';
 import { computed } from 'vue';
 import { useParams, useBunch, useEventList, useEventGameList } from '@/composables';
@@ -36,5 +46,7 @@ const name = computed(() => {
 });
 
 const event = computed(() => getEvent(eventId.value));
+const duration = computed(() => eventGames.value.reduce((totalTime, game) => totalTime + game.duration, 0));
+const location = computed(() => (eventGames.value.length > 0 ? eventGames.value[0].location.name : 'n/a'));
 const ready = computed(() => bunchReady.value && eventsReady.value && eventGamesReady.value);
 </script>
