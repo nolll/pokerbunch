@@ -6,14 +6,14 @@
       <div>stack: <input type="text" :value="formStack" @input="updateStack" /></div>
       <div v-if="showAddedField">added: <input type="text" :value="formAdded" @input="updateAdded" /></div>
       <div>
-        <button @click="clickCancel">Cancel</button>
-        <button @click="clickSave">Save</button>
+        <button class="button" @click="clickCancel">Cancel</button>
+        <button class="button button--action" @click="clickSave">Save</button>
       </div>
     </div>
     <div v-else>
       {{ formattedTime }} {{ typeName }}: {{ formattedAmount }}
-      <button @click="clickEdit" v-if="canEdit">Edit</button>
-      <button @click="clickDelete" v-if="canEdit">Delete</button>
+      <button class="button button--action" @click="clickEdit" v-if="canEdit">Edit</button>
+      <button class="button button--action" @click="clickDelete" v-if="canEdit">Delete</button>
     </div>
   </div>
 </template>
@@ -57,13 +57,8 @@ const formAdded = computed(() => {
   return props.action.added;
 });
 
-const formattedTime = computed(() => {
-  return format.hourMinute(props.action.time);
-});
-
-const formattedAmount = computed(() => {
-  return format.currency(amount.value, props.localization);
-});
+const formattedTime = computed(() => format.hourMinute(props.action.time));
+const formattedAmount = computed(() => format.currency(amount.value, props.localization));
 
 const amount = computed(() => {
   if (props.action.type === DetailedCashgameResponseActionType.Buyin && props.action.added) return props.action.added;

@@ -33,7 +33,5 @@ const isInRouter = computed(() => {
   return resolved && resolved.name != '404';
 });
 
-const checkedUrl = computed(() => {
-  return props.url || '#';
-});
+const checkedUrl = computed(() => props.url || '#');
 </script>

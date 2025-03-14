@@ -34,13 +34,8 @@ const emit = defineEmits(['cashout', 'cancel']);
 const strStack = ref('0');
 const stackError = ref<string | null>(null);
 
-const hasErrors = computed(() => {
-  return stackError.value === null;
-});
-
-const stack = computed(() => {
-  return forms.parseInt(strStack.value);
-});
+const hasErrors = computed(() => stackError.value === null);
+const stack = computed(() => forms.parseInt(strStack.value));
 
 const cashout = () => {
   validateForm();

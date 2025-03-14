@@ -24,10 +24,8 @@ const formattedValue = computed(() => {
   return format.resultWithoutCurrency(props.value);
 });
 
-const cssClasses = computed((): CssClasses => {
-  return {
-    'pos-result': props.value > 0,
-    'neg-result': props.value < 0,
-  };
-});
+const cssClasses = computed((): CssClasses => ({
+  'pos-result': props.value > 0,
+  'neg-result': props.value < 0,
+}));
 </script>

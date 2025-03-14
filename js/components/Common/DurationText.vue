@@ -10,7 +10,5 @@ const props = defineProps<{
   value: number;
 }>();
 
-const formattedValue = computed(() => {
-  return format.duration(props.value);
-});
+const formattedValue = computed(() => format.duration(props.value));
 </script>

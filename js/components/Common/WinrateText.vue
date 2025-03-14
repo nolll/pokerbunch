@@ -13,14 +13,10 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const formattedValue = computed(() => {
-  return format.winrate(props.value, props.localization);
-});
+const formattedValue = computed(() => format.winrate(props.value, props.localization));
 
-const cssClasses = computed((): CssClasses => {
-  return {
-    'pos-result': props.value > 0,
-    'neg-result': props.value < 0,
-  };
-});
+const cssClasses = computed((): CssClasses => ({
+  'pos-result': props.value > 0,
+  'neg-result': props.value < 0,
+}));
 </script>

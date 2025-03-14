@@ -53,13 +53,8 @@ const hasErrors = computed(() => {
   return buyinError.value === null && stackError.value === null;
 });
 
-const amount = computed(() => {
-  return forms.parseInt(strAmount.value);
-});
-
-const stack = computed(() => {
-  return forms.parseInt(strStack.value);
-});
+const amount = computed(() => forms.parseInt(strAmount.value));
+const stack = computed(() => forms.parseInt(strStack.value));
 
 const buyin = () => {
   validateForm();

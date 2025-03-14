@@ -22,9 +22,7 @@ const props = withDefaults(
 
 const emit = defineEmits(['click']);
 
-const hasUrl = computed((): boolean => {
-  return !!props.url;
-});
+const hasUrl = computed((): boolean => !!props.url);
 
 const cssClasses = computed((): CssClasses => {
   return {

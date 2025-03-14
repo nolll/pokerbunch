@@ -34,7 +34,6 @@
           </Block>
           <Block v-if="hasPlayers">
             <div class="standings">
-              <!-- todo: changed cashgame.players to playersInGame. Check if it is still working -->
               <PlayerTable
                 :players="playersInGame"
                 :isCashgameRunning="isRunning"

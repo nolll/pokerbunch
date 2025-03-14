@@ -12,7 +12,5 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const formattedValue = computed(() => {
-  return format.currency(props.value, props.localization);
-});
+const formattedValue = computed(() => format.currency(props.value, props.localization));
 </script>

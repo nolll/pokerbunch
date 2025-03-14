@@ -27,17 +27,9 @@ const props = withDefaults(
 
 const slots = useSlots();
 
-const isAside1Enabled = computed(() => {
-  return isSlotEnabled('aside1');
-});
-
-const isAside2Enabled = computed(() => {
-  return isSlotEnabled('aside2');
-});
-
-const hasAside = computed(() => {
-  return isAside1Enabled.value || isAside2Enabled.value;
-});
+const isAside1Enabled = computed(() => isSlotEnabled('aside1'));
+const isAside2Enabled = computed(() => isSlotEnabled('aside2'));
+const hasAside = computed(() => isAside1Enabled.value || isAside2Enabled.value);
 
 const cssClasses = computed((): CssClasses => {
   return {
@@ -46,21 +38,15 @@ const cssClasses = computed((): CssClasses => {
   };
 });
 
-const asideCssClasses = computed((): CssClasses => {
-  return {
-    region: true,
-    aside: true,
-  };
-});
+const asideCssClasses = computed((): CssClasses => ({
+  region: true,
+  aside: true,
+}));
 
-const mainCssClasses = computed((): CssClasses => {
-  return {
-    region: true,
-    width2: hasAside.value,
-  };
-});
+const mainCssClasses = computed((): CssClasses => ({
+  region: true,
+  width2: hasAside.value,
+}));
 
-const isSlotEnabled = (name: string) => {
-  return !!slots[name];
-};
+const isSlotEnabled = (name: string) => !!slots[name];
 </script>
