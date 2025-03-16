@@ -13,9 +13,13 @@
       </div>
       <div class="player-row__amounts">
         <div>
-          <i title="Buy in" class="icon-signin"></i> <CurrencyText :value="calculatedBuyin" :localization="localization" />
+          <InlineIcon><BuyinIcon title="Buy in" /></InlineIcon>
+          <CurrencyText :value="calculatedBuyin" :localization="localization" />
         </div>
-        <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" :localization="localization" /></div>
+        <div>
+          <InlineIcon><ReportIcon title="Total Stacks" /></InlineIcon>
+          <CurrencyText :value="stack" :localization="localization" />
+        </div>
         <div><WinningsText :value="winnings" :localization="localization" /></div>
       </div>
       <div class="player-row__small-chart">
@@ -49,7 +53,7 @@ import CashgameActionChartSmall from '@/components/CashgameActionChartSmall.vue'
 import { CurrencyText, CustomLink, WinningsText } from '@/components/Common';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
-import { CashedOutIcon, InlineIcon, TimeIcon } from '../Icons';
+import { BuyinIcon, CashedOutIcon, InlineIcon, ReportIcon, TimeIcon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 
