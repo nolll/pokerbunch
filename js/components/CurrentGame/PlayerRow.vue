@@ -1,10 +1,10 @@
 ﻿<template>
   <div class="player-row">
-    <div class="player-row__row-wrapper">
+    <div class="player-row__row-wrapper" @click="toggle">
       <div class="player-row__name-and-time">
         <div>
           <div class="player-color-box" :style="{ backgroundColor: player.color }" @click="onSelected"></div>
-          <a class="player-row__name" href="#" @click="toggle">{{ player.name }}</a>
+          <a class="player-row__name" @click.stop="" :href="url">{{ player.name }}</a>
           <InlineIcon><CashedOutIcon title="Cashed out" v-if="showCheckmark" /></InlineIcon>
         </div>
         <div class="time" v-if="isReportTimeEnabled">
@@ -18,13 +18,13 @@
         <div><i title="Stack" class="icon-reorder"></i> <CurrencyText :value="stack" :localization="localization" /></div>
         <div><WinningsText :value="winnings" :localization="localization" /></div>
       </div>
+      <div class="player-row__small-chart">
+        <CashgameActionChartSmall :player="player" />
+      </div>
     </div>
     <div v-if="showDetails">
       <div class="player-row__chart">
         <CashgameActionChart :player="player" />
-      </div>
-      <div class="player-row__link">
-        <CustomLink :url="url">View player</CustomLink>
       </div>
       <div class="player-row__actions">
         <PlayerAction
@@ -45,6 +45,7 @@
 import PlayerAction from './PlayerAction.vue';
 import urls from '@/urls';
 import CashgameActionChart from '@/components/CashgameActionChart.vue';
+import CashgameActionChartSmall from '@/components/CashgameActionChartSmall.vue';
 import { CurrencyText, CustomLink, WinningsText } from '@/components/Common';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
@@ -108,11 +109,15 @@ const click = () => toggle();
 }
 
 .player-row__amounts {
-  flex: 11;
+  flex: 7;
 }
 
 .player-row__chart,
 .player-row__actions {
   padding: 8px;
+}
+
+.player-row__small-chart {
+  flex: 4;
 }
 </style>

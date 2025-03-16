@@ -78,14 +78,9 @@ const getConfig = () => {
   return conf;
 };
 
-const getWidth = () => {
-  if (container.value) return parseInt(window.getComputedStyle(container.value).width);
-  return 0;
-};
+const getWidth = () => (Boolean(container.value) ? parseInt(window.getComputedStyle(container.value!).width) : 0);
 
-const getHeight = () => {
-  return getWidth() / 2;
-};
+const getHeight = () => getWidth() / 2;
 
 onMounted(async () => {
   await nextTick();

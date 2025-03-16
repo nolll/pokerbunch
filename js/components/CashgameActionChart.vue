@@ -21,7 +21,7 @@ const props = defineProps<{
 const chartOptions: ChartOptions = {
   colors: ['#000', '#ABA493'],
   series: { 1: { type: 'area' } },
-  vAxis: { minValue: 0 },
+  vAxis: { minValue: 0, baselineColor: 'transparent' },
   hAxis: { format: 'HH:mm' },
   pointSize: 0,
 };
