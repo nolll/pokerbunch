@@ -133,7 +133,7 @@ function getDevServer() {
           directory: path.join(__dirname, 'dist'),
         },
         compress: true,
-        port: 9000,
+        port: 9001,
         server: {
           type: 'http',
         },
