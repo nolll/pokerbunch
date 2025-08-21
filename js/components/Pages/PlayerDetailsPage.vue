@@ -123,10 +123,10 @@ const errorMessage = ref('');
 const hasUser = computed(() => Boolean(tryGetPlayer(playerId.value)?.userId));
 const player = computed(() => getPlayer(playerId.value));
 
-const { user, userReady } = useUser(player.value.userName ?? '', hasUser.value);
+const { user, userReady } = useUser(player.value?.userName ?? '', hasUser.value);
 
-const playerName = computed(() => player.value.name);
-const inviteUrl = computed(() => urls.player.invite(player.value.id));
+const playerName = computed(() => player.value?.name ?? '');
+const inviteUrl = computed(() => urls.player.invite(player.value?.id ?? ''));
 
 const userUrl = computed(() => {
   if (user.value) return urls.user.details(user.value.userName);
@@ -139,7 +139,7 @@ const results = computed(() => {
   let results = [];
   for (const game of games.value) {
     for (const p of game.players) {
-      if (p.id === player.value.id) {
+      if (p.id === player.value?.id) {
         results.push(p);
         break;
       }
@@ -175,7 +175,7 @@ const timePlayed = computed(() => {
 const totalWins = computed(() => {
   let count = 0;
   for (const game of games.value) {
-    if (game.isBestPlayer(player.value.id)) count += 1;
+    if (game.isBestPlayer(player.value?.id ?? '')) count += 1;
   }
   return count;
 });
@@ -252,7 +252,7 @@ const hideInvitationForm = () => {
 };
 
 const invitePlayer = () => {
-  api.invitePlayer(player.value.id, { email: inviteEmail.value });
+  api.invitePlayer(player.value?.id ?? '', { email: inviteEmail.value });
   invitationSent.value = true;
   hideInvitationForm();
 };
@@ -292,9 +292,9 @@ const formatStreak = (wonOrLost: string, gameCount: number) => {
 const formatStreakGames = (streak: number) => (streak === 1 ? 'game' : 'games');
 
 const isInGame = (game: ArchiveCashgame) => {
-  if (!playersReady) return false;
+  if (!playersReady.value) return false;
   for (const p of game.players) {
-    if (p.id === player.value.id) return true;
+    if (p.id === player.value?.id) return true;
   }
   return false;
 };

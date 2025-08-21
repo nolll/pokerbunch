@@ -13,10 +13,9 @@ export default function usePlayerList(slug: string) {
     return !playerListQuery.isPending.value;
   });
 
-  const getPlayer = (id: string): Player => {
-    const p = players.value.find((o) => o.id === id);
-    if (!p) throw new Error(`player not found: ${id}`);
-    return p;
+  const getPlayer = (id: string): Player | undefined => {
+    if (!playersReady.value) return undefined;
+    return players.value.find((o) => o.id === id);
   };
 
   const tryGetPlayer = (id: string): Player | undefined => {
