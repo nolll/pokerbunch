@@ -16,7 +16,7 @@
       <label class="label" for="buyin-stack">Stack Size</label>
       <input
         class="numberfield"
-        :bind="suggestedBuyin"
+        v-model="strStack"
         v-on:focus="focus"
         id="buyin-stack"
         type="text"
@@ -84,5 +84,6 @@ const clearErrors = () => {
 
 onMounted(() => {
   strAmount.value = props.suggestedBuyin.toString();
+  strStack.value = '0';
 });
 </script>
