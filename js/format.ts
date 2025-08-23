@@ -52,6 +52,10 @@ function formatIsoTime(date: Date) {
   return dayjs(date).toISOString();
 }
 
+function formatLocalTime(date: Date) {
+  return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+}
+
 export default {
   currency: formatCurrency,
   result: formatResult,
@@ -62,4 +66,5 @@ export default {
   hourMinute: formatHourMinute,
   monthDayYear: formatMonthDayYear,
   isoTime: formatIsoTime,
+  localTime: formatLocalTime,
 };
