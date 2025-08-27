@@ -1,7 +1,7 @@
 ﻿<template>
   <nav class="user-nav" v-if="userReady">
     <h2>Account</h2>
-    <ul v-if="isSignedIn">
+    <ul v-if="isSignedIn2">
       <li>
         <CustomLink :url="userDetailsUrl"
           ><span>Signed in as {{ displayName }}</span></CustomLink
@@ -32,7 +32,7 @@ import auth from '@/auth';
 import { computed } from 'vue';
 import { useCurrentUser } from '@/composables';
 
-const { isSignedIn, currentUser, currentUserReady } = useCurrentUser();
+const { isSignedIn2, currentUser2, currentUserReady } = useCurrentUser();
 
 const logOut = () => {
   auth.clearToken();
@@ -40,8 +40,8 @@ const logOut = () => {
 };
 
 const userReady = computed(() => currentUserReady.value);
-const displayName = computed(() => currentUser.value?.displayName);
-const userDetailsUrl = computed(() => (currentUser.value ? urls.user.details(currentUser.value.userName) : ''));
+const displayName = computed(() => currentUser2.value?.userDisplayName);
+const userDetailsUrl = computed(() => (isSignedIn2.value ? urls.user.details(currentUser2.value.userName) : ''));
 const registerUrl = computed(() => urls.user.add);
 const resetPasswordUrl = computed(() => urls.user.resetPassword);
 const loginUrl = computed(() => urls.auth.login);
