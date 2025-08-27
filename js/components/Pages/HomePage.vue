@@ -45,7 +45,7 @@
         <Block>
           <UserBunchList :bunches="userBunches" />
         </Block>
-        <Block v-if="isAdmin2">
+        <Block v-if="isAdmin">
           <AdminNavigation />
         </Block>
       </template>
@@ -63,7 +63,7 @@ import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed } from 'vue';
 import { useUserBunchList, useCurrentUser } from '@/composables';
 
-const { isSignedIn, isAdmin, isAdmin2, currentUserReady } = useCurrentUser();
+const { isSignedIn, isAdmin } = useCurrentUser();
 const { userBunchesReady, userBunches } = useUserBunchList(isSignedIn.value);
 
 const loginUrl = computed(() => urls.auth.login);
@@ -71,5 +71,5 @@ const registerUrl = computed(() => urls.user.add);
 const addBunchUrl = computed(() => urls.bunch.add);
 const apiDocsUrl = computed(() => urls.api.docs);
 
-const ready = computed(() => currentUserReady.value && userBunchesReady.value);
+const ready = computed(() => userBunchesReady.value);
 </script>

@@ -22,7 +22,7 @@ import { computed } from 'vue';
 import { useBunchList, useCurrentUser } from '@/composables';
 
 const { bunches, bunchesReady } = useBunchList();
-const { isAdmin, currentUserReady } = useCurrentUser();
+const { isAdmin } = useCurrentUser();
 
-const ready = computed(() => currentUserReady.value && bunchesReady.value);
+const ready = computed(() => bunchesReady.value);
 </script>

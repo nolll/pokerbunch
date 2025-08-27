@@ -40,7 +40,7 @@ const props = defineProps<{
   requireUser: boolean;
 }>();
 
-const { isSignedIn, currentUserReady } = useCurrentUser();
+const { isSignedIn } = useCurrentUser();
 
 const slots = useSlots();
 
@@ -63,11 +63,9 @@ const isSlotEnabled = (name: string) => {
 };
 
 const redirectIfSignedOut = () => {
-  if (props.requireUser && currentUserReady.value && !isSignedIn.value)
-    window.location.href = `${urls.auth.login}?returnurl=${route.fullPath}`;
+  if (props.requireUser && !isSignedIn.value) window.location.href = `${urls.auth.login}?returnurl=${route.fullPath}`;
 };
 
 watch(isSignedIn, redirectIfSignedOut);
-watch(currentUserReady, redirectIfSignedOut);
 watch(() => props.requireUser, redirectIfSignedOut);
 </script>

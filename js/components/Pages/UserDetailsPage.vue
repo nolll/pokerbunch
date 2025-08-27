@@ -66,7 +66,7 @@ import { userKey, userListKey } from '@/queries/queryKeys';
 
 const { userName } = useParams();
 const { user, userReady } = useUser(userName.value);
-const { currentUser, isAdmin, currentUserReady } = useCurrentUser();
+const { currentUser, isAdmin } = useCurrentUser();
 const queryClient = useQueryClient();
 
 const displayName = ref('');
@@ -78,7 +78,7 @@ const errorMessage = ref('');
 const canEdit = computed(() => isAdmin.value || isCurrentUser.value);
 const isCurrentUser = computed(() => currentUser.value?.userName == user.value?.userName);
 const canChangePassword = computed(() => isCurrentUser.value);
-const ready = computed(() => currentUserReady.value && userReady.value);
+const ready = computed(() => userReady.value);
 const avatarUrl = computed(() => user.value?.avatar);
 const hasError = computed(() => !!errorMessage.value);
 
