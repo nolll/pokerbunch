@@ -1,5 +1,5 @@
 ﻿<template>
-  <nav class="user-nav" v-if="userReady">
+  <nav class="user-nav">
     <h2>Account</h2>
     <ul v-if="isSignedIn2">
       <li>
@@ -32,14 +32,13 @@ import auth from '@/auth';
 import { computed } from 'vue';
 import { useCurrentUser } from '@/composables';
 
-const { isSignedIn2, currentUser2, currentUserReady } = useCurrentUser();
+const { isSignedIn2, currentUser2 } = useCurrentUser();
 
 const logOut = () => {
   auth.clearToken();
   redirectHome();
 };
 
-const userReady = computed(() => currentUserReady.value);
 const displayName = computed(() => currentUser2.value?.userDisplayName);
 const userDetailsUrl = computed(() => (isSignedIn2.value ? urls.user.details(currentUser2.value.userName) : ''));
 const registerUrl = computed(() => urls.user.add);
