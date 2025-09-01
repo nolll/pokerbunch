@@ -11,8 +11,6 @@ export default function useCurrentUser(slug: string) {
   const currentUser = computed((): CurrentUser => {
     const t = decodedToken.value;
 
-    console.dir(t?.bunches[0].playerId);
-
     return !t
       ? {
           isSignedIn: false,
