@@ -29,7 +29,7 @@
 import UserNavigation from '@/components/Navigation/UserNavigation.vue';
 import { CustomLink, LoadingSpinner, PageSection } from '@/components/Common';
 import urls from '@/urls';
-import { computed, useSlots, watch } from 'vue';
+import { computed, useSlots, watch, onMounted } from 'vue';
 import { CssClasses } from '@/models/CssClasses';
 import { useRoute } from 'vue-router';
 import { useCurrentUser } from '@/composables';
@@ -67,5 +67,6 @@ const redirectIfSignedOut = () => {
 };
 
 watch(isSignedIn, redirectIfSignedOut);
+onMounted(redirectIfSignedOut);
 watch(() => props.requireUser, redirectIfSignedOut);
 </script>
