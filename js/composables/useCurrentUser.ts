@@ -6,13 +6,14 @@ import { CurrentUser } from '@/models/CurrentUser';
 import { Role } from '@/models/Role';
 
 export default function useCurrentUser(slug: string) {
-  const isSignedIn = computed(() => !!currentUser.value.isSignedIn);
+  const isSignedIn = computed(() => currentUser.value.isSignedIn && currentUser.value.tokenVersion === '2');
 
   const currentUser = computed((): CurrentUser => {
     const t = decodedToken.value;
 
     return !t
       ? {
+          tokenVersion: '',
           isSignedIn: false,
           userName: '',
           userDisplayName: '',
@@ -20,6 +21,7 @@ export default function useCurrentUser(slug: string) {
           bunches: [],
         }
       : {
+          tokenVersion: t.version,
           isSignedIn: true,
           userName: t.unique_name,
           userDisplayName: t.userdisplayname,
