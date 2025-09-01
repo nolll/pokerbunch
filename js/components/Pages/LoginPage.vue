@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :require-user="false" :ready="ready">
+  <Layout :require-user="false" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Sign in" />
@@ -22,7 +22,7 @@ import { useCurrentUser } from '@/composables';
 
 const router = useRouter();
 
-const { isSignedIn, currentUserReady } = useCurrentUser();
+const { isSignedIn } = useCurrentUser('');
 
 const resetPasswordUrl = computed(() => {
   return urls.user.resetPassword;
@@ -43,7 +43,4 @@ onMounted(() => {
 });
 
 watch(isSignedIn, redirectIfSignedIn);
-watch(currentUserReady, redirectIfSignedIn);
-
-const ready = computed(() => currentUserReady.value);
 </script>

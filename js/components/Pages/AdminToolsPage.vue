@@ -1,5 +1,5 @@
 ﻿<template>
-  <Layout :require-user="true" :ready="ready">
+  <Layout :require-user="true" :ready="true">
     <PageSection>
       <Block>
         <PageHeading text="Admin Tools" />
@@ -27,10 +27,7 @@ import { Layout } from '@/components/Layouts';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import SendEmail from '@/components/Admin/SendEmail.vue';
 import ClearCache from '@/components/Admin/ClearCache.vue';
-import { computed } from 'vue';
 import { useCurrentUser } from '@/composables';
 
-const { isAdmin, currentUserReady } = useCurrentUser();
-
-const ready = computed(() => currentUserReady.value);
+const { isAdmin } = useCurrentUser('');
 </script>

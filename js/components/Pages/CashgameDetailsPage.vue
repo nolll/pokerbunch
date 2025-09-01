@@ -118,7 +118,7 @@ import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { BuyinIcon, CashoutIcon, ReportIcon } from '../Icons';
-import { useParams, useLocationList, useBunch, usePlayerList, useEventList, useGame } from '@/composables';
+import { useParams, useLocationList, useBunch, usePlayerList, useEventList, useGame, useCurrentUser } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { gameKey, gameListKey } from '@/queries/queryKeys';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
@@ -126,7 +126,8 @@ import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameR
 
 const { slug, cashgameId } = useParams();
 const router = useRouter();
-const { bunch, localization, isManager, bunchReady } = useBunch(slug.value);
+const currentUser = useCurrentUser(slug.value);
+const { bunch, localization, bunchReady } = useBunch(slug.value);
 const { players, playersReady } = usePlayerList(slug.value);
 const { locations, locationsReady } = useLocationList(slug.value);
 const { events, eventsReady } = useEventList(slug.value);
@@ -174,7 +175,7 @@ const areButtonsVisible = computed(() => isRunning.value && !isAnyFormVisible.va
 const isAnyFormVisible = computed(
   () => (isRunning.value && reportFormVisible.value) || buyinFormVisible.value || cashoutFormVisible.value
 );
-const isPlayerSelectionEnabled = computed(() => isRunning.value && isManager.value && !isEditing.value);
+const isPlayerSelectionEnabled = computed(() => isRunning.value && currentUser.isManager.value && !isEditing.value);
 const locationName = computed(() => cashgame.value?.location.name || '');
 
 const locationUrl = computed(() => {
@@ -193,7 +194,7 @@ const eventUrl = computed(() => {
   return urls.event.details(slug.value, cashgame.value.event.id);
 });
 
-const canEdit = computed((): boolean => isManager.value);
+const canEdit = computed((): boolean => currentUser.isManager.value);
 
 const playersInGame = computed((): DetailedCashgamePlayer[] => {
   if (!cashgame.value) return [];
@@ -325,7 +326,7 @@ const hideForms = () => {
 };
 
 const resetSelectedPlayerId = () => {
-  selectedPlayerId.value = bunch.value.player.id;
+  selectedPlayerId.value = currentUser.playerId.value;
 };
 
 const getPlayerInGame = (id: string) => {
@@ -413,7 +414,7 @@ const redirect = () => {
   router.push(urls.cashgame.index(slug.value));
 };
 
-const playerId = computed(() => bunch.value.player.id);
+const playerId = computed(() => currentUser.playerId.value);
 
 watch(cashgame, () => {
   locationId.value = cashgame.value?.location.id || undefined;
@@ -422,6 +423,6 @@ watch(cashgame, () => {
 });
 
 watch(bunch, () => {
-  selectedPlayerId.value = bunch.value.player.id;
+  selectedPlayerId.value = currentUser.playerId.value;
 });
 </script>
