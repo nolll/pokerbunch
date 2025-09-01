@@ -87,13 +87,14 @@ import { ValueList, ValueListKey, ValueListValue } from '@/components/Common/Val
 import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, ref } from 'vue';
-import { useBunch, useParams } from '@/composables';
+import { useBunch, useCurrentUser, useParams } from '@/composables';
 import format from '@/format';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { bunchKey, bunchListKey, userBunchListKey } from '@/queries/queryKeys';
 
 const { slug } = useParams();
-const { bunch, isManager, localization, bunchReady } = useBunch(slug.value);
+const { isManager } = useCurrentUser(slug.value);
+const { bunch, localization, bunchReady } = useBunch(slug.value);
 const queryClient = useQueryClient();
 
 const isEditing = ref(false);

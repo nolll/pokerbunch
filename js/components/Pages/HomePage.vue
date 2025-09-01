@@ -63,7 +63,7 @@ import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed } from 'vue';
 import { useUserBunchList, useCurrentUser } from '@/composables';
 
-const { isSignedIn, isAdmin } = useCurrentUser();
+const { isSignedIn, isAdmin } = useCurrentUser('');
 const { userBunchesReady, userBunches } = useUserBunchList(isSignedIn.value);
 
 const loginUrl = computed(() => urls.auth.login);

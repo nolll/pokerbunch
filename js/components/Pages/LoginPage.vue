@@ -22,7 +22,7 @@ import { useCurrentUser } from '@/composables';
 
 const router = useRouter();
 
-const { isSignedIn } = useCurrentUser();
+const { isSignedIn } = useCurrentUser('');
 
 const resetPasswordUrl = computed(() => {
   return urls.user.resetPassword;

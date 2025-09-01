@@ -22,7 +22,7 @@ import { computed } from 'vue';
 import { useUserList, useCurrentUser } from '@/composables';
 
 const { users, usersReady } = useUserList();
-const { isAdmin } = useCurrentUser();
+const { isAdmin } = useCurrentUser('');
 
 const ready = computed(() => usersReady.value);
 </script>

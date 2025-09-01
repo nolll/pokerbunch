@@ -32,7 +32,7 @@ import auth from '@/auth';
 import { computed } from 'vue';
 import { useCurrentUser } from '@/composables';
 
-const { isSignedIn, currentUser } = useCurrentUser();
+const { isSignedIn, currentUser } = useCurrentUser('');
 
 const logOut = () => {
   auth.clearToken();

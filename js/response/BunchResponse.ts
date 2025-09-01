@@ -1,6 +1,3 @@
-import { Role } from '@/models/Role';
-import { BunchResponsePlayer } from './BunchResponsePlayer';
-
 export interface BunchResponse {
   id: string;
   name: string;
@@ -12,6 +9,4 @@ export interface BunchResponse {
   currencyFormat: string;
   thousandSeparator: string;
   defaultBuyin: number;
-  player: BunchResponsePlayer;
-  role: Role;
 }

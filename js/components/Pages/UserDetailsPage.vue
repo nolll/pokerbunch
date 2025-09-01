@@ -66,7 +66,7 @@ import { userKey, userListKey } from '@/queries/queryKeys';
 
 const { userName } = useParams();
 const { user, userReady } = useUser(userName.value);
-const { currentUser, isAdmin } = useCurrentUser();
+const { currentUser, isAdmin } = useCurrentUser('');
 const queryClient = useQueryClient();
 
 const displayName = ref('');

@@ -40,7 +40,7 @@ const props = defineProps<{
   requireUser: boolean;
 }>();
 
-const { isSignedIn } = useCurrentUser();
+const { isSignedIn } = useCurrentUser('');
 
 const slots = useSlots();
 

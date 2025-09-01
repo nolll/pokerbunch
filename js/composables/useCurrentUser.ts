@@ -3,12 +3,15 @@ import { jwtDecode } from 'jwt-decode';
 import { DecodedToken } from '@/models/DecodedToken';
 import auth from '@/auth';
 import { CurrentUser } from '@/models/CurrentUser';
+import { Role } from '@/models/Role';
 
-export default function useCurrentUser() {
+export default function useCurrentUser(slug: string) {
   const isSignedIn = computed(() => !!currentUser.value.isSignedIn);
 
   const currentUser = computed((): CurrentUser => {
-    var t = decodedToken.value;
+    const t = decodedToken.value;
+
+    console.dir(t?.bunches[0].playerId);
 
     return !t
       ? {
@@ -16,12 +19,14 @@ export default function useCurrentUser() {
           userName: '',
           userDisplayName: '',
           isAdmin: false,
+          bunches: [],
         }
       : {
           isSignedIn: true,
           userName: t.unique_name,
           userDisplayName: t.userdisplayname,
           isAdmin: t.isadmin === 'true',
+          bunches: t.bunches,
         };
   });
 
@@ -36,9 +41,21 @@ export default function useCurrentUser() {
     return currentUser.value.isAdmin;
   });
 
+  const isManager = computed((): boolean => {
+    const bunch = currentUser.value.bunches.find((o) => o.slug === slug);
+    return bunch?.role === Role.Manager;
+  });
+
+  const playerId = computed((): string => {
+    const bunch = currentUser.value.bunches.find((o) => o.slug === slug);
+    return bunch?.playerId ?? '';
+  });
+
   return {
     isSignedIn,
     isAdmin,
+    isManager,
+    playerId,
     currentUser,
   };
 }

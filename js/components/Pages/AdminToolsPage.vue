@@ -29,5 +29,5 @@ import SendEmail from '@/components/Admin/SendEmail.vue';
 import ClearCache from '@/components/Admin/ClearCache.vue';
 import { useCurrentUser } from '@/composables';
 
-const { isAdmin } = useCurrentUser();
+const { isAdmin } = useCurrentUser('');
 </script>
