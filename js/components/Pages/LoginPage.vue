@@ -27,15 +27,13 @@ const { isSignedIn } = useCurrentUser('');
 
 const resetPasswordUrl = computed(() => {
   let url = urls.user.resetPassword;
-  const returnUrl = querystring.get('returnurl');
-  if (Boolean(returnUrl)) url += '?returnurl=' + returnUrl;
+  if (Boolean(returnUrl.value)) url += '?returnurl=' + returnUrl;
   return url;
 });
 
 const registerUrl = computed(() => {
   let url = urls.user.add;
-  const returnUrl = querystring.get('returnurl');
-  if (Boolean(returnUrl)) url += '?returnurl=' + returnUrl;
+  if (Boolean(returnUrl.value)) url += '?returnurl=' + returnUrl;
   return url;
 });
 
