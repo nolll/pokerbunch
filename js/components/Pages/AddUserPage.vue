@@ -55,6 +55,7 @@ import { ApiParamsAddUser } from '@/models/ApiParamsAddUser';
 import { computed, ref } from 'vue';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { userListKey } from '@/queries/queryKeys';
+import querystring from '@/querystring';
 
 const queryClient = useQueryClient();
 
@@ -67,7 +68,13 @@ const errorMessage = ref('');
 const userAdded = ref(false);
 
 const hasError = computed(() => !!errorMessage.value);
-const loginUrl = computed(() => urls.auth.login);
+
+const loginUrl = computed(() => {
+  let url = urls.auth.login;
+  const returnUrl = querystring.get('returnurl');
+  if (Boolean(returnUrl)) url += '?returnurl=' + returnUrl;
+  return url;
+});
 
 const save = async () => {
   if (repeatPassword.value !== password.value) {

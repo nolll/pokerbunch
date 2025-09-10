@@ -23,13 +23,16 @@
 </template>
 
 <script setup lang="ts">
-import querystring from '@/querystring';
 import api from '@/api';
 import auth from '@/auth';
 import { ApiParamsLogin } from '@/models/ApiParamsLogin';
 import { computed, ref } from 'vue';
 import { ErrorMessage } from '@/components/Common';
 import { useMutation } from '@tanstack/vue-query';
+
+const props = defineProps<{
+  returnUrl?: string;
+}>();
 
 const username = ref('');
 const password = ref('');
@@ -90,8 +93,7 @@ const saveToken = (token: string) => {
 };
 
 const redirect = () => {
-  const returnUrl = querystring.get('returnurl');
-  const redirectUrl = returnUrl || '/';
+  const redirectUrl = props.returnUrl || '/';
   window.location.href = redirectUrl;
 };
 </script>

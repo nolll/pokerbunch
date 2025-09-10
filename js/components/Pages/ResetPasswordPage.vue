@@ -42,13 +42,20 @@ import { ApiParamsResetPassword } from '@/models/ApiParamsResetPassword';
 import { computed, onMounted, ref } from 'vue';
 import { useMutation } from '@tanstack/vue-query';
 import { MessageResponse } from '@/response/MessageResponse';
+import querystring from '@/querystring';
 
 const email = ref('');
 const errorMessage = ref('');
 const emailWasSent = ref(false);
 
 const hasError = computed(() => !!errorMessage.value);
-const loginUrl = computed(() => urls.auth.login);
+
+const loginUrl = computed(() => {
+  let url = urls.auth.login;
+  const returnUrl = querystring.get('returnurl');
+  if (Boolean(returnUrl)) url += '?returnurl=' + returnUrl;
+  return url;
+});
 
 const send = async () => {
   errorMessage.value = '';

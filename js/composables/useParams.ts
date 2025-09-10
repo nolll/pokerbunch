@@ -4,33 +4,13 @@ import { useRoute } from 'vue-router';
 export default function useParams() {
   const route = useRoute();
 
-  const slug = computed(() => {
-    return route.params.slug as string;
-  });
-
-  const playerId = computed(() => {
-    return route.params.id as string;
-  });
-
-  const cashgameId = computed(() => {
-    return route.params.id as string;
-  });
-
-  const locationId = computed(() => {
-    return route.params.id as string;
-  });
-
-  const eventId = computed(() => {
-    return route.params.id as string;
-  });
-
-  const userName = computed(() => {
-    return route.params.userName as string;
-  });
-
-  const code = computed(() => {
-    return route.params.code as string;
-  });
+  const slug = computed(() => route.params.slug as string);
+  const playerId = computed(() => route.params.id as string);
+  const cashgameId = computed(() => route.params.id as string);
+  const locationId = computed(() => route.params.id as string);
+  const eventId = computed(() => route.params.id as string);
+  const userName = computed(() => route.params.userName as string);
+  const code = computed(() => route.params.code as string);
 
   const year = computed(() => {
     var s = route.params.year as string | undefined;
