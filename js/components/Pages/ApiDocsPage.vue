@@ -44,5 +44,5 @@ import { Layout } from '@/components/Layouts';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import { computed } from 'vue';
 
-const swaggerUrl = computed(() => `/api/swagger`);
+const swaggerUrl = computed(() => 'https://api.pokerbunch.com/swagger');
 </script>
