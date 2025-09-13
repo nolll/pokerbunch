@@ -29,6 +29,7 @@ import { ApiParamsLogin } from '@/models/ApiParamsLogin';
 import { computed, ref } from 'vue';
 import { ErrorMessage } from '@/components/Common';
 import { useMutation } from '@tanstack/vue-query';
+import { LoginResponse } from '@/response/LoginResponse';
 
 const props = defineProps<{
   returnUrl?: string;
@@ -44,11 +45,6 @@ const login = async () => {
   clearError();
 
   if (validateForm()) {
-    var data: ApiParamsLogin = {
-      username: username.value,
-      password: password.value,
-    };
-
     loginMutation.mutate();
   } else {
     showError('Please enter your username (or email) and password');
@@ -56,7 +52,7 @@ const login = async () => {
 };
 
 const loginMutation = useMutation({
-  mutationFn: async (): Promise<string> => {
+  mutationFn: async (): Promise<LoginResponse> => {
     var data: ApiParamsLogin = {
       username: username.value,
       password: password.value,
@@ -66,7 +62,8 @@ const loginMutation = useMutation({
     return response.data;
   },
   onSuccess: (response) => {
-    saveToken(response);
+    saveToken(response.accessToken);
+    saveRefreshToken(response.refreshToken);
     redirect();
   },
   onError: () => {
@@ -90,6 +87,10 @@ const showError = (message: string) => {
 
 const saveToken = (token: string) => {
   auth.setToken(token, rememberMe.value);
+};
+
+const saveRefreshToken = (token: string) => {
+  auth.setRefreshToken(token, rememberMe.value);
 };
 
 const redirect = () => {

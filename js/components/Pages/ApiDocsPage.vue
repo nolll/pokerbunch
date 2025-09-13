@@ -21,7 +21,7 @@
         <h2 class="module-heading">Authentication</h2>
 
         <p>To authenticate, your application needs to post a request to</p>
-        <pre><code>POST login</code></pre>
+        <pre><code>POST /login</code></pre>
 
         <p>Post the username and password as json:</p>
         <pre><code>{
@@ -29,11 +29,22 @@
   "password": "[password]"
 }</code></pre>
 
-        <p>If your credentials are valid, the response will include a token, for example</p>
-        <pre><code>ABCDE</code></pre>
+        <p>If your credentials are valid, the response will include two tokens, for example</p>
+        <pre><code>{
+  "accessToken": "ABCD",
+  "refreshToken": "EFGH"
+}</code></pre>
 
-        <p>For subsequent requests, include an Authorization header with the content</p>
+        <p>For subsequent requests, include an Authorization header with the access token</p>
         <pre><code>bearer ABCDE</code></pre>
+
+        <p>If your access token expires, you can get new tokens from</p>
+        <pre><code>POST /refresh</code></pre>
+
+        <p>Post the refresh token like this:</p>
+        <pre><code>{
+  "refreshToken": "EFGH"
+}</code></pre>
       </Block>
     </PageSection>
   </Layout>
