@@ -67,7 +67,7 @@ const join = () => {
 };
 
 const logOut = () => {
-  auth.clearToken();
+  auth.logout();
   redirectToLogin();
 };
 

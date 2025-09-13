@@ -14,6 +14,11 @@ const setRefreshToken = (token: string, persist: boolean) => {
   storage.set(refreshTokenKey, token, persist);
 };
 
+const logout = () => {
+  clearToken();
+  clearRefreshToken();
+};
+
 const clearToken = () => {
   storage.delete(tokenKey);
 };
@@ -30,8 +35,7 @@ export default {
   getRefreshToken,
   setToken,
   setRefreshToken,
-  clearToken,
-  clearRefreshToken,
   hasToken,
   hasRefreshToken,
+  logout,
 };

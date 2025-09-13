@@ -35,7 +35,7 @@ import { useCurrentUser } from '@/composables';
 const { isSignedIn, currentUser } = useCurrentUser('');
 
 const logOut = () => {
-  auth.clearToken();
+  auth.logout();
   redirectHome();
 };
 
