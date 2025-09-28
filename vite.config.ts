@@ -20,11 +20,9 @@ export default {
       '@': resolve(__dirname, './js'),
     },
   },
-  rollupInputOptions: {
-    input: resolve(__dirname, './js/index.ts'), // custom main
-  },
   plugins: [vue()],
   server: {
+    port: 9010,
     proxy: getProxy(),
   },
 };
