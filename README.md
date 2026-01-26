@@ -10,7 +10,7 @@ Frontend for pokerbunch.com
 - Clone frontend project `https://github.com/nolll/pokerbunch.git`
 - `npm install`
 - `npm run serve`
-- Head to `https://localhost:9001`
+- Head to `http://localhost:9010`
 - Login with a user: `admin`, `manager` or `player`. The password is `abcd`
 
 Some actions sends emails. For that to work, install smtp4dev
