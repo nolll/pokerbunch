@@ -7,3 +7,12 @@ export interface ChartData {
   rows: ChartRow[];
   p: null;
 }
+
+export interface NewChartData {
+  labels: string[];
+  datasets: NewChartDataset[];
+}
+
+export interface NewChartDataset {
+  data: (number | null)[];
+}

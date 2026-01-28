@@ -2,10 +2,15 @@
   <div>
     <LineChart :chart-data="chartData" :chart-options="chartOptions" />
   </div>
+
+  <div>
+    <NewLineChart :chart-data="chartData2" :chart-options="chartOptions2" :ready="ready" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import LineChart from './LineChart.vue';
+import NewLineChart from './NewLineChart.vue';
 import { ChartOptions } from '@/models/ChartOptions';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
@@ -16,9 +21,11 @@ import format from '@/format';
 import { computed } from 'vue';
 import archiveHelper from '@/ArchiveHelper';
 import playerSorter from '@/PlayerSorter';
+import { NewChartDataset } from '@/models/ChartData';
 
 const props = defineProps<{
   games: ArchiveCashgame[];
+  ready: Boolean;
 }>();
 
 const chartOptions: ChartOptions = {
@@ -32,6 +39,16 @@ const chartData = computed(() => {
   return getChartData(props.games, players.value);
 });
 
+const chartData2 = computed(() => {
+  return getChartData2(props.games, players.value);
+});
+
+const chartOptions2 = computed(() => {
+  return {
+    responsive: true,
+  };
+});
+
 const players = computed(() => playerSorter.sort(archiveHelper.getPlayers(props.games)));
 
 const getChartData = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
@@ -40,6 +57,14 @@ const getChartData = (games: ArchiveCashgame[], players: CashgameListPlayerData[
     cols: getCols(players),
     rows: getRows(games, players),
     p: null,
+  };
+};
+
+const getChartData2 = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
+  return {
+    //colors: getColors(players),
+    labels: getLabels(games),
+    datasets: getDatasets(games, players),
   };
 };
 
@@ -56,6 +81,15 @@ const getCols = (players: CashgameListPlayerData[]) => {
   cols.push(getCol(ChartColumnType.String, 'Date'));
   for (var i = 0; i < players.length; i++) {
     cols.push(getCol(ChartColumnType.Number, players[i].name));
+  }
+  return cols;
+};
+
+const getLabels = (games: ArchiveCashgame[]): string[] => {
+  var cols = [];
+  cols.push('');
+  for (var i = 0; i < games.length; i++) {
+    cols.push(format.monthDay(games[i].date));
   }
   return cols;
 };
@@ -98,6 +132,29 @@ const getRows = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) =>
   return rows;
 };
 
+const getDatasets = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
+  var datasets = [];
+  var accumulatedWinnings = getAccumulatedWinnings(players);
+  for (var i = 0; i < players.length; i++) {
+    var player = players[i];
+    var data = [];
+    data.push(0);
+    console.log(player.gameResults);
+    for (var j = 0; j < player.gameResults.length; j++) {
+      var game = player.gameResults[j];
+      var val = accumulatedWinnings[player.id] + game.winnings;
+      data.push(val);
+    }
+    var dataset = {
+      label: player.name,
+      data: data,
+    };
+    datasets.push(dataset);
+  }
+  console.log(datasets);
+  return datasets;
+};
+
 const getAccumulatedWinnings = (players: CashgameListPlayerData[]) => {
   var accumulated: Record<string, number> = {};
   for (var i = 0; i < players.length; i++) {
@@ -125,6 +182,12 @@ const getPoint = (val: Date | string | null): ChartRowData => {
 const getRowObj = (points: ChartRowData[]): ChartRow => {
   return {
     c: points,
+  };
+};
+
+const getRowObj2 = (points: (number | null)[]): NewChartDataset => {
+  return {
+    data: points,
   };
 };
 </script>

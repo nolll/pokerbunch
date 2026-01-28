@@ -31,3 +31,7 @@ export interface ChartOptions {
   tooltip?: { trigger: string } | undefined;
   enableInteractivity?: boolean;
 }
+
+export interface NewChartOptions {
+  responsive: Boolean;
+}
