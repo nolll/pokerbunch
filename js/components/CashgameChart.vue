@@ -73,7 +73,7 @@ const getDatasets = (players: CashgameListPlayerData[]) => {
       data.push(val);
     }
 
-    var color = i < colors.length ? colors[i] : '#aaaaaa';
+    var color = getColor(i);
 
     datasets.push({
       label: player.name,
@@ -88,5 +88,7 @@ const getDatasets = (players: CashgameListPlayerData[]) => {
   return datasets;
 };
 
-const colors = ['#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600'];
+const getColor = (index: number) => (index < colors.length ? colors[index] : colors[colors.length - 1]);
+
+const colors = ['#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600', '#aaaaaa'];
 </script>
