@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <NewLineChart :chart-data="chartData2" :chart-options="chartOptions2" :ready="ready" />
+    <NewLineChart :chart-data="chartData" :chart-options="chartOptions" :ready="ready" />
   </div>
 </template>
 
@@ -12,17 +12,18 @@ import format from '@/format';
 import { computed } from 'vue';
 import archiveHelper from '@/ArchiveHelper';
 import playerSorter from '@/PlayerSorter';
+import { ChartData, ChartDataset, ChartOptions } from 'chart.js';
 
 const props = defineProps<{
   games: ArchiveCashgame[];
   ready: boolean;
 }>();
 
-const chartData2 = computed(() => {
-  return getChartData2(props.games, players.value);
+const chartData = computed<ChartData<'line'>>(() => {
+  return getChartData(props.games, players.value);
 });
 
-const chartOptions2 = computed(() => {
+const chartOptions = computed<ChartOptions<'line'>>(() => {
   return {
     responsive: true,
     plugins: {
@@ -40,10 +41,10 @@ const chartOptions2 = computed(() => {
 
 const players = computed(() => playerSorter.sort(archiveHelper.getPlayers(props.games)));
 
-const getChartData2 = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
+const getChartData = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
   return {
     labels: getLabels(games),
-    datasets: getDatasets(games, players),
+    datasets: getDatasets(players),
   };
 };
 
@@ -57,8 +58,8 @@ const getLabels = (games: ArchiveCashgame[]): string[] => {
   return cols;
 };
 
-const getDatasets = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
-  var datasets = [];
+const getDatasets = (players: CashgameListPlayerData[]) => {
+  var datasets: ChartDataset<'line'>[] = [];
   for (var i = 0; i < players.length; i++) {
     var player = players[i];
     var data = [];

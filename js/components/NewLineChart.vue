@@ -21,13 +21,15 @@ import {
   CategoryScale,
   LinearScale,
   Colors,
+  ChartData,
+  ChartOptions,
 } from 'chart.js';
 
 ChartJS.register(Title, Tooltip, Legend, PointElement, LineElement, BarElement, CategoryScale, LinearScale, Colors);
 
 const props = defineProps<{
-  chartData: NewChartData;
-  chartOptions: NewChartOptions;
+  chartData: ChartData<'line'>;
+  chartOptions: ChartOptions<'line'>;
   ready: boolean;
 }>();
 </script>
