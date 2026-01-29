@@ -72,14 +72,21 @@ const getDatasets = (players: CashgameListPlayerData[]) => {
       accumulatedWinnings = val;
       data.push(val);
     }
+
+    var color = i < colors.length ? colors[i] : '#aaaaaa';
+
     datasets.push({
       label: player.name,
       spanGaps: true,
       pointStyle: false,
       borderWidth: 1,
+      borderColor: color,
+      backgroundColor: color,
       data: data,
     });
   }
   return datasets;
 };
+
+const colors = ['#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600'];
 </script>
