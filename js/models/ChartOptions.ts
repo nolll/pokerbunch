@@ -33,5 +33,5 @@ export interface ChartOptions {
 }
 
 export interface NewChartOptions {
-  responsive: Boolean;
+  responsive: boolean | undefined;
 }
