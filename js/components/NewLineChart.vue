@@ -7,8 +7,6 @@
 
 <script setup lang="ts">
 import { LoadingSpinner } from '@/components/Common';
-import { NewChartData } from '@/models/ChartData';
-import { NewChartOptions } from '@/models/ChartOptions';
 import { Line } from 'vue-chartjs';
 import {
   Chart as ChartJS,
@@ -23,9 +21,10 @@ import {
   Colors,
   ChartData,
   ChartOptions,
+  TimeScale,
 } from 'chart.js';
 
-ChartJS.register(Title, Tooltip, Legend, PointElement, LineElement, BarElement, CategoryScale, LinearScale, Colors);
+ChartJS.register(Title, Tooltip, Legend, PointElement, LineElement, BarElement, CategoryScale, LinearScale, TimeScale, Colors);
 
 const props = defineProps<{
   chartData: ChartData<'line'>;

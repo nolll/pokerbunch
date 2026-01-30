@@ -4,8 +4,8 @@ import vue from '@vitejs/plugin-vue';
 function getProxy() {
   return {
     '/api': {
-      //target: 'https://api.pokerbunch.com',
-      target: 'https://localhost:5010',
+      target: 'https://api.pokerbunch.com',
+      //target: 'https://localhost:5010',
       rewrite: (path) => path.replace(/^\/api/, ''),
       changeOrigin: true,
       secure: false,

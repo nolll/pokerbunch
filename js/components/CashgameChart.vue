@@ -13,6 +13,7 @@ import { computed } from 'vue';
 import archiveHelper from '@/ArchiveHelper';
 import playerSorter from '@/PlayerSorter';
 import { ChartData, ChartDataset, ChartOptions } from 'chart.js';
+import { getColor } from '@/colors';
 
 const props = defineProps<{
   games: ArchiveCashgame[];
@@ -87,8 +88,4 @@ const getDatasets = (players: CashgameListPlayerData[]) => {
   }
   return datasets;
 };
-
-const getColor = (index: number) => (index < colors.length ? colors[index] : colors[colors.length - 1]);
-
-const colors = ['#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600', '#aaaaaa'];
 </script>

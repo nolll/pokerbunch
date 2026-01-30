@@ -1,112 +1,72 @@
 ﻿<template>
-  <div>
-    <LineChart :chart-data="chartData" :chart-options="chartOptions" />
+  <div style="position: relative; width: 180px; height: 60px">
+    <NewLineChart :chart-data="chartData" :chart-options="chartOptions" :ready="true" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ChartColumnPattern } from '@/models/ChartColumnPattern';
-import { ChartColumnType } from '@/models/ChartColumnType';
-import { ChartData } from '@/models/ChartData';
-import { ChartOptions } from '@/models/ChartOptions';
-import { ChartRow } from '@/models/ChartRow';
+import NewLineChart from './NewLineChart.vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed } from 'vue';
-import LineChart from './LineChart.vue';
+import { ChartData, ChartOptions, Point } from 'chart.js';
+import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
 
 const props = defineProps<{
   player: DetailedCashgamePlayer;
 }>();
 
-const chartOptions = computed((): ChartOptions => {
-  var minmax = getMinMax();
-
+const chartOptions = computed((): ChartOptions<'line'> => {
   return {
-    colors: ['#000'],
-    vAxis: {
-      minValue: 0,
-      textPosition: 'none',
-      gridlines: { color: 'transparent' },
-      baselineColor: '#f6f4ef',
-      viewWindowMode: 'explicit',
-      viewWindow: {
-        max: minmax.max,
-        min: minmax.min,
+    responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 3,
+    plugins: {
+      legend: {
+        display: false,
       },
     },
-    hAxis: { format: 'HH:mm', textPosition: 'none', gridlines: { color: 'transparent' } },
-    pointSize: 0,
-    legend: { position: 'none' },
-    tooltip: { trigger: 'none' },
-    enableInteractivity: false,
+    scales: {
+      x: {
+        display: false,
+        type: 'time',
+      },
+      y: {
+        display: false,
+      },
+    },
   };
 });
 
-const chartData = computed((): ChartData => {
-  return getChartData();
-});
-
-const getChartData = (): ChartData => {
+const chartData = computed((): ChartData<'line'> => {
   return {
-    colors: null,
-    cols: [
+    labels: props.player.actions.map((a) => a.time),
+    datasets: [
       {
-        type: ChartColumnType.DateTime,
         label: '',
-        pattern: ChartColumnPattern.HoursAndMinutes,
-      },
-      {
-        type: ChartColumnType.Number,
-        label: '',
-        pattern: null,
+        backgroundColor: '#000000',
+        borderColor: '#000000',
+        spanGaps: true,
+        pointStyle: false,
+        borderWidth: 1,
+        data: props.player.actions.map((a) => {
+          var buyin = 0;
+          for (let i = 0; i < props.player.actions.length; i++) {
+            let action = props.player.actions[i];
+            if (action.added) {
+              buyin += action.added;
+            }
+            if (action.time.getTime() === a.time.getTime()) {
+              break;
+            }
+          }
+          var d = {
+            x: a.time.getTime(),
+            y: a.stack - buyin,
+          } as Point;
+          return d;
+        }),
       },
     ],
-    rows: getChartRows(),
-    p: null,
   };
-};
-
-const getChartRows = (): ChartRow[] => {
-  var rows = [];
-  var buyin = 0;
-  for (let i = 0; i < props.player.actions.length; i++) {
-    let action = props.player.actions[i];
-    if (action.added) {
-      buyin += action.added;
-    }
-
-    rows.push(getChartRow(action.time, action.stack - buyin));
-  }
-  return rows;
-};
-
-const getMinMax = (): { min: number; max: number } => {
-  var min = 0;
-  var max = 0;
-  var buyin = 0;
-  for (let i = 0; i < props.player.actions.length; i++) {
-    let action = props.player.actions[i];
-    if (action.added) {
-      buyin += action.added;
-    }
-    var result = action.stack - buyin;
-    if (result > max) max = result;
-    if (result < min) min = result;
-  }
-
-  return { min: min - 20, max: max + 20 };
-};
-
-const getChartRow = (time: Date, stack: number): ChartRow => ({
-  c: [
-    {
-      v: new Date(time),
-      f: null,
-    },
-    {
-      v: stack,
-      f: null,
-    },
-  ],
 });
 </script>
