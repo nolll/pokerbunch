@@ -8,6 +8,7 @@
 <script setup lang="ts">
 import { LoadingSpinner } from '@/components/Common';
 import { Line } from 'vue-chartjs';
+import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
 import {
   Chart as ChartJS,
   Title,
@@ -22,9 +23,22 @@ import {
   ChartData,
   ChartOptions,
   TimeScale,
+  Filler,
 } from 'chart.js';
 
-ChartJS.register(Title, Tooltip, Legend, PointElement, LineElement, BarElement, CategoryScale, LinearScale, TimeScale, Colors);
+ChartJS.register(
+  Title,
+  Tooltip,
+  Legend,
+  PointElement,
+  LineElement,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  Colors,
+  Filler,
+);
 
 const props = defineProps<{
   chartData: ChartData<'line'>;

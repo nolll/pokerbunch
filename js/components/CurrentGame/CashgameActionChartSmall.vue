@@ -9,7 +9,6 @@ import LineChart from '@/components/LineChart.vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed } from 'vue';
 import { ChartData, ChartOptions, Point } from 'chart.js';
-import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
 
 const props = defineProps<{
   player: DetailedCashgamePlayer;
