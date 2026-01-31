@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <LineChart :chart-data="chartData" :chart-options="chartOptions" />
+    <OldLineChart :chart-data="chartData" :chart-options="chartOptions" />
   </div>
 </template>
 
@@ -12,7 +12,7 @@ import { ChartOptions } from '@/models/ChartOptions';
 import { ChartRow } from '@/models/ChartRow';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed } from 'vue';
-import LineChart from './LineChart.vue';
+import OldLineChart from '@/components/OldLineChart.vue';
 
 const props = defineProps<{
   player: DetailedCashgamePlayer;

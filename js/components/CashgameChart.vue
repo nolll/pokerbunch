@@ -1,11 +1,11 @@
 ﻿<template>
-  <div>
-    <NewLineChart :chart-data="chartData" :chart-options="chartOptions" :ready="ready" />
+  <div style="position: relative">
+    <LineChart :chart-data="chartData" :chart-options="chartOptions" :ready="ready" />
   </div>
 </template>
 
 <script setup lang="ts">
-import NewLineChart from './NewLineChart.vue';
+import LineChart from './LineChart.vue';
 import { CashgameListPlayerData } from '@/models/CashgameListPlayerData';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import format from '@/format';

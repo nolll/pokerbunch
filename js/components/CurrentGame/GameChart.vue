@@ -1,13 +1,13 @@
 ﻿<template>
   <div>
-    <LineChart :chart-data="chartData" :chart-options="chartOptions" />
+    <OldLineChart :chart-data="chartData" :chart-options="chartOptions" />
   </div>
 </template>
 
 <script setup lang="ts">
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import LineChart from '@/components/LineChart.vue';
+import OldLineChart from '@/components/OldLineChart.vue';
 import { ChartData } from '@/models/ChartData';
 import { ChartRow } from '@/models/ChartRow';
 import { ChartColumn } from '@/models/ChartColumn';
@@ -131,6 +131,6 @@ watch(
   () => {
     if (!!props.players) drawChart();
   },
-  { deep: true }
+  { deep: true },
 );
 </script>

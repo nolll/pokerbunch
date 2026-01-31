@@ -122,7 +122,6 @@ import { useParams, useLocationList, useBunch, usePlayerList, useEventList, useG
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { gameKey, gameListKey } from '@/queries/queryKeys';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
-import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 
 const { slug, cashgameId } = useParams();
 const router = useRouter();

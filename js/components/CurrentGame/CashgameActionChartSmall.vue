@@ -1,11 +1,11 @@
 ﻿<template>
   <div style="position: relative; width: 180px; height: 60px">
-    <NewLineChart :chart-data="chartData" :chart-options="chartOptions" :ready="true" />
+    <LineChart :chart-data="chartData" :chart-options="chartOptions" :ready="true" />
   </div>
 </template>
 
 <script setup lang="ts">
-import NewLineChart from './NewLineChart.vue';
+import LineChart from '@/components/LineChart.vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed } from 'vue';
 import { ChartData, ChartOptions, Point } from 'chart.js';

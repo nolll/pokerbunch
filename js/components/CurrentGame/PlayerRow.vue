@@ -48,9 +48,9 @@
 <script setup lang="ts">
 import PlayerAction from './PlayerAction.vue';
 import urls from '@/urls';
-import CashgameActionChart from '@/components/CashgameActionChart.vue';
-import CashgameActionChartSmall from '@/components/CashgameActionChartSmall.vue';
-import { CurrencyText, CustomLink, WinningsText } from '@/components/Common';
+import CashgameActionChart from '@/components/CurrentGame/CashgameActionChart.vue';
+import CashgameActionChartSmall from '@/components/CurrentGame/CashgameActionChartSmall.vue';
+import { CurrencyText, WinningsText } from '@/components/Common';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
 import { BuyinIcon, CashedOutIcon, InlineIcon, ReportIcon, TimeIcon } from '../Icons';
