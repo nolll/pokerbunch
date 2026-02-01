@@ -1,38 +1,20 @@
 ﻿<template>
   <div>
-    <OldLineChart :chart-data="chartData" :chart-options="chartOptions" />
-  </div>
-
-  <div>
-    <LineChart :chart-data="chartData2" :chart-options="chartOptions2" :ready="true" />
+    <LineChart :chart-data="chartData2" :chart-options="chartOptions" :ready="true" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ChartColumnPattern } from '@/models/ChartColumnPattern';
-import { ChartColumnType } from '@/models/ChartColumnType';
-import { ChartData } from '@/models/ChartData';
-import { ChartOptions } from '@/models/ChartOptions';
-import { ChartRow } from '@/models/ChartRow';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed } from 'vue';
-import { ChartData as ChartData2, ChartOptions as ChartOptions2, Point } from 'chart.js';
-import OldLineChart from '@/components/OldLineChart.vue';
+import { ChartData, ChartOptions, Point } from 'chart.js';
 import LineChart from '@/components/LineChart.vue';
 
 const props = defineProps<{
   player: DetailedCashgamePlayer;
 }>();
 
-const chartOptions: ChartOptions = {
-  colors: ['#000', '#ABA493'],
-  series: { 1: { type: 'area' } },
-  vAxis: { minValue: 0, baselineColor: 'transparent' },
-  hAxis: { format: 'HH:mm' },
-  pointSize: 0,
-};
-
-const chartOptions2 = computed((): ChartOptions2<'line'> => {
+const chartOptions = computed((): ChartOptions<'line'> => {
   return {
     responsive: true,
     maintainAspectRatio: true,
@@ -59,7 +41,7 @@ const chartOptions2 = computed((): ChartOptions2<'line'> => {
   };
 });
 
-const chartData2 = computed((): ChartData2<'line'> => {
+const chartData2 = computed((): ChartData<'line'> => {
   return {
     //labels: props.player.actions.map((a) => a.time),
     datasets: [
@@ -70,12 +52,7 @@ const chartData2 = computed((): ChartData2<'line'> => {
         fill: 'origin',
         pointRadius: 0,
         borderWidth: 1,
-        data: props.player.actions.map((a) => {
-          return {
-            x: a.time.getTime(),
-            y: 200,
-          };
-        }),
+        data: chartDatasets.value.buyinData,
       },
       {
         label: 'Stack',
@@ -83,77 +60,47 @@ const chartData2 = computed((): ChartData2<'line'> => {
         borderColor: '#000000',
         pointRadius: 0,
         borderWidth: 1,
-        data: props.player.actions.map((a) => {
-          return {
-            x: a.time.getTime(),
-            y: a.stack,
-          };
-        }),
+        data: chartDatasets.value.stackData,
       },
     ],
   };
 });
 
-const chartData = computed((): ChartData => {
-  return getChartData();
-});
-
-const getChartData = (): ChartData => {
-  return {
-    colors: null,
-    cols: [
-      {
-        type: ChartColumnType.DateTime,
-        label: 'Time',
-        pattern: ChartColumnPattern.HoursAndMinutes,
-      },
-      {
-        type: ChartColumnType.Number,
-        label: 'Stack',
-        pattern: null,
-      },
-      {
-        type: ChartColumnType.Number,
-        label: 'Buyin',
-        pattern: null,
-      },
-    ],
-    rows: getChartRows(),
-    p: null,
-  };
-};
-
-const getChartRows = (): ChartRow[] => {
+const chartDatasets = computed(() => {
+  const buyinPoints: Point[] = [];
+  const stackPoints: Point[] = [];
   var buyin = 0;
-  var rows = [];
   for (let i = 0; i < props.player.actions.length; i++) {
-    let action = props.player.actions[i];
-    if (action.added) {
-      let stackBeforeBuyin = action.stack - action.added;
-      rows.push(getChartRow(action.time, stackBeforeBuyin, buyin));
-      buyin += action.added;
+    const action = props.player.actions[i];
+    const added = action.added || 0;
+    const time = action.time.getTime();
+    if (added > 0) {
+      let stackBeforeBuyin = action.stack - added;
+      buyinPoints.push({
+        x: time,
+        y: buyin,
+      });
+      if (buyin > 0) {
+        stackPoints.push({
+          x: time,
+          y: stackBeforeBuyin,
+        });
+      }
     }
-    rows.push(getChartRow(action.time, action.stack, buyin));
+    buyin += added;
+    buyinPoints.push({
+      x: time,
+      y: buyin,
+    });
+    stackPoints.push({
+      x: time,
+      y: action.stack,
+    });
   }
-  return rows;
-};
 
-const getChartRow = (time: Date, stack: number, buyin: number): ChartRow => {
   return {
-    c: [
-      {
-        v: new Date(time),
-        f: null,
-      },
-      {
-        v: stack,
-        f: null,
-      },
-      {
-        v: buyin,
-        f: null,
-      },
-    ],
+    buyinData: buyinPoints,
+    stackData: stackPoints,
   };
-};
+});
 </script>
