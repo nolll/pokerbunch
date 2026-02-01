@@ -13,7 +13,7 @@
 
       <PageSection>
         <Block>
-          <CashgameChart :games="games" />
+          <CashgameChart :games="games" :ready="ready" />
         </Block>
       </PageSection>
     </template>

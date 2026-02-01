@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <LineChart :chart-data="chartData" :chart-options="chartOptions" />
+    <LineChart :chart-data="chartData" :chart-options="chartOptions" :ready="true" />
   </div>
 </template>
 
@@ -8,15 +8,10 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import LineChart from '@/components/LineChart.vue';
-import { ChartData } from '@/models/ChartData';
-import { ChartRow } from '@/models/ChartRow';
-import { ChartColumn } from '@/models/ChartColumn';
-import { ChartColumnType } from '@/models/ChartColumnType';
-import { ChartColumnPattern } from '@/models/ChartColumnPattern';
-import { ChartRowData } from '@/models/ChartRowData';
-import { ChartOptions } from '@/models/ChartOptions';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
-import { nextTick, onMounted, ref, watch } from 'vue';
+import { computed } from 'vue';
+import { ChartData, ChartOptions, Point } from 'chart.js';
+import { getColor } from '@/colors';
 
 interface ChartPlayerResult {
   time: Date;
@@ -29,62 +24,77 @@ const props = defineProps<{
   players: DetailedCashgamePlayer[];
 }>();
 
-const chartData = ref<ChartData | null>(null);
-const chartOptions = ref<ChartOptions>({
-  pointSize: 0,
-  vAxis: { minValue: 0 },
-  hAxis: { format: 'HH:mm' },
-  legend: {
-    position: 'none',
-  },
-  colors: [],
+const chartOptions = computed((): ChartOptions<'line'> => {
+  return {
+    responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 3,
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'minute',
+          displayFormats: {
+            minute: 'HH:mm',
+          },
+        },
+      },
+      y: {
+        beginAtZero: true,
+      },
+    },
+  };
 });
 
-const drawChart = () => {
-  chartData.value = getGameChartData();
-  chartOptions.value = { ...chartOptions.value, colors: getColors() };
-};
-
-const getGameChartData = (): ChartData => {
+const chartData = computed((): ChartData<'line'> => {
   return {
-    colors: null,
-    cols: getColumns(),
-    rows: getRows(),
-    p: null,
+    //labels: props.player.actions.map((a) => a.time),
+    datasets: chartDatasets.value,
   };
-};
+});
 
-const getColors = () => {
-  const colors = [];
-  for (const p of props.players) {
-    colors.push(p.color);
+const chartDatasets = computed(() => {
+  const datasets = [];
+  for (let i = 0; i < props.players.length; i++) {
+    const player = props.players[i];
+    datasets.push(getPlayerDataset(player, getColor(i)));
   }
-  return colors;
-};
 
-const getColumns = (): ChartColumn[] => {
-  const cols: ChartColumn[] = [{ type: ChartColumnType.DateTime, label: 'Time', pattern: ChartColumnPattern.HoursAndMinutes }];
-  for (const p of props.players) {
-    cols.push({ type: ChartColumnType.Number, label: p.name, pattern: null });
-  }
-  return cols;
-};
+  return datasets;
+});
 
-const getRows = (): ChartRow[] => {
-  var rows = [];
-  for (const player of props.players) {
-    if (player.actions.length) {
-      const results = getPlayerResults(player);
-      for (let j = 0; j < results.length; j++) {
-        rows.push(getRow(results[j], player.id));
-      }
-      if (!player.hasCashedOut()) {
-        var currentResult = createPlayerResult(dayjs.utc().toDate(), results[results.length - 1].winnings);
-        rows.push(getRow(currentResult, player.id));
-      }
-    }
+const getPlayerDataset = (player: DetailedCashgamePlayer, color: string) => {
+  const points: Point[] = [];
+  var results = getPlayerResults(player);
+  for (let i = 0; i < results.length; i++) {
+    const result = results[i];
+    const time = result.time.getTime();
+    points.push({
+      x: time,
+      y: result.winnings,
+    });
   }
-  return rows;
+
+  if (!player.hasCashedOut()) {
+    points.push({
+      x: dayjs.utc().toDate().getTime(),
+      y: results[results.length - 1].winnings,
+    });
+  }
+
+  return {
+    label: player.name,
+    backgroundColor: color,
+    borderColor: color,
+    pointRadius: 0,
+    borderWidth: 1,
+    data: points,
+  };
 };
 
 const getPlayerResults = (player: DetailedCashgamePlayer) => {
@@ -106,31 +116,4 @@ const createPlayerResult = (time: Date, winnings: number): ChartPlayerResult => 
     winnings: winnings,
   };
 };
-
-const getRow = (result: ChartPlayerResult, playerId: string) => {
-  const values: ChartRowData[] = [{ v: result.time, f: null }];
-  for (var i = 0; i < props.players.length; i++) {
-    var val = null;
-    if (props.players[i].id === playerId) {
-      val = result.winnings + '';
-    }
-    values.push({ v: val, f: null });
-  }
-  return { c: values };
-};
-
-onMounted(async () => {
-  await nextTick();
-  if (props.players.length > 0) {
-    drawChart();
-  }
-});
-
-watch(
-  () => props.players,
-  () => {
-    if (!!props.players) drawChart();
-  },
-  { deep: true }
-);
 </script>

@@ -3,7 +3,7 @@
     <div class="player-row__row-wrapper" @click="toggle">
       <div class="player-row__name-and-time">
         <div>
-          <div class="player-color-box" :style="{ backgroundColor: player.color }" @click="onSelected"></div>
+          <div class="player-color-box" :style="{ backgroundColor: color }" @click="onSelected"></div>
           <a class="player-row__name" @click.stop="" :href="url">{{ player.name }}</a>
           <InlineIcon><CashedOutIcon title="Cashed out" v-if="showCheckmark" /></InlineIcon>
         </div>
@@ -48,9 +48,9 @@
 <script setup lang="ts">
 import PlayerAction from './PlayerAction.vue';
 import urls from '@/urls';
-import CashgameActionChart from '@/components/CashgameActionChart.vue';
-import CashgameActionChartSmall from '@/components/CashgameActionChartSmall.vue';
-import { CurrencyText, CustomLink, WinningsText } from '@/components/Common';
+import CashgameActionChart from '@/components/CurrentGame/CashgameActionChart.vue';
+import CashgameActionChartSmall from '@/components/CurrentGame/CashgameActionChartSmall.vue';
+import { CurrencyText, WinningsText } from '@/components/Common';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
 import { BuyinIcon, CashedOutIcon, InlineIcon, ReportIcon, TimeIcon } from '../Icons';
@@ -63,6 +63,7 @@ const props = defineProps<{
   isCashgameRunning: boolean;
   canEdit: boolean;
   localization: Localization;
+  color: string;
 }>();
 
 const emit = defineEmits<{

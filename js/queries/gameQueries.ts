@@ -1,10 +1,11 @@
 import api from '@/api';
-import { useQuery } from '@tanstack/vue-query';
+import { skipToken, useQuery } from '@tanstack/vue-query';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import { currentGameListKey, eventGameListKey, gameKey, gameListKey } from './queryKeys';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
 import { DetailedCashgame } from '@/models/DetailedCashgame';
 import { fifteenSecondsRefreshInterval, thirtySecondsRefreshInterval, thirtySecondsStaleTime } from './staleTimes';
+import { Ref } from 'vue';
 
 export const useGameListQuery = (slug: string) => {
   return useQuery({
@@ -40,9 +41,10 @@ export const useCurrentGameListQuery = (slug: string) => {
   });
 };
 
-export const useGameQuery = (id: string) => {
+export const useGameQuery = (id: string, isEnabled: Ref<boolean, boolean>) => {
   return useQuery({
     queryKey: gameKey(id),
+    enabled: isEnabled,
     queryFn: async () => {
       const response = await api.getCashgame(id);
       return new DetailedCashgame(response.data);
