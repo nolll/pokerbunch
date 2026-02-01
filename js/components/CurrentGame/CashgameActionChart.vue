@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <LineChart :chart-data="chartData2" :chart-options="chartOptions" :ready="true" />
+    <LineChart :chart-data="chartData" :chart-options="chartOptions" :ready="true" />
   </div>
 </template>
 
@@ -41,7 +41,7 @@ const chartOptions = computed((): ChartOptions<'line'> => {
   };
 });
 
-const chartData2 = computed((): ChartData<'line'> => {
+const chartData = computed((): ChartData<'line'> => {
   return {
     //labels: props.player.actions.map((a) => a.time),
     datasets: [

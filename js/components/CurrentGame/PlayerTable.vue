@@ -1,6 +1,6 @@
 ﻿<template>
   <div>
-    <div v-for="player in players" v-bind:key="player.id">
+    <div v-for="(player, index) in players" v-bind:key="player.id">
       <PlayerRow
         :player="player"
         :isCashgameRunning="isCashgameRunning"
@@ -11,6 +11,7 @@
         :canEdit="canEdit"
         :bunchId="bunchId"
         :localization="localization"
+        :color="getColor(index)"
       />
     </div>
     <div class="totals">
@@ -38,6 +39,7 @@ import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { BuyinIcon, InlineIcon, ReportIcon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
+import { getColor } from '@/colors';
 
 const props = defineProps<{
   bunchId: string;
