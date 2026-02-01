@@ -46,7 +46,7 @@ const chartData = computed((): ChartData<'line'> => {
         borderColor: '#000000',
         spanGaps: true,
         pointStyle: false,
-        borderWidth: 1,
+        borderWidth: 2,
         data: props.player.actions.map((a) => {
           var buyin = 0;
           for (let i = 0; i < props.player.actions.length; i++) {

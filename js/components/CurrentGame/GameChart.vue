@@ -31,7 +31,12 @@ const chartOptions = computed((): ChartOptions<'line'> => {
     aspectRatio: 3,
     plugins: {
       legend: {
-        display: false,
+        display: true,
+        position: 'bottom',
+        labels: {
+          boxWidth: 10,
+          boxHeight: 10,
+        },
       },
     },
     scales: {
@@ -92,7 +97,7 @@ const getPlayerDataset = (player: DetailedCashgamePlayer, color: string) => {
     backgroundColor: color,
     borderColor: color,
     pointRadius: 0,
-    borderWidth: 1,
+    borderWidth: 3,
     data: points,
   };
 };

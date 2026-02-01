@@ -51,7 +51,7 @@ const chartData = computed((): ChartData<'line'> => {
         borderColor: 'rgba(100, 100, 100, 0.35)',
         fill: 'origin',
         pointRadius: 0,
-        borderWidth: 1,
+        borderWidth: 2,
         data: chartDatasets.value.buyinData,
       },
       {
@@ -59,7 +59,7 @@ const chartData = computed((): ChartData<'line'> => {
         backgroundColor: '#000000',
         borderColor: '#000000',
         pointRadius: 0,
-        borderWidth: 1,
+        borderWidth: 2,
         data: chartDatasets.value.stackData,
       },
     ],

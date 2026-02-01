@@ -80,7 +80,7 @@ const getDatasets = (players: CashgameListPlayerData[]) => {
       label: player.name,
       spanGaps: true,
       pointStyle: false,
-      borderWidth: 1,
+      borderWidth: 3,
       borderColor: color,
       backgroundColor: color,
       data: data,
