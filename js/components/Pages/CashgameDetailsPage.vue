@@ -139,7 +139,10 @@ const isEditing = ref(false);
 const locationId = ref<string>();
 const eventId = ref<string>();
 
-const { game: cashgame, gameReady } = useGame(cashgameId.value);
+const playerId = computed(() => currentUser.playerId.value);
+const isAutoRefreshEnabled = computed(() => selectedPlayerId.value === playerId.value);
+
+const { game: cashgame, gameReady } = useGame(cashgameId.value, isAutoRefreshEnabled);
 const queryClient = useQueryClient();
 
 const title = computed(() => `Cashgame ${formattedDate.value}`);
@@ -172,7 +175,7 @@ const hasCachedOut = computed(() => {
 const isEnded = computed(() => hasPlayers.value && !isRunning.value);
 const areButtonsVisible = computed(() => isRunning.value && !isAnyFormVisible.value);
 const isAnyFormVisible = computed(
-  () => (isRunning.value && reportFormVisible.value) || buyinFormVisible.value || cashoutFormVisible.value
+  () => (isRunning.value && reportFormVisible.value) || buyinFormVisible.value || cashoutFormVisible.value,
 );
 const isPlayerSelectionEnabled = computed(() => isRunning.value && currentUser.isManager.value && !isEditing.value);
 const locationName = computed(() => cashgame.value?.location.name || '');
@@ -255,7 +258,7 @@ const startTime = computed(() => {
 
 const updatedTime = computed(() => cashgame.value?.updatedTime || null);
 const ready = computed(
-  () => bunchReady.value && gameReady.value && playersReady.value && locationsReady.value && eventsReady.value
+  () => bunchReady.value && gameReady.value && playersReady.value && locationsReady.value && eventsReady.value,
 );
 
 const report = async (stack: number) => {
@@ -325,7 +328,7 @@ const hideForms = () => {
 };
 
 const resetSelectedPlayerId = () => {
-  selectedPlayerId.value = currentUser.playerId.value;
+  selectedPlayerId.value = playerId.value;
 };
 
 const getPlayerInGame = (id: string) => {
@@ -334,7 +337,9 @@ const getPlayerInGame = (id: string) => {
 };
 
 const onSelectPlayer = (id: string) => {
-  if (isPlayerSelectionEnabled.value) selectedPlayerId.value = id;
+  if (isPlayerSelectionEnabled.value) {
+    selectedPlayerId.value = id;
+  }
 };
 
 const onEdit = () => {
@@ -413,8 +418,6 @@ const redirect = () => {
   router.push(urls.cashgame.index(slug.value));
 };
 
-const playerId = computed(() => currentUser.playerId.value);
-
 watch(cashgame, () => {
   locationId.value = cashgame.value?.location.id || undefined;
   eventId.value = cashgame.value?.event?.id || undefined;
@@ -422,6 +425,6 @@ watch(cashgame, () => {
 });
 
 watch(bunch, () => {
-  selectedPlayerId.value = currentUser.playerId.value;
+  selectedPlayerId.value = playerId.value;
 });
 </script>
