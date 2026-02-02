@@ -47,10 +47,7 @@
           <Block>
             <h2>User</h2>
           </Block>
-          <Block v-if="hasUser">
-            <!-- <p>
-              <img :src="avatarUrl" alt="User avatar" />
-            </p> -->
+          <Block v-if="isUser">
             <p>This player is a registered user.</p>
             <p>
               <CustomButton :url="userUrl" text="View User Profile" />
@@ -104,7 +101,7 @@ import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { usePlayerList, useGameList, useParams, useBunch, useUser } from '@/composables';
+import { usePlayerList, useGameList, useParams, useBunch } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { playerListKey } from '@/queries/queryKeys';
 
@@ -120,19 +117,15 @@ const inviteEmail = ref('');
 const invitationSent = ref(false);
 const errorMessage = ref('');
 
-const hasUser = computed(() => Boolean(tryGetPlayer(playerId.value)?.userId));
+const userName = computed(() => tryGetPlayer(playerId.value)?.userName ?? '');
+const isUser = computed(() => Boolean(userName.value));
 const player = computed(() => getPlayer(playerId.value));
-
-const { user, userReady } = useUser(player.value?.userName ?? '', hasUser.value);
-
 const playerName = computed(() => player.value?.name ?? '');
-const inviteUrl = computed(() => urls.player.invite(player.value?.id ?? ''));
 
 const userUrl = computed(() => {
-  if (user.value) return urls.user.details(user.value.userName);
+  if (userName.value) return urls.user.details(userName.value);
 });
 
-const avatarUrl = computed(() => user.value?.avatar);
 const games = computed(() => allGames.value.filter((g) => isInGame(g)));
 
 const results = computed(() => {
@@ -240,7 +233,7 @@ const worstLosingStreak = computed(() => {
   return worstStreak;
 });
 
-const ready = computed(() => bunchReady.value && playersReady.value && gamesReady.value && (userReady.value || !hasUser.value));
+const ready = computed(() => bunchReady.value && playersReady.value && gamesReady.value);
 const canDelete = computed(() => results.value.length === 0);
 
 const showInvitationForm = () => {

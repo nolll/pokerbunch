@@ -15,7 +15,7 @@ export const useUserListQuery = () => {
   });
 };
 
-export const useUserQuery = (userName: string, isEnabled: boolean) => {
+export const useUserQuery = (userName: string) => {
   return useQuery({
     queryKey: userKey(userName),
     queryFn: async (): Promise<User> => {
@@ -23,6 +23,5 @@ export const useUserQuery = (userName: string, isEnabled: boolean) => {
       return response.data;
     },
     staleTime: fiveMinuteStaleTime,
-    enabled: isEnabled,
   });
 };

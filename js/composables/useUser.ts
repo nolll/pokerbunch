@@ -2,8 +2,8 @@ import { computed } from 'vue';
 import { useUserQuery } from '@/queries/userQueries';
 import { User } from '@/models/User';
 
-export default function useUser(userName: string, isEnabled?: boolean) {
-  const userQuery = useUserQuery(userName, isEnabled ?? true);
+export default function useUser(userName: string) {
+  const userQuery = useUserQuery(userName);
 
   const user = computed((): User => {
     return userQuery.data.value!;
