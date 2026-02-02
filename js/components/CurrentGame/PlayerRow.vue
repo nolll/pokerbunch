@@ -3,7 +3,7 @@
     <div class="player-row__row-wrapper" @click="toggle">
       <div class="player-row__name-and-time">
         <div>
-          <div class="player-color-box" :style="{ backgroundColor: color }" @click="onSelected"></div>
+          <!-- <div class="player-color-box" :style="{ backgroundColor: color }" @click="onSelected"></div> -->
           <a class="player-row__name" @click.stop="" :href="url">{{ player.name }}</a>
           <InlineIcon><CashedOutIcon title="Cashed out" v-if="showCheckmark" /></InlineIcon>
         </div>
@@ -20,7 +20,7 @@
           <InlineIcon><ReportIcon title="Total Stacks" /></InlineIcon>
           <CurrencyText :value="stack" :localization="localization" />
         </div>
-        <div><WinningsText :value="winnings" :localization="localization" /></div>
+        <div><WinningsText :value="winnings" :localization="localization" :showCurrency="true" /></div>
       </div>
       <div class="player-row__small-chart">
         <CashgameActionChartSmall :player="player" />

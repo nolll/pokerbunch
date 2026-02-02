@@ -47,8 +47,8 @@ const chartData = computed((): ChartData<'line'> => {
     datasets: [
       {
         label: 'Buyin',
-        backgroundColor: 'rgba(100, 100, 100, 0.35)',
-        borderColor: 'rgba(100, 100, 100, 0.35)',
+        backgroundColor: 'rgba(100, 100, 100, 0.25)',
+        borderColor: 'rgba(100, 100, 100, 0.45)',
         fill: 'origin',
         pointRadius: 0,
         borderWidth: 2,

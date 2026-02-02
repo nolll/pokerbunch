@@ -27,7 +27,7 @@ const chartData = computed<ChartData<'line'>>(() => {
 const chartOptions = computed<ChartOptions<'line'>>(() => {
   return {
     responsive: true,
-    aspectRatio: 16 / 9,
+    aspectRatio: 4 / 3,
     maintainAspectRatio: true,
     plugins: {
       legend: {
