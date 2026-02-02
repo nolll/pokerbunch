@@ -18,7 +18,7 @@ const chartOptions = computed((): ChartOptions<'line'> => {
   return {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 3,
+    aspectRatio: 16 / 9,
     plugins: {
       legend: {
         display: false,

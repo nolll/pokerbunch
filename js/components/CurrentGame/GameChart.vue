@@ -27,8 +27,8 @@ const props = defineProps<{
 const chartOptions = computed((): ChartOptions<'line'> => {
   return {
     responsive: true,
+    aspectRatio: 16 / 9,
     maintainAspectRatio: true,
-    aspectRatio: 3,
     plugins: {
       legend: {
         display: true,

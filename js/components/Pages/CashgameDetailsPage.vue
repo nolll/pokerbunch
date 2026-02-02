@@ -140,7 +140,7 @@ const locationId = ref<string>();
 const eventId = ref<string>();
 
 const playerId = computed(() => currentUser.playerId.value);
-const isAutoRefreshEnabled = computed(() => selectedPlayerId.value === playerId.value);
+const isAutoRefreshEnabled = computed(() => selectedPlayerId.value === '' || selectedPlayerId.value === playerId.value);
 
 const { game: cashgame, gameReady } = useGame(cashgameId.value, isAutoRefreshEnabled);
 const queryClient = useQueryClient();
