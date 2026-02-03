@@ -5,7 +5,7 @@
       <p>{{ description }}</p>
     </Block>
     <Block>
-      <CustomButton :url="url" :text="linkText" type="action" />
+      <Button :href="url" severity="primary" as="a">{{ linkText }}</Button>
     </Block>
   </div>
 </template>
@@ -16,6 +16,7 @@ import { computed } from 'vue';
 import { Block, CustomButton } from '../Common';
 import { useParams } from '@/composables';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
+import Button from 'primevue/button';
 
 const props = defineProps<{
   games: CurrentGameResponse[];
