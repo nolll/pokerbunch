@@ -38,7 +38,7 @@
         <p>For subsequent requests, include an Authorization header with the access token</p>
         <pre><code>bearer ABCDE</code></pre>
 
-        <p>If your access token expires, you can get new tokens from</p>
+        <p>If your access token expires, you can get a new token from</p>
         <pre><code>POST /refresh</code></pre>
 
         <p>Post the refresh token like this:</p>
