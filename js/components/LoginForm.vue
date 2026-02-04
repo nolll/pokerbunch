@@ -4,11 +4,18 @@
     <fieldset>
       <p>
         <label class="label" for="username">Email or User Name</label>
-        <input type="text" id="username" v-model="username" :disabled="isLoggingIn" class="textfield" />
+        <input type="text" id="username" v-model="username" :disabled="isLoggingIn" class="textfield" @keydown.enter="login" />
       </p>
       <p>
         <label class="label" for="password">Password</label>
-        <input type="password" id="password" v-model="password" :disabled="isLoggingIn" class="textfield" />
+        <input
+          type="password"
+          id="password"
+          v-model="password"
+          :disabled="isLoggingIn"
+          class="textfield"
+          @keydown.enter="login"
+        />
       </p>
       <p class="checkbox-layout">
         <label class="checkbox-label" for="rememberme">Keep me signed in</label>
@@ -37,7 +44,7 @@ const props = defineProps<{
 
 const username = ref('');
 const password = ref('');
-const rememberMe = ref(false);
+const rememberMe = ref(true);
 const errorMessage = ref<string | null>(null);
 const isLoggingIn = computed(() => loginMutation.isPending.value);
 
