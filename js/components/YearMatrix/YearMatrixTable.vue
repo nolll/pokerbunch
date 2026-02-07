@@ -3,7 +3,7 @@
     <TableList>
       <thead>
         <tr>
-          <TableListColumnHeader @click="toggleAll"><div v-html="toggleSymbol"></div></TableListColumnHeader>
+          <TableListColumnHeader @click="toggleAll"><i :class="toggleIcon"></i></TableListColumnHeader>
           <TableListColumnHeader>Player</TableListColumnHeader>
           <TableListColumnHeader>Winnings</TableListColumnHeader>
           <YearMatrixColumn v-for="year in years" :year="year" :key="year" />
@@ -116,8 +116,8 @@ const getGamesForYear = (games: CashgamePlayerData[], year: number) => {
   return yearGames;
 };
 
-const toggleSymbol = computed(() => {
-  return showAll.value ? '&nbsp;&nbsp;&#x2B06;' : '&nbsp;&nbsp;&#x2B07;';
+const toggleIcon = computed(() => {
+  return showAll.value ? 'pi pi-chevron-up' : 'pi pi-chevron-down';
 });
 
 const toggleAll = () => {

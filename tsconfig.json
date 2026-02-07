@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
+    "module": "preserve",
     "strict": true,
-    "moduleResolution": "node",
     "importHelpers": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
