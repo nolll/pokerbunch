@@ -1,4 +1,5 @@
 export const bunchListKey = () => ['bunches'];
+export const joinRequestListKey = (slug: string) => ['join-requests', slug];
 export const userBunchListKey = (isSignedIn: boolean) => ['current-user', 'bunches', isSignedIn];
 export const bunchKey = (slug: string) => ['bunch', slug];
 export const gameKey = (id: string) => ['game', id];
