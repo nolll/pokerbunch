@@ -3,7 +3,7 @@
     <TableList>
       <thead>
         <tr>
-          <TableListColumnHeader />
+          <TableListColumnHeader @click="toggleAll"><i :class="toggleIcon"></i></TableListColumnHeader>
           <TableListColumnHeader>Player</TableListColumnHeader>
           <TableListColumnHeader>Winnings</TableListColumnHeader>
           <YearMatrixColumn v-for="year in years" :year="year" :key="year" />
@@ -11,9 +11,8 @@
       </thead>
       <tbody>
         <YearMatrixRow
-          v-for="(player, index) in playersWithYearResults"
+          v-for="player in playersWithYearResults"
           :player="player"
-          :index="index"
           :key="player.id"
           :bunchId="bunchId"
           :localization="localization"
@@ -30,7 +29,7 @@ import { CashgamePlayerData } from '@/models/CashgamePlayerData';
 import { CashgamePlayerYearlyResultCollection } from '@/models/CashgamePlayerYearlyResultCollection';
 import dayjs from 'dayjs';
 import { TableList, TableListColumnHeader } from '@/components/Common/TableList';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { BunchResponse } from '@/response/BunchResponse';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import ArchiveHelper from '@/ArchiveHelper';
@@ -41,6 +40,8 @@ const props = defineProps<{
   games: ArchiveCashgame[];
   localization: Localization;
 }>();
+
+const showAll = ref(false);
 
 const bunchId = computed(() => {
   return props.bunch.id;
@@ -66,7 +67,7 @@ const playersWithYearResults = computed((): CashgamePlayerYearlyResultCollection
     const mostRecentGame = getMostRecentGame(player.gameResults);
     const buyinTime = mostRecentGame?.buyinTime;
     const yearOfMostRecentGame: number | null = !!buyinTime ? dayjs(buyinTime).year() : null;
-    if (yearOfMostRecentGame === currentYear.value) {
+    if (showAll.value || yearOfMostRecentGame === currentYear.value) {
       var playerYears = [];
       for (let k = 0; k < years.value.length; k++) {
         var year = years.value[k];
@@ -83,6 +84,7 @@ const playersWithYearResults = computed((): CashgamePlayerYearlyResultCollection
         playerYears.push(playerYear);
       }
       var matrixPlayer = {
+        rank: i + 1,
         id: player.id,
         name: player.name,
         winnings: player.winnings,
@@ -112,5 +114,13 @@ const getGamesForYear = (games: CashgamePlayerData[], year: number) => {
     }
   }
   return yearGames;
+};
+
+const toggleIcon = computed(() => {
+  return showAll.value ? 'pi pi-chevron-up' : 'pi pi-chevron-down';
+});
+
+const toggleAll = () => {
+  showAll.value = !showAll.value;
 };
 </script>

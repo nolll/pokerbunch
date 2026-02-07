@@ -1,7 +1,6 @@
 import api from '@/api';
 import { useQuery } from '@tanstack/vue-query';
 import { BunchResponse } from '@/response/BunchResponse';
-import auth from '@/auth';
 import { bunchKey, bunchListKey, userBunchListKey } from './queryKeys';
 import { fiveMinuteStaleTime } from './staleTimes';
 

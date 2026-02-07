@@ -16,6 +16,9 @@ export default {
     details: (slug: string) => `/bunches/${slug}`,
     list: '/bunches',
   },
+  joinRequest: {
+    list: (slug: string) => `/bunches/${slug}/joinrequests`,
+  },
   cashgame: {
     add: (slug: string) => `/bunches/${slug}/cashgames/add`,
     details: (slug: string, id: string) => `/bunches/${slug}/cashgames/${id}`,

@@ -1,6 +1,6 @@
 ﻿<template>
   <TableListRow>
-    <TableListCell :is-numeric="true">{{ rank }}.</TableListCell>
+    <TableListCell :is-numeric="true">{{ player.rank }}.</TableListCell>
     <TableListCell>
       <CustomLink :url="url">{{ name }}</CustomLink>
     </TableListCell>
@@ -23,7 +23,6 @@ import { Localization } from '@/models/Localization';
 const props = defineProps<{
   bunchId: string;
   player: CashgamePlayerYearlyResultCollection;
-  index: number;
   localization: Localization;
 }>();
 
@@ -33,10 +32,6 @@ const url = computed(() => {
 
 const name = computed(() => {
   return props.player.name;
-});
-
-const rank = computed(() => {
-  return props.index + 1;
 });
 
 const winnings = computed(() => {

@@ -22,13 +22,14 @@
 
 <script setup lang="ts">
 import { CustomLink } from '@/components/Common';
-import { useBunch, useParams, useUserBunchList } from '@/composables';
+import { useBunch, useParams, useUserBunchList, useCurrentUser } from '@/composables';
 import urls from '@/urls';
 import { computed } from 'vue';
 
 const { slug } = useParams();
 const { bunch, bunchReady } = useBunch(slug.value);
-const { userBunches, userBunchesReady } = useUserBunchList(true);
+const { isSignedIn } = useCurrentUser('');
+const { userBunches, userBunchesReady } = useUserBunchList(isSignedIn.value);
 
 const calculatedSlug = computed(() => {
   if (slug.value) return slug.value;

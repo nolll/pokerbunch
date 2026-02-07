@@ -5,7 +5,8 @@
       <p>{{ description }}</p>
     </Block>
     <Block>
-      <Button :href="url" severity="primary" as="a">{{ linkText }}</Button>
+      <CustomButton :url="url" type="action" :text="linkText" />
+      <!-- <Button :href="url" severity="primary" as="a">{{ linkText }}</Button> -->
     </Block>
   </div>
 </template>
@@ -13,7 +14,7 @@
 <script setup lang="ts">
 import urls from '@/urls';
 import { computed } from 'vue';
-import { Block, CustomButton } from '../Common';
+import { Block, CustomButton } from '@/components/Common';
 import { useParams } from '@/composables';
 import { CurrentGameResponse } from '@/response/CurrentGameResponse';
 import Button from 'primevue/button';
