@@ -53,26 +53,6 @@
               <CustomButton :url="userUrl" text="View User Profile" />
             </p>
           </Block>
-          <Block v-else>
-            <template v-if="isInvitationFormVisible">
-              <div class="field">
-                <label class="label" for="inviteEmail">Email</label>
-                <input class="textfield" v-model="inviteEmail" id="inviteEmail" type="email" />
-              </div>
-              <div class="buttons">
-                <CustomButton @click="invitePlayer" text="Invite" type="action" />
-                <CustomButton @click="cancelInvitation" text="Cancel" />
-              </div>
-            </template>
-            <template v-else>
-              <p>
-                {{ notRegisteredMessage }}
-              </p>
-              <p v-if="!invitationSent">
-                <CustomButton @click="showInvitationForm" text="Invite Player" type="action" />
-              </p>
-            </template>
-          </Block>
         </template>
       </PageSection>
 
@@ -112,9 +92,6 @@ const { getPlayer, tryGetPlayer, playersReady } = usePlayerList(slug.value);
 const { allGames, gamesReady } = useGameList(slug.value);
 const queryClient = useQueryClient();
 
-const isInvitationFormVisible = ref(false);
-const inviteEmail = ref('');
-const invitationSent = ref(false);
 const errorMessage = ref('');
 
 const userName = computed(() => tryGetPlayer(playerId.value)?.userName ?? '');
@@ -235,28 +212,6 @@ const worstLosingStreak = computed(() => {
 
 const ready = computed(() => bunchReady.value && playersReady.value && gamesReady.value);
 const canDelete = computed(() => results.value.length === 0);
-
-const showInvitationForm = () => {
-  isInvitationFormVisible.value = true;
-};
-
-const hideInvitationForm = () => {
-  isInvitationFormVisible.value = false;
-};
-
-const invitePlayer = () => {
-  api.invitePlayer(player.value?.id ?? '', { email: inviteEmail.value });
-  invitationSent.value = true;
-  hideInvitationForm();
-};
-
-const cancelInvitation = () => {
-  hideInvitationForm();
-};
-
-const notRegisteredMessage = computed(() => {
-  return invitationSent.value ? 'An invitation was sent.' : 'This player is not registered yet.';
-});
 
 const deleteMutation = useMutation({
   mutationFn: async () => {

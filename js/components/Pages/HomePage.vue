@@ -17,7 +17,6 @@
               <CustomLink :url="bunchListUrl">join a bunch</CustomLink>, or
               <CustomLink :url="addBunchUrl">create a new bunch</CustomLink>.
             </p>
-            <p>If you want to join an existing bunch, you will need an invitation from a bunch player.</p>
           </Block>
           <Block>
             <h2 class="module-heading">Api</h2>
@@ -46,6 +45,12 @@
         <Block>
           <UserBunchList :bunches="userBunches" />
         </Block>
+        <Block>
+          <CustomButton :url="bunchListUrl" text="Join a bunch" />
+        </Block>
+        <Block>
+          <CustomButton :url="addBunchUrl" text="Create bunch" />
+        </Block>
         <Block v-if="isAdmin">
           <AdminNavigation />
         </Block>
@@ -63,6 +68,7 @@ import { Block, CustomLink, PageHeading, PageSection } from '@/components/Common
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed } from 'vue';
 import { useUserBunchList, useCurrentUser } from '@/composables';
+import CustomButton from '../Common/CustomButton.vue';
 
 const { isSignedIn, isAdmin } = useCurrentUser('');
 const { userBunchesReady, userBunches } = useUserBunchList(isSignedIn.value);

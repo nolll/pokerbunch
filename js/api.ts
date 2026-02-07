@@ -37,6 +37,8 @@ export default {
   joinBunch: (slug: string, data: ApiParamsJoinBunch) => apiClient.post(apiUrls.bunch.join(slug), data),
   addJoinRequest: (slug: string) => apiClient.post(apiUrls.joinRequests.add(slug)),
   getJoinRequests: (slug: string) => apiClient.get(apiUrls.joinRequests.list(slug)),
+  acceptJoinRequest: (joinRequestId: string) => apiClient.post(apiUrls.joinRequests.accept(joinRequestId)),
+  denyJoinRequest: (joinRequestId: string) => apiClient.post(apiUrls.joinRequests.deny(joinRequestId)),
   getPlayers: (slug: string) => apiClient.get<PlayerResponse[]>(apiUrls.player.list(slug)),
   addPlayer: (slug: string, data: ApiParamsAddPlayer) => apiClient.post<PlayerResponse>(apiUrls.player.list(slug), data),
   deletePlayer: (id: string) => apiClient.delete(apiUrls.player.get(id)),

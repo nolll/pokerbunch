@@ -56,7 +56,6 @@ const routes: RouteRecordRaw[] = [
   { path: '/bunches/:slug/locations/add', component: AddLocationPage },
   { path: '/bunches/:slug/locations/:id', component: LocationDetailsPage },
   { path: '/bunches/:slug/locations', component: LocationListPage },
-  { path: '/bunches/:slug/join/:code?', component: JoinBunchPage },
   { path: '/bunches/:slug/joinrequests', component: JoinRequestListPage },
   { path: '/bunches/:slug', component: BunchDetailsPage },
   { path: urls.bunch.list, component: BunchListPage },
