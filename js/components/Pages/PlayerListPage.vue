@@ -10,6 +10,9 @@
           <Block>
             <CustomButton :url="addPlayerUrl" type="action" text="Add player" />
           </Block>
+          <Block>
+            <CustomButton :url="joinRequestsUrl" type="action" text="Join requests" />
+          </Block>
         </template>
 
         <template v-slot:default>
@@ -39,5 +42,6 @@ const { slug } = useParams();
 const { players, playersReady } = usePlayerList(slug.value);
 
 const addPlayerUrl = computed(() => urls.player.add(slug.value));
+const joinRequestsUrl = computed(() => urls.joinRequest.list(slug.value));
 const ready = computed(() => playersReady.value);
 </script>

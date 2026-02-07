@@ -5,11 +5,9 @@
         <PageHeading text="Bunches" />
       </Block>
 
-      <Block v-if="isAdmin">
+      <Block>
         <BunchList :bunches="bunches" />
       </Block>
-
-      <Block v-else> Access denied </Block>
     </PageSection>
   </Layout>
 </template>

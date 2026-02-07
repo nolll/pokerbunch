@@ -12,6 +12,10 @@ export default {
     list: '/bunches',
     user: '/user/bunches',
   },
+  joinRequests: {
+    add: (slug: string) => `/bunches/${slug}/joinrequests`,
+    list: (slug: string) => `/bunches/${slug}/joinrequests`,
+  },
   cashgame: {
     action: (cashgameId: string, actionId: string) => `/cashgames/${cashgameId}/actions/${actionId}`,
     actions: (id: string) => `/cashgames/${id}/actions`,

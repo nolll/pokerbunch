@@ -13,7 +13,8 @@
         <div v-if="isSignedIn">
           <Block>
             <p>
-              Poker Bunch helps you keep track of the results in your poker homegames. Please select one of your bunches, or
+              Poker Bunch helps you keep track of the results in your poker homegames. Please select one of your bunches,
+              <CustomLink :url="bunchListUrl">join a bunch</CustomLink>, or
               <CustomLink :url="addBunchUrl">create a new bunch</CustomLink>.
             </p>
             <p>If you want to join an existing bunch, you will need an invitation from a bunch player.</p>
@@ -68,6 +69,7 @@ const { userBunchesReady, userBunches } = useUserBunchList(isSignedIn.value);
 
 const loginUrl = computed(() => urls.auth.login);
 const registerUrl = computed(() => urls.user.add);
+const bunchListUrl = computed(() => urls.bunch.list);
 const addBunchUrl = computed(() => urls.bunch.add);
 const apiDocsUrl = computed(() => urls.api.docs);
 

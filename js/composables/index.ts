@@ -13,6 +13,7 @@ import useTimezones from './useTimezones';
 import useUser from './useUser';
 import useUserBunchList from './useUserBunchList';
 import useUserList from './useUserList';
+import useJoinRequestList from './useJoinRequestList';
 
 export {
   useBunch,
@@ -30,4 +31,5 @@ export {
   useUser,
   useUserBunchList,
   useUserList,
+  useJoinRequestList,
 };
