@@ -12,13 +12,31 @@
       </Block>
 
       <Block v-if="hasJoinRequests">
-        <SimpleList>
-          <SimpleListItem v-for="joinRequest in joinRequests" :key="joinRequest.id">
-            {{ joinRequest.userName }}
-            <CustomButton text="Deny" type="action" v-on:click="() => deny(joinRequest)" />
-            <CustomButton text="Accept" type="action" v-on:click="() => accept(joinRequest)" />
-          </SimpleListItem>
-        </SimpleList>
+        <DataTable size="small" :value="joinRequests" responsiveLayout="scroll">
+          <Column field="userName" header="Username"></Column>
+          <Column>
+            <template #body="{ data }">
+              <div class="actions-column">
+                <Button
+                  v-on:click="() => deny(data)"
+                  variant="outlined"
+                  severity="danger"
+                  size="small"
+                  label="Deny"
+                  icon="pi pi-times"
+                ></Button>
+                <Button
+                  v-on:click="() => accept(data)"
+                  variant="outlined"
+                  severity="success"
+                  size="small"
+                  label="Accept"
+                  icon="pi pi-check"
+                ></Button>
+              </div>
+            </template>
+          </Column>
+        </DataTable>
       </Block>
       <Block v-else>
         <p>There are no join requests.</p>
@@ -29,8 +47,7 @@
 
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
-import { Block, PageHeading, PageSection, CustomButton } from '@/components/Common';
-import { SimpleList, SimpleListItem } from '@/components/Common/SimpleList';
+import { Block, PageHeading, PageSection } from '@/components/Common';
 import { computed, ref } from 'vue';
 import { useJoinRequestList, useParams } from '@/composables';
 import { JoinRequestResponse } from '@/response/JoinRequestResponse';
@@ -40,6 +57,9 @@ import { MessageResponse } from '@/response/MessageResponse';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { joinRequestListKey } from '@/queries/queryKeys';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import { Button } from 'primevue';
 
 const { slug } = useParams();
 const { joinRequests, joinRequestsReady } = useJoinRequestList(slug.value);
@@ -95,3 +115,11 @@ const clearMessage = () => (message.value = null);
 
 const ready = computed(() => joinRequestsReady.value);
 </script>
+
+<style lang="scss" scoped>
+.actions-column {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: right;
+}
+</style>

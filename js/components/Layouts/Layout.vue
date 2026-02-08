@@ -10,7 +10,7 @@
     </PageSection>
 
     <div v-if="ready">
-      <div class="main clearfix">
+      <div class="main">
         <slot></slot>
       </div>
 

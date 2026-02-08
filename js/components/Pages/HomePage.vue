@@ -45,12 +45,6 @@
         <Block>
           <UserBunchList :bunches="userBunches" />
         </Block>
-        <Block>
-          <CustomButton :url="bunchListUrl" text="Join a bunch" />
-        </Block>
-        <Block>
-          <CustomButton :url="addBunchUrl" text="Create bunch" />
-        </Block>
         <Block v-if="isAdmin">
           <AdminNavigation />
         </Block>
@@ -68,7 +62,6 @@ import { Block, CustomLink, PageHeading, PageSection } from '@/components/Common
 import UserBunchList from '@/components/UserBunchList/UserBunchList.vue';
 import { computed } from 'vue';
 import { useUserBunchList, useCurrentUser } from '@/composables';
-import CustomButton from '../Common/CustomButton.vue';
 
 const { isSignedIn, isAdmin } = useCurrentUser('');
 const { userBunchesReady, userBunches } = useUserBunchList(isSignedIn.value);

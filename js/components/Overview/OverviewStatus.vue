@@ -6,7 +6,7 @@
     </Block>
     <Block>
       <CustomButton :url="url" type="action" :text="linkText" />
-      <!-- <Button :href="url" severity="primary" as="a">{{ linkText }}</Button> -->
+      <!-- <Button :href="url" severity="primary" size="small" as="a">{{ linkText }}</Button> -->
     </Block>
   </div>
 </template>

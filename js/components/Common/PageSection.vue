@@ -22,7 +22,7 @@ const props = withDefaults(
   }>(),
   {
     isWide: false,
-  }
+  },
 );
 
 const slots = useSlots();
@@ -38,15 +38,53 @@ const cssClasses = computed((): CssClasses => {
   };
 });
 
-const asideCssClasses = computed((): CssClasses => ({
-  region: true,
-  aside: true,
-}));
+const asideCssClasses = computed(
+  (): CssClasses => ({
+    region: true,
+    aside: true,
+  }),
+);
 
-const mainCssClasses = computed((): CssClasses => ({
-  region: true,
-  width2: hasAside.value,
-}));
+const mainCssClasses = computed(
+  (): CssClasses => ({
+    region: true,
+    width2: hasAside.value,
+  }),
+);
 
 const isSlotEnabled = (name: string) => !!slots[name];
 </script>
+
+<style lang="scss" scoped>
+@use '../../../css/mediaqueries';
+
+.page-section {
+  max-width: 981px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.page-section--wide {
+  max-width: none;
+  margin: 0 auto;
+}
+
+@include mediaqueries.widthSmall {
+  .page-section {
+    display: flex;
+    justify-content: space-between;
+  }
+  .region {
+    flex: 1;
+    width: 32%;
+  }
+  .region.width2 {
+    flex: 2;
+    order: 1;
+  }
+  .region.aside {
+    padding-left: 15px;
+    order: 2;
+  }
+}
+</style>
