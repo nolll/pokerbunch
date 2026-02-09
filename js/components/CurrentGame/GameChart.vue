@@ -58,7 +58,6 @@ const chartOptions = computed((): ChartOptions<'line'> => {
 
 const chartData = computed((): ChartData<'line'> => {
   return {
-    //labels: props.player.actions.map((a) => a.time),
     datasets: chartDatasets.value,
   };
 });
@@ -67,7 +66,7 @@ const chartDatasets = computed(() => {
   const datasets = [];
   for (let i = 0; i < props.players.length; i++) {
     const player = props.players[i];
-    datasets.push(getPlayerDataset(player, getColor(i)));
+    datasets.push(getPlayerDataset(player, playerColors.value[player.id]));
   }
 
   return datasets;
@@ -101,6 +100,15 @@ const getPlayerDataset = (player: DetailedCashgamePlayer, color: string) => {
     data: points,
   };
 };
+
+const playerColors = computed(() => {
+  const colors = {} as Record<string, string>;
+  const sorted = [...props.players].sort((a, b) => a.name.localeCompare(b.name));
+  for (let i = 0; i < sorted.length; i++) {
+    colors[sorted[i].id] = getColor(i);
+  }
+  return colors;
+});
 
 const getPlayerResults = (player: DetailedCashgamePlayer) => {
   let added = 0;

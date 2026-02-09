@@ -76,7 +76,7 @@ const getDatasets = (players: CashgameListPlayerData[]) => {
       data.push(val);
     }
 
-    var color = getColor(i);
+    var color = playerColors.value[player.id];
 
     datasets.push({
       label: player.name,
@@ -90,4 +90,13 @@ const getDatasets = (players: CashgameListPlayerData[]) => {
   }
   return datasets;
 };
+
+const playerColors = computed(() => {
+  const colors = {} as Record<string, string>;
+  const sorted = [...players.value].sort((a, b) => a.name.localeCompare(b.name));
+  for (let i = 0; i < sorted.length; i++) {
+    colors[sorted[i].id] = getColor(i);
+  }
+  return colors;
+});
 </script>
