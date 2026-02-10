@@ -47,17 +47,18 @@ const chartData = computed((): ChartData<'line'> => {
     datasets: [
       {
         label: 'Buyin',
-        backgroundColor: 'rgba(100, 100, 100, 0.25)',
-        borderColor: 'rgba(100, 100, 100, 0.45)',
-        fill: 'origin',
+        backgroundColor: 'rgba(200, 100, 100, 0.25)',
+        borderColor: 'rgba(200, 100, 100, 0.25)',
+        fill: { value: 0 },
         pointRadius: 0,
         borderWidth: 2,
         data: chartDatasets.value.buyinData,
       },
       {
         label: 'Stack',
-        backgroundColor: '#000000',
-        borderColor: '#000000',
+        backgroundColor: 'rgba(100, 200, 100, 0.25)',
+        borderColor: 'rgba(0, 0, 0, 1)',
+        fill: { target: '-1', above: 'rgba(100, 200, 100, 0.25)', below: 'rgba(255, 255, 255, 0)' },
         pointRadius: 0,
         borderWidth: 2,
         data: chartDatasets.value.stackData,

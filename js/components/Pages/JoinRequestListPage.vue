@@ -1,52 +1,59 @@
 ﻿<template>
   <Layout :require-user="true" :ready="ready">
-    <PageSection>
-      <Block>
-        <PageHeading text="Join requests" />
-      </Block>
+    <template v-slot:top-nav>
+      <BunchNavigation />
+    </template>
 
-      <Block v-if="hasMessage">
-        <p>
-          {{ message }}
-        </p>
-      </Block>
+    <template v-slot:default>
+      <PageSection>
+        <Block>
+          <PageHeading text="Join requests" />
+        </Block>
 
-      <Block v-if="hasJoinRequests">
-        <DataTable size="small" :value="joinRequests" responsiveLayout="scroll">
-          <Column field="userName" header="Username"></Column>
-          <Column>
-            <template #body="{ data }">
-              <div class="actions-column">
-                <Button
-                  v-on:click="() => deny(data)"
-                  variant="outlined"
-                  severity="danger"
-                  size="small"
-                  label="Deny"
-                  icon="pi pi-times"
-                ></Button>
-                <Button
-                  v-on:click="() => accept(data)"
-                  variant="outlined"
-                  severity="success"
-                  size="small"
-                  label="Accept"
-                  icon="pi pi-check"
-                ></Button>
-              </div>
-            </template>
-          </Column>
-        </DataTable>
-      </Block>
-      <Block v-else>
-        <p>There are no join requests.</p>
-      </Block>
-    </PageSection>
+        <Block v-if="hasMessage">
+          <p>
+            {{ message }}
+          </p>
+        </Block>
+
+        <Block v-if="hasJoinRequests">
+          <DataTable size="small" :value="joinRequests" responsiveLayout="scroll">
+            <Column field="userName" header="Username"></Column>
+            <Column>
+              <template #body="{ data }">
+                <div class="actions-column">
+                  <Button
+                    v-on:click="() => deny(data)"
+                    variant="outlined"
+                    severity="danger"
+                    size="small"
+                    label="Deny"
+                    icon="pi pi-times"
+                  ></Button>
+                  <Button
+                    v-on:click="() => accept(data)"
+                    variant="outlined"
+                    severity="success"
+                    size="small"
+                    label="Accept"
+                    icon="pi pi-check"
+                  ></Button>
+                </div>
+              </template>
+            </Column>
+          </DataTable>
+        </Block>
+        <Block v-else>
+          <p>There are no join requests.</p>
+        </Block>
+      </PageSection>
+    </template>
   </Layout>
 </template>
 
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
+import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import { Block, PageHeading, PageSection } from '@/components/Common';
 import { computed, ref } from 'vue';
 import { useJoinRequestList, useParams } from '@/composables';

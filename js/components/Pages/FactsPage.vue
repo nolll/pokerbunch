@@ -27,10 +27,6 @@
         </template>
       </PageSection>
     </template>
-
-    <template v-slot:main>
-      <PageSection> </PageSection>
-    </template>
   </Layout>
 </template>
 
