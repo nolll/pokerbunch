@@ -18,7 +18,7 @@
       <div class="title">Totals:</div>
       <div class="amounts">
         <div class="amount">
-          <InlineIcon><BuyinIcon title="Total Buy in" /></InlineIcon>
+          <InlineIcon><BuyinIcon title="Total Buyin" /></InlineIcon>
           <CurrencyText :value="totalBuyin" :localization="localization" />
         </div>
         <div class="amount">
@@ -33,7 +33,6 @@
 <script setup lang="ts">
 import PlayerRow from './PlayerRow.vue';
 import { CurrencyText } from '@/components/Common';
-import cashgameHelper from '@/CashgameHelper';
 import { computed } from 'vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { BuyinIcon, InlineIcon, ReportIcon } from '../Icons';
@@ -55,8 +54,8 @@ const emit = defineEmits<{
   deleteAction: [data: string];
 }>();
 
-const totalBuyin = computed(() => cashgameHelper.getTotalBuyin(props.players));
-const totalStacks = computed(() => cashgameHelper.getTotalStacks(props.players));
+const totalBuyin = computed(() => props.players.reduce((sum, player) => sum + player.getBuyin(), 0));
+const totalStacks = computed(() => props.players.reduce((sum, player) => sum + player.getStack(), 0));
 const onSelected = (id: string) => emit('playerSelected', id);
 const onDeleteAction = (id: string) => emit('deleteAction', id);
 const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);

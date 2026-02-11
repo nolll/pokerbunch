@@ -97,7 +97,7 @@
 
 <script setup lang="ts">
 import urls from '@/urls';
-import timeFunctions from '@/time-functions';
+import { diffInMinutes } from '@/time-functions';
 import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import GameButton from '@/components/CurrentGame/GameButton.vue';
@@ -155,7 +155,7 @@ const formattedEndTime = computed(() => {
 
 const durationMinutes = computed(() => {
   if (!cashgame.value) return 0;
-  return timeFunctions.diffInMinutes(startTime.value, cashgame.value.updatedTime);
+  return diffInMinutes(startTime.value, cashgame.value.updatedTime);
 });
 
 const showStartTime = computed(() => hasPlayers.value);

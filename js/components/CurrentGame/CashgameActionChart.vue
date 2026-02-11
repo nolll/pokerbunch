@@ -41,9 +41,8 @@ const chartOptions = computed((): ChartOptions<'line'> => {
   };
 });
 
-const chartData = computed((): ChartData<'line'> => {
-  return {
-    //labels: props.player.actions.map((a) => a.time),
+const chartData = computed(
+  (): ChartData<'line'> => ({
     datasets: [
       {
         label: 'Buyin',
@@ -64,8 +63,8 @@ const chartData = computed((): ChartData<'line'> => {
         data: chartDatasets.value.stackData,
       },
     ],
-  };
-});
+  }),
+);
 
 const chartDatasets = computed(() => {
   const buyinPoints: Point[] = [];

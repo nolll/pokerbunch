@@ -2,7 +2,7 @@ import { ArchiveCashgame } from './models/ArchiveCashgame';
 import { CashgameListPlayerData } from './models/CashgameListPlayerData';
 import { CashgamePlayerData } from './models/CashgamePlayerData';
 import { CashgamePlayerSortOrder } from './models/CashgamePlayerSortOrder';
-import timeFunctions from './time-functions';
+import { diffInMinutes } from './time-functions';
 import playerSorter from '@/PlayerSorter';
 import { ArchiveCashgamePlayer } from './models/ArchiveCashgamePlayer';
 import dayjs from 'dayjs';
@@ -32,7 +32,7 @@ export default {
         }
         const buyinTime = singlePlayerResult.startTime;
         const updatedTime = singlePlayerResult.updatedTime;
-        const timeDiffInMinutes = timeFunctions.diffInMinutes(buyinTime, updatedTime);
+        const timeDiffInMinutes = diffInMinutes(buyinTime, updatedTime);
         const playerGameResult: CashgamePlayerData = {
           gameId: game.id,
           buyin: singlePlayerResult.buyin,

@@ -1,5 +1,5 @@
 import { ArchiveCashgameResponse } from '@/response/ArchiveCashgameResponse';
-import timeFunctions from '@/time-functions';
+import { diffInMinutes } from '@/time-functions';
 import dayjs from 'dayjs';
 import { ArchiveCashgameLocation } from './ArchiveCashgameLocation';
 import { ArchiveCashgamePlayer } from './ArchiveCashgamePlayer';
@@ -19,7 +19,7 @@ export class ArchiveCashgame {
     startTime: Date,
     updatedTime: Date,
     location: ArchiveCashgameLocation,
-    players: ArchiveCashgamePlayer[]
+    players: ArchiveCashgamePlayer[],
   ) {
     this.id = id;
     this.startTime = startTime;
@@ -28,7 +28,7 @@ export class ArchiveCashgame {
     this.players = players.sort((a, b) => a.winnings - b.winnings).reverse();
     this.turnover = this.getTurnover();
     this.averageBuyin = this.getAverageBuyin();
-    this.duration = timeFunctions.diffInMinutes(startTime, updatedTime);
+    this.duration = diffInMinutes(startTime, updatedTime);
   }
 
   public get date() {
@@ -65,7 +65,7 @@ export class ArchiveCashgame {
       dayjs(response.startTime).toDate(),
       dayjs(response.updatedTime).toDate(),
       ArchiveCashgameLocation.fromResponse(response.location),
-      response.results?.map((o) => ArchiveCashgamePlayer.fromResponse(o)) || []
+      response.results?.map((o) => ArchiveCashgamePlayer.fromResponse(o)) || [],
     );
   }
 }
