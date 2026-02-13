@@ -16,27 +16,10 @@ const props = defineProps<{
   event: EventResponse;
 }>();
 
-const name = computed(() => {
-  return props.event.name;
-});
-
-const location = computed(() => {
-  return props.event.location.name;
-});
-
-const date = computed(() => {
-  return props.event.startDate;
-});
-
-const url = computed(() => {
-  return urls.event.details(props.event.bunchId, props.event.id.toString());
-});
-
-const details = computed(() => {
-  return hasGames.value ? `${location.value}, ${date.value}` : 'No games';
-});
-
-const hasGames = computed(() => {
-  return !!props.event.location && !!props.event.startDate;
-});
+const name = computed(() => props.event.name);
+const location = computed(() => props.event.location.name);
+const date = computed(() => props.event.startDate);
+const url = computed(() => urls.event.details(props.event.bunchId, props.event.id.toString()));
+const details = computed(() => hasGames.value ? `${location.value}, ${date.value}` : 'No games');
+const hasGames = computed(() => !!props.event.location && !!props.event.startDate);
 </script>

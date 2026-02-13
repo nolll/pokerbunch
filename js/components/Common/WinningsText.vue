@@ -16,16 +16,19 @@ const props = withDefaults(
   }>(),
   {
     showCurrency: false,
-  }
+  },
 );
 
-const formattedValue = computed(() => {
-  if (props.showCurrency && props.localization) return format.result(props.value, props.localization);
-  return format.resultWithoutCurrency(props.value);
-});
+const formattedValue = computed(() =>
+  props.showCurrency && props.localization
+    ? format.result(props.value, props.localization)
+    : format.resultWithoutCurrency(props.value),
+);
 
-const cssClasses = computed((): CssClasses => ({
-  'pos-result': props.value > 0,
-  'neg-result': props.value < 0,
-}));
+const cssClasses = computed(
+  (): CssClasses => ({
+    'pos-result': props.value > 0,
+    'neg-result': props.value < 0,
+  }),
+);
 </script>

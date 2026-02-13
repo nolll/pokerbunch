@@ -48,57 +48,19 @@ const selectedPageName = computed(() => {
   return 'Overview';
 });
 
-const isYearNavEnabled = computed(() => {
-  return props.page !== 'index';
-});
-
-const overviewUrl = computed(() => {
-  return urls.cashgame.index(slug.value);
-});
-
-const matrixUrl = computed(() => {
-  return urls.cashgame.archive('matrix', slug.value, selectedYear.value);
-});
-
-const toplistUrl = computed(() => {
-  return urls.cashgame.archive('toplist', slug.value, selectedYear.value);
-});
-
-const chartUrl = computed(() => {
-  return urls.cashgame.archive('chart', slug.value, selectedYear.value);
-});
-
-const listUrl = computed(() => {
-  return urls.cashgame.archive('list', slug.value, selectedYear.value);
-});
-
-const factsUrl = computed(() => {
-  return urls.cashgame.archive('facts', slug.value, selectedYear.value);
-});
-
-const isOverviewSelected = computed(() => {
-  return props.page === 'index';
-});
-
-const isMatrixSelected = computed(() => {
-  return props.page === 'matrix';
-});
-
-const isToplistSelected = computed(() => {
-  return props.page === 'toplist';
-});
-
-const isChartSelected = computed(() => {
-  return props.page === 'chart';
-});
-
-const isListSelected = computed(() => {
-  return props.page === 'list';
-});
-
-const isFactsSelected = computed(() => {
-  return props.page === 'facts';
-});
+const isYearNavEnabled = computed(() => props.page !== 'index');
+const overviewUrl = computed(() => urls.cashgame.index(slug.value));
+const matrixUrl = computed(() => urls.cashgame.archive('matrix', slug.value, selectedYear.value));
+const toplistUrl = computed(() => urls.cashgame.archive('toplist', slug.value, selectedYear.value));
+const chartUrl = computed(() => urls.cashgame.archive('chart', slug.value, selectedYear.value));
+const listUrl = computed(() => urls.cashgame.archive('list', slug.value, selectedYear.value));
+const factsUrl = computed(() => urls.cashgame.archive('facts', slug.value, selectedYear.value));
+const isOverviewSelected = computed(() => props.page === 'index');
+const isMatrixSelected = computed(() => props.page === 'matrix');
+const isToplistSelected = computed(() => props.page === 'toplist');
+const isChartSelected = computed(() => props.page === 'chart');
+const isListSelected = computed(() => props.page === 'list');
+const isFactsSelected = computed(() => props.page === 'facts');
 
 const onSelected = (url: string) => {
   if (route.fullPath !== url) router.push(url);

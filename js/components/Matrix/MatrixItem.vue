@@ -24,9 +24,7 @@ const stack = computed(() => props.game.stack);
 const winnings = computed(() => props.game.winnings);
 const isInGame = computed(() => props.game.playedThisGame);
 
-const winnerClass = computed((): CssClasses => {
-  return {
-    matrix__winner: props.game.isWinner,
-  };
-});
+const winnerClass = computed((): CssClasses => ({
+  matrix__winner: props.game.isWinner,
+}));
 </script>

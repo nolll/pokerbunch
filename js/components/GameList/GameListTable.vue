@@ -38,9 +38,7 @@ const props = defineProps<{
 
 const orderedBy = ref(CashgameSortOrder.Date);
 
-const sortedGames = computed(() => {
-  return gameSorter.sort(props.games, orderedBy.value);
-});
+const sortedGames = computed(() => gameSorter.sort(props.games, orderedBy.value));
 
 const sort = (column: CashgameSortOrder) => {
   orderedBy.value = column;

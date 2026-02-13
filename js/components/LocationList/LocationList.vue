@@ -18,9 +18,7 @@ const props = defineProps<{
   locations: LocationResponse[];
 }>();
 
-const locationList = computed(() => {
-  return props.locations.slice().sort(compareLocation);
-});
+const locationList = computed(() => props.locations.slice().sort(compareLocation));
 
 const compareLocation = (a: LocationResponse, b: LocationResponse) => {
   return comparer.compare(a.name, b.name);

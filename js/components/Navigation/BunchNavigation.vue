@@ -43,9 +43,7 @@ const bunchName = computed(() => {
   return '';
 });
 
-const hasSlug = computed(() => {
-  return !!calculatedSlug.value;
-});
+const hasSlug = computed(() => Boolean(calculatedSlug.value));
 
 const bunchDetailsUrl = computed(() => urls.bunch.details(calculatedSlug.value));
 const cashgamesUrl = computed(() => urls.cashgame.index(calculatedSlug.value));

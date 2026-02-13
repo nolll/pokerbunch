@@ -28,23 +28,9 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const url = computed(() => {
-  return urls.player.details(props.bunchId, props.player.id);
-});
-
-const name = computed(() => {
-  return props.player.name;
-});
-
-const rank = computed(() => {
-  return props.index + 1;
-});
-
-const winnings = computed(() => {
-  return props.player.winnings;
-});
-
-const game = computed(() => {
-  return props.player.gameResults[0];
-});
+const url = computed(() => urls.player.details(props.bunchId, props.player.id));
+const name = computed(() => props.player.name);
+const rank = computed(() => props.index + 1);
+const winnings = computed(() => props.player.winnings);
+const game = computed(() => props.player.gameResults[0]);
 </script>

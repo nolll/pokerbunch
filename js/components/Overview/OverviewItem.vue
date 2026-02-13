@@ -14,11 +14,6 @@ const props = defineProps<{
   game: CashgamePlayerData;
 }>();
 
-const winnings = computed(() => {
-  return props.game.winnings;
-});
-
-const isInGame = computed(() => {
-  return props.game.playedThisGame;
-});
+const winnings = computed(() => props.game.winnings);
+const isInGame = computed(() => props.game.playedThisGame);
 </script>

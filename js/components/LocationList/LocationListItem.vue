@@ -13,11 +13,6 @@ const props = defineProps<{
   bunchId: string;
 }>();
 
-const name = computed(() => {
-  return props.location.name;
-});
-
-const url = computed(() => {
-  return urls.location.details(props.bunchId, props.location.id.toString());
-});
+const name = computed(() => props.location.name);
+const url = computed(() => urls.location.details(props.bunchId, props.location.id.toString()));
 </script>

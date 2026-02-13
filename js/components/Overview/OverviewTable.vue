@@ -48,15 +48,10 @@ const props = defineProps<{
 
 const { slug } = useParams();
 
-const url = computed(() => {
-  return urls.cashgame.details(slug.value, lastGame.value.id);
-});
+const url = computed(() => urls.cashgame.details(slug.value, lastGame.value.id));
+const lastGame = computed(() => props.games[0]);
 
-const lastGame = computed(() => {
-  return props.games[0];
-});
-
-const players = computed((): CashgameListPlayerData[] => {
-  return playerSorter.sort(archiveHelper.getPlayers(props.games), CashgamePlayerSortOrder.Winnings);
-});
+const players = computed((): CashgameListPlayerData[] =>
+  playerSorter.sort(archiveHelper.getPlayers(props.games), CashgamePlayerSortOrder.Winnings),
+);
 </script>

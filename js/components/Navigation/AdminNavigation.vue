@@ -21,15 +21,7 @@ import { SimpleList, SimpleListItem } from '@/components/Common/SimpleList';
 import urls from '@/urls';
 import { computed } from 'vue';
 
-const bunchesUrl = computed(() => {
-  return urls.bunch.list;
-});
-
-const usersUrl = computed(() => {
-  return urls.user.list;
-});
-
-const toolsUrl = computed(() => {
-  return urls.admin.tools;
-});
+const bunchesUrl = computed(() => urls.bunch.list);
+const usersUrl = computed(() => urls.user.list);
+const toolsUrl = computed(() => urls.admin.tools);
 </script>

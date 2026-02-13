@@ -27,29 +27,18 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const facts = computed(() => {
-  return getFacts(props.games);
-});
-
-const gameCount = computed(() => {
-  return props.games.length;
-});
-
-const turnover = computed(() => {
-  return facts.value.turnover;
-});
+const facts = computed(() => getFacts(props.games));
+const gameCount = computed(() => props.games.length);
+const turnover = computed(() => facts.value.turnover);
 
 const getFacts = (games: ArchiveCashgame[]): OverallFactCollection => {
-  var duration = 0;
-  var turnover = 0;
-  for (var gi = 0; gi < games.length; gi++) {
-    var game = games[gi];
-    duration += game.duration;
-    turnover += game.turnover;
-  }
-  return {
-    duration: duration,
-    turnover: turnover,
-  };
+  const totals = games.reduce(
+    (acc, game) => ({
+      duration: acc.duration + game.duration,
+      turnover: acc.turnover + game.turnover,
+    }),
+    { duration: 0, turnover: 0 },
+  );
+  return totals;
 };
 </script>

@@ -16,11 +16,9 @@ const props = defineProps<{
 
 const emit = defineEmits(['selected']);
 
-const selectedClass = computed((): CssClasses => {
-  return {
-    selected: props.isSelected,
-  };
-});
+const selectedClass = computed((): CssClasses => ({
+  selected: props.isSelected,
+}));
 
 const click = () => {
   emit('selected', props.url);

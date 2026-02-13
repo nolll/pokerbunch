@@ -112,21 +112,13 @@ const playerColors = computed(() => {
 
 const getPlayerResults = (player: DetailedCashgamePlayer) => {
   let added = 0;
-  const results = [];
-  const actions = player.actions;
-  for (let i = 0; i < actions.length; i++) {
-    const a = actions[i];
+  const results = player.actions.map((a) => {
     added += a.added || 0;
-    const winnings = a.stack - added;
-    results.push(createPlayerResult(a.time, winnings));
-  }
+    return {
+      time: a.time,
+      winnings: a.stack - added,
+    };
+  });
   return results;
-};
-
-const createPlayerResult = (time: Date, winnings: number): ChartPlayerResult => {
-  return {
-    time: time,
-    winnings: winnings,
-  };
 };
 </script>

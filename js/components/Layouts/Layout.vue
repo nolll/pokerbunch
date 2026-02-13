@@ -44,19 +44,13 @@ const { isSignedIn } = useCurrentUser('');
 
 const slots = useSlots();
 
-const isTopNavEnabled = computed(() => {
-  return isSlotEnabled('top-nav');
-});
+const isTopNavEnabled = computed(() => isSlotEnabled('top-nav'));
 
-const homeUrl = computed(() => {
-  return urls.home;
-});
+const homeUrl = computed(() => urls.home);
 
-const logoCssClasses = computed((): CssClasses => {
-  return {
-    'logo-link': true,
-  };
-});
+const logoCssClasses = computed((): CssClasses => ({
+  'logo-link': true,
+}));
 
 const isSlotEnabled = (name: string) => {
   return !!slots[name];
