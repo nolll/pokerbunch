@@ -26,15 +26,7 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const url = computed(() => {
-  return urls.player.details(props.bunchId, props.player.id);
-});
-
-const name = computed(() => {
-  return props.player.name;
-});
-
-const winnings = computed(() => {
-  return props.player.winnings;
-});
+const url = computed(() => urls.player.details(props.bunchId, props.player.id));
+const name = computed(() => props.player.name);
+const winnings = computed(() => props.player.winnings);
 </script>

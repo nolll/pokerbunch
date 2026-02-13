@@ -13,7 +13,5 @@ const props = defineProps<{
   userName: string;
 }>();
 
-const url = computed(() => {
-  return urls.user.details(props.userName);
-});
+const url = computed(() => urls.user.details(props.userName));
 </script>

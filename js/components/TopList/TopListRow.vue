@@ -30,27 +30,10 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const url = computed(() => {
-  return urls.player.details(props.bunchId, props.player.id);
-});
-
-const winnings = computed(() => {
-  return props.player.winnings;
-});
-
-const buyin = computed(() => {
-  return props.player.buyin;
-});
-
-const cashout = computed(() => {
-  return props.player.stack;
-});
-
-const winrate = computed(() => {
-  return props.player.winrate;
-});
-
-const time = computed(() => {
-  return props.player.playedTimeInMinutes;
-});
+const url = computed(() => urls.player.details(props.bunchId, props.player.id));
+const winnings = computed(() => props.player.winnings);
+const buyin = computed(() => props.player.buyin);
+const cashout = computed(() => props.player.stack);
+const winrate = computed(() => props.player.winrate);
+const time = computed(() => props.player.playedTimeInMinutes);
 </script>

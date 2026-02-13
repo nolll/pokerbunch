@@ -19,11 +19,6 @@ const props = defineProps<{
   bunches: BunchResponse[];
 }>();
 
-const userBunches = computed(() => {
-  return props.bunches;
-});
-
-const hasBunches = computed(() => {
-  return props.bunches.length > 0;
-});
+const userBunches = computed(() => props.bunches);
+const hasBunches = computed(() => props.bunches.length > 0);
 </script>

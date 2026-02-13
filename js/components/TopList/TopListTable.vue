@@ -36,9 +36,7 @@ const props = defineProps<{
   localization: Localization;
 }>();
 
-const players = computed(() => {
-  return playerSorter.sort(archiveHelper.getPlayers(props.games), orderedBy.value);
-});
+const players = computed(() => playerSorter.sort(archiveHelper.getPlayers(props.games), orderedBy.value));
 
 const orderedBy = ref(CashgamePlayerSortOrder.Winnings);
 

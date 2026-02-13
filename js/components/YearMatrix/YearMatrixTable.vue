@@ -43,21 +43,10 @@ const props = defineProps<{
 
 const showAll = ref(false);
 
-const bunchId = computed(() => {
-  return props.bunch.id;
-});
-
-const years = computed(() => {
-  return ArchiveHelper.getYears(props.games);
-});
-
-const currentYear = computed(() => {
-  return ArchiveHelper.getCurrentYear(props.games);
-});
-
-const players = computed(() => {
-  return ArchiveHelper.getPlayers(props.games);
-});
+const bunchId = computed(() => props.bunch.id);
+const years = computed(() => ArchiveHelper.getYears(props.games));
+const currentYear = computed(() => ArchiveHelper.getCurrentYear(props.games));
+const players = computed(() => ArchiveHelper.getPlayers(props.games));
 
 const playersWithYearResults = computed((): CashgamePlayerYearlyResultCollection[] => {
   var matrixArray: CashgamePlayerYearlyResultCollection[] = [];

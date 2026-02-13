@@ -14,11 +14,6 @@ const props = defineProps<{
   year: CashgamePlayerYearlyResult;
 }>();
 
-const winnings = computed(() => {
-  return props.year.winnings;
-});
-
-const playedThisYear = computed(() => {
-  return props.year.playedThisYear;
-});
+const winnings = computed(() => props.year.winnings);
+const playedThisYear = computed(() => props.year.playedThisYear);
 </script>

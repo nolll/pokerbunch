@@ -12,7 +12,5 @@ const props = defineProps<{
   name: string;
 }>();
 
-const url = computed(() => {
-  return urls.bunch.details(props.id);
-});
+const url = computed(() => urls.bunch.details(props.id));
 </script>

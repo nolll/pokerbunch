@@ -17,11 +17,6 @@ const props = defineProps<{
   color: string;
 }>();
 
-const url = computed(() => {
-  return urls.player.details(props.bunchId, props.id);
-});
-
-const colorBoxStyle = computed(() => {
-  return `background-color: ${props.color}`;
-});
+const url = computed(() => urls.player.details(props.bunchId, props.id));
+const colorBoxStyle = computed(() => `background-color: ${props.color}`);
 </script>
