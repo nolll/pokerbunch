@@ -40,6 +40,45 @@
           @saveAction="onSaveAction"
           :canEdit="canEdit"
         />
+        <DataTable size="small" :value="player.actions" responsiveLayout="scroll">
+          <Column>
+            <template #body="{ data }">
+              {{ getTime(data) }}
+            </template>
+          </Column>
+          <Column>
+            <template #body="{ data }">
+              {{ getTypeName(data) }}
+            </template>
+          </Column>
+          <Column>
+            <template #body="{ data }">
+              {{ getFormattedAmount(data) }}
+            </template>
+          </Column>
+          <Column>
+            <template #body="{ data }">
+              <div class="actions-column">
+                <Button
+                  v-on:click="() => onDeleteAction(data)"
+                  variant="outlined"
+                  severity="danger"
+                  size="small"
+                  label="Delete"
+                  icon="pi pi-trash"
+                ></Button>
+                <Button
+                  v-on:click="() => onSaveAction(data)"
+                  variant="outlined"
+                  severity="success"
+                  size="small"
+                  label="Edit"
+                  icon="pi pi-pencil"
+                ></Button>
+              </div>
+            </template>
+          </Column>
+        </DataTable>
       </div>
     </div>
   </div>
@@ -56,6 +95,12 @@ import { computed, ref } from 'vue';
 import { BuyinIcon, CashedOutIcon, InlineIcon, ReportIcon, TimeIcon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import { Button } from 'primevue';
+import { DetailedCashgameAction } from '@/models/DetailedCashgameAction';
+import format from '@/format';
+import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 
 const props = defineProps<{
   bunchId: string;
@@ -85,6 +130,19 @@ const showDetails = computed(() => isExpanded.value);
 const toggle = () => (isExpanded.value = !isExpanded.value);
 const onDeleteAction = (id: string) => emit('deleteAction', id);
 const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
+const getTime = (action: DetailedCashgameAction) => format.hourMinute(action.time);
+const getFormattedAmount = (action: DetailedCashgameAction) => format.currency(getAmount(action), props.localization);
+
+const getAmount = (action: DetailedCashgameAction) => {
+  if (action.type === DetailedCashgameResponseActionType.Buyin && action.added) return action.added;
+  return action.stack;
+};
+
+const getTypeName = (action: DetailedCashgameAction): string => {
+  if (action.type === DetailedCashgameResponseActionType.Buyin) return 'Buyin';
+  if (action.type === DetailedCashgameResponseActionType.Cashout) return 'Cashout';
+  return 'Report';
+};
 </script>
 
 <style lang="scss">
@@ -120,5 +178,13 @@ const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
 
 .player-row__small-chart {
   flex: 4;
+}
+</style>
+
+<style lang="scss" scoped>
+.actions-column {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: right;
 }
 </style>
