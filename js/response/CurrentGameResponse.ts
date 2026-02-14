@@ -1,3 +1,3 @@
 export interface CurrentGameResponse {
-    id: string;
+  id: string;
 }

@@ -1,5 +1,5 @@
-export interface TotalTimeFact{
-    name: string;
-    id: string;
-    minutes: number;
+export interface TotalTimeFact {
+  name: string;
+  id: string;
+  minutes: number;
 }

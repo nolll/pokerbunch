@@ -1,3 +1,3 @@
-export interface ApiParamsInvitePlayer{
-    email: string;
+export interface ApiParamsInvitePlayer {
+  email: string;
 }

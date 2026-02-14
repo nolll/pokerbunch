@@ -1,5 +1,4 @@
-export interface ApiParamsChangePassword{
-    oldPassword: string;
-    newPassword: string;
+export interface ApiParamsChangePassword {
+  oldPassword: string;
+  newPassword: string;
 }
- 

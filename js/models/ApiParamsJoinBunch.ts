@@ -1,3 +1,3 @@
-export interface ApiParamsJoinBunch{
-    code: string;
+export interface ApiParamsJoinBunch {
+  code: string;
 }

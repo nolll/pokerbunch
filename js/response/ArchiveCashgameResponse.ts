@@ -2,9 +2,9 @@ import { ArchiveCashgameLocationResponse } from './ArchiveCashgameLocationRespon
 import { ArchiveCashgameResultResponse } from './ArchiveCashgameResultResponse';
 
 export interface ArchiveCashgameResponse {
-    id: string;
-    startTime: Date;
-    updatedTime: Date;
-    location: ArchiveCashgameLocationResponse;
-    results: ArchiveCashgameResultResponse[];
+  id: string;
+  startTime: Date;
+  updatedTime: Date;
+  location: ArchiveCashgameLocationResponse;
+  results: ArchiveCashgameResultResponse[];
 }

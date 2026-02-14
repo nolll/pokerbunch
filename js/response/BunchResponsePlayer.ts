@@ -1,4 +1,4 @@
 export interface BunchResponsePlayer {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }

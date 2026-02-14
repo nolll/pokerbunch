@@ -1,4 +1,4 @@
 export interface DetailedCashgameResponseLocation {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }

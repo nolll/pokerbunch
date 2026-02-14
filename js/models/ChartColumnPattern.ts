@@ -1,3 +1,3 @@
-export enum ChartColumnPattern{
-    HoursAndMinutes = 'HH:mm'
+export enum ChartColumnPattern {
+  HoursAndMinutes = 'HH:mm',
 }

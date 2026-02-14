@@ -1,5 +1,3 @@
-import { setDevtoolsHook } from 'vue';
-
 const minutes = (m: number) => seconds(60 * m);
 const seconds = (s: number) => s * 1000;
 

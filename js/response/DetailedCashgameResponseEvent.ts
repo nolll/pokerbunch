@@ -1,4 +1,4 @@
 export interface DetailedCashgameResponseEvent {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }

@@ -1,4 +1,3 @@
-export interface ApiParamsResetPassword{
-    email: string;
+export interface ApiParamsResetPassword {
+  email: string;
 }
- 

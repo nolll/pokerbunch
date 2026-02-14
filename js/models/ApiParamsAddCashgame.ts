@@ -1,3 +1,3 @@
-export interface ApiParamsAddCashgame{
-    locationId: string;
+export interface ApiParamsAddCashgame {
+  locationId: string;
 }

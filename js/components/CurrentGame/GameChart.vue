@@ -13,11 +13,6 @@ import { computed } from 'vue';
 import { ChartData, ChartOptions, Point } from 'chart.js';
 import { getColor } from '@/colors';
 
-interface ChartPlayerResult {
-  time: Date;
-  winnings: number;
-}
-
 dayjs.extend(utc);
 
 const props = defineProps<{

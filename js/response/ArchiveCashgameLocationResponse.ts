@@ -1,4 +1,4 @@
 export interface ArchiveCashgameLocationResponse {
-    id: string;
-    name: string;
+  id: string;
+  name: string;
 }
