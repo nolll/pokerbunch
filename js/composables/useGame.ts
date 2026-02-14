@@ -5,16 +5,8 @@ import { DetailedCashgame } from '@/models/DetailedCashgame';
 export default function useGame(slug: string, isEnabled: Ref<boolean>) {
   const { data, isPending } = useGameQuery(slug, isEnabled);
 
-  const game = computed((): DetailedCashgame => {
-    return data.value!;
-  });
-
-  const gameReady = computed((): boolean => {
-    return !isPending.value;
-  });
-
   return {
-    game,
-    gameReady,
+    game: computed((): DetailedCashgame => data.value!),
+    gameReady: computed((): boolean => !isPending.value),
   };
 }

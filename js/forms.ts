@@ -1,16 +1,11 @@
-function select(field: HTMLInputElement, start: number, end: number) {
+const select = (field: HTMLInputElement, start: number, end: number) => {
   field.setSelectionRange(start, end);
-}
+};
 
 export default {
-  selectAll(field: HTMLInputElement) {
-    return select(field, 0, field.value.length);
-  },
-  parseInt(str: string): number {
+  selectAll: (field: HTMLInputElement) => select(field, 0, field.value.length),
+  parseInt: (str: string): number => {
     const parsed = parseInt(str);
-    if (isNaN(parsed)) {
-      return 0;
-    }
-    return parsed;
+    return isNaN(parsed) ? 0 : parsed;
   },
 };

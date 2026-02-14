@@ -3,9 +3,7 @@ import { ArchiveCashgame } from './models/ArchiveCashgame';
 import { CashgameSortOrder } from './models/CashgameSortOrder';
 
 export default {
-  sort(games: ArchiveCashgame[], sortOrder: CashgameSortOrder) {
-    return games.slice().sort(getGamesCompareFunc(sortOrder)).reverse();
-  },
+  sort: (games: ArchiveCashgame[], sortOrder: CashgameSortOrder) => games.slice().sort(getGamesCompareFunc(sortOrder)).reverse(),
 };
 
 const getGamesCompareFunc = (sortOrder: CashgameSortOrder) => {

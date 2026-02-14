@@ -1,14 +1,14 @@
 interface IVueConfig {
-    apiUrl: string;
+  apiUrl: string;
 }
 
 interface Window {
-    vueConfig: IVueConfig;
+  vueConfig: IVueConfig;
 }
 
 interface HTMLInputElement {
-    value: string;
-    createTextRange(): any;
-    focus(): any;
-    setSelectionRange(start: number, end: number): any;
+  value: string;
+  createTextRange(): any;
+  focus(): any;
+  setSelectionRange(start: number, end: number): any;
 }

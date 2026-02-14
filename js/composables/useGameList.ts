@@ -6,17 +6,9 @@ import dayjs from 'dayjs';
 export default function useGameList(slug: string) {
   const { data, isPending } = useGameListQuery(slug);
 
-  const allGames = computed((): ArchiveCashgame[] => {
-    return data.value ?? [];
-  });
-
-  const hasGames = computed(() => {
-    return allGames.value.length > 0;
-  });
-
-  const gamesReady = computed((): boolean => {
-    return !isPending.value;
-  });
+  const allGames = computed((): ArchiveCashgame[] => data.value ?? []);
+  const hasGames = computed(() => allGames.value.length > 0);
+  const gamesReady = computed((): boolean => !isPending.value);
 
   const getSelectedGames = (selectedYear?: number | null) => {
     if (!selectedYear) return allGames.value;
@@ -41,13 +33,7 @@ export default function useGameList(slug: string) {
     return years;
   });
 
-  const currentYear = computed(() => {
-    if (allGames.value.length > 0) {
-      const latestGame = allGames.value[0];
-      return dayjs(latestGame.startTime).year();
-    }
-    return undefined;
-  });
+  const currentYear = computed(() => (allGames.value.length > 0 ? dayjs(allGames.value[0].startTime).year() : undefined));
 
   return {
     allGames,

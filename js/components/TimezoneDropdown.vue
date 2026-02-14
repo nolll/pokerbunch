@@ -19,9 +19,7 @@ const emit = defineEmits(['update:modelValue']);
 
 const timezones = useTimezones();
 
-const timezoneList = computed(() => {
-  return timezones.getTimezones();
-});
+const timezoneList = computed(() => timezones.getTimezones());
 
 const updateValue = (event: Event) => {
   const value = (event.target as HTMLInputElement).value;

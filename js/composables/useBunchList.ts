@@ -5,16 +5,8 @@ import { BunchResponse } from '@/response/BunchResponse';
 export default function useBunchList() {
   const bunchListQuery = useBunchListQuery();
 
-  const bunches = computed((): BunchResponse[] => {
-    return bunchListQuery.data.value ?? [];
-  });
-
-  const bunchesReady = computed((): boolean => {
-    return !bunchListQuery.isPending.value;
-  });
-
   return {
-    bunches,
-    bunchesReady,
+    bunches: computed((): BunchResponse[] => bunchListQuery.data.value ?? []),
+    bunchesReady: computed((): boolean => !bunchListQuery.isPending.value),
   };
 }

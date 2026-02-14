@@ -55,7 +55,7 @@ const playersWithYearResults = computed((): CashgamePlayerYearlyResultCollection
     const player = players.value[i];
     const mostRecentGame = getMostRecentGame(player.gameResults);
     const buyinTime = mostRecentGame?.buyinTime;
-    const yearOfMostRecentGame: number | null = !!buyinTime ? dayjs(buyinTime).year() : null;
+    const yearOfMostRecentGame: number | null = Boolean(buyinTime) ? dayjs(buyinTime).year() : null;
     if (showAll.value || yearOfMostRecentGame === currentYear.value) {
       var playerYears = [];
       for (let k = 0; k < years.value.length; k++) {

@@ -1,14 +1,14 @@
 import dayjs from 'dayjs';
 import { Localization } from './models/Localization';
 
-function formatCurrency(value: number, localization: Localization) {
+const formatCurrency = (value: number, localization: Localization) => {
   const f = localization.currencyFormat !== undefined ? localization.currencyFormat : '${0}';
   const s = localization.thousandSeparator !== undefined ? localization.thousandSeparator : ',';
   const v = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, s);
   return f.replace('{0}', v);
 }
 
-function formatResult(value: number, localization: Localization) {
+const formatResult = (value: number, localization: Localization) => {
   const absValue = Math.abs(value);
   const currencyValue = formatCurrency(absValue, localization);
   if (value > 0) return `+${currencyValue}`;
@@ -16,19 +16,19 @@ function formatResult(value: number, localization: Localization) {
   return currencyValue;
 }
 
-function formatResultWithoutCurrency(value: number) {
+const formatResultWithoutCurrency = (value: number) => {
   const absValue = Math.abs(value);
   if (value > 0) return `+${absValue}`;
   if (value < 0) return `-${absValue}`;
   return absValue.toString();
 }
 
-function formatWinrate(value: number, localization: Localization) {
+const formatWinrate = (value: number, localization: Localization) => {
   const currencyValue = formatCurrency(value, localization);
   return currencyValue + '/h';
 }
 
-function formatDuration(minutes: number) {
+const formatDuration = (minutes: number) => {
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;
   if (h > 0 && m > 0) return h + 'h ' + m + 'm';
@@ -36,25 +36,11 @@ function formatDuration(minutes: number) {
   return m + 'm';
 }
 
-function formatMonthDay(date: Date) {
-  return dayjs(date).format('MMM D');
-}
-
-function formatHourMinute(date: Date) {
-  return dayjs(date).format('HH:mm');
-}
-
-function formatMonthDayYear(date: Date) {
-  return dayjs(date).format('MMM D YYYY');
-}
-
-function formatIsoTime(date: Date) {
-  return dayjs(date).toISOString();
-}
-
-function formatLocalTime(date: Date) {
-  return dayjs(date).format('YYYY-MM-DD HH:mm:ss');
-}
+const formatMonthDay = (date: Date) => dayjs(date).format('MMM D')
+const formatHourMinute = (date: Date) => dayjs(date).format('HH:mm')
+const formatMonthDayYear = (date: Date) => dayjs(date).format('MMM D YYYY')
+const formatIsoTime = (date: Date) => dayjs(date).toISOString()
+const formatLocalTime = (date: Date) => dayjs(date).format('YYYY-MM-DD HH:mm:ss')
 
 export default {
   currency: formatCurrency,

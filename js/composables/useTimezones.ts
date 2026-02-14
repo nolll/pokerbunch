@@ -5,12 +5,10 @@ export default function useTimezones() {
 
   const getTimezones = (): Timezone[] => {
     const ids = (Intl as any).supportedValuesOf('timeZone') as string[];
-    return ids.map((id: string) => {
-      return {
-        id: id,
-        name: id,
-      };
-    });
+    return ids.map((id: string) => ({
+      id: id,
+      name: id,
+    }));
   };
 
   const getDefaultTimezone = () => {

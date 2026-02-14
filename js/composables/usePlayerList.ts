@@ -5,13 +5,8 @@ import { usePlayerListQuery } from '@/queries/playerQueries';
 export default function usePlayerList(slug: string) {
   const playerListQuery = usePlayerListQuery(slug);
 
-  const players = computed((): Player[] => {
-    return playerListQuery.data.value ?? [];
-  });
-
-  const playersReady = computed((): boolean => {
-    return !playerListQuery.isPending.value;
-  });
+  const players = computed((): Player[] => playerListQuery.data.value ?? []);
+  const playersReady = computed((): boolean => !playerListQuery.isPending.value);
 
   const getPlayer = (id: string): Player | undefined => {
     if (!playersReady.value) return undefined;

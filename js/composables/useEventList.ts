@@ -5,13 +5,8 @@ import { EventResponse } from '@/response/EventResponse';
 export default function useEventList(slug: string) {
   const eventListQuery = useEventListQuery(slug);
 
-  const events = computed((): EventResponse[] => {
-    return eventListQuery.data.value ?? [];
-  });
-
-  const eventsReady = computed((): boolean => {
-    return !eventListQuery.isPending.value;
-  });
+  const events = computed((): EventResponse[] => eventListQuery.data.value ?? []);
+  const eventsReady = computed((): boolean => !eventListQuery.isPending.value);
 
   const getEvent = (id: string): EventResponse => {
     const e = events.value.find((o) => o.id === id);

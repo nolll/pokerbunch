@@ -20,36 +20,30 @@ const props = defineProps<{
   ready: boolean;
 }>();
 
-const chartData = computed<ChartData<'line'>>(() => {
-  return getChartData(props.games, players.value);
-});
+const chartData = computed<ChartData<'line'>>(() => getChartData(props.games, players.value));
 
-const chartOptions = computed<ChartOptions<'line'>>(() => {
-  return {
-    responsive: true,
-    aspectRatio: 4 / 3,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: {
-        display: true,
-        position: 'bottom',
-        labels: {
-          boxWidth: 10,
-          boxHeight: 10,
-        },
+const chartOptions = computed<ChartOptions<'line'>>(() => ({
+  responsive: true,
+  aspectRatio: 4 / 3,
+  maintainAspectRatio: true,
+  plugins: {
+    legend: {
+      display: true,
+      position: 'bottom',
+      labels: {
+        boxWidth: 10,
+        boxHeight: 10,
       },
     },
-  };
-});
+  },
+}));
 
 const players = computed(() => playerSorter.sort(archiveHelper.getPlayers(props.games)));
 
-const getChartData = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => {
-  return {
-    labels: getLabels(games),
-    datasets: getDatasets(players),
-  };
-};
+const getChartData = (games: ArchiveCashgame[], players: CashgameListPlayerData[]) => ({
+  labels: getLabels(games),
+  datasets: getDatasets(players),
+});
 
 const getLabels = (games: ArchiveCashgame[]): string[] => {
   var cols = [];

@@ -37,9 +37,7 @@ export default function useCurrentUser(slug: string) {
     return jwtDecode<DecodedToken>(token);
   });
 
-  const isAdmin = computed((): boolean => {
-    return currentUser.value.isAdmin;
-  });
+  const isAdmin = computed((): boolean => currentUser.value.isAdmin);
 
   const isManager = computed((): boolean => {
     const bunch = currentUser.value.bunches.find((o) => o.slug === slug);

@@ -3,7 +3,7 @@ function hasValue(val: number | null | undefined) {
 }
 
 export default {
-  intRange(val: number, min: number | null | undefined, max?: number | null | undefined) {
+  intRange: (val: number, min: number | null | undefined, max?: number | null | undefined) => {
     if (hasValue(min) && val < min!) return false;
     if (hasValue(max) && val > max!) return false;
     return true;

@@ -79,14 +79,14 @@ export default {
   },
 };
 
-function getPlayerResult(results: CashgameListPlayerData[], id: string): CashgameListPlayerData | null {
+const getPlayerResult = (results: CashgameListPlayerData[], id: string): CashgameListPlayerData | null => {
   for (const playerResult of results) {
     if (playerResult && playerResult.id === id) return playerResult;
   }
   return null;
-}
+};
 
-function getWinningPlayerId(players: ArchiveCashgamePlayer[]) {
+const getWinningPlayerId = (players: ArchiveCashgamePlayer[]) => {
   let winningPlayerId = '';
   let best: number | null = null;
   for (const player of players) {
@@ -97,9 +97,9 @@ function getWinningPlayerId(players: ArchiveCashgamePlayer[]) {
     }
   }
   return winningPlayerId;
-}
+};
 
-function fillEmptyGames(resultsList: CashgameListPlayerData[], games: ArchiveCashgame[]) {
+const fillEmptyGames = (resultsList: CashgameListPlayerData[], games: ArchiveCashgame[]) => {
   for (const player of resultsList) {
     const playerGameResults = [];
     for (const game of games) {
@@ -109,27 +109,24 @@ function fillEmptyGames(resultsList: CashgameListPlayerData[], games: ArchiveCas
     player.gameResults = playerGameResults;
   }
   return resultsList;
-}
+};
 
-function getPlayerGame(playerGames: CashgamePlayerData[], gameId: string): CashgamePlayerData {
-  for (const playerGame of playerGames) {
-    if (playerGame.gameId === gameId) return playerGame;
-  }
-  return {
-    gameId,
-    buyin: 0,
-    stack: 0,
-    winnings: 0,
-    buyinTime: null,
-    updatedTime: null,
-    playedTimeInMinutes: 0,
-    isWinner: false,
-    playedThisGame: false,
-  };
-}
+const getPlayerGame = (playerGames: CashgamePlayerData[], gameId: string): CashgamePlayerData => {
+  const game = playerGames.find((playerGame) => playerGame.gameId === gameId);
+  return (
+    game ?? {
+      gameId,
+      buyin: 0,
+      stack: 0,
+      winnings: 0,
+      buyinTime: null,
+      updatedTime: null,
+      playedTimeInMinutes: 0,
+      isWinner: false,
+      playedThisGame: false,
+    }
+  );
+};
 
-function getWinrate(winnings: number, timeInMinutes: number) {
-  if (timeInMinutes === 0) return 0;
-  const perMinute = winnings / timeInMinutes;
-  return Math.round(perMinute * 60);
-}
+const getWinrate = (winnings: number, timeInMinutes: number) =>
+  timeInMinutes === 0 ? 0 : Math.round((winnings / timeInMinutes) * 60);

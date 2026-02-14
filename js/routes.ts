@@ -28,7 +28,6 @@ import NotFoundPage from '@/components/Pages/NotFoundPage.vue';
 import BunchListPage from '@/components/Pages/BunchListPage.vue';
 import BunchDetailsPage from '@/components/Pages/BunchDetailsPage.vue';
 import AddBunchPage from '@/components/Pages/AddBunchPage.vue';
-import JoinBunchPage from '@/components/Pages/JoinBunchPage.vue';
 import JoinRequestListPage from '@/components/Pages/JoinRequestListPage.vue';
 import AdminToolsPage from '@/components/Pages/AdminToolsPage.vue';
 import ApiDocsPage from '@/components/Pages/ApiDocsPage.vue';

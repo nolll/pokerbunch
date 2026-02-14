@@ -5,16 +5,8 @@ import { JoinRequestResponse } from '@/response/JoinRequestResponse';
 export default function useJoinRequestList(slug: string) {
   const joinRequestListQuery = useJoinRequestListQuery(slug);
 
-  const joinRequests = computed((): JoinRequestResponse[] => {
-    return joinRequestListQuery.data.value ?? [];
-  });
-
-  const joinRequestsReady = computed((): boolean => {
-    return !joinRequestListQuery.isPending.value;
-  });
-
   return {
-    joinRequests,
-    joinRequestsReady,
+    joinRequests: computed((): JoinRequestResponse[] => joinRequestListQuery.data.value ?? []),
+    joinRequestsReady: computed((): boolean => !joinRequestListQuery.isPending.value),
   };
 }

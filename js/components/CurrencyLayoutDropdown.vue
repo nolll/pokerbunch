@@ -17,13 +17,8 @@ const props = defineProps<{
 
 const emit = defineEmits(['update:modelValue']);
 
-const symbol = computed(() => {
-  return props.symbol ?? '$';
-});
-
-const currencyLayouts = computed(() => {
-  return ['{SYMBOL} {AMOUNT}', '{SYMBOL}{AMOUNT}', '{AMOUNT}{SYMBOL}', '{AMOUNT} {SYMBOL}'];
-});
+const symbol = computed(() => props.symbol ?? '$');
+const currencyLayouts = computed(() => ['{SYMBOL} {AMOUNT}', '{SYMBOL}{AMOUNT}', '{AMOUNT}{SYMBOL}', '{AMOUNT} {SYMBOL}']);
 
 const getDisplayName = (layout: string) => {
   return layout.replace('{SYMBOL}', symbol.value).replace('{AMOUNT}', '123');
