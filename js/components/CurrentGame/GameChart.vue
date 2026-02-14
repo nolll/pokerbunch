@@ -10,7 +10,7 @@ import utc from 'dayjs/plugin/utc';
 import LineChart from '@/components/LineChart.vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed } from 'vue';
-import { ChartData, ChartOptions, Point } from 'chart.js';
+import { ChartData, ChartDataset, ChartOptions, Point } from 'chart.js';
 import { getColor } from '@/colors';
 
 dayjs.extend(utc);
@@ -57,7 +57,7 @@ const chartData = computed((): ChartData<'line'> => {
   };
 });
 
-const chartDatasets = computed(() => {
+const chartDatasets = computed((): ChartDataset<'line'>[] => {
   const datasets = [];
   for (let i = 0; i < props.players.length; i++) {
     const player = props.players[i];
@@ -67,7 +67,7 @@ const chartDatasets = computed(() => {
   return datasets;
 });
 
-const getPlayerDataset = (player: DetailedCashgamePlayer, color: string) => {
+const getPlayerDataset = (player: DetailedCashgamePlayer, color: string): ChartDataset<'line'> => {
   const points: Point[] = [];
   var results = getPlayerResults(player);
   for (let i = 0; i < results.length; i++) {
@@ -90,7 +90,7 @@ const getPlayerDataset = (player: DetailedCashgamePlayer, color: string) => {
     label: player.name,
     backgroundColor: color,
     borderColor: color,
-    pointRadius: 0,
+    pointStyle: false,
     borderWidth: 3,
     data: points,
   };
