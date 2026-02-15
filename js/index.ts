@@ -6,6 +6,7 @@ import { VueQueryPlugin } from '@tanstack/vue-query';
 import routes from './routes';
 import Root from './components/Root.vue';
 import './styles';
+import '@primeuix/styles';
 import Aura from '@primeuix/themes/aura';
 
 if (!browser.isCapable()) {
