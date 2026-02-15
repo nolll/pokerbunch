@@ -31,22 +31,69 @@
         <CashgameActionChart :player="player" />
       </div>
       <div class="player-row__actions">
-        <PlayerAction
-          v-for="action in player.actions"
-          :action="action"
-          :key="action.id"
-          :localization="localization"
-          @deleteAction="onDeleteAction"
-          @saveAction="onSaveAction"
-          :canEdit="canEdit"
-        />
+        <DataTable
+          size="small"
+          v-model:editingRows="editingRows"
+          :value="player.actions"
+          dataKey="id"
+          editMode="row"
+          @row-edit-init="onRowEditInit"
+          @row-edit-save="onRowEditcomplete"
+          @row-edit-cancel="onRowEditCancel"
+        >
+          <Column header="Type">
+            <template #body="{ data }">
+              <i :class="getTypeIcon(data)" :title="getTypeName(data)"></i>
+            </template>
+          </Column>
+          <Column header="Time">
+            <template #body="{ data }">
+              {{ getTime(data) }}
+            </template>
+            <template #editor="{ data }">
+              <DatePicker v-model="data.time" timeOnly fluid />
+            </template>
+          </Column>
+          <Column header="Stack">
+            <template #body="{ data }">
+              {{ getFormattedAmount(data.stack) }}
+            </template>
+            <template #editor="{ data }">
+              <InputNumber v-model="data.stack" fluid />
+            </template>
+          </Column>
+          <Column header="Added">
+            <template #body="{ data }">
+              <template v-if="data.type === DetailedCashgameResponseActionType.Buyin">
+                {{ getFormattedAmount(data.added) }}
+              </template>
+            </template>
+            <template #editor="{ data }">
+              <InputNumber v-if="data.type === DetailedCashgameResponseActionType.Buyin" v-model="data.added" fluid />
+            </template>
+          </Column>
+          <Column v-if="canEdit" style="width: 10%; max-width: 8rem">
+            <template #body="{ data }">
+              <div class="actions-column">
+                <Button
+                  v-on:click="() => onDeleteAction(data.id)"
+                  variant="text"
+                  severity="danger"
+                  tooltip="Delete"
+                  icon="pi pi-trash"
+                ></Button>
+              </div>
+            </template>
+            <template #editor="{ data }"></template>
+          </Column>
+          <Column v-if="canEdit" :rowEditor="true" style="width: 10%; max-width: 8rem" bodyStyle="text-align:center"></Column>
+        </DataTable>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import PlayerAction from './PlayerAction.vue';
 import urls from '@/urls';
 import CashgameActionChart from '@/components/CurrentGame/CashgameActionChart.vue';
 import CashgameActionChartSmall from '@/components/CurrentGame/CashgameActionChartSmall.vue';
@@ -56,6 +103,19 @@ import { computed, ref } from 'vue';
 import { BuyinIcon, CashedOutIcon, InlineIcon, ReportIcon, TimeIcon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
+import {
+  Button,
+  DatePicker,
+  InputNumber,
+  Column,
+  DataTable,
+  DataTableRowEditInitEvent,
+  DataTableRowEditSaveEvent,
+  DataTableRowEditCancelEvent,
+} from 'primevue';
+import { DetailedCashgameAction } from '@/models/DetailedCashgameAction';
+import format from '@/format';
+import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 
 const props = defineProps<{
   bunchId: string;
@@ -72,6 +132,7 @@ const emit = defineEmits<{
   deleteAction: [data: string];
 }>();
 
+const editingRows = ref<DetailedCashgameAction[]>([]);
 const isExpanded = ref(false);
 const hasCashedOut = computed(() => props.player.hasCashedOut());
 const showCheckmark = computed(() => props.isCashgameRunning && hasCashedOut.value);
@@ -85,6 +146,45 @@ const showDetails = computed(() => isExpanded.value);
 const toggle = () => (isExpanded.value = !isExpanded.value);
 const onDeleteAction = (id: string) => emit('deleteAction', id);
 const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
+const getTime = (action: DetailedCashgameAction) => format.hourMinute(action.time);
+const getFormattedAmount = (amount: number) => format.currency(amount, props.localization);
+
+const getAmount = (action: DetailedCashgameAction) => {
+  if (action.type === DetailedCashgameResponseActionType.Buyin && action.added) return action.added;
+  return action.stack;
+};
+
+const getTypeIcon = (action: DetailedCashgameAction): string => {
+  if (action.type === DetailedCashgameResponseActionType.Buyin) return 'pi pi-arrow-circle-right';
+  if (action.type === DetailedCashgameResponseActionType.Cashout) return 'pi pi-money-bill';
+  return 'pi pi-bars';
+};
+
+const getTypeName = (action: DetailedCashgameAction): string => {
+  if (action.type === DetailedCashgameResponseActionType.Buyin) return 'Buyin';
+  if (action.type === DetailedCashgameResponseActionType.Cashout) return 'Cashout';
+  return 'Report';
+};
+
+const onRowEditInit = (event: DataTableRowEditInitEvent<DetailedCashgameAction>) => {
+  editingRows.value = [event.data];
+};
+
+const onRowEditcomplete = (event: DataTableRowEditSaveEvent<DetailedCashgameAction>) => {
+  const data: SaveActionEmitData = {
+    id: event.newData.id,
+    time: event.newData.time,
+    stack: event.newData.stack,
+    added: event.newData.added,
+  };
+  console.log('save', data);
+  emit('saveAction', data);
+  editingRows.value = [];
+};
+
+const onRowEditCancel = (event: DataTableRowEditCancelEvent<DetailedCashgameAction>) => {
+  editingRows.value = [];
+};
 </script>
 
 <style lang="scss">
@@ -120,5 +220,13 @@ const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
 
 .player-row__small-chart {
   flex: 4;
+}
+</style>
+
+<style lang="scss" scoped>
+.actions-column {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: right;
 }
 </style>
