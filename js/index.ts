@@ -7,6 +7,7 @@ import routes from './routes';
 import Root from './components/Root.vue';
 import './styles';
 import Aura from '@primeuix/themes/aura';
+import '@primeuix/styles';
 
 if (!browser.isCapable()) {
   alert('PokerBunch requires a better browser');
