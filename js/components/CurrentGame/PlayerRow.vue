@@ -5,21 +5,15 @@
         <div>
           <!-- <div class="player-color-box" :style="{ backgroundColor: color }" @click="onSelected"></div> -->
           <a class="player-row__name" @click.stop="" :href="url">{{ player.name }}</a>
-          <InlineIcon><CashedOutIcon title="Cashed out" v-if="showCheckmark" /></InlineIcon>
+          <CashedOutIcon title="Cashed out" v-if="showCheckmark"></CashedOutIcon>
         </div>
         <div class="time" v-if="isReportTimeEnabled">
-          <InlineIcon><TimeIcon title="Last report" /></InlineIcon> <span>{{ lastReportTime }}</span>
+          <TimeIcon title="Last report" /> <span>{{ lastReportTime }}</span>
         </div>
       </div>
       <div class="player-row__amounts">
-        <div>
-          <InlineIcon><BuyinIcon title="Buy in" /></InlineIcon>
-          <CurrencyText :value="calculatedBuyin" :localization="localization" />
-        </div>
-        <div>
-          <InlineIcon><ReportIcon title="Total Stacks" /></InlineIcon>
-          <CurrencyText :value="stack" :localization="localization" />
-        </div>
+        <div><BuyinIcon title="Buyin" /> <CurrencyText :value="calculatedBuyin" :localization="localization" /></div>
+        <div><ReportIcon title="Stack" /> <CurrencyText :value="stack" :localization="localization" /></div>
         <div><WinningsText :value="winnings" :localization="localization" :showCurrency="true" /></div>
       </div>
       <div class="player-row__small-chart">
@@ -100,7 +94,7 @@ import CashgameActionChartSmall from '@/components/CurrentGame/CashgameActionCha
 import { CurrencyText, WinningsText } from '@/components/Common';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
-import { BuyinIcon, CashedOutIcon, InlineIcon, ReportIcon, TimeIcon } from '../Icons';
+import { BuyinIcon, CashedOutIcon, ReportIcon, TimeIcon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 import {
@@ -145,14 +139,8 @@ const url = computed(() => urls.player.details(props.bunchId, props.player.id));
 const showDetails = computed(() => isExpanded.value);
 const toggle = () => (isExpanded.value = !isExpanded.value);
 const onDeleteAction = (id: string) => emit('deleteAction', id);
-const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
 const getTime = (action: DetailedCashgameAction) => format.hourMinute(action.time);
 const getFormattedAmount = (amount: number) => format.currency(amount, props.localization);
-
-const getAmount = (action: DetailedCashgameAction) => {
-  if (action.type === DetailedCashgameResponseActionType.Buyin && action.added) return action.added;
-  return action.stack;
-};
 
 const getTypeIcon = (action: DetailedCashgameAction): string => {
   if (action.type === DetailedCashgameResponseActionType.Buyin) return 'pi pi-arrow-circle-right';
