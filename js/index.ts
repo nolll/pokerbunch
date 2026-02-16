@@ -1,7 +1,7 @@
 import browser from './browser';
 import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
-import './styles';
+// import './styles';
 import Material from '@primeuix/themes/material';
 import { createRouter } from 'vue-router';
 import { VueQueryPlugin } from '@tanstack/vue-query';
