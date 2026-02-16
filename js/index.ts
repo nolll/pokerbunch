@@ -1,12 +1,13 @@
 import browser from './browser';
 import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
+import './styles';
+import Aura from '@primeuix/themes/aura';
+//import '@primeuix/themes/aura/aura-light/blue.css';
 import { createRouter } from 'vue-router';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 import routes from './routes';
 import Root from './components/Root.vue';
-import './styles';
-import Aura from '@primeuix/themes/aura';
 
 if (!browser.isCapable()) {
   alert('PokerBunch requires a better browser');
@@ -19,11 +20,6 @@ app.use(VueQueryPlugin);
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
-    options: {
-      prefix: 'p',
-      darkModeSelector: 'system',
-      cssLayer: false,
-    },
   },
 });
 app.mount('#app');
