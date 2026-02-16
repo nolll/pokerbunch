@@ -6,7 +6,6 @@ import { VueQueryPlugin } from '@tanstack/vue-query';
 import routes from './routes';
 import Root from './components/Root.vue';
 import './styles';
-import '@primeuix/styles';
 import Aura from '@primeuix/themes/aura';
 
 if (!browser.isCapable()) {
@@ -20,6 +19,11 @@ app.use(VueQueryPlugin);
 app.use(PrimeVue, {
   theme: {
     preset: Aura,
+    options: {
+      prefix: 'p',
+      darkModeSelector: 'system',
+      cssLayer: false,
+    },
   },
 });
 app.mount('#app');

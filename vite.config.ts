@@ -9,7 +9,6 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': resolve(__dirname, './js'),
       },
-      dedupe: ['primevue'],
     },
     plugins: [vue()],
     server: {
