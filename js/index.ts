@@ -3,7 +3,6 @@ import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
 import './styles';
 import Aura from '@primeuix/themes/aura';
-import '@primeuix/themes/aura/aura-light/blue.css';
 import { createRouter } from 'vue-router';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 import routes from './routes';
