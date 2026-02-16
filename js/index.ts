@@ -2,7 +2,7 @@ import browser from './browser';
 import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
 import './styles';
-import Aura from '@primeuix/themes/aura';
+import Material from '@primeuix/themes/material';
 import { createRouter } from 'vue-router';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 import routes from './routes';
@@ -18,7 +18,7 @@ app.use(router);
 app.use(VueQueryPlugin);
 app.use(PrimeVue, {
   theme: {
-    preset: Aura,
+    preset: Material,
   },
 });
 app.mount('#app');
