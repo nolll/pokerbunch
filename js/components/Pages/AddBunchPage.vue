@@ -59,6 +59,7 @@ import { computed, ref } from 'vue';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { bunchListKey, userBunchListKey } from '@/queries/queryKeys';
 import { BunchResponse } from '@/response/BunchResponse';
+import { getErrorMessage } from '@/errors';
 
 const timezones = useTimezones();
 const defaultTimezone = timezones.getDefaultTimezone();
@@ -101,9 +102,8 @@ const addBunchMutation = useMutation({
     savedSlug.value = response.id;
     bunchAdded.value = true;
   },
-  onError: (err) => {
-    const error = err as AxiosError<ApiError>;
-    errorMessage.value = error.response?.data.message || 'Unknown Error';
+  onError: (error: AxiosError<ApiError>) => {
+    errorMessage.value = getErrorMessage(error);
   },
 });
 

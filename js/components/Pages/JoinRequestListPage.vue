@@ -67,6 +67,7 @@ import { joinRequestListKey } from '@/queries/queryKeys';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import { Button } from 'primevue';
+import { getErrorMessage } from '@/errors';
 
 const { slug } = useParams();
 const { joinRequests, joinRequestsReady } = useJoinRequestList(slug.value);
@@ -91,9 +92,8 @@ const acceptMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: joinRequestListKey(slug.value) });
     showMessage(response.message);
   },
-  onError: (err) => {
-    const error = err as AxiosError<ApiError>;
-    showMessage(error.response?.data.message || 'Unknown Error');
+  onError: (error: AxiosError<ApiError>) => {
+    showMessage(getErrorMessage(error));
   },
 });
 
@@ -106,9 +106,8 @@ const denyMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: joinRequestListKey(slug.value) });
     showMessage(response.message);
   },
-  onError: (err) => {
-    const error = err as AxiosError<ApiError>;
-    showMessage(error.response?.data.message || 'Unknown Error');
+  onError: (error: AxiosError<ApiError>) => {
+    showMessage(getErrorMessage(error));
   },
 });
 

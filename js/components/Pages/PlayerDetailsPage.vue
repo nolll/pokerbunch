@@ -84,6 +84,10 @@ import { useRouter } from 'vue-router';
 import { usePlayerList, useGameList, useParams, useBunch } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { playerListKey } from '@/queries/queryKeys';
+import { AxiosError } from 'axios';
+import { A } from 'vue-router/dist/index-Cu9B0wDz.mjs';
+import { ApiError } from '@/models/ApiError';
+import { getErrorMessage } from '@/errors';
 
 const { slug, playerId } = useParams();
 const router = useRouter();
@@ -221,8 +225,8 @@ const deleteMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: playerListKey(slug.value) });
     router.push(urls.player.list(slug.value));
   },
-  onError: () => {
-    errorMessage.value = 'Server error';
+  onError: (error: AxiosError<ApiError>) => {
+    errorMessage.value = getErrorMessage(error);
   },
 });
 

@@ -39,6 +39,7 @@ import { useMutation } from '@tanstack/vue-query';
 import { LoginResponse } from '@/response/LoginResponse';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
+import { getErrorMessage } from '@/errors';
 
 const props = defineProps<{
   returnUrl?: string;
@@ -76,7 +77,7 @@ const loginMutation = useMutation({
     redirect();
   },
   onError: (error: AxiosError<ApiError>) => {
-    errorMessage.value = error.response?.data.message || 'Unknown error';
+    errorMessage.value = getErrorMessage(error);
   },
 });
 

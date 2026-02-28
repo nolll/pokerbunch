@@ -43,6 +43,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useMutation } from '@tanstack/vue-query';
 import { MessageResponse } from '@/response/MessageResponse';
 import querystring from '@/querystring';
+import { getErrorMessage } from '@/errors';
 
 const email = ref('');
 const errorMessage = ref('');
@@ -76,8 +77,7 @@ const resetPasswordMutation = useMutation({
     emailWasSent.value = true;
   },
   onError: (error: AxiosError<ApiError>) => {
-    const message = error.response?.data.message || 'Unknown Error';
-    errorMessage.value = message;
+    errorMessage.value = getErrorMessage(error);
   },
 });
 

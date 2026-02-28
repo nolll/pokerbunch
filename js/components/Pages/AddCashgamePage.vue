@@ -41,6 +41,7 @@ import { useRouter } from 'vue-router';
 import { useLocationList, useParams } from '@/composables';
 import { useMutation } from '@tanstack/vue-query';
 import { DetailedCashgameResponse } from '@/response/DetailedCashgameResponse';
+import { getErrorMessage } from '@/errors';
 
 const { slug } = useParams();
 const router = useRouter();
@@ -73,8 +74,7 @@ const addMutation = useMutation({
     redirectToGame(data.id);
   },
   onError: (error: AxiosError<ApiError>) => {
-    const message = error.response?.data.message || 'Unknown Error';
-    errorMessage.value = message;
+    errorMessage.value = getErrorMessage(error);
   },
 });
 
