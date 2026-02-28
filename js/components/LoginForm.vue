@@ -37,6 +37,9 @@ import { computed, ref } from 'vue';
 import { ErrorMessage } from '@/components/Common';
 import { useMutation } from '@tanstack/vue-query';
 import { LoginResponse } from '@/response/LoginResponse';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/models/ApiError';
+import { getErrorMessage } from '@/errors';
 
 const props = defineProps<{
   returnUrl?: string;
@@ -73,8 +76,8 @@ const loginMutation = useMutation({
     saveRefreshToken(response.refreshToken);
     redirect();
   },
-  onError: () => {
-    showError('There was something wrong with your username or password. Please try again.');
+  onError: (error: AxiosError<ApiError>) => {
+    errorMessage.value = getErrorMessage(error);
   },
 });
 

@@ -56,6 +56,7 @@ import { computed, ref } from 'vue';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { userListKey } from '@/queries/queryKeys';
 import querystring from '@/querystring';
+import { getErrorMessage } from '@/errors';
 
 const queryClient = useQueryClient();
 
@@ -103,9 +104,8 @@ const addUserMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: userListKey() });
     userAdded.value = true;
   },
-  onError: (err) => {
-    const error = err as AxiosError<ApiError>;
-    errorMessage.value = error.response?.data.message || 'Unknown Error';
+  onError: (error: AxiosError<ApiError>) => {
+    errorMessage.value = getErrorMessage(error);
   },
 });
 

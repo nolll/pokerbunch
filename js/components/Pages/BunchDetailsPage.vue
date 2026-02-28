@@ -91,6 +91,9 @@ import { useBunch, useCurrentUser, useParams } from '@/composables';
 import format from '@/format';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { bunchKey, bunchListKey, userBunchListKey } from '@/queries/queryKeys';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/models/ApiError';
+import { getErrorMessage } from '@/errors';
 
 const { slug } = useParams();
 const { isManager } = useCurrentUser(slug.value);
@@ -152,8 +155,8 @@ const saveMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: bunchKey(slug.value) });
     hideEditForm();
   },
-  onError: () => {
-    errorMessage.value = 'Server error';
+  onError: (error: AxiosError<ApiError>) => {
+    errorMessage.value = getErrorMessage(error);
   },
 });
 

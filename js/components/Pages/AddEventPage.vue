@@ -37,6 +37,9 @@ import { useParams } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import api from '@/api';
 import { eventListKey } from '@/queries/queryKeys';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/models/ApiError';
+import { getErrorMessage } from '@/errors';
 
 const queryClient = useQueryClient();
 const { slug } = useParams();
@@ -59,8 +62,8 @@ const addEventMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: eventListKey(slug.value) });
     redirect();
   },
-  onError: () => {
-    errorMessage.value = 'Server error';
+  onError: (error: AxiosError<ApiError>) => {
+    errorMessage.value = getErrorMessage(error);
   },
 });
 

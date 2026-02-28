@@ -37,6 +37,7 @@ import { MessageResponse } from '@/response/MessageResponse';
 import { ApiError } from '@/models/ApiError';
 import { AxiosError } from 'axios';
 import { CustomButton } from '@/components/Common';
+import { getErrorMessage } from '@/errors';
 
 const { bunches, bunchesReady } = useBunchList();
 
@@ -52,9 +53,8 @@ const joinBunchMutation = useMutation({
   onSuccess: (response: MessageResponse) => {
     showMessage(response.message);
   },
-  onError: (err) => {
-    const error = err as AxiosError<ApiError>;
-    showMessage(error.response?.data.message || 'Unknown error');
+  onError: (error: AxiosError<ApiError>) => {
+    showMessage(getErrorMessage(error));
   },
 });
 

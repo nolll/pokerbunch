@@ -36,6 +36,9 @@ import { useParams } from '@/composables';
 import api from '@/api';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { playerListKey } from '@/queries/queryKeys';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/models/ApiError';
+import { getErrorMessage } from '@/errors';
 
 const { slug } = useParams();
 const router = useRouter();
@@ -52,8 +55,8 @@ const addMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: playerListKey(slug.value) });
     redirect();
   },
-  onError: () => {
-    errorMessage.value = 'Server error';
+  onError: (error: AxiosError<ApiError>) => {
+    errorMessage.value = getErrorMessage(error);
   },
 });
 
