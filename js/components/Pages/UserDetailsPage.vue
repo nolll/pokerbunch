@@ -63,6 +63,8 @@ import { computed, onMounted, ref, watch } from 'vue';
 import { useParams, useUser, useCurrentUser } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { userKey, userListKey } from '@/queries/queryKeys';
+import { AxiosError } from 'axios';
+import { ApiError } from '@/models/ApiError';
 
 const { userName } = useParams();
 const { user, userReady } = useUser(userName.value);
@@ -100,8 +102,9 @@ const saveMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: userKey(user.value.userName) });
     isEditing.value = false;
   },
-  onError: () => {
-    errorMessage.value = 'Server error';
+  onError: (err) => {
+    const error = err as AxiosError<ApiError>;
+    errorMessage.value = error.response?.data.message || 'Unknown error';
   },
 });
 
