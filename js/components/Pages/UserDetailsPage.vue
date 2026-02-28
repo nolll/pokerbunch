@@ -102,8 +102,7 @@ const saveMutation = useMutation({
     queryClient.invalidateQueries({ queryKey: userKey(user.value.userName) });
     isEditing.value = false;
   },
-  onError: (err) => {
-    const error = err as AxiosError<ApiError>;
+  onError: (error: AxiosError<ApiError>) => {
     errorMessage.value = error.response?.data.message || 'Unknown error';
   },
 });
