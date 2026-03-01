@@ -32,16 +32,16 @@
           </p>
         </Block>
         <Block v-else>
-          <ValueList>
-            <ValueListKey>Display Name</ValueListKey>
-            <ValueListValue>{{ displayName }}</ValueListValue>
+          <DefinitionList>
+            <DefinitionTerm>Display Name</DefinitionTerm>
+            <DefinitionData>{{ displayName }}</DefinitionData>
             <template v-if="canEdit">
-              <ValueListKey>Real Name</ValueListKey>
-              <ValueListValue>{{ realName }}</ValueListValue>
-              <ValueListKey>Email</ValueListKey>
-              <ValueListValue>{{ email }}</ValueListValue>
+              <DefinitionTerm>Real Name</DefinitionTerm>
+              <DefinitionData>{{ realName }}</DefinitionData>
+              <DefinitionTerm>Email</DefinitionTerm>
+              <DefinitionData>{{ email }}</DefinitionData>
             </template>
-          </ValueList>
+          </DefinitionList>
         </Block>
 
         <Block v-if="canEdit && !isEditing">
@@ -58,7 +58,6 @@ import api from '@/api';
 import { Layout } from '@/components/Layouts';
 import { Block, CustomButton, ErrorMessage, PageHeading, PageSection } from '@/components/Common';
 import { User } from '@/models/User';
-import { ValueList, ValueListKey, ValueListValue } from '@/components/Common/ValueList';
 import { computed, onMounted, ref, watch } from 'vue';
 import { useParams, useUser, useCurrentUser } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
@@ -66,6 +65,7 @@ import { userKey, userListKey } from '@/queries/queryKeys';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { getErrorMessage } from '@/errors';
+import { DefinitionList, DefinitionTerm, DefinitionData } from '../Common/DefinitionList';
 
 const { userName } = useParams();
 const { user, userReady } = useUser(userName.value);
@@ -83,7 +83,6 @@ const isCurrentUser = computed(() => currentUser.value?.userName == user.value?.
 const canChangePassword = computed(() => isCurrentUser.value);
 const ready = computed(() => userReady.value);
 const avatarUrl = computed(() => user.value?.avatar);
-const hasError = computed(() => !!errorMessage.value);
 
 const saveMutation = useMutation({
   mutationFn: async () => {

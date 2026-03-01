@@ -1,5 +1,5 @@
 ﻿<template>
-  <dl class="value-list">
+  <dl>
     <slot></slot>
   </dl>
 </template>

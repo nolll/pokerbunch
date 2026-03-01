@@ -64,3 +64,6 @@ watch(isSignedIn, redirectIfSignedOut);
 onMounted(redirectIfSignedOut);
 watch(() => props.requireUser, redirectIfSignedOut);
 </script>
+
+<style lang="scss" scoped>
+</style>

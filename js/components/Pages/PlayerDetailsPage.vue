@@ -14,32 +14,32 @@
             <h2>Player Facts</h2>
           </Block>
           <Block>
-            <ValueList>
-              <ValueListKey>Total Result</ValueListKey>
-              <ValueListValue
+            <DefinitionList>
+              <DefinitionTerm>Total Result</DefinitionTerm>
+              <DefinitionData
                 ><WinningsText :value="totalResult" :show-currency="true" :localization="localization"
-              /></ValueListValue>
-              <ValueListKey>Best Result</ValueListKey>
-              <ValueListValue
+              /></DefinitionData>
+              <DefinitionTerm>Best Result</DefinitionTerm>
+              <DefinitionData
                 ><WinningsText :value="bestResult" :show-currency="true" :localization="localization"
-              /></ValueListValue>
-              <ValueListKey>Worst Result</ValueListKey>
-              <ValueListValue
+              /></DefinitionData>
+              <DefinitionTerm>Worst Result</DefinitionTerm>
+              <DefinitionData
                 ><WinningsText :value="worstResult" :show-currency="true" :localization="localization"
-              /></ValueListValue>
-              <ValueListKey>Games Played</ValueListKey>
-              <ValueListValue>{{ gamesPlayed }}</ValueListValue>
-              <ValueListKey>Time Played</ValueListKey>
-              <ValueListValue><DurationText :value="timePlayed" /></ValueListValue>
-              <ValueListKey>Total Wins</ValueListKey>
-              <ValueListValue>{{ totalWins }}</ValueListValue>
-              <ValueListKey>Current Streak</ValueListKey>
-              <ValueListValue>{{ formattedCurrentStreak }}</ValueListValue>
-              <ValueListKey>Best Winning Streak</ValueListKey>
-              <ValueListValue>{{ formattedWinningStreak }}</ValueListValue>
-              <ValueListKey>Worst Losing Streak</ValueListKey>
-              <ValueListValue>{{ formattedLosingStreak }}</ValueListValue>
-            </ValueList>
+              /></DefinitionData>
+              <DefinitionTerm>Games Played</DefinitionTerm>
+              <DefinitionData>{{ gamesPlayed }}</DefinitionData>
+              <DefinitionTerm>Time Played</DefinitionTerm>
+              <DefinitionData><DurationText :value="timePlayed" /></DefinitionData>
+              <DefinitionTerm>Total Wins</DefinitionTerm>
+              <DefinitionData>{{ totalWins }}</DefinitionData>
+              <DefinitionTerm>Current Streak</DefinitionTerm>
+              <DefinitionData>{{ formattedCurrentStreak }}</DefinitionData>
+              <DefinitionTerm>Best Winning Streak</DefinitionTerm>
+              <DefinitionData>{{ formattedWinningStreak }}</DefinitionData>
+              <DefinitionTerm>Worst Losing Streak</DefinitionTerm>
+              <DefinitionData>{{ formattedLosingStreak }}</DefinitionData>
+            </DefinitionList>
           </Block>
         </template>
 
@@ -76,7 +76,7 @@ import urls from '@/urls';
 import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import { Block, CustomButton, DurationText, ErrorMessage, PageHeading, PageSection, WinningsText } from '@/components/Common';
-import { ValueList, ValueListKey, ValueListValue } from '@/components/Common/ValueList';
+import { DefinitionList, DefinitionTerm, DefinitionData } from '@/components/Common/DefinitionList';
 import { ArchiveCashgame } from '@/models/ArchiveCashgame';
 import api from '@/api';
 import { computed, ref } from 'vue';
@@ -85,7 +85,6 @@ import { usePlayerList, useGameList, useParams, useBunch } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { playerListKey } from '@/queries/queryKeys';
 import { AxiosError } from 'axios';
-import { A } from 'vue-router/dist/index-Cu9B0wDz.mjs';
 import { ApiError } from '@/models/ApiError';
 import { getErrorMessage } from '@/errors';
 

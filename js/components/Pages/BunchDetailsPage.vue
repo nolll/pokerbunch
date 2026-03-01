@@ -58,14 +58,14 @@
 
           <Block><h2>Settings</h2></Block>
           <Block>
-            <ValueList>
-              <ValueListKey>Default Buyin</ValueListKey>
-              <ValueListValue>{{ defaultBuyin }}</ValueListValue>
-              <ValueListKey>Timezone</ValueListKey>
-              <ValueListValue>{{ timezone }}</ValueListValue>
-              <ValueListKey>Currency Format</ValueListKey>
-              <ValueListValue>{{ currencyFormat }}</ValueListValue>
-            </ValueList>
+            <DefinitionList>
+              <DefinitionTerm>Default Buyin</DefinitionTerm>
+              <DefinitionData>{{ defaultBuyin }}</DefinitionData>
+              <DefinitionTerm>Timezone</DefinitionTerm>
+              <DefinitionData>{{ timezone }}</DefinitionData>
+              <DefinitionTerm>Currency Format</DefinitionTerm>
+              <DefinitionData>{{ currencyFormat }}</DefinitionData>
+            </DefinitionList>
           </Block>
 
           <Block v-if="isManager">
@@ -83,7 +83,7 @@ import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
 import { Block, CustomButton, PageHeading, PageSection, ErrorMessage } from '@/components/Common';
 import CurrencyLayoutDropdown from '@/components/CurrencyLayoutDropdown.vue';
 import TimezoneDropdown from '@/components/TimezoneDropdown.vue';
-import { ValueList, ValueListKey, ValueListValue } from '@/components/Common/ValueList';
+import { DefinitionList, DefinitionTerm, DefinitionData } from '@/components/Common/DefinitionList';
 import api from '@/api';
 import { ApiParamsUpdateBunch } from '@/models/ApiParamsUpdateBunch';
 import { computed, ref } from 'vue';

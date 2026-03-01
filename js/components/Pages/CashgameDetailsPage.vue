@@ -50,28 +50,28 @@
         </template>
         <template v-slot:aside2>
           <Block>
-            <ValueList>
-              <ValueListKey v-if="showStartTime">Start Time</ValueListKey>
-              <ValueListValue v-if="showStartTime">{{ formattedStartTime }}</ValueListValue>
-              <ValueListKey v-if="showEndTime">End Time</ValueListKey>
-              <ValueListValue v-if="showEndTime">{{ formattedEndTime }}</ValueListValue>
-              <ValueListKey v-if="showDuration">Duration</ValueListKey>
-              <ValueListValue v-if="showDuration"><DurationText :value="durationMinutes" /></ValueListValue>
-              <ValueListKey>Location</ValueListKey>
-              <ValueListValue>
+            <DefinitionList>
+              <DefinitionTerm v-if="showStartTime">Start Time</DefinitionTerm>
+              <DefinitionData v-if="showStartTime">{{ formattedStartTime }}</DefinitionData>
+              <DefinitionTerm v-if="showEndTime">End Time</DefinitionTerm>
+              <DefinitionData v-if="showEndTime">{{ formattedEndTime }}</DefinitionData>
+              <DefinitionTerm v-if="showDuration">Duration</DefinitionTerm>
+              <DefinitionData v-if="showDuration"><DurationText :value="durationMinutes" /></DefinitionData>
+              <DefinitionTerm>Location</DefinitionTerm>
+              <DefinitionData>
                 <LocationDropdown v-if="isEditing" :locations="locations" v-model="locationId" />
                 <CustomLink v-else :url="locationUrl">{{ locationName }}</CustomLink>
-              </ValueListValue>
-              <ValueListKey v-if="isPartOfEvent || isEditing">Event</ValueListKey>
-              <ValueListValue v-if="isPartOfEvent || isEditing">
+              </DefinitionData>
+              <DefinitionTerm v-if="isPartOfEvent || isEditing">Event</DefinitionTerm>
+              <DefinitionData v-if="isPartOfEvent || isEditing">
                 <EventDropdown v-if="isEditing" :events="events" v-model="eventId" />
                 <CustomLink v-else :url="eventUrl">{{ eventName }}</CustomLink>
-              </ValueListValue>
-              <ValueListKey v-if="isPlayerSelectionEnabled">Player</ValueListKey>
-              <ValueListValue v-if="isPlayerSelectionEnabled"
+              </DefinitionData>
+              <DefinitionTerm v-if="isPlayerSelectionEnabled">Player</DefinitionTerm>
+              <DefinitionData v-if="isPlayerSelectionEnabled"
                 ><PlayerDropdown :players="allPlayers" v-model="selectedPlayerId"
-              /></ValueListValue>
-            </ValueList>
+              /></DefinitionData>
+            </DefinitionList>
           </Block>
           <Block v-if="canEdit">
             <template v-if="isEditing">
@@ -108,7 +108,7 @@ import PlayerDropdown from '@/components/PlayerDropdown.vue';
 import PlayerTable from '@/components/CurrentGame/PlayerTable.vue';
 import GameChart from '@/components/CurrentGame/GameChart.vue';
 import { Block, CustomButton, CustomLink, DurationText, PageHeading, PageSection } from '@/components/Common';
-import { ValueList, ValueListKey, ValueListValue } from '@/components/Common/ValueList';
+import { DefinitionList, DefinitionTerm, DefinitionData } from '@/components/Common/DefinitionList';
 import LocationDropdown from '@/components/LocationDropdown.vue';
 import EventDropdown from '@/components/EventDropdown.vue';
 import format from '@/format';
