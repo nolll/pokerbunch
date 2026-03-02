@@ -34,3 +34,34 @@ const onClick = () => {
   if (isSortable.value) emit('sort', props.sortName);
 };
 </script>
+
+<style lang="scss" scoped>
+@import 'styles/mixins';
+
+.table-list__column-header {
+  padding: 0;
+  text-align: left;
+  vertical-align: bottom;
+  @include fontsize(12);
+  text-transform: uppercase;
+  font-weight: normal;
+}
+
+.table-list__column-header__content {
+  padding: 10px 5px;
+  display: block;
+}
+
+.table-list__column-header--sortable {
+  .table-list__column-header__content {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.table-list__column-header--selected {
+  .table-list__column-header__content {
+    font-weight: bold;
+  }
+}
+</style>

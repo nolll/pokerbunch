@@ -18,7 +18,7 @@ const props = withDefaults(
     customClasses: () => {
       return {};
     },
-  }
+  },
 );
 
 const cssClasses = computed((): CssClasses => {
@@ -28,3 +28,14 @@ const cssClasses = computed((): CssClasses => {
   };
 });
 </script>
+
+<style lang="scss" scoped>
+.table-list__cell {
+  vertical-align: top;
+  padding: 5px;
+}
+
+.table-list__cell--numeric {
+  text-align: right;
+}
+</style>

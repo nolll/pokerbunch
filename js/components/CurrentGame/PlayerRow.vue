@@ -3,7 +3,6 @@
     <div class="player-row__row-wrapper" @click="toggle">
       <div class="player-row__name-and-time">
         <div>
-          <!-- <div class="player-color-box" :style="{ backgroundColor: color }" @click="onSelected"></div> -->
           <a class="player-row__name" @click.stop="" :href="url">{{ player.name }}</a>
           <CashedOutIcon title="Cashed out" v-if="showCheckmark"></CashedOutIcon>
         </div>

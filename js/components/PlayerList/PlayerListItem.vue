@@ -20,3 +20,12 @@ const props = defineProps<{
 const url = computed(() => urls.player.details(props.bunchId, props.id));
 const colorBoxStyle = computed(() => `background-color: ${props.color}`);
 </script>
+
+<style lang="scss" scoped>
+.player-color-box {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  margin-right: 5px;
+}
+</style>

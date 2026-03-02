@@ -58,3 +58,34 @@ const onSelected = (id: string) => emit('playerSelected', id);
 const onDeleteAction = (id: string) => emit('deleteAction', id);
 const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
 </script>
+
+<style lang="scss" scoped>
+@import 'styles/mediaqueries';
+
+.totals {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  overflow: hidden;
+
+  .title {
+    float: left;
+    width: 45%;
+  }
+}
+.amounts {
+  float: right;
+
+  .amount {
+    text-align: right;
+  }
+}
+
+@include widthXSmall {
+  .amounts {
+    .amount {
+      float: left;
+      margin-right: 10px;
+    }
+  }
+}
+</style>
