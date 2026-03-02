@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '@': resolve(__dirname, './js'),
+        styles: resolve(__dirname, './css'),
       },
       dedupe: ['primevue'],
     },

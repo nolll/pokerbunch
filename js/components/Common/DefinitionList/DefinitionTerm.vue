@@ -7,7 +7,7 @@
 <script setup lang="ts"></script>
 
 <style lang="scss" scoped>
-@import '../../../../css/mixins';
+@import 'styles/css/mixins';
 
 .definition-list-key {
   @include fontsize(12);

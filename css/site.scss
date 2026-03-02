@@ -25,31 +25,6 @@ h1, h2, h3{
     background: #f6f4ef;
 }
 
-.page-header{
-	padding: 5px 0 0 0;
-}
-
-.logo-link{
-	color:#000;
-	display:inline-block;
-	text-decoration:none;
-	@include mixins.fontsize(24);
-	text-transform: lowercase;
-    font-family: 'Amatic SC';
-}
-
-.main{
-	position:relative;
-	background: #fff;
-	padding-bottom: 15px;
-    border: 3px solid #bcb;
-    border-width: 1px 0;
-
-	.has-nav{
-		padding-top:40px;
-	}
-}
-
 .h1{
     margin-bottom: 10px;
     @include mixins.fontsize(18);
@@ -108,19 +83,7 @@ pre {
     }
 }
 
-.wide-wrap{
-    margin: 10px auto;
-}
-
 @include mediaqueries.widthXSmall {
-    .page-header{
-        padding-top: 15px;
-    }
-    
-    .logo-link{
-        @include mixins.fontsize(32);
-    }
-
     .page-heading {
         @include mixins.fontsize(22);
     }
@@ -134,19 +97,4 @@ pre {
 	body{
 		margin-bottom: 15px;
 	}
-
-    .logo {
-        display: block;
-	    padding: 0 0 15px 0;
-    }
-}
-
-@include mediaqueries.widthLarge {
-    .wrap{
-        
-    }
-
-    .logo {
-        margin-left: 0;
-    }
 }

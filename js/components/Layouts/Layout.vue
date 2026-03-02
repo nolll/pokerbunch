@@ -48,9 +48,9 @@ const isTopNavEnabled = computed(() => isSlotEnabled('top-nav'));
 
 const homeUrl = computed(() => urls.home);
 
-const logoCssClasses = computed((): CssClasses => ({
+const logoCssClasses: CssClasses = {
   'logo-link': true,
-}));
+};
 
 const isSlotEnabled = (name: string) => {
   return !!slots[name];
@@ -66,4 +66,50 @@ watch(() => props.requireUser, redirectIfSignedOut);
 </script>
 
 <style lang="scss" scoped>
+@import 'styles/mixins';
+@import 'styles/mediaqueries';
+
+.main {
+  position: relative;
+  background: #fff;
+  padding-bottom: 15px;
+  border: 3px solid #bcb;
+  border-width: 1px 0;
+}
+
+.logo-link {
+  color: #000;
+  display: inline-block;
+  text-decoration: none;
+  @include fontsize(24);
+  text-transform: lowercase;
+  font-family: 'Amatic SC';
+}
+
+.page-header {
+  padding: 5px 0 0 0;
+}
+
+@include widthXSmall {
+  .logo-link {
+    @include fontsize(32);
+  }
+
+  .page-header {
+    padding-top: 15px;
+  }
+}
+
+@include widthSmall {
+  .logo {
+    display: block;
+    padding: 0 0 15px 0;
+  }
+}
+
+@include widthLarge {
+  .logo {
+    margin-left: 0;
+  }
+}
 </style>
