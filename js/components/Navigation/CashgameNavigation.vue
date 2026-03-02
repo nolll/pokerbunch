@@ -75,7 +75,25 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import 'styles/mixins';
+
+.heading-nav {
+  ul {
+    @include fontsize(16);
+    margin-top: 10px;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+  }
+
+  span,
+  a {
+    white-space: nowrap;
+    padding: 10px 10px 10px 0;
+  }
+}
+
 .cashgame-navigation__year-dropdown {
   margin-top: 10px;
 }

@@ -51,3 +51,23 @@ const playersUrl = computed(() => urls.player.list(calculatedSlug.value));
 const eventsUrl = computed(() => urls.event.list(calculatedSlug.value));
 const locationsUrl = computed(() => urls.location.list(calculatedSlug.value));
 </script>
+
+<style lang="scss" scoped>
+.game-nav {
+  padding: 0 0 15px 0;
+
+  h2 {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  li {
+    margin: 0 15px 0 0;
+    float: left;
+  }
+
+  a {
+    color: #000;
+  }
+}
+</style>

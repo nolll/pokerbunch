@@ -49,3 +49,22 @@ const redirectHome = () => {
   window.location.href = urls.home;
 };
 </script>
+
+<style lang="scss" scoped>
+.user-nav {
+  padding: 15px 0;
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    float: left;
+    margin: 0 1em 0 0;
+  }
+
+  h2 {
+    display: none;
+  }
+}
+</style>

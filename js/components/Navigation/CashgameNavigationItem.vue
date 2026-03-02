@@ -16,16 +16,18 @@ const props = defineProps<{
 
 const emit = defineEmits(['selected']);
 
-const selectedClass = computed((): CssClasses => ({
-  selected: props.isSelected,
-}));
+const selectedClass = computed(
+  (): CssClasses => ({
+    selected: props.isSelected,
+  }),
+);
 
 const click = () => {
   emit('selected', props.url);
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .cashgame-navigation__item {
   margin-top: 5px;
 }
