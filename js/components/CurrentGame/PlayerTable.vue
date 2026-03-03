@@ -60,7 +60,7 @@ const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
 </script>
 
 <style lang="scss" scoped>
-@import 'styles/mediaqueries';
+@use 'styles/mediaqueries';
 
 .totals {
   margin-top: 20px;
@@ -80,7 +80,7 @@ const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
   }
 }
 
-@include widthXSmall {
+@include mediaqueries.widthXSmall {
   .amounts {
     .amount {
       float: left;

@@ -36,13 +36,13 @@ const onClick = () => {
 </script>
 
 <style lang="scss" scoped>
-@import 'styles/mixins';
+@use 'styles/mixins';
 
 .table-list__column-header {
   padding: 0;
   text-align: left;
   vertical-align: bottom;
-  @include fontsize(12);
+  @include mixins.fontsize(12);
   text-transform: uppercase;
   font-weight: normal;
 }

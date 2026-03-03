@@ -76,11 +76,11 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-@import 'styles/mixins';
+@use 'styles/mixins';
 
 .heading-nav {
   ul {
-    @include fontsize(16);
+    @include mixins.fontsize(16);
     margin-top: 10px;
     display: flex;
     justify-content: start;

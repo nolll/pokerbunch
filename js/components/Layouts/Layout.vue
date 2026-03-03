@@ -66,8 +66,8 @@ watch(() => props.requireUser, redirectIfSignedOut);
 </script>
 
 <style lang="scss" scoped>
-@import 'styles/mixins';
-@import 'styles/mediaqueries';
+@use 'styles/mixins';
+@use 'styles/mediaqueries';
 
 .main {
   position: relative;
@@ -81,7 +81,7 @@ watch(() => props.requireUser, redirectIfSignedOut);
   color: #000;
   display: inline-block;
   text-decoration: none;
-  @include fontsize(24);
+  @include mixins.fontsize(24);
   text-transform: lowercase;
   font-family: 'Amatic SC';
 }
@@ -90,9 +90,9 @@ watch(() => props.requireUser, redirectIfSignedOut);
   padding: 5px 0 0 0;
 }
 
-@include widthXSmall {
+@include mediaqueries.widthXSmall {
   .logo-link {
-    @include fontsize(32);
+    @include mixins.fontsize(32);
   }
 
   .page-header {
@@ -100,14 +100,14 @@ watch(() => props.requireUser, redirectIfSignedOut);
   }
 }
 
-@include widthSmall {
+@include mediaqueries.widthSmall {
   .logo {
     display: block;
     padding: 0 0 15px 0;
   }
 }
 
-@include widthLarge {
+@include mediaqueries.widthLarge {
   .logo {
     margin-left: 0;
   }

@@ -7,10 +7,10 @@
 <script setup lang="ts"></script>
 
 <style lang="scss" scoped>
-@import 'styles/mixins';
+@use 'styles/mixins';
 
 .definition-list-key {
-  @include fontsize(12);
+  @include mixins.fontsize(12);
   text-transform: uppercase;
 }
 </style>
