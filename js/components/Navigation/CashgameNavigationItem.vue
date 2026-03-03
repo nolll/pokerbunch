@@ -31,4 +31,7 @@ const click = () => {
 .cashgame-navigation__item {
   margin-top: 5px;
 }
+.cashgame-navigation__item + .cashgame-navigation__item {
+  margin-left: 10px;
+}
 </style>
