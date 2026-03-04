@@ -188,6 +188,11 @@ const onRowEditCancel = (event: DataTableRowEditCancelEvent<DetailedCashgameActi
 
 .player-row__amounts {
   flex: 7;
+
+  div {
+    text-align: right;
+    margin-right: 5px;
+  }
 }
 
 .player-row__chart,
