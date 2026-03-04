@@ -24,6 +24,46 @@
         <CashgameActionChart :player="player" />
       </div>
       <div class="player-row__actions">
+        <TableList :is-wide="true">
+          <thead>
+            <tr>
+              <TableListColumnHeader>Type</TableListColumnHeader>
+              <TableListColumnHeader>Time</TableListColumnHeader>
+              <TableListColumnHeader>Stack</TableListColumnHeader>
+              <TableListColumnHeader>Added</TableListColumnHeader>
+              <TableListColumnHeader></TableListColumnHeader>
+            </tr>
+          </thead>
+          <tbody class="list">
+            <TableListRow v-for="action in player.actions">
+              <TableListCell>
+                <Icon :name="action.type" :title="getTypeName(action)" />
+              </TableListCell>
+              <TableListCell>
+                {{ getTime(action) }}
+              </TableListCell>
+              <TableListCell>
+                {{ getFormattedAmount(action.stack) }}
+              </TableListCell>
+              <TableListCell>
+                <template v-if="action.type === DetailedCashgameResponseActionType.Buyin">
+                  {{ getFormattedAmount(action.added!) }}
+                </template>
+              </TableListCell>
+              <TableListCell>
+                <div class="actions-column">
+                  <IconButton>
+                    <Icon name="delete" v-on:click="() => console.log('delete')" title="Delete" />
+                  </IconButton>
+                  <IconButton>
+                    <Icon name="edit" v-on:click="() => console.log('edit')" title="Edit" />
+                  </IconButton>
+                </div>
+              </TableListCell>
+            </TableListRow>
+          </tbody>
+        </TableList>
+
         <DataTable
           size="small"
           v-model:editingRows="editingRows"
@@ -101,6 +141,7 @@ import {
   DataTableRowEditSaveEvent,
   DataTableRowEditCancelEvent,
 } from 'primevue';
+import { TableList, TableListColumnHeader, TableListRow, TableListCell } from '@/components/Common/TableList';
 import { DetailedCashgameAction } from '@/models/DetailedCashgameAction';
 import format from '@/format';
 import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';

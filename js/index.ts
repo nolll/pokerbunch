@@ -15,9 +15,18 @@ import {
   IoTimeOutline,
   IoCheckmarkOutline,
   IoTrashOutline,
+  IoCreateOutline,
 } from 'oh-vue-icons/icons';
 
-addIcons(IoCashOutline, IoArrowForwardCircleOutline, IoMenuOutline, IoTimeOutline, IoCheckmarkOutline, IoTrashOutline);
+addIcons(
+  IoCashOutline,
+  IoArrowForwardCircleOutline,
+  IoMenuOutline,
+  IoTimeOutline,
+  IoCheckmarkOutline,
+  IoTrashOutline,
+  IoCreateOutline,
+);
 
 if (!browser.isCapable()) {
   alert('PokerBunch requires a better browser');
