@@ -17,21 +17,31 @@
         </Block>
 
         <Block v-if="hasJoinRequests">
-          <DataTable size="small" :value="joinRequests" responsiveLayout="scroll">
-            <Column field="userName" header="Username"></Column>
-            <Column>
-              <template #body="{ data }">
-                <div class="actions-column">
-                  <IconButton>
-                    <Icon name="delete" v-on:click="() => deny(data)" title="Deny" />
-                  </IconButton>
-                  <IconButton>
-                    <Icon name="checkmark" v-on:click="() => accept(data)" title="Accept" />
-                  </IconButton>
-                </div>
-              </template>
-            </Column>
-          </DataTable>
+          <TableList :is-wide="true">
+            <thead>
+              <tr>
+                <TableListColumnHeader>Username</TableListColumnHeader>
+                <TableListColumnHeader></TableListColumnHeader>
+              </tr>
+            </thead>
+            <tbody class="list">
+              <TableListRow v-for="joinRequest in joinRequests">
+                <TableListCell>
+                  {{ joinRequest.userName }}
+                </TableListCell>
+                <TableListCell>
+                  <div class="actions-column">
+                    <IconButton>
+                      <Icon name="delete" v-on:click="() => deny(joinRequest)" title="Deny" />
+                    </IconButton>
+                    <IconButton>
+                      <Icon name="checkmark" v-on:click="() => accept(joinRequest)" title="Accept" />
+                    </IconButton>
+                  </div>
+                </TableListCell>
+              </TableListRow>
+            </tbody>
+          </TableList>
         </Block>
         <Block v-else>
           <p>There are no join requests.</p>
@@ -54,9 +64,9 @@ import { MessageResponse } from '@/response/MessageResponse';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { joinRequestListKey } from '@/queries/queryKeys';
-import { DataTable, Column } from 'primevue';
 import { getErrorMessage } from '@/errors';
-import Icon from '../Icons/Icon.vue';
+import { Icon } from '@/components/Icons';
+import { TableList, TableListColumnHeader, TableListRow, TableListCell } from '@/components/Common/TableList';
 
 const { slug } = useParams();
 const { joinRequests, joinRequestsReady } = useJoinRequestList(slug.value);

@@ -31,7 +31,6 @@ const cssClasses = computed((): CssClasses => {
 
 <style lang="scss" scoped>
 .table-list__cell {
-  vertical-align: top;
   padding: 5px;
 }
 
