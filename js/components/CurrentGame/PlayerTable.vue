@@ -18,10 +18,10 @@
       <div class="title">Totals:</div>
       <div class="amounts">
         <div class="amount">
-          <BuyinIcon title="Total Buyin" /> <CurrencyText :value="totalBuyin" :localization="localization" />
+          <Icon name="buyin" title="Total Buyin" /> <CurrencyText :value="totalBuyin" :localization="localization" />
         </div>
         <div class="amount">
-          <ReportIcon title="Total Stacks" /> <CurrencyText :value="totalStacks" :localization="localization" />
+          <Icon name="report" title="Total Stacks" /> <CurrencyText :value="totalStacks" :localization="localization" />
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@ import PlayerRow from './PlayerRow.vue';
 import { CurrencyText } from '@/components/Common';
 import { computed } from 'vue';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
-import { BuyinIcon, ReportIcon } from '../Icons';
+import { Icon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 import { getColor } from '@/colors';

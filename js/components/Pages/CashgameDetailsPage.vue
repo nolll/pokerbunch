@@ -12,13 +12,13 @@
           </Block>
           <Block v-if="areButtonsVisible">
             <GameButton text="Report" icon="reorder" v-if="canReport" @click.native="showReportForm">
-              <ReportIcon />
+              <Icon name="report" :scale="1.5" />
             </GameButton>
             <GameButton text="Buy In" icon="money" v-if="canBuyin" @click.native="showBuyinForm">
-              <BuyinIcon />
+              <Icon name="buyin" :scale="1.5" />
             </GameButton>
             <GameButton text="Cash Out" icon="signout" v-if="canCashout" @click.native="showCashoutForm">
-              <CashoutIcon />
+              <Icon name="cashout" :scale="1.5" />
             </GameButton>
           </Block>
           <Block>
@@ -117,7 +117,7 @@ import api from '@/api';
 import { computed, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
-import { BuyinIcon, CashoutIcon, ReportIcon } from '../Icons';
+import { Icon } from '../Icons';
 import { useParams, useLocationList, useBunch, usePlayerList, useEventList, useGame, useCurrentUser } from '@/composables';
 import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import { gameKey, gameListKey } from '@/queries/queryKeys';

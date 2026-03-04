@@ -22,22 +22,12 @@
             <Column>
               <template #body="{ data }">
                 <div class="actions-column">
-                  <Button
-                    v-on:click="() => deny(data)"
-                    variant="outlined"
-                    severity="danger"
-                    size="small"
-                    label="Deny"
-                    icon="pi pi-times"
-                  ></Button>
-                  <Button
-                    v-on:click="() => accept(data)"
-                    variant="outlined"
-                    severity="success"
-                    size="small"
-                    label="Accept"
-                    icon="pi pi-check"
-                  ></Button>
+                  <IconButton>
+                    <Icon name="delete" v-on:click="() => deny(data)" title="Deny" />
+                  </IconButton>
+                  <IconButton>
+                    <Icon name="checkmark" v-on:click="() => accept(data)" title="Accept" />
+                  </IconButton>
                 </div>
               </template>
             </Column>
@@ -54,7 +44,7 @@
 <script setup lang="ts">
 import { Layout } from '@/components/Layouts';
 import BunchNavigation from '@/components/Navigation/BunchNavigation.vue';
-import { Block, PageHeading, PageSection } from '@/components/Common';
+import { Block, IconButton, PageHeading, PageSection } from '@/components/Common';
 import { computed, ref } from 'vue';
 import { useJoinRequestList, useParams } from '@/composables';
 import { JoinRequestResponse } from '@/response/JoinRequestResponse';
@@ -64,10 +54,9 @@ import { MessageResponse } from '@/response/MessageResponse';
 import { AxiosError } from 'axios';
 import { ApiError } from '@/models/ApiError';
 import { joinRequestListKey } from '@/queries/queryKeys';
-import DataTable from 'primevue/datatable';
-import Column from 'primevue/column';
-import { Button } from 'primevue';
+import { DataTable, Column } from 'primevue';
 import { getErrorMessage } from '@/errors';
+import Icon from '../Icons/Icon.vue';
 
 const { slug } = useParams();
 const { joinRequests, joinRequestsReady } = useJoinRequestList(slug.value);

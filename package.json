@@ -27,7 +27,7 @@
     "chartjs-adapter-dayjs-4": "^1.0.4",
     "dayjs": "^1.11.19",
     "jwt-decode": "^4.0.0",
-    "primeicons": "^7.0.0",
+    "oh-vue-icons": "^1.0.0-rc3",
     "primevue": "^4.5.4",
     "vue": "3.5.29",
     "vue-chartjs": "^5.3.3",

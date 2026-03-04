@@ -1,6 +1,7 @@
 import Block from './Block.vue';
 import CurrencyText from './CurrencyText.vue';
 import CustomButton from './CustomButton.vue';
+import IconButton from './IconButton.vue';
 import CustomLink from './CustomLink.vue';
 import DurationText from './DurationText.vue';
 import ErrorMessage from './ErrorMessage.vue';
@@ -14,6 +15,7 @@ export {
   Block,
   CurrencyText,
   CustomButton,
+  IconButton,
   CustomLink,
   DurationText,
   ErrorMessage,

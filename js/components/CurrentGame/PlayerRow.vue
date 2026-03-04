@@ -4,15 +4,15 @@
       <div class="player-row__name-and-time">
         <div>
           <a class="player-row__name" @click.stop="" :href="url">{{ player.name }}</a>
-          <CashedOutIcon title="Cashed out" v-if="showCheckmark"></CashedOutIcon>
+          <Icon name="checkmark" title="Cashed out" v-if="showCheckmark" />
         </div>
         <div class="time" v-if="isReportTimeEnabled">
-          <TimeIcon title="Last report" /> <span>{{ lastReportTime }}</span>
+          <Icon name="time" title="Last report" /> <span>{{ lastReportTime }}</span>
         </div>
       </div>
       <div class="player-row__amounts">
-        <div><BuyinIcon title="Buyin" /> <CurrencyText :value="calculatedBuyin" :localization="localization" /></div>
-        <div><ReportIcon title="Stack" /> <CurrencyText :value="stack" :localization="localization" /></div>
+        <div><Icon name="buyin" title="Buyin" /> <CurrencyText :value="calculatedBuyin" :localization="localization" /></div>
+        <div><Icon name="report" title="Stack" /> <CurrencyText :value="stack" :localization="localization" /></div>
         <div><WinningsText :value="winnings" :localization="localization" :showCurrency="true" /></div>
       </div>
       <div class="player-row__small-chart">
@@ -36,7 +36,7 @@
         >
           <Column header="Type">
             <template #body="{ data }">
-              <i :class="getTypeIcon(data)" :title="getTypeName(data)"></i>
+              <Icon :name="data.type" :title="getTypeName(data)" />
             </template>
           </Column>
           <Column header="Time">
@@ -68,13 +68,9 @@
           <Column v-if="canEdit" style="width: 10%; max-width: 8rem">
             <template #body="{ data }">
               <div class="actions-column">
-                <Button
-                  v-on:click="() => onDeleteAction(data.id)"
-                  variant="text"
-                  severity="danger"
-                  tooltip="Delete"
-                  icon="pi pi-trash"
-                ></Button>
+                <IconButton v-on:click="() => onDeleteAction(data.id)">
+                  <Icon name="delete" />
+                </IconButton>
               </div>
             </template>
             <template #editor="{ data }"></template>
@@ -93,11 +89,10 @@ import CashgameActionChartSmall from '@/components/CurrentGame/CashgameActionCha
 import { CurrencyText, WinningsText } from '@/components/Common';
 import { DetailedCashgamePlayer } from '@/models/DetailedCashgamePlayer';
 import { computed, ref } from 'vue';
-import { BuyinIcon, CashedOutIcon, ReportIcon, TimeIcon } from '../Icons';
+import { Icon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
 import {
-  Button,
   DatePicker,
   InputNumber,
   Column,
@@ -109,6 +104,7 @@ import {
 import { DetailedCashgameAction } from '@/models/DetailedCashgameAction';
 import format from '@/format';
 import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
+import { IconButton } from '@/components/Common';
 
 const props = defineProps<{
   bunchId: string;
@@ -140,12 +136,6 @@ const toggle = () => (isExpanded.value = !isExpanded.value);
 const onDeleteAction = (id: string) => emit('deleteAction', id);
 const getTime = (action: DetailedCashgameAction) => format.hourMinute(action.time);
 const getFormattedAmount = (amount: number) => format.currency(amount, props.localization);
-
-const getTypeIcon = (action: DetailedCashgameAction): string => {
-  if (action.type === DetailedCashgameResponseActionType.Buyin) return 'pi pi-arrow-circle-right';
-  if (action.type === DetailedCashgameResponseActionType.Cashout) return 'pi pi-money-bill';
-  return 'pi pi-bars';
-};
 
 const getTypeName = (action: DetailedCashgameAction): string => {
   if (action.type === DetailedCashgameResponseActionType.Buyin) return 'Buyin';
