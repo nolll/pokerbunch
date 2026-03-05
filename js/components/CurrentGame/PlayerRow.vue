@@ -215,6 +215,7 @@ const save = (action: DetailedCashgameAction) => {
   position: absolute;
   background: #fff;
   z-index: 1;
+  padding-right: 5px;
 }
 
 .name {
