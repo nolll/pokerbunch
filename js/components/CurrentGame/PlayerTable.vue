@@ -18,10 +18,12 @@
       <div class="title">Totals:</div>
       <div class="amounts">
         <div class="amount">
-          <Icon name="buyin" title="Total Buyin" /> <CurrencyText :value="totalBuyin" :localization="localization" />
+          <Icon name="buyin" title="Total Buyin" />
+          <CurrencyText :value="totalBuyin" :localization="localization" />
         </div>
         <div class="amount">
-          <Icon name="report" title="Total Stacks" /> <CurrencyText :value="totalStacks" :localization="localization" />
+          <Icon name="report" title="Total Stacks" />
+          <CurrencyText :value="totalStacks" :localization="localization" />
         </div>
       </div>
     </div>
@@ -76,7 +78,11 @@ const onSaveAction = (data: SaveActionEmitData) => emit('saveAction', data);
   float: right;
 
   .amount {
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    flex-wrap: nowrap;
   }
 }
 

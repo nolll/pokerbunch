@@ -3,6 +3,7 @@
     <div class="button__icon">
       <slot></slot>
     </div>
+    {{ text }}
   </button>
 </template>
 
