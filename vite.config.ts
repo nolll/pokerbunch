@@ -12,6 +12,25 @@ export default defineConfig(({ mode }) => {
       },
     },
     plugins: [vue()],
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              if (id.includes('chart')) {
+                return 'charts';
+              }
+              if (id.includes('vue')) {
+                return 'vue';
+              }
+              return 'vendors';
+            }
+
+            return null;
+          },
+        },
+      },
+    },
     server: {
       port: 9010,
       proxy: {
@@ -26,3 +45,11 @@ export default defineConfig(({ mode }) => {
     },
   };
 });
+
+const manualChunks = (id) => {
+  if (id.includes('node_modules')) {
+    return 'vendor';
+  }
+
+  return null;
+};
