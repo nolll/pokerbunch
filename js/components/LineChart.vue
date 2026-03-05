@@ -1,8 +1,5 @@
 ﻿<template>
-  <div>
-    <Line v-show="ready" :data="chartData" :options="chartOptions" />
-    <LoadingSpinner v-show="!ready"></LoadingSpinner>
-  </div>
+  <Line :data="chartData" :options="chartOptions" />
 </template>
 
 <script setup lang="ts">

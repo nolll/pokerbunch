@@ -1,37 +1,39 @@
 ﻿<template>
   <div class="player-row">
-    <div class="player-row__row-wrapper" @click="toggle">
-      <div class="player-row__name-and-time">
-        <div class="player-row__name">
+    <div class="row-wrapper" @click="toggle">
+      <div class="name-and-time">
+        <div class="name">
           <a @click.stop="" :href="url">{{ player.name }}</a>
           <Icon name="checkmark" title="Cashed out" v-if="showCheckmark" />
         </div>
-      </div>
-      <div class="player-row__amounts">
-        <div class="player-row__amount-item">
-          <Icon name="buyin" title="Buyin" />
-          <CurrencyText :value="calculatedBuyin" :localization="localization" />
-        </div>
-        <div class="player-row__amount-item">
-          <Icon name="report" title="Stack" />
-          <CurrencyText :value="stack" :localization="localization" />
-        </div>
-        <div class="player-row__amount-item">
-          <WinningsText :value="winnings" :localization="localization" :showCurrency="true" />
+        <div class="time" v-if="isReportTimeEnabled && showDetails">
+          <Icon name="time" title="Last report" /> <span>{{ lastReportTime }}</span>
         </div>
       </div>
-      <div class="player-row__small-chart">
-        <CashgameActionChartSmall :player="player" />
+      <div class="row-inner">
+        <div class="small-chart" v-if="!showDetails">
+          <CashgameActionChartSmall :player="player" />
+        </div>
+        <div class="amounts">
+          <div class="amount-item">
+            <Icon name="buyin" title="Buyin" />
+            <CurrencyText :value="calculatedBuyin" :localization="localization" />
+          </div>
+          <div class="amount-item">
+            <Icon name="report" title="Stack" />
+            <CurrencyText :value="stack" :localization="localization" />
+          </div>
+          <div class="amount-item">
+            <WinningsText :value="winnings" :localization="localization" :showCurrency="true" />
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="showDetails">
-      <div class="time" v-if="isReportTimeEnabled">
-        <Icon name="time" title="Last report" /> <span>{{ lastReportTime }}</span>
-      </div>
-      <div class="player-row__chart">
+      <div class="chart">
         <CashgameActionChart :player="player" />
       </div>
-      <div class="player-row__actions">
+      <div class="actions">
         <TableList :is-wide="true">
           <thead>
             <tr>
@@ -200,29 +202,32 @@ const save = (action: DetailedCashgameAction) => {
   border-bottom: 1px solid #eee;
 }
 
-.player-row__row-wrapper {
+.row-wrapper {
+  position: relative;
+}
+
+.row-inner {
   display: flex;
+  justify-content: flex-end;
 }
 
-.player-row__link {
-  padding: 8px;
+.name-and-time {
+  position: absolute;
+  background: #fff;
+  z-index: 1;
 }
 
-.player-row__name-and-time {
-  flex: 9;
-}
-
-.player-row__name {
+.name {
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.player-row__amounts {
-  flex: 7;
+.amounts {
+  width: 25%;
 }
 
-.player-row__amount-item {
+.amount-item {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -231,17 +236,14 @@ const save = (action: DetailedCashgameAction) => {
   margin-right: 5px;
 }
 
-.player-row__amount-text {
-  margin-left: 5px;
-}
-
-.player-row__chart,
-.player-row__actions {
+.chart,
+.actions {
   padding: 8px;
 }
 
-.player-row__small-chart {
-  flex: 4;
+.small-chart {
+  width: 75%;
+  max-width: 300px;
 }
 
 .actions-column {

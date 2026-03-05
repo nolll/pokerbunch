@@ -1,5 +1,5 @@
 ﻿<template>
-  <div style="position: relative; width: 180px; height: 60px">
+  <div class="chart-container">
     <LineChart :chart-data="chartData" :chart-options="chartOptions" :ready="true" />
   </div>
 </template>
@@ -16,9 +16,8 @@ const props = defineProps<{
 
 const chartOptions = computed((): ChartOptions<'line'> => {
   return {
+    maintainAspectRatio: false,
     responsive: true,
-    maintainAspectRatio: true,
-    aspectRatio: 3,
     plugins: {
       legend: {
         display: false,
@@ -43,7 +42,7 @@ const chartData = computed((): ChartData<'line'> => {
       {
         label: '',
         backgroundColor: '#000000',
-        borderColor: '#000000',
+        borderColor: '#999999',
         spanGaps: true,
         pointStyle: false,
         borderWidth: 2,
@@ -69,3 +68,11 @@ const chartData = computed((): ChartData<'line'> => {
   };
 });
 </script>
+
+<style lang="scss" scoped>
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 60px;
+}
+</style>

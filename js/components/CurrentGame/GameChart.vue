@@ -1,5 +1,5 @@
 ﻿<template>
-  <div>
+  <div class="chart-container">
     <LineChart :chart-data="chartData" :chart-options="chartOptions" :ready="true" />
   </div>
 </template>
@@ -22,8 +22,7 @@ const props = defineProps<{
 const chartOptions = computed((): ChartOptions<'line'> => {
   return {
     responsive: true,
-    aspectRatio: 4 / 3,
-    maintainAspectRatio: true,
+    aspectRatio: 5 / 3,
     plugins: {
       legend: {
         display: true,
@@ -117,3 +116,11 @@ const getPlayerResults = (player: DetailedCashgamePlayer) => {
   return results;
 };
 </script>
+
+<style lang="scss" scoped>
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+</style>
