@@ -1,5 +1,5 @@
 <template>
-  <v-icon :name="icon" :scale="scale" :title="title" />
+  <!-- <v-icon :name="icon" :scale="scale" :title="title" /> -->
 </template>
 
 <script setup lang="ts">
