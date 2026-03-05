@@ -68,7 +68,7 @@
                   <template v-if="isEditing(action)">
                     <input class="numberfield" v-model="editAdded" type="text" inputmode="numeric" pattern="[0-9]*" />
                   </template>
-                  <template>
+                  <template v-else>
                     {{ getFormattedAmount(action.added!) }}
                   </template>
                 </template>
