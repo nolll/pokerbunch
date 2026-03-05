@@ -11,9 +11,19 @@
         </div>
       </div>
       <div class="player-row__amounts">
-        <div><Icon name="buyin" title="Buyin" /> <CurrencyText :value="calculatedBuyin" :localization="localization" /></div>
-        <div><Icon name="report" title="Stack" /> <CurrencyText :value="stack" :localization="localization" /></div>
-        <div><WinningsText :value="winnings" :localization="localization" :showCurrency="true" /></div>
+        <div class="player-row__amount-item">
+          <Icon name="buyin" title="Buyin" />
+          <span class="player-row__amount-text"><CurrencyText :value="calculatedBuyin" :localization="localization" /></span>
+        </div>
+        <div class="player-row__amount-item">
+          <Icon name="report" title="Stack" />
+          <span class="player-row__amount-text"><CurrencyText :value="stack" :localization="localization" /></span>
+        </div>
+        <div class="player-row__amount-item">
+          <span class="player-row__amount-text"
+            ><WinningsText :value="winnings" :localization="localization" :showCurrency="true"
+          /></span>
+        </div>
       </div>
       <div class="player-row__small-chart">
         <CashgameActionChartSmall :player="player" />
@@ -188,11 +198,19 @@ const onRowEditCancel = (event: DataTableRowEditCancelEvent<DetailedCashgameActi
 
 .player-row__amounts {
   flex: 7;
+}
 
-  div {
-    text-align: right;
-    margin-right: 5px;
-  }
+.player-row__amount-item {
+  display: flex;
+  align-items: center;
+  align-content: space-around;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  margin-right: 5px;
+}
+
+.player-row__amount-text {
+  margin-left: 5px;
 }
 
 .player-row__chart,
