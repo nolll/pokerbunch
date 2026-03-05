@@ -2,24 +2,32 @@
   <div class="player-row">
     <div class="player-row__row-wrapper" @click="toggle">
       <div class="player-row__name-and-time">
-        <div>
-          <a class="player-row__name" @click.stop="" :href="url">{{ player.name }}</a>
+        <div class="player-row__name">
+          <a @click.stop="" :href="url">{{ player.name }}</a>
           <Icon name="checkmark" title="Cashed out" v-if="showCheckmark" />
-        </div>
-        <div class="time" v-if="isReportTimeEnabled">
-          <Icon name="time" title="Last report" /> <span>{{ lastReportTime }}</span>
         </div>
       </div>
       <div class="player-row__amounts">
-        <div><Icon name="buyin" title="Buyin" /> <CurrencyText :value="calculatedBuyin" :localization="localization" /></div>
-        <div><Icon name="report" title="Stack" /> <CurrencyText :value="stack" :localization="localization" /></div>
-        <div><WinningsText :value="winnings" :localization="localization" :showCurrency="true" /></div>
+        <div class="player-row__amount-item">
+          <Icon name="buyin" title="Buyin" />
+          <CurrencyText :value="calculatedBuyin" :localization="localization" />
+        </div>
+        <div class="player-row__amount-item">
+          <Icon name="report" title="Stack" />
+          <CurrencyText :value="stack" :localization="localization" />
+        </div>
+        <div class="player-row__amount-item">
+          <WinningsText :value="winnings" :localization="localization" :showCurrency="true" />
+        </div>
       </div>
       <div class="player-row__small-chart">
         <CashgameActionChartSmall :player="player" />
       </div>
     </div>
     <div v-if="showDetails">
+      <div class="time" v-if="isReportTimeEnabled">
+        <Icon name="time" title="Last report" /> <span>{{ lastReportTime }}</span>
+      </div>
       <div class="player-row__chart">
         <CashgameActionChart :player="player" />
       </div>
@@ -205,7 +213,7 @@ const onRowEditCancel = (event: DataTableRowEditCancelEvent<DetailedCashgameActi
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .player-row {
   padding: 5px 0;
   border-bottom: 1px solid #eee;
@@ -224,11 +232,26 @@ const onRowEditCancel = (event: DataTableRowEditCancelEvent<DetailedCashgameActi
 }
 
 .player-row__name {
-  margin-right: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .player-row__amounts {
   flex: 7;
+}
+
+.player-row__amount-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: nowrap;
+  gap: 3px;
+  margin-right: 5px;
+}
+
+.player-row__amount-text {
+  margin-left: 5px;
 }
 
 .player-row__chart,
@@ -239,12 +262,16 @@ const onRowEditCancel = (event: DataTableRowEditCancelEvent<DetailedCashgameActi
 .player-row__small-chart {
   flex: 4;
 }
-</style>
 
-<style lang="scss" scoped>
 .actions-column {
   display: flex;
   gap: 0.5rem;
   justify-content: right;
+}
+
+.time {
+  display: flex;
+  align-items: center;
+  gap: 3px;
 }
 </style>
