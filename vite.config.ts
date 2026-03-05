@@ -10,7 +10,6 @@ export default defineConfig(({ mode }) => {
         '@': resolve(__dirname, './js'),
         styles: resolve(__dirname, './css'),
       },
-      dedupe: ['primevue'],
     },
     plugins: [vue()],
     server: {

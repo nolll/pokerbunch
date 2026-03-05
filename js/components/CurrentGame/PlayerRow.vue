@@ -48,83 +48,54 @@
                 <Icon :name="action.type" :title="getTypeName(action)" />
               </TableListCell>
               <TableListCell>
-                {{ getTime(action) }}
+                <template v-if="isEditing(action)">
+                  <input v-model="editTime" type="time" />
+                </template>
+                <template v-else>
+                  {{ getTime(action) }}
+                </template>
               </TableListCell>
               <TableListCell>
-                {{ getFormattedAmount(action.stack) }}
+                <template v-if="isEditing(action)">
+                  <input class="numberfield" v-model="editStack" type="text" inputmode="numeric" pattern="[0-9]*" />
+                </template>
+                <template v-else>
+                  {{ getFormattedAmount(action.stack) }}
+                </template>
               </TableListCell>
               <TableListCell>
                 <template v-if="action.type === DetailedCashgameResponseActionType.Buyin">
-                  {{ getFormattedAmount(action.added!) }}
+                  <template v-if="isEditing(action)">
+                    <input class="numberfield" v-model="editAdded" type="text" inputmode="numeric" pattern="[0-9]*" />
+                  </template>
+                  <template>
+                    {{ getFormattedAmount(action.added!) }}
+                  </template>
                 </template>
               </TableListCell>
               <TableListCell>
                 <div class="actions-column">
-                  <IconButton>
-                    <Icon name="delete" v-on:click="() => console.log('delete')" title="Delete" />
-                  </IconButton>
-                  <IconButton>
-                    <Icon name="edit" v-on:click="() => console.log('edit')" title="Edit" />
-                  </IconButton>
+                  <template v-if="isEditing(action)">
+                    <IconButton>
+                      <Icon name="checkmark" v-on:click="() => save(action)" title="Save" />
+                    </IconButton>
+                    <IconButton>
+                      <Icon name="close" v-on:click="() => cancelEdit()" title="Cancel" />
+                    </IconButton>
+                  </template>
+                  <template v-else>
+                    <IconButton>
+                      <Icon name="delete" v-on:click="() => deleteRow(action)" title="Delete" />
+                    </IconButton>
+                    <IconButton>
+                      <Icon name="edit" v-on:click="() => editRow(action)" title="Edit" />
+                    </IconButton>
+                  </template>
                 </div>
               </TableListCell>
             </TableListRow>
           </tbody>
         </TableList>
-
-        <DataTable
-          size="small"
-          v-model:editingRows="editingRows"
-          :value="player.actions"
-          dataKey="id"
-          editMode="row"
-          @row-edit-init="onRowEditInit"
-          @row-edit-save="onRowEditcomplete"
-          @row-edit-cancel="onRowEditCancel"
-        >
-          <Column header="Type">
-            <template #body="{ data }">
-              <Icon :name="data.type" :title="getTypeName(data)" />
-            </template>
-          </Column>
-          <Column header="Time">
-            <template #body="{ data }">
-              {{ getTime(data) }}
-            </template>
-            <template #editor="{ data }">
-              <DatePicker v-model="data.time" timeOnly fluid />
-            </template>
-          </Column>
-          <Column header="Stack">
-            <template #body="{ data }">
-              {{ getFormattedAmount(data.stack) }}
-            </template>
-            <template #editor="{ data }">
-              <InputNumber v-model="data.stack" fluid />
-            </template>
-          </Column>
-          <Column header="Added">
-            <template #body="{ data }">
-              <template v-if="data.type === DetailedCashgameResponseActionType.Buyin">
-                {{ getFormattedAmount(data.added) }}
-              </template>
-            </template>
-            <template #editor="{ data }">
-              <InputNumber v-if="data.type === DetailedCashgameResponseActionType.Buyin" v-model="data.added" fluid />
-            </template>
-          </Column>
-          <Column v-if="canEdit" style="width: 10%; max-width: 8rem">
-            <template #body="{ data }">
-              <div class="actions-column">
-                <IconButton v-on:click="() => onDeleteAction(data.id)">
-                  <Icon name="delete" />
-                </IconButton>
-              </div>
-            </template>
-            <template #editor="{ data }"></template>
-          </Column>
-          <Column v-if="canEdit" :rowEditor="true" style="width: 10%; max-width: 8rem" bodyStyle="text-align:center"></Column>
-        </DataTable>
       </div>
     </div>
   </div>
@@ -140,20 +111,12 @@ import { computed, ref } from 'vue';
 import { Icon } from '../Icons';
 import { Localization } from '@/models/Localization';
 import { SaveActionEmitData } from '@/models/SaveActionEmitData';
-import {
-  DatePicker,
-  InputNumber,
-  Column,
-  DataTable,
-  DataTableRowEditInitEvent,
-  DataTableRowEditSaveEvent,
-  DataTableRowEditCancelEvent,
-} from 'primevue';
 import { TableList, TableListColumnHeader, TableListRow, TableListCell } from '@/components/Common/TableList';
 import { DetailedCashgameAction } from '@/models/DetailedCashgameAction';
 import format from '@/format';
 import { DetailedCashgameResponseActionType } from '@/response/DetailedCashgameResponseActionType';
 import { IconButton } from '@/components/Common';
+import dayjs from 'dayjs';
 
 const props = defineProps<{
   bunchId: string;
@@ -170,7 +133,10 @@ const emit = defineEmits<{
   deleteAction: [data: string];
 }>();
 
-const editingRows = ref<DetailedCashgameAction[]>([]);
+const editingRow = ref<DetailedCashgameAction | null>(null);
+const editStack = ref<number>(0);
+const editAdded = ref<number>(0);
+const editTime = ref<string>(format.forTimeInput(new Date()));
 const isExpanded = ref(false);
 const hasCashedOut = computed(() => props.player.hasCashedOut());
 const showCheckmark = computed(() => props.isCashgameRunning && hasCashedOut.value);
@@ -182,7 +148,7 @@ const winnings = computed(() => props.player.getWinnings());
 const url = computed(() => urls.player.details(props.bunchId, props.player.id));
 const showDetails = computed(() => isExpanded.value);
 const toggle = () => (isExpanded.value = !isExpanded.value);
-const onDeleteAction = (id: string) => emit('deleteAction', id);
+const deleteRow = (action: DetailedCashgameAction) => emit('deleteAction', action.id);
 const getTime = (action: DetailedCashgameAction) => format.hourMinute(action.time);
 const getFormattedAmount = (amount: number) => format.currency(amount, props.localization);
 
@@ -192,24 +158,39 @@ const getTypeName = (action: DetailedCashgameAction): string => {
   return 'Report';
 };
 
-const onRowEditInit = (event: DataTableRowEditInitEvent<DetailedCashgameAction>) => {
-  editingRows.value = [event.data];
+const isEditing = (action: DetailedCashgameAction) => editingRow.value && editingRow.value.id == action.id;
+
+const editRow = (action: DetailedCashgameAction) => {
+  editStack.value = action.stack;
+  editAdded.value = action.added ?? 0;
+  editTime.value = format.forTimeInput(action.time);
+  editingRow.value = action;
 };
 
-const onRowEditcomplete = (event: DataTableRowEditSaveEvent<DetailedCashgameAction>) => {
+const getNewTime = (date: Date, time: string) => {
+  var d = dayjs(date);
+  var parts = time.split(':');
+  var h = parseInt(parts[0]);
+  var m = parseInt(parts[1]);
+  d = d.hour(h);
+  d = d.minute(m);
+  return d.toDate();
+};
+
+const cancelEdit = () => {
+  editingRow.value = null;
+};
+
+const save = (action: DetailedCashgameAction) => {
   const data: SaveActionEmitData = {
-    id: event.newData.id,
-    time: event.newData.time,
-    stack: event.newData.stack,
-    added: event.newData.added,
+    id: action.id,
+    time: getNewTime(action.time, editTime.value),
+    stack: editStack.value,
+    added: action.type == DetailedCashgameResponseActionType.Buyin ? editAdded.value : null,
   };
-  console.log('save', data);
+  //console.log('save', data);
   emit('saveAction', data);
-  editingRows.value = [];
-};
-
-const onRowEditCancel = (event: DataTableRowEditCancelEvent<DetailedCashgameAction>) => {
-  editingRows.value = [];
+  editingRow.value = null;
 };
 </script>
 

@@ -1,8 +1,6 @@
 import browser from './browser';
 import { createApp } from 'vue';
-import PrimeVue from 'primevue/config';
 import './styles';
-import Material from '@primeuix/themes/material';
 import { createRouter } from 'vue-router';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 import routes from './routes';
@@ -16,6 +14,7 @@ import {
   IoCheckmarkOutline,
   IoTrashOutline,
   IoCreateOutline,
+  IoCloseOutline,
 } from 'oh-vue-icons/icons';
 
 addIcons(
@@ -26,6 +25,7 @@ addIcons(
   IoCheckmarkOutline,
   IoTrashOutline,
   IoCreateOutline,
+  IoCloseOutline,
 );
 
 if (!browser.isCapable()) {
@@ -37,9 +37,4 @@ const app = createApp(Root);
 app.component('v-icon', OhVueIcon);
 app.use(router);
 app.use(VueQueryPlugin);
-app.use(PrimeVue, {
-  theme: {
-    preset: Material,
-  },
-});
 app.mount('#app');
