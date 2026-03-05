@@ -6,7 +6,7 @@ const formatCurrency = (value: number, localization: Localization) => {
   const s = localization.thousandSeparator !== undefined ? localization.thousandSeparator : ',';
   const v = value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, s);
   return f.replace('{0}', v);
-}
+};
 
 const formatResult = (value: number, localization: Localization) => {
   const absValue = Math.abs(value);
@@ -14,19 +14,19 @@ const formatResult = (value: number, localization: Localization) => {
   if (value > 0) return `+${currencyValue}`;
   if (value < 0) return `-${currencyValue}`;
   return currencyValue;
-}
+};
 
 const formatResultWithoutCurrency = (value: number) => {
   const absValue = Math.abs(value);
   if (value > 0) return `+${absValue}`;
   if (value < 0) return `-${absValue}`;
   return absValue.toString();
-}
+};
 
 const formatWinrate = (value: number, localization: Localization) => {
   const currencyValue = formatCurrency(value, localization);
   return currencyValue + '/h';
-}
+};
 
 const formatDuration = (minutes: number) => {
   const h = Math.floor(minutes / 60);
@@ -34,13 +34,14 @@ const formatDuration = (minutes: number) => {
   if (h > 0 && m > 0) return h + 'h ' + m + 'm';
   if (h > 0) return h + 'h';
   return m + 'm';
-}
+};
 
-const formatMonthDay = (date: Date) => dayjs(date).format('MMM D')
-const formatHourMinute = (date: Date) => dayjs(date).format('HH:mm')
-const formatMonthDayYear = (date: Date) => dayjs(date).format('MMM D YYYY')
-const formatIsoTime = (date: Date) => dayjs(date).toISOString()
-const formatLocalTime = (date: Date) => dayjs(date).format('YYYY-MM-DD HH:mm:ss')
+const formatMonthDay = (date: Date) => dayjs(date).format('MMM D');
+const formatHourMinute = (date: Date) => dayjs(date).format('HH:mm');
+const formatMonthDayYear = (date: Date) => dayjs(date).format('MMM D YYYY');
+const formatIsoTime = (date: Date) => dayjs(date).toISOString();
+const formatLocalTime = (date: Date) => dayjs(date).format('YYYY-MM-DD HH:mm:ss');
+const formatForTimeInput = (date: Date) => dayjs(date).format('HH:mm');
 
 export default {
   currency: formatCurrency,
@@ -53,4 +54,5 @@ export default {
   monthDayYear: formatMonthDayYear,
   isoTime: formatIsoTime,
   localTime: formatLocalTime,
+  forTimeInput: formatForTimeInput,
 };

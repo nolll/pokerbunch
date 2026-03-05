@@ -7,7 +7,7 @@ import { computed } from 'vue';
 
 const props = withDefaults(
   defineProps<{
-    name: 'buyin' | 'report' | 'cashout' | 'checkmark' | 'time' | 'delete';
+    name: 'buyin' | 'report' | 'cashout' | 'checkmark' | 'time' | 'delete' | 'edit' | 'close';
     scale?: number;
     title?: string;
   }>(),
@@ -23,5 +23,7 @@ const icon = computed(() => {
   if (props.name === 'checkmark') return 'io-checkmark-outline';
   if (props.name === 'time') return 'io-time-outline';
   if (props.name === 'delete') return 'io-trash-outline';
+  if (props.name === 'edit') return 'io-create-outline';
+  if (props.name === 'close') return 'io-close-outline';
 });
 </script>
