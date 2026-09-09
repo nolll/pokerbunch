@@ -7,8 +7,8 @@ export default defineConfig(({ mode }) => {
   return {
     resolve: {
       alias: {
-        '@': resolve(__dirname, './js'),
-        styles: resolve(__dirname, './css'),
+        '@': resolve(import.meta.dirname, './js'),
+        styles: resolve(import.meta.dirname, './css'),
       },
     },
     plugins: [vue()],
@@ -45,11 +45,3 @@ export default defineConfig(({ mode }) => {
     },
   };
 });
-
-const manualChunks = (id) => {
-  if (id.includes('node_modules')) {
-    return 'vendor';
-  }
-
-  return null;
-};

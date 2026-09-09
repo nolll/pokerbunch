@@ -8,33 +8,10 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "downlevelIteration": true,
-    "noImplicitAny": true,
-    "baseUrl": "./js/",
-    "paths": {
-      "@/*": [
-          "*"
-      ]
-    }
+    "noImplicitAny": true
   },
-  "typeRoots" : [
-    "./node_modules/@types"
-  ],
-  "include": [
-    "./js/*.ts",
-    "./js/**/*.ts",
-    "./js/*.vue",
-    "./js/**/*.vue",
-    "./global-shim.d.ts",
-    "./js/types.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ],
-  "lib": [
-    "dom",
-    "dom.iterable",
-    "scripthost",
-    "es2015"
-  ]
+  "typeRoots": ["./node_modules/@types"],
+  "include": ["./js/*.ts", "./js/**/*.ts", "./js/*.vue", "./js/**/*.vue", "./global-shim.d.ts", "./js/types.d.ts"],
+  "exclude": ["node_modules"],
+  "lib": ["dom", "dom.iterable", "scripthost", "es2015"]
 }
